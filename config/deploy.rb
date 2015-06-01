@@ -1,6 +1,6 @@
-set :application, 'x0y0.com'
+set :application, 'monitor.com'
 set :user, 'deployer'
-set :repo_url, 'git://github.com/francocatena/x0y0.git'
+set :repo_url, 'git://github.com/cirope/monitor.git'
 
 set :format, :pretty
 set :log_level, :info

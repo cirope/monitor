@@ -2,21 +2,21 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: 5
-  username: <%= ENV['TRAVIS'] ? 'postgres' : 'x0y0' %>
-  password: <%= ENV['TRAVIS'] ? '' : 'x0y0' %>
+  username: <%= ENV['TRAVIS'] ? 'postgres' : 'monitor' %>
+  password: <%= ENV['TRAVIS'] ? '' : 'monitor' %>
 
 development:
   <<: *default
-  database: x0y0_development
+  database: monitor_development
 
 test:
   <<: *default
-  database: x0y0_test
+  database: monitor_test
 
 production:
   <<: *default
-  database: x0y0_production
+  database: monitor_production
 
 sandbox:
   <<: *default
-  database: x0y0_production
+  database: monitor_production
