@@ -36,5 +36,3 @@ es:
         email_attribute: 'Por ejemplo: mail'
         test_user: 'Usuario válido en el servidor para probar la conexión'
         test_password: 'Contraseña del usuario para probar la conexión'
-      import:
-        username: 'Usuario con permisos para consultar la base de usuarios LDAP'
