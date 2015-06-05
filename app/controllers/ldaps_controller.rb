@@ -1,0 +1,55 @@
+class LdapsController < ApplicationController
+  before_action :set_ldap, only: [:show, :edit, :update, :destroy]
+
+  respond_to :html
+
+  def index
+    @ldaps = Ldap.all
+
+    respond_with @ldaps
+  end
+
+  def show
+    respond_with @ldap
+  end
+
+  def new
+    @ldap = Ldap.new
+
+    respond_with @ldap
+  end
+
+  def edit
+  end
+
+  def create
+    @ldap = Ldap.new ldap_params
+
+    @ldap.save
+    respond_with @ldap
+  end
+
+  def update
+    @ldap.update ldap_params
+
+    respond_with @ldap
+  end
+
+  def destroy
+    @ldap.destroy
+
+    respond_with @ldap
+  end
+
+  private
+
+    def set_ldap
+      @ldap = Ldap.find params[:id]
+    end
+
+    def ldap_params
+      params.require(:ldap).permit :hostname, :port, :basedn, :filter,
+        :login_mask, :username_attribute, :name_attribute,
+        :lastname_attribute, :email_attribute, :test_user, :test_password
+    end
+end

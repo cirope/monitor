@@ -8,6 +8,9 @@ es:
       user:
         one: 'Usuario'
         other: 'Usuarios'
+      ldap:
+        one: 'Configuración LDAP'
+        other: 'Configuraciones LDAP'
 
     attributes:
       user:
@@ -16,3 +19,15 @@ es:
         email: 'Correo'
         password: 'Contraseña'
         password_confirmation: 'Confirmación'
+      ldap:
+        hostname: 'Dirección del servidor'
+        port: 'Puerto'
+        basedn: 'Nombre distinguido de base'
+        filter: 'Filtro'
+        login_mask: 'Máscara de autenticación'
+        username_attribute: 'Atributo con el nombre de usuario'
+        name_attribute: 'Atributo con el nombre'
+        lastname_attribute: 'Atributo con el apellido'
+        email_attribute: 'Atributo con el correo electrónico'
+        test_user: 'Usuario'
+        test_password: 'Contraseña'

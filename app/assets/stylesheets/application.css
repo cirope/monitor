@@ -14,6 +14,7 @@
  *= require main
  *= require icons
  *= require forms
+ *= require ldaps
  *= require password_resets
  *= require profiles
  *= require users

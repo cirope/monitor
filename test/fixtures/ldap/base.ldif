@@ -1,0 +1,34 @@
+# ldapadd -x -h localhost -p 389 -D "cn=admin,dc=test,dc=com" -w secret -f base.ldif
+
+dn: dc=test,dc=com
+objectClass: dcObject
+objectClass: organizationalUnit
+dc: test
+ou: Test
+
+dn: ou=people,dc=test,dc=com
+objectClass: organizationalUnit
+ou: people
+
+dn: cn=admin,ou=people,dc=test,dc=com
+objectClass: inetOrgPerson
+sn: Catena
+givenname: Franco
+title: Administrator
+uid: admin@test.com
+mail: administrator@administrator.com
+cn: admin
+userPassword: {SSHA}e1GIPfRS5AhGYeKAYi7cTJEaQWMbELnJ
+
+dn: cn=juan,ou=people,dc=test,dc=com
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+sn: Catena
+givenname: Juan
+title: Another administrator
+uid: juan@test.com
+mail: juan@administrators.com
+cn: juan
+userPassword: {SSHA}jZeYUeNAd/8acSrOfPNWxWbxKyaQgxRP

@@ -4,6 +4,7 @@ es:
   messages:
     confirmation: '¿Está seguro?'
     not_authorized: 'Debe ingresar para ver el contenido'
+    ldap_error: 'El servidor de autenticación no está disponible, intente nuevamente más tarde'
 
   navigation:
     destroy: 'Eliminar'
@@ -12,6 +13,18 @@ es:
     loading: 'Cargando...'
     logout: 'Salir'
     show: 'Ver'
+
+  ldaps:
+    edit:
+      title: 'Editar configuración LDAP'
+    index:
+      new: 'Nueva configuración LDAP'
+      title: 'Listado de configuraciones LDAP'
+      empty_html: 'No hay configuraciones LDAP, puede crear una con el botón <span class="label label-info">Nueva configuración LDAP</span>'
+    new:
+      title: 'Crear configuración LDAP'
+    show:
+      title: 'Ver configuración LDAP'
 
   sessions:
     new:

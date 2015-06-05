@@ -1,0 +1,29 @@
+<% if @ldaps.empty? %>
+  <%= render 'shared/empty_index', message: t('.empty_html') %>
+<% else %>
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th><%= Ldap.human_attribute_name 'hostname' %></th>
+        <th><%= Ldap.human_attribute_name 'port' %></th>
+        <th colspan="3">
+          <%= link_to_new new_ldap_path, class: 'btn btn-default btn-xs pull-right' %>
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @ldaps.each do |ldap| %>
+        <tr>
+          <td><%= ldap.hostname %></td>
+          <td><%= ldap.port %></td>
+          <td><%= link_to_show ldap %></td>
+          <td><%= link_to_edit [:edit, ldap] %></td>
+          <td><%= link_to_destroy ldap %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<%= link_to_new new_ldap_path, class: 'btn btn-primary' %>

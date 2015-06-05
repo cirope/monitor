@@ -1,0 +1,43 @@
+<h2><%= @ldap %></h2>
+
+<p>
+  <strong><%= Ldap.human_attribute_name 'hostname' %></strong>:
+  <%= @ldap.hostname %>
+</p>
+<p>
+  <strong><%= Ldap.human_attribute_name 'port' %></strong>:
+  <%= @ldap.port %>
+</p>
+<p>
+  <strong><%= Ldap.human_attribute_name 'basedn' %></strong>:
+  <%= @ldap.basedn %>
+</p>
+<p>
+  <strong><%= Ldap.human_attribute_name 'filter' %></strong>:
+  <%= @ldap.filter %>
+</p>
+<p>
+  <strong><%= Ldap.human_attribute_name 'login_mask' %></strong>:
+  <%= @ldap.login_mask %>
+</p>
+<p>
+  <strong><%= Ldap.human_attribute_name 'username_attribute' %></strong>:
+  <%= @ldap.username_attribute %>
+</p>
+<p>
+  <strong><%= Ldap.human_attribute_name 'name_attribute' %></strong>:
+  <%= @ldap.name_attribute %>
+</p>
+<p>
+  <strong><%= Ldap.human_attribute_name 'lastname_attribute' %></strong>:
+  <%= @ldap.lastname_attribute %>
+</p>
+<p>
+  <strong><%= Ldap.human_attribute_name 'email_attribute' %></strong>:
+  <%= @ldap.email_attribute %>
+</p>
+
+<hr>
+
+<%= link_to_edit [:edit, @ldap] %> |
+<%= link_to_index ldaps_path %>

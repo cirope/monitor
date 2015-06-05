@@ -1,0 +1,39 @@
+<%= simple_form_for @ldap do |f| %>
+  <% if @ldap.errors.include? :base %>
+    <div class="alert alert-danger">
+      <%= @ldap.errors.full_messages_for(:base).join '; ' %>
+    </div>
+  <% else %>
+    <%= f.error_notification %>
+  <% end %>
+
+  <div class="form-inputs">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-6">
+            <%= f.input :hostname, input_html: { autofocus: true } %>
+          </div>
+          <div class="col-md-6">
+            <%= f.input :port %>
+          </div>
+        </div>
+        <%= f.input :basedn %>
+        <%= f.input :filter %>
+        <%= f.input :login_mask %>
+        <%= f.input :test_user %>
+      </div>
+      <div class="col-md-6">
+        <%= f.input :username_attribute %>
+        <%= f.input :name_attribute %>
+        <%= f.input :lastname_attribute %>
+        <%= f.input :email_attribute %>
+        <%= f.input :test_password %>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, class: 'btn-primary' %>
+  </div>
+<% end %>

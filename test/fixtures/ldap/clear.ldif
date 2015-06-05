@@ -1,0 +1,11 @@
+dn: cn=admin,ou=people,dc=test,dc=com
+changetype: delete
+
+dn: cn=juan,ou=people,dc=test,dc=com
+changetype: delete
+
+dn: ou=people,dc=test,dc=com
+changetype: delete
+
+dn: dc=test,dc=com
+changetype: delete
