@@ -10,6 +10,7 @@ class CreateLdaps < ActiveRecord::Migration
       t.string :name_attribute, null: false
       t.string :lastname_attribute, null: false
       t.string :email_attribute, null: false
+      t.integer :lock_version, default: 0, null: false
 
       t.timestamps null: false
     end

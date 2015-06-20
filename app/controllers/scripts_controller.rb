@@ -45,6 +45,6 @@ class ScriptsController < ApplicationController
     end
 
     def script_params
-      params.require(:script).permit :name, :file, :file_cache, :text
+      params.require(:script).permit :name, :file, :file_cache, :text, :lock_version
     end
 end

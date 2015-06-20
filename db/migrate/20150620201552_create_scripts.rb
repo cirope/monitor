@@ -6,7 +6,7 @@ class CreateScripts < ActiveRecord::Migration
       t.text :text
       t.integer :lock_version, default: 0, null: false
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

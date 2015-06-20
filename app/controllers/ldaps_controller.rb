@@ -50,6 +50,7 @@ class LdapsController < ApplicationController
     def ldap_params
       params.require(:ldap).permit :hostname, :port, :basedn, :filter,
         :login_mask, :username_attribute, :name_attribute,
-        :lastname_attribute, :email_attribute, :test_user, :test_password
+        :lastname_attribute, :email_attribute, :test_user, :test_password,
+        :lock_version
     end
 end

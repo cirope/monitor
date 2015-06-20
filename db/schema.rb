@@ -17,17 +17,18 @@ ActiveRecord::Schema.define(version: 20150620201552) do
   enable_extension "plpgsql"
 
   create_table "ldaps", force: :cascade do |t|
-    t.string   "hostname",           limit: 255,               null: false
-    t.integer  "port",                           default: 389, null: false
-    t.string   "basedn",             limit: 255,               null: false
-    t.string   "filter",             limit: 255
-    t.string   "login_mask",         limit: 255,               null: false
-    t.string   "username_attribute", limit: 255,               null: false
-    t.string   "name_attribute",     limit: 255,               null: false
-    t.string   "lastname_attribute", limit: 255,               null: false
-    t.string   "email_attribute",    limit: 255,               null: false
-    t.datetime "created_at",                                   null: false
-    t.datetime "updated_at",                                   null: false
+    t.string   "hostname",                         null: false
+    t.integer  "port",               default: 389, null: false
+    t.string   "basedn",                           null: false
+    t.string   "filter"
+    t.string   "login_mask",                       null: false
+    t.string   "username_attribute",               null: false
+    t.string   "name_attribute",                   null: false
+    t.string   "lastname_attribute",               null: false
+    t.string   "email_attribute",                  null: false
+    t.integer  "lock_version",       default: 0,   null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
   end
 
   create_table "scripts", force: :cascade do |t|
@@ -35,8 +36,8 @@ ActiveRecord::Schema.define(version: 20150620201552) do
     t.string   "file"
     t.text     "text"
     t.integer  "lock_version", default: 0, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -44,8 +45,8 @@ ActiveRecord::Schema.define(version: 20150620201552) do
     t.string   "lastname",                           null: false
     t.string   "email",                              null: false
     t.string   "password_digest",                    null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.string   "auth_token",                         null: false
     t.string   "password_reset_token"
     t.datetime "password_reset_sent_at"
