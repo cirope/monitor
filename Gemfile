@@ -15,6 +15,7 @@ gem 'responders'
 gem 'simple_form'
 gem 'irreverent'
 gem 'figaro'
+gem 'carrierwave'
 gem 'rack-mini-profiler'
 
 gem 'unicorn'

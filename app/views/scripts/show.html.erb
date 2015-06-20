@@ -1,0 +1,16 @@
+<h2><%= @script %></h2>
+
+<% if @script.file.present? %>
+  <p>
+    <strong><%= Script.human_attribute_name 'file' %></strong>:
+    <%= link_to t('messages.download'), @script.file.url %>
+  </p>
+<% end %>
+
+<% if @script.text.present? %>
+  <textarea name="script[text]" id="script_text" class="hidden"><%= @script.text %></textarea>
+  <div class="editor" data-readonly="true"></div>
+<% end %>
+
+<%= link_to_edit [:edit, @script] %> |
+<%= link_to_index scripts_path %>

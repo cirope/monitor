@@ -5,20 +5,21 @@ es:
 
   activerecord:
     models:
-      user:
-        one: 'Usuario'
-        other: 'Usuarios'
       ldap:
         one: 'Configuración LDAP'
         other: 'Configuraciones LDAP'
+      script:
+        one: 'Guión'
+        other: 'Guiones'
+      user:
+        one: 'Usuario'
+        other: 'Usuarios'
 
     attributes:
-      user:
+      script:
         name: 'Nombre'
-        lastname: 'Apellido'
-        email: 'Correo'
-        password: 'Contraseña'
-        password_confirmation: 'Confirmación'
+        file: 'Archivo'
+        text: 'Contenido'
       ldap:
         hostname: 'Dirección del servidor'
         port: 'Puerto'
@@ -31,3 +32,9 @@ es:
         email_attribute: 'Atributo con el correo electrónico'
         test_user: 'Usuario'
         test_password: 'Contraseña'
+      user:
+        name: 'Nombre'
+        lastname: 'Apellido'
+        email: 'Correo'
+        password: 'Contraseña'
+        password_confirmation: 'Confirmación'

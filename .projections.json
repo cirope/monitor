@@ -1,0 +1,9 @@
+{
+  "app/uploaders/*_uploader.rb": {
+    "type": "uploader",
+    "template": [
+      "class {underscore|camelcase}Uploader",
+      "end"
+    ]
+  }
+}

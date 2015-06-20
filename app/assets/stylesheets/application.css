@@ -17,5 +17,6 @@
  *= require ldaps
  *= require password_resets
  *= require profiles
+ *= require scripts
  *= require users
  */

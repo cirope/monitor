@@ -1,0 +1,3 @@
+ls:
+  name: Execute one ls
+  text: '%x{ls}'

@@ -14,8 +14,12 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require turbolinks_events
-//= require bootstrap
+//= require ace/ace
+//= require ace/theme-solarized_light
+//= require ace/mode-ruby
+//= require bootstrap/bootstrap
 //= require ldaps
 //= require password_resets
 //= require profiles
+//= require scripts
 //= require users
