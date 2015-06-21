@@ -39,6 +39,18 @@ es:
     show:
       title: 'Ver configuración LDAP'
 
+  servers:
+    edit:
+      title: 'Editar servidor'
+    index:
+      new: 'Nuevo servidor'
+      title: 'Listado de servidores'
+      empty_html: 'No hay servidores, puede crear uno con el botón <span class="label label-primary">Nuevo servidor</span>'
+    new:
+      title: 'Crear servidor'
+    show:
+      title: 'Ver servidor'
+
   sessions:
     new:
       title: 'Ingreso'

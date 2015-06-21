@@ -22,4 +22,5 @@
 //= require password_resets
 //= require profiles
 //= require scripts
+//= require servers
 //= require users

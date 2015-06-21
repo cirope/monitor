@@ -1,0 +1,6 @@
+atahualpa:
+  name: Atahualpa
+  hostname: 127.0.0.1
+  user: franco
+  password: secret
+  credential:

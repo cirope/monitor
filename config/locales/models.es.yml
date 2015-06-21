@@ -11,11 +11,20 @@ es:
       script:
         one: 'Guión'
         other: 'Guiones'
+      server:
+        one: 'Servidor'
+        other: 'Servidores'
       user:
         one: 'Usuario'
         other: 'Usuarios'
 
     attributes:
+      server:
+        name: 'Nombre'
+        hostname: 'Dirección'
+        user: 'Usuario'
+        password: 'Contraseña'
+        credential: 'Credencial'
       script:
         name: 'Nombre'
         file: 'Archivo'

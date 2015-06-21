@@ -9,8 +9,9 @@ Rails.application.routes.draw do
   patch 'profile', to: 'profiles#update'
 
   # Resources
-  resources :scripts
   resources :ldaps
+  resources :scripts
+  resources :servers
   resources :users
   resources :password_resets, only: [:new, :create, :edit, :update]
 

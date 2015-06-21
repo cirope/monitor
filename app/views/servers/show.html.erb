@@ -1,0 +1,23 @@
+<h2><%= @server %></h2>
+
+<p>
+  <strong><%= Server.human_attribute_name 'hostname' %></strong>:
+  <%= @server.hostname %>
+</p>
+
+<% if @server.user.present? %>
+  <p>
+    <strong><%= Server.human_attribute_name 'user' %></strong>:
+    <%= @server.user %>
+  </p>
+<% end %>
+
+<% if @server.credential.present? %>
+  <p>
+    <strong><%= Server.human_attribute_name 'credential' %></strong>:
+    <%= link_to t('messages.download'), @server.credential.url %>
+  </p>
+<% end %>
+
+<%= link_to_edit [:edit, @server] %> |
+<%= link_to_index servers_path %>
