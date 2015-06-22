@@ -5,6 +5,14 @@ class ScheduleTest < ActiveSupport::TestCase
     @schedule = schedules :ls_on_atahualpa
   end
 
+  test 'create first run on creation' do
+    schedule = @schedule.dup
+
+    assert_difference ['Schedule.count', 'Run.count'] do
+      schedule.save!
+    end
+  end
+
   test 'blank attributes' do
     @schedule.start = ''
     @schedule.script = nil
