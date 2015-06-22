@@ -8,6 +8,9 @@ es:
       ldap:
         one: 'Configuración LDAP'
         other: 'Configuraciones LDAP'
+      run:
+        one: 'Corrida'
+        other: 'Corridas'
       schedule:
         one: 'Trabajo'
         other: 'Trabajos'
@@ -22,6 +25,24 @@ es:
         other: 'Usuarios'
 
     attributes:
+      ldap:
+        hostname: 'Dirección del servidor'
+        port: 'Puerto'
+        basedn: 'Nombre distinguido de base'
+        filter: 'Filtro'
+        login_mask: 'Máscara de autenticación'
+        username_attribute: 'Atributo con el nombre de usuario'
+        name_attribute: 'Atributo con el nombre'
+        lastname_attribute: 'Atributo con el apellido'
+        email_attribute: 'Atributo con el correo electrónico'
+        test_user: 'Usuario'
+        test_password: 'Contraseña'
+      run:
+        status: 'Estado'
+        scheduled_at: 'Programado para'
+        started_at: 'Fecha inicio ejecución'
+        ended_at: 'Fecha fin ejecución'
+        output: 'Salida'
       schedule:
         start: 'Inicio'
         end: 'Fin'
@@ -39,18 +60,6 @@ es:
         user: 'Usuario'
         password: 'Contraseña'
         credential: 'Credencial'
-      ldap:
-        hostname: 'Dirección del servidor'
-        port: 'Puerto'
-        basedn: 'Nombre distinguido de base'
-        filter: 'Filtro'
-        login_mask: 'Máscara de autenticación'
-        username_attribute: 'Atributo con el nombre de usuario'
-        name_attribute: 'Atributo con el nombre'
-        lastname_attribute: 'Atributo con el apellido'
-        email_attribute: 'Atributo con el correo electrónico'
-        test_user: 'Usuario'
-        test_password: 'Contraseña'
       user:
         name: 'Nombre'
         lastname: 'Apellido'
