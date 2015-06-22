@@ -173,6 +173,7 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (1.4.1)
+    timecop (0.7.4)
     timeliness (0.3.7)
     turbolinks (2.5.3)
       coffee-rails
@@ -223,6 +224,7 @@ DEPENDENCIES
   sdoc
   simple_form
   spring
+  timecop
   turbolinks
   uglifier
   unicorn

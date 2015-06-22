@@ -38,6 +38,10 @@ group :development, :test do
   gem 'web-console'
 end
 
+group :test do
+  gem 'timecop'
+end
+
 group :doc do
   gem 'sdoc', require: false
 end

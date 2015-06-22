@@ -39,4 +39,11 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+  #
+  # Set timecop to January 2, 2015 10:05:00 AM UTC
+  config.after_initialize do
+    t = Time.utc 2015, 1, 2, 10, 5, 0
+
+    Timecop.travel t
+  end
 end
