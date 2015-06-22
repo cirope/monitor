@@ -24,6 +24,7 @@
     <%= f.input :server, as: :autocomplete, url: servers_path, input_html: {
       data: { empty_result_label: t('schedules.server.empty') }
     } %>
+    <%= f.input :lock_version, as: :hidden %>
   </div>
 
   <div class="form-actions">
