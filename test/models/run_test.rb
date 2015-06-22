@@ -34,14 +34,7 @@ class RunTest < ActiveSupport::TestCase
     assert_error @run, :ended_at, :invalid_datetime
   end
 
-  test 'date boundaries' do
-    @run.scheduled_at = 1.minute.ago
-    @run.started_at = 1.minute.ago
-    @run.ended_at = 1.minute.ago
-
-    assert @run.invalid?
-    assert_error @run, :scheduled_at, :on_or_after, restriction: I18n.l(Time.zone.now, format: :compact)
-    assert_error @run, :started_at, :on_or_after, restriction: I18n.l(Time.zone.now, format: :compact)
-    assert_error @run, :ended_at, :on_or_after, restriction: I18n.l(Time.zone.now, format: :compact)
+  test 'schedule' do
+    skip
   end
 end

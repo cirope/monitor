@@ -22,6 +22,7 @@ gem 'momentjs-rails'
 gem 'bootstrap3-datetimepicker-rails'
 gem 'net-ssh'
 gem 'net-scp'
+gem 'sidekiq'
 gem 'rack-mini-profiler'
 
 gem 'unicorn'

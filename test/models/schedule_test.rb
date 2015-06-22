@@ -67,4 +67,15 @@ class ScheduleTest < ActiveSupport::TestCase
     assert @schedule.invalid?
     assert_error @schedule, :frequency, :inclusion
   end
+
+  test 'build next run' do
+    run = nil
+    next_date = @schedule.send :next_date
+
+    assert_difference '@schedule.runs.pending.count'  do
+      run = @schedule.build_next_run
+    end
+
+    assert run.scheduled_at.between?(next_date - 1.minute, next_date + 1.minute)
+  end
 end
