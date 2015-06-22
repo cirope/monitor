@@ -1,0 +1,4 @@
+es:
+  time:
+    formats:
+      compact: '%d/%m/%Y %H:%M'

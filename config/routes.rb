@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   # Resources
   resources :ldaps
+  resources :schedules
   resources :scripts
   resources :servers
   resources :users

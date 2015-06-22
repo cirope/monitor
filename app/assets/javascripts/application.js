@@ -12,12 +12,18 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui/autocomplete
 //= require turbolinks
 //= require turbolinks_events
 //= require ace/ace
 //= require ace/theme-solarized_light
 //= require ace/mode-ruby
 //= require bootstrap/bootstrap
+//= require moment
+//= require moment/es
+//= require bootstrap-datetimepicker
+//= require autocomplete
+//= require date_pickers
 //= require ldaps
 //= require password_resets
 //= require profiles

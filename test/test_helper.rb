@@ -21,3 +21,7 @@ class ActionController::TestCase
     cookies.encrypted[:auth_token] = users(:franco).auth_token
   end
 end
+
+class ActionView::TestCase
+  include SimpleForm::ActionViewExtensions::FormHelper
+end

@@ -11,8 +11,12 @@
  *= require_self
  *= require fonts
  *= require bootstrap
+ *= require bootstrap-datetimepicker
+ *= require jquery-ui
+ *= require jquery-ui-theme
  *= require main
  *= require icons
+ *= require autocomplete
  *= require forms
  *= require ldaps
  *= require password_resets

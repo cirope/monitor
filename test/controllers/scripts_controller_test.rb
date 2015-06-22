@@ -14,6 +14,15 @@ class ScriptsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:scripts)
   end
 
+  test 'should filtered index' do
+    get :index, q: @script.name, format: :json
+    assert_response :success
+
+    scripts = assigns :scripts
+    assert_equal 1, scripts.size
+    assert_equal @script.name, scripts.first.name
+  end
+
   test 'should get new' do
     get :new
     assert_response :success

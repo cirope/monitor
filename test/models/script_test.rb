@@ -30,4 +30,11 @@ class ScriptTest < ActiveSupport::TestCase
     assert @script.invalid?
     assert_error @script, :file, :invalid
   end
+
+  test 'search' do
+    scripts = Script.search query: @script.name
+
+    assert scripts.present?
+    assert scripts.all? { |s| s.name =~ /#{@script.name}/ }
+  end
 end

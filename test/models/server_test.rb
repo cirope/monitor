@@ -40,4 +40,11 @@ class ServerTest < ActiveSupport::TestCase
     assert @server.invalid?
     assert_error @server, :user, :blank
   end
+
+  test 'search' do
+    servers = Server.search query: @server.name
+
+    assert servers.present?
+    assert servers.all? { |s| s.name =~ /#{@server.name}/ }
+  end
 end

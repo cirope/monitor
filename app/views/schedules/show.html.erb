@@ -1,0 +1,29 @@
+<h2><%= @schedule %></h2>
+
+<p>
+  <strong><%= Schedule.human_attribute_name 'start' %></strong>:
+  <%= l @schedule.start, format: :short %>
+</p>
+<p>
+  <strong><%= Schedule.human_attribute_name 'end' %></strong>:
+  <%= l @schedule.end, format: :short if @schedule.end %>
+</p>
+<p>
+  <strong><%= Schedule.human_attribute_name 'interval' %></strong>:
+  <%= @schedule.interval %>
+</p>
+<p>
+  <strong><%= Schedule.human_attribute_name 'frequency' %></strong>:
+  <%= t "schedules.frequencies.#{@schedule.frequency}" if @schedule.frequency %>
+</p>
+<p>
+  <strong><%= Schedule.human_attribute_name 'script' %></strong>:
+  <%= @schedule.script %>
+</p>
+<p>
+  <strong><%= Schedule.human_attribute_name 'server' %></strong>:
+  <%= @schedule.server %>
+</p>
+
+<%= link_to_edit [:edit, @schedule] %> |
+<%= link_to_index schedules_path %>

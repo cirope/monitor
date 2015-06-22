@@ -14,6 +14,15 @@ class ServersControllerTest < ActionController::TestCase
     assert_not_nil assigns(:servers)
   end
 
+  test 'should filtered index' do
+    get :index, q: @server.name, format: :json
+    assert_response :success
+
+    servers = assigns :servers
+    assert_equal 1, servers.size
+    assert_equal @server.name, servers.first.name
+  end
+
   test 'should get new' do
     get :new
     assert_response :success

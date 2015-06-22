@@ -1,0 +1,32 @@
+<%= simple_form_for @schedule do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <div class="row">
+      <div class="col-md-6 date-picker">
+        <%= f.input :start, as: :date_picker %>
+      </div>
+      <div class="col-md-6 date-picker">
+        <%= f.input :end, as: :date_picker %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.input :interval %>
+      </div>
+      <div class="col-md-6">
+        <%= f.input :frequency, collection: frequencies, prompt: false %>
+      </div>
+    </div>
+    <%= f.input :script, as: :autocomplete, url: scripts_path, input_html: {
+      data: { empty_result_label: t('schedules.script.empty') }
+    } %>
+    <%= f.input :server, as: :autocomplete, url: servers_path, input_html: {
+      data: { empty_result_label: t('schedules.server.empty') }
+    } %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, class: 'btn-primary' %>
+  </div>
+<% end %>

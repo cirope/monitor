@@ -1,10 +1,10 @@
 class ScriptsController < ApplicationController
   before_action :set_script, only: [:show, :edit, :update, :destroy]
 
-  respond_to :html
+  respond_to :html, :json
 
   def index
-    @scripts = Script.all
+    @scripts = Script.search query: params[:q]
 
     respond_with @scripts
   end

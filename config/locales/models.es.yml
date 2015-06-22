@@ -8,6 +8,9 @@ es:
       ldap:
         one: 'Configuración LDAP'
         other: 'Configuraciones LDAP'
+      schedule:
+        one: 'Trabajo'
+        other: 'Trabajos'
       script:
         one: 'Guión'
         other: 'Guiones'
@@ -19,16 +22,23 @@ es:
         other: 'Usuarios'
 
     attributes:
+      schedule:
+        start: 'Inicio'
+        end: 'Fin'
+        interval: 'Intervalo'
+        frequency: 'Frecuencia'
+        script: 'Guión'
+        server: 'Servidor'
+      script:
+        name: 'Nombre'
+        file: 'Archivo'
+        text: 'Contenido'
       server:
         name: 'Nombre'
         hostname: 'Dirección'
         user: 'Usuario'
         password: 'Contraseña'
         credential: 'Credencial'
-      script:
-        name: 'Nombre'
-        file: 'Archivo'
-        text: 'Contenido'
       ldap:
         hostname: 'Dirección del servidor'
         port: 'Puerto'

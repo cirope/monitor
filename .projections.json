@@ -5,5 +5,15 @@
       "class {underscore|camelcase}Uploader",
       "end"
     ]
+  },
+
+  "app/inputs/*_input.rb": {
+    "type": "input",
+    "template": [
+      "class {underscore|camelcase}Input < SimpleForm::Inputs::Base",
+      "  def input wrapper_options",
+      "  end",
+      "end"
+    ]
   }
 }
