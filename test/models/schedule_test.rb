@@ -78,4 +78,12 @@ class ScheduleTest < ActiveSupport::TestCase
 
     assert run.scheduled_at.between?(next_date - 1.minute, next_date + 1.minute)
   end
+
+  test 'avoid build next run if schedule ended' do
+    @schedule.update! start: 30.seconds.from_now, end: 1.minute.from_now
+
+    assert_no_difference '@schedule.runs.pending.count'  do
+      @schedule.build_next_run
+    end
+  end
 end
