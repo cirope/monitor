@@ -25,6 +25,13 @@ class ScheduleTest < ActiveSupport::TestCase
     assert_error @schedule, :end, :invalid_datetime
   end
 
+  test 'start must be on or after now' do
+    @schedule.start = 1.minute.ago
+
+    assert @schedule.invalid?
+    assert_error @schedule, :start, :on_or_after, restriction: I18n.l(Time.now, format: :compact)
+  end
+
   test 'end must be after start' do
     @schedule.end = @schedule.start - 1.day
 
