@@ -216,6 +216,8 @@ DEPENDENCIES
   jquery-ui-rails
   momentjs-rails
   net-ldap
+  net-scp
+  net-ssh
   pg
   rack-mini-profiler
   rails (~> 4.2.2)

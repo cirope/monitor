@@ -20,6 +20,8 @@ gem 'carrierwave'
 gem 'jc-validates_timeliness'
 gem 'momentjs-rails'
 gem 'bootstrap3-datetimepicker-rails'
+gem 'net-ssh'
+gem 'net-scp'
 gem 'rack-mini-profiler'
 
 gem 'unicorn'

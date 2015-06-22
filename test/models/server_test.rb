@@ -47,4 +47,12 @@ class ServerTest < ActiveSupport::TestCase
     assert servers.present?
     assert servers.all? { |s| s.name =~ /#{@server.name}/ }
   end
+
+  test 'execute' do
+    skip
+  end
+
+  test 'ssh options' do
+    skip
+  end
 end

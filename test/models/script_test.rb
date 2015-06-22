@@ -37,4 +37,8 @@ class ScriptTest < ActiveSupport::TestCase
     assert scripts.present?
     assert scripts.all? { |s| s.name =~ /#{@script.name}/ }
   end
+
+  test 'copy to' do
+    skip
+  end
 end

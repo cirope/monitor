@@ -1,5 +1,6 @@
 class Script < ActiveRecord::Base
   include Attributes::Strip
+  include Scripts::Copy
   include Scripts::Searchable
   include Scripts::Validation
 

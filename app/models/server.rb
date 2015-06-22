@@ -1,6 +1,8 @@
 class Server < ActiveRecord::Base
   include Attributes::Strip
+  include Servers::Command
   include Servers::Searchable
+  include Servers::Ssh
   include Servers::Validation
 
   mount_uploader :credential, FileUploader
