@@ -23,6 +23,7 @@ gem 'bootstrap3-datetimepicker-rails'
 gem 'net-ssh'
 gem 'net-scp'
 gem 'sidekiq'
+gem 'whenever', require: false
 gem 'rack-mini-profiler'
 
 gem 'unicorn'
