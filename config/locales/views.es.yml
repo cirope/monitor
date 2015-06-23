@@ -52,10 +52,11 @@ es:
     show:
       title: 'Ver trabajo'
     frequencies:
-      hourly: 'Hora'
-      daily: 'Día'
-      weekly: 'Semana'
-      monthly: 'Mes'
+      minutes: 'Minutos'
+      hourly: 'Horas'
+      daily: 'Días'
+      weekly: 'Semanas'
+      monthly: 'Meses'
     script:
       empty: 'No se encontraron guiones con el criterio'
     server:

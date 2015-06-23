@@ -23,6 +23,7 @@ module Schedules::Runs
 
     def next_date
       frequencies = {
+        'minutes' => :minutes,
         'hourly'  => :hours,
         'daily'   => :days,
         'weekly'  => :weeks,
