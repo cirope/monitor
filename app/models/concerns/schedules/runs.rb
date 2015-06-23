@@ -10,7 +10,7 @@ module Schedules::Runs
   def build_next_run
     scheduled_at = next_date
 
-    if scheduled_at <= self.end
+    if self.end.blank? || scheduled_at <= self.end
       runs.create! status: 'pending', scheduled_at: scheduled_at
     end
   end
