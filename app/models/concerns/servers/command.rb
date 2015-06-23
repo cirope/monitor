@@ -2,8 +2,8 @@ module Servers::Command
   extend ActiveSupport::Concern
 
   def execute script
-    status      = 'error'
     output      = ''
+    status      = 'error'
     script_path = script.copy_to self
 
     Net::SSH.start hostname, user, ssh_options do |ssh|
