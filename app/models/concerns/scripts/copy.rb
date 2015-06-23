@@ -10,6 +10,8 @@ module Scripts::Copy
     end
 
     remote_path
+  rescue
+    nil
   end
 
   private

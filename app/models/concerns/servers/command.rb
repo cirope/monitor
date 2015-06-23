@@ -18,5 +18,7 @@ module Servers::Command
     end
 
     { status: status, output: output }
+  rescue
+    { status: 'error' }
   end
 end
