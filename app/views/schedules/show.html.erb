@@ -25,5 +25,13 @@
   <%= @schedule.server %>
 </p>
 
+<% if @schedule.runs.any? %>
+  <p>
+    <%= link_to Run.model_name.human(count: @schedule.runs.count), schedule_runs_path(@schedule) %>
+  </p>
+<% else %>
+  <p class="text-muted"><%= t '.empty_runs' %></p>
+<% end %>
+
 <%= link_to_edit [:edit, @schedule] %> |
 <%= link_to_index schedules_path %>

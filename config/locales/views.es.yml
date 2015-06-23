@@ -27,6 +27,19 @@ es:
     show:
       title: 'Ver configuración LDAP'
 
+  runs:
+    index:
+      title: 'Listado de corridas'
+      empty_html: 'No hay corridas para este trabajo'
+    show:
+      title: 'Ver corrida'
+    status:
+      pending: 'Pendiente'
+      scheduled: 'Programada'
+      running: 'Corriendo'
+      ok: 'Finalizada OK'
+      error: 'Finalizada con errores'
+
   schedules:
     edit:
       title: 'Editar trabajo'

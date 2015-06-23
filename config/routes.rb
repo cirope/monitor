@@ -10,11 +10,14 @@ Rails.application.routes.draw do
 
   # Resources
   resources :ldaps
-  resources :schedules
   resources :scripts
   resources :servers
   resources :users
   resources :password_resets, only: [:new, :create, :edit, :update]
+
+  resources :schedules do
+    resources :runs, shallow: true, only: [:index, :show, :destroy]
+  end
 
   root 'sessions#new'
 end

@@ -1,0 +1,32 @@
+<h2>
+  <%= Run.model_name.human count: 1 %>
+  <small>
+    <%= link_to @run.schedule, @run.schedule %>
+  </small>
+</h2>
+
+<p>
+  <strong><%= Run.human_attribute_name 'status' %></strong>:
+  <%= run_status @run.status %>
+</p>
+<p>
+  <strong><%= Run.human_attribute_name 'scheduled_at' %></strong>:
+  <%= l @run.scheduled_at, format: :compact %>
+</p>
+<p>
+  <strong><%= Run.human_attribute_name 'started_at' %></strong>:
+  <%= l @run.started_at, format: :compact if @run.started_at %>
+</p>
+<p>
+  <strong><%= Run.human_attribute_name 'ended_at' %></strong>:
+  <%= l @run.ended_at, format: :compact if @run.ended_at %>
+</p>
+<% if @run.output.present? %>
+  <p>
+    <strong><%= Run.human_attribute_name 'output' %></strong>:
+  </p>
+
+  <pre><%= @run.output %></pre>
+<% end %>
+
+<%= link_to_index schedule_runs_path(@run.schedule) %>

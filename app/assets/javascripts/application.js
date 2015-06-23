@@ -27,6 +27,7 @@
 //= require ldaps
 //= require password_resets
 //= require profiles
+//= require runs
 //= require scripts
 //= require servers
 //= require users
