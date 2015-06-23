@@ -51,6 +51,7 @@ es:
       title: 'Crear trabajo'
     show:
       title: 'Ver trabajo'
+      empty_runs: 'Sin corridas'
     frequencies:
       minutes: 'Minutos'
       hourly: 'Horas'

@@ -4,7 +4,7 @@
   <div class="form-inputs">
     <div class="row">
       <div class="col-md-6 date-picker">
-        <%= f.input :start, as: :date_picker %>
+        <%= f.input :start, as: :date_picker, input_html: { autofocus: true } %>
       </div>
       <div class="col-md-6 date-picker">
         <%= f.input :end, as: :date_picker %>
