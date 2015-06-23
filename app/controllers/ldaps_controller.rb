@@ -4,7 +4,7 @@ class LdapsController < ApplicationController
   respond_to :html
 
   def index
-    @ldaps = Ldap.all
+    @ldaps = Ldap.order(:id).page params[:page]
 
     respond_with @ldaps
   end

@@ -24,6 +24,8 @@
       <% end %>
     </tbody>
   </table>
+
+  <%= paginate @servers %>
 <% end %>
 
 <%= link_to_new new_server_path, class: 'btn btn-primary' %>

@@ -24,6 +24,8 @@
       <% end %>
     </tbody>
   </table>
+
+  <%= paginate @ldaps %>
 <% end %>
 
 <%= link_to_new new_ldap_path, class: 'btn btn-primary' %>

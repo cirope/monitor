@@ -4,7 +4,7 @@ class ServersController < ApplicationController
   respond_to :html, :json
 
   def index
-    @servers = Server.search query: params[:q]
+    @servers = Server.search(query: params[:q]).order(:id).page(params[:page])
 
     respond_with @servers
   end

@@ -24,6 +24,8 @@
       <% end %>
     </tbody>
   </table>
+
+  <%= paginate @users %>
 <% end %>
 
 <%= link_to_new new_user_path, class: 'btn btn-primary' %>

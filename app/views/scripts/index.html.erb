@@ -22,6 +22,8 @@
       <% end %>
     </tbody>
   </table>
+
+  <%= paginate @scripts %>
 <% end %>
 
 <%= link_to_new new_script_path, class: 'btn btn-primary' %>

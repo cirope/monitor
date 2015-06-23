@@ -33,6 +33,8 @@
       <% end %>
     </tbody>
   </table>
+
+  <%= paginate @schedules %>
 <% end %>
 
 <%= link_to_new new_schedule_path, class: 'btn btn-primary' %>
