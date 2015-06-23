@@ -3,7 +3,7 @@ module Servers::Command
 
   def execute script
     status      = 'error'
-    output      = nil
+    output      = ''
     script_path = script.copy_to self
 
     Net::SSH.start hostname, user, ssh_options do |ssh|
@@ -11,7 +11,7 @@ module Servers::Command
 
       ssh.exec! "#{script_path}" do |channel, stream, data|
         status = 'ok' unless stream == :stderr
-        output = data
+        output << data
       end
 
       ssh.exec! "rm #{script_path}"
