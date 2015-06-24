@@ -7,7 +7,7 @@ es:
     models:
       ldap:
         one: 'Configuración LDAP'
-        other: 'Configuraciones LDAP'
+        other: 'LDAP'
       run:
         one: 'Corrida'
         other: 'Corridas'
