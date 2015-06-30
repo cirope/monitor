@@ -11,5 +11,7 @@ class CreateRuns < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+
+    add_foreign_key :runs, :schedules, on_delete: :restrict, on_update: :restrict
   end
 end

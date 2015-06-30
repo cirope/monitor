@@ -11,5 +11,8 @@ class CreateSchedules < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+
+    add_foreign_key :schedules, :scripts, on_delete: :restrict, on_update: :restrict
+    add_foreign_key :schedules, :servers, on_delete: :restrict, on_update: :restrict
   end
 end

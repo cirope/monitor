@@ -101,4 +101,7 @@ ActiveRecord::Schema.define(version: 20150622034218) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["password_reset_token"], name: "index_users_on_password_reset_token", unique: true, using: :btree
 
+  add_foreign_key "runs", "schedules", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "schedules", "scripts", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "schedules", "servers", on_update: :restrict, on_delete: :restrict
 end
