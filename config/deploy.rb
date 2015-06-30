@@ -10,7 +10,7 @@ set :deploy_via, :remote_cache
 set :scm, :git
 
 set :linked_files, %w{config/application.yml}
-set :linked_dirs, %w{log}
+set :linked_dirs, %w{log public/uploads}
 
 set :rbenv_type, :user
 set :rbenv_ruby, '2.2.2'
