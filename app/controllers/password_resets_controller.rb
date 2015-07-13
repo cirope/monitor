@@ -10,7 +10,7 @@ class PasswordResetsController < ApplicationController
 
     if user
       user.prepare_password_reset
-      UserMailer.password_reset(user).deliver_now
+      UserMailer.password_reset(user).deliver_later
 
       redirect_to root_url, notice: t('.notice', scope: :flash)
     else
