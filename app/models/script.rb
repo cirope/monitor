@@ -1,4 +1,5 @@
 class Script < ActiveRecord::Base
+  include Auditable
   include Attributes::Strip
   include Scripts::Copy
   include Scripts::Searchable

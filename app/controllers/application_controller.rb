@@ -11,6 +11,10 @@ class ApplicationController < ActionController::Base
     redirect_to login_url, alert: t('messages.not_authorized') unless current_user
   end
 
+  def user_for_paper_trail
+    current_user.try :id
+  end
+
   private
 
     def plug_mini_profiler

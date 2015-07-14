@@ -1,4 +1,5 @@
 class Run < ActiveRecord::Base
+  include Auditable
   include Runs::Schedule
   include Runs::Validation
 

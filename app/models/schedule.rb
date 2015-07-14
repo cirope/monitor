@@ -1,4 +1,5 @@
 class Schedule < ActiveRecord::Base
+  include Auditable
   include Schedules::Runs
   include Schedules::Validation
 

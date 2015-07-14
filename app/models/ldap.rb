@@ -1,4 +1,5 @@
 class Ldap < ActiveRecord::Base
+  include Auditable
   include Attributes::Strip
   include Ldaps::Import
   include Ldaps::Auth

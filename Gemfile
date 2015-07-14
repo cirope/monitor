@@ -27,6 +27,7 @@ gem 'net-scp'
 gem 'sidekiq'
 gem 'whenever', require: false
 gem 'rack-mini-profiler'
+gem 'paper_trail', '~> 4.0.0.rc'
 
 gem 'unicorn'
 

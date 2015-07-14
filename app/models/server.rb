@@ -1,4 +1,5 @@
 class Server < ActiveRecord::Base
+  include Auditable
   include Attributes::Strip
   include Servers::Command
   include Servers::Searchable
