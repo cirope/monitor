@@ -13,7 +13,7 @@ module Scripts::Searchable
         result = result.where "#{table_name}.name ILIKE ?", "%#{query.strip}%"
       end
 
-      limit ? result.limit(10) : result
+      limit ? result.limit(limit) : result
     end
   end
 end
