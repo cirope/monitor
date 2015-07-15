@@ -18,7 +18,7 @@
 
     <tbody>
       <% @schedules.each do |schedule| %>
-        <tr>
+        <tr <%== 'class="text-muted text-striked"' if schedule.end.try :past? %>>
           <td><%= schedule.script %></td>
           <td><%= schedule.server %></td>
           <td class="visible-lg"><%= l schedule.start, format: :short %></td>

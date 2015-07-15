@@ -19,12 +19,18 @@
         <%= f.input :frequency, collection: frequencies, prompt: false %>
       </div>
     </div>
-    <%= f.input :script, as: :autocomplete, url: scripts_path, input_html: {
-      data: { empty_result_label: t('schedules.script.empty') }
-    } %>
-    <%= f.input :server, as: :autocomplete, url: servers_path, input_html: {
-      data: { empty_result_label: t('schedules.server.empty') }
-    } %>
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.input :script, as: :autocomplete, url: scripts_path, input_html: {
+          data: { empty_result_label: t('schedules.script.empty') }
+        } %>
+      </div>
+      <div class="col-md-6">
+        <%= f.input :server, as: :autocomplete, url: servers_path, input_html: {
+          data: { empty_result_label: t('schedules.server.empty') }
+        } %>
+      </div>
+    </div>
     <%= f.input :lock_version, as: :hidden %>
   </div>
 
