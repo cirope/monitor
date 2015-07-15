@@ -3,6 +3,10 @@ body {
   margin-bottom: 20px;
 }
 
+.date-picker {
+  position: relative;
+}
+
 .loading-caption {
   position: fixed;
   top: 0%;
@@ -13,10 +17,6 @@ body {
   text-align: center;
   line-height: 37px;
   z-index: 1100;
-}
-
-.date-picker {
-  position: relative;
 }
 
 .text-striked {
