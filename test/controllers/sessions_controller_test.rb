@@ -2,7 +2,7 @@ require 'test_helper'
 
 class SessionsControllerTest < ActionController::TestCase
   setup do
-    @user = users(:franco)
+    @user = users :franco
   end
 
   test 'should get new' do
@@ -38,6 +38,6 @@ class SessionsControllerTest < ActionController::TestCase
   private
 
   def current_user
-    @controller.send(:current_user)
+    @controller.send :current_user
   end
 end
