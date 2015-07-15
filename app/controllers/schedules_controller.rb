@@ -45,6 +45,6 @@ class SchedulesController < ApplicationController
     end
 
     def schedule_params
-      params.require(:schedule).permit :start, :end, :interval, :frequency, :script_id, :server_id, :lock_version
+      params.require(:schedule).permit :name, :start, :end, :interval, :frequency, :script_id, :server_id, :lock_version
     end
 end

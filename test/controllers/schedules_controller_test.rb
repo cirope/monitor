@@ -22,6 +22,7 @@ class SchedulesControllerTest < ActionController::TestCase
   test 'should create schedule' do
     assert_difference 'Schedule.count' do
       post :create, schedule: {
+        name:      @schedule.name,
         start:     @schedule.start,
         end:       @schedule.end,
         interval:  @schedule.interval,

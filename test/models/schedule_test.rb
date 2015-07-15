@@ -14,11 +14,13 @@ class ScheduleTest < ActiveSupport::TestCase
   end
 
   test 'blank attributes' do
+    @schedule.name = ''
     @schedule.start = ''
     @schedule.script = nil
     @schedule.server = nil
 
     assert @schedule.invalid?
+    assert_error @schedule, :name, :blank
     assert_error @schedule, :start, :blank
     assert_error @schedule, :script, :blank
     assert_error @schedule, :server, :blank
