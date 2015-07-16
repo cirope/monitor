@@ -7,6 +7,8 @@ class Script < ActiveRecord::Base
 
   mount_uploader :file, FileUploader
 
+  acts_as_tree order: :name
+
   scope :ordered, -> { order :name }
 
   strip_fields :name
