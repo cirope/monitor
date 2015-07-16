@@ -14,6 +14,15 @@ class SchedulesControllerTest < ActionController::TestCase
     assert_not_nil assigns(:schedules)
   end
 
+  test 'should filtered index' do
+    get :index, q: @schedule.name, format: :json
+    assert_response :success
+
+    schedules = assigns :schedules
+    assert_equal 1, schedules.size
+    assert_equal @schedule.name, schedules.first.name
+  end
+
   test 'should get new' do
     get :new
     assert_response :success

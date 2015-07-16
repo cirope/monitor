@@ -1,8 +1,11 @@
 class Schedule < ActiveRecord::Base
   include Auditable
   include Attributes::Strip
+  include SearchableByName
   include Schedules::Runs
   include Schedules::Validation
+
+  scope :ordered, -> { order :start, :end, :id }
 
   strip_fields :name
 

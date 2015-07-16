@@ -88,4 +88,11 @@ class ScheduleTest < ActiveSupport::TestCase
       @schedule.build_next_run
     end
   end
+
+  test 'search' do
+    schedules = Schedule.search query: @schedule.name
+
+    assert schedules.present?
+    assert schedules.all? { |s| s.name =~ /#{@schedule.name}/ }
+  end
 end

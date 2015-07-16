@@ -1,9 +1,5 @@
-module Servers::Searchable
+module SearchableByName
   extend ActiveSupport::Concern
-
-  included do
-    scope :ordered, -> { order :name }
-  end
 
   module ClassMethods
     def search query: nil, limit: false

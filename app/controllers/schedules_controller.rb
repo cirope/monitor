@@ -1,10 +1,10 @@
 class SchedulesController < ApplicationController
   before_action :set_schedule, only: [:show, :edit, :update, :destroy]
 
-  respond_to :html
+  respond_to :html, :json
 
   def index
-    @schedules = Schedule.order(:start, :end, :id).page params[:page]
+    @schedules = Schedule.search(query: params[:q]).page params[:page]
 
     respond_with @schedules
   end
