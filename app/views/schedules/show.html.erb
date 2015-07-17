@@ -18,11 +18,11 @@
 </p>
 <p>
   <strong><%= Schedule.human_attribute_name 'script' %></strong>:
-  <%= @schedule.script %>
+  <%= link_to @schedule.script, @schedule.script %>
 </p>
 <p>
   <strong><%= Schedule.human_attribute_name 'server' %></strong>:
-  <%= @schedule.server %>
+  <%= link_to @schedule.server, @schedule.server %>
 </p>
 
 <% if @schedule.dependencies.any? %>
