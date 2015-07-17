@@ -18,7 +18,7 @@ class DynamicFormHelperTest < ActionView::TestCase
   end
 
   test 'link to hide nested item' do
-    simple_fields_for(requires(:cd_root_before_ls)) do |f|
+    simple_fields_for(requires :cd_root_before_ls) do |f|
       link = link_to_remove_nested_item f
 
       assert_match /hideItem/, link
