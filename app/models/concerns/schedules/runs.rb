@@ -4,7 +4,7 @@ module Schedules::Runs
   included do
     before_create :create_initial_run
 
-    has_many :runs, dependent: :destroy, autosave: true
+    has_many :runs, -> { order :scheduled_at }, dependent: :destroy, autosave: true
   end
 
   def build_next_run
@@ -13,6 +13,14 @@ module Schedules::Runs
     if self.end.blank? || scheduled_at <= self.end
       runs.create! status: 'pending', scheduled_at: scheduled_at
     end
+  end
+
+  def run?
+    required.all? &:last_run_ok?
+  end
+
+  def last_run_ok?
+    runs.executed.last.try :ok?
   end
 
   private

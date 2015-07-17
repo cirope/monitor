@@ -1,0 +1,14 @@
+require 'test_helper'
+
+class DependencyTest < ActiveSupport::TestCase
+  def setup
+    @dependency = dependencies :last_cd_runs_on_atahualpa
+  end
+
+  test 'blank attributes' do
+    @dependency.schedule = nil
+
+    assert @dependency.invalid?
+    assert_error @dependency, :schedule, :blank
+  end
+end

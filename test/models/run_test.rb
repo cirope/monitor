@@ -34,6 +34,14 @@ class RunTest < ActiveSupport::TestCase
     assert_error @run, :ended_at, :invalid_datetime
   end
 
+  test 'ok' do
+    assert !@run.ok?
+
+    @run.status = 'ok'
+
+    assert @run.ok?
+  end
+
   test 'schedule' do
     skip
   end

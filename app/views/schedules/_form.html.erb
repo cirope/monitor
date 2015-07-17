@@ -31,6 +31,22 @@
         } %>
       </div>
     </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <%= Dependency.model_name.human count: 0 %>
+        </h3>
+      </div>
+      <div id="dependencies" class="panel-body">
+        <%= f.simple_fields_for :dependencies, dependencies do |rf| %>
+          <%= render 'dependencies/dependency', f: rf %>
+        <% end %>
+
+        <%= link_to_add_fields t('schedules.new.dependency'), f, :dependencies %>
+      </div>
+    </div>
+
     <%= f.input :lock_version, as: :hidden %>
   </div>
 

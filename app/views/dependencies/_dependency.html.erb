@@ -1,0 +1,15 @@
+<fieldset class="schedule_dependency">
+  <div class="row">
+    <div class="col-md-11">
+      <%= f.input :schedule, as: :autocomplete, label: false, url: schedules_path, input_html: {
+        data: { empty_result_label: t('.empty') }
+      } %>
+    </div>
+    <div class="col-md-1">
+      <div class="row-controls">
+        <%= f.input :id, as: :hidden %>
+        <%= link_to_remove_nested_item f %>
+      </div>
+    </div>
+  </div>
+</fieldset>

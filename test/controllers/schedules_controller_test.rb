@@ -29,7 +29,7 @@ class SchedulesControllerTest < ActionController::TestCase
   end
 
   test 'should create schedule' do
-    assert_difference 'Schedule.count' do
+    assert_difference ['Schedule.count', 'Dependency.count'] do
       post :create, schedule: {
         name:      @schedule.name,
         start:     @schedule.start,
@@ -37,7 +37,12 @@ class SchedulesControllerTest < ActionController::TestCase
         interval:  @schedule.interval,
         frequency: @schedule.frequency,
         script_id: @schedule.script_id,
-        server_id: @schedule.server_id
+        server_id: @schedule.server_id,
+        dependencies_attributes: [
+          {
+            schedule_id: schedules(:ls_on_atahualpa).id.to_s
+          }
+        ]
       }
     end
 

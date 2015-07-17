@@ -25,6 +25,23 @@
   <%= @schedule.server %>
 </p>
 
+<% if @schedule.dependencies.any? %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <%= Dependency.model_name.human count: @schedule.dependencies.size %>
+      </h3>
+    </div>
+    <div id="dependencies" class="panel-body">
+      <ul>
+        <% @schedule.dependencies.each do |dependency| %>
+          <li><%= link_to dependency.schedule, dependency.schedule %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>
+
 <% if @schedule.runs.any? %>
   <p>
     <%= link_to Run.model_name.human(count: @schedule.runs.count), schedule_runs_path(@schedule) %>

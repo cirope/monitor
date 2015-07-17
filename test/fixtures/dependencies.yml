@@ -1,0 +1,3 @@
+last_cd_runs_on_atahualpa:
+  dependent: ls_on_atahualpa
+  schedule: cd_root_on_atahualpa

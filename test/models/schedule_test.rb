@@ -70,6 +70,18 @@ class ScheduleTest < ActiveSupport::TestCase
     assert_error @schedule, :frequency, :inclusion
   end
 
+  test 'run' do
+    assert !@schedule.run?
+  end
+
+  test 'last run ok' do
+    assert @schedule.last_run_ok?
+
+    @schedule.runs.executed.last.update! status: 'error'
+
+    assert !@schedule.last_run_ok?
+  end
+
   test 'build next run' do
     run = nil
     next_date = @schedule.send :next_date

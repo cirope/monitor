@@ -5,6 +5,8 @@ module RunsHelper
               'label-success'
             when 'error'
               'label-danger'
+            when 'canceled'
+              'label-warning'
             else
               'label-default'
             end

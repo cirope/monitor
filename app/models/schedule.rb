@@ -2,6 +2,7 @@ class Schedule < ActiveRecord::Base
   include Auditable
   include Attributes::Strip
   include SearchableByName
+  include Schedules::Dependencies
   include Schedules::Runs
   include Schedules::Validation
 

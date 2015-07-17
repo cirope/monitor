@@ -5,12 +5,15 @@ es:
 
   activerecord:
     models:
+      dependency:
+        one: 'Dependencia'
+        other: 'Dependencias'
       ldap:
         one: 'Configuración LDAP'
         other: 'LDAP'
       require:
-        one: 'Dependencia'
-        other: 'Dependencias'
+        one: 'Inclusión'
+        other: 'Inclusiones'
       run:
         one: 'Corrida'
         other: 'Corridas'
@@ -28,6 +31,8 @@ es:
         other: 'Usuarios'
 
     attributes:
+      dependency:
+        schedule: 'Trabajo'
       ldap:
         hostname: 'Dirección del servidor'
         port: 'Puerto'

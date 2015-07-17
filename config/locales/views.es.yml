@@ -15,6 +15,10 @@ es:
     logout: 'Salir'
     show: 'Ver'
 
+  dependencies:
+    dependency:
+      empty: 'No se encontraron trabajos con ese criterio'
+
   ldaps:
     edit:
       title: 'Editar configuración LDAP'
@@ -43,6 +47,7 @@ es:
       running: 'Corriendo'
       ok: 'Finalizada OK'
       error: 'Finalizada con errores'
+      canceled: 'Cancelada'
 
   schedules:
     edit:
@@ -53,6 +58,7 @@ es:
       empty_html: 'No hay trabajoes, puede crear uno con el botón <span class="label label-primary">Nuevo trabajo</span>'
     new:
       title: 'Crear trabajo'
+      dependency: 'Agregar dependencia'
     show:
       title: 'Ver trabajo'
       empty_runs: 'Sin corridas'
@@ -76,7 +82,7 @@ es:
       empty_html: 'No hay guiones, puede crear uno con el botón <span class="label label-primary">Nuevo guión</span>'
     new:
       title: 'Crear guión'
-      require: 'Agregar dependencia'
+      require: 'Agregar inclusión'
     show:
       title: 'Ver guión'
 

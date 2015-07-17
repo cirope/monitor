@@ -5,7 +5,7 @@ class RunsController < ApplicationController
   respond_to :html
 
   def index
-    @runs = @schedule.runs.order(scheduled_at: :desc).page params[:page]
+    @runs = @schedule.runs.reorder(scheduled_at: :desc).page params[:page]
 
     respond_with @runs
   end
