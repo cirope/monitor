@@ -38,8 +38,13 @@ class ScheduleTest < ActiveSupport::TestCase
   test 'start must be on or after now' do
     @schedule.start = 1.minute.ago
 
-    assert @schedule.invalid?
-    assert_error @schedule, :start, :on_or_after, restriction: I18n.l(Time.zone.now, format: :compact)
+    assert @schedule.valid? # only on create
+
+    schedule = @schedule.dup
+    schedule.start = 1.minute.ago
+
+    assert schedule.invalid?
+    assert_error schedule, :start, :on_or_after, restriction: I18n.l(Time.zone.now, format: :compact)
   end
 
   test 'end must be after start' do
