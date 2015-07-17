@@ -3,6 +3,7 @@ class Script < ActiveRecord::Base
   include Attributes::Strip
   include SearchableByName
   include Scripts::Copy
+  include Scripts::Requires
   include Scripts::Validation
 
   mount_uploader :file, FileUploader

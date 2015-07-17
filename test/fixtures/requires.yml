@@ -1,0 +1,3 @@
+cd_root_before_ls:
+  caller: ls
+  script: cd_root

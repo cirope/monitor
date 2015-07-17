@@ -27,6 +27,10 @@ es:
     show:
       title: 'Ver configuración LDAP'
 
+  requires:
+    require:
+      empty: 'No se encontraron guiones con ese criterio'
+
   runs:
     index:
       title: 'Listado de corridas'
@@ -72,6 +76,7 @@ es:
       empty_html: 'No hay guiones, puede crear uno con el botón <span class="label label-primary">Nuevo guión</span>'
     new:
       title: 'Crear guión'
+      require: 'Agregar dependencia'
     show:
       title: 'Ver guión'
 

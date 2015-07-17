@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150716123126) do
+ActiveRecord::Schema.define(version: 20150716175949) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,16 @@ ActiveRecord::Schema.define(version: 20150716123126) do
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
   end
+
+  create_table "requires", force: :cascade do |t|
+    t.integer  "caller_id",  null: false
+    t.integer  "script_id",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "requires", ["caller_id"], name: "index_requires_on_caller_id", using: :btree
+  add_index "requires", ["script_id"], name: "index_requires_on_script_id", using: :btree
 
   create_table "runs", force: :cascade do |t|
     t.string   "status",                   null: false
@@ -120,6 +130,8 @@ ActiveRecord::Schema.define(version: 20150716123126) do
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
   add_index "versions", ["whodunnit"], name: "index_versions_on_whodunnit", using: :btree
 
+  add_foreign_key "requires", "scripts", column: "caller_id", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "requires", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "runs", "schedules", on_update: :restrict, on_delete: :restrict
   add_foreign_key "schedules", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "schedules", "servers", on_update: :restrict, on_delete: :restrict

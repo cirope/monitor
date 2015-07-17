@@ -24,6 +24,8 @@
 //= require bootstrap-datetimepicker
 //= require autocomplete
 //= require date_pickers
+//= require dynamic_form
+//= require effect_helper
 //= require ldaps
 //= require password_resets
 //= require profiles

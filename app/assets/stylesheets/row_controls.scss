@@ -1,0 +1,18 @@
+.row-controls {
+  position: absolute;
+  top: 0px;
+  right: 15px;
+  display: none;
+  opacity: 0;
+  transition: all ease-out .2s;
+}
+
+fieldset {
+  position: relative;
+}
+
+fieldset:hover .row-controls {
+  display: inherit;
+  opacity: 1;
+  transition: all ease-in .2s;
+}

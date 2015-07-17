@@ -29,9 +29,16 @@ class ScriptsControllerTest < ActionController::TestCase
   end
 
   test 'should create script' do
-    assert_difference 'Script.count' do
+    assert_difference ['Script.count', 'Require.count'] do
       post :create, script: {
-        name: 'Test script', file: @script.file, text: @script.text
+        name: 'Test script',
+        file: @script.file,
+        text: @script.text,
+        requires_attributes: [
+          {
+            script_id: scripts(:cd_root).id.to_s
+          }
+        ]
       }
     end
 

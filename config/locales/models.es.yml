@@ -8,6 +8,9 @@ es:
       ldap:
         one: 'Configuración LDAP'
         other: 'LDAP'
+      require:
+        one: 'Dependencia'
+        other: 'Dependencias'
       run:
         one: 'Corrida'
         other: 'Corridas'
@@ -37,6 +40,8 @@ es:
         email_attribute: 'Atributo con el correo electrónico'
         test_user: 'Usuario'
         test_password: 'Contraseña'
+      require:
+        script: 'Guión'
       run:
         status: 'Estado'
         scheduled_at: 'Programado para'

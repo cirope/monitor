@@ -1,3 +1,7 @@
+cd_root:
+  name: 'Change directory to /'
+  text: '%x{cd /}'
+
 ls:
   name: Execute one ls
-  text: '%x{ls}'
+  text: 'puts %x{ls}'

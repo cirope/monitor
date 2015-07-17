@@ -23,11 +23,25 @@ module Scripts::Copy
         path = "/tmp/monitor-ruby-script-#{id}.rb"
 
         File.open(path, 'w') do |file|
-          file << "#!/usr/bin/env ruby\n\n"
-          file << text
+          file << body
         end
 
         path
       end
     end
+
+    def body
+      body = "#!/usr/bin/env ruby\n\n"
+
+      includes.each do |script|
+        body << "# Begin #{script.name} inclusion\n\n"
+        body << "#{script.text}\n\n"
+        body << "# End #{script.name} inclusion\n\n"
+      end
+
+      body << "# Script #{name} begin\n\n"
+      body << "#{text}\n\n"
+      body << "# Script #{name} end\n\n"
+    end
 end
+
