@@ -6,7 +6,7 @@ class Schedule < ActiveRecord::Base
   include Schedules::Runs
   include Schedules::Validation
 
-  scope :ordered, -> { order :start, :end, :id }
+  scope :ordered, -> { order end: :desc, start: :asc, id: :asc }
 
   strip_fields :name
 
