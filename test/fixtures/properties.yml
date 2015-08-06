@@ -1,4 +1,4 @@
 trace:
   key: Trace
-  value: No
+  value: 'No'
   database: postgresql
