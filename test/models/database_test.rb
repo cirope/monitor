@@ -39,7 +39,7 @@ class DatabaseTest < ActiveSupport::TestCase
   end
 
   test 'odbc ini' do
-    odbc_ini_path = "#{Dir.home}/.odbc.ini"
+    odbc_ini_path = "#{Etc.getpwuid.dir}/.odbc.ini"
     old_odbc_content = nil
 
     if File.exist? odbc_ini_path
