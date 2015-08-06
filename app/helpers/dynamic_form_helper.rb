@@ -57,6 +57,6 @@ module DynamicFormHelper
         value: form.object.marked_for_destruction? ? 1 : 0,
         id: "destroy_hidden_#{form.object.id}",
         data: { destroy_field: true }
-      ) unless form.object.new_record?
+      ) if form.object.persisted?
     end
 end

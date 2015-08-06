@@ -5,12 +5,18 @@ es:
 
   activerecord:
     models:
+      database:
+        one: 'Base de datos'
+        other: 'Bases de datos'
       dependency:
         one: 'Dependencia'
         other: 'Dependencias'
       ldap:
         one: 'Configuración LDAP'
         other: 'LDAP'
+      property:
+        one: 'Propiedad'
+        other: 'Propiedades'
       require:
         one: 'Inclusión'
         other: 'Inclusiones'
@@ -31,6 +37,10 @@ es:
         other: 'Usuarios'
 
     attributes:
+      database:
+        name: 'Nombre'
+        driver: 'Controlador'
+        description: 'Descripción'
       dependency:
         schedule: 'Trabajo'
       ldap:
@@ -45,6 +55,9 @@ es:
         email_attribute: 'Atributo con el correo electrónico'
         test_user: 'Usuario'
         test_password: 'Contraseña'
+      property:
+        key: 'Atributo'
+        value: 'Valor'
       require:
         script: 'Guión'
       run:

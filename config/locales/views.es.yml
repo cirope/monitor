@@ -15,6 +15,19 @@ es:
     logout: 'Salir'
     show: 'Ver'
 
+  databases:
+    edit:
+      title: 'Editar base de datos'
+    index:
+      new: 'Nueva base de datos'
+      title: 'Listado de bases de datos'
+      empty_html: 'No hay bases de datos, puede crear una con el botón <span class="label label-primary">Nueva base de datos</span>'
+    new:
+      title: 'Crear base de datos'
+      property: 'Agregar propiedad'
+    show:
+      title: 'Ver base de datos'
+
   dependencies:
     dependency:
       empty: 'No se encontraron trabajos con ese criterio'

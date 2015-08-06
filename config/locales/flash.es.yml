@@ -11,6 +11,16 @@ es:
         notice: '%{resource_name} eliminado'
         alert:  '%{resource_name} no pudo ser eliminado'
 
+    databases:
+      create:
+        notice: 'Base de datos creada'
+      update:
+        notice: 'Base de datos actualizada'
+        alert:  ''
+      destroy:
+        notice: 'Base de datos eliminada'
+        alert:  'La base de datos no pudo ser eliminada'
+
     password_resets:
       update:
         notice: 'Contraseña cambiada correctamente'

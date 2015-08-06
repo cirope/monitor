@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   patch 'profile', to: 'profiles#update'
 
   # Resources
+  resources :databases
   resources :ldaps
   resources :scripts
   resources :servers

@@ -19,6 +19,7 @@
  *= require autocomplete
  *= require forms
  *= require row_controls
+ *= require databases
  *= require ldaps
  *= require password_resets
  *= require profiles

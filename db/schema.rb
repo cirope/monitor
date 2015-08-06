@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150717143937) do
+ActiveRecord::Schema.define(version: 20150806172330) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "databases", force: :cascade do |t|
+    t.string   "name",        null: false
+    t.string   "driver",      null: false
+    t.string   "description", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "databases", ["name"], name: "index_databases_on_name", using: :btree
 
   create_table "dependencies", force: :cascade do |t|
     t.integer  "dependent_id", null: false
@@ -40,6 +50,16 @@ ActiveRecord::Schema.define(version: 20150717143937) do
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
   end
+
+  create_table "properties", force: :cascade do |t|
+    t.string   "key",         null: false
+    t.string   "value",       null: false
+    t.integer  "database_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "properties", ["database_id"], name: "index_properties_on_database_id", using: :btree
 
   create_table "requires", force: :cascade do |t|
     t.integer  "caller_id",  null: false
@@ -142,6 +162,7 @@ ActiveRecord::Schema.define(version: 20150717143937) do
 
   add_foreign_key "dependencies", "schedules", column: "dependent_id", on_update: :restrict, on_delete: :restrict
   add_foreign_key "dependencies", "schedules", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "properties", "databases", on_update: :restrict, on_delete: :restrict
   add_foreign_key "requires", "scripts", column: "caller_id", on_update: :restrict, on_delete: :restrict
   add_foreign_key "requires", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "runs", "schedules", on_update: :restrict, on_delete: :restrict
