@@ -21,7 +21,7 @@ module Databases::Odbc
   private
 
     def refresh_odbc_ini
-      File.open("#{ENV['HOME']}/.odbc.ini", 'w') do |file|
+      File.open("#{Dir.home}/.odbc.ini", 'w') do |file|
         Database.ordered.each do |database|
           file << "#{database.odbc_string}\n"
         end
