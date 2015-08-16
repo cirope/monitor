@@ -1,4 +1,11 @@
-<h2><%= @script %></h2>
+<h2>
+  <%= @script %>
+  <% if @script.core %>
+    <small class="pull-right">
+      <span class="glyphicon glyphicon-star" title="<%= Script.human_attribute_name 'core' %>"></span>
+    </small>
+  <% end %>
+</h2>
 
 <% if @script.file.present? %>
   <p>

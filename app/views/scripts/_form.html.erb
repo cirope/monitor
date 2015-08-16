@@ -2,7 +2,18 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :name, input_html: { autofocus: true } %>
+    <div class="row">
+      <div class="col-lg-11 col-md-10 col-xs-9">
+        <%= f.input :name, input_html: { autofocus: true } %>
+      </div>
+      <div class="col-lg-1 col-md-2 col-xs-3 bottom text-right">
+        <div class="checkbox">
+          <label>
+            <%= f.check_box :core %> <%= Script.human_attribute_name 'core' %>
+          </label>
+        </div>
+      </div>
+    </div>
     <div class="hidden">
       <%= f.input :text, input_html: { rows: 5 } %>
     </div>

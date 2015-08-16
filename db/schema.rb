@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150806172330) do
+ActiveRecord::Schema.define(version: 20150815105646) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -113,8 +113,10 @@ ActiveRecord::Schema.define(version: 20150806172330) do
     t.integer  "lock_version", default: 0, null: false
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.boolean  "core"
   end
 
+  add_index "scripts", ["core"], name: "index_scripts_on_core", using: :btree
   add_index "scripts", ["name"], name: "index_scripts_on_name", using: :btree
 
   create_table "servers", force: :cascade do |t|

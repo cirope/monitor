@@ -78,6 +78,7 @@ es:
         name: 'Nombre'
         file: 'Archivo'
         text: 'Contenido'
+        core: 'Principal'
       server:
         name: 'Nombre'
         hostname: 'Dirección'
