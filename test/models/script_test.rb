@@ -38,6 +38,24 @@ class ScriptTest < ActiveSupport::TestCase
     assert scripts.all? { |s| s.name =~ /#{@script.name}/ }
   end
 
+  test 'body' do
+    assert_match @script.text, @script.body
+  end
+
+  test 'body inclusions' do
+    script = scripts :cd_root
+    body   = @script.body
+
+    assert_match script.text, body
+    assert_match @script.text, body
+  end
+
+  test 'body includes defaults' do
+    Script.create! name: 'Core test', core: true, text: 'puts "Core script"'
+
+    assert_match /Core script/, @script.body
+  end
+
   test 'copy to' do
     skip
   end

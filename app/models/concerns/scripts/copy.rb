@@ -1,6 +1,10 @@
 module Scripts::Copy
   extend ActiveSupport::Concern
 
+  included do
+    scope :cores, -> { where core: true }
+  end
+
   def copy_to server
     extension   = file.present? ? File.extname(file.path) : '.rb'
     remote_path = "/tmp/cirope-monitor-script-#{id}#{extension}"
@@ -12,6 +16,22 @@ module Scripts::Copy
     remote_path
   rescue
     nil
+  end
+
+  def body inclusion = false
+    body = inclusion ? '' : "#!/usr/bin/env ruby\n\n"
+
+    unless inclusion
+      self.class.cores.where.not(id: self.id).uniq.each do |script|
+        body << script.body('core inclusion')
+      end
+    end
+
+    includes.each do |script|
+      body << script.body('local inclusion')
+    end
+
+    body << commented_text(inclusion || "script #{id} body")
   end
 
   private
@@ -30,18 +50,11 @@ module Scripts::Copy
       end
     end
 
-    def body
-      body = "#!/usr/bin/env ruby\n\n"
-
-      includes.each do |script|
-        body << "# Begin #{script.name} inclusion\n\n"
-        body << "#{script.text}\n\n"
-        body << "# End #{script.name} inclusion\n\n"
-      end
-
-      body << "# Script #{name} begin\n\n"
-      body << "#{text}\n\n"
-      body << "# Script #{name} end\n\n"
+    def commented_text comment
+      [
+        "# Begin #{name} #{comment}",
+        "#{text}",
+        "# End #{name} #{comment}\n\n"
+      ].join("\n\n")
     end
 end
-
