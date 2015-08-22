@@ -2,7 +2,7 @@ module Servers::Ssh
   extend ActiveSupport::Concern
 
   def ssh_options
-    options = {}
+    options = { compression: true }
 
     if credential.present?
       options.merge keys: [credential.path]
