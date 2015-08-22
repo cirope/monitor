@@ -8,6 +8,9 @@ class Tag < ActiveRecord::Base
 
   strip_fields :name
 
+  has_many :taggings, dependent: :destroy
+  has_many :taggables, through: :taggings
+
   def to_s
     name
   end
