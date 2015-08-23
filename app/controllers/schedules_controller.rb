@@ -5,7 +5,7 @@ class SchedulesController < ApplicationController
   respond_to :html, :json
 
   def index
-    @schedules = Schedule.search(query: params[:q]).page params[:page]
+    @schedules = Schedule.search(query: params[:q], limit: request.xhr? && 10).page params[:page]
 
     respond_with @schedules
   end

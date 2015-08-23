@@ -5,7 +5,7 @@ class ScriptsController < ApplicationController
   respond_to :html, :json
 
   def index
-    @scripts = Script.search(query: params[:q]).order(:id).page(params[:page])
+    @scripts = Script.search(query: params[:q], limit: request.xhr? && 10).order(:id).page params[:page]
 
     respond_with @scripts
   end
