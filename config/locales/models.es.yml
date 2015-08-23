@@ -32,6 +32,9 @@ es:
       server:
         one: 'Servidor'
         other: 'Servidores'
+      tag:
+        one: 'Etiqueta'
+        other: 'Etiquetas'
       user:
         one: 'Usuario'
         other: 'Usuarios'
@@ -85,6 +88,8 @@ es:
         user: 'Usuario'
         password: 'Contraseña'
         credential: 'Credencial'
+      tag:
+        name: 'Nombre'
       user:
         name: 'Nombre'
         lastname: 'Apellido'

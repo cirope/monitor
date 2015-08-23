@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :ldaps
   resources :scripts
   resources :servers
+  resources :tags, only: [:index]
   resources :users
   resources :password_resets, only: [:new, :create, :edit, :update]
 

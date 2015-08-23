@@ -135,6 +135,11 @@ es:
       title: 'Mis datos'
       submit: 'Actualizar mis datos'
 
+  tags:
+    index:
+      title: 'Listado de etiquetas'
+      empty_html: 'No hay etiquetas'
+
   users:
     edit:
       title: 'Editar usuario'

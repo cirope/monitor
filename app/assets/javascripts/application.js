@@ -33,4 +33,5 @@
 //= require runs
 //= require scripts
 //= require servers
+//= require tags
 //= require users

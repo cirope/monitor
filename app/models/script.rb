@@ -5,6 +5,7 @@ class Script < ActiveRecord::Base
   include Scripts::Copy
   include Scripts::Requires
   include Scripts::Validation
+  include Taggable
 
   mount_uploader :file, FileUploader
 
