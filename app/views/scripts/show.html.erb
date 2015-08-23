@@ -36,5 +36,15 @@
   </div>
 <% end %>
 
+<% if @script.tags.any? %>
+  <ul class="list-unstyled">
+    <% @script.tags.each do |tag| %>
+      <li>
+        <span class="label label-default"><%= tag %></span>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
 <%= link_to_edit [:edit, @script] %> |
 <%= link_to_index scripts_path %>
