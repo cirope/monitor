@@ -12,6 +12,17 @@ class ScriptsHelperTest < ActionView::TestCase
     assert requires.all?(&:new_record?)
   end
 
+  test 'script taggings' do
+    @script = scripts :ls
+
+    assert_equal @script.taggings, taggings
+
+    @script = Script.new
+
+    assert_equal 1, taggings.size
+    assert taggings.all?(&:new_record?)
+  end
+
   test 'file identifier' do
     skip
   end

@@ -96,6 +96,7 @@ es:
     new:
       title: 'Crear guión'
       require: 'Agregar inclusión'
+      tagging: 'Agregar etiqueta'
     show:
       title: 'Ver guión'
 
@@ -136,9 +137,15 @@ es:
       submit: 'Actualizar mis datos'
 
   tags:
+    tag:
+      empty: 'No se encontraron etiquetas con ese criterio'
     index:
       title: 'Listado de etiquetas'
       empty_html: 'No hay etiquetas'
+
+  taggings:
+    tagging:
+      empty: 'No se encontraron etiquetas con ese criterio'
 
   users:
     edit:

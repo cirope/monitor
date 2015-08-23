@@ -29,7 +29,7 @@ class ScriptsControllerTest < ActionController::TestCase
   end
 
   test 'should create script' do
-    assert_difference ['Script.count', 'Require.count'] do
+    assert_difference ['Script.count', 'Require.count', 'Tagging.count'] do
       post :create, script: {
         name: 'Test script',
         file: @script.file,
@@ -37,6 +37,11 @@ class ScriptsControllerTest < ActionController::TestCase
         requires_attributes: [
           {
             script_id: scripts(:cd_root).id.to_s
+          }
+        ],
+        taggings_attributes: [
+          {
+            tag_id: tags(:starters).id.to_s
           }
         ]
       }
