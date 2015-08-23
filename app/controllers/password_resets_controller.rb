@@ -1,6 +1,6 @@
 class PasswordResetsController < ApplicationController
+  before_action :set_title, except: [:destroy]
   before_action :set_user, only: [:edit, :update]
-  before_action :set_title
 
   def new
   end

@@ -1,4 +1,5 @@
 class ScriptsController < ApplicationController
+  before_action :set_title, except: [:destroy]
   before_action :set_script, only: [:show, :edit, :update, :destroy]
 
   respond_to :html, :json

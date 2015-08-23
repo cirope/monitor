@@ -1,4 +1,5 @@
 class SchedulesController < ApplicationController
+  before_action :set_title, except: [:destroy]
   before_action :set_schedule, only: [:show, :edit, :update, :destroy]
 
   respond_to :html, :json
