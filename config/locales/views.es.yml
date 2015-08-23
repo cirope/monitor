@@ -137,11 +137,16 @@ es:
       submit: 'Actualizar mis datos'
 
   tags:
-    tag:
-      empty: 'No se encontraron etiquetas con ese criterio'
+    edit:
+      title: 'Editar etiqueta'
     index:
+      new: 'Nueva etiqueta'
       title: 'Listado de etiquetas'
-      empty_html: 'No hay etiquetas'
+      empty_html: 'No hay etiquetas, puede crear una con el botón <span class="label label-primary">Nueva etiqueta</span>'
+    new:
+      title: 'Crear etiqueta'
+    show:
+      title: 'Ver etiqueta'
 
   taggings:
     tagging:

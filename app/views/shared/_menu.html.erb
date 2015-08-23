@@ -14,9 +14,8 @@
 
     <% if current_user %>
       <nav class="collapse navbar-collapse" role="navigation">
-        <ul class="nav navbar-nav">
-          <%= menu_item_for User, users_path %>
-        </ul>
+        <%= render 'shared/config_actions' %>
+
         <ul class="nav navbar-nav">
           <%= menu_item_for Script, scripts_path %>
         </ul>
@@ -25,9 +24,6 @@
         </ul>
         <ul class="nav navbar-nav">
           <%= menu_item_for Schedule, schedules_path %>
-        </ul>
-        <ul class="nav navbar-nav">
-          <%= menu_item_for Database, databases_path %>
         </ul>
 
         <%= render 'shared/user_actions' %>

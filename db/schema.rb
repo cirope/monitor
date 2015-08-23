@@ -144,9 +144,10 @@ ActiveRecord::Schema.define(version: 20150822202406) do
   add_index "taggings", ["taggable_type", "taggable_id"], name: "index_taggings_on_taggable_type_and_taggable_id", using: :btree
 
   create_table "tags", force: :cascade do |t|
-    t.string   "name",       null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name",                     null: false
+    t.integer  "lock_version", default: 0, null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   add_index "tags", ["name"], name: "index_tags_on_name", using: :btree

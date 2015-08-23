@@ -1,0 +1,14 @@
+<ul class="nav navbar-nav">
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+      <span class="glyphicon glyphicon-cog"></span>
+      <span class="caret"></span>
+    </a>
+
+    <ul class="dropdown-menu">
+      <%= menu_item_for User, users_path %>
+      <%= menu_item_for Tag, tags_path %>
+      <%= menu_item_for Database, databases_path %>
+    </ul>
+  </li>
+</ul>
