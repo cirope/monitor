@@ -1,3 +1,4 @@
+set :application, 'monitor.cirope.com'
 set :stage, :production
 set :rails_env, 'production'
 

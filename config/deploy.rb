@@ -1,4 +1,3 @@
-set :application, 'monitor.cirope.com'
 set :user, 'deployer'
 set :repo_url, 'https://github.com/cirope/monitor.git'
 
