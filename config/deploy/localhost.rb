@@ -1,4 +1,3 @@
-set :application, 'monitor.mawidabp.com'
 set :rails_env, 'production'
 
 set :default_env, {

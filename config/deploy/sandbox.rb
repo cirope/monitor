@@ -1,4 +1,3 @@
-set :application, 'monitor.cirope.com'
 set :stage, :sandbox
 set :rails_env, 'sandbox'
 set :ssh_options, { port: 2222 }
