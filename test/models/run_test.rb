@@ -8,12 +8,12 @@ class RunTest < ActiveSupport::TestCase
   test 'blank attributes' do
     @run.status = ''
     @run.scheduled_at = ''
-    @run.schedule = nil
+    @run.job = nil
 
     assert @run.invalid?
     assert_error @run, :status, :blank
     assert_error @run, :scheduled_at, :blank
-    assert_error @run, :schedule, :blank
+    assert_error @run, :job, :blank
   end
 
   test 'included attributes' do

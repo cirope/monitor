@@ -15,12 +15,12 @@ class ScriptsHelperTest < ActionView::TestCase
   test 'script taggings' do
     @script = scripts :ls
 
-    assert_equal @script.taggings, taggings
+    assert_equal @script.taggings, script_taggings
 
     @script = Script.new
 
-    assert_equal 1, taggings.size
-    assert taggings.all?(&:new_record?)
+    assert_equal 1, script_taggings.size
+    assert script_taggings.all?(&:new_record?)
   end
 
   test 'file identifier' do

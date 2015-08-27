@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150822202406) do
+ActiveRecord::Schema.define(version: 20150824055824) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,18 @@ ActiveRecord::Schema.define(version: 20150822202406) do
 
   add_index "dependencies", ["dependent_id"], name: "index_dependencies_on_dependent_id", using: :btree
   add_index "dependencies", ["schedule_id"], name: "index_dependencies_on_schedule_id", using: :btree
+
+  create_table "jobs", force: :cascade do |t|
+    t.integer  "schedule_id"
+    t.integer  "server_id"
+    t.integer  "script_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "jobs", ["schedule_id"], name: "index_jobs_on_schedule_id", using: :btree
+  add_index "jobs", ["script_id"], name: "index_jobs_on_script_id", using: :btree
+  add_index "jobs", ["server_id"], name: "index_jobs_on_server_id", using: :btree
 
   create_table "ldaps", force: :cascade do |t|
     t.string   "hostname",                         null: false
@@ -77,13 +89,13 @@ ActiveRecord::Schema.define(version: 20150822202406) do
     t.datetime "started_at"
     t.datetime "ended_at"
     t.text     "output"
-    t.integer  "schedule_id",              null: false
     t.integer  "lock_version", default: 0, null: false
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.integer  "job_id"
   end
 
-  add_index "runs", ["schedule_id"], name: "index_runs_on_schedule_id", using: :btree
+  add_index "runs", ["job_id"], name: "index_runs_on_job_id", using: :btree
   add_index "runs", ["scheduled_at"], name: "index_runs_on_scheduled_at", using: :btree
   add_index "runs", ["status"], name: "index_runs_on_status", using: :btree
 
@@ -92,19 +104,17 @@ ActiveRecord::Schema.define(version: 20150822202406) do
     t.datetime "end"
     t.integer  "interval"
     t.string   "frequency"
-    t.integer  "script_id",                null: false
-    t.integer  "server_id"
     t.integer  "lock_version", default: 0, null: false
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.string   "name",                     null: false
+    t.datetime "scheduled_at"
   end
 
   add_index "schedules", ["frequency"], name: "index_schedules_on_frequency", using: :btree
   add_index "schedules", ["interval"], name: "index_schedules_on_interval", using: :btree
   add_index "schedules", ["name"], name: "index_schedules_on_name", using: :btree
-  add_index "schedules", ["script_id"], name: "index_schedules_on_script_id", using: :btree
-  add_index "schedules", ["server_id"], name: "index_schedules_on_server_id", using: :btree
+  add_index "schedules", ["scheduled_at"], name: "index_schedules_on_scheduled_at", using: :btree
 
   create_table "scripts", force: :cascade do |t|
     t.string   "name",                     null: false
@@ -184,11 +194,12 @@ ActiveRecord::Schema.define(version: 20150822202406) do
 
   add_foreign_key "dependencies", "schedules", column: "dependent_id", on_update: :restrict, on_delete: :restrict
   add_foreign_key "dependencies", "schedules", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "jobs", "schedules", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "jobs", "scripts", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "jobs", "servers", on_update: :restrict, on_delete: :restrict
   add_foreign_key "properties", "databases", on_update: :restrict, on_delete: :restrict
   add_foreign_key "requires", "scripts", column: "caller_id", on_update: :restrict, on_delete: :restrict
   add_foreign_key "requires", "scripts", on_update: :restrict, on_delete: :restrict
-  add_foreign_key "runs", "schedules", on_update: :restrict, on_delete: :restrict
-  add_foreign_key "schedules", "scripts", on_update: :restrict, on_delete: :restrict
-  add_foreign_key "schedules", "servers", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "runs", "jobs", on_update: :restrict, on_delete: :restrict
   add_foreign_key "taggings", "tags", on_update: :restrict, on_delete: :restrict
 end

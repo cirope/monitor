@@ -1,8 +1,20 @@
 module SchedulesHelper
   def frequencies
-    %w(minutes hourly daily weekly monthly).map do |frequency|
+    %w(minutes hours days weeks months).map do |frequency|
       [t("schedules.frequencies.#{frequency}"), frequency]
     end
+  end
+
+  def schedule_taggings
+    @schedule.taggings.new if @schedule.taggings.empty?
+
+    @schedule.taggings
+  end
+
+  def jobs
+    @schedule.jobs.new if @schedule.jobs.empty?
+
+    @schedule.jobs
   end
 
   def dependencies

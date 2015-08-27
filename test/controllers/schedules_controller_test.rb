@@ -29,15 +29,24 @@ class SchedulesControllerTest < ActionController::TestCase
   end
 
   test 'should create schedule' do
-    assert_difference ['Schedule.count', 'Dependency.count'] do
+    assert_difference ['Schedule.count', 'Dependency.count', 'Job.count', 'Tagging.count'] do
       post :create, schedule: {
         name:      @schedule.name,
         start:     @schedule.start,
         end:       @schedule.end,
         interval:  @schedule.interval,
         frequency: @schedule.frequency,
-        script_id: @schedule.script_id,
-        server_id: @schedule.server_id,
+        jobs_attributes: [
+          {
+            server_id: servers(:atahualpa).id.to_s,
+            script_id: scripts(:cd_root).id.to_s
+          }
+        ],
+        taggings_attributes: [
+          {
+            tag_id: tags(:starters).id.to_s
+          }
+        ],
         dependencies_attributes: [
           {
             schedule_id: schedules(:ls_on_atahualpa).id.to_s
@@ -60,7 +69,7 @@ class SchedulesControllerTest < ActionController::TestCase
   end
 
   test 'should update schedule' do
-    patch :update, id: @schedule, schedule: { frequency: 'monthly' }
+    patch :update, id: @schedule, schedule: { frequency: 'months' }
     assert_redirected_to schedule_url(assigns(:schedule))
   end
 

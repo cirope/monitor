@@ -3,15 +3,15 @@ class Schedule < ActiveRecord::Base
   include Attributes::Strip
   include SearchableByName
   include Schedules::Dependencies
+  include Schedules::Jobs
   include Schedules::Runs
+  include Schedules::Scheduler
   include Schedules::Validation
+  include Taggable
 
   scope :ordered, -> { order end: :desc, start: :asc, id: :asc }
 
   strip_fields :name
-
-  belongs_to :script
-  belongs_to :server
 
   def to_s
     name

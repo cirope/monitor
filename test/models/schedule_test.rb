@@ -7,23 +7,24 @@ class ScheduleTest < ActiveSupport::TestCase
 
   test 'create first run on creation' do
     schedule = @schedule.dup
+    schedule.jobs = @schedule.jobs.map(&:dup)
 
-    assert_difference ['Schedule.count', 'Run.count'] do
-      schedule.save!
+    assert_not_equal schedule.jobs.length, 0
+
+    assert_difference 'Schedule.count' do
+      assert_difference 'Run.count', schedule.jobs.length do
+        schedule.save!
+      end
     end
   end
 
   test 'blank attributes' do
     @schedule.name = ''
     @schedule.start = ''
-    @schedule.script = nil
-    @schedule.server = nil
 
     assert @schedule.invalid?
     assert_error @schedule, :name, :blank
     assert_error @schedule, :start, :blank
-    assert_error @schedule, :script, :blank
-    assert_error @schedule, :server, :blank
   end
 
   test 'datetime attributes' do
@@ -87,22 +88,26 @@ class ScheduleTest < ActiveSupport::TestCase
     assert !@schedule.last_run_ok?
   end
 
+  test 'next date' do
+    skip
+  end
+
   test 'build next run' do
-    run = nil
+    runs = nil
     next_date = @schedule.send :next_date
 
     assert_difference '@schedule.runs.pending.count'  do
-      run = @schedule.build_next_run
+      runs = @schedule.build_next_runs
     end
 
-    assert run.scheduled_at.between?(next_date - 1.minute, next_date + 1.minute)
+    assert runs.all? { |run| run.scheduled_at.between?(next_date - 1.minute, next_date + 1.minute) }
   end
 
   test 'avoid build next run if schedule ended' do
     @schedule.update! start: 30.seconds.from_now, end: 1.minute.from_now
 
     assert_no_difference '@schedule.runs.pending.count'  do
-      @schedule.build_next_run
+      @schedule.build_next_runs
     end
   end
 
@@ -111,5 +116,9 @@ class ScheduleTest < ActiveSupport::TestCase
 
     assert schedules.present?
     assert schedules.all? { |s| s.name =~ /#{@schedule.name}/ }
+  end
+
+  test 'schedule' do
+    skip
   end
 end

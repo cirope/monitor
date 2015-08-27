@@ -3,7 +3,7 @@ module Runs::Validation
 
   included do
     validates :status, inclusion: { in: status_list }, presence: true
-    validates :scheduled_at, :schedule, presence: true
+    validates :scheduled_at, :job, presence: true
     validates :scheduled_at, :started_at, :ended_at, timeliness: { type: :datetime }, allow_blank: true
   end
 

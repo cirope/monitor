@@ -3,5 +3,8 @@ class Run < ActiveRecord::Base
   include Runs::Status
   include Runs::Validation
 
-  belongs_to :schedule
+  belongs_to :job
+  has_one :script, through: :job
+  has_one :server, through: :job
+  has_one :schedule, through: :job
 end

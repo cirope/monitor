@@ -19,16 +19,34 @@
         <%= f.input :frequency, collection: frequencies, prompt: false %>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-6">
-        <%= f.input :script, as: :autocomplete, url: scripts_path, input_html: {
-          data: { empty_result_label: t('schedules.script.empty') }
-        } %>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <%= Job.model_name.human count: 0 %>
+        </h3>
       </div>
-      <div class="col-md-6">
-        <%= f.input :server, as: :autocomplete, url: servers_path, input_html: {
-          data: { empty_result_label: t('schedules.server.empty') }
-        } %>
+      <div id="jobs" class="panel-body">
+        <%= f.simple_fields_for :jobs, jobs do |rf| %>
+          <%= render 'jobs/job', f: rf %>
+        <% end %>
+
+        <%= link_to_add_fields t('schedules.new.job'), f, :jobs %>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <%= Tag.model_name.human count: 0 %>
+        </h3>
+      </div>
+      <div id="tags" class="panel-body">
+        <%= f.simple_fields_for :taggings, schedule_taggings do |tf| %>
+          <%= render 'taggings/tagging', f: tf %>
+        <% end %>
+
+        <%= link_to_add_fields t('schedules.new.tagging'), f, :taggings %>
       </div>
     </div>
 

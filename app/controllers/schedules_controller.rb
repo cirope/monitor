@@ -46,7 +46,9 @@ class SchedulesController < ApplicationController
     end
 
     def schedule_params
-      params.require(:schedule).permit :name, :start, :end, :interval, :frequency, :script_id, :server_id, :lock_version,
+      params.require(:schedule).permit :name, :start, :end, :interval, :frequency, :lock_version,
+        jobs_attributes: [:id, :server_id, :script_id, :_destroy],
+        taggings_attributes: [:id, :tag_id, :_destroy],
         dependencies_attributes: [:id, :schedule_id, :_destroy]
     end
 end

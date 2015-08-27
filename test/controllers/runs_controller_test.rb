@@ -9,7 +9,7 @@ class RunsControllerTest < ActionController::TestCase
   end
 
   test 'should get index' do
-    get :index, schedule_id: @run.schedule_id
+    get :index, schedule_id: @run.schedule.id
     assert_response :success
     assert_not_nil assigns(:runs)
   end

@@ -1,0 +1,9 @@
+cd_root_on_atahualpa:
+  schedule: cd_root_on_atahualpa
+  script:  cd_root
+  server: atahualpa
+
+ls_on_atahualpa:
+  schedule: ls_on_atahualpa
+  script:  ls
+  server: atahualpa

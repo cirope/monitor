@@ -5,7 +5,7 @@ module ScriptsHelper
     @script.requires
   end
 
-  def taggings
+  def script_taggings
     @script.taggings.new if @script.taggings.empty?
 
     @script.taggings

@@ -16,14 +16,34 @@
   <strong><%= Schedule.human_attribute_name 'frequency' %></strong>:
   <%= t "schedules.frequencies.#{@schedule.frequency}" if @schedule.frequency %>
 </p>
-<p>
-  <strong><%= Schedule.human_attribute_name 'script' %></strong>:
-  <%= link_to @schedule.script, @schedule.script %>
-</p>
-<p>
-  <strong><%= Schedule.human_attribute_name 'server' %></strong>:
-  <%= link_to @schedule.server, @schedule.server %>
-</p>
+
+<% if @schedule.jobs.any? %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <%= Job.model_name.human count: @schedule.jobs.size %>
+      </h3>
+    </div>
+    <div id="jobs" class="panel-body">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th><%= Job.human_attribute_name 'server' %></th>
+            <th><%= Job.human_attribute_name 'script' %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @schedule.jobs.each do |job| %>
+            <tr>
+              <td><%= job.server %></td>
+              <td><%= job.script %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% end %>
 
 <% if @schedule.dependencies.any? %>
   <div class="panel panel-default">

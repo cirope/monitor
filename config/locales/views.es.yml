@@ -71,16 +71,18 @@ es:
       empty_html: 'No hay trabajoes, puede crear uno con el botón <span class="label label-primary">Nuevo trabajo</span>'
     new:
       title: 'Crear trabajo'
+      job: 'Agregar guión'
+      tagging: 'Agregar etiqueta'
       dependency: 'Agregar dependencia'
     show:
       title: 'Ver trabajo'
       empty_runs: 'Sin corridas'
     frequencies:
       minutes: 'Minutos'
-      hourly: 'Horas'
-      daily: 'Días'
-      weekly: 'Semanas'
-      monthly: 'Meses'
+      hours: 'Horas'
+      days: 'Días'
+      weeks: 'Semanas'
+      months: 'Meses'
     script:
       empty: 'No se encontraron guiones con el criterio'
     server:

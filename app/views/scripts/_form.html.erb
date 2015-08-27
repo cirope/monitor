@@ -44,7 +44,7 @@
         </h3>
       </div>
       <div id="tags" class="panel-body">
-        <%= f.simple_fields_for :taggings, taggings do |tf| %>
+        <%= f.simple_fields_for :taggings, script_taggings do |tf| %>
           <%= render 'taggings/tagging', f: tf %>
         <% end %>
 

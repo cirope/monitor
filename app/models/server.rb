@@ -12,7 +12,7 @@ class Server < ActiveRecord::Base
 
   strip_fields :name
 
-  has_many :schedules, dependent: :destroy
+  has_many :jobs, dependent: :destroy
 
   def to_s
     name

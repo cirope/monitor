@@ -11,6 +11,9 @@ es:
       dependency:
         one: 'Dependencia'
         other: 'Dependencias'
+      job:
+        one: 'Tarea'
+        other: 'Tareas'
       ldap:
         one: 'Configuración LDAP'
         other: 'LDAP'
@@ -46,6 +49,9 @@ es:
         description: 'Descripción'
       dependency:
         schedule: 'Trabajo'
+      job:
+        script: 'Guión'
+        server: 'Servidor'
       ldap:
         hostname: 'Dirección del servidor'
         port: 'Puerto'
@@ -75,8 +81,6 @@ es:
         end: 'Fin'
         interval: 'Intervalo'
         frequency: 'Frecuencia'
-        script: 'Guión'
-        server: 'Servidor'
       script:
         name: 'Nombre'
         file: 'Archivo'
