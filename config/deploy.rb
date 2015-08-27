@@ -1,6 +1,6 @@
 set :application, 'monitor.cirope.com'
 set :user, 'deployer'
-set :repo_url, 'git://github.com/cirope/monitor.git'
+set :repo_url, 'https://github.com/cirope/monitor.git'
 
 set :format, :pretty
 set :log_level, :info
