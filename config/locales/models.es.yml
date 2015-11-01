@@ -41,6 +41,9 @@ es:
       tag:
         one: 'Etiqueta'
         other: 'Etiquetas'
+      trigger:
+        one: 'Disparador'
+        other: 'Disparadores'
       user:
         one: 'Usuario'
         other: 'Usuarios'
@@ -100,6 +103,9 @@ es:
         credential: 'Credencial'
       tag:
         name: 'Nombre'
+      trigger:
+        callback: 'Función'
+        action: 'Acción'
       user:
         name: 'Nombre'
         lastname: 'Apellido'

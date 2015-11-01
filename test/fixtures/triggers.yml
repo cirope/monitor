@@ -1,0 +1,4 @@
+email:
+  rule: cd_email
+  callback: "puts 'test callback'"
+  action: "puts 'test action'"

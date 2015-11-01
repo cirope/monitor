@@ -2,7 +2,9 @@ class CreateRuns < ActiveRecord::Migration
   def change
     create_table :runs do |t|
       t.string :status, index: true, null: false
-      t.datetime :scheduled_at, index: true, null: false
+      t.datetime :scheduled_at, index: true, null: false, foreign_key: {
+        on_delete: :restrict, on_update: :restrict
+      }
       t.datetime :started_at
       t.datetime :ended_at
       t.text :output
@@ -11,7 +13,5 @@ class CreateRuns < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-
-    add_foreign_key :runs, :schedules, on_delete: :restrict, on_update: :restrict
   end
 end

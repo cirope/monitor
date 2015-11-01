@@ -2,6 +2,7 @@ class Rule < ActiveRecord::Base
   include Auditable
   include Attributes::Strip
   include SearchableByName
+  include Rules::Triggers
 
   validates :name, presence: true
 

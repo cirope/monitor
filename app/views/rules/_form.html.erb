@@ -14,6 +14,22 @@
         </div>
       </div>
     </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <%= Trigger.model_name.human count: 0 %>
+        </h3>
+      </div>
+      <div id="triggers" class="panel-body">
+        <%= f.simple_fields_for :triggers, triggers do |rf| %>
+          <%= render 'triggers/trigger', f: rf %>
+        <% end %>
+
+        <%= link_to_add_fields t('rules.new.trigger'), f, :triggers %>
+      </div>
+    </div>
+
     <%= f.input :lock_version, as: :hidden %>
   </div>
 

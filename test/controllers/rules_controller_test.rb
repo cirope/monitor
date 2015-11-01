@@ -19,9 +19,16 @@ class RulesControllerTest < ActionController::TestCase
   end
 
   test 'should create rule' do
-    assert_difference 'Rule.count' do
+    assert_difference ['Rule.count', 'Trigger.count'] do
       post :create, rule: {
-        to: 'john@doe.com', name: 'John Doe (when arrives)', enabled: '1'
+        name: 'Send email if anything goes wrong',
+        enabled: '1',
+        triggers_attributes: [
+          {
+            callback: 'puts "test callback"',
+            action: 'puts "test action"'
+          }
+        ]
       }
     end
 
@@ -39,7 +46,7 @@ class RulesControllerTest < ActionController::TestCase
   end
 
   test 'should update rule' do
-    patch :update, id: @rule, rule: { name: 'New name' }
+    patch :update, id: @rule, rule: { name: 'Updated name' }
     assert_redirected_to rule_url(assigns(:rule))
   end
 

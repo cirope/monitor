@@ -5,5 +5,31 @@
   <%= t @rule.enabled ? 'yes' : 'no' %>
 </p>
 
+<% if @rule.triggers.any? %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <%= Trigger.model_name.human count: @rule.triggers.size %>
+      </h3>
+    </div>
+    <div id="triggers" class="panel-body">
+      <% @rule.triggers.each do |trigger| %>
+        <div class="row">
+          <div class="col-md-6">
+            <textarea id="trigger_callback_<%= trigger.id %>" class="hidden" data-editor data-readonly="true">
+              <%= trigger.callback %>
+            </textarea>
+          </div>
+          <div class="col-md-6">
+            <textarea id="trigger_action_<%= trigger.id %>" class="hidden" data-editor data-readonly="true">
+              <%= trigger.action %>
+            </textarea>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
 <%= link_to_edit [:edit, @rule] %> |
 <%= link_to_index rules_path %>

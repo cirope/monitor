@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151101152313) do
+ActiveRecord::Schema.define(version: 20151101163244) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -172,6 +172,17 @@ ActiveRecord::Schema.define(version: 20151101152313) do
 
   add_index "tags", ["name"], name: "index_tags_on_name", using: :btree
 
+  create_table "triggers", force: :cascade do |t|
+    t.integer  "rule_id",                  null: false
+    t.text     "callback",                 null: false
+    t.text     "action",                   null: false
+    t.integer  "lock_version", default: 0, null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "triggers", ["rule_id"], name: "index_triggers_on_rule_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "name",                               null: false
     t.string   "lastname",                           null: false
@@ -212,4 +223,5 @@ ActiveRecord::Schema.define(version: 20151101152313) do
   add_foreign_key "requires", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "runs", "jobs", on_update: :restrict, on_delete: :restrict
   add_foreign_key "taggings", "tags", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "triggers", "rules", on_update: :restrict, on_delete: :restrict
 end

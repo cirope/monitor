@@ -46,6 +46,7 @@ class RulesController < ApplicationController
     end
 
     def rule_params
-      params.require(:rule).permit :name, :enabled, :lock_version
+      params.require(:rule).permit :name, :enabled, :lock_version,
+        triggers_attributes: [:id, :callback, :action, :_destroy]
     end
 end

@@ -1,0 +1,16 @@
+<fieldset class="rule_trigger">
+  <div class="row">
+    <div class="col-md-6">
+      <%= f.input :callback, input_html: { class: 'hidden', data: { editor: true } } %>
+    </div>
+    <div class="col-md-5">
+      <%= f.input :action, input_html: { class: 'hidden', data: { editor: true } } %>
+    </div>
+    <div class="col-md-1">
+      <div class="row-controls">
+        <%= f.input :id, as: :hidden %>
+        <%= link_to_remove_nested_item f %>
+      </div>
+    </div>
+  </div>
+</fieldset>
