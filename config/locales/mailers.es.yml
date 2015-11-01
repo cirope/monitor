@@ -1,4 +1,8 @@
 es:
+  notifier:
+    notify:
+      subject: 'Notificación'
+
   user_mailer:
     password_reset:
       subject: 'Restablecer contraseña'
