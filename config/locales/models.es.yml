@@ -23,6 +23,9 @@ es:
       require:
         one: 'Inclusión'
         other: 'Inclusiones'
+      rule:
+        one: 'Regla'
+        other: 'Reglas'
       run:
         one: 'Corrida'
         other: 'Corridas'
@@ -69,6 +72,9 @@ es:
         value: 'Valor'
       require:
         script: 'Guión'
+      rule:
+        name: 'Nombre'
+        enabled: 'Habilitada'
       run:
         status: 'Estado'
         scheduled_at: 'Programado para'

@@ -34,6 +34,16 @@ es:
         notice: 'Tus datos se actualizaron correctamente'
         stale: 'No pudimos actualizar los datos, revise e inténtelo nuevamente'
 
+    rules:
+      create:
+        notice: 'Regla creada'
+      update:
+        notice: 'Regla actualizada'
+        alert:  ''
+      destroy:
+        notice: 'Regla eliminada'
+        alert:  'La regla no pudo ser eliminada'
+
     sessions:
       create:
         invalid: 'Tu correo y/o contraseña no están bien =('

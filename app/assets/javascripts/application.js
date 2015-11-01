@@ -30,6 +30,7 @@
 //= require ldaps
 //= require password_resets
 //= require profiles
+//= require rules
 //= require runs
 //= require scripts
 //= require servers

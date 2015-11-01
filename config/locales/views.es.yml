@@ -48,6 +48,18 @@ es:
     require:
       empty: 'No se encontraron guiones con ese criterio'
 
+  rules:
+    edit:
+      title: 'Editar regla'
+    index:
+      new: 'Nueva regla'
+      title: 'Listado de reglas'
+      empty_html: 'No hay reglas, puede crear una con el botón <span class="label label-primary">Nueva regla</span>'
+    new:
+      title: 'Crear regla'
+    show:
+      title: 'Ver regla'
+
   runs:
     index:
       title: 'Listado de corridas'
@@ -62,6 +74,19 @@ es:
       error: 'Finalizada con errores'
       canceled: 'Cancelada'
 
+  scripts:
+    edit:
+      title: 'Editar guión'
+    index:
+      new: 'Nuevo guión'
+      title: 'Listado de guiones'
+      empty_html: 'No hay guiones, puede crear uno con el botón <span class="label label-primary">Nuevo guión</span>'
+    new:
+      title: 'Crear guión'
+      require: 'Agregar inclusión'
+      tagging: 'Agregar etiqueta'
+    show:
+      title: 'Ver guión'
   schedules:
     edit:
       title: 'Editar trabajo'

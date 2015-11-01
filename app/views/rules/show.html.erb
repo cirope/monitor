@@ -1,0 +1,9 @@
+<h2><%= @rule %></h2>
+
+<p>
+  <strong><%= Rule.human_attribute_name 'enabled' %></strong>:
+  <%= t @rule.enabled ? 'yes' : 'no' %>
+</p>
+
+<%= link_to_edit [:edit, @rule] %> |
+<%= link_to_index rules_path %>
