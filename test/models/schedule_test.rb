@@ -76,7 +76,7 @@ class ScheduleTest < ActiveSupport::TestCase
     assert_error @schedule, :frequency, :inclusion
   end
 
-  test 'run' do
+  test 'run?' do
     assert !@schedule.run?
   end
 
@@ -101,6 +101,14 @@ class ScheduleTest < ActiveSupport::TestCase
     end
 
     assert runs.all? { |run| run.scheduled_at.between?(next_date - 1.minute, next_date + 1.minute) }
+  end
+
+  test 'run' do
+    assert_difference '@schedule.runs.count'  do
+      assert_no_difference '@schedule.runs.pending.count'  do
+        @schedule.run
+      end
+    end
   end
 
   test 'avoid build next run if schedule ended' do

@@ -44,6 +44,10 @@ es:
         notice: 'Regla eliminada'
         alert:  'La regla no pudo ser eliminada'
 
+    schedules:
+      run:
+        notice: 'Ejecución programada'
+
     sessions:
       create:
         invalid: 'Tu correo y/o contraseña no están bien =('

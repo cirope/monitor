@@ -92,4 +92,12 @@ class SchedulesControllerTest < ActionController::TestCase
 
     assert_redirected_to schedules_url
   end
+
+  test 'should schedule runs' do
+    assert_difference '@schedule.runs.count'  do
+      post :run, id: @schedule
+    end
+
+    assert_redirected_to schedule_runs_url(@schedule)
+  end
 end

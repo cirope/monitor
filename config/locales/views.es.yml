@@ -107,6 +107,7 @@ es:
       dispatcher: 'Agregar regla'
     show:
       title: 'Ver trabajo'
+      run: 'Ejecutar ahora'
       empty_runs: 'Sin corridas'
     frequencies:
       minutes: 'Minutos'

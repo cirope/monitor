@@ -19,6 +19,8 @@ Rails.application.routes.draw do
   resources :password_resets, only: [:new, :create, :edit, :update]
 
   resources :schedules do
+    post :run, on: :member, as: :run
+
     resources :runs, shallow: true, only: [:index, :show, :destroy]
   end
 

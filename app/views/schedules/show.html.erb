@@ -1,4 +1,12 @@
-<h2><%= @schedule %></h2>
+<h2>
+  <%= @schedule %>
+  <div class="pull-right">
+    <%= link_to_run do %>
+      <span class="glyphicon glyphicon-play"></span>
+      <%= t '.run' %>
+    <% end %>
+  </div>
+</h2>
 
 <p>
   <strong><%= Schedule.human_attribute_name 'start' %></strong>:

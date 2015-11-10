@@ -1,6 +1,6 @@
 class SchedulesController < ApplicationController
   before_action :set_title, except: [:destroy]
-  before_action :set_schedule, only: [:show, :edit, :update, :destroy]
+  before_action :set_schedule, only: [:show, :edit, :update, :destroy, :run]
 
   respond_to :html, :json
 
@@ -38,6 +38,12 @@ class SchedulesController < ApplicationController
   def destroy
     @schedule.destroy
     respond_with @schedule
+  end
+
+  def run
+    @schedule.run
+
+    respond_with @schedule, location: schedule_runs_url(@schedule)
   end
 
   private
