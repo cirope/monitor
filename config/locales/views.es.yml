@@ -36,6 +36,20 @@ es:
     dispatcher:
       empty: 'No se encontraron reglas con ese criterio'
 
+  issues:
+    edit:
+      title: 'Editar caso'
+    index:
+      new: 'Nuevo caso'
+      title: 'Listado de casos'
+      empty_html: 'No tiene casos'
+    show:
+      title: 'Ver caso'
+    status:
+      pending: 'Pendiente'
+      taken: 'En proceso'
+      closed: 'Cerrado'
+
   ldaps:
     edit:
       title: 'Editar configuración LDAP'
@@ -92,6 +106,7 @@ es:
       tagging: 'Agregar etiqueta'
     show:
       title: 'Ver guión'
+
   schedules:
     edit:
       title: 'Editar trabajo'
@@ -119,20 +134,6 @@ es:
       empty: 'No se encontraron guiones con el criterio'
     server:
       empty: 'No se encontraron servidores con el criterio'
-
-  scripts:
-    edit:
-      title: 'Editar guión'
-    index:
-      new: 'Nuevo guión'
-      title: 'Listado de guiones'
-      empty_html: 'No hay guiones, puede crear uno con el botón <span class="label label-primary">Nuevo guión</span>'
-    new:
-      title: 'Crear guión'
-      require: 'Agregar inclusión'
-      tagging: 'Agregar etiqueta'
-    show:
-      title: 'Ver guión'
 
   servers:
     edit:

@@ -1,0 +1,11 @@
+<%= simple_form_for @issue do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :status, collection: status, input_html: { autofocus: true } %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, class: 'btn-primary' %>
+  </div>
+<% end %>

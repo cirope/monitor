@@ -7,4 +7,5 @@ class Run < ActiveRecord::Base
   has_one :script, through: :job
   has_one :server, through: :job
   has_one :schedule, through: :job
+  has_many :issues, dependent: :destroy
 end

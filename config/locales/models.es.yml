@@ -11,6 +11,9 @@ es:
       dependency:
         one: 'Dependencia'
         other: 'Dependencias'
+      issue:
+        one: 'Caso'
+        other: 'Casos'
       job:
         one: 'Tarea'
         other: 'Tareas'
@@ -55,6 +58,10 @@ es:
         description: 'Descripción'
       dependency:
         schedule: 'Trabajo'
+      issue:
+        status: 'Estado'
+        run: 'Corrida'
+        data: 'Datos'
       job:
         script: 'Guión'
         server: 'Servidor'

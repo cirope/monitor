@@ -27,6 +27,7 @@
 //= require dynamic_form
 //= require effect_helper
 //= require databases
+//= require issues
 //= require ldaps
 //= require password_resets
 //= require profiles

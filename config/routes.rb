@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   # Resources
   resources :databases
+  resources :issues, except: [:new, :create]
   resources :ldaps
   resources :rules
   resources :scripts

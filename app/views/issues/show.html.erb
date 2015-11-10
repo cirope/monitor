@@ -1,0 +1,26 @@
+<h2><%= @issue %></h2>
+
+<p>
+  <strong><%= Issue.human_attribute_name 'run' %></strong>:
+  <%= @issue.run %>
+</p>
+
+<% if @issue.data.present? %>
+  <p>
+    <strong><%= Issue.human_attribute_name 'data' %></strong>
+  </p>
+
+  <table class="table table-condensed table-hover">
+    <tbody>
+      <% @issue.data.each do |k, v| %>
+        <tr>
+          <td><%= k %></td>
+          <td><%= v %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<%= link_to_edit [:edit, @issue] %> |
+<%= link_to_index issues_path %>
