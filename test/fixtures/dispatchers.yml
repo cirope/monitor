@@ -1,0 +1,3 @@
+cd_email:
+  schedule: cd_root_on_atahualpa
+  rule: cd_email

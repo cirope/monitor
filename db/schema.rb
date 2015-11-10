@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151101163244) do
+ActiveRecord::Schema.define(version: 20151110005053) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,16 @@ ActiveRecord::Schema.define(version: 20151101163244) do
 
   add_index "dependencies", ["dependent_id"], name: "index_dependencies_on_dependent_id", using: :btree
   add_index "dependencies", ["schedule_id"], name: "index_dependencies_on_schedule_id", using: :btree
+
+  create_table "dispatchers", force: :cascade do |t|
+    t.integer  "schedule_id"
+    t.integer  "rule_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "dispatchers", ["rule_id"], name: "index_dispatchers_on_rule_id", using: :btree
+  add_index "dispatchers", ["schedule_id"], name: "index_dispatchers_on_schedule_id", using: :btree
 
   create_table "jobs", force: :cascade do |t|
     t.integer  "schedule_id"
@@ -214,6 +224,8 @@ ActiveRecord::Schema.define(version: 20151101163244) do
 
   add_foreign_key "dependencies", "schedules", column: "dependent_id", on_update: :restrict, on_delete: :restrict
   add_foreign_key "dependencies", "schedules", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "dispatchers", "rules", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "dispatchers", "schedules", on_update: :restrict, on_delete: :restrict
   add_foreign_key "jobs", "schedules", on_update: :restrict, on_delete: :restrict
   add_foreign_key "jobs", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "jobs", "servers", on_update: :restrict, on_delete: :restrict

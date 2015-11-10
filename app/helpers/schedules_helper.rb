@@ -23,6 +23,12 @@ module SchedulesHelper
     @schedule.dependencies
   end
 
+  def dispatchers
+    @schedule.dispatchers.new if @schedule.dispatchers.empty?
+
+    @schedule.dispatchers
+  end
+
   def link_to_runs schedule
     link_to schedule_runs_path(schedule), title: Run.model_name.human(count: 0) do
       content_tag :span, nil, class: 'glyphicon glyphicon-console'

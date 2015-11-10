@@ -32,6 +32,10 @@ es:
     dependency:
       empty: 'No se encontraron trabajos con ese criterio'
 
+  dispatchers:
+    dispatcher:
+      empty: 'No se encontraron reglas con ese criterio'
+
   ldaps:
     edit:
       title: 'Editar configuración LDAP'
@@ -100,6 +104,7 @@ es:
       job: 'Agregar guión'
       tagging: 'Agregar etiqueta'
       dependency: 'Agregar dependencia'
+      dispatcher: 'Agregar regla'
     show:
       title: 'Ver trabajo'
       empty_runs: 'Sin corridas'

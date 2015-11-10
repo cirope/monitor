@@ -28,7 +28,15 @@ class SchedulesControllerTest < ActionController::TestCase
   end
 
   test 'should create schedule' do
-    assert_difference ['Schedule.count', 'Dependency.count', 'Job.count', 'Tagging.count'] do
+    counts = [
+      'Schedule.count',
+      'Dependency.count',
+      'Dispatcher.count',
+      'Job.count',
+      'Tagging.count'
+    ]
+
+    assert_difference counts do
       post :create, schedule: {
         name:      @schedule.name,
         start:     @schedule.start,
@@ -49,6 +57,11 @@ class SchedulesControllerTest < ActionController::TestCase
         dependencies_attributes: [
           {
             schedule_id: schedules(:ls_on_atahualpa).id.to_s
+          }
+        ],
+        dispatchers_attributes: [
+          {
+            rule_id: rules(:cd_email).id.to_s
           }
         ]
       }

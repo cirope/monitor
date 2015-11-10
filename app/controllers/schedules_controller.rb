@@ -49,6 +49,7 @@ class SchedulesController < ApplicationController
       params.require(:schedule).permit :name, :start, :end, :interval, :frequency, :lock_version,
         jobs_attributes: [:id, :server_id, :script_id, :_destroy],
         taggings_attributes: [:id, :tag_id, :_destroy],
-        dependencies_attributes: [:id, :schedule_id, :_destroy]
+        dependencies_attributes: [:id, :schedule_id, :_destroy],
+        dispatchers_attributes: [:id, :rule_id, :_destroy]
     end
 end
