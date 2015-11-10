@@ -21,11 +21,13 @@ class UserTest < ActiveSupport::TestCase
     @user.name = ''
     @user.lastname = ''
     @user.email = ''
+    @user.role = ''
 
     assert @user.invalid?
     assert_error @user, :name, :blank
     assert_error @user, :lastname, :blank
     assert_error @user, :email, :blank
+    assert_error @user, :role, :blank
   end
 
   test 'unique email' do
@@ -53,11 +55,20 @@ class UserTest < ActiveSupport::TestCase
     @user.name = 'abcde' * 52
     @user.lastname = 'abcde' * 52
     @user.email = 'abcde' * 52
+    @user.role = 'abcde' * 52
 
     assert @user.invalid?
     assert_error @user, :name, :too_long, count: 255
     assert_error @user, :lastname, :too_long, count: 255
     assert_error @user, :email, :too_long, count: 255
+    assert_error @user, :role, :too_long, count: 255
+  end
+
+  test 'included attributes' do
+    @user.role = 'wrong'
+
+    assert @user.invalid?
+    assert_error @user, :role, :inclusion
   end
 
   test 'password expired' do

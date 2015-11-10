@@ -198,3 +198,8 @@ es:
       title: 'Crear usuario'
     show:
       title: 'Ver usuario'
+    roles:
+      security: 'Seguridad'
+      supervisor: 'Supervisor'
+      author: 'Autor'
+      guest: 'Invitado'

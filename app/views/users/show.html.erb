@@ -4,6 +4,11 @@
   <%= mail_to @user.email %>
 </p>
 
+<p>
+  <strong><%= User.human_attribute_name 'role' %></strong>:
+  <%= t "users.roles.#{@user.role}" %>
+</p>
+
 <hr>
 
 <%= link_to_edit [:edit, @user] %> |

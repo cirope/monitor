@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   include Users::Authentication
   include Users::Overrides
   include Users::PasswordReset
+  include Users::Roles
   include Users::Validation
 
   strip_fields :name, :lastname, :email
