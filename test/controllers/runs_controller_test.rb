@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class RunsControllerTest < ActionController::TestCase
-
   setup do
     @run = runs :ls_on_atahualpa
 

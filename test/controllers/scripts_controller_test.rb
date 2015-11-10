@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class ScriptsControllerTest < ActionController::TestCase
-
   setup do
     @script = scripts :ls
 

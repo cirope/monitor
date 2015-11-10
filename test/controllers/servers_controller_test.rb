@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class ServersControllerTest < ActionController::TestCase
-
   setup do
     @server = servers :atahualpa
 

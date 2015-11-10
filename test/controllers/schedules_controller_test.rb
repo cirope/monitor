@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class SchedulesControllerTest < ActionController::TestCase
-
   setup do
     @schedule = schedules :ls_on_atahualpa
 

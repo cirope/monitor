@@ -5,7 +5,6 @@ class ScriptJob < ActiveJob::Base
     job      = run.job
     schedule = run.schedule
 
-
     run.update! status: 'running', started_at: Time.now
 
     Run.transaction do
