@@ -25,7 +25,7 @@ class SessionsController < ApplicationController
   private
 
     def default_url
-      schedules_url
+      issues_url
     end
 
     def store_auth_token user
