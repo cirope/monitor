@@ -13,6 +13,15 @@ class RulesControllerTest < ActionController::TestCase
     assert_not_nil assigns(:rules)
   end
 
+  test 'should filtered index' do
+    get :index, q: @rule.name, format: :json
+    assert_response :success
+
+    rules = assigns :rules
+    assert_equal 1, rules.size
+    assert_equal @rule.name, rules.first.name
+  end
+
   test 'should get new' do
     get :new
     assert_response :success
