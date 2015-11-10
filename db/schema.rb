@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151110005053) do
+ActiveRecord::Schema.define(version: 20151110041504) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -113,8 +113,10 @@ ActiveRecord::Schema.define(version: 20151110005053) do
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.integer  "job_id"
+    t.jsonb    "data"
   end
 
+  add_index "runs", ["data"], name: "index_runs_on_data", using: :gin
   add_index "runs", ["job_id"], name: "index_runs_on_job_id", using: :btree
   add_index "runs", ["scheduled_at"], name: "index_runs_on_scheduled_at", using: :btree
   add_index "runs", ["status"], name: "index_runs_on_status", using: :btree

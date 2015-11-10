@@ -84,6 +84,7 @@ es:
         started_at: 'Fecha inicio ejecución'
         ended_at: 'Fecha fin ejecución'
         output: 'Salida'
+        data: 'Datos'
       schedule:
         name: 'Nombre'
         start: 'Inicio'
