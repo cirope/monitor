@@ -80,4 +80,11 @@ class UserTest < ActiveSupport::TestCase
 
     assert @user.password_expired?
   end
+
+  test 'search' do
+    users = User.search query: @user.name
+
+    assert users.present?
+    assert users.all? { |s| s.name =~ /#{@user.name}/ }
+  end
 end

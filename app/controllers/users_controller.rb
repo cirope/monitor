@@ -7,7 +7,7 @@ class UsersController < ApplicationController
 
   # GET /users
   def index
-    @users = User.order(:lastname, :name, :id).page params[:page]
+    @users = User.search(query: params[:q], limit: request.xhr? && 10).ordered.page params[:page]
   end
 
   # GET /users/1
