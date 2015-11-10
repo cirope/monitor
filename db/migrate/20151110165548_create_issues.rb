@@ -6,6 +6,7 @@ class CreateIssues < ActiveRecord::Migration
       t.references :run, index: true, null: false, foreign_key: {
         on_delete: :restrict, on_update: :restrict
       }
+      t.integer :lock_version, default: 0, null: false
 
       t.timestamps null: false
     end

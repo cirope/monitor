@@ -33,6 +33,6 @@ class IssuesController < ApplicationController
     end
 
     def issue_params
-      params.require(:issue).permit :run_id
+      params.require(:issue).permit :status
     end
 end

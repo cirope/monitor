@@ -5,6 +5,11 @@
   <%= @issue.run %>
 </p>
 
+<p>
+  <strong><%= Issue.human_attribute_name 'status' %></strong>:
+  <%= issue_status @issue.status %>
+</p>
+
 <% if @issue.data.present? %>
   <p>
     <strong><%= Issue.human_attribute_name 'data' %></strong>

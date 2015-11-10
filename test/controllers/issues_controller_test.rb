@@ -25,7 +25,7 @@ class IssuesControllerTest < ActionController::TestCase
   end
 
   test 'should update issue' do
-    patch :update, id: @issue, issue: { attr: 'value' }
+    patch :update, id: @issue, issue: { status: 'taken' }
     assert_redirected_to issue_url(assigns(:issue))
   end
 

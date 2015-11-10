@@ -8,4 +8,8 @@ class Run < ActiveRecord::Base
   has_one :server, through: :job
   has_one :schedule, through: :job
   has_many :issues, dependent: :destroy
+
+  def to_s
+    schedule.to_s
+  end
 end

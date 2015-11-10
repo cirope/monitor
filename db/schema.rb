@@ -47,11 +47,12 @@ ActiveRecord::Schema.define(version: 20151110165548) do
   add_index "dispatchers", ["schedule_id"], name: "index_dispatchers_on_schedule_id", using: :btree
 
   create_table "issues", force: :cascade do |t|
-    t.string   "status",     null: false
+    t.string   "status",                   null: false
     t.jsonb    "data"
-    t.integer  "run_id",     null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "run_id",                   null: false
+    t.integer  "lock_version", default: 0, null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   add_index "issues", ["created_at"], name: "index_issues_on_created_at", using: :btree
