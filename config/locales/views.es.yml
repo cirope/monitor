@@ -43,6 +43,8 @@ es:
       new: 'Nuevo caso'
       title: 'Listado de casos'
       empty_html: 'No tiene casos'
+    new:
+      subscription: 'Agregar usuario'
     show:
       title: 'Ver caso'
     status:
@@ -155,6 +157,10 @@ es:
       password: 'Contraseña'
       remember_me: 'Recordarme'
       forgot_password: '¿Olvidaste tu contraseña?'
+
+  subscriptions:
+    subscription:
+      empty: 'No se encontraron usuarios con ese criterio'
 
   password_resets:
     edit:

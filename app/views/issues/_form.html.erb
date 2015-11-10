@@ -4,6 +4,21 @@
   <div class="form-inputs">
     <%= f.input :status, collection: status, prompt: false, input_html: { autofocus: true } %>
     <%= f.input :lock_version, as: :hidden %>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <%= User.model_name.human count: 0 %>
+        </h3>
+      </div>
+      <div id="subscriptions" class="panel-body">
+        <%= f.simple_fields_for :subscriptions, subscriptions do |df| %>
+          <%= render 'subscriptions/subscription', f: df %>
+        <% end %>
+
+        <%= link_to_add_fields t('issues.new.subscription'), f, :subscriptions %>
+      </div>
+    </div>
   </div>
 
   <div class="form-actions">

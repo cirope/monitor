@@ -10,6 +10,6 @@ class Run < ActiveRecord::Base
   has_many :issues, dependent: :destroy
 
   def to_s
-    schedule.to_s
+    "#{schedule} (#{I18n.l scheduled_at, format: :short})"
   end
 end

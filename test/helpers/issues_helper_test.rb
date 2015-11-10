@@ -12,4 +12,15 @@ class IssuesHelperTest < ActionView::TestCase
     assert_match /label-warning/, issue_status('taken')
     assert_match /label-success/, issue_status('closed')
   end
+
+  test 'issue subscriptions' do
+    @issue = issues :ls_on_atahualpa_not_well
+
+    assert_equal @issue.subscriptions, subscriptions
+
+    @issue = Issue.new
+
+    assert_equal 1, subscriptions.size
+    assert subscriptions.all?(&:new_record?)
+  end
 end

@@ -25,7 +25,15 @@ class IssuesControllerTest < ActionController::TestCase
   end
 
   test 'should update issue' do
-    patch :update, id: @issue, issue: { status: 'taken' }
+    assert_difference 'Subscription.count' do
+      patch :update, id: @issue, issue: {
+        status: 'taken',
+        subscriptions_attributes: [
+          { user_id: users(:john).id.to_s }
+        ]
+      }
+    end
+
     assert_redirected_to issue_url(assigns(:issue))
   end
 

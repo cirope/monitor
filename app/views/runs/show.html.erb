@@ -46,4 +46,21 @@
   </table>
 <% end %>
 
+<% if @run.issues.any? %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <%= Issue.model_name.human count: @run.issues.size %>
+      </h3>
+    </div>
+    <div id="issues" class="panel-body">
+      <ul>
+        <% @run.issues.each do |issue| %>
+          <li><%= link_to issue, issue %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>
+
 <%= link_to_index schedule_runs_path(@run.schedule) %>

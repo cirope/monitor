@@ -1,6 +1,7 @@
 class Issue < ActiveRecord::Base
   include Auditable
   include Issues::Status
+  include Issues::Subscriptions
   include Issues::Validation
 
   belongs_to :run

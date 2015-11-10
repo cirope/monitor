@@ -1,13 +1,13 @@
-<h2><%= @issue %></h2>
+<h2>
+  <%= @issue %>
+  <small class="pull-right">
+    <%= issue_status @issue.status %>
+  </small>
+</h2>
 
 <p>
   <strong><%= Issue.human_attribute_name 'run' %></strong>:
-  <%= @issue.run %>
-</p>
-
-<p>
-  <strong><%= Issue.human_attribute_name 'status' %></strong>:
-  <%= issue_status @issue.status %>
+  <%= link_to @issue.run, @issue.run %>
 </p>
 
 <% if @issue.data.present? %>
@@ -25,6 +25,23 @@
       <% end %>
     </tbody>
   </table>
+<% end %>
+
+<% if @issue.subscriptions.any? %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <%= User.model_name.human count: @issue.subscriptions.size %>
+      </h3>
+    </div>
+    <div id="subscriptions" class="panel-body">
+      <ul>
+        <% @issue.subscriptions.each do |subscription| %>
+          <li><%= link_to subscription.user, subscription.user %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
 <% end %>
 
 <%= link_to_edit [:edit, @issue] %> |
