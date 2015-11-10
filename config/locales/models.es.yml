@@ -105,7 +105,6 @@ es:
         name: 'Nombre'
       trigger:
         callback: 'Función'
-        action: 'Acción'
       user:
         name: 'Nombre'
         lastname: 'Apellido'

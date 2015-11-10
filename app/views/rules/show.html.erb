@@ -14,18 +14,9 @@
     </div>
     <div id="triggers" class="panel-body">
       <% @rule.triggers.each do |trigger| %>
-        <div class="row">
-          <div class="col-md-6">
-            <textarea id="trigger_callback_<%= trigger.id %>" class="hidden" data-editor data-readonly="true">
-              <%= trigger.callback %>
-            </textarea>
-          </div>
-          <div class="col-md-6">
-            <textarea id="trigger_action_<%= trigger.id %>" class="hidden" data-editor data-readonly="true">
-              <%= trigger.action %>
-            </textarea>
-          </div>
-        </div>
+        <textarea id="trigger_callback_<%= trigger.id %>" class="hidden" data-editor data-readonly="true">
+          <%= trigger.callback %>
+        </textarea>
       <% end %>
     </div>
   </div>

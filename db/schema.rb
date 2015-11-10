@@ -175,7 +175,6 @@ ActiveRecord::Schema.define(version: 20151101163244) do
   create_table "triggers", force: :cascade do |t|
     t.integer  "rule_id",                  null: false
     t.text     "callback",                 null: false
-    t.text     "action",                   null: false
     t.integer  "lock_version", default: 0, null: false
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false

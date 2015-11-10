@@ -5,7 +5,6 @@ class CreateTriggers < ActiveRecord::Migration
         on_delete: :restrict, on_update: :restrict
       }
       t.text :callback, null: false
-      t.text :action, null: false
       t.integer :lock_version, default: 0, null: false
 
       t.timestamps null: false

@@ -7,10 +7,8 @@ class TriggerTest < ActiveSupport::TestCase
 
   test 'blank attributes' do
     @trigger.callback = ''
-    @trigger.action = ''
 
     assert @trigger.invalid?
     assert_error @trigger, :callback, :blank
-    assert_error @trigger, :action, :blank
   end
 end
