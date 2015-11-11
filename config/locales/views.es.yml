@@ -80,6 +80,7 @@ es:
       trigger: 'Agregar disparador'
     show:
       title: 'Ver regla'
+      last_output: 'Última salida'
 
   runs:
     index:

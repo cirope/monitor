@@ -5,7 +5,7 @@ class ScriptJob < ActiveJob::Base
     job      = run.job
     schedule = run.schedule
 
-    run.update! status: 'running', started_at: Time.now
+    run.update! status: 'running', started_at: Time.zone.now
 
     Run.transaction do
       out  = { status: 'canceled' }
@@ -18,6 +18,8 @@ class ScriptJob < ActiveJob::Base
         data:     data,
         ended_at: Time.zone.now
       )
+
+      run.execute_triggers
     end
   end
 end

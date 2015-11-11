@@ -1,7 +1,7 @@
 class Trigger < ActiveRecord::Base
   include Auditable
-
-  validates :callback, presence: true
+  include Triggers::Run
+  include Triggers::Validation
 
   belongs_to :rule
 end

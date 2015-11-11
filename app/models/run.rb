@@ -2,6 +2,7 @@ class Run < ActiveRecord::Base
   include Runs::Schedule
   include Runs::Status
   include Runs::Validation
+  include Runs::Triggers
 
   belongs_to :job
   has_one :script, through: :job

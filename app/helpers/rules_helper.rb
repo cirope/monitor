@@ -4,4 +4,8 @@ module RulesHelper
 
     @rule.triggers
   end
+
+  def last_output trigger
+    trigger.outputs.last.try :text
+  end
 end

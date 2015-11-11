@@ -11,4 +11,8 @@ class RulesHelperTest < ActionView::TestCase
     assert_equal 1, triggers.size
     assert triggers.all?(&:new_record?)
   end
+
+  test 'last output' do
+    assert_not_nil last_output(Trigger.take)
+  end
 end

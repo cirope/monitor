@@ -11,4 +11,8 @@ class TriggerTest < ActiveSupport::TestCase
     assert @trigger.invalid?
     assert_error @trigger, :callback, :blank
   end
+
+  test 'run on' do
+    skip
+  end
 end

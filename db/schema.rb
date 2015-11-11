@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151110210632) do
+ActiveRecord::Schema.define(version: 20151110225134) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,6 +86,18 @@ ActiveRecord::Schema.define(version: 20151110210632) do
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
   end
+
+  create_table "outputs", force: :cascade do |t|
+    t.text     "text"
+    t.integer  "trigger_id", null: false
+    t.integer  "run_id",     null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "outputs", ["created_at"], name: "index_outputs_on_created_at", using: :btree
+  add_index "outputs", ["run_id"], name: "index_outputs_on_run_id", using: :btree
+  add_index "outputs", ["trigger_id"], name: "index_outputs_on_trigger_id", using: :btree
 
   create_table "properties", force: :cascade do |t|
     t.string   "key",         null: false
@@ -257,6 +269,8 @@ ActiveRecord::Schema.define(version: 20151110210632) do
   add_foreign_key "jobs", "schedules", on_update: :restrict, on_delete: :restrict
   add_foreign_key "jobs", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "jobs", "servers", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "outputs", "runs", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "outputs", "triggers", on_update: :restrict, on_delete: :restrict
   add_foreign_key "properties", "databases", on_update: :restrict, on_delete: :restrict
   add_foreign_key "requires", "scripts", column: "caller_id", on_update: :restrict, on_delete: :restrict
   add_foreign_key "requires", "scripts", on_update: :restrict, on_delete: :restrict

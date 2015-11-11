@@ -20,6 +20,9 @@ es:
       ldap:
         one: 'Configuración LDAP'
         other: 'LDAP'
+      output:
+        one: 'Salida'
+        other: 'Salidas'
       property:
         one: 'Propiedad'
         other: 'Propiedades'

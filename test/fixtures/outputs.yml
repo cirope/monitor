@@ -1,0 +1,4 @@
+email_output:
+  text: trigger output text
+  trigger: email
+  run: past_ls_on_atahualpa
