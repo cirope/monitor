@@ -27,6 +27,7 @@ gem 'net-scp'
 gem 'sidekiq'
 gem 'whenever', require: false
 gem 'paper_trail'
+gem 'roadie-rails'
 
 gem 'unicorn'
 

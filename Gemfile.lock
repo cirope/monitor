@@ -36,6 +36,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    addressable (2.3.8)
     arel (6.0.3)
     bcrypt (3.1.10)
     binding_of_caller (0.7.2)
@@ -92,6 +93,8 @@ GEM
     coffee-script-source (1.9.1.1)
     colorize (0.7.7)
     connection_pool (2.2.0)
+    css_parser (1.3.7)
+      addressable
     debug_inspector (0.0.2)
     erubis (2.7.0)
     execjs (2.6.0)
@@ -173,6 +176,12 @@ GEM
     request_store (1.2.0)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
+    roadie (3.0.5)
+      css_parser (~> 1.3.4)
+      nokogiri (~> 1.6.0)
+    roadie-rails (1.0.6)
+      railties (>= 3.0, < 4.3)
+      roadie (~> 3.0)
     sass (3.4.19)
     sass-rails (5.0.4)
       railties (>= 4.0.0, < 5.0)
@@ -192,7 +201,7 @@ GEM
     simple_form (3.2.0)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
-    spring (1.4.0)
+    spring (1.4.1)
     sprockets (3.4.0)
       rack (> 1, < 3)
     sprockets-rails (2.3.3)
@@ -263,6 +272,7 @@ DEPENDENCIES
   pg
   rails (~> 4.2.4)
   responders
+  roadie-rails
   sass-rails
   sdoc
   sidekiq
