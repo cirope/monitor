@@ -1,0 +1,19 @@
+Nuevo caso
+================================================================================
+
+Corrida: <%= @issue.run %>
+
+Descripción
+-----------
+
+<%= @issue.description %>
+
+<% if @issue.data.present? %>
+<%= Issue.human_attribute_name 'data' %>
+
+  <% @issue.data.each do |k, v| %>
+  | <%= k %>: <%= v %>
+  <% end %>
+<% end %>
+
+Para ver el caso visite el siguiente enlace: <%= issue_url(@issue) %>

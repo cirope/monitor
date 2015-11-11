@@ -4,4 +4,9 @@ class NotifierPreview < ActionMailer::Preview
   def notify
     Notifier.notify to: 'test@monitor.com', body: 'Test body'
   end
+
+  # Preview this email at http://localhost:3000/rails/mailers/notifier/issue
+  def issue
+    Notifier.issue Issue.take, ['test@monitor.com']
+  end
 end

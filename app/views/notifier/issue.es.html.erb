@@ -1,0 +1,25 @@
+<h2>Nuevo caso</h2>
+
+<p>Descripción: <%= @issue.description %></p>
+<p>Corrida: <%= @issue.run %></p>
+
+<% if @issue.data.present? %>
+  <p>
+    <strong><%= Issue.human_attribute_name 'data' %></strong>
+  </p>
+
+  <table class="table table-condensed table-hover">
+    <tbody>
+      <% @issue.data.each do |k, v| %>
+        <tr>
+          <td><%= k %></td>
+          <td><%= v %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<p>
+  <%= link_to 'Ver caso', issue_url(@issue) %>
+</p>

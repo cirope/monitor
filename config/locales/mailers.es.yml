@@ -2,6 +2,8 @@ es:
   notifier:
     notify:
       subject: 'Notificación'
+    issue:
+      subject: 'Nuevo caso'
 
   user_mailer:
     password_reset:

@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class IssueTest < ActiveSupport::TestCase
+  include ActionMailer::TestHelper
+
   def setup
     @issue = issues :ls_on_atahualpa_not_well
   end
@@ -28,5 +30,11 @@ class IssueTest < ActiveSupport::TestCase
 
     @issue.status = 'closed'
     assert_equal %w(closed), @issue.next_status
+  end
+
+  test 'notify to' do
+    assert_emails 1 do
+      @issue.notify_to 'test@monitor.com'
+    end
   end
 end
