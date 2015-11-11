@@ -9,6 +9,7 @@ class Run < ActiveRecord::Base
   has_one :server, through: :job
   has_one :schedule, through: :job
   has_many :issues, dependent: :destroy
+  has_many :outputs, dependent: :destroy
 
   def to_s
     "#{schedule} (#{I18n.l scheduled_at, format: :short})"
