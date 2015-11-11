@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 20151110225134) do
 
   create_table "issues", force: :cascade do |t|
     t.string   "status",                   null: false
+    t.text     "description"
     t.jsonb    "data"
     t.integer  "run_id",                   null: false
     t.integer  "lock_version", default: 0, null: false

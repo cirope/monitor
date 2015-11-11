@@ -3,6 +3,7 @@
 
   <div class="form-inputs">
     <%= f.input :status, collection: status, prompt: false, input_html: { autofocus: true } %>
+    <%= f.input :description, input_html: { rows: 4 } %>
     <%= f.input :lock_version, as: :hidden %>
 
     <div class="panel panel-default">

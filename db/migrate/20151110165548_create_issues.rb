@@ -2,6 +2,7 @@ class CreateIssues < ActiveRecord::Migration
   def change
     create_table :issues do |t|
       t.string :status, null: false, index: true
+      t.text :description
       t.jsonb :data, index: { using: :gin }
       t.references :run, index: true, null: false, foreign_key: {
         on_delete: :restrict, on_update: :restrict

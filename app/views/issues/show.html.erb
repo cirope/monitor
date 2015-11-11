@@ -6,6 +6,11 @@
 </h2>
 
 <p>
+  <strong><%= Issue.human_attribute_name 'description' %></strong>:
+  <%= @issue.description %>
+</p>
+
+<p>
   <strong><%= Issue.human_attribute_name 'run' %></strong>:
   <%= link_to @issue.run, @issue.run %>
 </p>

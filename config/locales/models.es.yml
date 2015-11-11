@@ -63,6 +63,7 @@ es:
         schedule: 'Trabajo'
       issue:
         status: 'Estado'
+        description: 'Descripción'
         run: 'Corrida'
         data: 'Datos'
       job:

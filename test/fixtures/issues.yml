@@ -1,4 +1,5 @@
 ls_on_atahualpa_not_well:
+  description: Ls on Atahualpa aparently is not working
   status: pending
   data: '{ "test": "data" }'
   run: past_ls_on_atahualpa
