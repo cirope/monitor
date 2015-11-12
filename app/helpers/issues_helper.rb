@@ -23,9 +23,6 @@ module IssuesHelper
   end
 
   def comments
-    [
-      @issue.comments.detect(&:new_record?) ||
-      @issue.comments.new(user_id: current_user.id)
-    ]
+    [@issue.comments.detect(&:new_record?) || @issue.comments.new]
   end
 end

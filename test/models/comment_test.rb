@@ -17,8 +17,10 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   test 'send email after create' do
+    PaperTrail.whodunnit = users(:franco).id
+
     assert_emails 1 do
-      @comment.issue.comments.create! text: 'email test', user: @comment.user
+      @comment.issue.comments.create! text: 'email test'
     end
 
     email = ActionMailer::Base.deliveries.last

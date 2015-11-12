@@ -35,8 +35,7 @@ class IssuesControllerTest < ActionController::TestCase
           ],
           comments_attributes: [
             {
-              text: 'test comment',
-              user_id: users(:franco).id.to_s
+              text: 'test comment'
             }
           ]
         }
