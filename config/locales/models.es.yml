@@ -5,6 +5,9 @@ es:
 
   activerecord:
     models:
+      comment:
+        one: 'Comentario'
+        other: 'Comentarios'
       database:
         one: 'Base de datos'
         other: 'Bases de datos'
@@ -55,6 +58,8 @@ es:
         other: 'Usuarios'
 
     attributes:
+      comment:
+        text: 'Comentario'
       database:
         name: 'Nombre'
         driver: 'Controlador'

@@ -22,4 +22,15 @@ class NotifierTest < ActionMailer::TestCase
     assert_match issue.description, mail.html_part.body.decoded
     assert_match issue.description, mail.text_part.body.decoded
   end
+
+  test 'comment' do
+    comment = comments :possitive
+    mail  = Notifier.comment comment, comment.users
+
+    assert_equal I18n.t('notifier.comment.subject'), mail.subject
+    assert_equal comment.users.pluck('email'), mail.to
+    assert_equal [ENV['EMAIL_ADDRESS']], mail.from
+    assert_match comment.text, mail.html_part.body.decoded
+    assert_match comment.text, mail.text_part.body.decoded
+  end
 end

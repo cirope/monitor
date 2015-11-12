@@ -4,6 +4,8 @@ es:
       subject: 'Notificación'
     issue:
       subject: 'Nuevo caso'
+    comment:
+      subject: 'Nuevo comentario'
 
   user_mailer:
     password_reset:

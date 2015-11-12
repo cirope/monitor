@@ -48,6 +48,7 @@ end
 
 group :test do
   gem 'timecop'
+  gem 'test_after_commit' # TODO: remove when Rails 5.0
 end
 
 group :doc do

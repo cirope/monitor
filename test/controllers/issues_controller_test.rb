@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class IssuesControllerTest < ActionController::TestCase
+  include ActionMailer::TestHelper
 
   setup do
     @issue = issues :ls_on_atahualpa_not_well
@@ -25,13 +26,21 @@ class IssuesControllerTest < ActionController::TestCase
   end
 
   test 'should update issue' do
-    assert_difference 'Subscription.count' do
-      patch :update, id: @issue, issue: {
-        status: 'taken',
-        subscriptions_attributes: [
-          { user_id: users(:john).id.to_s }
-        ]
-      }
+    assert_emails 1 do
+      assert_difference 'Subscription.count' do
+        patch :update, id: @issue, issue: {
+          status: 'taken',
+          subscriptions_attributes: [
+            { user_id: users(:john).id.to_s }
+          ],
+          comments_attributes: [
+            {
+              text: 'test comment',
+              user_id: users(:franco).id.to_s
+            }
+          ]
+        }
+      end
     end
 
     assert_redirected_to issue_url(assigns(:issue))

@@ -21,4 +21,11 @@ module IssuesHelper
 
     @issue.subscriptions
   end
+
+  def comments
+    [
+      @issue.comments.detect(&:new_record?) ||
+      @issue.comments.new(user_id: current_user.id)
+    ]
+  end
 end

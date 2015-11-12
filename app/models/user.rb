@@ -12,5 +12,8 @@ class User < ActiveRecord::Base
   strip_fields :name, :lastname, :email
   downcase_fields :email
 
+  has_many :comments, dependent: :destroy
+  has_many :subscriptions, dependent: :destroy
+
   scope :ordered, -> { order :lastname, :name, :id }
 end

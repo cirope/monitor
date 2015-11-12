@@ -10,4 +10,10 @@ class Notifier < ApplicationMailer
 
     mail to: to
   end
+
+  def comment comment, users
+    @comment = comment
+
+    mail to: users.map(&:email)
+  end
 end
