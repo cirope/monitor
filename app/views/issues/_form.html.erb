@@ -2,8 +2,8 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :status, collection: status, prompt: false, input_html: { autofocus: true } %>
-    <%= f.input :description, input_html: { rows: 4 } %>
+    <%= f.input :status, collection: status, prompt: false, input_html: { autofocus: true, disabled: current_user.guest? } %>
+    <%= f.input :description, input_html: { rows: 4, readonly: current_user.guest? } %>
     <%= f.input :lock_version, as: :hidden %>
 
     <div class="panel panel-default">
@@ -17,7 +17,7 @@
           <%= render 'subscriptions/subscription', f: df %>
         <% end %>
 
-        <%= link_to_add_fields t('issues.new.subscription'), f, :subscriptions %>
+        <%= link_to_add_fields t('issues.new.subscription'), f, :subscriptions unless current_user.guest? %>
       </div>
     </div>
 
