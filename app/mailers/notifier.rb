@@ -1,8 +1,12 @@
 class Notifier < ApplicationMailer
   def notify message
-    @body = message[:body]
+    message = message.with_indifferent_access
+    @body   = message[:body]
 
-    mail to: message[:to], subject: message[:subject]
+    mail to:      message[:to],
+         cc:      message[:cc],
+         bcc:     message[:bcc],
+         subject: message[:subject]
   end
 
   def issue issue, to
