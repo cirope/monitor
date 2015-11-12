@@ -1,13 +1,13 @@
 class UsersController < ApplicationController
   respond_to :html, :json
 
-  before_action :authorize
+  before_action :authorize, :not_guest
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :set_title, except: [:destroy]
 
   # GET /users
   def index
-    @users = User.order(:lastname, :name, :id).page params[:page]
+    @users = User.search(query: params[:q], limit: request.xhr? && 10).ordered.page params[:page]
   end
 
   # GET /users/1
@@ -50,6 +50,6 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      params.require(:user).permit :name, :lastname, :email, :password, :password_confirmation, :lock_version
+      params.require(:user).permit :name, :lastname, :email, :password, :password_confirmation, :role, :lock_version
     end
 end

@@ -45,4 +45,8 @@ class RunTest < ActiveSupport::TestCase
   test 'schedule' do
     skip
   end
+
+  test 'execute triggers' do
+    skip
+  end
 end

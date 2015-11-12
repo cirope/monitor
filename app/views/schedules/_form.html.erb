@@ -57,11 +57,26 @@
         </h3>
       </div>
       <div id="dependencies" class="panel-body">
-        <%= f.simple_fields_for :dependencies, dependencies do |rf| %>
-          <%= render 'dependencies/dependency', f: rf %>
+        <%= f.simple_fields_for :dependencies, dependencies do |df| %>
+          <%= render 'dependencies/dependency', f: df %>
         <% end %>
 
         <%= link_to_add_fields t('schedules.new.dependency'), f, :dependencies %>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <%= Rule.model_name.human count: 0 %>
+        </h3>
+      </div>
+      <div id="dispatchers" class="panel-body">
+        <%= f.simple_fields_for :dispatchers, dispatchers do |rf| %>
+          <%= render 'dispatchers/dispatcher', f: rf %>
+        <% end %>
+
+        <%= link_to_add_fields t('schedules.new.dispatcher'), f, :dispatchers %>
       </div>
     </div>
 

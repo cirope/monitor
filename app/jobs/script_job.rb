@@ -5,15 +5,21 @@ class ScriptJob < ActiveJob::Base
     job      = run.job
     schedule = run.schedule
 
-
-    run.update! status: 'running', started_at: Time.now
+    run.update! status: 'running', started_at: Time.zone.now
 
     Run.transaction do
-      out = { status: 'canceled' }
+      out  = { status: 'canceled' }
+      out  = job.server.execute job.script if schedule.run?
+      data = ActiveSupport::JSON.decode out[:output] rescue nil
 
-      out = job.server.execute job.script if schedule.run?
+      run.update!(
+        status:   out[:status],
+        output:   out[:output],
+        data:     data,
+        ended_at: Time.zone.now
+      )
 
-      run.update! status: out[:status], output: out[:output], ended_at: Time.now
+      run.execute_triggers
     end
   end
 end

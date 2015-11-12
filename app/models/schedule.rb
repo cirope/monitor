@@ -3,6 +3,7 @@ class Schedule < ActiveRecord::Base
   include Attributes::Strip
   include SearchableByName
   include Schedules::Dependencies
+  include Schedules::Dispatchers
   include Schedules::Jobs
   include Schedules::Runs
   include Schedules::Scheduler

@@ -23,10 +23,44 @@
 </p>
 <% if @run.output.present? %>
   <p>
-    <strong><%= Run.human_attribute_name 'output' %></strong>:
+    <strong><%= Run.human_attribute_name 'output' %></strong>
   </p>
 
   <pre><%= @run.output %></pre>
+<% end %>
+
+<% if @run.data.present? %>
+  <p>
+    <strong><%= Run.human_attribute_name 'data' %></strong>
+  </p>
+
+  <table class="table table-condensed table-hover">
+    <tbody>
+      <% @run.data.each do |k, v| %>
+        <tr>
+          <td><%= k %></td>
+          <td><%= v %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<% if @run.issues.any? %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <%= Issue.model_name.human count: @run.issues.size %>
+      </h3>
+    </div>
+    <div id="issues" class="panel-body">
+      <ul>
+        <% @run.issues.each do |issue| %>
+          <li><%= link_to issue, issue %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
 <% end %>
 
 <%= link_to_index schedule_runs_path(@run.schedule) %>

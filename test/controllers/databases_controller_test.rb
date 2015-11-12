@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class DatabasesControllerTest < ActionController::TestCase
-
   setup do
     @database = databases :postgresql
 

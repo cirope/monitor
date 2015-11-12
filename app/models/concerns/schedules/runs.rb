@@ -17,6 +17,16 @@ module Schedules::Runs
     end
   end
 
+  def run
+    scheduled_at = Time.zone.now
+
+    jobs.each do |job|
+      run = job.runs.create! status: 'scheduled', scheduled_at: scheduled_at
+
+      ScriptJob.perform_later run
+    end
+  end
+
   def run?
     required.all? &:last_run_ok?
   end

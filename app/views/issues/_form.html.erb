@@ -1,0 +1,48 @@
+<%= simple_form_for @issue do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :status, collection: status, prompt: false, input_html: { autofocus: true, disabled: current_user.guest? } %>
+    <%= f.input :description, input_html: { rows: 4, readonly: current_user.guest? } %>
+    <%= f.input :lock_version, as: :hidden %>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <%= User.model_name.human count: 0 %>
+        </h3>
+      </div>
+      <div id="subscriptions" class="panel-body">
+        <%= f.simple_fields_for :subscriptions, subscriptions do |df| %>
+          <%= render 'subscriptions/subscription', f: df %>
+        <% end %>
+
+        <%= link_to_add_fields t('issues.new.subscription'), f, :subscriptions unless current_user.guest? %>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <%= Comment.model_name.human count: 0 %>
+        </h3>
+      </div>
+      <div id="comments" class="panel-body">
+        <% @issue.comments.reject(&:new_record?).each do |comment| %>
+          <blockquote>
+            <%= simple_format comment.text %>
+            <footer><%= comment.user %></footer>
+          </blockquote>
+        <% end %>
+
+        <%= f.simple_fields_for :comments, comments do |df| %>
+          <%= render 'comments/comment', f: df %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, class: 'btn-primary' %>
+  </div>
+<% end %>

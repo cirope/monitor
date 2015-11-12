@@ -20,9 +20,11 @@
  *= require forms
  *= require row_controls
  *= require databases
+ *= require issues
  *= require ldaps
  *= require password_resets
  *= require profiles
+ *= require rules
  *= require runs
  *= require scripts
  *= require servers

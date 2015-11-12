@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.2.3'
+gem 'rails', '~> 4.2.4'
 
 gem 'pg'
 gem 'sass-rails'
@@ -27,6 +27,7 @@ gem 'net-scp'
 gem 'sidekiq'
 gem 'whenever', require: false
 gem 'paper_trail'
+gem 'roadie-rails'
 
 gem 'unicorn'
 
@@ -47,6 +48,7 @@ end
 
 group :test do
   gem 'timecop'
+  gem 'test_after_commit' # TODO: remove when Rails 5.0
 end
 
 group :doc do

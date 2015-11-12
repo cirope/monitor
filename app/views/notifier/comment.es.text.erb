@@ -1,0 +1,11 @@
+Nuevo comentario
+================================================================================
+
+<%= @comment.user %>:
+
+<% @comment.text.each_line do |l| %>
+  | <%= l %>
+<% end %>
+
+Para ver el comentario en su contexto visite el siguiente enlace:
+<%= issue_url @comment.issue %>

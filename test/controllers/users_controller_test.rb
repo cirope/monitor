@@ -2,7 +2,7 @@ require 'test_helper'
 
 class UsersControllerTest < ActionController::TestCase
   setup do
-    @user = users(:john)
+    @user = users :john
 
     login
   end
@@ -11,6 +11,15 @@ class UsersControllerTest < ActionController::TestCase
     get :index
     assert_response :success
     assert_not_nil assigns(:users)
+  end
+
+  test 'should filtered index' do
+    get :index, q: @user.name, format: :json
+    assert_response :success
+
+    users = assigns :users
+    assert_equal 1, users.size
+    assert_equal @user.name, users.first.name
   end
 
   test 'should get new' do

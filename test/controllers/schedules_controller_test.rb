@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class SchedulesControllerTest < ActionController::TestCase
-
   setup do
     @schedule = schedules :ls_on_atahualpa
 
@@ -29,7 +28,15 @@ class SchedulesControllerTest < ActionController::TestCase
   end
 
   test 'should create schedule' do
-    assert_difference ['Schedule.count', 'Dependency.count', 'Job.count', 'Tagging.count'] do
+    counts = [
+      'Schedule.count',
+      'Dependency.count',
+      'Dispatcher.count',
+      'Job.count',
+      'Tagging.count'
+    ]
+
+    assert_difference counts do
       post :create, schedule: {
         name:      @schedule.name,
         start:     @schedule.start,
@@ -50,6 +57,11 @@ class SchedulesControllerTest < ActionController::TestCase
         dependencies_attributes: [
           {
             schedule_id: schedules(:ls_on_atahualpa).id.to_s
+          }
+        ],
+        dispatchers_attributes: [
+          {
+            rule_id: rules(:cd_email).id.to_s
           }
         ]
       }
@@ -79,5 +91,13 @@ class SchedulesControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to schedules_url
+  end
+
+  test 'should schedule runs' do
+    assert_difference '@schedule.runs.count'  do
+      post :run, id: @schedule
+    end
+
+    assert_redirected_to schedule_runs_url(@schedule)
   end
 end

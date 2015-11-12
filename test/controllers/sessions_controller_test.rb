@@ -13,7 +13,7 @@ class SessionsControllerTest < ActionController::TestCase
   test 'should create a new session' do
     post :create, { email: @user.email, password: '123' }
 
-    assert_redirected_to schedules_url
+    assert_redirected_to issues_url
     assert_equal @user.id, current_user.id
   end
 

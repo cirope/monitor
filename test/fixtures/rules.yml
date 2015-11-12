@@ -1,0 +1,3 @@
+cd_email:
+  name: Email for cd
+  enabled: true

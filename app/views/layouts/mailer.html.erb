@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="<%= locale %>">
+<head>
+  <meta charset="utf-8">
+  <title><%= title %></title>
+  <style type="text/css">
+    body, #monitor_email {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 13px;
+      line-height: 18px;
+      color: #333;
+      background-color: #fff;
+    }
+
+    #monitor_email a {
+      color: #08c;
+    }
+
+    #monitor_email a:hover {
+      color: #005580;
+    }
+
+    #monitor_email footer {
+      display: block;
+      border-top: 1px dotted #333;
+      font-size: 0.75em;
+      padding-top: 1em;
+    }
+
+    #monitor_email h2 {
+      font-size: 1.75em;
+      margin-bottom: 1em;
+    }
+
+    #monitor_email h3 {
+      font-size: 1.25em;
+      margin-bottom: 1em;
+    }
+
+    #monitor_email h4 {
+      font-size: 1.1em;
+      margin: 1em 0em;
+    }
+
+    #monitor_email hr {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      border: 0;
+      border-top: 1px dotted #eee;
+    }
+
+    #monitor_email p {
+      margin-bottom: 1em;
+    }
+
+    #monitor_email table {
+      margin-bottom: 18px;
+    }
+
+    #monitor_email table th,
+    #monitor_email table td {
+      padding: 8px;
+      line-height: 18px;
+      text-align: left;
+      vertical-align: top;
+      border: 1px solid #ddd;
+    }
+
+    #monitor_email table th {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div id="monitor_email">
+    <%= yield %>
+  </div>
+</body>
+</html>

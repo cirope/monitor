@@ -1,0 +1,39 @@
+<%= simple_form_for @rule do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <div class="row">
+      <div class="col-lg-11 col-md-10 col-xs-9">
+        <%= f.input :name, input_html: { autofocus: true } %>
+      </div>
+      <div class="col-lg-1 col-md-2 col-xs-3 bottom text-right">
+        <div class="checkbox">
+          <label>
+            <%= f.check_box :enabled %> <%= Rule.human_attribute_name 'enabled' %>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <%= Trigger.model_name.human count: 0 %>
+        </h3>
+      </div>
+      <div id="triggers" class="panel-body">
+        <%= f.simple_fields_for :triggers, triggers do |rf| %>
+          <%= render 'triggers/trigger', f: rf %>
+        <% end %>
+
+        <%= link_to_add_fields t('rules.new.trigger'), f, :triggers %>
+      </div>
+    </div>
+
+    <%= f.input :lock_version, as: :hidden %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, class: 'btn-primary' %>
+  </div>
+<% end %>

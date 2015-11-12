@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :tags
   # Sessions
   get 'login', to: 'sessions#new', as: 'login'
   post 'sessions', to: 'sessions#create', as: 'sessions'
@@ -11,14 +10,18 @@ Rails.application.routes.draw do
 
   # Resources
   resources :databases
+  resources :issues, except: [:new, :create]
   resources :ldaps
+  resources :rules
   resources :scripts
   resources :servers
-  resources :tags, only: [:index]
+  resources :tags
   resources :users
   resources :password_resets, only: [:new, :create, :edit, :update]
 
   resources :schedules do
+    post :run, on: :member, as: :run
+
     resources :runs, shallow: true, only: [:index, :show, :destroy]
   end
 

@@ -1,0 +1,71 @@
+<h2>
+  <%= @issue %>
+  <small class="pull-right">
+    <%= issue_status @issue.status %>
+  </small>
+</h2>
+
+<p>
+  <strong><%= Issue.human_attribute_name 'description' %></strong>:
+  <%= @issue.description %>
+</p>
+
+<p>
+  <strong><%= Issue.human_attribute_name 'run' %></strong>:
+  <%= link_to @issue.run, @issue.run %>
+</p>
+
+<% if @issue.data.present? %>
+  <p>
+    <strong><%= Issue.human_attribute_name 'data' %></strong>
+  </p>
+
+  <table class="table table-condensed table-hover">
+    <tbody>
+      <% @issue.data.each do |k, v| %>
+        <tr>
+          <td><%= k %></td>
+          <td><%= v %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<% if @issue.subscriptions.any? %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <%= User.model_name.human count: @issue.subscriptions.size %>
+      </h3>
+    </div>
+    <div id="subscriptions" class="panel-body">
+      <ul>
+        <% @issue.subscriptions.each do |subscription| %>
+          <li><%= link_to subscription.user, subscription.user %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>
+
+<% if @issue.comments.any? %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <%= Comment.model_name.human count: @issue.comments.size %>
+      </h3>
+    </div>
+    <div id="comments" class="panel-body">
+      <% @issue.comments.each do |comment| %>
+        <blockquote>
+          <%= simple_format comment.text %>
+          <footer><%= comment.user %></footer>
+        </blockquote>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<%= link_to_edit [:edit, @issue] %> |
+<%= link_to_index issues_path %>

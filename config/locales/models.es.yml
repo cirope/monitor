@@ -5,24 +5,36 @@ es:
 
   activerecord:
     models:
+      comment:
+        one: 'Comentario'
+        other: 'Comentarios'
       database:
         one: 'Base de datos'
         other: 'Bases de datos'
       dependency:
         one: 'Dependencia'
         other: 'Dependencias'
+      issue:
+        one: 'Caso'
+        other: 'Casos'
       job:
         one: 'Tarea'
         other: 'Tareas'
       ldap:
         one: 'Configuración LDAP'
         other: 'LDAP'
+      output:
+        one: 'Salida'
+        other: 'Salidas'
       property:
         one: 'Propiedad'
         other: 'Propiedades'
       require:
         one: 'Inclusión'
         other: 'Inclusiones'
+      rule:
+        one: 'Regla'
+        other: 'Reglas'
       run:
         one: 'Corrida'
         other: 'Corridas'
@@ -38,17 +50,27 @@ es:
       tag:
         one: 'Etiqueta'
         other: 'Etiquetas'
+      trigger:
+        one: 'Disparador'
+        other: 'Disparadores'
       user:
         one: 'Usuario'
         other: 'Usuarios'
 
     attributes:
+      comment:
+        text: 'Comentario'
       database:
         name: 'Nombre'
         driver: 'Controlador'
         description: 'Descripción'
       dependency:
         schedule: 'Trabajo'
+      issue:
+        status: 'Estado'
+        description: 'Descripción'
+        run: 'Corrida'
+        data: 'Datos'
       job:
         script: 'Guión'
         server: 'Servidor'
@@ -69,12 +91,16 @@ es:
         value: 'Valor'
       require:
         script: 'Guión'
+      rule:
+        name: 'Nombre'
+        enabled: 'Habilitada'
       run:
         status: 'Estado'
         scheduled_at: 'Programado para'
         started_at: 'Fecha inicio ejecución'
         ended_at: 'Fecha fin ejecución'
         output: 'Salida'
+        data: 'Datos'
       schedule:
         name: 'Nombre'
         start: 'Inicio'
@@ -92,11 +118,16 @@ es:
         user: 'Usuario'
         password: 'Contraseña'
         credential: 'Credencial'
+      subscription:
+        user: 'Usuario'
       tag:
         name: 'Nombre'
+      trigger:
+        callback: 'Función'
       user:
         name: 'Nombre'
         lastname: 'Apellido'
         email: 'Correo'
         password: 'Contraseña'
         password_confirmation: 'Confirmación'
+        role: 'Rol'

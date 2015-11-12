@@ -1,4 +1,12 @@
-<h2><%= @schedule %></h2>
+<h2>
+  <%= @schedule %>
+  <div class="pull-right">
+    <%= link_to_run do %>
+      <span class="glyphicon glyphicon-play"></span>
+      <%= t '.run' %>
+    <% end %>
+  </div>
+</h2>
 
 <p>
   <strong><%= Schedule.human_attribute_name 'start' %></strong>:
@@ -56,6 +64,23 @@
       <ul>
         <% @schedule.dependencies.each do |dependency| %>
           <li><%= link_to dependency.schedule, dependency.schedule %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>
+
+<% if @schedule.dispatchers.any? %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <%= Rule.model_name.human count: @schedule.dispatchers.size %>
+      </h3>
+    </div>
+    <div id="dispatchers" class="panel-body">
+      <ul>
+        <% @schedule.dispatchers.each do |dispatcher| %>
+          <li><%= link_to dispatcher.rule, dispatcher.rule %></li>
         <% end %>
       </ul>
     </div>

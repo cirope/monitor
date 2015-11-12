@@ -4,7 +4,7 @@ es:
   messages:
     confirmation: '¿Está seguro?'
     download: 'Descargar'
-    not_authorized: 'Debe ingresar para ver el contenido'
+    not_authorized: 'No está autorizado para ver el contenido'
     ldap_error: 'El servidor de autenticación no está disponible, intente nuevamente más tarde'
 
   navigation:
@@ -32,6 +32,26 @@ es:
     dependency:
       empty: 'No se encontraron trabajos con ese criterio'
 
+  dispatchers:
+    dispatcher:
+      empty: 'No se encontraron reglas con ese criterio'
+
+  issues:
+    edit:
+      title: 'Editar caso'
+    index:
+      new: 'Nuevo caso'
+      title: 'Listado de casos'
+      empty_html: 'No tiene casos'
+    new:
+      subscription: 'Agregar usuario'
+    show:
+      title: 'Ver caso'
+    status:
+      pending: 'Pendiente'
+      taken: 'En proceso'
+      closed: 'Cerrado'
+
   ldaps:
     edit:
       title: 'Editar configuración LDAP'
@@ -48,6 +68,20 @@ es:
     require:
       empty: 'No se encontraron guiones con ese criterio'
 
+  rules:
+    edit:
+      title: 'Editar regla'
+    index:
+      new: 'Nueva regla'
+      title: 'Listado de reglas'
+      empty_html: 'No hay reglas, puede crear una con el botón <span class="label label-primary">Nueva regla</span>'
+    new:
+      title: 'Crear regla'
+      trigger: 'Agregar disparador'
+    show:
+      title: 'Ver regla'
+      last_output: 'Última salida'
+
   runs:
     index:
       title: 'Listado de corridas'
@@ -62,32 +96,6 @@ es:
       error: 'Finalizada con errores'
       canceled: 'Cancelada'
 
-  schedules:
-    edit:
-      title: 'Editar trabajo'
-    index:
-      new: 'Nuevo trabajo'
-      title: 'Listado de trabajoes'
-      empty_html: 'No hay trabajoes, puede crear uno con el botón <span class="label label-primary">Nuevo trabajo</span>'
-    new:
-      title: 'Crear trabajo'
-      job: 'Agregar guión'
-      tagging: 'Agregar etiqueta'
-      dependency: 'Agregar dependencia'
-    show:
-      title: 'Ver trabajo'
-      empty_runs: 'Sin corridas'
-    frequencies:
-      minutes: 'Minutos'
-      hours: 'Horas'
-      days: 'Días'
-      weeks: 'Semanas'
-      months: 'Meses'
-    script:
-      empty: 'No se encontraron guiones con el criterio'
-    server:
-      empty: 'No se encontraron servidores con el criterio'
-
   scripts:
     edit:
       title: 'Editar guión'
@@ -101,6 +109,34 @@ es:
       tagging: 'Agregar etiqueta'
     show:
       title: 'Ver guión'
+
+  schedules:
+    edit:
+      title: 'Editar trabajo'
+    index:
+      new: 'Nuevo trabajo'
+      title: 'Listado de trabajoes'
+      empty_html: 'No hay trabajoes, puede crear uno con el botón <span class="label label-primary">Nuevo trabajo</span>'
+    new:
+      title: 'Crear trabajo'
+      job: 'Agregar guión'
+      tagging: 'Agregar etiqueta'
+      dependency: 'Agregar dependencia'
+      dispatcher: 'Agregar regla'
+    show:
+      title: 'Ver trabajo'
+      run: 'Ejecutar ahora'
+      empty_runs: 'Sin corridas'
+    frequencies:
+      minutes: 'Minutos'
+      hours: 'Horas'
+      days: 'Días'
+      weeks: 'Semanas'
+      months: 'Meses'
+    script:
+      empty: 'No se encontraron guiones con el criterio'
+    server:
+      empty: 'No se encontraron servidores con el criterio'
 
   servers:
     edit:
@@ -122,6 +158,10 @@ es:
       password: 'Contraseña'
       remember_me: 'Recordarme'
       forgot_password: '¿Olvidaste tu contraseña?'
+
+  subscriptions:
+    subscription:
+      empty: 'No se encontraron usuarios con ese criterio'
 
   password_resets:
     edit:
@@ -165,3 +205,8 @@ es:
       title: 'Crear usuario'
     show:
       title: 'Ver usuario'
+    roles:
+      security: 'Seguridad'
+      supervisor: 'Supervisor'
+      author: 'Autor'
+      guest: 'Invitado'

@@ -1,4 +1,5 @@
 class LdapsController < ApplicationController
+  before_action :authorize, :not_guest
   before_action :set_title, except: [:destroy]
   before_action :set_ldap, only: [:show, :edit, :update, :destroy]
 

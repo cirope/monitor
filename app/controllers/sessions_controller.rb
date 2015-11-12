@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  before_action :authorize, only: :destroy
   before_action :set_title, except: [:destroy]
 
   def new
@@ -25,7 +26,7 @@ class SessionsController < ApplicationController
   private
 
     def default_url
-      schedules_url
+      issues_url
     end
 
     def store_auth_token user
