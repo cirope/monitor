@@ -1,4 +1,5 @@
 class ServersController < ApplicationController
+  before_action :authorize, :not_guest
   before_action :set_title, except: [:destroy]
   before_action :set_server, only: [:show, :edit, :update, :destroy]
 

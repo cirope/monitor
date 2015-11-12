@@ -14,23 +14,27 @@
 
     <% if current_user %>
       <nav class="collapse navbar-collapse" role="navigation">
-        <%= render 'shared/config_actions' %>
+        <% unless current_user.guest? %>
+          <%= render 'shared/config_actions' %>
+        <% end %>
 
         <ul class="nav navbar-nav">
           <%= menu_item_for Issue, issues_path %>
         </ul>
-        <ul class="nav navbar-nav">
-          <%= menu_item_for Script, scripts_path %>
-        </ul>
-        <ul class="nav navbar-nav">
-          <%= menu_item_for Server, servers_path %>
-        </ul>
-        <ul class="nav navbar-nav">
-          <%= menu_item_for Schedule, schedules_path %>
-        </ul>
-        <ul class="nav navbar-nav">
-          <%= menu_item_for Rule, rules_path %>
-        </ul>
+        <% unless current_user.guest? %>
+          <ul class="nav navbar-nav">
+            <%= menu_item_for Script, scripts_path %>
+          </ul>
+          <ul class="nav navbar-nav">
+            <%= menu_item_for Server, servers_path %>
+          </ul>
+          <ul class="nav navbar-nav">
+            <%= menu_item_for Schedule, schedules_path %>
+          </ul>
+          <ul class="nav navbar-nav">
+            <%= menu_item_for Rule, rules_path %>
+          </ul>
+        <% end %>
 
         <%= render 'shared/user_actions' %>
       </nav>

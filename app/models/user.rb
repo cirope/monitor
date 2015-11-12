@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
 
   has_many :comments, dependent: :destroy
   has_many :subscriptions, dependent: :destroy
+  has_many :issues, through: :subscriptions
 
   scope :ordered, -> { order :lastname, :name, :id }
 end

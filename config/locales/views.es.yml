@@ -4,7 +4,7 @@ es:
   messages:
     confirmation: '¿Está seguro?'
     download: 'Descargar'
-    not_authorized: 'Debe ingresar para ver el contenido'
+    not_authorized: 'No está autorizado para ver el contenido'
     ldap_error: 'El servidor de autenticación no está disponible, intente nuevamente más tarde'
 
   navigation:

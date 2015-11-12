@@ -1,11 +1,12 @@
 class IssuesController < ApplicationController
+  before_action :authorize
   before_action :set_title, except: [:destroy]
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
 
   respond_to :html, :json
 
   def index
-    @issues = Issue.order(:created_at).page params[:page]
+    @issues = issues.order(:created_at).page params[:page]
 
     respond_with @issues
   end
@@ -36,5 +37,9 @@ class IssuesController < ApplicationController
       params.require(:issue).permit :status, :description,
         subscriptions_attributes: [:id, :user_id, :_destroy],
         comments_attributes: [:id, :text]
+    end
+
+    def issues
+      current_user.guest? ? current_user.issues : Issue.all
     end
 end

@@ -71,6 +71,14 @@ class UserTest < ActiveSupport::TestCase
     assert_error @user, :role, :inclusion
   end
 
+  test 'guest?' do
+    @user.role = 'guest'
+    assert @user.guest?
+
+    @user.role = 'author'
+    assert !@user.guest?
+  end
+
   test 'password expired' do
     @user.password_reset_sent_at = Time.zone.now
 
