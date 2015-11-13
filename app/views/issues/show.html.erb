@@ -12,7 +12,7 @@
 
 <p>
   <strong><%= Issue.human_attribute_name 'run' %></strong>:
-  <%= link_to @issue.run, @issue.run %>
+  <%= link_to_unless current_user.guest?, @issue.run, @issue.run %>
 </p>
 
 <% if @issue.data.present? %>
