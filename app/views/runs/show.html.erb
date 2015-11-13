@@ -2,13 +2,12 @@
   <%= Run.model_name.human count: 1 %>
   <small>
     <%= link_to @run.script, @run.script %>
+    <div class="pull-right">
+      <%= run_status @run.status %>
+    </div>
   </small>
 </h2>
 
-<p>
-  <strong><%= Run.human_attribute_name 'status' %></strong>:
-  <%= run_status @run.status %>
-</p>
 <p>
   <strong><%= Run.human_attribute_name 'scheduled_at' %></strong>:
   <%= l @run.scheduled_at, format: :compact %>
@@ -34,16 +33,7 @@
     <strong><%= Run.human_attribute_name 'data' %></strong>
   </p>
 
-  <table class="table table-condensed table-hover">
-    <tbody>
-      <% @run.data.each do |k, v| %>
-        <tr>
-          <td><%= k %></td>
-          <td><%= v %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <%= render 'objects/table', parent: @run, object: @run.data %>
 <% end %>
 
 <% if @run.issues.any? %>

@@ -1,0 +1,5 @@
++function () {
+  var container = '[data-container="<%= params[:container_id] %>"]'
+
+  $(container).html('<%= j render_object(@run, params[:key]) %>')
+}()

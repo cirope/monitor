@@ -7,8 +7,10 @@ module Runs::Triggers
 
   def execute_triggers
     dispatchers.each do |dispatcher|
-      dispatcher.rule.triggers.each do |trigger|
-        trigger.run_on self
+      if dispatcher.rule.enable
+        dispatcher.rule.triggers.each do |trigger|
+          trigger.run_on self
+        end
       end
     end
   end

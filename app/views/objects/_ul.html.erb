@@ -1,0 +1,11 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+    <ul class="small">
+      <% object.each_with_index do |v, k| %>
+        <li><%= link_or_show parent, k, v, object.object_id %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+<div data-container="<%= object.object_id %>"></div>

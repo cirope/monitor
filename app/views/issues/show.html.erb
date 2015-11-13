@@ -12,7 +12,7 @@
 
 <p>
   <strong><%= Issue.human_attribute_name 'run' %></strong>:
-  <%= link_to @issue.run, @issue.run %>
+  <%= link_to_unless current_user.guest?, @issue.run, @issue.run %>
 </p>
 
 <% if @issue.data.present? %>
@@ -20,16 +20,7 @@
     <strong><%= Issue.human_attribute_name 'data' %></strong>
   </p>
 
-  <table class="table table-condensed table-hover">
-    <tbody>
-      <% @issue.data.each do |k, v| %>
-        <tr>
-          <td><%= k %></td>
-          <td><%= v %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <%= render 'objects/table', parent: @issue, object: @issue.data %>
 <% end %>
 
 <% if @issue.subscriptions.any? %>
