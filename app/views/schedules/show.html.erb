@@ -80,7 +80,9 @@
     <div id="dispatchers" class="panel-body">
       <ul>
         <% @schedule.dispatchers.each do |dispatcher| %>
-          <li><%= link_to dispatcher.rule, dispatcher.rule %></li>
+          <li>
+            <%= link_to dispatcher.rule, dispatcher.rule, class: ('text-striked' unless dispatcher.rule.enabled) %>
+          </li>
         <% end %>
       </ul>
     </div>
