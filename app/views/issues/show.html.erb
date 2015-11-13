@@ -20,7 +20,7 @@
     <strong><%= Issue.human_attribute_name 'data' %></strong>
   </p>
 
-  <%= render 'objects/table', parent: @issue, object: @issue.data %>
+  <%= render_object @issue, '' %>
 <% end %>
 
 <% if @issue.subscriptions.any? %>
