@@ -22,6 +22,7 @@
 //= require moment
 //= require moment/es
 //= require bootstrap-datetimepicker
+//= require ajax
 //= require autocomplete
 //= require date_pickers
 //= require dynamic_form
