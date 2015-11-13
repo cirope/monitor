@@ -6,7 +6,7 @@ class IssuesController < ApplicationController
   respond_to :html, :json
 
   def index
-    @issues = issues.order(:created_at).page params[:page]
+    @issues = issues.order(created_at: :desc).page params[:page]
 
     respond_with @issues
   end
