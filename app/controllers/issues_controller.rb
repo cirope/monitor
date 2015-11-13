@@ -3,7 +3,7 @@ class IssuesController < ApplicationController
   before_action :set_title, except: [:destroy]
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
 
-  respond_to :html, :json
+  respond_to :html, :json, :js
 
   def index
     @issues = issues.order(created_at: :desc).page params[:page]

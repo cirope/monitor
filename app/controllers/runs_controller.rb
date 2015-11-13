@@ -4,7 +4,7 @@ class RunsController < ApplicationController
   before_action :set_schedule, only: [:index]
   before_action :set_run, only: [:show, :destroy]
 
-  respond_to :html
+  respond_to :html, :js
 
   def index
     @runs = @schedule.runs.reorder(scheduled_at: :desc).page params[:page]

@@ -33,16 +33,7 @@
     <strong><%= Run.human_attribute_name 'data' %></strong>
   </p>
 
-  <table class="table table-condensed table-hover">
-    <tbody>
-      <% @run.data.each do |k, v| %>
-        <tr>
-          <td><%= k %></td>
-          <td><%= v %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <%= render 'objects/table', parent: @run, object: @run.data %>
 <% end %>
 
 <% if @run.issues.any? %>

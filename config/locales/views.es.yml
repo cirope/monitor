@@ -64,6 +64,12 @@ es:
     show:
       title: 'Ver configuración LDAP'
 
+  objects:
+    table:
+      more: 'Ver'
+    ul:
+      more: 'Ver'
+
   requires:
     require:
       empty: 'No se encontraron guiones con ese criterio'

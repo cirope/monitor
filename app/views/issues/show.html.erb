@@ -20,16 +20,7 @@
     <strong><%= Issue.human_attribute_name 'data' %></strong>
   </p>
 
-  <table class="table table-condensed table-hover">
-    <tbody>
-      <% @issue.data.each do |k, v| %>
-        <tr>
-          <td><%= k %></td>
-          <td><%= v %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <%= render 'objects/table', parent: @issue, object: @issue.data %>
 <% end %>
 
 <% if @issue.subscriptions.any? %>
