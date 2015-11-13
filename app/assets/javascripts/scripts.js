@@ -5,10 +5,11 @@
     if ($('.editor').length) {
       var $editor   = $('.editor')
       var $textarea = $('#script_text')
+      var theme     = $editor.data('readonly') ? 'solarized_dark' : 'solarized_light'
 
       editor = ace.edit($editor.get(0))
 
-      editor.setTheme('ace/theme/solarized_light')
+      editor.setTheme('ace/theme/' + theme)
       editor.getSession().setMode('ace/mode/ruby')
 
       editor.setValue($textarea.val())

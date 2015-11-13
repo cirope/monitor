@@ -16,8 +16,9 @@
 //= require turbolinks
 //= require turbolinks_events
 //= require ace/ace
-//= require ace/theme-solarized_light
 //= require ace/mode-ruby
+//= require ace/theme-solarized_light
+//= require ace/theme-solarized_dark
 //= require bootstrap/bootstrap
 //= require moment
 //= require moment/es

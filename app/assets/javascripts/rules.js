@@ -8,8 +8,10 @@ var startEditors = function () {
 
     var $editor = $('#' + editorId)
     var editor  = ace.edit($editor.get(0))
+    var theme   = $textarea.data('readonly') ? 'solarized_dark' : 'solarized_light'
 
-    editor.setTheme('ace/theme/solarized_light')
+    console.log($textarea.data('readonly'))
+    editor.setTheme('ace/theme/' + theme)
     editor.getSession().setMode('ace/mode/ruby')
 
     editor.setValue($textarea.val())
