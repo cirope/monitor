@@ -1,4 +1,5 @@
 set :rails_env, 'production'
+set :branch, 'bersa'
 
 set :default_env, {
   'http_proxy': 'http://172.28.16.125:3128',
