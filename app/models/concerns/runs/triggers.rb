@@ -7,7 +7,7 @@ module Runs::Triggers
 
   def execute_triggers
     dispatchers.each do |dispatcher|
-      if dispatcher.rule.enable
+      if dispatcher.rule.enabled
         dispatcher.rule.triggers.each do |trigger|
           trigger.run_on self
         end
