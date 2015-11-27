@@ -11,14 +11,25 @@ class SessionsControllerTest < ActionController::TestCase
   end
 
   test 'should create a new session' do
-    post :create, { email: @user.email, password: '123' }
+    Ldap.default.destroy!
+
+    post :create, { username: @user.email, password: '123' }
+
+    assert_redirected_to issues_url
+    assert_equal @user.id, current_user.id
+  end
+
+  test 'should create a new session via LDAP' do
+    post :create, { username: @user.username, password: 'admin123' }
 
     assert_redirected_to issues_url
     assert_equal @user.id, current_user.id
   end
 
   test 'should not create a new session' do
-    post :create, { email: @user.email, password: 'wrong' }
+    Ldap.default.destroy!
+
+    post :create, { username: @user.email, password: 'wrong' }
 
     assert_response :success
     assert_nil current_user

@@ -160,7 +160,7 @@ es:
     new:
       title: 'Ingreso'
       log_in: 'Ingresar'
-      email: 'Correo'
+      username: 'Usuario o correo'
       password: 'Contraseña'
       remember_me: 'Recordarme'
       forgot_password: '¿Olvidaste tu contraseña?'

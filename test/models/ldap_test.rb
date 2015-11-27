@@ -87,4 +87,8 @@ class LdapTest < ActiveSupport::TestCase
 
     assert_not_nil User.where(email: 'juan@administrators.com').take
   end
+
+  test 'default' do
+    assert_not_nil Ldap.default
+  end
 end

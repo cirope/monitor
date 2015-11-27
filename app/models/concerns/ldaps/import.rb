@@ -43,6 +43,7 @@ module Ldaps::Import
 
     def trivial_data entry
       {
+        username: entry[username_attribute].first.try(:force_encoding, 'UTF-8'),
         name:     entry[name_attribute].first.try(:force_encoding, 'UTF-8'),
         lastname: entry[lastname_attribute].first.try(:force_encoding, 'UTF-8'),
         email:    entry[email_attribute].first.try(:force_encoding, 'UTF-8')
