@@ -15,6 +15,10 @@ class LdapTest < ActiveSupport::TestCase
     @ldap.name_attribute = ''
     @ldap.lastname_attribute = ''
     @ldap.email_attribute = ''
+    @ldap.role_guest = ''
+    @ldap.role_author = ''
+    @ldap.role_supervisor = ''
+    @ldap.role_security = ''
 
     assert @ldap.invalid?
     assert_error @ldap, :hostname, :blank
@@ -78,6 +82,18 @@ class LdapTest < ActiveSupport::TestCase
     ldap = @ldap.ldap 'admin', 'wrong'
 
     assert !ldap.bind
+  end
+
+  test 'options' do
+    @ldap.role_guest = 'Guest'
+    @ldap.role_author = 'Author'
+    @ldap.role_supervisor = 'Supervisor'
+    @ldap.role_security = 'Security'
+
+    assert_equal 'Guest', @ldap.role_guest
+    assert_equal 'Author', @ldap.role_author
+    assert_equal 'Supervisor', @ldap.role_supervisor
+    assert_equal 'Security', @ldap.role_security
   end
 
   test 'import' do

@@ -53,6 +53,7 @@ class LdapsController < ApplicationController
       params.require(:ldap).permit :hostname, :port, :basedn, :filter,
         :login_mask, :username_attribute, :name_attribute,
         :lastname_attribute, :email_attribute, :test_user, :test_password,
+        :role_guest, :role_author, :role_supervisor, :role_security,
         :lock_version
     end
 end

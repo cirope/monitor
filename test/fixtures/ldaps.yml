@@ -8,3 +8,8 @@ ldap_server:
   name_attribute: givenname
   lastname_attribute: sn
   email_attribute: mail
+  options:
+    guest: 'Guest role'
+    author: 'Author role'
+    supervisor: 'Supervisor role'
+    security: 'Security role'

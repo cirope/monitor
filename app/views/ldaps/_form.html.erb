@@ -22,6 +22,8 @@
         <%= f.input :basedn %>
         <%= f.input :filter %>
         <%= f.input :login_mask %>
+        <%= f.input :role_guest %>
+        <%= f.input :role_supervisor %>
         <%= f.input :test_user %>
       </div>
       <div class="col-md-6">
@@ -29,6 +31,8 @@
         <%= f.input :name_attribute %>
         <%= f.input :lastname_attribute %>
         <%= f.input :email_attribute %>
+        <%= f.input :role_author %>
+        <%= f.input :role_security %>
         <%= f.input :test_password %>
       </div>
     </div>

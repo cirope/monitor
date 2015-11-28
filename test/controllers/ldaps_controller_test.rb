@@ -31,7 +31,11 @@ class LdapsControllerTest < ActionController::TestCase
         lastname_attribute: 'sn',
         email_attribute: 'mail',
         test_user: 'admin',
-        test_password: 'admin123'
+        test_password: 'admin123',
+        role_guest: 'Guest',
+        role_author: 'Author',
+        role_supervisor: 'Supervisor',
+        role_security: 'Security'
       }
     end
 

@@ -86,6 +86,10 @@ es:
         email_attribute: 'Atributo con el correo electrónico'
         test_user: 'Usuario'
         test_password: 'Contraseña'
+        role_guest: 'Grupo invitado'
+        role_author: 'Grupo autor'
+        role_supervisor: 'Grupo supervisor'
+        role_security: 'Grupo seguridad'
       property:
         key: 'Atributo'
         value: 'Valor'

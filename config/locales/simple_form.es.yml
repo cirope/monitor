@@ -36,3 +36,7 @@ es:
         email_attribute: 'Por ejemplo: mail'
         test_user: 'Usuario válido en el servidor para probar la conexión'
         test_password: 'Contraseña del usuario para probar la conexión'
+        role_guest: 'Nombre del grupo de invitados'
+        role_author: 'Nombre del grupo de autores'
+        role_supervisor: 'Nombre del grupo de supervisores'
+        role_security: 'Nombre del grupo de seguridad'
