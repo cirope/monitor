@@ -9,7 +9,6 @@ class Users::ImportsController < ApplicationController
   def create
     @imports = ldap.import import_params[:username], import_params[:password]
     ids = @imports.map { |i| i[:user].id }.compact
-
     @deprecated_users = User.where "#{User.table_name}.id NOT IN (?)", ids
   rescue Net::LDAP::Error
     redirect_to new_users_import_url, alert: t('.connection')
