@@ -9,7 +9,7 @@
       <%= f.input :username %>
       <%= f.input :password %>
       <%= f.input :password_confirmation %>
-      <%= f.input :role, collection: roles, prompt: true %>
+      <%= f.input :role, collection: roles, prompt: true, label: roles_label %>
       <%= f.input :lock_version, as: :hidden %>
     </div>
 
@@ -18,3 +18,5 @@
     </div>
   </fieldset>
 <% end %>
+
+<%= render 'role_help' %>
