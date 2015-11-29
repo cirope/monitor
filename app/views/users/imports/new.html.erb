@@ -1,0 +1,95 @@
+<h1><%= t '.title' %></h1>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4><%= t '.credentials' %></h4>
+      </div>
+      <div class="panel-body">
+        <%= simple_form_for :import, url: users_imports_path do |f| %>
+          <div class="form-inputs">
+            <%= f.input :username, label: Ldap.human_attribute_name('test_user'), input_html: { autofocus: true } %>
+            <%= f.input :password, label: Ldap.human_attribute_name('test_password') %>
+          </div>
+
+          <div class="form-actions">
+            <%= f.submit t('.import'), class: 'btn btn-primary' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4>
+          <%= Ldap.model_name.human count: 1 %>
+          <small>
+            <%= link_to_edit [:edit, Ldap.default] %>
+          </small>
+        </h4>
+      </div>
+      <div class="panel-body">
+        <ul>
+          <li>
+            <%= Ldap.human_attribute_name 'hostname' %>:
+            <strong><%= ldap.hostname %></strong>
+          </li>
+          <li>
+            <%= Ldap.human_attribute_name 'port' %>:
+            <strong><%= ldap.port %></strong>
+          </li>
+          <li>
+            <%= Ldap.human_attribute_name 'basedn' %>:
+            <strong><%= ldap.basedn %></strong>
+          </li>
+          <li>
+            <%= Ldap.human_attribute_name 'filter' %>:
+            <strong><%= ldap.filter %></strong>
+          </li>
+          <li>
+            <%= Ldap.human_attribute_name 'login_mask' %>:
+            <strong><%= ldap.login_mask %></strong>
+          </li>
+          <li>
+            <%= Ldap.human_attribute_name 'username_attribute' %>:
+            <strong><%= ldap.username_attribute %></strong>
+          </li>
+          <li>
+            <%= Ldap.human_attribute_name 'name_attribute' %>:
+            <strong><%= ldap.name_attribute %></strong>
+          </li>
+          <li>
+            <%= Ldap.human_attribute_name 'lastname_attribute' %>:
+            <strong><%= ldap.lastname_attribute %></strong>
+          </li>
+          <li>
+            <%= Ldap.human_attribute_name 'email_attribute' %>:
+            <strong><%= ldap.email_attribute %></strong>
+          </li>
+          <li>
+            <%= Ldap.human_attribute_name 'roles_attribute' %>:
+            <strong><%= ldap.roles_attribute %></strong>
+          </li>
+          <li>
+            <%= Ldap.human_attribute_name 'role_guest' %>:
+            <strong><%= ldap.role_guest %></strong>
+          </li>
+          <li>
+            <%= Ldap.human_attribute_name 'role_author' %>:
+            <strong><%= ldap.role_author %></strong>
+          </li>
+          <li>
+            <%= Ldap.human_attribute_name 'role_supervisor' %>:
+            <strong><%= ldap.role_supervisor %></strong>
+          </li>
+          <li>
+            <%= Ldap.human_attribute_name 'role_author' %>:
+            <strong><%= ldap.role_author %></strong>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

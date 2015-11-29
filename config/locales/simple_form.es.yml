@@ -34,6 +34,7 @@ es:
         name_attribute: 'Por ejemplo: givenname'
         lastname_attribute: 'Por ejemplo: sn'
         email_attribute: 'Por ejemplo: mail'
+        roles_attribute: 'Por ejemplo: memberof'
         test_user: 'Usuario válido en el servidor para probar la conexión'
         test_password: 'Contraseña del usuario para probar la conexión'
         role_guest: 'Nombre del grupo de invitados'

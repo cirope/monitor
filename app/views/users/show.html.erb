@@ -11,5 +11,7 @@
 
 <hr>
 
-<%= link_to_edit [:edit, @user] %> |
+<% unless ldap %>
+  <%= link_to_edit [:edit, @user] %> |
+<% end %>
 <%= link_to_index users_path %>

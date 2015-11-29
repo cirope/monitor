@@ -28,9 +28,9 @@ module Ldaps::Import
   private
 
     def process_entry entry
-      data       = trivial_data entry
-      user       = User.where(email: data[:email]).take
-      new        = !user
+      data = extract_data entry
+      user = User.where(email: data[:email]).take
+      new  = !user
 
       if user
         update_user user: user, data: data
@@ -41,13 +41,26 @@ module Ldaps::Import
       { user: user, new: new }
     end
 
-    def trivial_data entry
+    def extract_data entry
       {
         username: entry[username_attribute].first.try(:force_encoding, 'UTF-8'),
         name:     entry[name_attribute].first.try(:force_encoding, 'UTF-8'),
         lastname: entry[lastname_attribute].first.try(:force_encoding, 'UTF-8'),
-        email:    entry[email_attribute].first.try(:force_encoding, 'UTF-8')
+        email:    entry[email_attribute].first.try(:force_encoding, 'UTF-8'),
+        role:     extract_role(entry)
       }
+    end
+
+    def extract_role entry
+      role_names = entry[roles_attribute].map do |r|
+        r.try(:force_encoding, 'UTF-8').sub(/.*?cn=(.*?),.*/i, '\1')
+      end
+
+      User::ROLES.detect do |role|
+        role_name = send "role_#{role}"
+
+        role_names.include? role_name
+      end
     end
 
     def update_user user: nil, data: nil

@@ -1,0 +1,40 @@
+<h1><%= t '.title' %></h1>
+
+<% if @imports.empty? %>
+  <div class="alert alert-warning">
+    <strong><%= t '.empty' %></strong>
+  </div>
+<% else %>
+  <ul>
+    <% @imports.each do |import| %>
+      <% user = import[:user] %>
+      <li>
+        <strong><%= link_to_if user.persisted?, user, user %></strong>
+        <% if user.errors.present? %>
+          <span class="label label-danger"><%= t '.error' %></span> |
+          <%= user.errors.full_messages.to_sentence %>
+        <% else %>
+          <span class="label label-success">
+            <%= t import[:new] ? '.created' : '.updated' %>
+          </span>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% if @deprecated_users.present? %>
+  <h2><%= t '.deprecated_users' %></h2>
+
+  <ul>
+    <% @deprecated_users.each do |user| %>
+      <li><%= link_to user, user %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<hr>
+
+<p>
+  <%= link_to User.model_name.human(count: 0), users_path %>
+</p>

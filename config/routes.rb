@@ -16,7 +16,6 @@ Rails.application.routes.draw do
   resources :scripts
   resources :servers
   resources :tags
-  resources :users
   resources :password_resets, only: [:new, :create, :edit, :update]
 
   resources :schedules do
@@ -24,6 +23,12 @@ Rails.application.routes.draw do
 
     resources :runs, shallow: true, only: [:index, :show, :destroy]
   end
+
+  namespace :users do
+    resources :imports, only: [:new, :create]
+  end
+
+  resources :users
 
   root 'sessions#new'
 end

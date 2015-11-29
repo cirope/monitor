@@ -84,6 +84,7 @@ es:
         name_attribute: 'Atributo con el nombre'
         lastname_attribute: 'Atributo con el apellido'
         email_attribute: 'Atributo con el correo electrónico'
+        roles_attribute: 'Atributo con roles'
         test_user: 'Usuario'
         test_password: 'Contraseña'
         role_guest: 'Grupo invitado'

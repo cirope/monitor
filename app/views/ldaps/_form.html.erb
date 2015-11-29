@@ -11,14 +11,8 @@
     <%= f.input :lock_version, as: :hidden %>
     <div class="row">
       <div class="col-md-6">
-        <div class="row">
-          <div class="col-md-6">
-            <%= f.input :hostname, input_html: { autofocus: true } %>
-          </div>
-          <div class="col-md-6">
-            <%= f.input :port %>
-          </div>
-        </div>
+        <%= f.input :hostname, input_html: { autofocus: true } %>
+        <%= f.input :port %>
         <%= f.input :basedn %>
         <%= f.input :filter %>
         <%= f.input :login_mask %>
@@ -31,6 +25,7 @@
         <%= f.input :name_attribute %>
         <%= f.input :lastname_attribute %>
         <%= f.input :email_attribute %>
+        <%= f.input :roles_attribute %>
         <%= f.input :role_author %>
         <%= f.input :role_security %>
         <%= f.input :test_password %>

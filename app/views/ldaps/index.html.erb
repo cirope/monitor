@@ -7,7 +7,9 @@
         <th><%= Ldap.human_attribute_name 'hostname' %></th>
         <th><%= Ldap.human_attribute_name 'port' %></th>
         <th colspan="3">
-          <%= link_to_new new_ldap_path, class: 'btn btn-default btn-xs pull-right' %>
+          <% unless ldap %>
+            <%= link_to_new new_ldap_path, class: 'btn btn-default btn-xs pull-right' %>
+          <% end %>
         </th>
       </tr>
     </thead>
@@ -28,4 +30,6 @@
   <%= paginate @ldaps %>
 <% end %>
 
-<%= link_to_new new_ldap_path, class: 'btn btn-primary' %>
+<% unless ldap %>
+  <%= link_to_new new_ldap_path, class: 'btn btn-primary' %>
+<% end %>

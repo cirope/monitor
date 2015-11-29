@@ -15,6 +15,7 @@ class LdapTest < ActiveSupport::TestCase
     @ldap.name_attribute = ''
     @ldap.lastname_attribute = ''
     @ldap.email_attribute = ''
+    @ldap.roles_attribute = ''
     @ldap.role_guest = ''
     @ldap.role_author = ''
     @ldap.role_supervisor = ''
@@ -30,6 +31,11 @@ class LdapTest < ActiveSupport::TestCase
     assert_error @ldap, :name_attribute, :blank
     assert_error @ldap, :lastname_attribute, :blank
     assert_error @ldap, :email_attribute, :blank
+    assert_error @ldap, :roles_attribute, :blank
+    assert_error @ldap, :role_guest, :blank
+    assert_error @ldap, :role_author, :blank
+    assert_error @ldap, :role_supervisor, :blank
+    assert_error @ldap, :role_security, :blank
   end
 
   test 'validates formats' do
