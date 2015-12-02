@@ -7,8 +7,14 @@ module Users::Authentication
     before_create { generate_token :auth_token }
   end
 
-  def is_admin?
-    true
+  def auth password
+    ldap = Ldap.default
+
+    if ldap
+      password.present? && ldap.ldap(username, password).bind
+    else
+      authenticate password
+    end
   end
 
   private

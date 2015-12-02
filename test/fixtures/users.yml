@@ -2,6 +2,7 @@ franco:
   name: Franco
   lastname: Catena
   email: francocatena@gmail.com
+  username: admin
   password_digest: <%= BCrypt::Password.create('123', cost: BCrypt::Engine::MIN_COST) %>
   auth_token: <%= SecureRandom.urlsafe_base64 %>
   password_reset_token: <%= SecureRandom.urlsafe_base64 %>
@@ -11,6 +12,7 @@ john:
   name: John
   lastname: Doe
   email: john@doe.com
+  username: john
   password_digest: <%= BCrypt::Password.create('123', cost: BCrypt::Engine::MIN_COST) %>
   auth_token: <%= SecureRandom.urlsafe_base64 %>
   password_reset_token: <%= SecureRandom.urlsafe_base64 %>

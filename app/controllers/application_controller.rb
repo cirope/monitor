@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   include ActionTitle
   include CurrentUser
+  include LdapConfig
   include UpdateResource
 
   protect_from_forgery with: :exception

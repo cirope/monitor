@@ -7,9 +7,9 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by email: params[:email]
+    user = User.by_username_or_email params[:username]
 
-    if user && user.authenticate(params[:password])
+    if user && user.auth(params[:password])
       store_auth_token user
       redirect_to default_url, notice: t('.logged_in', scope: :flash)
     else

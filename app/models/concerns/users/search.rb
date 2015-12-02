@@ -16,5 +16,14 @@ module Users::Search
 
       limit ? result.limit(limit) : result
     end
+
+    def by_username_or_email username
+      condition = [
+        "#{table_name}.username = :username",
+        "#{table_name}.email = :username"
+      ].join(' OR ')
+
+      where(condition, username: username.to_s.strip.downcase).take
+    end
   end
 end

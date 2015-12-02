@@ -10,6 +10,7 @@ class UserTest < ActiveSupport::TestCase
       name: @user.name,
       lastname: @user.lastname,
       email: 'new@user.com',
+      username: 'new',
       password: '123',
       password_confirmation: '123'
     )
@@ -30,11 +31,13 @@ class UserTest < ActiveSupport::TestCase
     assert_error @user, :role, :blank
   end
 
-  test 'unique email' do
+  test 'unique attributes' do
     @user.email = users(:john).email
+    @user.username = users(:john).username
 
     assert @user.invalid?
     assert_error @user, :email, :taken
+    assert_error @user, :username, :taken
   end
 
   test 'email format' do
@@ -56,12 +59,14 @@ class UserTest < ActiveSupport::TestCase
     @user.lastname = 'abcde' * 52
     @user.email = 'abcde' * 52
     @user.role = 'abcde' * 52
+    @user.username = 'abcde' * 52
 
     assert @user.invalid?
     assert_error @user, :name, :too_long, count: 255
     assert_error @user, :lastname, :too_long, count: 255
     assert_error @user, :email, :too_long, count: 255
     assert_error @user, :role, :too_long, count: 255
+    assert_error @user, :username, :too_long, count: 255
   end
 
   test 'included attributes' do
@@ -89,10 +94,28 @@ class UserTest < ActiveSupport::TestCase
     assert @user.password_expired?
   end
 
+  test 'auth' do
+    assert @user.auth('admin123') # LDAP
+
+    Ldap.default.destroy!
+
+    assert @user.auth('123') # Local auth
+  end
+
   test 'search' do
     users = User.search query: @user.name
 
     assert users.present?
     assert users.all? { |s| s.name =~ /#{@user.name}/ }
+  end
+
+  test 'by username or email' do
+    user = User.by_username_or_email @user.username
+
+    assert_equal @user, user
+
+    user = User.by_username_or_email @user.email
+
+    assert_equal @user, user
   end
 end

@@ -7,7 +7,7 @@
         <th><%= User.human_attribute_name 'name' %></th>
         <th><%= User.human_attribute_name 'lastname' %></th>
         <th><%= User.human_attribute_name 'email' %></th>
-        <th colspan="3"></th>
+        <th colspan="<%= ldap ? 1 : 3 %>"></th>
       </tr>
     </thead>
 
@@ -18,8 +18,10 @@
           <td><%= user.lastname %></td>
           <td><%= mail_to user.email %></td>
           <td><%= link_to_show user %></td>
-          <td><%= link_to_edit [:edit, user] %></td>
-          <td><%= link_to_destroy user %></td>
+          <% unless ldap %>
+            <td><%= link_to_edit [:edit, user] %></td>
+            <td><%= link_to_destroy user %></td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>
@@ -28,4 +30,8 @@
   <%= paginate @users %>
 <% end %>
 
-<%= link_to_new new_user_path, class: 'btn btn-primary' %>
+<% if ldap %>
+  <%= link_to t('.ldap_import'), new_users_import_path, class: 'btn btn-primary' %>
+<% else %>
+  <%= link_to_new new_user_path, class: 'btn btn-primary' %>
+<% end %>

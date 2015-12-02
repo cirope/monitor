@@ -9,8 +9,8 @@ class User < ActiveRecord::Base
   include Users::Search
   include Users::Validation
 
-  strip_fields :name, :lastname, :email
-  downcase_fields :email
+  strip_fields :name, :lastname, :email, :username
+  downcase_fields :email, :username
 
   has_many :comments, dependent: :destroy
   has_many :subscriptions, dependent: :destroy

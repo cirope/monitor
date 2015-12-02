@@ -15,6 +15,8 @@ objectClass: inetOrgPerson
 sn: Catena
 givenname: Franco
 title: Administrator
+description: cn=Author role,ou=people,dc=test,dc=com
+description: cn=Supervisor role,ou=people,dc=test,dc=com
 uid: admin@test.com
 mail: administrator@administrator.com
 cn: admin
@@ -28,6 +30,7 @@ objectClass: top
 sn: Catena
 givenname: Juan
 title: Another administrator
+description: cn=Guest role,ou=people,dc=test,dc=com
 uid: juan@test.com
 mail: juan@administrators.com
 cn: juan
