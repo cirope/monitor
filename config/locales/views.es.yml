@@ -129,6 +129,7 @@ es:
       title: 'Crear guión'
       require: 'Agregar inclusión'
       tagging: 'Agregar etiqueta'
+      description: 'Agregar descripción'
     show:
       title: 'Ver guión'
 

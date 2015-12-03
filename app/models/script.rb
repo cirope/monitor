@@ -3,6 +3,7 @@ class Script < ActiveRecord::Base
   include Attributes::Strip
   include SearchableByName
   include Scripts::Copy
+  include Scripts::Descriptions
   include Scripts::Requires
   include Scripts::Validation
   include Taggable

@@ -17,6 +17,9 @@ es:
       descriptor:
         one: 'Descriptor'
         other: 'Descriptores'
+      description:
+        one: 'Atributo'
+        other: 'Atributos'
       issue:
         one: 'Caso'
         other: 'Casos'
@@ -70,6 +73,9 @@ es:
         description: 'Descripción'
       dependency:
         schedule: 'Trabajo'
+      description:
+        name: 'Nombre'
+        value: 'Valor'
       descriptor:
         name: 'Nombre'
       issue:
