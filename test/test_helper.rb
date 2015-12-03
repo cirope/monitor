@@ -18,8 +18,8 @@ class ActiveSupport::TestCase
 end
 
 class ActionController::TestCase
-  def login
-    cookies.encrypted[:auth_token] = users(:franco).auth_token
+  def login user = users(:franco)
+    cookies.encrypted[:auth_token] = user.auth_token
   end
 end
 

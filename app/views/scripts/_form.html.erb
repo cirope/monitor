@@ -25,10 +25,12 @@
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">
-          <%= Require.model_name.human count: 0 %>
+          <a href="#requires" data-toggle="collapse">
+            <%= Require.model_name.human count: 0 %>
+          </a>
         </h3>
       </div>
-      <div id="requires" class="panel-body">
+      <div id="requires" class="collapse panel-body">
         <%= f.simple_fields_for :requires, requires do |rf| %>
           <%= render 'requires/require', f: rf %>
         <% end %>
@@ -40,16 +42,35 @@
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">
-          <%= Tag.model_name.human count: 0 %>
+          <a href="#tags" data-toggle="collapse">
+            <%= Tag.model_name.human count: 0 %>
+          </a>
         </h3>
       </div>
-      <div id="tags" class="panel-body">
+      <div id="tags" class="collapse panel-body">
         <%= f.simple_fields_for :taggings, script_taggings do |tf| %>
           <%= render 'taggings/tagging', f: tf %>
         <% end %>
 
         <%= link_to_add_fields t('scripts.new.tagging'), f, :taggings %>
       </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <a href="#descriptions" data-toggle="collapse">
+          <%= Description.model_name.human count: 0 %>
+        </a>
+      </h3>
+    </div>
+    <div id="descriptions" class="collapse panel-body">
+      <%= f.simple_fields_for :descriptions, descriptions do |df| %>
+        <%= render 'descriptions/description', f: df %>
+      <% end %>
+
+      <%= link_to_add_fields t('scripts.new.description'), f, :descriptions %>
     </div>
   </div>
 

@@ -1,0 +1,16 @@
+<fieldset class="database_property">
+  <div class="row">
+    <div class="col-md-5">
+      <%= f.input :name, as: :slim %>
+    </div>
+    <div class="col-md-6">
+      <%= f.input :value, as: :slim %>
+    </div>
+    <div class="col-md-1">
+      <div class="row-controls">
+        <%= f.input :id, as: :hidden %>
+        <%= link_to_remove_nested_item f %>
+      </div>
+    </div>
+  </div>
+</fieldset>

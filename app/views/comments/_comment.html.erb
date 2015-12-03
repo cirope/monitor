@@ -1,3 +1,11 @@
 <fieldset class="comment">
-  <%= f.input :text, label: false, input_html: { autofocus: true, rows: 4 } %>
+  <div class="row">
+    <div class="col-md-10">
+      <%= f.input :text, label: false, input_html: { autofocus: true, rows: 4 } %>
+    </div>
+    <div class="col-md-2">
+      <%= f.input :file, label: false, hint: comment_file_identifier(f) %>
+      <%= f.input :file_cache, as: :hidden %>
+    </div>
+  </div>
 </fieldset>

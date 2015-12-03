@@ -67,6 +67,26 @@ class ApplicationControllerTest < ActionController::TestCase
     assert_redirected_to edit_user_url(user)
   end
 
+  test 'should check not supervisor role' do
+    user = users :franco
+
+    login user
+
+    @controller.send(:not_supervisor)
+
+    assert_redirected_to issues_url
+  end
+
+  test 'should check guest role' do
+    user = users :franco
+
+    login user
+
+    @controller.send(:only_guest)
+
+    assert_redirected_to issues_url
+  end
+
   private
 
     def set_title

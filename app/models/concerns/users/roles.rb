@@ -3,9 +3,11 @@ module Users::Roles
 
   included do
     ROLES = %w(security supervisor author guest)
-  end
 
-  def guest?
-    role == 'guest'
+    ROLES.each do |role|
+      define_method "#{role}?" do
+        self.role == role
+      end
+    end
   end
 end

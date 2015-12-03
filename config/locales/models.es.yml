@@ -14,6 +14,12 @@ es:
       dependency:
         one: 'Dependencia'
         other: 'Dependencias'
+      descriptor:
+        one: 'Descriptor'
+        other: 'Descriptores'
+      description:
+        one: 'Atributo'
+        other: 'Atributos'
       issue:
         one: 'Caso'
         other: 'Casos'
@@ -60,12 +66,18 @@ es:
     attributes:
       comment:
         text: 'Comentario'
+        file: 'Adjunto'
       database:
         name: 'Nombre'
         driver: 'Controlador'
         description: 'Descripción'
       dependency:
         schedule: 'Trabajo'
+      description:
+        name: 'Nombre'
+        value: 'Valor'
+      descriptor:
+        name: 'Nombre'
       issue:
         status: 'Estado'
         description: 'Descripción'
