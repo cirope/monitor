@@ -26,6 +26,7 @@
 //= require ajax
 //= require autocomplete
 //= require date_pickers
+//= require descriptors
 //= require dynamic_form
 //= require effect_helper
 //= require databases

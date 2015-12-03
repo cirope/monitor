@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151202185534) do
+ActiveRecord::Schema.define(version: 20151203025041) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,13 @@ ActiveRecord::Schema.define(version: 20151202185534) do
 
   add_index "dependencies", ["dependent_id"], name: "index_dependencies_on_dependent_id", using: :btree
   add_index "dependencies", ["schedule_id"], name: "index_dependencies_on_schedule_id", using: :btree
+
+  create_table "descriptors", force: :cascade do |t|
+    t.string   "name",                     null: false
+    t.integer  "lock_version", default: 0, null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
 
   create_table "dispatchers", force: :cascade do |t|
     t.integer  "schedule_id"
