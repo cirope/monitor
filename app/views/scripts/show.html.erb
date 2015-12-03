@@ -46,5 +46,33 @@
   </ul>
 <% end %>
 
+<% if @script.descriptions.any? %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <%= Description.model_name.human count: @script.descriptions.size %>
+      </h3>
+    </div>
+    <div id="descriptions" class="panel-body">
+      <table class="table table-condensed">
+        <thead>
+          <tr>
+            <th><%= Description.human_attribute_name 'name' %></th>
+            <th><%= Description.human_attribute_name 'value' %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @script.descriptions.each do |description| %>
+            <tr>
+              <td><%= description.name %></td>
+              <td><%= description.value %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% end %>
+
 <%= link_to_edit [:edit, @script] %> |
 <%= link_to_index scripts_path %>
