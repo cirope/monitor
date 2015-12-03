@@ -36,7 +36,7 @@ class IssuesController < ApplicationController
     def issue_params
       params.require(:issue).permit :status, :description,
         subscriptions_attributes: [:id, :user_id, :_destroy],
-        comments_attributes: [:id, :text]
+        comments_attributes: [:id, :text, :file, :file_cache]
     end
 
     def issues

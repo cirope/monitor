@@ -60,6 +60,7 @@ es:
     attributes:
       comment:
         text: 'Comentario'
+        file: 'Adjunto'
       database:
         name: 'Nombre'
         driver: 'Controlador'
