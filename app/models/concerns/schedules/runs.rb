@@ -36,7 +36,7 @@ module Schedules::Runs
   end
 
   def next_date
-    Time.zone.now.advance frequency.to_sym => interval
+    start.advance frequency.to_sym => intervals_since_start + (interval || 1)
   end
 
   private
@@ -49,5 +49,25 @@ module Schedules::Runs
       jobs.each do |job|
         job.runs.build status: 'pending', scheduled_at: start
       end
+    end
+
+    def intervals_since_start
+      now = Time.zone.now
+
+      if frequency == 'months'
+        result = (now.year * 12 + now.month) - (start.year * 12 + start.month)
+      else
+        distance_in_minutes = ((now - start) / 60.0).truncate
+        factors = {
+          minutes: 1,
+          hours:   60,
+          days:    60 * 24,
+          weeks:   60 * 24 * 7
+        }
+
+        result = (distance_in_minutes / factors[frequency.to_sym]).truncate
+      end
+
+      result > 0 ? result : 0
     end
 end

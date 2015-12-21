@@ -3,9 +3,7 @@ module Schedules::Scheduler
 
   included do
     scope :next_to_schedule, -> {
-      interval = "CAST(#{table_name}.interval || ' ' || #{table_name}.frequency AS Interval)"
-
-      where "#{table_name}.scheduled_at + #{interval} <= ?", Time.zone.now
+      where "#{table_name}.scheduled_at < ?", Time.zone.now
     }
   end
 
@@ -16,7 +14,7 @@ module Schedules::Scheduler
 
         schedule.update! scheduled_at: scheduled_at
 
-        ScheduleJob.set(wait_until: scheduled_at).perform_later schedule
+        schedule.build_next_runs
       end
     end
   end
