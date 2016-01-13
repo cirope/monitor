@@ -49,8 +49,12 @@ module Schedules::Runs
       self.scheduled_at = start
     end
 
+    def jobs_changed?
+      jobs.any?(&:changed?) || taggings.any?(&:changed?)
+    end
+
     def schedule_changed?
-      start_changed? || interval_changed? || frequency_changed?
+      start_changed? || interval_changed? || frequency_changed? || jobs_changed?
     end
 
     def create_initial_runs
