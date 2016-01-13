@@ -14,7 +14,7 @@ module Schedules::Runs
 
     if self.end.blank? || scheduled_at <= self.end
       jobs.map do |job|
-        job.runs.create! status: 'pending', scheduled_at: scheduled_at
+        job.runs.pending.create! scheduled_at: scheduled_at
       end
     end
   end
@@ -38,10 +38,9 @@ module Schedules::Runs
   end
 
   def next_date
-    intervals  = intervals_since_start
-    intervals -= intervals % interval if interval
+    interval = self.interval || 1
 
-    start.advance frequency.to_sym => intervals + (interval || 1)
+    start.advance frequency.to_sym => (intervals_since_start + 1) * interval
   end
 
   private
@@ -55,7 +54,7 @@ module Schedules::Runs
     end
 
     def create_initial_runs
-      scheduled_at = start.past? ? next_date : start
+      self.scheduled_at = start.past? ? next_date : start
 
       jobs.each do |job|
         job.runs.pending.build scheduled_at: scheduled_at
@@ -71,7 +70,8 @@ module Schedules::Runs
     end
 
     def intervals_since_start
-      now = Time.zone.now
+      now      = Time.zone.now
+      interval = self.interval || 1
 
       if frequency == 'months'
         result = (now.year * 12 + now.month) - (start.year * 12 + start.month)
@@ -87,6 +87,6 @@ module Schedules::Runs
         result = (distance_in_minutes / factors[frequency.to_sym]).truncate
       end
 
-      result > 0 ? result : 0
+      result > 0 ? (result / interval) : 0
     end
 end
