@@ -39,13 +39,8 @@ class ScheduleTest < ActiveSupport::TestCase
   test 'start must be on or after now' do
     @schedule.start = 1.minute.ago
 
-    assert @schedule.valid? # only on create
-
-    schedule = @schedule.dup
-    schedule.start = 1.minute.ago
-
-    assert schedule.invalid?
-    assert_error schedule, :start, :on_or_after, restriction: I18n.l(Time.zone.now, format: :compact)
+    assert @schedule.invalid?
+    assert_error @schedule, :start, :on_or_after, restriction: I18n.l(Time.zone.now, format: :compact)
   end
 
   test 'end must be after start' do
@@ -101,6 +96,14 @@ class ScheduleTest < ActiveSupport::TestCase
     end
 
     assert runs.all? { |run| run.scheduled_at.between?(next_date - 1.minute, next_date + 1.minute) }
+  end
+
+  test 'reschedule' do
+    assert_no_difference '@schedule.runs.pending.count' do
+      @schedule.update! start: 2.months.from_now
+    end
+
+    assert @schedule.runs.pending.all? { |r| r.scheduled_at.to_s(:db) == @schedule.start.to_s(:db) }
   end
 
   test 'run' do
