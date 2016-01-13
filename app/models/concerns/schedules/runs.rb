@@ -2,7 +2,9 @@ module Schedules::Runs
   extend ActiveSupport::Concern
 
   included do
-    before_create :set_scheduled_at, :create_initial_runs
+    before_save :remove_pending_runs, if: :remove_pending_runs?
+    before_save :set_scheduled_at,    if: :start_changed?
+    before_save :create_initial_runs, if: :schedule_changed?
 
     has_many :runs, -> { order :scheduled_at }, through: :jobs
   end
@@ -36,7 +38,10 @@ module Schedules::Runs
   end
 
   def next_date
-    start.advance frequency.to_sym => intervals_since_start + (interval || 1)
+    intervals  = intervals_since_start
+    intervals -= intervals % interval if interval
+
+    start.advance frequency.to_sym => intervals + (interval || 1)
   end
 
   private
@@ -45,10 +50,24 @@ module Schedules::Runs
       self.scheduled_at = start
     end
 
+    def schedule_changed?
+      start_changed? || interval_changed? || frequency_changed?
+    end
+
     def create_initial_runs
+      scheduled_at = start.past? ? next_date : start
+
       jobs.each do |job|
-        job.runs.build status: 'pending', scheduled_at: start
+        job.runs.pending.build scheduled_at: scheduled_at
       end
+    end
+
+    def remove_pending_runs?
+      persisted? && schedule_changed?
+    end
+
+    def remove_pending_runs
+      runs.pending.destroy_all
     end
 
     def intervals_since_start

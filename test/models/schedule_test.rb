@@ -103,6 +103,14 @@ class ScheduleTest < ActiveSupport::TestCase
     assert runs.all? { |run| run.scheduled_at.between?(next_date - 1.minute, next_date + 1.minute) }
   end
 
+  test 'reschedule' do
+    assert_no_difference '@schedule.runs.pending.count' do
+      @schedule.update! start: 2.months.from_now
+    end
+
+    assert @schedule.runs.pending.all? { |r| r.scheduled_at.to_s(:db) == @schedule.start.to_s(:db) }
+  end
+
   test 'run' do
     assert_difference '@schedule.runs.count'  do
       assert_no_difference '@schedule.runs.pending.count'  do
