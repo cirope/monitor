@@ -74,23 +74,32 @@ module Schedules::Runs
     end
 
     def intervals_since_start
-      now      = Time.zone.now
       interval = self.interval || 1
 
       if frequency == 'months'
-        result = (now.year * 12 + now.month) - (start.year * 12 + start.month)
+        ticks = months_since_start
       else
-        distance_in_minutes = ((now - start) / 60.0).truncate
-        factors = {
-          minutes: 1,
-          hours:   60,
-          days:    60 * 24,
-          weeks:   60 * 24 * 7
-        }
-
-        result = (distance_in_minutes / factors[frequency.to_sym]).truncate
+        ticks = frequency_ticks_since_start
       end
 
-      result > 0 ? (result / interval) : 0
+      ticks > 0 ? (ticks / interval) : 0
+    end
+
+    def months_since_start
+      now = Time.zone.now
+
+      (now.year * 12 + now.month) - (start.year * 12 + start.month)
+    end
+
+    def frequency_ticks_since_start
+      distance_in_minutes = ((Time.zone.now - start) / 60.0).truncate
+      factors = {
+        minutes: 1,
+        hours:   60,
+        days:    60 * 24,
+        weeks:   60 * 24 * 7
+      }
+
+      (distance_in_minutes / factors[frequency.to_sym]).truncate
     end
 end
