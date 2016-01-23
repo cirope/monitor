@@ -45,10 +45,10 @@
       </div>
       <div id="tags" class="collapse panel-body">
         <%= f.simple_fields_for :taggings, schedule_taggings do |tf| %>
-          <%= render 'taggings/tagging', f: tf %>
+          <%= render 'taggings/tagging', f: tf, kind: 'script' %>
         <% end %>
 
-        <%= link_to_add_fields t('schedules.new.tagging'), f, :taggings %>
+        <%= link_to_add_fields t('schedules.new.tagging'), f, :taggings, kind: 'script' %>
       </div>
     </div>
 

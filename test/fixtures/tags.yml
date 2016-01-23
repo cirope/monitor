@@ -1,2 +1,11 @@
 starters:
   name: Starters
+  kind: script
+
+libs:
+  name: Libraries
+  kind: script
+
+important:
+  name: Important
+  kind: issue

@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :descriptors
   # Sessions
   get 'login', to: 'sessions#new', as: 'login'
   post 'sessions', to: 'sessions#create', as: 'sessions'
@@ -11,12 +10,12 @@ Rails.application.routes.draw do
 
   # Resources
   resources :databases
+  resources :descriptors
   resources :issues, except: [:new, :create]
   resources :ldaps
   resources :rules
   resources :scripts
   resources :servers
-  resources :tags
   resources :password_resets, only: [:new, :create, :edit, :update]
 
   resources :schedules do
@@ -30,6 +29,10 @@ Rails.application.routes.draw do
   end
 
   resources :users
+
+  scope ':kind', kind: /script|user|issue/ do
+    resources :tags
+  end
 
   root 'sessions#new'
 end
