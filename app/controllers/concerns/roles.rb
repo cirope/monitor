@@ -3,11 +3,17 @@ module Roles
 
   User::ROLES.each do |role|
     define_method "not_#{role}" do
-      redirect_to issues_url, alert: t('messages.not_authorized') if current_user.send("#{role}?")
+      not_authorized_redirect current_user.send("#{role}?")
     end
 
     define_method "only_#{role}" do
-      redirect_to issues_url, alert: t('messages.not_authorized') unless current_user.send("#{role}?")
+      not_authorized_redirect !current_user.send("#{role}?")
     end
   end
+
+  private
+
+    def not_authorized_redirect condition
+      redirect_to issues_url, alert: t('messages.not_authorized') if condition
+    end
 end
