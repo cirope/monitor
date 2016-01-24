@@ -1,3 +1,7 @@
 cd_root_as_starter:
   tag: starters
   taggable: cd_root (Script)
+
+ls_on_atahualpa_not_well_as_important:
+  tag: important
+  taggable: ls_on_atahualpa_not_well (Issue)

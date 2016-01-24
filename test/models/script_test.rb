@@ -59,4 +59,13 @@ class ScriptTest < ActiveSupport::TestCase
   test 'copy to' do
     skip
   end
+
+  test 'tagged with' do
+    tag     = tags :starters
+    scripts = Script.tagged_with tag.name
+
+    assert_not_equal 0, scripts.count
+    assert_not_equal 0, scripts.take.tags.count
+    assert scripts.all? { |script| script.tags.any? { |t| t.name == tag.name } }
+  end
 end

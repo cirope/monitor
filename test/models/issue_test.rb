@@ -37,4 +37,13 @@ class IssueTest < ActiveSupport::TestCase
       @issue.notify_to 'test@monitor.com'
     end
   end
+
+  test 'tagged with' do
+    tag    = tags :important
+    issues = Issue.tagged_with tag.name
+
+    assert_not_equal 0, issues.count
+    assert_not_equal 0, issues.take.tags.count
+    assert issues.all? { |issue| issue.tags.any? { |t| t.name == tag.name } }
+  end
 end
