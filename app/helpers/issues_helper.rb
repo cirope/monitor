@@ -22,6 +22,12 @@ module IssuesHelper
     @issue.subscriptions
   end
 
+  def issue_taggings
+    @issue.taggings.new if @issue.taggings.empty?
+
+    @issue.taggings
+  end
+
   def comments
     [@issue.comments.detect(&:new_record?) || @issue.comments.new]
   end

@@ -27,11 +27,16 @@ class IssuesControllerTest < ActionController::TestCase
 
   test 'should update issue' do
     assert_emails 1 do
-      assert_difference 'Subscription.count' do
+      assert_difference ['Subscription.count', 'Comment.count', 'Tagging.count'] do
         patch :update, id: @issue, issue: {
           status: 'taken',
           subscriptions_attributes: [
             { user_id: users(:john).id.to_s }
+          ],
+          taggings_attributes: [
+            {
+              tag_id: tags(:important).id.to_s
+            }
           ],
           comments_attributes: [
             {

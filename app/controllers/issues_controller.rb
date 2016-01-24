@@ -34,9 +34,24 @@ class IssuesController < ApplicationController
     end
 
     def issue_params
-      params.require(:issue).permit :status, :description,
-        subscriptions_attributes: [:id, :user_id, :_destroy],
+      args = current_user.guest? ? guest_permitted : others_permitted
+
+      params.require(:issue).permit(*args)
+    end
+
+    def others_permitted
+      [
+        :status, :description,
+          subscriptions_attributes: [:id, :user_id, :_destroy],
+          comments_attributes: [:id, :text, :file, :file_cache],
+          taggings_attributes: [:id, :tag_id, :_destroy]
+      ]
+    end
+
+    def guest_permitted
+      [
         comments_attributes: [:id, :text, :file, :file_cache]
+      ]
     end
 
     def issues

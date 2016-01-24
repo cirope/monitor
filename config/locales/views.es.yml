@@ -61,6 +61,7 @@ es:
       empty_html: 'No tiene casos'
     new:
       subscription: 'Agregar usuario'
+      tagging: 'Agregar etiqueta'
     show:
       title: 'Ver caso'
     status:

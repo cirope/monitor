@@ -5,6 +5,7 @@ class Issue < ActiveRecord::Base
   include Issues::Status
   include Issues::Subscriptions
   include Issues::Validation
+  include Taggable
 
   belongs_to :run
   has_many :users, through: :subscriptions

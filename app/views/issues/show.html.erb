@@ -40,6 +40,16 @@
   </div>
 <% end %>
 
+<% if @issue.tags.any? %>
+  <ul class="list-inline">
+    <% @issue.tags.each do |tag| %>
+      <li>
+        <span class="label label-default"><%= tag %></span>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
 <% if @issue.comments.any? %>
   <div class="panel panel-default">
     <div class="panel-heading">

@@ -24,6 +24,17 @@ class IssuesHelperTest < ActionView::TestCase
     assert subscriptions.all?(&:new_record?)
   end
 
+  test 'taggings' do
+    @issue = issues :ls_on_atahualpa_not_well
+
+    assert_equal @issue.taggings, issue_taggings
+
+    @issue = Issue.new
+
+    assert_equal 1, issue_taggings.size
+    assert issue_taggings.all?(&:new_record?)
+  end
+
   test 'comments' do
     @issue = issues :ls_on_atahualpa_not_well
 
