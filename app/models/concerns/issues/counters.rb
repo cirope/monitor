@@ -14,12 +14,10 @@ module Issues::Counters
     end
 
     def update_script_counters
-      if status_changed? && closed?
-        Script.decrement_counter :active_issues_count, script.id
-      end
+      Script.decrement_counter :active_issues_count, script.id if status_changed? && closed?
     end
 
     def decrement_script_counters
-      Script.decrement_counter :active_issues_count, script.id
+      Script.decrement_counter :active_issues_count, script.id unless closed?
     end
 end

@@ -78,6 +78,8 @@ class ScriptsControllerTest < ActionController::TestCase
   end
 
   test 'should destroy script' do
+    @script = scripts :cd_root
+
     assert_difference 'Script.count', -1 do
       delete :destroy, id: @script
     end

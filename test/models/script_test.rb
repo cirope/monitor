@@ -31,6 +31,12 @@ class ScriptTest < ActiveSupport::TestCase
     assert_error @script, :file, :invalid
   end
 
+  test 'can not destroy when active issues' do
+    assert_no_difference 'Script.count' do
+      @script.destroy
+    end
+  end
+
   test 'search' do
     scripts = Script.search query: @script.name
 

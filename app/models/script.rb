@@ -4,6 +4,7 @@ class Script < ActiveRecord::Base
   include SearchableByName
   include Scripts::Copy
   include Scripts::Descriptions
+  include Scripts::Destroy
   include Scripts::Requires
   include Scripts::Validation
   include Taggable

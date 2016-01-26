@@ -48,6 +48,10 @@ es:
       run:
         notice: 'Ejecución programada'
 
+    scripts:
+      destroy:
+        alert:  'El guión no pudo ser eliminado, tiene casos activos asociados'
+
     sessions:
       create:
         invalid: 'Tu correo y/o contraseña no están bien =('

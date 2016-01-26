@@ -86,4 +86,14 @@ class IssueTest < ActiveSupport::TestCase
       @issue.destroy!
     end
   end
+
+  test 'not decrement script counter on closed destroy' do
+    script = @issue.script
+
+    @issue.update! status: 'closed'
+
+    assert_no_difference 'script.reload.active_issues_count' do
+      @issue.destroy!
+    end
+  end
 end
