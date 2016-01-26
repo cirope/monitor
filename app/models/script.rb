@@ -15,6 +15,8 @@ class Script < ActiveRecord::Base
   strip_fields :name
 
   has_many :jobs, dependent: :destroy
+  has_many :runs, through: :jobs
+  has_many :issues, through: :runs
 
   def to_s
     name

@@ -1,7 +1,9 @@
 cd_root:
   name: 'Change directory to /'
   text: '%x{cd /}'
+  active_issues_count: 0
 
 ls:
   name: Execute one ls
   text: 'puts %x{ls}'
+  active_issues_count: 1

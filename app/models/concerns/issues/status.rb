@@ -13,6 +13,12 @@ module Issues::Status
     }[status.to_sym] || []
   end
 
+  %w(pending taken closed).each do |status|
+    define_method "#{status}?" do
+      self.status == status
+    end
+  end
+
   private
 
     def set_default_status

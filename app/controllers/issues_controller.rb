@@ -29,6 +29,7 @@ class IssuesController < ApplicationController
   end
 
   private
+
     def set_issue
       @issue = issues.find params[:id]
     end
