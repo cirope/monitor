@@ -1,4 +1,4 @@
-<header class="navbar navbar-default navbar-fixed-top" role="banner">
+<header class="navbar navbar-default navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
       <% if current_user %>
@@ -13,7 +13,7 @@
     </div>
 
     <% if current_user %>
-      <nav class="collapse navbar-collapse" role="navigation">
+      <nav class="collapse navbar-collapse">
         <% unless current_user.guest? %>
           <%= render 'shared/config_actions' %>
         <% end %>
