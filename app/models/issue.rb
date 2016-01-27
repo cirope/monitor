@@ -3,6 +3,7 @@ class Issue < ActiveRecord::Base
   include Issues::Comments
   include Issues::Counters
   include Issues::Notifications
+  include Issues::Scopes
   include Issues::Status
   include Issues::Subscriptions
   include Issues::Validation

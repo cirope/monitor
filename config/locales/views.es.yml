@@ -15,6 +15,11 @@ es:
     logout: 'Salir'
     show: 'Ver'
 
+  dashboard:
+    index:
+      title: 'Listado de casos'
+      empty_html: 'No hay casos activos'
+
   databases:
     edit:
       title: 'Editar base de datos'

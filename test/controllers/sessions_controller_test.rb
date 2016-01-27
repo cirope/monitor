@@ -15,14 +15,14 @@ class SessionsControllerTest < ActionController::TestCase
 
     post :create, { username: @user.email, password: '123' }
 
-    assert_redirected_to issues_url
+    assert_redirected_to dashboard_url
     assert_equal @user.id, current_user.id
   end
 
   test 'should create a new session via LDAP' do
     post :create, { username: @user.username, password: 'admin123' }
 
-    assert_redirected_to issues_url
+    assert_redirected_to dashboard_url
     assert_equal @user.id, current_user.id
   end
 

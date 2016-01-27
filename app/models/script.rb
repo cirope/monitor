@@ -12,6 +12,7 @@ class Script < ActiveRecord::Base
   mount_uploader :file, FileUploader
 
   scope :ordered, -> { order :name }
+  scope :with_active_issues, -> { where 'active_issues_count > ?', 0 }
 
   strip_fields :name
 

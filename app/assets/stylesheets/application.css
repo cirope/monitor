@@ -19,6 +19,7 @@
  *= require autocomplete
  *= require forms
  *= require row_controls
+ *= require dashboard
  *= require databases
  *= require descriptors
  *= require issues

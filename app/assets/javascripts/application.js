@@ -26,10 +26,11 @@
 //= require ajax
 //= require autocomplete
 //= require date_pickers
-//= require descriptors
 //= require dynamic_form
 //= require effect_helper
+//= require dashboard
 //= require databases
+//= require descriptors
 //= require issues
 //= require ldaps
 //= require password_resets

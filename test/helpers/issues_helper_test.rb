@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class IssuesHelperTest < ActionView::TestCase
+  test 'issue index path' do
+    skip
+  end
+
   test 'status' do
     @issue = issues :ls_on_atahualpa_not_well
 

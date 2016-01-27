@@ -10,9 +10,20 @@ class IssuesControllerTest < ActionController::TestCase
   end
 
   test 'should get index' do
+    get :index, script_id: @issue.script.id
+    assert_response :success
+    assert_not_nil assigns(:issues)
+  end
+
+  test 'should get index as guest' do
+    user = users(:john)
+
+    login user
+
     get :index
     assert_response :success
     assert_not_nil assigns(:issues)
+    assert assigns(:issues).all? { |issue| issue.users.find user.id }
   end
 
   test 'should show issue' do
@@ -56,6 +67,6 @@ class IssuesControllerTest < ActionController::TestCase
       delete :destroy, id: @issue
     end
 
-    assert_redirected_to issues_url
+    assert_redirected_to script_issues_url(@issue.script)
   end
 end
