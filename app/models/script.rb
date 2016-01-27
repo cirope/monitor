@@ -6,13 +6,12 @@ class Script < ActiveRecord::Base
   include Scripts::Descriptions
   include Scripts::Destroy
   include Scripts::Requires
+  include Scripts::Scopes
   include Scripts::Validation
+  include Filterable
   include Taggable
 
   mount_uploader :file, FileUploader
-
-  scope :ordered, -> { order :name }
-  scope :with_active_issues, -> { where 'active_issues_count > ?', 0 }
 
   strip_fields :name
 

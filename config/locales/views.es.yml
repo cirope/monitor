@@ -16,9 +16,14 @@ es:
     show: 'Ver'
 
   dashboard:
+    filters:
+      title: 'Buscar'
+      submit: 'Aplicar'
+      empty: 'No se encontraron etiquetas con ese criterio'
     index:
       title: 'Listado de casos'
       empty_html: 'No hay casos activos'
+      empty_search_html: 'No hay casos que coincidan con el criterio de búsqueda'
 
   databases:
     edit:

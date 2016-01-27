@@ -1,0 +1,43 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4 class="panel-title">
+      <a href="#filters" data-toggle="collapse">
+        <span class="glyphicon glyphicon-search"></span>
+        <%= t '.title' %>
+        <span class="caret"></span>
+      </a>
+    </h4>
+  </div>
+  <div id="filters" class="panel-body collapse <%= 'in' if filters? %>">
+    <%= simple_form_for :filter, method: :get do |f| %>
+      <fieldset>
+        <div class="form-inputs">
+          <div class="row">
+            <div class="col-lg-4">
+              <%= f.input :name, required: false, input_html: {
+                value: filter_params[:name],
+                autofocus: true
+              } %>
+            </div>
+            <div class="col-lg-4">
+              <%= f.input :tags, required: false, as: :autocomplete, url: tags_path(kind: 'issue'), input_html: {
+                value: filter_params[:tags],
+                data: { empty_result_label: t('.empty') }
+              } %>
+            </div>
+            <div class="col-lg-4">
+              <%= f.input :status, required: false, collection: filter_status, include_blank: true, selected: filter_params[:status] %>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <%= f.button :submit, t('.submit'), class: 'btn-default' %>
+          <p class="pull-right">
+            <%= link_to t('cancel'), dashboard_path %>
+          </p>
+        </div>
+      </fieldset>
+    <% end %>
+  </div>
+</div>

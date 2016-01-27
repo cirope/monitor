@@ -7,6 +7,7 @@ class Issue < ActiveRecord::Base
   include Issues::Status
   include Issues::Subscriptions
   include Issues::Validation
+  include Filterable
   include Taggable
 
   belongs_to :run

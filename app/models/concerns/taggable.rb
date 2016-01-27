@@ -12,5 +12,9 @@ module Taggable
     def tagged_with *tags
       joins(:tags).where(tags: { name: tags }).uniq
     end
+
+    def by_tags tags
+      tagged_with *tags.split(/\s*,\s*/)
+    end
   end
 end
