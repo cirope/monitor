@@ -5,7 +5,10 @@ module DashboardHelper
 
   def script_issue_count script
     if issue_filter.present?
-      script.issues.filter(issue_filter).count
+      issues = script.issues.filter(issue_filter)
+      issues = issues.active if issue_filter[:status].blank?
+
+      issues.count
     else
       script.active_issues_count
     end
