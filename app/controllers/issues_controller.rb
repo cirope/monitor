@@ -4,10 +4,12 @@ class IssuesController < ApplicationController
   before_action :set_script, only: [:index]
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
 
+  helper_method :filter_params
+
   respond_to :html, :json, :js
 
   def index
-    @issues = issues.active.order(created_at: :desc).page params[:page]
+    @issues = issues.order(created_at: :desc).page params[:page]
 
     respond_with @issues
   end
@@ -45,6 +47,12 @@ class IssuesController < ApplicationController
       params.require(:issue).permit(*args)
     end
 
+    def filter_params
+      params[:filter].present? ?
+        params.require(:filter).permit(:description, :status, :tags) :
+        {}
+    end
+
     def others_permitted
       [
         :status, :description,
@@ -61,10 +69,14 @@ class IssuesController < ApplicationController
     end
 
     def issues
-      if current_user.guest?
+      issues = if current_user.guest?
         current_user.issues
       else
         @script ? Issue.script_scoped(@script) : Issue.all
       end
+
+      issues = issues.active if filter_params[:status].blank?
+
+      issues.filter(filter_params)
     end
 end

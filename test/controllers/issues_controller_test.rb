@@ -13,6 +13,14 @@ class IssuesControllerTest < ActionController::TestCase
     get :index, script_id: @issue.script.id
     assert_response :success
     assert_not_nil assigns(:issues)
+    assert assigns(:issues).any?
+  end
+
+  test 'should get filtered index' do
+    get :index, script_id: @issue.script.id, filter: { description: 'undefined' }
+    assert_response :success
+    assert_not_nil assigns(:issues)
+    assert assigns(:issues).empty?
   end
 
   test 'should get index as guest' do

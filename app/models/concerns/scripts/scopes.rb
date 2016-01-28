@@ -10,7 +10,7 @@ module Scripts::Scopes
 
   module ClassMethods
     def by_name name
-      where "#{table_name}.name ILIKE ?", "#{name}%"
+      where "#{table_name}.name ILIKE ?", "%#{name}%"
     end
   end
 end

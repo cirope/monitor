@@ -14,10 +14,10 @@
         <div class="form-inputs">
           <div class="row">
             <div class="col-lg-4">
-              <%= f.input :name,
+              <%= f.input :description,
                 required: false,
                 input_html: {
-                  value:     filter_params[:name],
+                  value:     filter_params[:description],
                   class:     'input-sm',
                   autofocus: true
                 }
@@ -34,8 +34,8 @@
               %>
             </div>
             <div class="col-lg-4">
-              <%= f.input :status,
-                required: false, collection: filter_status, include_blank: true, selected: filter_params[:status],
+              <%= f.input :status, required: false,
+                collection: filter_status, include_blank: true, selected: filter_params[:status],
                 input_html: {
                   class: 'input-sm'
                 }
@@ -47,7 +47,7 @@
         <div class="form-actions">
           <p class="text-right">
             <%= f.button :submit, t('.submit'), class: 'btn-sm btn-default' %>
-            <%= link_to t('cancel'), dashboard_path, class: 'small' %>
+            <%= link_to t('cancel'), issue_index_path, class: 'small' %>
           </p>
         </div>
       </fieldset>

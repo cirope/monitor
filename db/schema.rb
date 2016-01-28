@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160125210209) do
+ActiveRecord::Schema.define(version: 20160128000229) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "btree_gin"
 
   create_table "comments", force: :cascade do |t|
     t.text     "text",       null: false
@@ -87,6 +88,7 @@ ActiveRecord::Schema.define(version: 20160125210209) do
 
   add_index "issues", ["created_at"], name: "index_issues_on_created_at", using: :btree
   add_index "issues", ["data"], name: "index_issues_on_data", using: :gin
+  add_index "issues", ["description"], name: "index_issues_on_description", using: :gin
   add_index "issues", ["run_id"], name: "index_issues_on_run_id", using: :btree
   add_index "issues", ["status"], name: "index_issues_on_status", using: :btree
 
@@ -209,7 +211,7 @@ ActiveRecord::Schema.define(version: 20160125210209) do
 
   add_index "scripts", ["active_issues_count"], name: "index_scripts_on_active_issues_count", using: :btree
   add_index "scripts", ["core"], name: "index_scripts_on_core", using: :btree
-  add_index "scripts", ["name"], name: "index_scripts_on_name", using: :btree
+  add_index "scripts", ["name"], name: "index_scripts_on_name", using: :gin
 
   create_table "servers", force: :cascade do |t|
     t.string   "name",                     null: false

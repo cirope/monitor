@@ -65,10 +65,15 @@ es:
   issues:
     edit:
       title: 'Editar caso'
+    filters:
+      title: 'Buscar'
+      submit: 'Aplicar'
+      empty: 'No se encontraron etiquetas con ese criterio'
     index:
       new: 'Nuevo caso'
       title: 'Listado de casos'
       empty_html: 'No tiene casos'
+      empty_search_html: 'No hay casos que coincidan con el criterio de búsqueda'
     new:
       subscription: 'Agregar usuario'
       tagging: 'Agregar etiqueta'

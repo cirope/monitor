@@ -13,5 +13,9 @@ module Issues::Scopes
     def by_status status
       where status: status
     end
+
+    def by_description description
+      where "#{table_name}.description ILIKE ?", "%#{description}%"
+    end
   end
 end

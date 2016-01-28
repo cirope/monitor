@@ -1,6 +1,6 @@
 module IssuesHelper
   def issue_index_path
-    current_user.guest? ? issues_path : script_issues_path(@issue.script)
+    current_user.guest? ? issues_path : script_issues_path(@script || @issue.script)
   end
 
   def issue_status status
