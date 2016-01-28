@@ -1,10 +1,10 @@
 class IssuesController < ApplicationController
+  include Issues::Filters
+
   before_action :authorize
   before_action :set_title, except: [:destroy]
   before_action :set_script, only: [:index]
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
-
-  helper_method :filter_params
 
   respond_to :html, :json, :js
 
@@ -41,18 +41,6 @@ class IssuesController < ApplicationController
       @script = Script.find params[:script_id] if params[:script_id]
     end
 
-    def issue_params
-      args = current_user.guest? ? guest_permitted : others_permitted
-
-      params.require(:issue).permit(*args)
-    end
-
-    def filter_params
-      params[:filter].present? ?
-        params.require(:filter).permit(:description, :status, :tags) :
-        {}
-    end
-
     def others_permitted
       [
         :status, :description,
@@ -66,17 +54,5 @@ class IssuesController < ApplicationController
       [
         comments_attributes: [:id, :text, :file, :file_cache]
       ]
-    end
-
-    def issues
-      issues = if current_user.guest?
-        current_user.issues
-      else
-        @script ? Issue.script_scoped(@script) : Issue.all
-      end
-
-      issues = issues.active if filter_params[:status].blank?
-
-      issues.filter(filter_params)
     end
 end

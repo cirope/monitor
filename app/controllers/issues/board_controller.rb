@@ -1,4 +1,6 @@
 class Issues::BoardController < ApplicationController
+  include Issues::Filters
+
   before_action :authorize, :not_guest
   before_action :set_title
   before_action :set_issue, only: [:create, :destroy]
@@ -52,10 +54,6 @@ class Issues::BoardController < ApplicationController
       params.require(:issue).permit :description, :status
     end
 
-    def issues
-      current_user.guest? ? current_user.issues : Issue.all
-    end
-
     def board_session
       session[:board_issues] ||= []
     end
@@ -70,8 +68,9 @@ class Issues::BoardController < ApplicationController
       board_session_errors.clear
 
       issues.find_each do |issue|
-        updated = issue.update _issue_params
-        board_session_errors[issue.id] = issue.errors.full_messages unless updated
+        unless issue.update _issue_params
+          board_session_errors[issue.id] = issue.errors.full_messages
+        end
       end
     end
 end
