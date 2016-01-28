@@ -2,15 +2,17 @@ module Issues::Status
   extend ActiveSupport::Concern
 
   included do
+    STATUS_TRANSITIONS = {
+      pending: %w(pending taken closed),
+      taken:   %w(taken closed),
+      closed:  %w(closed)
+    }
+
     before_validation :set_default_status
   end
 
   def next_status
-    {
-      pending: %w(pending taken closed),
-      taken:   %w(taken closed),
-      closed:  %w(closed)
-    }[status_was.to_sym] || []
+    STATUS_TRANSITIONS[status_was.to_sym] || []
   end
 
   %w(pending taken closed).each do |status|
