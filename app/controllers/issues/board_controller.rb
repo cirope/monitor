@@ -6,21 +6,19 @@ class Issues::BoardController < ApplicationController
   respond_to :html, :js
 
   def index
-    @issues = issues.order(:created_at).where(id: session[:board_issues]).page params[:page]
+    @issues = issues.order(:created_at).where(id: board_session).page params[:page]
 
     respond_with @issues
   end
 
   def create
-    session[:board_issues] ||= []
-    session[:board_issues] << @issue.id
+    board_session << @issue.id
 
     respond_with @issue
   end
 
   def destroy
-    session[:board_issues] ||= []
-    session[:board_issues].delete @issue.id
+    board_session.delete @issue.id
 
     respond_with @issue
   end
@@ -33,5 +31,9 @@ class Issues::BoardController < ApplicationController
 
     def issues
       current_user.guest? ? current_user.issues : Issue.all
+    end
+
+    def board_session
+      session[:board_issues] ||= []
     end
 end

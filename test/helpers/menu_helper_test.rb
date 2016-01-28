@@ -14,4 +14,10 @@ class MenuHelperTest < ActionView::TestCase
 
     assert show_board?
   end
+
+  private
+
+    def board_session
+      session[:board_issues] ||= []
+    end
 end

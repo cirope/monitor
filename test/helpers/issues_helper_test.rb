@@ -71,4 +71,10 @@ class IssuesHelperTest < ActionView::TestCase
 
     assert_match 'data-method="delete"', link_to_remove_from_board(issue)
   end
+
+  private
+
+    def board_session
+      session[:board_issues] ||= []
+    end
 end

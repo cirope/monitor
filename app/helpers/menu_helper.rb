@@ -7,6 +7,6 @@ module MenuHelper
   end
 
   def show_board?
-    session[:board_issues].present?
+    board_session.present?
   end
 end

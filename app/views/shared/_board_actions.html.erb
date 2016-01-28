@@ -4,7 +4,7 @@
       <%= link_to issues_board_path, title: t('board.index.title') do %>
         <span class="glyphicon glyphicon-shopping-cart"></span>
         <span class="badge badge-default">
-          <%= session[:board_issues].size %>
+          <%= board_session.size %>
         </span>
       <% end %>
     </li>

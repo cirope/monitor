@@ -28,14 +28,14 @@ class Issues::BoardControllerTest < ActionController::TestCase
     assert_equal 0, assigns(:issues).size
   end
 
-  test 'should get create' do
+  test 'should add issue to the board' do
     post :create, issue_id: @issue.id, format: :js
     assert_response :success
     assert_template 'issues/board/create'
     assert_includes session[:board_issues], @issue.id
   end
 
-  test 'should get delete' do
+  test 'should delete issue from board' do
     session[:board_issues] = [@issue.id]
 
     delete :destroy, issue_id: @issue.id, format: :js

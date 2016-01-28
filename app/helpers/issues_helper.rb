@@ -37,9 +37,7 @@ module IssuesHelper
   end
 
   def is_in_board? issue
-    board_issues = session[:board_issues] || []
-
-    board_issues.include? issue.id
+    board_session.include? issue.id
   end
 
   def link_to_add_to_board issue
