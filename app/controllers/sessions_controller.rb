@@ -19,6 +19,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    reset_session
     cookies.delete :auth_token
     redirect_to root_url, notice: t('.logged_out', scope: :flash)
   end
