@@ -35,6 +35,14 @@ class Issues::BoardControllerTest < ActionController::TestCase
     assert_includes session[:board_issues], @issue.id
   end
 
+  test 'should update issues' do
+    session[:board_issues] = [@issue.id]
+
+    patch :update, issue: { description: 'Updated' }
+    assert_redirected_to issues_board_url
+    assert_equal 'Updated', @issue.reload.description
+  end
+
   test 'should delete issue from board' do
     session[:board_issues] = [@issue.id]
 

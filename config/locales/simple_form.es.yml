@@ -30,6 +30,9 @@ es:
         tags: 'Etiquetas'
         status: 'Estado'
     hints:
+      issue:
+        description: 'Descripción'
+        status: 'Estado'
       ldap:
         hostname: 'Dominio o dirección IP'
         port: 'Por ejemplo: 389'

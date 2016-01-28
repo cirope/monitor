@@ -68,9 +68,15 @@ es:
 
   issues:
     board:
+      form:
+        title: 'Modificar'
+        submit: 'Aplicar'
       index:
         empty_html: 'No hay casos agregados al tablero'
         remove_from_board: 'Eliminar del tablero'
+      update:
+        updated: 'Todos los casos fueron actualizados'
+        fail: 'No todos los casos fueron actualizados, algunos contienen errores'
     edit:
       title: 'Editar caso'
     filters:

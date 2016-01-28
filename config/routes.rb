@@ -11,6 +11,10 @@ Rails.application.routes.draw do
   get 'profile', to: 'profiles#edit', as: 'profile'
   patch 'profile', to: 'profiles#update'
 
+  # Issues board
+  get 'issues/board', to: 'issues/board#index', as: 'issues_board'
+  patch 'issues/board', to: 'issues/board#update'
+
   # Resources
   resources :databases
   resources :descriptors
@@ -18,8 +22,6 @@ Rails.application.routes.draw do
   resources :rules
   resources :servers
   resources :password_resets, only: [:new, :create, :edit, :update]
-
-  get 'issues/board', to: 'issues/board#index', as: 'issues_board'
 
   resources :issues, except: [:new, :create] do
     post   :board, to: 'issues/board#create'
