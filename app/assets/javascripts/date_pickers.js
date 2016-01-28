@@ -7,10 +7,12 @@ $(document).on('focus keydown click', 'input[data-date-picker]', function () {
     cancelLabel: $input.data('dateLocaleCancel')
   }
   var options = {
-    locale:           locale,
-    singleDatePicker: !  $input.data('dateRange'),
-    timePicker:       !! $input.data('dateTime'),
-    timePicker24Hour: true
+    locale:              locale,
+    autoApply:           true,
+    singleDatePicker:    !  $input.data('dateRange'),
+    timePicker:          !! $input.data('dateTime'),
+    timePicker24Hour:    true,
+    timePickerIncrement: 5
   }
 
   $input
