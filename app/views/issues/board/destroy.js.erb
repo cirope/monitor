@@ -1,15 +1,7 @@
 +function () {
-  var $row      = $('[data-issue="<%= @issue.id %>"]')
-  var $boardRow = $('[data-board-issue="<%= @issue.id %>"]')
-  var $board    = $('#board')
+  var $row   = $('[data-issue="<%= @issue.id %>"]')
+  var $board = $('#board')
 
   $row.replaceWith('<%= j render('issues/issue', issue: @issue) %>')
   $board.replaceWith('<%= j render('shared/board_actions') %>')
-
-  if ($boardRow.length) {
-    $boardRow.remove()
-
-    if (! $('[data-board-issue]').length)
-      Turbolinks.visit('<%= issues_board_path %>')
-  }
 }()

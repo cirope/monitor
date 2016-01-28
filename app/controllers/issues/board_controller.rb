@@ -20,7 +20,7 @@ class Issues::BoardController < ApplicationController
   def destroy
     board_session.delete @issue.id
 
-    respond_with @issue
+    respond_with @issue, location: issues_board_url
   end
 
   private

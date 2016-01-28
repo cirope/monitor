@@ -46,8 +46,8 @@ module IssuesHelper
     end
   end
 
-  def link_to_remove_from_board issue
-    link_to issue_board_path(issue), title: t('.remove_from_board'), data: { remote: true, method: :delete } do
+  def link_to_remove_from_board issue, options = { remote: true }
+    link_to issue_board_path(issue), title: t('.remove_from_board'), data: { remote: options[:remote], method: :delete } do
       content_tag :span, nil, class: 'glyphicon glyphicon-minus-sign'
     end
   end

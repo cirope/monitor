@@ -14,12 +14,12 @@
 
     <tbody>
       <% @issues.each do |issue| %>
-        <tr data-board-issue="<%= issue.id %>">
+        <tr>
           <td><%= l issue.run.scheduled_at, format: :compact %></td>
           <td><%= l issue.created_at, format: :compact %></td>
           <td><%= truncate issue.description, length: 50 %></td>
           <td><%= issue_status issue.status %></td>
-          <td><%= link_to_remove_from_board issue %></td>
+          <td><%= link_to_remove_from_board issue, remote: false %></td>
         </tr>
       <% end %>
     </tbody>
