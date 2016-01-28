@@ -35,4 +35,22 @@ module IssuesHelper
   def comments
     [@issue.comments.detect(&:new_record?) || @issue.comments.new]
   end
+
+  def is_in_board? issue
+    board_issues = session[:board_issues] || []
+
+    board_issues.include? issue.id
+  end
+
+  def link_to_add_to_board issue
+    link_to issue_board_path(issue), title: t('.add_to_board'), data: { remote: true, method: :post } do
+      content_tag :span, nil, class: 'glyphicon glyphicon-plus-sign'
+    end
+  end
+
+  def link_to_remove_from_board issue
+    link_to issue_board_path(issue), title: t('.remove_from_board'), data: { remote: true, method: :delete } do
+      content_tag :span, nil, class: 'glyphicon glyphicon-minus-sign'
+    end
+  end
 end

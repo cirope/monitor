@@ -1,0 +1,12 @@
+<ul id="board" class="nav navbar-nav navbar-right">
+  <% if show_board? %>
+    <li <%== 'class="active"' if controller_name == 'board' %>>
+      <%= link_to issues_board_path, title: t('board.index.title') do %>
+        <span class="glyphicon glyphicon-shopping-cart"></span>
+        <span class="badge badge-default">
+          <%= session[:board_issues].size %>
+        </span>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

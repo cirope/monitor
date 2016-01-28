@@ -14,11 +14,17 @@ Rails.application.routes.draw do
   # Resources
   resources :databases
   resources :descriptors
-  resources :issues, except: [:new, :create]
   resources :ldaps
   resources :rules
   resources :servers
   resources :password_resets, only: [:new, :create, :edit, :update]
+
+  get 'issues/board', to: 'issues/board#index', as: 'issues_board'
+
+  resources :issues, except: [:new, :create] do
+    post   :board, to: 'issues/board#create'
+    delete :board, to: 'issues/board#destroy'
+  end
 
   resources :schedules do
     post :run, on: :member, as: :run

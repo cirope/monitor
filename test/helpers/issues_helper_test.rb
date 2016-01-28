@@ -45,4 +45,30 @@ class IssuesHelperTest < ActionView::TestCase
     assert_equal 1, comments.size
     assert comments.all?(&:new_record?)
   end
+
+  test 'is in board?' do
+    issue = issues :ls_on_atahualpa_not_well
+
+    assert !is_in_board?(issue)
+
+    session[:board_issues] = [issue.id]
+
+    assert is_in_board?(issue)
+
+    session[:board_issues] = nil
+  end
+
+  test 'link add to board' do
+    @virtual_path = ''
+    issue         = issues :ls_on_atahualpa_not_well
+
+    assert_match 'data-method="post"', link_to_add_to_board(issue)
+  end
+
+  test 'link remove from board' do
+    @virtual_path = ''
+    issue         = issues :ls_on_atahualpa_not_well
+
+    assert_match 'data-method="delete"', link_to_remove_from_board(issue)
+  end
 end

@@ -32,6 +32,7 @@
 //= require databases
 //= require descriptors
 //= require issues
+//= require issues/board
 //= require ldaps
 //= require password_resets
 //= require profiles

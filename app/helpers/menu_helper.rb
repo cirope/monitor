@@ -5,4 +5,8 @@ module MenuHelper
 
     content_tag(:li, link, (active ? { class: 'active' } : {}))
   end
+
+  def show_board?
+    session[:board_issues].present?
+  end
 end

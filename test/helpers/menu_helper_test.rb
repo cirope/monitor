@@ -6,4 +6,12 @@ class MenuHelperTest < ActionView::TestCase
 
     assert_equal content_tag(:li, link), menu_item_for(User, users_path)
   end
+
+  test 'show board?' do
+    assert !show_board?
+
+    session[:board_issues] = [issues(:ls_on_atahualpa_not_well).id]
+
+    assert show_board?
+  end
 end
