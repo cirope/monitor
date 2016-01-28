@@ -11,7 +11,7 @@
  *= require_self
  *= require fonts
  *= require bootstrap
- *= require bootstrap-datetimepicker
+ *= require daterangepicker-bs3
  *= require jquery-ui
  *= require jquery-ui-theme
  *= require main

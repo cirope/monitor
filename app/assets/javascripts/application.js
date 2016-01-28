@@ -22,7 +22,7 @@
 //= require bootstrap/bootstrap
 //= require moment
 //= require moment/es
-//= require bootstrap-datetimepicker
+//= require daterangepicker
 //= require ajax
 //= require autocomplete
 //= require date_pickers

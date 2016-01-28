@@ -5,8 +5,8 @@ class DatePickerInput < SimpleForm::Inputs::Base
     @builder.text_field(
       attribute_name,
       combined_input_html_options.reverse_merge(
-        data:         { 'date-picker': true, 'date-side-by-side': true },
-        value:        (I18n.l(object.send(attribute_name), format: :compact) if object.send(attribute_name)),
+        data:         default_data_options,
+        value:        value,
         autocomplete: 'off'
       )
     ).html_safe
@@ -15,4 +15,19 @@ class DatePickerInput < SimpleForm::Inputs::Base
   def input_html_classes
     super << 'form-control'
   end
+
+  private
+
+    def value
+      I18n.l(object.send(attribute_name), format: :compact) if object.send(attribute_name)
+    end
+
+    def default_data_options
+      {
+        date_picker:        true,
+        date_time:          true,
+        date_locale_apply:  I18n.t('datepicker.apply'),
+        date_locale_cancel: I18n.t('datepicker.cancel')
+      }
+    end
 end
