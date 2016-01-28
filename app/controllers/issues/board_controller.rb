@@ -35,6 +35,13 @@ class Issues::BoardController < ApplicationController
     respond_with @issue, location: issues_board_url
   end
 
+  def empty
+    board_session.clear
+    board_session_errors.clear
+
+    redirect_to dashboard_url, notice: t('.done')
+  end
+
   private
 
     def set_issue

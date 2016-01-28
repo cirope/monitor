@@ -51,4 +51,14 @@ class Issues::BoardControllerTest < ActionController::TestCase
     assert_template 'issues/board/destroy'
     assert session[:board_issues].exclude?(@issue.id)
   end
+
+  test 'should empty the board' do
+    session[:board_issues]       = [@issue.id]
+    session[:board_issue_errors] = { @issue.id => 'Error' }
+
+    delete :empty
+    assert_redirected_to dashboard_url
+    assert_equal 0, session[:board_issues].size
+    assert_equal 0, session[:board_issue_errors].size
+  end
 end

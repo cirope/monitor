@@ -9,7 +9,12 @@
         <th><%= Issue.human_attribute_name 'created_at' %></th>
         <th><%= Issue.human_attribute_name 'description' %></th>
         <th><%= Issue.human_attribute_name 'status' %></th>
-        <th></th>
+        <th class="text-right">
+          <%= link_to issues_board_path, class: 'btn btn-xs btn-default', data: { method: :delete } do %>
+            <%= t '.clear' %>
+            <span class="glyphicon glyphicon-send"></span>
+          <% end %>
+        </th>
       </tr>
     </thead>
 

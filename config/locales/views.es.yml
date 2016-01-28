@@ -72,11 +72,14 @@ es:
         title: 'Modificar'
         submit: 'Aplicar'
       index:
+        clear: 'Limpiar'
         empty_html: 'No hay casos agregados al tablero'
         remove_from_board: 'Eliminar del tablero'
       update:
         updated: 'Todos los casos fueron actualizados'
         fail: 'No todos los casos fueron actualizados, algunos contienen errores'
+      empty:
+        done: 'Se limpiaron todos los casos del tablero'
     edit:
       title: 'Editar caso'
     filters:

@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   # Issues board
   get 'issues/board', to: 'issues/board#index', as: 'issues_board'
   patch 'issues/board', to: 'issues/board#update'
+  delete 'issues/board', to: 'issues/board#empty'
 
   # Resources
   resources :databases
