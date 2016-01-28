@@ -10,7 +10,7 @@ module Issues::Status
       pending: %w(pending taken closed),
       taken:   %w(taken closed),
       closed:  %w(closed)
-    }[status.to_sym] || []
+    }[status_was.to_sym] || []
   end
 
   %w(pending taken closed).each do |status|
