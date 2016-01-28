@@ -1,5 +1,10 @@
 <div class="panel panel-default">
   <div class="panel-heading">
+    <% if filters? %>
+      <p class="text-warning pull-right">
+        <span class="glyphicon glyphicon-filter"></span>
+      </p>
+    <% end %>
     <h4 class="panel-title">
       <a href="#filters" data-toggle="collapse">
         <span class="glyphicon glyphicon-search"></span>
@@ -8,7 +13,7 @@
       </a>
     </h4>
   </div>
-  <div id="filters" class="panel-body collapse <%= 'in' if filters? %>">
+  <div id="filters" class="panel-body collapse">
     <%= simple_form_for :filter, method: :get do |f| %>
       <fieldset>
         <div class="form-inputs">
