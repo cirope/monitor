@@ -22,13 +22,12 @@ class IssueTest < ActiveSupport::TestCase
   end
 
   test 'next status' do
-    @issue.status = 'pending'
     assert_equal %w(pending taken closed), @issue.next_status
 
-    @issue.status = 'taken'
+    @issue.update! status: 'taken'
     assert_equal %w(taken closed), @issue.next_status
 
-    @issue.status = 'closed'
+    @issue.update! status: 'closed'
     assert_equal %w(closed), @issue.next_status
   end
 

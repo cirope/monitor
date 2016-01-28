@@ -12,7 +12,7 @@ module Issues::Status
   end
 
   def next_status
-    STATUS_TRANSITIONS[status_was.to_sym] || []
+    STATUS_TRANSITIONS[(status_was || status).to_sym] || []
   end
 
   %w(pending taken closed).each do |status|
