@@ -33,7 +33,7 @@
     <div id="subscriptions" class="panel-body">
       <ul>
         <% @issue.subscriptions.each do |subscription| %>
-          <li><%= link_to subscription.user, subscription.user %></li>
+          <li><%= link_to_unless current_user.guest?, subscription.user, subscription.user %></li>
         <% end %>
       </ul>
     </div>

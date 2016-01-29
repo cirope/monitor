@@ -19,7 +19,7 @@
         <% end %>
 
         <ul class="nav navbar-nav">
-          <%= menu_item_for Issue, current_user.guest? ? scripts_path : dashboard_path %>
+          <%= menu_item_for Issue, current_user.guest? ? issues_path : dashboard_path %>
         </ul>
         <% unless current_user.guest? %>
           <ul class="nav navbar-nav">
