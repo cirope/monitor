@@ -3,6 +3,9 @@
     <% if filters? %>
       <p class="text-warning pull-right">
         <span class="glyphicon glyphicon-filter"></span>
+        <%= link_to dashboard_path, title: t('cancel') do %>
+          <span class="glyphicon glyphicon-remove-circle"></span>
+        <% end %>
       </p>
     <% end %>
     <h4 class="panel-title">
