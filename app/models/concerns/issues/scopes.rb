@@ -10,6 +10,10 @@ module Issues::Scopes
       joins(:script).where scripts: { id: script.id }
     end
 
+    def by_id id
+      where id: id
+    end
+
     def by_status status
       where status: status
     end

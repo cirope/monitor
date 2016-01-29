@@ -10,6 +10,7 @@ class IssuesController < ApplicationController
 
   def index
     @issues = issues.order(created_at: :desc).page params[:page]
+    @issues = @issues.active unless status_present?
 
     respond_with @issues
   end

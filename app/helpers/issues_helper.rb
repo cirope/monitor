@@ -41,14 +41,56 @@ module IssuesHelper
   end
 
   def link_to_add_to_board issue
-    link_to issue_board_path(issue), title: t('.add_to_board'), data: { remote: true, method: :post } do
+    options = {
+      title: t('.add_to_board'),
+      data:  {
+        remote: true,
+        method: :post
+      }
+    }
+
+    link_to issues_board_path(filter: { id: issue }), options do
       content_tag :span, nil, class: 'glyphicon glyphicon-plus-sign'
     end
   end
 
   def link_to_remove_from_board issue, options = { remote: true }
-    link_to issue_board_path(issue), title: t('.remove_from_board'), data: { remote: options[:remote], method: :delete } do
+    options = {
+      title: t('.remove_from_board'),
+      data:  {
+        remote: options[:remote],
+        method: :delete
+      }
+    }
+
+    link_to issues_board_path(filter: { id: issue }), options do
       content_tag :span, nil, class: 'glyphicon glyphicon-minus-sign'
+    end
+  end
+
+  def link_to_add_all_to_board
+    url     = issues_board_path filter: filter_params, script_id: @script.id
+    options = {
+      class: 'btn btn-xs btn-default',
+      title: t('.add_all'),
+      data:  { method: :post }
+    }
+
+    link_to url, options do
+      content_tag :span, nil, class: 'glyphicon glyphicon-ok-sign'
+    end
+  end
+
+  def link_to_remove_all_from_board
+    url     = issues_board_path filter: filter_params, script_id: @script.id
+    options = {
+      class: 'btn btn-xs btn-default',
+      title: t('.add_all'),
+      data:  { method: :delete }
+    }
+
+    link_to url, options do
+      content_tag :span, nil, class: 'glyphicon glyphicon-remove-sign'
     end
   end
 end

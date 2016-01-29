@@ -1,6 +1,8 @@
 <% if @issues.empty? %>
   <%= render 'shared/empty_index', message: empty_message %>
 <% else %>
+  <%= render 'form' %>
+
   <table class="table table-striped table-hover">
     <thead>
       <tr>
@@ -10,7 +12,7 @@
         <th><%= Issue.human_attribute_name 'description' %></th>
         <th><%= Issue.human_attribute_name 'status' %></th>
         <th class="text-right">
-          <%= link_to issues_board_path, class: 'btn btn-xs btn-default', data: { method: :delete } do %>
+          <%= link_to empty_issues_board_path, class: 'btn btn-xs btn-default', data: { method: :delete } do %>
             <%= t '.clear' %>
             <span class="glyphicon glyphicon-send"></span>
           <% end %>
@@ -33,6 +35,4 @@
   </table>
 
   <%= paginate @issues %>
-
-  <%= render 'form' %>
 <% end %>

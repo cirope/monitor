@@ -20,7 +20,14 @@
         <th><%= Issue.human_attribute_name 'created_at' %></th>
         <th><%= Issue.human_attribute_name 'description' %></th>
         <th><%= Issue.human_attribute_name 'status' %></th>
-        <th colspan="<%= current_user.guest? ? 2 : 4 %>"></th>
+        <th class="text-right" colspan="<%= current_user.guest? ? 2 : 4 %>">
+          <% if @script %>
+            <div class="btn-group" role="group">
+              <%= link_to_add_all_to_board %>
+              <%= link_to_remove_all_from_board %>
+            </div>
+          <% end %>
+        </th>
       </tr>
     </thead>
 

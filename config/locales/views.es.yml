@@ -89,6 +89,8 @@ es:
     index:
       new: 'Nuevo caso'
       title: 'Listado de casos'
+      add_all: 'Agregar todos al tablero'
+      remove_all: 'Eliminar todos del tablero'
       empty_html: 'No tiene casos'
       empty_search_html: 'No hay casos que coincidan con el criterio de búsqueda'
     issue:

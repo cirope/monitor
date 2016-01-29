@@ -6,10 +6,7 @@ module Issues::Filters
   end
 
   def issues
-    issues = scoped_issues
-    issues = issues.active if filter_params[:status].blank?
-
-    issues.filter(filter_params)
+    scoped_issues.filter filter_params
   end
 
   def issue_params
@@ -20,8 +17,12 @@ module Issues::Filters
 
   def filter_params
     params[:filter].present? ?
-      params.require(:filter).permit(:description, :status, :tags) :
+      params.require(:filter).permit(:id, :description, :status, :tags) :
       {}
+  end
+
+  def status_present?
+    filter_params[:status].present?
   end
 
   private

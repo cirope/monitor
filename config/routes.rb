@@ -3,31 +3,29 @@ Rails.application.routes.draw do
   get 'dashboard', to: 'dashboard#index', as: 'dashboard'
 
   # Sessions
-  get 'login', to: 'sessions#new', as: 'login'
-  post 'sessions', to: 'sessions#create', as: 'sessions'
-  delete 'logout', to: 'sessions#destroy', as: 'logout'
+  get    'login',    to: 'sessions#new', as: 'login'
+  post   'sessions', to: 'sessions#create', as: 'sessions'
+  delete 'logout',   to: 'sessions#destroy', as: 'logout'
 
   # Profiles
-  get 'profile', to: 'profiles#edit', as: 'profile'
+  get   'profile', to: 'profiles#edit', as: 'profile'
   patch 'profile', to: 'profiles#update'
 
   # Issues board
-  get 'issues/board', to: 'issues/board#index', as: 'issues_board'
-  patch 'issues/board', to: 'issues/board#update'
-  delete 'issues/board', to: 'issues/board#empty'
+  get    'issues/board',       to: 'issues/board#index', as: 'issues_board'
+  post   'issues/board',       to: 'issues/board#create'
+  patch  'issues/board',       to: 'issues/board#update'
+  delete 'issues/board',       to: 'issues/board#destroy'
+  delete 'issues/board/empty', to: 'issues/board#empty', as: 'empty_issues_board'
 
   # Resources
   resources :databases
   resources :descriptors
+  resources :issues, except: [:new, :create]
   resources :ldaps
   resources :rules
   resources :servers
   resources :password_resets, only: [:new, :create, :edit, :update]
-
-  resources :issues, except: [:new, :create] do
-    post   :board, to: 'issues/board#create'
-    delete :board, to: 'issues/board#destroy'
-  end
 
   resources :schedules do
     post :run, on: :member, as: :run

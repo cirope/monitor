@@ -3,7 +3,8 @@ class Issues::BoardController < ApplicationController
 
   before_action :authorize, :not_guest
   before_action :set_title
-  before_action :set_issue, only: [:create, :destroy]
+  before_action :set_issue,  only: [:create, :destroy]
+  before_action :set_script, only: [:create, :destroy]
 
   respond_to :html, :js
 
@@ -14,9 +15,11 @@ class Issues::BoardController < ApplicationController
   end
 
   def create
-    board_session << @issue.id
+    @issues = status_present? || @issue ? issues : issues.active
 
-    respond_with @issue
+    board_session.concat(@issues.pluck('id')).uniq!
+
+    redirect_to :back unless request.xhr?
   end
 
   def update
@@ -32,9 +35,11 @@ class Issues::BoardController < ApplicationController
   end
 
   def destroy
-    board_session.delete @issue.id
+    @issues = status_present? || @issue ? issues : issues.active
 
-    respond_with @issue, location: issues_board_url
+    @issues.each { |issue| board_session.delete issue.id }
+
+    redirect_to :back unless request.xhr?
   end
 
   def empty
@@ -47,7 +52,11 @@ class Issues::BoardController < ApplicationController
   private
 
     def set_issue
-      @issue = issues.find params[:issue_id]
+      @issue = issues.find filter_params[:id] if filter_params[:id]
+    end
+
+    def set_script
+      @script = Script.find params[:script_id] if params[:script_id]
     end
 
     def issue_params

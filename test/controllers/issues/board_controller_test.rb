@@ -3,6 +3,7 @@ require 'test_helper'
 class Issues::BoardControllerTest < ActionController::TestCase
   setup do
     @issue = issues :ls_on_atahualpa_not_well
+    request.env['HTTP_REFERER'] = root_url
 
     login
   end
@@ -28,10 +29,16 @@ class Issues::BoardControllerTest < ActionController::TestCase
     assert_equal 0, assigns(:issues).size
   end
 
-  test 'should add issue to the board' do
-    post :create, issue_id: @issue.id, format: :js
+  test 'should add issue to the board via xhr' do
+    xhr :post, :create, filter: { id: @issue.id }, format: :js
     assert_response :success
     assert_template 'issues/board/create'
+    assert_includes session[:board_issues], @issue.id
+  end
+
+  test 'should add issue to the board via filter' do
+    post :create, filter: { description: @issue.description }
+    assert_redirected_to :back
     assert_includes session[:board_issues], @issue.id
   end
 
@@ -43,12 +50,20 @@ class Issues::BoardControllerTest < ActionController::TestCase
     assert_equal 'Updated', @issue.reload.description
   end
 
-  test 'should delete issue from board' do
+  test 'should delete issue from board via xhr' do
     session[:board_issues] = [@issue.id]
 
-    delete :destroy, issue_id: @issue.id, format: :js
+    xhr :delete, :destroy, filter: { id: @issue.id }, format: :js
     assert_response :success
     assert_template 'issues/board/destroy'
+    assert session[:board_issues].exclude?(@issue.id)
+  end
+
+  test 'should delete issue from board via filter' do
+    session[:board_issues] = [@issue.id]
+
+    delete :destroy, filter: { description: @issue.description }
+    assert_redirected_to :back
     assert session[:board_issues].exclude?(@issue.id)
   end
 
