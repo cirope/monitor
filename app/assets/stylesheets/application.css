@@ -11,7 +11,7 @@
  *= require_self
  *= require fonts
  *= require bootstrap
- *= require bootstrap-datetimepicker
+ *= require daterangepicker-bs3
  *= require jquery-ui
  *= require jquery-ui-theme
  *= require main
@@ -19,9 +19,11 @@
  *= require autocomplete
  *= require forms
  *= require row_controls
+ *= require dashboard
  *= require databases
  *= require descriptors
  *= require issues
+ *= require issues/board
  *= require ldaps
  *= require password_resets
  *= require profiles

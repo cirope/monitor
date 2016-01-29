@@ -3,5 +3,9 @@ every 1.minutes do
 end
 
 every 30.minutes do
-  command "cd #{path} && cap localhost sidekiq:restart"
+  command "cd #{path} && bundle exec cap localhost sidekiq:restart"
+end
+
+every 1.day do
+  rake 'sessions:clear'
 end

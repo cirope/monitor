@@ -15,6 +15,20 @@ es:
     logout: 'Salir'
     show: 'Ver'
 
+  board:
+    index:
+      title: 'Tablero de casos'
+
+  dashboard:
+    filters:
+      title: 'Buscar'
+      submit: 'Aplicar'
+      empty: 'No se encontraron etiquetas con ese criterio'
+    index:
+      title: 'Listado de casos'
+      empty_html: 'No hay casos activos'
+      empty_search_html: 'No hay casos que coincidan con el criterio de búsqueda'
+
   databases:
     edit:
       title: 'Editar base de datos'
@@ -53,14 +67,38 @@ es:
       title: 'Importar usuarios desde LDAP'
 
   issues:
+    board:
+      form:
+        title: 'Modificar'
+        submit: 'Aplicar'
+      index:
+        clear: 'Limpiar'
+        empty_html: 'No hay casos agregados al tablero'
+        remove_from_board: 'Eliminar del tablero'
+      update:
+        updated: 'Todos los casos fueron actualizados'
+        fail: 'No todos los casos fueron actualizados, algunos contienen errores'
+      empty:
+        done: 'Se limpiaron todos los casos del tablero'
     edit:
       title: 'Editar caso'
+    filters:
+      title: 'Buscar'
+      submit: 'Aplicar'
+      empty: 'No se encontraron etiquetas con ese criterio'
     index:
       new: 'Nuevo caso'
       title: 'Listado de casos'
+      add_all: 'Agregar todos al tablero'
+      remove_all: 'Eliminar todos del tablero'
       empty_html: 'No tiene casos'
+      empty_search_html: 'No hay casos que coincidan con el criterio de búsqueda'
+    issue:
+      add_to_board: 'Agregar al tablero'
+      remove_from_board: 'Eliminar del tablero'
     new:
       subscription: 'Agregar usuario'
+      tagging: 'Agregar etiqueta'
     show:
       title: 'Ver caso'
     status:
@@ -81,6 +119,8 @@ es:
       title: 'Ver configuración LDAP'
 
   objects:
+    grid:
+      more: 'Ver'
     table:
       more: 'Ver'
     ul:

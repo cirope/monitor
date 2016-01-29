@@ -30,14 +30,17 @@ class AutocompleteInput < SimpleForm::Inputs::Base
     end
 
     def input_options wrapper_options
+      value   = object.respond_to?(attribute_name) ? object.send(attribute_name) : nil
+      options = merge_wrapper_options input_html_options, wrapper_options
+
       {
-        value:       object.send(attribute_name),
+        value:       value,
         title:       model.model_name.human,
         placeholder: model.model_name.human,
         data: {
           autocomplete_url: url,
           autocomplete_target: "##{id_field}"
         }
-      }.deep_merge merge_wrapper_options(input_html_options, wrapper_options)
+      }.deep_merge options
     end
 end

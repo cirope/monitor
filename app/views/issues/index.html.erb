@@ -1,27 +1,38 @@
+<%= render 'filters' %>
+
 <% if @issues.empty? %>
-  <%= render 'shared/empty_index', message: t('.empty_html') %>
+  <%= render 'shared/empty_index', message: empty_message %>
 <% else %>
   <table class="table table-striped table-hover">
+    <% if @script %>
+      <caption>
+        <h4>
+          <%= @script %>
+          <small class="pull-right">
+            <%= link_to t('back'), dashboard_path %>
+          </small>
+        </h4>
+      </caption>
+    <% end %>
     <thead>
       <tr>
-        <th><%= Issue.human_attribute_name 'run' %></th>
+        <th><%= Run.human_attribute_name 'scheduled_at' %></th>
+        <th><%= Issue.human_attribute_name 'created_at' %></th>
+        <th><%= Issue.human_attribute_name 'description' %></th>
         <th><%= Issue.human_attribute_name 'status' %></th>
-        <th colspan="<%= current_user.guest? ? 2 : 3 %>"></th>
+        <th class="text-right" colspan="<%= current_user.guest? ? 2 : 4 %>">
+          <% if @script %>
+            <div class="btn-group" role="group">
+              <%= link_to_add_all_to_board %>
+              <%= link_to_remove_all_from_board %>
+            </div>
+          <% end %>
+        </th>
       </tr>
     </thead>
 
     <tbody>
-      <% @issues.each do |issue| %>
-        <tr>
-          <td><%= issue.run %></td>
-          <td><%= issue_status issue.status %></td>
-          <td><%= link_to_show issue %></td>
-          <td><%= link_to_edit [:edit, issue] %></td>
-          <% unless current_user.guest? %>
-            <td><%= link_to_destroy issue %></td>
-          <% end %>
-        </tr>
-      <% end %>
+      <%= render @issues %>
     </tbody>
   </table>
 

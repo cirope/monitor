@@ -1,0 +1,64 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <% if filters? %>
+      <p class="text-warning pull-right">
+        <span class="glyphicon glyphicon-filter"></span>
+        <%= link_to dashboard_path, title: t('cancel') do %>
+          <span class="glyphicon glyphicon-remove-circle"></span>
+        <% end %>
+      </p>
+    <% end %>
+    <h4 class="panel-title">
+      <a href="#filters" data-toggle="collapse">
+        <span class="glyphicon glyphicon-search"></span>
+        <%= t '.title' %>
+        <span class="caret"></span>
+      </a>
+    </h4>
+  </div>
+  <div id="filters" class="panel-body collapse">
+    <%= simple_form_for :filter, method: :get do |f| %>
+      <fieldset>
+        <div class="form-inputs">
+          <div class="row">
+            <div class="col-lg-4">
+              <%= f.input :name,
+                required: false,
+                input_html: {
+                  value:     filter_params[:name],
+                  class:     'input-sm',
+                  autofocus: true
+                }
+              %>
+            </div>
+            <div class="col-lg-4">
+              <%= f.input :tags,
+                required: false, as: :autocomplete, url: tags_path(kind: 'issue'),
+                input_html: {
+                  value: filter_params[:tags],
+                  class: 'input-sm',
+                  data:  { empty_result_label: t('.empty') }
+                }
+              %>
+            </div>
+            <div class="col-lg-4">
+              <%= f.input :status,
+                required: false, collection: filter_status, include_blank: '-', selected: filter_params[:status],
+                input_html: {
+                  class: 'input-sm'
+                }
+              %>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <p class="text-right">
+            <%= f.button :submit, t('.submit'), class: 'btn-sm btn-default' %>
+            <%= link_to t('cancel'), dashboard_path, class: 'small' %>
+          </p>
+        </div>
+      </fieldset>
+    <% end %>
+  </div>
+</div>

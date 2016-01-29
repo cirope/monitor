@@ -1,10 +1,10 @@
 module DynamicFormHelper
-  def link_to_add_fields name, form, association
+  def link_to_add_fields name, form, association, options = {}
     link_to(
       name, '#',
       class: 'btn btn-default btn-sm',
       title: name,
-      data: add_field_data(form, association)
+      data: add_field_data(form, association, options)
     )
   end
 
@@ -23,19 +23,20 @@ module DynamicFormHelper
 
   private
 
-    def add_field_data form, association
+    def add_field_data form, association, options
       new_object = form.object.send(association).klass.new
+      template   = fieldset(new_object, form, association, options)
 
       {
         id: new_object.object_id,
         dynamic_form_event: 'addNestedItem',
-        dynamic_template: fieldset(new_object, form, association).gsub("\n", '')
+        dynamic_template: template.gsub("\n", '')
       }
     end
 
-    def fieldset object, form, association
+    def fieldset object, form, association, options
       form.fields_for(association, object, child_index: object.object_id) do |f|
-        render object, f: f
+        render object, options.merge(f: f)
       end
     end
 

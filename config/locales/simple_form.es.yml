@@ -10,6 +10,7 @@ es:
       # html: '<abbr title="required">*</abbr>'
     error_notification:
       default_message: 'Hay algunos campos con errores'
+
     # Labels and hints examples
     # labels:
     #   defaults:
@@ -23,7 +24,17 @@ es:
     #   defaults:
     #     username: 'User name to sign in.'
     #     password: 'No special characters, please.'
+    labels:
+      filter:
+        name: 'Nombre'
+        tags: 'Etiquetas'
+        status: 'Estado'
+        data: 'Datos'
+        created_at: 'Fecha de caso'
     hints:
+      issue:
+        description: 'Descripción'
+        status: 'Estado'
       ldap:
         hostname: 'Dominio o dirección IP'
         port: 'Por ejemplo: 389'

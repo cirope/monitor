@@ -33,11 +33,21 @@
     <div id="subscriptions" class="panel-body">
       <ul>
         <% @issue.subscriptions.each do |subscription| %>
-          <li><%= link_to subscription.user, subscription.user %></li>
+          <li><%= link_to_unless current_user.guest?, subscription.user, subscription.user %></li>
         <% end %>
       </ul>
     </div>
   </div>
+<% end %>
+
+<% if @issue.tags.any? %>
+  <ul class="list-inline">
+    <% @issue.tags.each do |tag| %>
+      <li>
+        <span class="label label-default"><%= tag %></span>
+      </li>
+    <% end %>
+  </ul>
 <% end %>
 
 <% if @issue.comments.any? %>
@@ -71,4 +81,4 @@
 <% end %>
 
 <%= link_to_edit [:edit, @issue] %> |
-<%= link_to_index issues_path %>
+<%= link_to_index issue_index_path %>

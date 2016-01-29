@@ -19,6 +19,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    reset_session
     cookies.delete :auth_token
     redirect_to root_url, notice: t('.logged_out', scope: :flash)
   end
@@ -26,7 +27,7 @@ class SessionsController < ApplicationController
   private
 
     def default_url
-      issues_url
+      current_user.guest? ? issues_url : dashboard_url
     end
 
     def store_auth_token user

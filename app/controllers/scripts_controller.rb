@@ -38,7 +38,7 @@ class ScriptsController < ApplicationController
 
   def destroy
     @script.destroy
-    respond_with @script
+    respond_with @script, location: scripts_url
   end
 
   private

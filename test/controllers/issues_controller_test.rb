@@ -10,9 +10,28 @@ class IssuesControllerTest < ActionController::TestCase
   end
 
   test 'should get index' do
+    get :index, script_id: @issue.script.id
+    assert_response :success
+    assert_not_nil assigns(:issues)
+    assert assigns(:issues).any?
+  end
+
+  test 'should get filtered index' do
+    get :index, script_id: @issue.script.id, filter: { description: 'undefined' }
+    assert_response :success
+    assert_not_nil assigns(:issues)
+    assert assigns(:issues).empty?
+  end
+
+  test 'should get index as guest' do
+    user = users(:john)
+
+    login user
+
     get :index
     assert_response :success
     assert_not_nil assigns(:issues)
+    assert assigns(:issues).all? { |issue| issue.users.find user.id }
   end
 
   test 'should show issue' do
@@ -27,11 +46,16 @@ class IssuesControllerTest < ActionController::TestCase
 
   test 'should update issue' do
     assert_emails 1 do
-      assert_difference 'Subscription.count' do
+      assert_difference ['Subscription.count', 'Comment.count', 'Tagging.count'] do
         patch :update, id: @issue, issue: {
           status: 'taken',
           subscriptions_attributes: [
             { user_id: users(:john).id.to_s }
+          ],
+          taggings_attributes: [
+            {
+              tag_id: tags(:important).id.to_s
+            }
           ],
           comments_attributes: [
             {
@@ -51,6 +75,6 @@ class IssuesControllerTest < ActionController::TestCase
       delete :destroy, id: @issue
     end
 
-    assert_redirected_to issues_url
+    assert_redirected_to script_issues_url(@issue.script)
   end
 end

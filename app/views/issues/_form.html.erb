@@ -9,15 +9,40 @@
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">
-          <%= User.model_name.human count: 0 %>
+          <a href="#subscriptions" data-toggle="collapse">
+            <%= User.model_name.human count: 0 %>
+          </a>
+          <span class="badge badge-default pull-right">
+            <%= @issue.subscriptions.count %>
+          </span>
         </h3>
       </div>
-      <div id="subscriptions" class="panel-body">
+      <div id="subscriptions" class="collapse panel-body">
         <%= f.simple_fields_for :subscriptions, subscriptions do |df| %>
           <%= render 'subscriptions/subscription', f: df %>
         <% end %>
 
         <%= link_to_add_fields t('issues.new.subscription'), f, :subscriptions unless current_user.guest? %>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <a href="#tags" data-toggle="collapse">
+            <%= Tag.model_name.human count: 0 %>
+          </a>
+          <span class="badge badge-default pull-right">
+            <%= @issue.taggings.count %>
+          </span>
+        </h3>
+      </div>
+      <div id="tags" class="collapse panel-body">
+        <%= f.simple_fields_for :taggings, issue_taggings do |tf| %>
+          <%= render 'taggings/tagging', f: tf, kind: 'issue' %>
+        <% end %>
+
+        <%= link_to_add_fields t('issues.new.tagging'), f, :taggings, kind: 'issue' unless current_user.guest? %>
       </div>
     </div>
 

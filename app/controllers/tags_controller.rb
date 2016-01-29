@@ -6,7 +6,7 @@ class TagsController < ApplicationController
   respond_to :html, :json
 
   def index
-    @tags = Tag.search(query: params[:q], limit: request.xhr? && 10).order(:name).page params[:page]
+    @tags = scope.search(query: params[:q], limit: request.xhr? && 10).order(:name).page params[:page]
 
     respond_with @tags
   end
@@ -16,7 +16,7 @@ class TagsController < ApplicationController
   end
 
   def new
-    @tag = Tag.new
+    @tag = scope.new
 
     respond_with @tag
   end
@@ -25,15 +25,15 @@ class TagsController < ApplicationController
   end
 
   def create
-    @tag = Tag.new tag_params
+    @tag = scope.new tag_params
 
     @tag.save
-    respond_with @tag
+    respond_with @tag, location: [@tag, kind: @tag.kind]
   end
 
   def update
     @tag.update tag_params
-    respond_with @tag
+    respond_with @tag, location: [@tag, kind: @tag.kind]
   end
 
   def destroy
@@ -44,10 +44,14 @@ class TagsController < ApplicationController
   private
 
     def set_tag
-      @tag = Tag.find params[:id]
+      @tag = scope.find params[:id]
     end
 
     def tag_params
       params.require(:tag).permit :name, :lock_version
+    end
+
+    def scope
+      Tag.where(kind: params[:kind])
     end
 end

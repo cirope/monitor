@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151203121346) do
+ActiveRecord::Schema.define(version: 20160128021745) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,7 @@ ActiveRecord::Schema.define(version: 20151203121346) do
 
   add_index "issues", ["created_at"], name: "index_issues_on_created_at", using: :btree
   add_index "issues", ["data"], name: "index_issues_on_data", using: :gin
+  add_index "issues", ["description"], name: "index_issues_on_description", using: :btree
   add_index "issues", ["run_id"], name: "index_issues_on_run_id", using: :btree
   add_index "issues", ["status"], name: "index_issues_on_status", using: :btree
 
@@ -197,15 +198,17 @@ ActiveRecord::Schema.define(version: 20151203121346) do
   add_index "schedules", ["scheduled_at"], name: "index_schedules_on_scheduled_at", using: :btree
 
   create_table "scripts", force: :cascade do |t|
-    t.string   "name",                     null: false
+    t.string   "name",                            null: false
     t.string   "file"
     t.text     "text"
-    t.integer  "lock_version", default: 0, null: false
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.integer  "lock_version",        default: 0, null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.boolean  "core"
+    t.integer  "active_issues_count", default: 0, null: false
   end
 
+  add_index "scripts", ["active_issues_count"], name: "index_scripts_on_active_issues_count", using: :btree
   add_index "scripts", ["core"], name: "index_scripts_on_core", using: :btree
   add_index "scripts", ["name"], name: "index_scripts_on_name", using: :btree
 
@@ -221,6 +224,16 @@ ActiveRecord::Schema.define(version: 20151203121346) do
   end
 
   add_index "servers", ["name"], name: "index_servers_on_name", using: :btree
+
+  create_table "sessions", force: :cascade do |t|
+    t.string   "session_id", null: false
+    t.text     "data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", unique: true, using: :btree
+  add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
 
   create_table "subscriptions", force: :cascade do |t|
     t.integer  "issue_id",   null: false
@@ -244,12 +257,14 @@ ActiveRecord::Schema.define(version: 20151203121346) do
   add_index "taggings", ["taggable_type", "taggable_id"], name: "index_taggings_on_taggable_type_and_taggable_id", using: :btree
 
   create_table "tags", force: :cascade do |t|
-    t.string   "name",                     null: false
-    t.integer  "lock_version", default: 0, null: false
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.string   "name",                            null: false
+    t.integer  "lock_version", default: 0,        null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.string   "kind",         default: "script", null: false
   end
 
+  add_index "tags", ["kind"], name: "index_tags_on_kind", using: :btree
   add_index "tags", ["name"], name: "index_tags_on_name", using: :btree
 
   create_table "triggers", force: :cascade do |t|
