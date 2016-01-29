@@ -69,28 +69,32 @@ module IssuesHelper
   end
 
   def link_to_add_all_to_board
-    url     = issues_board_path filter: filter_params, script_id: @script.id
     options = {
       class: 'btn btn-xs btn-default',
       title: t('.add_all'),
       data:  { method: :post }
     }
 
-    link_to url, options do
+    link_to issues_board_path_with_params, options do
       content_tag :span, nil, class: 'glyphicon glyphicon-ok-sign'
     end
   end
 
   def link_to_remove_all_from_board
-    url     = issues_board_path filter: filter_params, script_id: @script.id
     options = {
       class: 'btn btn-xs btn-default',
-      title: t('.add_all'),
+      title: t('.remove_all'),
       data:  { method: :delete }
     }
 
-    link_to url, options do
+    link_to issues_board_path_with_params, options do
       content_tag :span, nil, class: 'glyphicon glyphicon-remove-sign'
     end
   end
+
+  private
+
+    def issues_board_path_with_params
+      issues_board_path filter: filter_params, script_id: @script.id
+    end
 end
