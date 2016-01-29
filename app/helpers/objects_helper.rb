@@ -7,11 +7,7 @@ module ObjectsHelper
       object = object[object.is_a?(Hash) ? index : index.to_i]
     end
 
-    if object.is_a? Hash
-      render 'objects/table', parent: parent, object: object
-    else
-      render 'objects/ul', parent: parent, object: object
-    end
+    _render parent, object
   end
 
   def link_or_show parent, key, object, id
@@ -23,4 +19,24 @@ module ObjectsHelper
       object
     end
   end
+
+  private
+
+    def _render parent, object
+      if object.is_a? Hash
+        render 'objects/table', parent: parent, object: object
+      elsif columns = columns_for(object)
+        render 'objects/grid', parent: parent, object: object, columns: columns
+      else
+        render 'objects/ul', parent: parent, object: object
+      end
+    end
+
+    def columns_for object
+      return unless object.all? { |item| item.is_a? Hash }
+
+      columns = object.map { |item| item.keys }.compact.flatten.uniq
+
+      columns if columns.length <= 6
+    end
 end

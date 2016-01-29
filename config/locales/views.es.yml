@@ -119,6 +119,8 @@ es:
       title: 'Ver configuración LDAP'
 
   objects:
+    grid:
+      more: 'Ver'
     table:
       more: 'Ver'
     ul:
