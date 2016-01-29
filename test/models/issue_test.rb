@@ -46,6 +46,14 @@ class IssueTest < ActiveSupport::TestCase
     assert issues.all? { |issue| issue.tags.any? { |t| t.name == tag.name } }
   end
 
+  test 'by created at' do
+    skip
+  end
+
+  test 'by data' do
+    skip
+  end
+
   test 'pending?' do
     assert @issue.pending?
 

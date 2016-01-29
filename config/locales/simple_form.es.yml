@@ -29,6 +29,8 @@ es:
         name: 'Nombre'
         tags: 'Etiquetas'
         status: 'Estado'
+        data: 'Datos'
+        created_at: 'Fecha de caso'
     hints:
       issue:
         description: 'Descripción'

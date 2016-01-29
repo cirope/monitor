@@ -21,5 +21,19 @@ module Issues::Scopes
     def by_description description
       where "#{table_name}.description ILIKE ?", "%#{description}%"
     end
+
+    def by_created_at range_as_string
+      dates = range_as_string.split(/\s*-\s*/).map do |d|
+        Timeliness.parse d rescue nil
+      end
+      start  = dates.first
+      finish = dates.last
+
+      start && finish ? where(created_at: start..finish) : all
+    end
+
+    def by_data data
+      where "#{table_name}.data @> ?", data
+    end
   end
 end

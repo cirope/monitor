@@ -16,9 +16,11 @@ module Issues::Filters
   end
 
   def filter_params
-    params[:filter].present? ?
-      params.require(:filter).permit(:id, :description, :status, :tags) :
+    if params[:filter].present?
+      params.require(:filter).permit :id, :description, :status, :tags, :data, :created_at
+    else
       {}
+    end
   end
 
   def status_present?

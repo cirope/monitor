@@ -83,6 +83,7 @@ es:
         description: 'Descripción'
         run: 'Corrida'
         data: 'Datos'
+        created_at: 'Fecha de caso'
       job:
         script: 'Guión'
         server: 'Servidor'
