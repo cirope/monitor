@@ -178,8 +178,8 @@ es:
       title: 'Editar trabajo'
     index:
       new: 'Nuevo trabajo'
-      title: 'Listado de trabajoes'
-      empty_html: 'No hay trabajoes, puede crear uno con el botón <span class="label label-primary">Nuevo trabajo</span>'
+      title: 'Listado de trabajos'
+      empty_html: 'No hay trabajos, puede crear uno con el botón <span class="label label-primary">Nuevo trabajo</span>'
     new:
       title: 'Crear trabajo'
       job: 'Agregar guión'
