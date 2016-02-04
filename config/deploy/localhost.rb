@@ -1,9 +1,9 @@
 set :rails_env, 'production'
-set :branch, 'bersa'
+set :branch, 'bsj'
 
 set :default_env, {
-  'http_proxy': 'http://172.28.16.125:3128',
-  'https_proxy': 'http://172.28.16.125:3128'
+  'http_proxy':  'http://10.0.0.14:8080',
+  'https_proxy': 'http://10.0.0.14:8080'
 }
 
 role :web, %w{deployer@127.0.0.1}
