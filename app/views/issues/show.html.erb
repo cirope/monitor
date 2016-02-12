@@ -80,5 +80,7 @@
   </div>
 <% end %>
 
-<%= link_to_edit [:edit, @issue] %> |
+<% unless params[:ids] %>
+  <%= link_to_edit [:edit, @issue] %> |
+<% end %>
 <%= link_to_index issue_index_path %>

@@ -3,10 +3,12 @@
   <td><%= l issue.created_at, format: :compact %></td>
   <td><%= truncate issue.description, length: 50 %></td>
   <td><%= issue_status issue.status %></td>
-  <td><%= link_to_show issue %></td>
-  <td><%= link_to_edit [:edit, issue] %></td>
-  <% unless current_user.guest? %>
-    <td><%= is_in_board?(issue) ? link_to_remove_from_board(issue) : link_to_add_to_board(issue) %></td>
-    <td><%= link_to_destroy issue %></td>
+  <td><%= link_to_show [issue, ids: params[:ids]] %></td>
+  <% unless params[:ids] %>
+    <td><%= link_to_edit [:edit, issue] %></td>
+    <% unless current_user.guest? %>
+      <td><%= is_in_board?(issue) ? link_to_remove_from_board(issue) : link_to_add_to_board(issue) %></td>
+      <td><%= link_to_destroy issue %></td>
+    <% end %>
   <% end %>
 </tr>
