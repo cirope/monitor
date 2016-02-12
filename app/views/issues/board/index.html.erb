@@ -34,5 +34,11 @@
     </tbody>
   </table>
 
+  <div class="pull-left">
+    <%= link_to issues_path(ids: @issue_ids.join('|')) do %>
+      <span class="glyphicon glyphicon-link"></span>
+      <%= t '.permalink' %>
+    <% end %>
+  </div>
   <%= paginate @issues %>
 <% end %>

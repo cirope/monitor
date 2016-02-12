@@ -30,10 +30,14 @@ module Issues::Filters
   private
 
     def scoped_issues
-      if current_user.guest?
+      issues = if current_user.guest?
         current_user.issues
       else
         @script ? Issue.script_scoped(@script) : Issue.all
       end
+
+      issues = issues.where id: params[:ids].split('|') if params[:ids]
+
+      issues
     end
 end

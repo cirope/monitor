@@ -34,6 +34,15 @@ class IssuesControllerTest < ActionController::TestCase
     assert assigns(:issues).all? { |issue| issue.users.find user.id }
   end
 
+  test 'should get fixed index' do
+    issue_ids = Issue.all.pluck 'id'
+
+    get :index, ids: issue_ids.join('|')
+    assert_response :success
+    assert_not_nil assigns(:issues)
+    assert assigns(:issues).all? { |issue| issue_ids.include? issue.id }
+  end
+
   test 'should show issue' do
     get :show, id: @issue
     assert_response :success
