@@ -9,8 +9,9 @@ class IssuesController < ApplicationController
   respond_to :html, :json, :js
 
   def index
-    @issues = issues.order(created_at: :desc).page params[:page]
-    @issues = @issues.active unless status_present?
+    @issue_ids = issues.pluck 'id'
+    @issues    = issues.order(created_at: :desc).page params[:page]
+    @issues    = @issues.active unless status_present?
 
     respond_with @issues
   end

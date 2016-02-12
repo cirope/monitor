@@ -1,6 +1,22 @@
 module IssuesHelper
   def issue_index_path
-    current_user.guest? ? issues_path : script_issues_path(@script || @issue.script)
+    if current_user.guest?
+      issues_path
+    elsif params[:ids]
+      issues_path ids: params[:ids]
+    else
+      script_issues_path(@script || @issue.script)
+    end
+  end
+
+  def issue_actions_cols
+    if current_user.guest?
+      2
+    elsif params[:ids]
+      1
+    else
+      4
+    end
   end
 
   def issue_status status
