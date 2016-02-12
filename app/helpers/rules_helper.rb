@@ -6,6 +6,6 @@ module RulesHelper
   end
 
   def last_output trigger
-    trigger.outputs.last&.text
+    trigger.outputs.last.try :text
   end
 end

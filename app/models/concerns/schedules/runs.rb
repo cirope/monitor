@@ -34,7 +34,7 @@ module Schedules::Runs
   end
 
   def last_run_ok?
-    runs.executed.last&.ok?
+    runs.executed.last.try :ok?
   end
 
   def next_date
