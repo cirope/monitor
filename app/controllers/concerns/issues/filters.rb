@@ -23,8 +23,8 @@ module Issues::Filters
     end
   end
 
-  def status_present?
-    filter_params[:status].present?
+  def filter_default_status?
+    filter_params[:status].present? || params[:ids].present?
   end
 
   private

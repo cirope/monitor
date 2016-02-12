@@ -16,7 +16,7 @@ class Issues::BoardController < ApplicationController
   end
 
   def create
-    @issues = status_present? || @issue ? issues : issues.active
+    @issues = filter_default_status? || @issue ? issues : issues.active
 
     board_session.concat(@issues.pluck('id')).uniq!
 
@@ -36,7 +36,7 @@ class Issues::BoardController < ApplicationController
   end
 
   def destroy
-    @issues = status_present? || @issue ? issues : issues.active
+    @issues = filter_default_status? || @issue ? issues : issues.active
 
     @issues.each { |issue| board_session.delete issue.id }
 
