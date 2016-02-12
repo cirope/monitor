@@ -5,6 +5,10 @@ class IssuesHelperTest < ActionView::TestCase
     skip
   end
 
+  test 'issue actions cols' do
+    assert_kind_of Integer, issue_actions_cols
+  end
+
   test 'status' do
     @issue = issues :ls_on_atahualpa_not_well
 
@@ -94,5 +98,9 @@ class IssuesHelperTest < ActionView::TestCase
 
     def filter_params
       {}
+    end
+
+    def current_user
+      users :franco
     end
 end
