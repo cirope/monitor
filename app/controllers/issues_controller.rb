@@ -11,7 +11,7 @@ class IssuesController < ApplicationController
   def index
     @issue_ids = issues.pluck 'id'
     @issues    = issues.order(created_at: :desc).page params[:page]
-    @issues    = @issues.active unless status_present?
+    @issues    = @issues.active unless filter_default_status?
 
     respond_with @issues
   end
