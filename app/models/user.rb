@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   include Auditable
+  include Taggable
   include Attributes::Strip
   include Attributes::Downcase
   include Users::Authentication
