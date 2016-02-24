@@ -12,6 +12,6 @@ class ApplicationController < ActionController::Base
   end
 
   def user_for_paper_trail
-    current_user.try :id
+    current_user&.id
   end
 end

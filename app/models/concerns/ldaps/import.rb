@@ -43,17 +43,17 @@ module Ldaps::Import
 
     def extract_data entry
       {
-        username: entry[username_attribute].first.try(:force_encoding, 'UTF-8'),
-        name:     entry[name_attribute].first.try(:force_encoding, 'UTF-8'),
-        lastname: entry[lastname_attribute].first.try(:force_encoding, 'UTF-8'),
-        email:    entry[email_attribute].first.try(:force_encoding, 'UTF-8'),
+        username: entry[username_attribute].first&.force_encoding('UTF-8'),
+        name:     entry[name_attribute].first&.force_encoding('UTF-8'),
+        lastname: entry[lastname_attribute].first&.force_encoding('UTF-8'),
+        email:    entry[email_attribute].first&.force_encoding('UTF-8'),
         role:     extract_role(entry)
       }
     end
 
     def extract_role entry
       role_names = entry[roles_attribute].map do |r|
-        r.try(:force_encoding, 'UTF-8').sub(/.*?cn=(.*?),.*/i, '\1')
+        r&.force_encoding('UTF-8').sub(/.*?cn=(.*?),.*/i, '\1')
       end
 
       User::ROLES.detect do |role|
