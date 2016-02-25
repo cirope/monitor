@@ -28,4 +28,12 @@ class CommentTest < ActiveSupport::TestCase
     assert email.to.any?
     assert email.to.exclude?(@comment.user.email)
   end
+
+  test 'do not send email after create if notify is false' do
+    PaperTrail.whodunnit = users(:franco).id
+
+    assert_no_emails do
+      @comment.issue.comments.create! text: 'email test', notify: false
+    end
+  end
 end
