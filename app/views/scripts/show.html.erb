@@ -46,6 +46,34 @@
   </ul>
 <% end %>
 
+<% if @script.parameters.any? %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <%= Parameter.model_name.human count: @script.parameters.size %>
+      </h3>
+    </div>
+    <div id="parameters" class="panel-body">
+      <table class="table table-condensed">
+        <thead>
+          <tr>
+            <th><%= Parameter.human_attribute_name 'name' %></th>
+            <th><%= Parameter.human_attribute_name 'value' %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @script.parameters.each do |parameter| %>
+            <tr>
+              <td><%= parameter.name %></td>
+              <td><%= parameter.value %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% end %>
+
 <% if @script.descriptions.any? %>
   <div class="panel panel-default">
     <div class="panel-heading">

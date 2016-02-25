@@ -32,6 +32,9 @@ es:
       output:
         one: 'Salida'
         other: 'Salidas'
+      parameter:
+        one: 'Parámetro'
+        other: 'Parámetros'
       property:
         one: 'Propiedad'
         other: 'Propiedades'
@@ -104,6 +107,9 @@ es:
         role_author: 'Grupo autor'
         role_supervisor: 'Grupo supervisor'
         role_security: 'Grupo seguridad'
+      parameter:
+        name: 'Nombre'
+        value: 'Valor'
       property:
         key: 'Atributo'
         value: 'Valor'

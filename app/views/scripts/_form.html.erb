@@ -60,6 +60,23 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title">
+        <a href="#parameters" data-toggle="collapse">
+          <%= Parameter.model_name.human count: 0 %>
+        </a>
+      </h3>
+    </div>
+    <div id="parameters" class="collapse panel-body">
+      <%= f.simple_fields_for :parameters, parameters do |df| %>
+        <%= render 'parameters/parameter', f: df %>
+      <% end %>
+
+      <%= link_to_add_fields t('scripts.new.parameter'), f, :parameters %>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
         <a href="#descriptions" data-toggle="collapse">
           <%= Description.model_name.human count: 0 %>
         </a>

@@ -49,6 +49,7 @@ class ScriptsController < ApplicationController
     def script_params
       params.require(:script).permit :name, :core, :file, :file_cache, :text, :lock_version,
         descriptions_attributes: [:id, :name, :value, :_destroy],
+        parameters_attributes: [:id, :name, :value, :_destroy],
         requires_attributes: [:id, :script_id, :_destroy],
         taggings_attributes: [:id, :tag_id, :_destroy]
     end

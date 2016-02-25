@@ -32,6 +32,7 @@ class ScriptsControllerTest < ActionController::TestCase
       'Script.count',
       'Require.count',
       'Tagging.count',
+      'Parameter.count',
       'Description.count'
     ]
 
@@ -48,6 +49,12 @@ class ScriptsControllerTest < ActionController::TestCase
         taggings_attributes: [
           {
             tag_id: tags(:starters).id.to_s
+          }
+        ],
+        parameters_attributes: [
+          {
+            name: 'Author',
+            value: 'Franco Catena'
           }
         ],
         descriptions_attributes: [

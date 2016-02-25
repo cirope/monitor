@@ -23,6 +23,17 @@ class ScriptsHelperTest < ActionView::TestCase
     assert script_taggings.all?(&:new_record?)
   end
 
+  test 'script parameters' do
+    @script = scripts :ls
+
+    assert_equal @script.parameters, parameters
+
+    @script = Script.new
+
+    assert_equal 1, parameters.size
+    assert parameters.all?(&:new_record?)
+  end
+
   test 'script descriptions' do
     @script = scripts :ls
 
