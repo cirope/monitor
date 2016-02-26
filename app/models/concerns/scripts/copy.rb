@@ -74,7 +74,7 @@ module Scripts::Copy
       result = "#{name} ||= {}\n\n"
 
       collection.each do |object|
-        result << "#{name}[%q[#{object.name}]] = %q[#{object.value}]\n"
+        result << "#{name}[%Q[#{object.name}]] = %Q[#{object.value}]\n"
       end
 
       "#{result}\n"
