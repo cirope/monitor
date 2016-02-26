@@ -44,7 +44,7 @@
   <ul class="list-inline">
     <% @issue.tags.each do |tag| %>
       <li>
-        <span class="label label-default"><%= tag %></span>
+        <span class="label label-<%= tag.style %>"><%= tag %></span>
       </li>
     <% end %>
   </ul>

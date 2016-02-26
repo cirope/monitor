@@ -146,6 +146,7 @@ es:
         user: 'Usuario'
       tag:
         name: 'Nombre'
+        style: 'Estilo'
       trigger:
         callback: 'Función'
       user:
