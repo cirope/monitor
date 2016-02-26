@@ -15,6 +15,12 @@ module ScriptsHelper
     @script.file.identifier || @script.file_identifier if @script.file?
   end
 
+  def parameters
+    @script.parameters.new if @script.parameters.empty?
+
+    @script.parameters
+  end
+
   def descriptions
     if @script.descriptions.empty?
       Descriptor.all.each { |d| @script.descriptions.new name: d.name }

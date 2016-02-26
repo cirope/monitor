@@ -1,0 +1,4 @@
+ls_dir:
+  name: base_directory
+  value: /home
+  script: ls

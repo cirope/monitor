@@ -5,6 +5,7 @@ class Script < ActiveRecord::Base
   include Scripts::Copy
   include Scripts::Descriptions
   include Scripts::Destroy
+  include Scripts::Parameters
   include Scripts::Requires
   include Scripts::Scopes
   include Scripts::Validation
