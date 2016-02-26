@@ -28,13 +28,18 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test 'should create user' do
-    assert_difference 'User.count' do
+    assert_difference ['User.count', 'Tagging.count'] do
       post :create, user: {
         name: @user.name,
         lastname: @user.lastname,
         email: 'new@user.com',
         password: '123',
-        password_confirmation: '123'
+        password_confirmation: '123',
+        taggings_attributes: [
+          {
+            tag_id: tags(:admins).id.to_s
+          }
+        ]
       }
     end
 

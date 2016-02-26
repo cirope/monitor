@@ -12,3 +12,8 @@ important:
   name: Important
   kind: issue
   style: default
+
+admins:
+  name: Admins
+  kind: user
+  style: default
