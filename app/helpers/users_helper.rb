@@ -11,4 +11,10 @@ module UsersHelper
 
     raw [label, link].join(' ')
   end
+
+  def user_taggings
+    @user.taggings.new if @user.taggings.empty?
+
+    @user.taggings
+  end
 end
