@@ -5,6 +5,7 @@
     <thead>
       <tr>
         <th><%= Script.human_attribute_name 'name' %></th>
+        <th class="hidden-sm"><%= Tag.model_name.human count: 0 %></th>
         <th colspan="3">
           <%= link_to_new new_script_path, class: 'btn btn-default btn-xs pull-right' %>
         </th>
@@ -15,6 +16,7 @@
       <% @scripts.each do |script| %>
         <tr>
           <td><%= script.name %></td>
+          <td class="hidden-sm"><%= tags script.tags %></td>
           <td><%= link_to_show script %></td>
           <td><%= link_to_edit [:edit, script] %></td>
           <td><%= link_to_destroy script %></td>
