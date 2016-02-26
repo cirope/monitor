@@ -20,21 +20,13 @@
 
         <ul class="nav navbar-nav">
           <%= menu_item_for Issue, current_user.guest? ? issues_path : dashboard_path %>
-        </ul>
-        <% unless current_user.guest? %>
-          <ul class="nav navbar-nav">
+
+          <% unless current_user.guest? %>
             <%= menu_item_for Script, scripts_path %>
-          </ul>
-          <ul class="nav navbar-nav">
-            <%= menu_item_for Server, servers_path %>
-          </ul>
-          <ul class="nav navbar-nav">
             <%= menu_item_for Schedule, schedules_path %>
-          </ul>
-          <ul class="nav navbar-nav">
             <%= menu_item_for Rule, rules_path %>
-          </ul>
-        <% end %>
+          <% end %>
+        </ul>
 
         <%= render 'shared/user_actions' %>
         <%= render 'shared/board_actions' %>
