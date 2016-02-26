@@ -1,12 +1,12 @@
 <fieldset class="subscription">
   <div class="row">
-    <div class="col-md-11">
+    <div class="col-sm-11">
       <%= f.input :user, as: :autocomplete, label: false, url: users_path, input_html: {
         readonly: current_user.guest?,
         data: { empty_result_label: t('.empty') }
       } %>
     </div>
-    <div class="col-md-1">
+    <div class="col-sm-1">
       <div class="row-controls">
         <%= f.input :id, as: :hidden %>
         <%= link_to_remove_nested_item f unless current_user.guest? %>
