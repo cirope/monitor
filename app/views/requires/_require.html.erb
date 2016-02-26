@@ -1,11 +1,11 @@
 <fieldset class="script_require">
   <div class="row">
-    <div class="col-md-11">
+    <div class="col-sm-11">
       <%= f.input :script, as: :autocomplete, label: false, url: scripts_path, input_html: {
         data: { empty_result_label: t('.empty') }
       } %>
     </div>
-    <div class="col-md-1">
+    <div class="col-sm-1">
       <div class="row-controls">
         <%= f.input :id, as: :hidden %>
         <%= link_to_remove_nested_item f %>
