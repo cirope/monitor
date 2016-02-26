@@ -28,7 +28,7 @@
           <% @database.properties.each do |property| %>
             <tr>
               <td><%= property.key %></td>
-              <td><%= property.value %></td>
+              <td><%= value_of property %></td>
             </tr>
           <% end %>
         </tbody>

@@ -22,4 +22,12 @@ class PropertyTest < ActiveSupport::TestCase
     assert_error @property, :key, :too_long, count: 255
     assert_error @property, :value, :too_long, count: 255
   end
+
+  test 'password' do
+    assert !@property.password?
+
+    @property.key = 'passwd'
+
+    assert @property.password?
+  end
 end
