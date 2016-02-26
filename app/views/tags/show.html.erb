@@ -1,4 +1,8 @@
-<h2><%= @tag %></h2>
+<h2>
+  <div class="label label-<%= @tag.style %>">
+    <%= @tag %>
+  </div>
+</h2>
 
 <%= link_to_edit [:edit, @tag, kind: @tag.kind] %> |
 <%= link_to_index tags_path %>

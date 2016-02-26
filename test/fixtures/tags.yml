@@ -1,11 +1,14 @@
 starters:
   name: Starters
   kind: script
+  style: default
 
 libs:
   name: Libraries
   kind: script
+  style: default
 
 important:
   name: Important
   kind: issue
+  style: default

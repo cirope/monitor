@@ -254,6 +254,13 @@ es:
       title: 'Crear etiqueta'
     show:
       title: 'Ver etiqueta'
+    styles:
+      default: 'Por defecto'
+      primary: 'Importante'
+      success: 'Exitosa'
+      info: 'Informativa'
+      warning: 'Advertencia'
+      danger: 'Peligro'
 
   taggings:
     tagging:
