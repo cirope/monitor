@@ -3,6 +3,7 @@
   <td><%= l issue.created_at, format: :compact %></td>
   <td><%= truncate issue.description, length: 50 %></td>
   <td><%= issue_status issue.status %></td>
+  <td class="hidden-sm"><%= tags issue.tags %></td>
   <td><%= link_to_show [issue, ids: params[:ids]] %></td>
   <% unless params[:ids] %>
     <td><%= link_to_edit [:edit, issue] %></td>

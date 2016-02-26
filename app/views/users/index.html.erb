@@ -7,6 +7,7 @@
         <th><%= User.human_attribute_name 'name' %></th>
         <th><%= User.human_attribute_name 'lastname' %></th>
         <th><%= User.human_attribute_name 'email' %></th>
+        <th class="hidden-sm"><%= Tag.model_name.human count: 0 %></th>
         <th colspan="<%= ldap ? 2 : 3 %>"></th>
       </tr>
     </thead>
@@ -17,6 +18,7 @@
           <td><%= user.name %></td>
           <td><%= user.lastname %></td>
           <td><%= mail_to user.email %></td>
+          <td class="hidden-sm"><%= tags user.tags %></td>
           <td><%= link_to_show user %></td>
           <td><%= link_to_edit [:edit, user] %></td>
           <% unless ldap %>
