@@ -22,4 +22,13 @@ class ParameterTest < ActiveSupport::TestCase
     assert_error @parameter, :name, :too_long, count: 255
     assert_error @parameter, :value, :too_long, count: 255
   end
+
+  test 'attributes format' do
+    @parameter.name = 'with } invalid char =)'
+    @parameter.value = 'with } invalid char =)'
+
+    assert @parameter.invalid?
+    assert_error @parameter, :name, :invalid
+    assert_error @parameter, :value, :invalid
+  end
 end
