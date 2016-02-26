@@ -5,6 +5,6 @@ module Parameters::Validation
     validates :name, :value,
       presence: true,
       length:   { maximum: 255 },
-      format:   { without: /[{}]/ }
+      format:   { without: /[\[\]]/ }
   end
 end
