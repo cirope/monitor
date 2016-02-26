@@ -24,8 +24,8 @@ class ParameterTest < ActiveSupport::TestCase
   end
 
   test 'attributes format' do
-    @parameter.name = 'with } invalid char =)'
-    @parameter.value = 'with } invalid char =)'
+    @parameter.name = 'with ] invalid char =)'
+    @parameter.value = 'with ] invalid char =)'
 
     assert @parameter.invalid?
     assert_error @parameter, :name, :invalid
