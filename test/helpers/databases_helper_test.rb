@@ -11,4 +11,8 @@ class DatabasesHelperTest < ActionView::TestCase
     assert_equal 1, properties.size
     assert properties.all?(&:new_record?)
   end
+
+  test 'value of' do
+    skip
+  end
 end
