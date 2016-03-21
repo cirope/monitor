@@ -13,7 +13,7 @@ module Ldaps::Validation
       :name_attribute, :lastname_attribute, :email_attribute,
       length: { maximum: 255 }
     validates :port, numericality: { only_integer: true, greater_than: 0, less_than: 65536 }
-    validates :basedn, format: /\A(\w+=[\w-]+)(,\w+=[\w-]+)*\z/
+    validates :basedn, format: /\A(\w+=[\w\s-]+)(,\w+=[\w\s-]+)*\z/
     validates :username_attribute, :name_attribute, :lastname_attribute,
       :email_attribute, format: /\A\w+\z/, allow_blank: true
     validate :can_connect?
