@@ -49,4 +49,18 @@ module SchedulesHelper
       capture &block if block_given?
     end
   end
+
+  def link_to_cleanup schedule
+    options = {
+      title: t('schedules.cleanup'),
+      data:  {
+        method:  :delete,
+        confirm: t('messages.confirmation')
+      }
+    }
+
+    link_to cleanup_schedule_path(schedule), options do
+      content_tag :span, nil, class: 'glyphicon glyphicon-erase'
+    end
+  end
 end
