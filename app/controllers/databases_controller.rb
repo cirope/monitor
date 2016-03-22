@@ -1,5 +1,5 @@
 class DatabasesController < ApplicationController
-  before_action :authorize, :not_guest
+  before_action :authorize, :not_guest, :not_author
   before_action :set_title, except: [:destroy]
   before_action :set_database, only: [:show, :edit, :update, :destroy]
 
