@@ -1,7 +1,7 @@
 class IssuesController < ApplicationController
   include Issues::Filters
 
-  before_action :authorize
+  before_action :authorize, :not_security
   before_action :set_title, except: [:destroy]
   before_action :set_script, only: [:index]
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
