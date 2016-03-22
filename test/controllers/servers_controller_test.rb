@@ -52,7 +52,17 @@ class ServersControllerTest < ActionController::TestCase
     assert_redirected_to server_url(assigns(:server))
   end
 
+  test 'should not destroy server' do
+    assert_no_difference 'Server.count' do
+      delete :destroy, id: @server
+    end
+
+    assert_redirected_to server_url(@server)
+  end
+
   test 'should destroy server' do
+    @server = servers :gardelito
+
     assert_difference 'Server.count', -1 do
       delete :destroy, id: @server
     end

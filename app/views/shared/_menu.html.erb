@@ -19,12 +19,14 @@
         <% end %>
 
         <ul class="nav navbar-nav">
-          <%= menu_item_for Issue, current_user.guest? ? issues_path : dashboard_path %>
+          <% unless current_user.security? %>
+            <%= menu_item_for Issue, current_user.guest? ? issues_path : dashboard_path %>
 
-          <% unless current_user.guest? %>
-            <%= menu_item_for Script, scripts_path %>
-            <%= menu_item_for Schedule, schedules_path %>
-            <%= menu_item_for Rule, rules_path %>
+            <% unless current_user.guest? %>
+              <%= menu_item_for Script, scripts_path %>
+              <%= menu_item_for Schedule, schedules_path %>
+              <%= menu_item_for Rule, rules_path unless current_user.author? %>
+            <% end %>
           <% end %>
         </ul>
 

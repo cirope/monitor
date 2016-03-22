@@ -29,6 +29,7 @@ Rails.application.routes.draw do
 
   resources :schedules do
     post :run, on: :member, as: :run
+    delete :cleanup, on: :member, as: :cleanup
 
     resources :runs, shallow: true, only: [:index, :show, :destroy]
   end

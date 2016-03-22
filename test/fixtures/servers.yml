@@ -4,3 +4,10 @@ atahualpa:
   user: franco
   password: secret
   credential:
+
+gardelito:
+  name: Gardelito
+  hostname: 127.0.1.1
+  user: franco
+  password: secret
+  credential:

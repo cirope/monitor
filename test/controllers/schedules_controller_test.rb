@@ -86,7 +86,7 @@ class SchedulesControllerTest < ActionController::TestCase
   end
 
   test 'should destroy schedule' do
-    assert_difference 'Schedule.count', -1 do
+    assert_difference 'Schedule.visible.count', -1 do
       delete :destroy, id: @schedule
     end
 
@@ -99,5 +99,21 @@ class SchedulesControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to schedule_runs_url(@schedule)
+  end
+
+  test 'should cleanup schedule' do
+    should_destroy_count = @schedule.runs.executed.inject(0) do |memo, run|
+      run.issues.empty? ? memo + 1 : memo
+    end
+
+    assert_not_equal 0, should_destroy_count
+
+    assert_no_difference 'Schedule.visible.count' do
+      assert_difference 'Run.count', -should_destroy_count do
+        delete :cleanup, id: @schedule
+      end
+    end
+
+    assert_redirected_to schedule_url(@schedule)
   end
 end

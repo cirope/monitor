@@ -202,6 +202,7 @@ es:
       empty: 'No se encontraron guiones con el criterio'
     server:
       empty: 'No se encontraron servidores con el criterio'
+    cleanup: 'Limpiar ejecuciones sin casos'
 
   servers:
     edit:
