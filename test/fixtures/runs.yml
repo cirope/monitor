@@ -6,6 +6,14 @@ past_ls_on_atahualpa:
   output: "/home\n/root"
   job: ls_on_atahualpa
 
+clean_ls_on_atahualpa:
+  status: ok
+  scheduled_at: <%= 2.hour.ago.to_s :db %>
+  started_at: <%= 59.minutes.ago.to_s :db %>
+  ended_at: <%= 58.minutes.ago.to_s :db %>
+  output: "/home\n/root"
+  job: ls_on_atahualpa
+
 ls_on_atahualpa:
   status: pending
   scheduled_at: <%= 1.hour.from_now.to_s :db %>

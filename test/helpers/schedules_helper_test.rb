@@ -58,4 +58,10 @@ class SchedulesHelperTest < ActionView::TestCase
 
     assert_match 'test link', link_to_run { 'test link' }
   end
+
+  test 'link to cleanup' do
+    schedule = schedules :ls_on_atahualpa
+
+    assert_match I18n.t('schedules.cleanup'), link_to_cleanup(schedule)
+  end
 end

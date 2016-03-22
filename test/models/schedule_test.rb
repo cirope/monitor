@@ -132,4 +132,12 @@ class ScheduleTest < ActiveSupport::TestCase
   test 'schedule' do
     skip
   end
+
+  test 'destroy' do
+    skip
+  end
+
+  test 'cleanup' do
+    skip
+  end
 end
