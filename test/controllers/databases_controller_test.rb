@@ -4,7 +4,7 @@ class DatabasesControllerTest < ActionController::TestCase
   setup do
     @database = databases :postgresql
 
-    login
+    login users(:god)
   end
 
   test 'should get index' do

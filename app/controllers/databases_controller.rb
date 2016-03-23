@@ -2,6 +2,7 @@ class DatabasesController < ApplicationController
   before_action :authorize, :not_guest, :not_author
   before_action :set_title, except: [:destroy]
   before_action :set_database, only: [:show, :edit, :update, :destroy]
+  before_action :not_supervisor, except: [:index, :show]
 
   respond_to :html
 

@@ -2,6 +2,7 @@ class SchedulesController < ApplicationController
   before_action :authorize, :not_guest, :not_security
   before_action :set_title, except: [:destroy]
   before_action :set_schedule, only: [:show, :edit, :update, :destroy, :run, :cleanup]
+  before_action :not_author, except: [:index, :show, :run]
 
   respond_to :html, :json
 

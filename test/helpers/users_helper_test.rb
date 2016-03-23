@@ -19,4 +19,18 @@ class UsersHelperTest < ActionView::TestCase
     assert_equal 1, user_taggings.size
     assert user_taggings.all?(&:new_record?)
   end
+
+  test 'user actions columns' do
+    assert_kind_of Integer, user_actions_columns
+  end
+
+  private
+
+    def current_user
+      users :franco
+    end
+
+    def ldap
+      ldaps :ldap_server
+    end
 end

@@ -4,7 +4,7 @@ class LdapsControllerTest < ActionController::TestCase
   setup do
     @ldap = ldaps :ldap_server
 
-    login
+    login users(:god)
   end
 
   test 'should get index' do

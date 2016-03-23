@@ -17,4 +17,14 @@ module UsersHelper
 
     @user.taggings
   end
+
+  def user_actions_columns
+    if current_user.author?
+      1
+    elsif ldap
+      2
+    else
+      3
+    end
+  end
 end
