@@ -4,8 +4,10 @@ module IssuesHelper
       issues_path
     elsif params[:ids]
       issues_path ids: params[:ids]
-    else
+    elsif @script || @issue
       script_issues_path(@script || @issue.script)
+    else
+      issues_path
     end
   end
 

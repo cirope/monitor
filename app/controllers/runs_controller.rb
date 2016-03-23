@@ -3,6 +3,7 @@ class RunsController < ApplicationController
   before_action :set_title, except: [:destroy]
   before_action :set_schedule, only: [:index]
   before_action :set_run, only: [:show, :destroy]
+  before_action :not_author, except: [:index, :show]
 
   respond_to :html, :js
 

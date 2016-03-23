@@ -9,7 +9,7 @@
         <th class="visible-lg"><%= Schedule.human_attribute_name 'end' %></th>
         <th class="visible-lg"><%= Schedule.human_attribute_name 'interval' %></th>
         <th class="visible-lg"><%= Schedule.human_attribute_name 'frequency' %></th>
-        <th colspan="4">
+        <th colspan="<%= current_user.author? ? 2 : 4 %>">
           <%= link_to_new new_schedule_path, class: 'btn btn-default btn-xs pull-right' %>
         </th>
       </tr>
@@ -25,8 +25,10 @@
           <td class="visible-lg"><%= t "schedules.frequencies.#{schedule.frequency}" if schedule.frequency %></td>
           <td><%= link_to_runs schedule %></td>
           <td><%= link_to_show schedule %></td>
-          <td><%= link_to_edit [:edit, schedule] %></td>
-          <td><%= link_to_destroy schedule %></td>
+          <% unless current_user.author? %>
+            <td><%= link_to_edit [:edit, schedule] %></td>
+            <td><%= link_to_destroy schedule %></td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>
