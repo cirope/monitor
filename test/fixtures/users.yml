@@ -19,3 +19,14 @@ john:
   auth_token: <%= SecureRandom.urlsafe_base64 %>
   password_reset_token: <%= SecureRandom.urlsafe_base64 %>
   password_reset_sent_at: <%= Time.zone.now %>
+
+god:
+  name: Jesus
+  lastname: Christ
+  email: jesus@heaven.com
+  username: god
+  role: security
+  password_digest: <%= BCrypt::Password.create('123', cost: BCrypt::Engine::MIN_COST) %>
+  auth_token: <%= SecureRandom.urlsafe_base64 %>
+  password_reset_token: <%= SecureRandom.urlsafe_base64 %>
+  password_reset_sent_at: <%= Time.zone.now %>
