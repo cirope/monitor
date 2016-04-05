@@ -30,7 +30,7 @@ module Issues::Filters
   private
 
     def scoped_issues
-      issues = if current_user.guest?
+      issues = if current_user.guest? || current_user.security?
         current_user.issues
       else
         @script ? Issue.script_scoped(@script) : Issue.all
