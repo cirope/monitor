@@ -2,8 +2,8 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :status, collection: status, prompt: false, input_html: { autofocus: true, disabled: current_user.guest? } %>
-    <%= f.input :description, input_html: { rows: 4, readonly: current_user.guest? } %>
+    <%= f.input :status, collection: status, prompt: false, input_html: { autofocus: true, disabled: limited_issue_form_edition? } %>
+    <%= f.input :description, input_html: { rows: 4, readonly: limited_issue_form_edition? } %>
     <%= f.input :lock_version, as: :hidden %>
 
     <div class="panel panel-default">
@@ -22,7 +22,7 @@
           <%= render 'subscriptions/subscription', f: df %>
         <% end %>
 
-        <%= link_to_add_fields t('issues.new.subscription'), f, :subscriptions unless current_user.guest? %>
+        <%= link_to_add_fields t('issues.new.subscription'), f, :subscriptions unless limited_issue_form_edition? %>
       </div>
     </div>
 
@@ -42,7 +42,7 @@
           <%= render 'taggings/tagging', f: tf, kind: 'issue' %>
         <% end %>
 
-        <%= link_to_add_fields t('issues.new.tagging'), f, :taggings, kind: 'issue' unless current_user.guest? %>
+        <%= link_to_add_fields t('issues.new.tagging'), f, :taggings, kind: 'issue' unless limited_issue_form_edition? %>
       </div>
     </div>
 

@@ -110,6 +110,10 @@ module IssuesHelper
     end
   end
 
+  def limited_issue_form_edition?
+    current_user.guest? || current_user.security?
+  end
+
   private
 
     def issues_board_path_with_params
