@@ -90,6 +90,14 @@ class IssuesHelperTest < ActionView::TestCase
     assert_match 'data-method="delete"', link_to_remove_all_from_board
   end
 
+  test 'limited issue form edition' do
+    assert !limited_issue_form_edition?
+
+    @current_user = users :god
+
+    assert limited_issue_form_edition?
+  end
+
   private
 
     def board_session
@@ -101,6 +109,6 @@ class IssuesHelperTest < ActionView::TestCase
     end
 
     def current_user
-      users :franco
+      @current_user ||= users :franco
     end
 end
