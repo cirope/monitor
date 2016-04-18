@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class PropertyTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @property = properties :trace
   end
 

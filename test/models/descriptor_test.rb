@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class DescriptorTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @descriptor = descriptors :author
   end
 

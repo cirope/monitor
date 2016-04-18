@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ScriptTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @script = scripts :ls
   end
 

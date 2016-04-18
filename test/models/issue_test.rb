@@ -3,7 +3,7 @@ require 'test_helper'
 class IssueTest < ActiveSupport::TestCase
   include ActionMailer::TestHelper
 
-  def setup
+  setup do
     @issue = issues :ls_on_atahualpa_not_well
   end
 

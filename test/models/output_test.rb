@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class OutputTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @output = outputs :email_output
   end
 

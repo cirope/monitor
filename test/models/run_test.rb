@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class RunTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @run = runs :ls_on_atahualpa
   end
 

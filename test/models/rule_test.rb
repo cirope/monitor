@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class RuleTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @rule = rules :cd_email
   end
 
