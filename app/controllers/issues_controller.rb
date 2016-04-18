@@ -4,6 +4,7 @@ class IssuesController < ApplicationController
   before_action :authorize
   before_action :set_title, except: [:destroy]
   before_action :set_script, only: [:index]
+  before_action :set_permalink, only: [:show]
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
 
   respond_to :html, :json, :js
@@ -41,6 +42,10 @@ class IssuesController < ApplicationController
 
     def set_script
       @script = Script.find params[:script_id] if params[:script_id]
+    end
+
+    def set_permalink
+      @permalink = Permalink.find_by! token: params[:permalink_id] if params[:permalink_id]
     end
 
     def others_permitted

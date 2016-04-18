@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160321211518) do
+ActiveRecord::Schema.define(version: 20160406003909) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,6 +91,14 @@ ActiveRecord::Schema.define(version: 20160321211518) do
   add_index "issues", ["run_id"], name: "index_issues_on_run_id", using: :btree
   add_index "issues", ["status"], name: "index_issues_on_status", using: :btree
 
+  create_table "issues_permalinks", id: false, force: :cascade do |t|
+    t.integer "issue_id",     null: false
+    t.integer "permalink_id", null: false
+  end
+
+  add_index "issues_permalinks", ["issue_id"], name: "index_issues_permalinks_on_issue_id", using: :btree
+  add_index "issues_permalinks", ["permalink_id"], name: "index_issues_permalinks_on_permalink_id", using: :btree
+
   create_table "jobs", force: :cascade do |t|
     t.integer  "schedule_id"
     t.integer  "server_id"
@@ -141,6 +149,14 @@ ActiveRecord::Schema.define(version: 20160321211518) do
   end
 
   add_index "parameters", ["script_id"], name: "index_parameters_on_script_id", using: :btree
+
+  create_table "permalinks", force: :cascade do |t|
+    t.string   "token",      null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "permalinks", ["token"], name: "index_permalinks_on_token", unique: true, using: :btree
 
   create_table "properties", force: :cascade do |t|
     t.string   "key",         null: false
@@ -331,6 +347,8 @@ ActiveRecord::Schema.define(version: 20160321211518) do
   add_foreign_key "dispatchers", "rules", on_update: :restrict, on_delete: :restrict
   add_foreign_key "dispatchers", "schedules", on_update: :restrict, on_delete: :restrict
   add_foreign_key "issues", "runs", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "issues_permalinks", "issues", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "issues_permalinks", "permalinks", on_update: :restrict, on_delete: :restrict
   add_foreign_key "jobs", "schedules", on_update: :restrict, on_delete: :restrict
   add_foreign_key "jobs", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "jobs", "servers", on_update: :restrict, on_delete: :restrict

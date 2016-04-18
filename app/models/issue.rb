@@ -13,6 +13,7 @@ class Issue < ActiveRecord::Base
   belongs_to :run
   has_one :script, through: :run
   has_many :users, through: :subscriptions
+  has_and_belongs_to_many :permalinks
 
   def to_s
     run.to_s

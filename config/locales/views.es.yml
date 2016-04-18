@@ -75,7 +75,7 @@ es:
         clear: 'Limpiar'
         empty_html: 'No hay casos agregados al tablero'
         remove_from_board: 'Eliminar del tablero'
-        permalink: 'Enlace permanente'
+        create_permalink: 'Crear enlace permanente'
       update:
         updated: 'Todos los casos fueron actualizados'
         fail: 'No todos los casos fueron actualizados, algunos contienen errores'
@@ -130,6 +130,10 @@ es:
   requires:
     require:
       empty: 'No se encontraron guiones con ese criterio'
+
+  permalinks:
+    show:
+      title: 'Casos'
 
   rules:
     edit:

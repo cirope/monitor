@@ -35,6 +35,9 @@ es:
       parameter:
         one: 'Parámetro'
         other: 'Parámetros'
+      permalink:
+        one: 'Enlace permanente'
+        other: 'Enlaces permanentes'
       property:
         one: 'Propiedad'
         other: 'Propiedades'
@@ -110,6 +113,8 @@ es:
       parameter:
         name: 'Nombre'
         value: 'Valor'
+      permalink:
+        token: 'Testigo'
       property:
         key: 'Atributo'
         value: 'Valor'

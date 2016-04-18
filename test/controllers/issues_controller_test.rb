@@ -48,6 +48,13 @@ class IssuesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test 'should show issue from permalink' do
+    permalink = permalinks :link
+
+    get :show, id: permalink.issues.take, permalink_id: permalink
+    assert_response :success
+  end
+
   test 'should get edit' do
     get :edit, id: @issue
     assert_response :success

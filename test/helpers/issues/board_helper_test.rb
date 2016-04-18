@@ -17,4 +17,11 @@ class Issues::BoardHelperTest < ActionView::TestCase
 
     session[:board_issue_errors] = nil
   end
+
+  test 'link to create permalink' do
+    @virtual_path = ''
+    @issue_ids = [1, 2, 3]
+
+    assert_match /data-action="create-permalink"/, link_to_create_permalink
+  end
 end
