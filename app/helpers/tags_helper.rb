@@ -23,7 +23,7 @@ module TagsHelper
     end
   end
 
-  def limited_tag_form_edition_for? kind
-    kind != 'issue' || limited_issue_form_edition?
+  def unlimited_tag_form_edition_for? kind
+    kind != 'issue' || !limited_issue_form_edition?
   end
 end
