@@ -41,6 +41,7 @@ class ScriptsControllerTest < ActionController::TestCase
         name: 'Test script',
         file: @script.file,
         text: @script.text,
+        change: @script.change,
         requires_attributes: [
           {
             script_id: scripts(:cd_root).id.to_s

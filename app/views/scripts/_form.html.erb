@@ -18,8 +18,14 @@
       <%= f.input :text, input_html: { rows: 5 } %>
     </div>
     <div class="editor"></div>
-    <%= f.input :file, label: false, hint: file_identifier, input_html: { disabled: @script.text.present? } %>
+    <%= f.input :file, label: false, hint: file_identifier, input_html: {
+      disabled: @script.text.present?,
+      class: @script.text.present? && 'hidden'
+    } %>
     <%= f.input :file_cache, as: :hidden %>
+    <%= f.input :change, wrapper_html: {
+      class: @script.errors[:change].blank? && 'hidden'
+    } %>
     <%= f.input :lock_version, as: :hidden %>
 
     <div class="panel panel-default">

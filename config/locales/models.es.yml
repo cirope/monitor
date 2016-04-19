@@ -141,6 +141,7 @@ es:
         file: 'Archivo'
         text: 'Contenido'
         core: 'Principal'
+        change: 'Comentario del último cambio'
       server:
         name: 'Nombre'
         hostname: 'Dirección'

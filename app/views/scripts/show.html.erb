@@ -19,6 +19,13 @@
   <div class="editor" data-readonly="true"></div>
 <% end %>
 
+<% if @script.change.present? %>
+  <p>
+    <strong><%= Script.human_attribute_name 'change' %></strong>:
+    <%= @script.change %>
+  </p>
+<% end %>
+
 <% if @script.requires.any? %>
   <div class="panel panel-default">
     <div class="panel-heading">

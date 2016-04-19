@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160406003909) do
+ActiveRecord::Schema.define(version: 20160406011031) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -234,6 +234,7 @@ ActiveRecord::Schema.define(version: 20160406003909) do
     t.datetime "updated_at",                      null: false
     t.boolean  "core"
     t.integer  "active_issues_count", default: 0, null: false
+    t.string   "change"
   end
 
   add_index "scripts", ["active_issues_count"], name: "index_scripts_on_active_issues_count", using: :btree
