@@ -2,6 +2,7 @@ class IssuesController < ApplicationController
   include Issues::Filters
 
   before_action :authorize
+  before_action :not_guest, :not_security, except: [:index, :show, :edit, :update]
   before_action :set_title, except: [:destroy]
   before_action :set_script, only: [:index]
   before_action :set_permalink, only: [:show]

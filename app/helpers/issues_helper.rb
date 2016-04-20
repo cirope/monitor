@@ -12,7 +12,7 @@ module IssuesHelper
   end
 
   def issue_actions_cols
-    if current_user.guest?
+    if current_user.guest? || current_user.security?
       2
     elsif params[:ids]
       1
