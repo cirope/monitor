@@ -51,7 +51,7 @@ class ScriptTest < ActiveSupport::TestCase
     assert_error @script, :change, :blank
   end
 
-  test 'can not destroy when active issues' do
+  test 'can not destroy when issues' do
     assert_no_difference 'Script.count' do
       @script.destroy
     end

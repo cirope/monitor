@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160406011031) do
+ActiveRecord::Schema.define(version: 20160420135003) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -226,18 +226,16 @@ ActiveRecord::Schema.define(version: 20160406011031) do
   add_index "schedules", ["scheduled_at"], name: "index_schedules_on_scheduled_at", using: :btree
 
   create_table "scripts", force: :cascade do |t|
-    t.string   "name",                            null: false
+    t.string   "name",                     null: false
     t.string   "file"
     t.text     "text"
-    t.integer  "lock_version",        default: 0, null: false
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.integer  "lock_version", default: 0, null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.boolean  "core"
-    t.integer  "active_issues_count", default: 0, null: false
     t.string   "change"
   end
 
-  add_index "scripts", ["active_issues_count"], name: "index_scripts_on_active_issues_count", using: :btree
   add_index "scripts", ["core"], name: "index_scripts_on_core", using: :btree
   add_index "scripts", ["name"], name: "index_scripts_on_name", using: :btree
 
