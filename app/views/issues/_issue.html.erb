@@ -6,7 +6,7 @@
   <td class="hidden-sm"><%= tags issue.tags %></td>
   <td><%= link_to_show issue %></td>
   <td><%= link_to_edit [:edit, issue] %></td>
-  <% if !current_user.guest? && !current_user.security? %>
+  <% if current_user.author? || current_user.supervisor? %>
     <td><%= is_in_board?(issue) ? link_to_remove_from_board(issue) : link_to_add_to_board(issue) %></td>
     <td><%= link_to_destroy issue %></td>
   <% end %>
