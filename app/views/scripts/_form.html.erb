@@ -31,6 +31,23 @@
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">
+          <a href="#maintainers" data-toggle="collapse">
+            <%= Maintainer.model_name.human count: 0 %>
+          </a>
+        </h3>
+      </div>
+      <div id="maintainers" class="collapse panel-body">
+        <%= f.simple_fields_for :maintainers, maintainers do |rf| %>
+          <%= render 'maintainers/maintainer', f: rf %>
+        <% end %>
+
+        <%= link_to_add_fields t('scripts.new.maintainer'), f, :maintainers %>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
           <a href="#requires" data-toggle="collapse">
             <%= Require.model_name.human count: 0 %>
           </a>

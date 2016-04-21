@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   include Auditable
+  include Filterable
   include Taggable
   include Attributes::Strip
   include Attributes::Downcase
@@ -7,6 +8,7 @@ class User < ActiveRecord::Base
   include Users::Overrides
   include Users::PasswordReset
   include Users::Roles
+  include Users::Scopes
   include Users::Search
   include Users::Validation
 
@@ -16,6 +18,4 @@ class User < ActiveRecord::Base
   has_many :comments, dependent: :destroy
   has_many :subscriptions, dependent: :destroy
   has_many :issues, through: :subscriptions
-
-  scope :ordered, -> { order :lastname, :name, :id }
 end

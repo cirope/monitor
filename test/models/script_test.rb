@@ -94,4 +94,18 @@ class ScriptTest < ActiveSupport::TestCase
     assert_not_equal 0, scripts.take.tags.count
     assert scripts.all? { |script| script.tags.any? { |t| t.name == tag.name } }
   end
+
+  test 'can be edited by' do
+    user = @script.maintainers.take.user
+
+    assert @script.can_be_edited_by?(user)
+
+    user = users :john
+
+    assert !@script.can_be_edited_by?(user)
+
+    user = users :franco
+
+    assert @script.can_be_edited_by?(user)
+  end
 end

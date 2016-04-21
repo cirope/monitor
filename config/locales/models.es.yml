@@ -29,6 +29,9 @@ es:
       ldap:
         one: 'Configuración LDAP'
         other: 'LDAP'
+      maintainer:
+        one: 'Mantenedor'
+        other: 'Mantenedores'
       output:
         one: 'Salida'
         other: 'Salidas'
@@ -110,6 +113,8 @@ es:
         role_author: 'Grupo autor'
         role_supervisor: 'Grupo supervisor'
         role_security: 'Grupo seguridad'
+      maintainer:
+        user: 'Usuario'
       parameter:
         name: 'Nombre'
         value: 'Valor'

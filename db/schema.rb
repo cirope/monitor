@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160420135003) do
+ActiveRecord::Schema.define(version: 20160421184910) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -127,6 +127,16 @@ ActiveRecord::Schema.define(version: 20160420135003) do
     t.jsonb    "options"
     t.string   "roles_attribute",                  null: false
   end
+
+  create_table "maintainers", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.integer  "script_id",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "maintainers", ["script_id"], name: "index_maintainers_on_script_id", using: :btree
+  add_index "maintainers", ["user_id"], name: "index_maintainers_on_user_id", using: :btree
 
   create_table "outputs", force: :cascade do |t|
     t.text     "text"
@@ -323,6 +333,7 @@ ActiveRecord::Schema.define(version: 20160420135003) do
   add_index "users", ["auth_token"], name: "index_users_on_auth_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["password_reset_token"], name: "index_users_on_password_reset_token", unique: true, using: :btree
+  add_index "users", ["role"], name: "index_users_on_role", using: :btree
   add_index "users", ["username"], name: "index_users_on_username", using: :btree
 
   create_table "versions", force: :cascade do |t|
@@ -351,6 +362,8 @@ ActiveRecord::Schema.define(version: 20160420135003) do
   add_foreign_key "jobs", "schedules", on_update: :restrict, on_delete: :restrict
   add_foreign_key "jobs", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "jobs", "servers", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "maintainers", "scripts", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "maintainers", "users", on_update: :restrict, on_delete: :restrict
   add_foreign_key "outputs", "runs", on_update: :restrict, on_delete: :restrict
   add_foreign_key "outputs", "triggers", on_update: :restrict, on_delete: :restrict
   add_foreign_key "parameters", "scripts", on_update: :restrict, on_delete: :restrict

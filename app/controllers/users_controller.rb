@@ -8,7 +8,7 @@ class UsersController < ApplicationController
 
   # GET /users
   def index
-    @users = User.search(query: params[:q], limit: request.xhr? && 10).ordered.page params[:page]
+    @users = users.ordered.page params[:page]
   end
 
   # GET /users/1
@@ -53,5 +53,13 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit :name, :lastname, :email, :username, :password, :password_confirmation, :role, :lock_version,
         taggings_attributes: [:id, :tag_id, :_destroy]
+    end
+
+    def users
+      users = User.search query: params[:q]
+      users = users.filter role: params[:role] if params[:role]
+      users = users.limit 10                   if request.xhr?
+
+      users
     end
 end

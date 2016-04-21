@@ -5,6 +5,7 @@ es:
     confirmation: '¿Está seguro?'
     download: 'Descargar'
     not_authorized: 'No está autorizado para ver el contenido'
+    not_allowed: 'No está autorizado para realizar la operación'
     ldap_error: 'El servidor de autenticación no está disponible, intente nuevamente más tarde'
 
   navigation:
@@ -119,6 +120,10 @@ es:
     show:
       title: 'Ver configuración LDAP'
 
+  maintainers:
+    maintainer:
+      empty: 'No se encontraron usuarios con ese criterio'
+
   objects:
     grid:
       more: 'Ver'
@@ -172,6 +177,7 @@ es:
       empty_html: 'No hay guiones, puede crear uno con el botón <span class="label label-primary">Nuevo guión</span>'
     new:
       title: 'Crear guión'
+      maintainer: 'Agregar mantenedor'
       require: 'Agregar inclusión'
       tagging: 'Agregar etiqueta'
       parameter: 'Agregar parámetro'
