@@ -17,18 +17,18 @@ class TagsHelperTest < ActionView::TestCase
   end
 
   test 'limited tag form edition for' do
-    assert limited_tag_form_edition_for?('user')
+    assert unlimited_tag_form_edition_for?('user')
 
-    assert !limited_tag_form_edition_for?('issue')
+    assert !unlimited_tag_form_edition_for?('issue')
 
     @allow_edit = true
 
-    assert limited_tag_form_edition_for?('issue')
+    assert unlimited_tag_form_edition_for?('issue')
   end
 
   private
 
     def limited_issue_form_edition?
-      @allow_edit
+      !@allow_edit
     end
 end

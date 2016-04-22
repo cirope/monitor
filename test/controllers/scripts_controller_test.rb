@@ -30,6 +30,7 @@ class ScriptsControllerTest < ActionController::TestCase
   test 'should create script' do
     counts = [
       'Script.count',
+      'Maintainer.count',
       'Require.count',
       'Tagging.count',
       'Parameter.count',
@@ -41,6 +42,12 @@ class ScriptsControllerTest < ActionController::TestCase
         name: 'Test script',
         file: @script.file,
         text: @script.text,
+        change: @script.change,
+        maintainers_attributes: [
+          {
+            user_id: users(:eduardo).id.to_s
+          }
+        ],
         requires_attributes: [
           {
             script_id: scripts(:cd_root).id.to_s

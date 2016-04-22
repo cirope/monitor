@@ -2,8 +2,8 @@ module IssuesHelper
   def issue_index_path
     if current_user.guest?
       issues_path
-    elsif params[:ids]
-      issues_path ids: params[:ids]
+    elsif @permalink
+      permalink_path @permalink
     elsif @script || @issue
       script_issues_path(@script || @issue.script)
     else
@@ -12,7 +12,7 @@ module IssuesHelper
   end
 
   def issue_actions_cols
-    if current_user.guest?
+    if current_user.guest? || current_user.security?
       2
     elsif params[:ids]
       1

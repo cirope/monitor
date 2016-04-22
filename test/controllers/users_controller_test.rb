@@ -14,7 +14,7 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test 'should filtered index' do
-    get :index, q: @user.name, format: :json
+    get :index, q: @user.name, role: @user.role, format: :json
     assert_response :success
 
     users = assigns :users

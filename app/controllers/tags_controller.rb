@@ -49,7 +49,7 @@ class TagsController < ApplicationController
     end
 
     def tag_params
-      params.require(:tag).permit :name, :style, :lock_version
+      params.require(:tag).permit :name, :style, :final, :lock_version
     end
 
     def scope

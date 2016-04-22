@@ -1,4 +1,10 @@
 module ScriptsHelper
+  def maintainers
+    @script.maintainers.new if @script.maintainers.empty?
+
+    @script.maintainers
+  end
+
   def requires
     @script.requires.new if @script.requires.empty?
 

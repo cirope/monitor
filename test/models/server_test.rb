@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ServerTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @server = servers :atahualpa
   end
 

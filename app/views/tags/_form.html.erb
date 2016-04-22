@@ -10,6 +10,19 @@
         <%= f.input :style, collection: styles, prompt: false %>
       </div>
     </div>
+
+    <% @tag.kind_options.each do |option, type| %>
+      <% if type == :boolean %>
+        <div class="checkbox">
+          <label>
+            <%= f.check_box option %> <%= Tag.human_attribute_name option %>
+          </label>
+        </div>
+      <% else %>
+        <%= f.input option, as: type %>
+      <% end %>
+    <% end %>
+
     <%= f.input :lock_version, as: :hidden %>
   </div>
 

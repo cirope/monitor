@@ -1,5 +1,9 @@
+require 'will_paginate/array'
+
 class DashboardController < ApplicationController
-  before_action :authorize, :not_guest, :not_security
+  include Issues::Filters
+
+  before_action :authorize
   before_action :set_title
 
   helper_method :filter_params
@@ -8,9 +12,9 @@ class DashboardController < ApplicationController
   respond_to :html
 
   def index
-    @scripts = scripts.order(:name).page params[:page]
+    @script_counts = issue_count_by_script.to_a.paginate page: params[:page]
 
-    respond_with @scripts
+    respond_with @script_counts
   end
 
   private
@@ -25,25 +29,27 @@ class DashboardController < ApplicationController
       filter_params.slice :status, :tags
     end
 
-    def scripts
-      if params[:filter].blank?
-        Script.with_active_issues
-      else
-        filtered_scripts
-      end
-    end
-
     def issues
       if issue_filter[:status].present?
-        Issue.filter(issue_filter)
+        scoped_issues.filter(issue_filter)
       else
-        Issue.filter(issue_filter).active
+        scoped_issues.filter(issue_filter).active
       end
     end
 
-    def filtered_scripts
-      scripts = Script.filter filter_params.slice(:name)
+    def issue_count_by_script
+      issues.grouped_by_script.ordered_by_script_name.count
+    end
 
-      scripts.uniq.joins(:issues).merge issues
+    def scoped_issues
+      issues = if current_user.guest? || current_user.security?
+        current_user.issues
+      else
+        Issue.all
+      end
+
+      issues = issues.by_script_name filter_params[:name] if filter_params[:name].present?
+
+      issues
     end
 end

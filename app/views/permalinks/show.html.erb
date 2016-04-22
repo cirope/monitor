@@ -1,0 +1,37 @@
+<table class="table table-striped table-hover">
+  <% if @script %>
+    <caption>
+      <h4>
+        <%= @script %>
+        <small class="pull-right">
+          <%= link_to t('back'), dashboard_path %>
+        </small>
+      </h4>
+    </caption>
+  <% end %>
+  <thead>
+    <tr>
+      <th><%= Run.human_attribute_name 'scheduled_at' %></th>
+      <th><%= Issue.human_attribute_name 'created_at' %></th>
+      <th><%= Issue.human_attribute_name 'description' %></th>
+      <th><%= Issue.human_attribute_name 'status' %></th>
+      <th class="hidden-sm"><%= Tag.model_name.human count: 0 %></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @issues.each do |issue| %>
+      <tr>
+        <td><%= l issue.run.scheduled_at, format: :compact %></td>
+        <td><%= l issue.created_at, format: :compact %></td>
+        <td><%= truncate issue.description, length: 50 %></td>
+        <td><%= issue_status issue.status %></td>
+        <td class="hidden-sm"><%= tags issue.tags %></td>
+        <td><%= link_to_show permalink_issue_path(@permalink, issue) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @issues %>

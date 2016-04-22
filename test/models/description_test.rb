@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class DescriptionTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @description = descriptions :ls_author
   end
 

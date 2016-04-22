@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ScriptTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @script = scripts :ls
   end
 
@@ -22,6 +22,15 @@ class ScriptTest < ActiveSupport::TestCase
     assert_error script, :name, :taken
   end
 
+  test 'attributes length' do
+    @script.name = 'abcde' * 52
+    @script.change = 'abcde' * 52
+
+    assert @script.invalid?
+    assert_error @script, :name, :too_long, count: 255
+    assert_error @script, :change, :too_long, count: 255
+  end
+
   test 'not text and file validation' do
     @script.file = Rack::Test::UploadedFile.new(
       "#{Rails.root}/test/fixtures/files/test.sh", 'text/plain', false
@@ -31,7 +40,18 @@ class ScriptTest < ActiveSupport::TestCase
     assert_error @script, :file, :invalid
   end
 
-  test 'can not destroy when active issues' do
+  test 'text modification should ask change' do
+    @script.change = ''
+
+    assert @script.valid?
+
+    @script.text = 'puts "123"'
+
+    assert @script.invalid?
+    assert_error @script, :change, :blank
+  end
+
+  test 'can not destroy when issues' do
     assert_no_difference 'Script.count' do
       @script.destroy
     end
@@ -57,7 +77,7 @@ class ScriptTest < ActiveSupport::TestCase
   end
 
   test 'body includes defaults' do
-    Script.create! name: 'Core test', core: true, text: 'puts "Core script"'
+    Script.create! name: 'Core test', core: true, text: 'puts "Core script"', change: 'Initial'
 
     assert_match /Core script/, @script.body
   end
@@ -73,5 +93,19 @@ class ScriptTest < ActiveSupport::TestCase
     assert_not_equal 0, scripts.count
     assert_not_equal 0, scripts.take.tags.count
     assert scripts.all? { |script| script.tags.any? { |t| t.name == tag.name } }
+  end
+
+  test 'can be edited by' do
+    user = @script.maintainers.take.user
+
+    assert @script.can_be_edited_by?(user)
+
+    user = users :john
+
+    assert !@script.can_be_edited_by?(user)
+
+    user = users :franco
+
+    assert @script.can_be_edited_by?(user)
   end
 end

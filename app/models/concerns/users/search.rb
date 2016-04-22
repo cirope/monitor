@@ -14,7 +14,7 @@ module Users::Search
         result = result.where condition, q: "%#{query.strip}%"
       end
 
-      limit ? result.limit(limit) : result
+      result
     end
 
     def by_username_or_email username

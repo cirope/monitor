@@ -1,4 +1,4 @@
-<%= render 'filters' unless params[:ids] %>
+<%= render 'filters' %>
 
 <% if @issues.empty? %>
   <%= render 'shared/empty_index', message: empty_message %>

@@ -3,9 +3,6 @@ module Scripts::Scopes
 
   included do
     scope :ordered, -> { order :name }
-    scope :with_active_issues, -> {
-      where "#{table_name}.active_issues_count > ?", 0
-    }
   end
 
   module ClassMethods

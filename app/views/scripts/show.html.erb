@@ -19,6 +19,30 @@
   <div class="editor" data-readonly="true"></div>
 <% end %>
 
+<% if @script.change.present? %>
+  <p>
+    <strong><%= Script.human_attribute_name 'change' %></strong>:
+    <%= @script.change %>
+  </p>
+<% end %>
+
+<% if @script.maintainers.any? %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <%= Maintainer.model_name.human count: @script.maintainers.size %>
+      </h3>
+    </div>
+    <div id="maintainers" class="panel-body">
+      <ul>
+        <% @script.maintainers.each do |maintainer| %>
+          <li><%= link_to maintainer.user, maintainer.user %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>
+
 <% if @script.requires.any? %>
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -102,5 +126,7 @@
   </div>
 <% end %>
 
-<%= link_to_edit [:edit, @script] %> |
+<% if @script.can_be_edited_by? current_user %>
+  <%= link_to_edit [:edit, @script] %> |
+<% end %>
 <%= link_to_index scripts_path %>

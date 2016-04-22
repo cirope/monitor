@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class DatabaseTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @database = databases :postgresql
   end
 

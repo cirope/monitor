@@ -27,6 +27,10 @@ Rails.application.routes.draw do
   resources :servers
   resources :password_resets, only: [:new, :create, :edit, :update]
 
+  resources :permalinks, only: [:show, :create] do
+    resources :issues, only: [:show]
+  end
+
   resources :schedules do
     post :run, on: :member, as: :run
     delete :cleanup, on: :member, as: :cleanup

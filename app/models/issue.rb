@@ -1,7 +1,6 @@
 class Issue < ActiveRecord::Base
   include Auditable
   include Issues::Comments
-  include Issues::Counters
   include Issues::Notifications
   include Issues::Scopes
   include Issues::Status
@@ -13,6 +12,7 @@ class Issue < ActiveRecord::Base
   belongs_to :run
   has_one :script, through: :run
   has_many :users, through: :subscriptions
+  has_and_belongs_to_many :permalinks
 
   def to_s
     run.to_s

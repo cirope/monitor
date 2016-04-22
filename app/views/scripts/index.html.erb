@@ -18,8 +18,12 @@
           <td><%= script.name %></td>
           <td class="hidden-sm"><%= tags script.tags %></td>
           <td><%= link_to_show script %></td>
-          <td><%= link_to_edit [:edit, script] %></td>
-          <td><%= link_to_destroy script %></td>
+          <% if script.can_be_edited_by? current_user %>
+            <td><%= link_to_edit [:edit, script] %></td>
+            <td><%= link_to_destroy script %></td>
+          <% else %>
+            <td colspan="2"></td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>

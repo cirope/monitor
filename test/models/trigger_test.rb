@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class TriggerTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @trigger = triggers :email
   end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160321211518) do
+ActiveRecord::Schema.define(version: 20160421211249) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,6 +91,14 @@ ActiveRecord::Schema.define(version: 20160321211518) do
   add_index "issues", ["run_id"], name: "index_issues_on_run_id", using: :btree
   add_index "issues", ["status"], name: "index_issues_on_status", using: :btree
 
+  create_table "issues_permalinks", id: false, force: :cascade do |t|
+    t.integer "issue_id",     null: false
+    t.integer "permalink_id", null: false
+  end
+
+  add_index "issues_permalinks", ["issue_id"], name: "index_issues_permalinks_on_issue_id", using: :btree
+  add_index "issues_permalinks", ["permalink_id"], name: "index_issues_permalinks_on_permalink_id", using: :btree
+
   create_table "jobs", force: :cascade do |t|
     t.integer  "schedule_id"
     t.integer  "server_id"
@@ -120,6 +128,16 @@ ActiveRecord::Schema.define(version: 20160321211518) do
     t.string   "roles_attribute",                  null: false
   end
 
+  create_table "maintainers", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.integer  "script_id",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "maintainers", ["script_id"], name: "index_maintainers_on_script_id", using: :btree
+  add_index "maintainers", ["user_id"], name: "index_maintainers_on_user_id", using: :btree
+
   create_table "outputs", force: :cascade do |t|
     t.text     "text"
     t.integer  "trigger_id", null: false
@@ -141,6 +159,14 @@ ActiveRecord::Schema.define(version: 20160321211518) do
   end
 
   add_index "parameters", ["script_id"], name: "index_parameters_on_script_id", using: :btree
+
+  create_table "permalinks", force: :cascade do |t|
+    t.string   "token",      null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "permalinks", ["token"], name: "index_permalinks_on_token", unique: true, using: :btree
 
   create_table "properties", force: :cascade do |t|
     t.string   "key",         null: false
@@ -210,17 +236,16 @@ ActiveRecord::Schema.define(version: 20160321211518) do
   add_index "schedules", ["scheduled_at"], name: "index_schedules_on_scheduled_at", using: :btree
 
   create_table "scripts", force: :cascade do |t|
-    t.string   "name",                            null: false
+    t.string   "name",                     null: false
     t.string   "file"
     t.text     "text"
-    t.integer  "lock_version",        default: 0, null: false
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.integer  "lock_version", default: 0, null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.boolean  "core"
-    t.integer  "active_issues_count", default: 0, null: false
+    t.string   "change"
   end
 
-  add_index "scripts", ["active_issues_count"], name: "index_scripts_on_active_issues_count", using: :btree
   add_index "scripts", ["core"], name: "index_scripts_on_core", using: :btree
   add_index "scripts", ["name"], name: "index_scripts_on_name", using: :btree
 
@@ -275,6 +300,7 @@ ActiveRecord::Schema.define(version: 20160321211518) do
     t.datetime "updated_at",                       null: false
     t.string   "kind",         default: "script",  null: false
     t.string   "style",        default: "default", null: false
+    t.jsonb    "options"
   end
 
   add_index "tags", ["kind"], name: "index_tags_on_kind", using: :btree
@@ -308,6 +334,7 @@ ActiveRecord::Schema.define(version: 20160321211518) do
   add_index "users", ["auth_token"], name: "index_users_on_auth_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["password_reset_token"], name: "index_users_on_password_reset_token", unique: true, using: :btree
+  add_index "users", ["role"], name: "index_users_on_role", using: :btree
   add_index "users", ["username"], name: "index_users_on_username", using: :btree
 
   create_table "versions", force: :cascade do |t|
@@ -331,9 +358,13 @@ ActiveRecord::Schema.define(version: 20160321211518) do
   add_foreign_key "dispatchers", "rules", on_update: :restrict, on_delete: :restrict
   add_foreign_key "dispatchers", "schedules", on_update: :restrict, on_delete: :restrict
   add_foreign_key "issues", "runs", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "issues_permalinks", "issues", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "issues_permalinks", "permalinks", on_update: :restrict, on_delete: :restrict
   add_foreign_key "jobs", "schedules", on_update: :restrict, on_delete: :restrict
   add_foreign_key "jobs", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "jobs", "servers", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "maintainers", "scripts", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "maintainers", "users", on_update: :restrict, on_delete: :restrict
   add_foreign_key "outputs", "runs", on_update: :restrict, on_delete: :restrict
   add_foreign_key "outputs", "triggers", on_update: :restrict, on_delete: :restrict
   add_foreign_key "parameters", "scripts", on_update: :restrict, on_delete: :restrict

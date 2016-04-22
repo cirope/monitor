@@ -1,6 +1,17 @@
 require 'test_helper'
 
 class ScriptsHelperTest < ActionView::TestCase
+  test 'script maintainers' do
+    @script = scripts :ls
+
+    assert_equal @script.maintainers, maintainers
+
+    @script = Script.new
+
+    assert_equal 1, maintainers.size
+    assert maintainers.all?(&:new_record?)
+  end
+
   test 'script requires' do
     @script = scripts :ls
 

@@ -26,7 +26,7 @@
       </div>
     </div>
 
-    <div class="panel panel-default">
+    <div class="panel <%= @issue.errors[:tags].blank? ? 'panel-default' : 'panel-danger' %>">
       <div class="panel-heading">
         <h3 class="panel-title">
           <a href="#tags" data-toggle="collapse">
@@ -38,6 +38,10 @@
         </h3>
       </div>
       <div id="tags" class="collapse panel-body">
+        <% @issue.errors.full_messages_for(:tags).each do |error| %>
+          <p class="text-danger"><%= error %></p>
+        <% end %>
+
         <%= f.simple_fields_for :taggings, issue_taggings do |tf| %>
           <%= render 'taggings/tagging', f: tf, kind: 'issue' %>
         <% end %>

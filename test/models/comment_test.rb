@@ -3,7 +3,7 @@ require 'test_helper'
 class CommentTest < ActiveSupport::TestCase
   include ActionMailer::TestHelper
 
-  def setup
+  setup do
     @comment = comments :possitive
   end
 

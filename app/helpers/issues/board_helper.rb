@@ -13,4 +13,19 @@ module Issues::BoardHelper
       end
     end
   end
+
+  def link_to_create_permalink
+    options = {
+      class: 'btn btn-default btn-sm',
+      data:  {
+        remote: true,
+        method: :post,
+        action: 'create-permalink'
+      }
+    }
+
+    link_to permalinks_path(permalink: { issue_ids: @issue_ids }), options do
+      t '.create_permalink'
+    end
+  end
 end

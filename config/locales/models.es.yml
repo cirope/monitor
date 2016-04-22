@@ -29,12 +29,18 @@ es:
       ldap:
         one: 'Configuración LDAP'
         other: 'LDAP'
+      maintainer:
+        one: 'Mantenedor'
+        other: 'Mantenedores'
       output:
         one: 'Salida'
         other: 'Salidas'
       parameter:
         one: 'Parámetro'
         other: 'Parámetros'
+      permalink:
+        one: 'Enlace permanente'
+        other: 'Enlaces permanentes'
       property:
         one: 'Propiedad'
         other: 'Propiedades'
@@ -86,6 +92,7 @@ es:
         description: 'Descripción'
         run: 'Corrida'
         data: 'Datos'
+        tags: 'Etiquetas'
         created_at: 'Fecha de caso'
       job:
         script: 'Guión'
@@ -107,9 +114,13 @@ es:
         role_author: 'Grupo autor'
         role_supervisor: 'Grupo supervisor'
         role_security: 'Grupo seguridad'
+      maintainer:
+        user: 'Usuario'
       parameter:
         name: 'Nombre'
         value: 'Valor'
+      permalink:
+        token: 'Testigo'
       property:
         key: 'Atributo'
         value: 'Valor'
@@ -136,6 +147,7 @@ es:
         file: 'Archivo'
         text: 'Contenido'
         core: 'Principal'
+        change: 'Comentario del último cambio'
       server:
         name: 'Nombre'
         hostname: 'Dirección'
@@ -147,6 +159,7 @@ es:
       tag:
         name: 'Nombre'
         style: 'Estilo'
+        final: 'Final'
       trigger:
         callback: 'Función'
       user:
@@ -157,3 +170,10 @@ es:
         password: 'Contraseña'
         password_confirmation: 'Confirmación'
         role: 'Rol'
+
+    errors:
+      models:
+        issue:
+          attributes:
+            tags:
+              invalid: 'finales debe haber una (solamente)'

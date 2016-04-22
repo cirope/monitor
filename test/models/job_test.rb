@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class JobTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @job = jobs :cd_root_on_atahualpa
   end
 

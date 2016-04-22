@@ -34,6 +34,7 @@
 //= require issues
 //= require issues/board
 //= require ldaps
+//= require permalinks
 //= require password_resets
 //= require profiles
 //= require rules
