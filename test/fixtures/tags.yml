@@ -13,6 +13,12 @@ important:
   kind: issue
   style: default
 
+final:
+  name: Final
+  kind: issue
+  style: default
+  options: { "final": true }
+
 admins:
   name: Admins
   kind: user

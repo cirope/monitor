@@ -92,6 +92,7 @@ es:
         description: 'Descripción'
         run: 'Corrida'
         data: 'Datos'
+        tags: 'Etiquetas'
         created_at: 'Fecha de caso'
       job:
         script: 'Guión'
@@ -158,6 +159,7 @@ es:
       tag:
         name: 'Nombre'
         style: 'Estilo'
+        final: 'Final'
       trigger:
         callback: 'Función'
       user:
@@ -168,3 +170,10 @@ es:
         password: 'Contraseña'
         password_confirmation: 'Confirmación'
         role: 'Rol'
+
+    errors:
+      models:
+        issue:
+          attributes:
+            tags:
+              invalid: 'finales debe haber una (solamente)'

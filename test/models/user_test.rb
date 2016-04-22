@@ -118,4 +118,8 @@ class UserTest < ActiveSupport::TestCase
 
     assert_equal @user, user
   end
+
+  test 'by role' do
+    skip
+  end
 end

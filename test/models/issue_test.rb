@@ -21,7 +21,28 @@ class IssueTest < ActiveSupport::TestCase
     assert_error @issue, :status, :inclusion
   end
 
+  test 'empty final tag validation' do
+    @issue.status = 'closed'
+
+    assert @issue.invalid?
+    assert_error @issue, :tags, :invalid
+  end
+
+  test 'more than one final tag validation' do
+    tag = Tag.create! name: 'new final tag', options: { final: true }
+
+    @issue.taggings.create! tag_id: tags(:final).id
+    @issue.taggings.create! tag_id: tag.id
+
+    @issue.status = 'closed'
+
+    assert @issue.invalid?
+    assert_error @issue, :tags, :invalid
+  end
+
   test 'next status' do
+    @issue.taggings.create! tag_id: tags(:final).id
+
     assert_equal %w(pending taken closed), @issue.next_status
 
     @issue.update! status: 'taken'

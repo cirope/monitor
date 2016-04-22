@@ -1,4 +1,4 @@
-<fieldset class="tag">
+<fieldset class="tag <%= 'hidden' if f.object.marked_for_destruction? %>">
   <div class="row">
     <div class="col-sm-11">
       <%= f.input :tag, as: :autocomplete, label: false, url: tags_path(kind: kind), input_html: {

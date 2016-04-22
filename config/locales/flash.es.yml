@@ -77,6 +77,16 @@ es:
       destroy:
         logged_out: 'Hasta la próxima'
 
+    tags:
+      create:
+        notice: 'Etiqueta creada'
+      update:
+        notice: 'Etiqueta actualizada'
+        alert:  ''
+      destroy:
+        notice: 'Etiqueta eliminada'
+        alert:  'La etiqueta no pudo ser eliminada, tiene casos asociados'
+
     users:
       update:
         stale: 'No se pudo actualizar el usuario, revise los datos e inténtelo nuevamente'
