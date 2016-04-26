@@ -49,4 +49,8 @@ class TagTest < ActiveSupport::TestCase
     assert tags.present?
     assert tags.all? { |s| s.name =~ /#{@tag.name}/ }
   end
+
+  test 'export' do
+    skip
+  end
 end
