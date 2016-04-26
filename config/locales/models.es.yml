@@ -160,6 +160,7 @@ es:
         name: 'Nombre'
         style: 'Estilo'
         final: 'Final'
+        export: 'Exportar'
       trigger:
         callback: 'Función'
       user:
