@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160426141943) do
+ActiveRecord::Schema.define(version: 20160426145126) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -308,6 +308,7 @@ ActiveRecord::Schema.define(version: 20160426141943) do
 
   add_index "tags", ["kind"], name: "index_tags_on_kind", using: :btree
   add_index "tags", ["name"], name: "index_tags_on_name", using: :btree
+  add_index "tags", ["options"], name: "index_tags_on_options", using: :gin
 
   create_table "triggers", force: :cascade do |t|
     t.integer  "rule_id",                  null: false
