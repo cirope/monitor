@@ -2,6 +2,7 @@ starters:
   name: Starters
   kind: script
   style: default
+  options: { "export": true }
 
 libs:
   name: Libraries
