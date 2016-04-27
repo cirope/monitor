@@ -108,4 +108,8 @@ class ScriptTest < ActiveSupport::TestCase
 
     assert @script.can_be_edited_by?(user)
   end
+
+  test 'to json' do
+    assert_equal @script.name, ActiveSupport::JSON.decode(@script.to_json)['name']
+  end
 end
