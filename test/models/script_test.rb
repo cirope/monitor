@@ -95,6 +95,12 @@ class ScriptTest < ActiveSupport::TestCase
     assert scripts.all? { |script| script.tags.any? { |t| t.name == tag.name } }
   end
 
+  test 'for export' do
+    scripts = Script.for_export
+
+    assert scripts.all? { |script| script.tags.any? &:export? }
+  end
+
   test 'can be edited by' do
     user = @script.maintainers.take.user
 
@@ -111,5 +117,14 @@ class ScriptTest < ActiveSupport::TestCase
 
   test 'to json' do
     assert_equal @script.name, ActiveSupport::JSON.decode(@script.to_json)['name']
+  end
+
+  test 'to zip' do
+    # Just a _smoke test_
+    assert File.exist?(Script.to_zip)
+  end
+
+  test 'add to zip' do
+    skip
   end
 end
