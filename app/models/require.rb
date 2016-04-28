@@ -1,5 +1,6 @@
 class Require < ActiveRecord::Base
   include Auditable
+  include Requires::Scopes
 
   validates :script, presence: true
 

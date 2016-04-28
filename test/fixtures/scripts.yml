@@ -1,9 +1,11 @@
 cd_root:
+  uuid: <%= SecureRandom.uuid %>
   name: 'Change directory to /'
   text: '%x{cd /}'
   change: 'Initial script'
 
 ls:
+  uuid: <%= SecureRandom.uuid %>
   name: Execute one ls
   text: 'puts %x{ls}'
   change: 'Initial script'

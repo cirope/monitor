@@ -1,7 +1,7 @@
 module Scripts::JSON
   extend ActiveSupport::Concern
 
-  JSON_EXCLUDED_ATTRIBUTES   = [:id, :file, :lock_version, :change, :imported]
+  JSON_EXCLUDED_ATTRIBUTES   = [:id, :file, :lock_version, :imported_at]
   JSON_INCLUDED_ASSOCIATIONS = {
     requires: {
       only: [],

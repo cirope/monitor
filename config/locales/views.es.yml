@@ -184,6 +184,8 @@ es:
       description: 'Agregar descripción'
     show:
       title: 'Ver guión'
+    import:
+      default_change: 'Importado el %{date}'
 
   schedules:
     edit:

@@ -1,8 +1,8 @@
-module Scripts::Zip
+module Scripts::Export
   extend ActiveSupport::Concern
 
   module ClassMethods
-    def to_zip
+    def export
       file = "#{Rails.root}/private/exports/#{SecureRandom.uuid}.zip"
 
       ::Zip::File.open file, Zip::File::CREATE do |zipfile|

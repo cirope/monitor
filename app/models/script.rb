@@ -5,6 +5,8 @@ class Script < ActiveRecord::Base
   include Scripts::Copy
   include Scripts::Descriptions
   include Scripts::Destroy
+  include Scripts::Export
+  include Scripts::Import
   include Scripts::JSON
   include Scripts::Parameters
   include Scripts::Permissions
@@ -12,7 +14,6 @@ class Script < ActiveRecord::Base
   include Scripts::Requires
   include Scripts::Scopes
   include Scripts::Validation
-  include Scripts::Zip
   include Filterable
   include Taggable
 
