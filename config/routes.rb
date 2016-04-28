@@ -52,5 +52,7 @@ Rails.application.routes.draw do
     resources :tags
   end
 
+  get 'private/:path', to: 'files#show', constraints: { path: /.+/ }
+
   root 'sessions#new'
 end
