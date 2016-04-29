@@ -4,22 +4,22 @@
   <div class="form-inputs">
     <div class="row">
       <div class="col-lg-11 col-md-10 col-xs-9">
-        <%= f.input :name, input_html: { autofocus: true } %>
+        <%= f.input :name, input_html: { autofocus: true, disabled: disable_edition? } %>
       </div>
       <div class="col-lg-1 col-md-2 col-xs-3 bottom text-right">
         <div class="checkbox">
           <label>
-            <%= f.check_box :core %> <%= Script.human_attribute_name 'core' %>
+            <%= f.check_box :core, disabled: disable_edition? %> <%= Script.human_attribute_name 'core' %>
           </label>
         </div>
       </div>
     </div>
     <div class="hidden">
-      <%= f.input :text, input_html: { rows: 5 } %>
+      <%= f.input :text, input_html: { rows: 5, disabled: disable_edition? } %>
     </div>
-    <div class="editor"></div>
+    <div class="editor" <%= 'data-readonly="true"' if disable_edition? %>></div>
     <%= f.input :file, label: false, hint: file_identifier, input_html: {
-      disabled: @script.text.present?,
+      disabled: disable_edition? || @script.text.present?,
       class: @script.text.present? && 'hidden'
     } %>
     <%= f.input :file_cache, as: :hidden %>
@@ -58,7 +58,7 @@
           <%= render 'requires/require', f: rf %>
         <% end %>
 
-        <%= link_to_add_fields t('scripts.new.require'), f, :requires %>
+        <%= link_to_add_fields t('scripts.new.require'), f, :requires unless disable_edition? %>
       </div>
     </div>
 
@@ -93,7 +93,7 @@
         <%= render 'parameters/parameter', f: df %>
       <% end %>
 
-      <%= link_to_add_fields t('scripts.new.parameter'), f, :parameters %>
+      <%= link_to_add_fields t('scripts.new.parameter'), f, :parameters unless disable_edition? %>
     </div>
   </div>
 

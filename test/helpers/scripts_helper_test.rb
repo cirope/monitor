@@ -59,4 +59,18 @@ class ScriptsHelperTest < ActionView::TestCase
   test 'file identifier' do
     skip
   end
+
+  test 'disable edition' do
+    @script = scripts :ls
+
+    assert !disable_edition?
+
+    @script.imported_at = Time.zone.now
+
+    assert disable_edition?
+  end
+
+  test 'imported tag' do
+    skip
+  end
 end
