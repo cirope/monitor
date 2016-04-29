@@ -1,0 +1,2 @@
+module Scripts::ExportsHelper
+end

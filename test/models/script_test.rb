@@ -95,6 +95,12 @@ class ScriptTest < ActiveSupport::TestCase
     assert scripts.all? { |script| script.tags.any? { |t| t.name == tag.name } }
   end
 
+  test 'for export' do
+    scripts = Script.for_export
+
+    assert scripts.all? { |script| script.tags.any? &:export? }
+  end
+
   test 'can be edited by' do
     user = @script.maintainers.take.user
 
@@ -107,5 +113,75 @@ class ScriptTest < ActiveSupport::TestCase
     user = users :franco
 
     assert @script.can_be_edited_by?(user)
+  end
+
+  test 'to json' do
+    assert_equal @script.name, ActiveSupport::JSON.decode(@script.to_json)['name']
+  end
+
+  test 'export' do
+    path = Script.export
+
+    assert File.exist?(path)
+
+    FileUtils.rm path
+  end
+
+  test 'add to zip' do
+    zipfile_path      = "#{SecureRandom.uuid}.zip"
+    expected_filename = "#{@script.uuid}.json"
+
+    ::Zip::File.open zipfile_path, Zip::File::CREATE do |zipfile|
+      assert !zipfile.find_entry(expected_filename)
+
+      @script.add_to_zip zipfile
+
+      assert zipfile.find_entry(expected_filename)
+    end
+
+    FileUtils.rm zipfile_path
+  end
+
+  test 'import an existing script' do
+    path = Script.where(id: @script.id).export
+
+    @script.parameters.clear
+    @script.requires.clear
+    @script.update! name: 'Updated'
+
+    assert_no_difference 'Script.count' do
+      Script.import path
+    end
+
+    assert_not_equal 'Updated', @script.reload.name
+    assert @script.parameters.any?
+    assert @script.requires.any?
+
+    FileUtils.rm path
+  end
+
+  test 'import a new script' do
+    uuid   = SecureRandom.uuid
+    script = @script.dup
+
+    script.name = 'Should be imported as new'
+    script.uuid = uuid
+    script.save!
+
+    path = Script.where(id: script.id).export
+
+    script.destroy!
+
+    assert_difference 'Script.count' do
+      Script.import path
+    end
+
+    assert Script.find_by uuid: uuid
+
+    FileUtils.rm path
+  end
+
+  test 'update from data' do
+    skip
   end
 end

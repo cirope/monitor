@@ -23,9 +23,14 @@
 <% if @run.output.present? %>
   <p>
     <strong><%= Run.human_attribute_name 'output' %></strong>
+    <% if @run.output.length > 200 %>
+      <%= link_to run_path(@run, full_output: true) do %>
+        <span class="glyphicon glyphicon-eye-open"></span>
+      <% end %>
+    <% end %>
   </p>
 
-  <pre><%= truncate @run.output, length: 200 %></pre>
+  <pre><%= run_output %></pre>
 <% end %>
 
 <% if @run.data.present? %>

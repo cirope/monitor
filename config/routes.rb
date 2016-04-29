@@ -38,6 +38,12 @@ Rails.application.routes.draw do
     resources :runs, shallow: true, only: [:index, :show, :destroy]
   end
 
+  namespace :scripts do
+    get 'imports/new'
+    post 'imports/create'
+    post 'exports/create'
+  end
+
   resources :scripts do
     resources :issues, only: [:index]
   end
@@ -51,6 +57,8 @@ Rails.application.routes.draw do
   scope ':kind', kind: /script|user|issue/ do
     resources :tags
   end
+
+  get 'private/:path', to: 'files#show', constraints: { path: /.+/ }
 
   root 'sessions#new'
 end

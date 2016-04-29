@@ -15,6 +15,6 @@ class Issue < ActiveRecord::Base
   has_and_belongs_to_many :permalinks
 
   def to_s
-    run.to_s
+    script.to_s
   end
 end

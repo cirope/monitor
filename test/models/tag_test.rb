@@ -46,7 +46,14 @@ class TagTest < ActiveSupport::TestCase
   test 'search' do
     tags = Tag.search query: @tag.name
 
-    assert tags.present?
+    assert tags.any?
     assert tags.all? { |s| s.name =~ /#{@tag.name}/ }
+  end
+
+  test 'export' do
+    tags = Tag.export true
+
+    assert tags.any?
+    assert tags.all?(&:export?)
   end
 end
