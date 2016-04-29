@@ -15,7 +15,6 @@ ActiveRecord::Schema.define(version: 20160427005130) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "uuid-ossp"
 
   create_table "comments", force: :cascade do |t|
     t.text     "text",       null: false
@@ -237,15 +236,15 @@ ActiveRecord::Schema.define(version: 20160427005130) do
   add_index "schedules", ["scheduled_at"], name: "index_schedules_on_scheduled_at", using: :btree
 
   create_table "scripts", force: :cascade do |t|
-    t.string   "name",                                        null: false
+    t.string   "name",                                                                                  null: false
     t.string   "file"
     t.text     "text"
-    t.integer  "lock_version", default: 0,                    null: false
-    t.datetime "created_at",                                  null: false
-    t.datetime "updated_at",                                  null: false
+    t.integer  "lock_version", default: 0,                                                              null: false
+    t.datetime "created_at",                                                                            null: false
+    t.datetime "updated_at",                                                                            null: false
     t.boolean  "core"
     t.string   "change"
-    t.uuid     "uuid",         default: "uuid_generate_v4()"
+    t.uuid     "uuid",         default: "(md5(((random())::text || (clock_timestamp())::text)))::uuid"
     t.datetime "imported_at"
   end
 
