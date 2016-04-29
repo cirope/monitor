@@ -5,6 +5,8 @@ module Scripts::Export
     def export
       file = "#{Rails.root}/private/exports/#{SecureRandom.uuid}.zip"
 
+      FileUtils.mkdir_p File.dirname(file)
+
       ::Zip::File.open file, Zip::File::CREATE do |zipfile|
         all.each do |script|
           unscoped { script.add_to_zip zipfile }
