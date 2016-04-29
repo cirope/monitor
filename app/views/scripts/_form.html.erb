@@ -28,22 +28,24 @@
     } %>
     <%= f.input :lock_version, as: :hidden %>
 
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">
-          <a href="#maintainers" data-toggle="collapse">
-            <%= Maintainer.model_name.human count: 0 %>
-          </a>
-        </h3>
-      </div>
-      <div id="maintainers" class="collapse panel-body">
-        <%= f.simple_fields_for :maintainers, maintainers do |rf| %>
-          <%= render 'maintainers/maintainer', f: rf %>
-        <% end %>
+    <% unless disable_edition? %>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            <a href="#maintainers" data-toggle="collapse">
+              <%= Maintainer.model_name.human count: 0 %>
+            </a>
+          </h3>
+        </div>
+        <div id="maintainers" class="collapse panel-body">
+          <%= f.simple_fields_for :maintainers, maintainers do |rf| %>
+            <%= render 'maintainers/maintainer', f: rf %>
+          <% end %>
 
-        <%= link_to_add_fields t('scripts.new.maintainer'), f, :maintainers %>
+          <%= link_to_add_fields t('scripts.new.maintainer'), f, :maintainers %>
+        </div>
       </div>
-    </div>
+    <% end %>
 
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -62,22 +64,24 @@
       </div>
     </div>
 
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">
-          <a href="#tags" data-toggle="collapse">
-            <%= Tag.model_name.human count: 0 %>
-          </a>
-        </h3>
-      </div>
-      <div id="tags" class="collapse panel-body">
-        <%= f.simple_fields_for :taggings, script_taggings do |tf| %>
-          <%= render 'taggings/tagging', f: tf, kind: 'script' %>
-        <% end %>
+    <% unless disable_edition? %>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            <a href="#tags" data-toggle="collapse">
+              <%= Tag.model_name.human count: 0 %>
+            </a>
+          </h3>
+        </div>
+        <div id="tags" class="collapse panel-body">
+          <%= f.simple_fields_for :taggings, script_taggings do |tf| %>
+            <%= render 'taggings/tagging', f: tf, kind: 'script' %>
+          <% end %>
 
-        <%= link_to_add_fields t('scripts.new.tagging'), f, :taggings, kind: 'script' %>
+          <%= link_to_add_fields t('scripts.new.tagging'), f, :taggings, kind: 'script' %>
+        </div>
       </div>
-    </div>
+    <% end %>
   </div>
 
   <div class="panel panel-default">
@@ -97,22 +101,24 @@
     </div>
   </div>
 
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">
-        <a href="#descriptions" data-toggle="collapse">
-          <%= Description.model_name.human count: 0 %>
-        </a>
-      </h3>
-    </div>
-    <div id="descriptions" class="collapse panel-body">
-      <%= f.simple_fields_for :descriptions, descriptions do |df| %>
-        <%= render 'descriptions/description', f: df %>
-      <% end %>
+  <% unless disable_edition? %>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <a href="#descriptions" data-toggle="collapse">
+            <%= Description.model_name.human count: 0 %>
+          </a>
+        </h3>
+      </div>
+      <div id="descriptions" class="collapse panel-body">
+        <%= f.simple_fields_for :descriptions, descriptions do |df| %>
+          <%= render 'descriptions/description', f: df %>
+        <% end %>
 
-      <%= link_to_add_fields t('scripts.new.description'), f, :descriptions %>
+        <%= link_to_add_fields t('scripts.new.description'), f, :descriptions %>
+      </div>
     </div>
-  </div>
+  <% end %>
 
   <div class="form-actions">
     <%= f.button :submit, class: 'btn-primary' %>
