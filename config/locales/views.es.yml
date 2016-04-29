@@ -185,6 +185,9 @@ es:
       description: 'Agregar descripción'
     show:
       title: 'Ver guión'
+    exports:
+      create:
+        filename: 'guiones.zip'
     import:
       default_change: 'Importado el %{date}'
 

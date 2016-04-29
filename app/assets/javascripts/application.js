@@ -40,6 +40,7 @@
 //= require rules
 //= require runs
 //= require scripts
+//= require scripts/exports
 //= require servers
 //= require tags
 //= require users

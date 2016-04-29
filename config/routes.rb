@@ -38,6 +38,10 @@ Rails.application.routes.draw do
     resources :runs, shallow: true, only: [:index, :show, :destroy]
   end
 
+  namespace :scripts do
+    post 'exports/create'
+  end
+
   resources :scripts do
     resources :issues, only: [:index]
   end
