@@ -60,7 +60,7 @@ module Scripts::Import
 
         if data['change'].blank?
           date           = I18n.l Time.zone.now, format: :compact
-          data['change'] = I18n.t 'scripts.import.default_change', date: date
+          data['change'] = I18n.t 'scripts.imports.default_change', date: date
         end
 
         create! data.merge({

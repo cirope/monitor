@@ -39,6 +39,8 @@ Rails.application.routes.draw do
   end
 
   namespace :scripts do
+    get 'imports/new'
+    post 'imports/create'
     post 'exports/create'
   end
 
