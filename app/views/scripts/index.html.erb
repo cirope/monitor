@@ -15,7 +15,10 @@
     <tbody>
       <% @scripts.each do |script| %>
         <tr>
-          <td><%= script.name %></td>
+          <td>
+            <%= imported_tag script %>
+            <%= script.name %>
+          </td>
           <td class="hidden-sm"><%= tags script.tags %></td>
           <td><%= link_to_show script %></td>
           <% if script.can_be_edited_by? current_user %>

@@ -2,13 +2,13 @@
   <div class="row">
     <div class="col-sm-11">
       <%= f.input :script, as: :autocomplete, label: false, url: scripts_path, input_html: {
-        data: { empty_result_label: t('.empty') }
+        disabled: disable_edition?, data: { empty_result_label: t('.empty') }
       } %>
     </div>
     <div class="col-sm-1">
       <div class="row-controls">
         <%= f.input :id, as: :hidden %>
-        <%= link_to_remove_nested_item f %>
+        <%= link_to_remove_nested_item f unless disable_edition? %>
       </div>
     </div>
   </div>

@@ -34,4 +34,19 @@ module ScriptsHelper
 
     @script.descriptions
   end
+
+  def disable_edition?
+    @script.imported_at.present?
+  end
+
+  def imported_tag script
+    if script.imported_at.present?
+      date  = l script.imported_at, format: :compact
+      title = t 'scripts.imports.default_change', date: date
+
+      content_tag :abbr, title: title do
+        content_tag :span, nil, class: 'glyphicon glyphicon-asterisk'
+      end
+    end
+  end
 end
