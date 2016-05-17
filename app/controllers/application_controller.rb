@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
+  before_action :set_paper_trail_whodunnit
+
   def authorize
     redirect_to login_url, alert: t('messages.not_authorized') unless current_user
   end
