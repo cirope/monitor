@@ -73,4 +73,10 @@ class ScriptsHelperTest < ActionView::TestCase
   test 'imported tag' do
     skip
   end
+
+  test 'last change diff' do
+    @script = scripts :ls
+
+    assert_kind_of String, last_change_diff
+  end
 end

@@ -49,4 +49,10 @@ module ScriptsHelper
       end
     end
   end
+
+  def last_change_diff
+    previous = @script.previous_version
+
+    raw Diffy::Diff.new(previous&.text, @script.text, include_plus_and_minus_in_html: true)
+  end
 end

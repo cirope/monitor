@@ -25,8 +25,14 @@
 <% if @script.change.present? %>
   <p>
     <strong><%= Script.human_attribute_name 'change' %></strong>:
-    <%= @script.change %>
+    <%= link_to @script.change, '#diff', data: { toggle: 'collapse' } %>
   </p>
+
+  <div id="diff" class="panel panel-default collapse">
+    <div class="panel-body">
+      <%= last_change_diff %>
+    </div>
+  </div>
 <% end %>
 
 <% if @script.maintainers.any? %>
