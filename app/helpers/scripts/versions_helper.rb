@@ -6,7 +6,7 @@ module Scripts::VersionsHelper
   end
 
   def version_change_for version
-    version.event == 'create' ? t('.event.create') : (version.reify&.change || '-')
+    version.event == 'create' ? t('scripts.versions.index.event.create') : (version.reify&.change || '-')
   end
 
   def version_change_date_for version
@@ -19,7 +19,7 @@ module Scripts::VersionsHelper
     if previous
       raw Diffy::Diff.new(previous.reify&.text, @version.reify&.text, include_plus_and_minus_in_html: true)
     else
-      content_tag :div, t('.no_previous'), class: 'alert alert-info'
+      content_tag :p, t('.no_previous'), class: 'lead'
     end
   end
 end

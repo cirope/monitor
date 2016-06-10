@@ -8,7 +8,6 @@ class Scripts::VersionsHelperTest < ActionView::TestCase
   end
 
   test 'version change for' do
-    @virtual_path = ''
     version = versions :cd_root_creation
 
     assert_kind_of String, version_change_for(version)
