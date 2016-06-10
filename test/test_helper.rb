@@ -8,6 +8,8 @@ require 'sidekiq/testing/inline'
 class ActiveSupport::TestCase
   ActiveRecord::Migration.check_pending!
 
+  set_fixture_class versions: PaperTrail::Version
+
   fixtures :all
 
   def assert_error model, attribute, type, options = {}

@@ -32,7 +32,7 @@ Rails.application.routes.draw do
   end
 
   resources :schedules do
-    post :run, on: :member, as: :run
+    post   :run,     on: :member, as: :run
     delete :cleanup, on: :member, as: :cleanup
 
     resources :runs, shallow: true, only: [:index, :show, :destroy]
@@ -45,7 +45,8 @@ Rails.application.routes.draw do
   end
 
   resources :scripts do
-    resources :issues, only: [:index]
+    resources :issues,   only: [:index]
+    resources :versions, only: [:index, :show], controller: 'scripts/versions'
   end
 
   namespace :users do

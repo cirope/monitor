@@ -187,6 +187,7 @@ es:
       description: 'Agregar descripción'
     show:
       title: 'Ver guión'
+      history: 'Ver historial de cambios'
     exports:
       create:
         filename: 'guiones.zip'
@@ -200,6 +201,16 @@ es:
         file: 'Archivo'
         submit: 'Importar'
       default_change: 'Importado el %{date}'
+    versions:
+      index:
+        title: 'Histórico de versiones'
+        change: 'Cambio'
+        empty_html: 'No hay versiones para este guión'
+        event:
+          create: 'Creación'
+      show:
+        title: 'Ver versión'
+        no_previous: 'Primer versión'
 
   schedules:
     edit:

@@ -42,6 +42,7 @@
 //= require scripts
 //= require scripts/exports
 //= require scripts/imports
+//= require scripts/versions
 //= require servers
 //= require tags
 //= require users

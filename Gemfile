@@ -31,6 +31,7 @@ gem 'paper_trail'
 gem 'roadie-rails'
 gem 'ruby-ntlm'
 gem 'rubyzip', require: 'zip'
+gem 'diffy'
 
 gem 'unicorn'
 
