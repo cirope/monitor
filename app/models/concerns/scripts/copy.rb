@@ -50,7 +50,7 @@ module Scripts::Copy
     def commented_text comment
       [
         "# Begin #{name} #{comment}",
-        "#{text}",
+        "#{text_with_injections}",
         "# End #{name} #{comment}\n\n"
       ].join("\n\n")
     end

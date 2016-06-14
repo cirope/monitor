@@ -181,6 +181,27 @@ class ScriptTest < ActiveSupport::TestCase
     FileUtils.rm path
   end
 
+  test 'text with db injections' do
+    db = databases :postgresql
+
+    assert_equal @script.text, @script.text_with_injections
+
+    @script.text = "ODBC.connect('#{db.name}')"
+
+    # Driver no FreeTDS
+    assert_equal @script.text, @script.text_with_injections
+
+    expected = "ODBC.connect('#{db.name}', '#{db.user}', '#{db.password}')"
+
+    db.update! driver: 'FreeTDS'
+
+    assert_equal expected, @script.text_with_injections
+
+    @script.text = "ODBC.connect('#{db.name}', 'custom_user', 'custom_password')"
+
+    assert_equal @script.text, @script.text_with_injections
+  end
+
   test 'update from data' do
     skip
   end

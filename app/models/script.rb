@@ -7,6 +7,7 @@ class Script < ActiveRecord::Base
   include Scripts::Destroy
   include Scripts::Export
   include Scripts::Import
+  include Scripts::Injections
   include Scripts::JSON
   include Scripts::Parameters
   include Scripts::Permissions

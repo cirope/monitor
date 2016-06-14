@@ -1,9 +1,10 @@
 class Database < ActiveRecord::Base
   include Auditable
   include Attributes::Strip
-  include Databases::Validations
+  include Databases::Credentials
   include Databases::Odbc
   include Databases::Properties
+  include Databases::Validations
 
   scope :ordered, -> { order :name }
 
