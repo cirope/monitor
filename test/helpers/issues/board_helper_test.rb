@@ -22,6 +22,13 @@ class Issues::BoardHelperTest < ActionView::TestCase
     @virtual_path = ''
     @issue_ids = [1, 2, 3]
 
-    assert_match /data-action="create-permalink"/, link_to_create_permalink
+    assert_match /href=".*"/, link_to_create_permalink
+  end
+
+  test 'link to download issue data' do
+    @virtual_path = ''
+    @issue_ids = [1, 2, 3]
+
+    assert_match /href=".*"/, link_to_download_issue_data
   end
 end

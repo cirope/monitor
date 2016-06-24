@@ -18,6 +18,9 @@ Rails.application.routes.draw do
   delete 'issues/board',       to: 'issues/board#destroy'
   delete 'issues/board/empty', to: 'issues/board#empty', as: 'empty_issues_board'
 
+  # Issues data export
+  post   'issues/exports',     to: 'issues/exports#create'
+
   # Resources
   resources :databases
   resources :descriptors

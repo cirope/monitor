@@ -33,6 +33,7 @@
 //= require descriptors
 //= require issues
 //= require issues/board
+//= require issues/exports
 //= require ldaps
 //= require permalinks
 //= require password_resets

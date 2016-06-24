@@ -82,4 +82,24 @@ class IssueTest < ActiveSupport::TestCase
 
     assert !@issue.pending?
   end
+
+  test 'export issue data' do
+    path = @issue.export_data
+
+    assert File.exist?(path)
+
+    FileUtils.rm path
+  end
+
+  test 'export data' do
+    path = Issue.export_data
+
+    assert File.exist?(path)
+
+    FileUtils.rm path
+  end
+
+  test 'add to zip' do
+    skip
+  end
 end

@@ -74,10 +74,13 @@ es:
         title: 'Modificar'
         submit: 'Aplicar'
       index:
+        title: 'Tablero de casos'
         clear: 'Limpiar'
         empty_html: 'No hay casos agregados al tablero'
         remove_from_board: 'Eliminar del tablero'
         create_permalink: 'Crear enlace permanente'
+        download_issue_data: 'Descargar datos'
+        actions: 'Acciones'
       update:
         updated: 'Todos los casos fueron actualizados'
         fail: 'No todos los casos fueron actualizados, algunos contienen errores'
@@ -85,6 +88,9 @@ es:
         done: 'Se limpiaron todos los casos del tablero'
     edit:
       title: 'Editar caso'
+    exports:
+      create:
+        filename: 'datos.zip'
     filters:
       title: 'Buscar'
       submit: 'Aplicar'
