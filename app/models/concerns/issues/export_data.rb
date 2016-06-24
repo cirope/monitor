@@ -32,10 +32,22 @@ module Issues::ExportData
         all.map { |issue| files << issue.add_to_zip(zipfile) }
       end
 
-      FileUtils.rm_r files.compact
-
-      file
+      data_file_path file, files
     end
+
+    private
+
+      def data_file_path file, files
+        if files.compact.length == 1
+          FileUtils.rm_r file
+
+          file = files.compact.first
+        else
+          FileUtils.rm_r files.compact
+        end
+
+        file
+      end
   end
 
   private

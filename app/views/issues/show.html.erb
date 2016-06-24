@@ -18,6 +18,9 @@
 <% if @issue.data.present? %>
   <p>
     <strong><%= Issue.human_attribute_name 'data' %></strong>
+    <%= link_to issues_exports_path(ids: [@issue.id]), data: { method: :post } do %>
+      <span class="glyphicon glyphicon-download"></span>
+    <% end %>
   </p>
 
   <%= render_object @issue, '' %>
