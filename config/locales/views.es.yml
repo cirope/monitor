@@ -110,6 +110,7 @@ es:
       tagging: 'Agregar etiqueta'
     show:
       title: 'Ver caso'
+      download_data: 'Descargar datos'
     status:
       pending: 'Pendiente'
       taken: 'En proceso'

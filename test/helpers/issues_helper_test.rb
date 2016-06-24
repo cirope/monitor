@@ -90,6 +90,13 @@ class IssuesHelperTest < ActionView::TestCase
     assert_match 'data-method="delete"', link_to_remove_all_from_board
   end
 
+  test 'link to export data' do
+    @issue        = issues :ls_on_atahualpa_not_well
+    @virtual_path = ''
+
+    assert_match /href=".*"/, link_to_export_data
+  end
+
   test 'limited issue form edition' do
     assert !limited_issue_form_edition?
 
