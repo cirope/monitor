@@ -32,6 +32,9 @@ gem 'roadie-rails'
 gem 'ruby-ntlm'
 gem 'rubyzip', require: 'zip'
 gem 'diffy'
+gem 'prawn'
+gem 'prawn-table'
+gem 'coderay'
 
 gem 'unicorn'
 

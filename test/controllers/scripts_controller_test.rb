@@ -81,6 +81,12 @@ class ScriptsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test 'should show script in PDF' do
+    get :show, id: @script, format: :pdf
+    assert_response :success
+    assert_equal 'application/pdf', response.content_type
+  end
+
   test 'should get edit' do
     get :edit, id: @script
     assert_response :success

@@ -11,6 +11,7 @@ class Script < ActiveRecord::Base
   include Scripts::JSON
   include Scripts::Parameters
   include Scripts::Permissions
+  include Scripts::Pdf
   include Scripts::Maintainers
   include Scripts::Requires
   include Scripts::Scopes

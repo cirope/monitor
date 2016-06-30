@@ -4,7 +4,7 @@ class ScriptsController < ApplicationController
   before_action :set_script, only: [:show, :edit, :update, :destroy]
   before_action :check_if_can_edit, only: [:edit, :update, :destroy]
 
-  respond_to :html, :json
+  respond_to :html, :json, :pdf
 
   def index
     @scripts = Script.search(query: params[:q], limit: request.xhr? && 10).order(:id).page params[:page]

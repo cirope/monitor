@@ -138,4 +138,7 @@
 <% if @script.can_be_edited_by? current_user %>
   <%= link_to_edit [:edit, @script] %> |
 <% end %>
+<%= link_to script_path(@script, format: :pdf), title: t('.download_pdf') do %>
+  <span class="glyphicon glyphicon-save-file"></span>
+<% end %> |
 <%= link_to_index scripts_path %>

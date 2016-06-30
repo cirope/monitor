@@ -119,6 +119,14 @@ class ScriptTest < ActiveSupport::TestCase
     assert_equal @script.name, ActiveSupport::JSON.decode(@script.to_json)['name']
   end
 
+  test 'to pdf' do
+    path = @script.to_pdf
+
+    assert File.exist?(path)
+
+    FileUtils.rm path
+  end
+
   test 'export' do
     path = Script.export
 

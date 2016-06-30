@@ -195,6 +195,7 @@ es:
     show:
       title: 'Ver guión'
       history: 'Ver historial de cambios'
+      download_pdf: 'Descargar PDF'
     exports:
       create:
         filename: 'guiones.zip'
