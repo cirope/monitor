@@ -22,10 +22,6 @@ es:
       title: 'Tablero de casos'
 
   dashboard:
-    filters:
-      title: 'Buscar'
-      submit: 'Aplicar'
-      empty: 'No se encontraron etiquetas con ese criterio'
     index:
       title: 'Listado de casos'
       empty_html: 'No hay casos activos'
@@ -91,10 +87,6 @@ es:
     exports:
       create:
         filename: 'datos.zip'
-    filters:
-      title: 'Buscar'
-      submit: 'Aplicar'
-      empty: 'No se encontraron etiquetas con ese criterio'
     index:
       new: 'Nuevo caso'
       title: 'Listado de casos'

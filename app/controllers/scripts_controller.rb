@@ -1,4 +1,6 @@
 class ScriptsController < ApplicationController
+  include Scripts::Filters
+
   before_action :authorize, :not_guest, :not_security
   before_action :set_title, except: [:destroy]
   before_action :set_script, only: [:show, :edit, :update, :destroy]
@@ -7,7 +9,7 @@ class ScriptsController < ApplicationController
   respond_to :html, :json, :pdf
 
   def index
-    @scripts = Script.search(query: params[:q], limit: request.xhr? && 10).order(:id).page params[:page]
+    @scripts = scripts.order(:id).page params[:page]
 
     respond_with @scripts
   end

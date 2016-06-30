@@ -3,7 +3,7 @@
     <% if filters? %>
       <p class="text-warning pull-right">
         <span class="glyphicon glyphicon-filter"></span>
-        <%= link_to issue_index_path, title: t('cancel') do %>
+        <%= link_to scripts_path, title: t('cancel') do %>
           <span class="glyphicon glyphicon-remove-circle"></span>
         <% end %>
       </p>
@@ -21,10 +21,10 @@
       <fieldset>
         <div class="row">
           <div class="col-lg-4">
-            <%= f.input :description,
+            <%= f.input :name,
               required: false,
               input_html: {
-                value:     filter_params[:description],
+                value:     filter_params[:name],
                 class:     'input-sm',
                 autofocus: true
               }
@@ -32,39 +32,11 @@
           </div>
           <div class="col-lg-4">
             <%= f.input :tags,
-              required: false, as: :autocomplete, url: tags_path(kind: 'issue'),
+              required: false, as: :autocomplete, url: tags_path(kind: 'script'),
               input_html: {
                 value: filter_params[:tags],
                 class: 'input-sm',
                 data:  { empty_result_label: t('filters.tags.empty') }
-              }
-            %>
-          </div>
-          <div class="col-lg-4">
-            <%= f.input :status, required: false,
-              collection: filter_status, include_blank: '-', selected: filter_params[:status],
-              input_html: {
-                class: 'input-sm'
-              }
-            %>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-4">
-            <%= f.input :created_at, as: :date_picker, required: false,
-              input_html: {
-                value: filter_params[:created_at],
-                class: 'input-sm',
-                data:  { date_range: true }
-              }
-            %>
-          </div>
-          <div class="col-lg-4">
-            <%= f.input :data,
-              required: false,
-              input_html: {
-                value: filter_params[:data],
-                class: 'input-sm'
               }
             %>
           </div>
