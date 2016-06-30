@@ -6,7 +6,7 @@ class RulesController < ApplicationController
   respond_to :html, :json
 
   def index
-    @rules = Rule.search(query: params[:q], limit: request.xhr? && 10).order(:id).page params[:page]
+    @rules = Rule.search(query: params[:q]).limit(request.xhr? && 10).order(:id).page params[:page]
 
     respond_with @rules
   end

@@ -13,13 +13,20 @@ class ScriptsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:scripts)
   end
 
-  test 'should filtered index' do
+  test 'should get filtered index for autocomplete' do
     get :index, q: @script.name, format: :json
     assert_response :success
 
     scripts = assigns :scripts
     assert_equal 1, scripts.size
     assert_equal @script.name, scripts.first.name
+  end
+
+  test 'should get filtered index' do
+    get :index, filter: { name: 'undefined' }
+    assert_response :success
+    assert_not_nil assigns(:scripts)
+    assert assigns(:scripts).empty?
   end
 
   test 'should get new' do
