@@ -13,6 +13,13 @@ class DatabasesControllerTest < ActionController::TestCase
     assert_not_nil assigns(:databases)
   end
 
+  test 'should get filtered index' do
+    get :index, filter: { name: 'undefined' }
+    assert_response :success
+    assert_not_nil assigns(:databases)
+    assert assigns(:databases).empty?
+  end
+
   test 'should get new' do
     get :new
     assert_response :success

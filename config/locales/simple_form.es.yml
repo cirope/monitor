@@ -34,6 +34,7 @@ es:
         status: 'Estado'
         tags: 'Etiquetas'
         user: 'Usuario'
+        driver: 'Controlador'
     hints:
       issue:
         description: 'Descripción'

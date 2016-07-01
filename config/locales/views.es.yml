@@ -34,6 +34,7 @@ es:
       new: 'Nueva base de datos'
       title: 'Listado de bases de datos'
       empty_html: 'No hay bases de datos, puede crear una con el botón <span class="label label-primary">Nueva base de datos</span>'
+      empty_search_html: 'No hay bases de datos que coincidan con el criterio de búsqueda'
     new:
       title: 'Crear base de datos'
       property: 'Agregar propiedad'

@@ -64,4 +64,12 @@ class DatabaseTest < ActiveSupport::TestCase
 
     assert_equal password_property.value, @database.password
   end
+
+  test 'by name' do
+    skip
+  end
+
+  test 'by driver' do
+    skip
+  end
 end

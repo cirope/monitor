@@ -4,7 +4,9 @@ class Database < ActiveRecord::Base
   include Databases::Credentials
   include Databases::Odbc
   include Databases::Properties
+  include Databases::Scopes
   include Databases::Validations
+  include Filterable
 
   scope :ordered, -> { order :name }
 

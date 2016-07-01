@@ -1,4 +1,6 @@
 class DatabasesController < ApplicationController
+  include Databases::Filters
+
   before_action :authorize, :not_guest, :not_author
   before_action :set_title, except: [:destroy]
   before_action :set_database, only: [:show, :edit, :update, :destroy]
@@ -7,7 +9,7 @@ class DatabasesController < ApplicationController
   respond_to :html
 
   def index
-    @databases = Database.ordered.page params[:page]
+    @databases = databases.ordered.page params[:page]
 
     respond_with @databases
   end
