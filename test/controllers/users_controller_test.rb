@@ -13,13 +13,20 @@ class UsersControllerTest < ActionController::TestCase
     assert_not_nil assigns(:users)
   end
 
-  test 'should filtered index' do
+  test 'should get filtered index for autocomplete' do
     get :index, q: @user.name, role: @user.role, format: :json
     assert_response :success
 
     users = assigns :users
     assert_equal 1, users.size
     assert_equal @user.name, users.first.name
+  end
+
+  test 'should get filtered index' do
+    get :index, filter: { name: 'undefined' }
+    assert_response :success
+    assert_not_nil assigns(:users)
+    assert assigns(:users).empty?
   end
 
   test 'should get new' do

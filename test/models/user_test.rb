@@ -122,4 +122,12 @@ class UserTest < ActiveSupport::TestCase
   test 'by role' do
     skip
   end
+
+  test 'by name' do
+    skip
+  end
+
+  test 'by email' do
+    skip
+  end
 end

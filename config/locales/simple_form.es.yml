@@ -26,11 +26,12 @@ es:
     #     password: 'No special characters, please.'
     labels:
       filter:
-        name: 'Nombre'
-        tags: 'Etiquetas'
-        status: 'Estado'
+        created_at: 'Fecha de creación'
         data: 'Datos'
-        created_at: 'Fecha de caso'
+        email: 'Correo'
+        name: 'Nombre'
+        status: 'Estado'
+        tags: 'Etiquetas'
     hints:
       issue:
         description: 'Descripción'

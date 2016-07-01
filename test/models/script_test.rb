@@ -213,4 +213,8 @@ class ScriptTest < ActiveSupport::TestCase
   test 'update from data' do
     skip
   end
+
+  test 'by name' do
+    skip
+  end
 end
