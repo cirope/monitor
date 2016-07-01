@@ -249,6 +249,7 @@ es:
       new: 'Nuevo servidor'
       title: 'Listado de servidores'
       empty_html: 'No hay servidores, puede crear uno con el botón <span class="label label-primary">Nuevo servidor</span>'
+      empty_search_html: 'No hay servidores que coincidan con el criterio de búsqueda'
     new:
       title: 'Crear servidor'
     show:

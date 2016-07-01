@@ -13,13 +13,20 @@ class ServersControllerTest < ActionController::TestCase
     assert_not_nil assigns(:servers)
   end
 
-  test 'should filtered index' do
+  test 'should get filtered index for autocomplete' do
     get :index, q: @server.name, format: :json
     assert_response :success
 
     servers = assigns :servers
     assert_equal 1, servers.size
     assert_equal @server.name, servers.first.name
+  end
+
+  test 'should get filtered index' do
+    get :index, filter: { name: 'undefined' }
+    assert_response :success
+    assert_not_nil assigns(:servers)
+    assert assigns(:servers).empty?
   end
 
   test 'should get new' do

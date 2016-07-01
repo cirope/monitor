@@ -29,9 +29,11 @@ es:
         created_at: 'Fecha de creación'
         data: 'Datos'
         email: 'Correo'
+        hostname: 'Dirección'
         name: 'Nombre'
         status: 'Estado'
         tags: 'Etiquetas'
+        user: 'Usuario'
     hints:
       issue:
         description: 'Descripción'

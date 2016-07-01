@@ -55,4 +55,16 @@ class ServerTest < ActiveSupport::TestCase
   test 'ssh options' do
     skip
   end
+
+  test 'by name' do
+    skip
+  end
+
+  test 'by hostname' do
+    skip
+  end
+
+  test 'by user' do
+    skip
+  end
 end
