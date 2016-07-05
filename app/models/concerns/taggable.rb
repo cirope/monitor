@@ -10,7 +10,7 @@ module Taggable
 
   module ClassMethods
     def tagged_with *tags
-      joins(:tags).where(tags: { name: tags }).uniq
+      joins(:tags).where(tags: { name: tags }).distinct
     end
 
     def by_tags tags

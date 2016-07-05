@@ -64,7 +64,7 @@ module Scripts::Copy
 
     def cores_code
       String.new.tap do |buffer|
-        self.class.cores.where.not(id: id).uniq.each do |script|
+        self.class.cores.where.not(id: id).distinct.each do |script|
           buffer << script.body('core inclusion')
         end
       end

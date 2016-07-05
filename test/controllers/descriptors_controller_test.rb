@@ -10,7 +10,6 @@ class DescriptorsControllerTest < ActionController::TestCase
   test 'should get index' do
     get :index
     assert_response :success
-    assert_not_nil assigns(:descriptors)
   end
 
   test 'should get new' do
@@ -20,32 +19,38 @@ class DescriptorsControllerTest < ActionController::TestCase
 
   test 'should create descriptor' do
     assert_difference 'Descriptor.count' do
-      post :create, descriptor: {
-        name: 'New descriptor'
+      post :create, params: {
+        descriptor: {
+          name: 'New descriptor'
+        }
       }
     end
 
-    assert_redirected_to descriptor_url(assigns(:descriptor))
+    assert_redirected_to descriptor_url(Descriptor.last)
   end
 
   test 'should show descriptor' do
-    get :show, id: @descriptor
+    get :show, params: { id: @descriptor }
     assert_response :success
   end
 
   test 'should get edit' do
-    get :edit, id: @descriptor
+    get :edit, params: { id: @descriptor }
     assert_response :success
   end
 
   test 'should update descriptor' do
-    patch :update, id: @descriptor, descriptor: { name: 'Updated name' }
-    assert_redirected_to descriptor_url(assigns(:descriptor))
+    patch :update, params: {
+      id: @descriptor,
+      descriptor: { name: 'Updated name' }
+    }
+
+    assert_redirected_to descriptor_url(@descriptor)
   end
 
   test 'should destroy descriptor' do
     assert_difference 'Descriptor.count', -1 do
-      delete :destroy, id: @descriptor
+      delete :destroy, params: { id: @descriptor }
     end
 
     assert_redirected_to descriptors_url

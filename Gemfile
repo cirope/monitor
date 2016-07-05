@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.2.6'
+gem 'rails', '~> 5.0.0'
 
 gem 'pg'
 gem 'sass-rails'
@@ -54,7 +54,6 @@ end
 
 group :test do
   gem 'timecop'
-  gem 'test_after_commit' # TODO: remove when Rails 5.0
 end
 
 group :doc do

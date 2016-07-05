@@ -8,70 +8,53 @@ class Issues::BoardControllerTest < ActionController::TestCase
     login
   end
 
-  teardown do
-    session[:board_issues] = nil
-  end
-
   test 'should get index' do
-    session[:board_issues] = [@issue.id]
-
-    get :index
+    get :index, session: { board_issues: [@issue.id] }
     assert_response :success
-    assert_not_nil assigns(:issues)
-    assert_equal session[:board_issues].size, assigns(:issues).size
-    assert_equal @issue.id, assigns(:issues).first.id
+    assert_select 'table tbody tr', session[:board_issues].size
+    assert_select 'table tbody tr td', text: @issue.description
   end
 
   test 'should get empty index' do
     get :index
     assert_response :success
-    assert_not_nil assigns(:issues)
-    assert_equal 0, assigns(:issues).size
+    assert_select 'table tbody', false
   end
 
   test 'should add issue to the board via xhr' do
-    xhr :post, :create, filter: { id: @issue.id }, format: :js
+    post :create, params: { filter: { id: @issue.id } }, xhr: true, as: :js
     assert_response :success
-    assert_template 'issues/board/create'
     assert_includes session[:board_issues], @issue.id
   end
 
   test 'should add issue to the board via filter' do
-    post :create, filter: { description: @issue.description }
-    assert_redirected_to :back
+    post :create, params: { filter: { description: @issue.description } }
+    assert_response :redirect
     assert_includes session[:board_issues], @issue.id
   end
 
   test 'should update issues' do
     session[:board_issues] = [@issue.id]
 
-    patch :update, issue: { description: 'Updated' }
+    patch :update, params: { issue: { description: 'Updated' } }, session: { board_issues: [@issue.id] }
     assert_redirected_to issues_board_url
     assert_equal 'Updated', @issue.reload.description
   end
 
   test 'should delete issue from board via xhr' do
-    session[:board_issues] = [@issue.id]
-
-    xhr :delete, :destroy, filter: { id: @issue.id }, format: :js
+    delete :destroy, params: { filter: { id: @issue.id } }, session: { board_issues: [@issue.id] }, xhr: true, as: :js
     assert_response :success
-    assert_template 'issues/board/destroy'
     assert session[:board_issues].exclude?(@issue.id)
   end
 
   test 'should delete issue from board via filter' do
-    session[:board_issues] = [@issue.id]
-
-    delete :destroy, filter: { description: @issue.description }
-    assert_redirected_to :back
+    delete :destroy, params: { filter: { description: @issue.description } }, session: { board_issues: [@issue.id] }
+    assert_response :redirect
     assert session[:board_issues].exclude?(@issue.id)
   end
 
   test 'should empty the board' do
-    session[:board_issues]       = [@issue.id]
-    session[:board_issue_errors] = { @issue.id => 'Error' }
-
-    delete :empty
+    delete :empty, session: { board_issues: [@issue.id], board_issue_errors: { @issue.id => 'Error' } }
     assert_redirected_to dashboard_url
     assert_equal 0, session[:board_issues].size
     assert_equal 0, session[:board_issue_errors].size
