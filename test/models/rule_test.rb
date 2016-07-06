@@ -18,4 +18,8 @@ class RuleTest < ActiveSupport::TestCase
     assert rules.present?
     assert rules.all? { |s| s.name =~ /#{@rule.name}/ }
   end
+
+  test 'by name' do
+    skip
+  end
 end

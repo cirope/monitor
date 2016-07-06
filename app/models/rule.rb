@@ -1,7 +1,9 @@
 class Rule < ActiveRecord::Base
   include Auditable
   include Attributes::Strip
+  include Filterable
   include SearchableByName
+  include Rules::Scopes
   include Rules::Triggers
 
   validates :name, presence: true

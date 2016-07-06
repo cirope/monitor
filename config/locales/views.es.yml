@@ -148,6 +148,7 @@ es:
       new: 'Nueva regla'
       title: 'Listado de reglas'
       empty_html: 'No hay reglas, puede crear una con el botón <span class="label label-primary">Nueva regla</span>'
+      empty_search_html: 'No hay reglas que coincidan con el criterio de búsqueda'
     new:
       title: 'Crear regla'
       trigger: 'Agregar disparador'
