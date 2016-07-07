@@ -28,6 +28,7 @@
 //= require date_pickers
 //= require dynamic_form
 //= require effect_helper
+//= require filters
 //= require dashboard
 //= require databases
 //= require descriptors
