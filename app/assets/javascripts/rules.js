@@ -10,7 +10,6 @@ var startEditors = function () {
     var editor  = ace.edit($editor.get(0))
     var theme   = $textarea.data('readonly') ? 'solarized_dark' : 'solarized_light'
 
-    console.log($textarea.data('readonly'))
     editor.setTheme('ace/theme/' + theme)
     editor.getSession().setMode('ace/mode/ruby')
 
@@ -30,5 +29,5 @@ var startEditors = function () {
   })
 }
 
-$(document).on('ready page:load', startEditors)
+$(document).on('ready turbolinks:load', startEditors)
 $(document).on('dynamic-item.added', '#triggers', startEditors)

@@ -1,7 +1,7 @@
 +function () {
   var editor = null
 
-  $(document).on('ready page:load', function () {
+  $(document).on('ready turbolinks:load', function () {
     if ($('.editor').length) {
       var $editor   = $('.editor')
       var $textarea = $('#script_text')
