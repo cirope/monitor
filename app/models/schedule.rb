@@ -1,6 +1,7 @@
 class Schedule < ActiveRecord::Base
   include Auditable
   include Attributes::Strip
+  include Filterable
   include SearchableByName
   include Schedules::Cleanup
   include Schedules::Dependencies
@@ -9,6 +10,7 @@ class Schedule < ActiveRecord::Base
   include Schedules::Jobs
   include Schedules::Runs
   include Schedules::Scheduler
+  include Schedules::Scopes
   include Schedules::Validation
   include Taggable
 

@@ -140,4 +140,16 @@ class ScheduleTest < ActiveSupport::TestCase
   test 'cleanup' do
     skip
   end
+
+  test 'by name' do
+    skip
+  end
+
+  test 'by interval' do
+    skip
+  end
+
+  test 'by frequency' do
+    skip
+  end
 end

@@ -13,13 +13,20 @@ class SchedulesControllerTest < ActionController::TestCase
     assert_not_nil assigns(:schedules)
   end
 
-  test 'should filtered index' do
+  test 'should get filtered index for autocomplete' do
     get :index, q: @schedule.name, format: :json
     assert_response :success
 
     schedules = assigns :schedules
     assert_equal 1, schedules.size
     assert_equal @schedule.name, schedules.first.name
+  end
+
+  test 'should get filtered index' do
+    get :index, filter: { name: 'undefined' }
+    assert_response :success
+    assert_not_nil assigns(:schedules)
+    assert assigns(:schedules).empty?
   end
 
   test 'should get new' do

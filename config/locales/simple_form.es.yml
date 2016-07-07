@@ -28,13 +28,15 @@ es:
       filter:
         created_at: 'Fecha de creación'
         data: 'Datos'
+        driver: 'Controlador'
         email: 'Correo'
+        frequency: 'Frecuencia'
         hostname: 'Dirección'
+        interval: 'Intervalo'
         name: 'Nombre'
         status: 'Estado'
         tags: 'Etiquetas'
         user: 'Usuario'
-        driver: 'Controlador'
     hints:
       issue:
         description: 'Descripción'
