@@ -130,6 +130,11 @@ es:
       more: 'Ver'
     table:
       more: 'Ver'
+      graph:
+        type: 'Tipo de gráfico'
+        line: 'Línea'
+        bar: 'Barra'
+        pie: 'Torta'
     ul:
       more: 'Ver'
 

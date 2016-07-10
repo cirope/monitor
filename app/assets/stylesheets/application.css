@@ -12,6 +12,7 @@
  *= require fonts
  *= require bootstrap
  *= require ie
+ *= require chartist/chartist
  *= require daterangepicker
  *= require jquery-ui
  *= require jquery-ui-theme
