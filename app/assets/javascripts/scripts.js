@@ -11,6 +11,8 @@
 
       editor = ace.edit($editor.get(0))
 
+      editor.$blockScrolling = Infinity
+
       editor.setTheme('ace/theme/' + theme)
       editor.getSession().setMode('ace/mode/ruby')
 

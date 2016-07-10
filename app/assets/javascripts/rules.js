@@ -10,6 +10,8 @@ var startEditors = function () {
     var editor  = ace.edit($editor.get(0))
     var theme   = $textarea.data('readonly') ? 'solarized_dark' : 'solarized_light'
 
+    editor.$blockScrolling = Infinity
+
     editor.setTheme('ace/theme/' + theme)
     editor.getSession().setMode('ace/mode/ruby')
 
