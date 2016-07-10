@@ -7,6 +7,10 @@ class IssueTest < ActiveSupport::TestCase
     @issue = issues :ls_on_atahualpa_not_well
   end
 
+  teardown do
+    PaperTrail.whodunnit = nil
+  end
+
   test 'blank attributes' do
     @issue.status = ''
 
@@ -50,6 +54,10 @@ class IssueTest < ActiveSupport::TestCase
 
     @issue.update! status: 'closed'
     assert_equal %w(closed), @issue.next_status
+
+    PaperTrail.whodunnit = users(:franco).id
+
+    assert_equal %w(taken closed), @issue.next_status
   end
 
   test 'notify to' do
