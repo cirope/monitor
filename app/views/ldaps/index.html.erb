@@ -20,8 +20,10 @@
           <td><%= ldap.hostname %></td>
           <td><%= ldap.port %></td>
           <td><%= link_to_show ldap %></td>
-          <td><%= link_to_edit [:edit, ldap] %></td>
-          <td><%= link_to_destroy ldap %></td>
+          <% if current_user.security? %>
+            <td><%= link_to_edit [:edit, ldap] %></td>
+            <td><%= link_to_destroy ldap %></td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>
