@@ -47,7 +47,8 @@ module Ldaps::Import
         name:     entry[name_attribute].first&.force_encoding('UTF-8'),
         lastname: entry[lastname_attribute].first&.force_encoding('UTF-8'),
         email:    entry[email_attribute].first&.force_encoding('UTF-8'),
-        role:     extract_role(entry)
+        role:     extract_role(entry),
+        hidden:   false
       }
     end
 

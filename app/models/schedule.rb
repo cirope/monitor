@@ -14,9 +14,6 @@ class Schedule < ActiveRecord::Base
   include Schedules::Validation
   include Taggable
 
-  scope :ordered, -> { order end: :desc, start: :asc, id: :asc }
-  scope :visible, -> { where hidden: false }
-
   strip_fields :name
 
   def to_s

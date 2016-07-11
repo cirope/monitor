@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
   # GET /users
   def index
-    @users = users.ordered.page params[:page]
+    @users = users.visible.ordered.page params[:page]
   end
 
   # GET /users/1
@@ -43,7 +43,7 @@ class UsersController < ApplicationController
   # DELETE /users/1
   def destroy
     @user.destroy
-    respond_with @user
+    respond_with @user, location: users_url
   end
 
   private

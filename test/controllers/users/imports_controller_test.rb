@@ -12,9 +12,11 @@ class Users::ImportsControllerTest < ActionController::TestCase
 
   test 'should create import' do
     assert_difference 'User.count' do
-      post :create, import: { username: 'admin', password: 'admin123' }
-      assert_response :success
-      assert assigns(:imports).present?
+      assert_difference 'User.visible.count', -User.count.pred do
+        post :create, import: { username: 'admin', password: 'admin123' }
+        assert_response :success
+        assert assigns(:imports).present?
+      end
     end
   end
 
