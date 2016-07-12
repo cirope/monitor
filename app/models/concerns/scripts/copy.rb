@@ -6,15 +6,16 @@ module Scripts::Copy
   end
 
   def copy_to server
-    extension   = file.present? ? File.extname(file.path) : '.rb'
-    remote_path = "/tmp/cirope-monitor-script-#{id}#{extension}"
+    if server.local?
+      path
+    else
+      extension = file.present? ? File.extname(file.path) : '.rb'
 
-    Net::SCP.start(server.hostname, server.user, server.ssh_options) do |scp|
-      scp.upload! path, remote_path
+      remote_copy server, "/tmp/script-#{uuid}#{extension}"
     end
+  rescue => ex
+    Rails.logger.error ex
 
-    remote_path
-  rescue
     nil
   end
 
@@ -37,14 +38,20 @@ module Scripts::Copy
       if file.present?
         file.path
       else
-        path = "/tmp/monitor-ruby-script-#{id}.rb"
+        path = "/tmp/script-#{uuid}.rb"
 
-        File.open(path, 'w') do |file|
-          file << body
-        end
+        File.open(path, 'w') { |file| file << body }
 
         path
       end
+    end
+
+    def remote_copy server, target_path
+      Net::SCP.start(server.hostname, server.user, server.ssh_options) do |scp|
+        scp.upload! path, target_path
+      end
+
+      target_path
     end
 
     def commented_text comment

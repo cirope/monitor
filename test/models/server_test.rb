@@ -41,6 +41,14 @@ class ServerTest < ActiveSupport::TestCase
     assert_error @server, :user, :blank
   end
 
+  test 'local' do
+    assert @server.local?
+
+    @server.hostname = 'cirope.com'
+
+    assert !@server.local?
+  end
+
   test 'search' do
     servers = Server.search query: @server.name
 

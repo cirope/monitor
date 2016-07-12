@@ -4,6 +4,7 @@ class Server < ActiveRecord::Base
   include Filterable
   include SearchableByName
   include Servers::Command
+  include Servers::Local
   include Servers::Scopes
   include Servers::Ssh
   include Servers::Validation
