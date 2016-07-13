@@ -1,4 +1,4 @@
-class Run < ActiveRecord::Base
+class Run < ApplicationRecord
   include Runs::Schedule
   include Runs::Status
   include Runs::Validation

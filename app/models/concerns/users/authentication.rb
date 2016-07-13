@@ -3,8 +3,7 @@ module Users::Authentication
 
   included do
     has_secure_password
-
-    before_create { generate_token :auth_token }
+    has_secure_token :auth_token
   end
 
   def auth password
@@ -15,13 +14,5 @@ module Users::Authentication
     else
       authenticate password
     end
-  end
-
-  private
-
-  def generate_token column
-    begin
-      self[column] = SecureRandom.urlsafe_base64
-    end while User.exists?(column => self[column])
   end
 end

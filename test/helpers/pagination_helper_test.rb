@@ -15,7 +15,7 @@ class PaginationHelperTest < ActionView::TestCase
 
     def mock_users_controller
       @controller = UsersController.new
-      @controller.request = ActionDispatch::TestRequest.new
+      @controller.request = ActionDispatch::TestRequest.create
       @controller.request.action = 'index'
 
       def @controller.default_url_options

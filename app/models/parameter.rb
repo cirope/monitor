@@ -1,4 +1,4 @@
-class Parameter < ActiveRecord::Base
+class Parameter < ApplicationRecord
   include Auditable
   include Parameters::Validation
 

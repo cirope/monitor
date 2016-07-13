@@ -1,4 +1,4 @@
-class Output < ActiveRecord::Base
+class Output < ApplicationRecord
   include Auditable
   include Outputs::Validation
 

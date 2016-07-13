@@ -6,7 +6,7 @@ class Issues::ExportsControllerTest < ActionController::TestCase
   end
 
   test 'should create' do
-    post :create, ids: Issue.pluck('id')
+    post :create, params: { ids: Issue.pluck('id') }
     assert_response :success
     assert_equal 'application/zip', response.content_type
   end

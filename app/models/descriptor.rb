@@ -1,4 +1,4 @@
-class Descriptor < ActiveRecord::Base
+class Descriptor < ApplicationRecord
   include Auditable
 
   validates :name,

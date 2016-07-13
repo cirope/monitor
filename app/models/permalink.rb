@@ -1,4 +1,4 @@
-class Permalink < ActiveRecord::Base
+class Permalink < ApplicationRecord
   include Auditable
 
   validates :token, presence: true, uniqueness: true, length: { maximum: 255 }

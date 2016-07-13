@@ -3,7 +3,9 @@ ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'minitest/pride'
-require 'sidekiq/testing/inline'
+require 'sidekiq/testing'
+
+Sidekiq::Testing.inline!
 
 class ActiveSupport::TestCase
   ActiveRecord::Migration.check_pending!
@@ -21,7 +23,7 @@ end
 
 class ActionController::TestCase
   def login user = users(:franco)
-    cookies.encrypted[:auth_token] = user.auth_token
+    @controller.send(:cookies).encrypted[:auth_token] = user.auth_token
   end
 end
 

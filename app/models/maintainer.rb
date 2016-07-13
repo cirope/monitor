@@ -1,4 +1,4 @@
-class Maintainer < ActiveRecord::Base
+class Maintainer < ApplicationRecord
   include Auditable
 
   validates :user, presence: true

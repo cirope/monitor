@@ -1,4 +1,4 @@
-class Rule < ActiveRecord::Base
+class Rule < ApplicationRecord
   include Auditable
   include Attributes::Strip
   include Filterable

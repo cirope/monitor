@@ -5,11 +5,11 @@ module Issues::Status
     pending: %w(pending taken closed),
     taken:   %w(taken closed),
     closed:  %w(closed)
-  }
+  }.freeze
 
   SUPERVISOR_STATUS_TRANSITIONS = STATUS_TRANSITIONS.merge(
     closed: %w(taken closed)
-  )
+  ).freeze
 
   included do
     before_validation :set_default_status

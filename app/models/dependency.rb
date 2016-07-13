@@ -1,4 +1,4 @@
-class Dependency < ActiveRecord::Base
+class Dependency < ApplicationRecord
   include Auditable
 
   validates :schedule, presence: true

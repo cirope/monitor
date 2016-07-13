@@ -1,4 +1,4 @@
-class Database < ActiveRecord::Base
+class Database < ApplicationRecord
   include Auditable
   include Attributes::Strip
   include Databases::Credentials

@@ -1,4 +1,4 @@
-class Server < ActiveRecord::Base
+class Server < ApplicationRecord
   include Auditable
   include Attributes::Strip
   include Filterable

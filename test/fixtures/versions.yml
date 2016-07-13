@@ -1,8 +1,8 @@
 cd_root_creation:
   event: create
   whodunnit: <%= ActiveRecord::FixtureSet.identify :franco %>
-  object: '{}'
-  object_changes: '{}'
+  object: {}
+  object_changes: {}
   created_at: <%= 2.days.ago.to_s(:db) %>
   item_id: <%= ActiveRecord::FixtureSet.identify :cd_root %>
   item_type: Script

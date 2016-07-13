@@ -1,4 +1,4 @@
-class Script < ActiveRecord::Base
+class Script < ApplicationRecord
   include Auditable
   include Attributes::Strip
   include SearchableByName

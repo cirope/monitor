@@ -13,7 +13,10 @@ class Scripts::ImportsControllerTest < ActionController::TestCase
   test 'should create' do
     path = Script.for_export.export
 
-    post :create, file: Rack::Test::UploadedFile.new(path, 'application/zip')
+    post :create, params: {
+      file: Rack::Test::UploadedFile.new(path, 'application/zip')
+    }
+
     assert_redirected_to scripts_url
     assert_equal I18n.t('scripts.imports.create.imported'), flash.notice
 
@@ -27,7 +30,10 @@ class Scripts::ImportsControllerTest < ActionController::TestCase
   end
 
   test 'should not import if file has incorrect format' do
-    post :create, file: fixture_file_upload('files/test.sh', 'text/plain', false)
+    post :create, params: {
+      file: fixture_file_upload('files/test.sh', 'text/plain', false)
+    }
+
     assert_redirected_to scripts_url
     assert_equal I18n.t('scripts.imports.create.fail'), flash.alert
   end

@@ -1,4 +1,4 @@
-class Trigger < ActiveRecord::Base
+class Trigger < ApplicationRecord
   include Auditable
   include Triggers::Run
   include Triggers::Validation
