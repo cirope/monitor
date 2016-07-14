@@ -1,5 +1,3 @@
-require 'will_paginate/array'
-
 class DashboardController < ApplicationController
   include Issues::Filters
 
@@ -12,7 +10,7 @@ class DashboardController < ApplicationController
   respond_to :html
 
   def index
-    @script_counts = issue_count_by_script.to_a.paginate page: params[:page]
+    @script_counts = Kaminari.paginate_array(issue_count_by_script.to_a).page params[:page]
 
     respond_with @script_counts
   end
