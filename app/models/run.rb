@@ -1,5 +1,7 @@
 class Run < ApplicationRecord
+  include Filterable
   include Runs::Schedule
+  include Runs::Scopes
   include Runs::Status
   include Runs::Validation
   include Runs::Triggers
