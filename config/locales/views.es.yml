@@ -165,6 +165,7 @@ es:
     index:
       title: 'Listado de corridas'
       empty_html: 'No hay corridas para este trabajo'
+      empty_search_html: 'No hay corridas que coincidan con el criterio de búsqueda'
     show:
       title: 'Ver corrida'
     status:

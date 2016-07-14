@@ -22,9 +22,9 @@
 //= require bootstrap/bootstrap
 //= require chartist/chartist
 //= require chartist/chartist-plugin-axistitle
-//= require moment
+//= require moment/moment
 //= require moment/es
-//= require daterangepicker
+//= require daterangepicker/daterangepicker
 //= require ajax
 //= require autocomplete
 //= require date_pickers

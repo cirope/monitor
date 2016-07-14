@@ -42,6 +42,14 @@ class RunTest < ActiveSupport::TestCase
     assert @run.ok?
   end
 
+  test 'by status' do
+    skip
+  end
+
+  test 'by scheduled at' do
+    skip
+  end
+
   test 'schedule' do
     skip
   end

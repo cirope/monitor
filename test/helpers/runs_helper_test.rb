@@ -16,4 +16,8 @@ class RunsHelperTest < ActionView::TestCase
 
     assert_no_match '...', run_output
   end
+
+  test 'filter run status' do
+    assert_respond_to filter_run_status, :each
+  end
 end

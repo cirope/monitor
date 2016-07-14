@@ -21,4 +21,10 @@ module RunsHelper
       truncate @run.output, length: 200
     end
   end
+
+  def filter_run_status
+    %w(pending scheduled running ok error canceled).map do |k|
+      [t("runs.status.#{k}"), k]
+    end
+  end
 end

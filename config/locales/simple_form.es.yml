@@ -34,6 +34,7 @@ es:
         hostname: 'Dirección'
         interval: 'Intervalo'
         name: 'Nombre'
+        scheduled_at: 'Programado para'
         status: 'Estado'
         tags: 'Etiquetas'
         user: 'Usuario'
