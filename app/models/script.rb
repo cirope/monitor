@@ -1,4 +1,4 @@
-class Script < ActiveRecord::Base
+class Script < ApplicationRecord
   include Auditable
   include Attributes::Strip
   include SearchableByName
@@ -7,9 +7,11 @@ class Script < ActiveRecord::Base
   include Scripts::Destroy
   include Scripts::Export
   include Scripts::Import
+  include Scripts::Injections
   include Scripts::JSON
   include Scripts::Parameters
   include Scripts::Permissions
+  include Scripts::Pdf
   include Scripts::Maintainers
   include Scripts::Requires
   include Scripts::Scopes

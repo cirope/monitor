@@ -1,4 +1,4 @@
-class Description < ActiveRecord::Base
+class Description < ApplicationRecord
   include Auditable
   include Descriptions::Validation
 

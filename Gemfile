@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.2.6'
+gem 'rails', '~> 5.0.0'
 
 gem 'pg'
 gem 'sass-rails'
@@ -20,7 +20,7 @@ gem 'figaro'
 gem 'carrierwave'
 gem 'jc-validates_timeliness'
 gem 'momentjs-rails'
-gem 'bootstrap-daterangepicker-rails', '0.1.3'
+gem 'bootstrap-daterangepicker-rails'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
 gem 'net-ssh'
@@ -31,6 +31,10 @@ gem 'paper_trail'
 gem 'roadie-rails'
 gem 'ruby-ntlm'
 gem 'rubyzip', require: 'zip'
+gem 'diffy'
+gem 'prawn'
+gem 'prawn-table'
+gem 'coderay'
 
 gem 'unicorn'
 
@@ -50,7 +54,6 @@ end
 
 group :test do
   gem 'timecop'
-  gem 'test_after_commit' # TODO: remove when Rails 5.0
 end
 
 group :doc do

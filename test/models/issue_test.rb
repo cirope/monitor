@@ -41,6 +41,8 @@ class IssueTest < ActiveSupport::TestCase
   end
 
   test 'next status' do
+    PaperTrail.whodunnit = nil
+
     @issue.taggings.create! tag_id: tags(:final).id
 
     assert_equal %w(pending taken closed), @issue.next_status
@@ -50,10 +52,16 @@ class IssueTest < ActiveSupport::TestCase
 
     @issue.update! status: 'closed'
     assert_equal %w(closed), @issue.next_status
+
+    PaperTrail.whodunnit = users(:franco).id
+
+    assert_equal %w(taken closed), @issue.next_status
+
+    PaperTrail.whodunnit = nil
   end
 
   test 'notify to' do
-    assert_emails 1 do
+    assert_enqueued_emails 1 do
       @issue.notify_to 'test@monitor.com'
     end
   end
@@ -81,5 +89,25 @@ class IssueTest < ActiveSupport::TestCase
     @issue.status = 'taken'
 
     assert !@issue.pending?
+  end
+
+  test 'export issue data' do
+    path = @issue.export_data
+
+    assert File.exist?(path)
+
+    FileUtils.rm path
+  end
+
+  test 'export data' do
+    path = Issue.export_data
+
+    assert File.exist?(path)
+
+    FileUtils.rm path
+  end
+
+  test 'add to zip' do
+    skip
   end
 end

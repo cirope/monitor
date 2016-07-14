@@ -52,4 +52,24 @@ class DatabaseTest < ActiveSupport::TestCase
       assert_not_equal old_odbc_content, file.read
     end
   end
+
+  test 'user' do
+    user_property = properties :postgresql_user
+
+    assert_equal user_property.value, @database.user
+  end
+
+  test 'password' do
+    password_property = properties :postgresql_password
+
+    assert_equal password_property.value, @database.password
+  end
+
+  test 'by name' do
+    skip
+  end
+
+  test 'by driver' do
+    skip
+  end
 end

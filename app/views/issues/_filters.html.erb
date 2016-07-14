@@ -11,7 +11,7 @@
     <h4 class="panel-title">
       <a href="#filters" data-toggle="collapse">
         <span class="glyphicon glyphicon-search"></span>
-        <%= t '.title' %>
+        <%= t 'filters.title' %>
         <span class="caret"></span>
       </a>
     </h4>
@@ -36,7 +36,7 @@
               input_html: {
                 value: filter_params[:tags],
                 class: 'input-sm',
-                data:  { empty_result_label: t('.empty') }
+                data:  { empty_result_label: t('filters.tags.empty') }
               }
             %>
           </div>
@@ -70,7 +70,7 @@
           </div>
           <div class="col-lg-4 bottom">
             <p class="text-right">
-              <%= f.button :submit, t('.submit'), class: 'btn-sm btn-default' %>
+              <%= f.button :submit, t('filters.submit'), class: 'btn-sm btn-default' %>
               <%= link_to t('cancel'), issue_index_path, class: 'small' %>
             </p>
           </div>

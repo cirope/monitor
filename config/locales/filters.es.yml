@@ -1,0 +1,6 @@
+es:
+  filters:
+    title: 'Buscar'
+    submit: 'Aplicar'
+    tags:
+      empty: 'No se encontraron etiquetas con ese criterio'

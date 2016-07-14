@@ -11,7 +11,7 @@ class FilesControllerTest < ActionController::TestCase
 
     FileUtils.touch full_path
 
-    get :show, path: relative_path
+    get :show, params: { path: relative_path }
     assert_response :success
     assert_equal File.open(full_path, encoding: 'ASCII-8BIT').read, @response.body
 
@@ -19,7 +19,7 @@ class FilesControllerTest < ActionController::TestCase
   end
 
   test 'should not download file' do
-    get :show, path: 'wrong/path.txt'
+    get :show, params: { path: 'wrong/path.txt' }
     assert_redirected_to root_url
     assert_equal I18n.t('messages.file_not_found'), flash.notice
   end

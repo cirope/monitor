@@ -1,4 +1,4 @@
-class ScheduleCleanupJob < ActiveJob::Base
+class ScheduleCleanupJob < ApplicationJob
   queue_as :default
 
   def perform schedule

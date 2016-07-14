@@ -1,4 +1,4 @@
-class ScriptJob < ActiveJob::Base
+class ScriptJob < ApplicationJob
   queue_as :default
 
   def perform run

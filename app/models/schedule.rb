@@ -1,6 +1,7 @@
-class Schedule < ActiveRecord::Base
+class Schedule < ApplicationRecord
   include Auditable
   include Attributes::Strip
+  include Filterable
   include SearchableByName
   include Schedules::Cleanup
   include Schedules::Dependencies
@@ -9,11 +10,9 @@ class Schedule < ActiveRecord::Base
   include Schedules::Jobs
   include Schedules::Runs
   include Schedules::Scheduler
+  include Schedules::Scopes
   include Schedules::Validation
   include Taggable
-
-  scope :ordered, -> { order end: :desc, start: :asc, id: :asc }
-  scope :visible, -> { where hidden: false }
 
   strip_fields :name
 

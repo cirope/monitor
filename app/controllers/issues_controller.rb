@@ -32,7 +32,7 @@ class IssuesController < ApplicationController
 
   def destroy
     @issue.destroy
-    respond_with @issue, location: script_issues_url(@issue.script)
+    respond_with @issue, location: script_issues_url(@issue.script, filter: params[:filter])
   end
 
   private

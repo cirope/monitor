@@ -11,7 +11,7 @@ module Scripts::Destroy
       if issues.count > 0
 				errors.add :base, 'Script can not be destroyed'
 
-				false
+				throw :abort
 			end
     end
 end

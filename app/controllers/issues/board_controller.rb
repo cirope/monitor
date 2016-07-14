@@ -20,7 +20,7 @@ class Issues::BoardController < ApplicationController
 
     board_session.concat(@issues.pluck('id')).uniq!
 
-    redirect_to :back unless request.xhr?
+    redirect_back(fallback_location: root_url) unless request.xhr?
   end
 
   def update
@@ -40,7 +40,7 @@ class Issues::BoardController < ApplicationController
 
     @issues.each { |issue| board_session.delete issue.id }
 
-    redirect_to :back unless request.xhr?
+    redirect_back(fallback_location: root_url) unless request.xhr?
   end
 
   def empty

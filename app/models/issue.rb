@@ -1,6 +1,7 @@
-class Issue < ActiveRecord::Base
+class Issue < ApplicationRecord
   include Auditable
   include Issues::Comments
+  include Issues::ExportData
   include Issues::Notifications
   include Issues::Scopes
   include Issues::Status

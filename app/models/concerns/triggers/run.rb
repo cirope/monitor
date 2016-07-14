@@ -16,7 +16,7 @@ module Triggers::Run
         begin
           $stdout = StringIO.new
 
-          ActiveRecord::Base.transaction do
+          ApplicationRecord.transaction do
             #{callback}
           end
 

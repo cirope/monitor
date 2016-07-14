@@ -37,5 +37,17 @@
   <div class="clearfix">
     <%= paginate @issues %>
   </div>
-  <%= link_to_create_permalink %>
+
+  <div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+      <%= t '.actions' %> <span class="caret"></span>
+    </button>
+
+    <ul class="dropdown-menu">
+      <li><%= link_to_create_permalink %></li>
+      <li><%= link_to_download_issue_data %></li>
+    </ul>
+  </div>
+
+  <div data-target="permalink"></div>
 <% end %>

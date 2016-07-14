@@ -2,26 +2,51 @@ module Servers::Command
   extend ActiveSupport::Concern
 
   def execute script
-    out         = {}
     script_path = script.copy_to self
 
-    Net::SSH.start hostname, user, ssh_options do |ssh|
-      ssh.exec! "chmod +x #{script_path}"
-
-      out = ssh_exec! ssh, "$SHELL -ci #{script_path}"
-
-      ssh.exec! "rm #{script_path}"
+    if script_path.blank?
+      return {
+        status: 'error',
+        output: 'Script transfer failed'
+      }
     end
 
-    {
-      status: out[:exit_code] == 0 ? 'ok' : 'error',
-      output: out[:output]
-    }
+    if local?
+      execute_local  script_path
+    else
+      execute_remote script_path
+    end
   rescue
     { status: 'error' }
   end
 
   private
+
+    def execute_local script_path
+      out = %x{#{Rails.root}/bin/rails runner #{script_path}}
+
+      {
+        status: $?.to_i == 0 ? 'ok' : 'error',
+        output: out
+      }
+    end
+
+    def execute_remote script_path
+      out = {}
+
+      Net::SSH.start hostname, user, ssh_options do |ssh|
+        ssh.exec! "chmod +x #{script_path}"
+
+        out = ssh_exec! ssh, "$SHELL -ci #{script_path}"
+
+        ssh.exec! "rm #{script_path}"
+      end
+
+      {
+        status: out[:exit_code] == 0 ? 'ok' : 'error',
+        output: out[:output]
+      }
+    end
 
     def ssh_exec! ssh, command
       output    = ''

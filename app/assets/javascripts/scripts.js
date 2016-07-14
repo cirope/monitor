@@ -1,7 +1,7 @@
 +function () {
   var editor = null
 
-  $(document).on('ready page:load', function () {
+  $(document).on('ready turbolinks:load', function () {
     if ($('.editor').length) {
       var $editor   = $('.editor')
       var $textarea = $('#script_text')
@@ -10,6 +10,8 @@
       var theme     = $editor.data('readonly') ? 'solarized_dark' : 'solarized_light'
 
       editor = ace.edit($editor.get(0))
+
+      editor.$blockScrolling = Infinity
 
       editor.setTheme('ace/theme/' + theme)
       editor.getSession().setMode('ace/mode/ruby')

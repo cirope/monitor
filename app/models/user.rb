@@ -1,10 +1,11 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   include Auditable
   include Filterable
   include Taggable
   include Attributes::Strip
   include Attributes::Downcase
   include Users::Authentication
+  include Users::Destroy
   include Users::Overrides
   include Users::PasswordReset
   include Users::Roles

@@ -10,7 +10,12 @@ class DatabasesControllerTest < ActionController::TestCase
   test 'should get index' do
     get :index
     assert_response :success
-    assert_not_nil assigns(:databases)
+  end
+
+  test 'should get filtered index' do
+    get :index, params: { filter: { name: 'undefined' } }
+    assert_response :success
+    assert_select '.alert', text: I18n.t('databases.index.empty_search_html')
   end
 
   test 'should get new' do
@@ -20,38 +25,43 @@ class DatabasesControllerTest < ActionController::TestCase
 
   test 'should create database' do
     assert_difference ['Database.count', 'Property.count'] do
-      post :create, database: {
-        name:        'MySQL',
-        driver:      'MySQL',
-        description: 'MySQL test',
-        properties_attributes: [
-          { key: 'Trace', value: 'No' }
-        ]
+      post :create, params: {
+        database: {
+          name:        'MySQL',
+          driver:      'MySQL',
+          description: 'MySQL test',
+          properties_attributes: [
+            { key: 'Trace', value: 'No' }
+          ]
+        }
       }
     end
 
-    assert_redirected_to database_url assigns(:database)
+    assert_redirected_to database_url(Database.last)
   end
 
   test 'should show database' do
-    get :show, id: @database
+    get :show, params: { id: @database }
     assert_response :success
   end
 
   test 'should get edit' do
-    get :edit, id: @database
+    get :edit, params: { id: @database }
     assert_response :success
   end
 
   test 'should update database' do
-    patch :update, id: @database, database: { name: 'PostgreSQL (updated)' }
+    patch :update, params: {
+      id: @database,
+      database: { name: 'PostgreSQL (updated)' }
+    }
 
-    assert_redirected_to database_url assigns(:database)
+    assert_redirected_to database_url(@database)
   end
 
   test 'should destroy database' do
     assert_difference 'Database.count', -1 do
-      delete :destroy, id: @database
+      delete :destroy, params: { id: @database }
     end
 
     assert_redirected_to databases_url

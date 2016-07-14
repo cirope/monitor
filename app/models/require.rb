@@ -1,4 +1,4 @@
-class Require < ActiveRecord::Base
+class Require < ApplicationRecord
   include Auditable
   include Requires::Scopes
 

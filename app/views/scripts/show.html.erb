@@ -1,10 +1,13 @@
 <h2>
   <%= @script %>
-  <% if @script.core %>
-    <small class="pull-right">
+  <small class="pull-right">
+    <% if @script.core %>
       <span class="glyphicon glyphicon-star" title="<%= Script.human_attribute_name 'core' %>"></span>
-    </small>
-  <% end %>
+    <% end %>
+    <%= link_to script_versions_path(@script), title: t('.history') do %>
+      <span class="glyphicon glyphicon-time"></span>
+    <% end %>
+  </small>
 </h2>
 
 <% if @script.file.present? %>
@@ -22,8 +25,14 @@
 <% if @script.change.present? %>
   <p>
     <strong><%= Script.human_attribute_name 'change' %></strong>:
-    <%= @script.change %>
+    <%= link_to @script.change, '#diff', data: { toggle: 'collapse' } %>
   </p>
+
+  <div id="diff" class="panel panel-default collapse">
+    <div class="panel-body">
+      <%= last_change_diff %>
+    </div>
+  </div>
 <% end %>
 
 <% if @script.maintainers.any? %>
@@ -129,4 +138,7 @@
 <% if @script.can_be_edited_by? current_user %>
   <%= link_to_edit [:edit, @script] %> |
 <% end %>
+<%= link_to script_path(@script, format: :pdf), title: t('.download_pdf') do %>
+  <span class="glyphicon glyphicon-save-file"></span>
+<% end %> |
 <%= link_to_index scripts_path %>

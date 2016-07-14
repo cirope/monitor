@@ -1,4 +1,3 @@
 +function () {
-  $('[data-action="create-permalink"]')
-    .replaceWith('<%= j render('permalink', format: :html) %>')
+  $('[data-target="permalink"]').html('<%= j render('permalink', format: :html) %>')
 }()

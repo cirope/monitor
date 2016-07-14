@@ -7,7 +7,7 @@ class TagsController < ApplicationController
   respond_to :html, :json
 
   def index
-    @tags = scope.search(query: params[:q], limit: request.xhr? && 10).order(:name).page params[:page]
+    @tags = scope.search(query: params[:q]).limit(request.xhr? && 10).order(:name).page params[:page]
 
     respond_with @tags
   end

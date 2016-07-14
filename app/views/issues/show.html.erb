@@ -18,6 +18,7 @@
 <% if @issue.data.present? %>
   <p>
     <strong><%= Issue.human_attribute_name 'data' %></strong>
+    <%= link_to_export_data %>
   </p>
 
   <%= render_object @issue, '' %>

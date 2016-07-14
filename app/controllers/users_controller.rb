@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  include Users::Filters
+
   respond_to :html, :json
 
   before_action :authorize, :not_guest
@@ -8,7 +10,7 @@ class UsersController < ApplicationController
 
   # GET /users
   def index
-    @users = users.ordered.page params[:page]
+    @users = users.visible.ordered.page params[:page]
   end
 
   # GET /users/1
@@ -41,7 +43,7 @@ class UsersController < ApplicationController
   # DELETE /users/1
   def destroy
     @user.destroy
-    respond_with @user
+    respond_with @user, location: users_url
   end
 
   private
@@ -53,13 +55,5 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit :name, :lastname, :email, :username, :password, :password_confirmation, :role, :lock_version,
         taggings_attributes: [:id, :tag_id, :_destroy]
-    end
-
-    def users
-      users = User.search query: params[:q]
-      users = users.filter role: params[:role] if params[:role]
-      users = users.limit 10                   if request.xhr?
-
-      users
     end
 end

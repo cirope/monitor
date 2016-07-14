@@ -171,6 +171,9 @@ es:
         password: 'Contraseña'
         password_confirmation: 'Confirmación'
         role: 'Rol'
+      paper_trail/version:
+        whodunnit: 'Usuario'
+        created_at: 'Modificado el'
 
     errors:
       models:

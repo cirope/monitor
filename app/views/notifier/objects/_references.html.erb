@@ -1,0 +1,5 @@
+<% references.each do |number, object| %>
+  <h3 id="ref-<%= number %>">[<%= number %>]</h3>
+
+  <%= render_object_for_email object %>
+<% end %>

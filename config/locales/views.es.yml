@@ -22,10 +22,6 @@ es:
       title: 'Tablero de casos'
 
   dashboard:
-    filters:
-      title: 'Buscar'
-      submit: 'Aplicar'
-      empty: 'No se encontraron etiquetas con ese criterio'
     index:
       title: 'Listado de casos'
       empty_html: 'No hay casos activos'
@@ -38,6 +34,7 @@ es:
       new: 'Nueva base de datos'
       title: 'Listado de bases de datos'
       empty_html: 'No hay bases de datos, puede crear una con el botón <span class="label label-primary">Nueva base de datos</span>'
+      empty_search_html: 'No hay bases de datos que coincidan con el criterio de búsqueda'
     new:
       title: 'Crear base de datos'
       property: 'Agregar propiedad'
@@ -74,10 +71,13 @@ es:
         title: 'Modificar'
         submit: 'Aplicar'
       index:
+        title: 'Tablero de casos'
         clear: 'Limpiar'
         empty_html: 'No hay casos agregados al tablero'
         remove_from_board: 'Eliminar del tablero'
         create_permalink: 'Crear enlace permanente'
+        download_issue_data: 'Descargar datos'
+        actions: 'Acciones'
       update:
         updated: 'Todos los casos fueron actualizados'
         fail: 'No todos los casos fueron actualizados, algunos contienen errores'
@@ -85,10 +85,9 @@ es:
         done: 'Se limpiaron todos los casos del tablero'
     edit:
       title: 'Editar caso'
-    filters:
-      title: 'Buscar'
-      submit: 'Aplicar'
-      empty: 'No se encontraron etiquetas con ese criterio'
+    exports:
+      create:
+        filename: 'datos.zip'
     index:
       new: 'Nuevo caso'
       title: 'Listado de casos'
@@ -104,6 +103,7 @@ es:
       tagging: 'Agregar etiqueta'
     show:
       title: 'Ver caso'
+      download_data: 'Descargar datos'
     status:
       pending: 'Pendiente'
       taken: 'En proceso'
@@ -130,6 +130,11 @@ es:
       more: 'Ver'
     table:
       more: 'Ver'
+      graph:
+        type: 'Tipo de gráfico'
+        line: 'Línea'
+        bar: 'Barra'
+        pie: 'Torta'
     ul:
       more: 'Ver'
 
@@ -148,6 +153,7 @@ es:
       new: 'Nueva regla'
       title: 'Listado de reglas'
       empty_html: 'No hay reglas, puede crear una con el botón <span class="label label-primary">Nueva regla</span>'
+      empty_search_html: 'No hay reglas que coincidan con el criterio de búsqueda'
     new:
       title: 'Crear regla'
       trigger: 'Agregar disparador'
@@ -176,6 +182,7 @@ es:
       new: 'Nuevo guión'
       title: 'Listado de guiones'
       empty_html: 'No hay guiones, puede crear uno con el botón <span class="label label-primary">Nuevo guión</span>'
+      empty_search_html: 'No hay guiones que coincidan con el criterio de búsqueda'
       import: 'Importar'
       export: 'Exportar'
     new:
@@ -187,6 +194,8 @@ es:
       description: 'Agregar descripción'
     show:
       title: 'Ver guión'
+      history: 'Ver historial de cambios'
+      download_pdf: 'Descargar PDF'
     exports:
       create:
         filename: 'guiones.zip'
@@ -200,6 +209,16 @@ es:
         file: 'Archivo'
         submit: 'Importar'
       default_change: 'Importado el %{date}'
+    versions:
+      index:
+        title: 'Histórico de versiones'
+        change: 'Cambio'
+        empty_html: 'No hay versiones para este guión'
+        event:
+          create: 'Creación'
+      show:
+        title: 'Ver versión'
+        no_previous: 'Primer versión'
 
   schedules:
     edit:
@@ -208,6 +227,7 @@ es:
       new: 'Nuevo trabajo'
       title: 'Listado de trabajos'
       empty_html: 'No hay trabajos, puede crear uno con el botón <span class="label label-primary">Nuevo trabajo</span>'
+      empty_search_html: 'No hay trabajos que coincidan con el criterio de búsqueda'
     new:
       title: 'Crear trabajo'
       job: 'Agregar guión'
@@ -237,6 +257,7 @@ es:
       new: 'Nuevo servidor'
       title: 'Listado de servidores'
       empty_html: 'No hay servidores, puede crear uno con el botón <span class="label label-primary">Nuevo servidor</span>'
+      empty_search_html: 'No hay servidores que coincidan con el criterio de búsqueda'
     new:
       title: 'Crear servidor'
     show:
@@ -301,6 +322,7 @@ es:
       title: 'Listado de usuarios'
       ldap_import: 'Importar desde LDAP'
       empty_html: 'No hay usuarios, puede crear uno con el botón <span class="label label-primary">Nuevo usuario</span>'
+      empty_search_html: 'No hay usuarios que coincidan con el criterio de búsqueda'
     new:
       title: 'Crear usuario'
       tagging: 'Agregar etiqueta'

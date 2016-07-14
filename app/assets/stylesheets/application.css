@@ -12,7 +12,8 @@
  *= require fonts
  *= require bootstrap
  *= require ie
- *= require daterangepicker-bs3
+ *= require chartist/chartist
+ *= require daterangepicker
  *= require jquery-ui
  *= require jquery-ui-theme
  *= require main
@@ -25,6 +26,7 @@
  *= require descriptors
  *= require issues
  *= require issues/board
+ *= require issues/exports
  *= require ldaps
  *= require permalinks
  *= require password_resets
@@ -34,6 +36,7 @@
  *= require scripts
  *= require scripts/exports
  *= require scripts/imports
+ *= require scripts/versions
  *= require servers
  *= require tags
  *= require users

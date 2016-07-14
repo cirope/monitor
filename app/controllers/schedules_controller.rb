@@ -1,4 +1,6 @@
 class SchedulesController < ApplicationController
+  include Schedules::Filters
+
   before_action :authorize, :not_guest, :not_security
   before_action :set_title, except: [:destroy]
   before_action :set_schedule, only: [:show, :edit, :update, :destroy, :run, :cleanup]
@@ -7,7 +9,7 @@ class SchedulesController < ApplicationController
   respond_to :html, :json
 
   def index
-    @schedules = Schedule.visible.search(query: params[:q], limit: request.xhr? && 10).page params[:page]
+    @schedules = schedules.visible.page params[:page]
 
     respond_with @schedules
   end

@@ -1,4 +1,4 @@
-class FileRemoveJob < ActiveJob::Base
+class FileRemoveJob < ApplicationJob
   queue_as :default
 
   def perform path

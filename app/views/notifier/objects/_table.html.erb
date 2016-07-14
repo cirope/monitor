@@ -1,0 +1,15 @@
+<table>
+  <tbody>
+    <% references = {} %>
+    <% object.each do |k, v| %>
+      <tr>
+        <td><%= k %></td>
+        <td><%= v.respond_to?(:each) ? link_to_next_reference : v %></td>
+      </tr>
+
+      <% references[@reference] = v if v.respond_to? :each %>
+    <% end %>
+  </tbody>
+</table>
+
+<%= render 'notifier/objects/references', references: references %>

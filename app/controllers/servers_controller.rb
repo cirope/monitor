@@ -1,4 +1,6 @@
 class ServersController < ApplicationController
+  include Servers::Filters
+
   before_action :authorize, :not_guest, :not_author
   before_action :set_title, except: [:destroy]
   before_action :set_server, only: [:show, :edit, :update, :destroy]
@@ -7,7 +9,7 @@ class ServersController < ApplicationController
   respond_to :html, :json
 
   def index
-    @servers = Server.search(query: params[:q], limit: request.xhr? && 10).order(:id).page params[:page]
+    @servers = servers.order(:id).page params[:page]
 
     respond_with @servers
   end

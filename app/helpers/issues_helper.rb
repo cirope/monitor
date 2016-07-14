@@ -114,6 +114,17 @@ module IssuesHelper
     current_user.guest? || current_user.security?
   end
 
+  def link_to_export_data
+    options = {
+      title: t('.download_data'),
+      data:  { method: :post }
+    }
+
+    link_to issues_exports_path(ids: [@issue.id]), options do
+      content_tag :span, nil, class: 'glyphicon glyphicon-download'
+    end
+  end
+
   private
 
     def issues_board_path_with_params

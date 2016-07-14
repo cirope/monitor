@@ -10,7 +10,7 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
+//= require jquery2
 //= require jquery_ujs
 //= require jquery-ui/autocomplete
 //= require turbolinks
@@ -20,6 +20,8 @@
 //= require ace/theme-solarized_light
 //= require ace/theme-solarized_dark
 //= require bootstrap/bootstrap
+//= require chartist/chartist
+//= require chartist/chartist-plugin-axistitle
 //= require moment
 //= require moment/es
 //= require daterangepicker
@@ -28,12 +30,15 @@
 //= require date_pickers
 //= require dynamic_form
 //= require effect_helper
+//= require filters
 //= require dashboard
 //= require databases
 //= require descriptors
 //= require issues
 //= require issues/board
+//= require issues/exports
 //= require ldaps
+//= require objects
 //= require permalinks
 //= require password_resets
 //= require profiles
@@ -42,6 +47,7 @@
 //= require scripts
 //= require scripts/exports
 //= require scripts/imports
+//= require scripts/versions
 //= require servers
 //= require tags
 //= require users
