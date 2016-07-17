@@ -77,20 +77,20 @@ module Ldaps::Import
 
     def update_tags user, entry
       roles_in(entry).each do |role_name|
-        tag_id = tags[role_name]
+        tag = tags[role_name]
 
-        user.taggings.where(tag_id: tag_id).first_or_create if tag_id
+        user.taggings.where(tag_id: tag.id).first_or_create!(tag: tag) if tag
       end
     end
 
     def roles_in entry
       entry[roles_attribute].map do |role|
-        role&.force_encoding('UTF-8').sub /.*?cn=(.*?),.*/i, '\1'
+        role&.force_encoding('UTF-8').sub(/.*?cn=(.*?),.*/i, '\1').to_s
       end
     end
 
     def tags
       Thread.current[:ldap_import_tags] ||=
-        Hash[Tag.for_users.map { |tag| [tag.name, tag.id] }]
+        Hash[Tag.for_users.map { |tag| [tag.name, tag] }]
     end
 end

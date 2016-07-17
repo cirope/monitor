@@ -24,3 +24,8 @@ admins:
   name: Admins
   kind: user
   style: default
+
+guest:
+  name: Guest role
+  kind: user
+  style: default
