@@ -105,14 +105,12 @@ class LdapTest < ActiveSupport::TestCase
   test 'import' do
     assert_nil User.where(email: 'juan@administrators.com').take
 
-    tag = Tag.create! name: 'Guest role', kind: 'user'
-
     @ldap.import 'admin', 'admin123'
 
     user = User.where(email: 'juan@administrators.com').take
 
     assert_not_nil user
-    assert_equal tag, user.tags.take
+    assert_equal tags(:guest), user.tags.take
   end
 
   test 'default' do
