@@ -79,7 +79,9 @@ module Ldaps::Import
       roles_in(entry).each do |role_name|
         tag = tags[role_name]
 
-        user.taggings.where(tag_id: tag.id).first_or_create tag: tag if tag
+        if tag && user.persisted?
+          user.taggings.where(tag_id: tag.id).first_or_create! tag: tag
+        end
       end
     end
 
