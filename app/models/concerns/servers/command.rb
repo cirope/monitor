@@ -22,12 +22,16 @@ module Servers::Command
 
   private
 
+    def rails
+      "#{Rails.root}/bin/rails"
+    end
+
     def execute_local script_path
-      out = %x{ruby #{script_path}}
+      stdout, stderr, status = Open3.capture3 rails, 'runner', script_path
 
       {
-        status: $?.to_i == 0 ? 'ok' : 'error',
-        output: out
+        status: status.to_i == 0 ? 'ok' : 'error',
+        output: [stdout, stderr].join
       }
     end
 
