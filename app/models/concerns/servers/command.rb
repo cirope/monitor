@@ -23,7 +23,7 @@ module Servers::Command
   private
 
     def execute_local script_path
-      out = %x{#{Rails.root}/bin/rails runner #{script_path}}
+      out = %x{ruby #{script_path}}
 
       {
         status: $?.to_i == 0 ? 'ok' : 'error',
