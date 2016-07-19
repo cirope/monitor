@@ -56,3 +56,6 @@ end
 group :doc do
   gem 'sdoc', require: false
 end
+
+# Some user script dependencies
+gem 'composite_primary_keys', require: false
