@@ -8,6 +8,7 @@ addons:
     packages:
     - slapd
     - ldap-utils
+    - unixodbc-dev
   postgresql: 9.4
 before_script:
   - 'cp config/application.travis.yml config/application.yml'
