@@ -23,6 +23,7 @@ class TagsController < ApplicationController
   end
 
   def edit
+    respond_with @tag
   end
 
   def create

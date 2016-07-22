@@ -23,6 +23,7 @@ class IssuesController < ApplicationController
   end
 
   def edit
+    respond_with @issue
   end
 
   def update

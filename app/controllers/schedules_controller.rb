@@ -25,6 +25,7 @@ class SchedulesController < ApplicationController
   end
 
   def edit
+    respond_with @schedule
   end
 
   def create
@@ -58,6 +59,7 @@ class SchedulesController < ApplicationController
   end
 
   private
+
     def set_schedule
       @schedule = Schedule.find params[:id]
     end

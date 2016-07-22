@@ -23,6 +23,7 @@ class LdapsController < ApplicationController
   end
 
   def edit
+    respond_with @ldap
   end
 
   def create

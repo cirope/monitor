@@ -25,6 +25,7 @@ class ScriptsController < ApplicationController
   end
 
   def edit
+    respond_with @script
   end
 
   def create

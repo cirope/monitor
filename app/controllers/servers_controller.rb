@@ -25,6 +25,7 @@ class ServersController < ApplicationController
   end
 
   def edit
+    respond_with @server
   end
 
   def create
