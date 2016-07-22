@@ -11,19 +11,25 @@ class UsersController < ApplicationController
   # GET /users
   def index
     @users = users.visible.ordered.page params[:page]
+
+    respond_with @users
   end
 
   # GET /users/1
   def show
+    respond_with @user
   end
 
   # GET /users/new
   def new
     @user = User.new
+
+    respond_with @user
   end
 
   # GET /users/1/edit
   def edit
+    respond_with @user
   end
 
   # POST /users

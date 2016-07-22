@@ -25,6 +25,7 @@ class DatabasesController < ApplicationController
   end
 
   def edit
+    respond_with @database
   end
 
   def create

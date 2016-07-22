@@ -24,6 +24,7 @@ class RulesController < ApplicationController
   end
 
   def edit
+    respond_with @rule
   end
 
   def create
