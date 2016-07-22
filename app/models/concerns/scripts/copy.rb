@@ -29,7 +29,7 @@ module Scripts::Copy
     end
 
     body << variables
-    body << commented_text(inclusion || "script #{id} body")
+    body << commented_text(inclusion || "script #{uuid} body")
   end
 
   private
