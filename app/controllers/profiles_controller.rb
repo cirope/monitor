@@ -1,15 +1,17 @@
 class ProfilesController < ApplicationController
-  respond_to :html, :json
-
   before_action :authorize, :set_user, :set_title
 
   def edit
-    respond_with @user
   end
 
   def update
-    update_resource @user, user_params, stale_location: profile_path
-    respond_with @user, location: root_url
+    respond_to do |format|
+      if update_resource @user, user_params, stale_location: profile_path
+        format.html { redirect_to root_url, notice: t('flash.profiles.update.notice') }
+      else
+        format.html { render :edit, alert: t('flash.profiles.update.alert') }
+      end
+    end
   end
 
   private

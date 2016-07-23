@@ -8,32 +8,42 @@ class IssuesController < ApplicationController
   before_action :set_permalink, only: [:show]
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
 
-  respond_to :html, :json, :js
-
   def index
     @issue_ids = issues.pluck 'id'
     @issues    = issues.order(created_at: :desc).page params[:page]
     @issues    = @issues.active unless filter_default_status?
-
-    respond_with @issues
   end
 
   def show
-    respond_with @issue
   end
 
   def edit
-    respond_with @issue
   end
 
   def update
-    @issue.update issue_params
-    respond_with @issue
+    respond_to do |format|
+      if update_resource @issue, issue_params
+        format.html { redirect_to @issue, notice: t('flash.actions.update.notice', resource_name: Issue.model_name.human) }
+        format.json { render :show, status: :ok, location: @issue }
+      else
+        format.html { render :edit }
+        format.json { render json: @issue.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def destroy
-    @issue.destroy
-    respond_with @issue, location: script_issues_url(@issue.script, filter: params[:filter])
+    respond_to do |format|
+      url = script_issues_url @issue.script, filter: params[:filter]
+
+      if @issue.destroy
+        format.html { redirect_to url, notice: t('flash.actions.destroy.notice', resource_name: Issue.model_name.human) }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to url, alert: t('flash.actions.destroy.alert', resource_name: Issue.model_name.human) }
+        format.json { render json: @issue.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   private

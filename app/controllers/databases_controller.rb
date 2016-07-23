@@ -6,43 +6,58 @@ class DatabasesController < ApplicationController
   before_action :set_database, only: [:show, :edit, :update, :destroy]
   before_action :not_supervisor, except: [:index, :show]
 
-  respond_to :html
-
   def index
     @databases = databases.ordered.page params[:page]
-
-    respond_with @databases
   end
 
   def show
-    respond_with @database
   end
 
   def new
     @database = Database.new
-
-    respond_with @database
   end
 
   def edit
-    respond_with @database
   end
 
   def create
     @database = Database.new database_params
 
-    @database.save
-    respond_with @database
+    respond_to do |format|
+      if @database.save
+        format.html { redirect_to @database, notice: t('flash.databases.create.notice') }
+        format.json { render :show, status: :created, location: @database }
+      else
+        format.html { render :new }
+        format.json { render json: @database.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
+  # PATCH/PUT /databases/1
   def update
-    @database.update database_params
-    respond_with @database
+    respond_to do |format|
+      if update_resource @database, database_params
+        format.html { redirect_to @database, notice: t('flash.databases.update.notice') }
+        format.json { render :show, status: :ok, location: @database }
+      else
+        format.html { render :edit }
+        format.json { render json: @database.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
+  # DELETE /databases/1
   def destroy
-    @database.destroy
-    respond_with @database
+    respond_to do |format|
+      if @database.destroy
+        format.html { redirect_to databases_url, notice: t('flash.databases.destroy.notice') }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to databases_url, alert: t('flash.databases.destroy.alert') }
+        format.json { render json: @database.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   private

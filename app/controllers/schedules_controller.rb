@@ -6,56 +6,73 @@ class SchedulesController < ApplicationController
   before_action :set_schedule, only: [:show, :edit, :update, :destroy, :run, :cleanup]
   before_action :not_author, except: [:index, :show, :run]
 
-  respond_to :html, :json
-
   def index
     @schedules = schedules.visible.page params[:page]
-
-    respond_with @schedules
   end
 
   def show
-    respond_with @schedule
   end
 
   def new
     @schedule = Schedule.new
-
-    respond_with @schedule
   end
 
   def edit
-    respond_with @schedule
   end
 
   def create
     @schedule = Schedule.new schedule_params
 
-    @schedule.save
-    respond_with @schedule
+    respond_to do |format|
+      if @schedule.save
+        format.html { redirect_to @schedule, notice: t('flash.actions.create.notice', resource_name: Schedule.model_name.human) }
+        format.json { render :show, status: :created, location: @schedule }
+      else
+        format.html { render :new }
+        format.json { render json: @schedule.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
+  # PATCH/PUT /schedules/1
   def update
-    @schedule.update schedule_params
-    respond_with @schedule
+    respond_to do |format|
+      if update_resource @schedule, schedule_params
+        format.html { redirect_to @schedule, notice: t('flash.actions.update.notice', resource_name: Schedule.model_name.human) }
+        format.json { render :show, status: :ok, location: @schedule }
+      else
+        format.html { render :edit }
+        format.json { render json: @schedule.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
+  # DELETE /schedules/1
   def destroy
     ScheduleDestroyJob.perform_later @schedule
 
-    respond_with @schedule, location: schedules_url
+    respond_to do |format|
+      format.html { redirect_to schedules_url, notice: t('flash.schedules.destroy.notice') }
+      format.json { head :no_content }
+    end
   end
 
   def run
     @schedule.run
 
-    respond_with @schedule, location: schedule_runs_url(@schedule)
+    respond_to do |format|
+      format.html { redirect_to schedule_runs_url(@schedule), notice: t('flash.schedules.run.notice') }
+      format.json { head :no_content }
+    end
   end
 
   def cleanup
     ScheduleCleanupJob.perform_later @schedule
 
-    respond_with @schedule
+    respond_to do |format|
+      format.html { redirect_to @schedule, notice: t('flash.schedules.cleanup.notice') }
+      format.json { head :no_content }
+    end
   end
 
   private
