@@ -1,6 +1,4 @@
 class PermalinksController < ApplicationController
-  respond_to :html, :json, :js
-
   before_action :authorize
   before_action :not_guest, :not_security, only: [:create]
   before_action :set_permalink, only: [:show]
@@ -16,8 +14,13 @@ class PermalinksController < ApplicationController
     token      = SecureRandom.urlsafe_base64 32
     @permalink = Permalink.new permalink_params.merge(token: token)
 
-    @permalink.save
-    respond_with @permalink
+    respond_to do |format|
+      if @permalink.save
+        format.html { redirect_to @permalink, notice: t('flash.actions.create.notice', resource_name: Permalink.model_name.human) }
+        format.json { render :show, status: :created, location: @permalink }
+        format.js
+      end
+    end
   end
 
   private

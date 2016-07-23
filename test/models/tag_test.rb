@@ -43,6 +43,17 @@ class TagTest < ActiveSupport::TestCase
     assert_error @tag, :style, :inclusion
   end
 
+  test 'can not destroy when final and has taggables' do
+    tag   = tags :final
+    issue = issues :ls_on_atahualpa_not_well
+
+    issue.taggings.create! tag_id: tag.id
+
+    assert_no_difference 'Tag.count' do
+      tag.destroy
+    end
+  end
+
   test 'search' do
     tags = Tag.search query: @tag.name
 

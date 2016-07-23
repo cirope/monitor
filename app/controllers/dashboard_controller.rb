@@ -7,12 +7,8 @@ class DashboardController < ApplicationController
   helper_method :filter_params
   helper_method :issue_filter
 
-  respond_to :html
-
   def index
     @script_counts = Kaminari.paginate_array(issue_count_by_script.to_a).page params[:page]
-
-    respond_with @script_counts
   end
 
   private

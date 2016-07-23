@@ -3,16 +3,11 @@ class Scripts::VersionsController < ApplicationController
   before_action :set_title, :set_script
   before_action :set_version, only: [:show]
 
-  respond_to :html
-
   def index
     @versions = @script.versions.reorder(created_at: :desc).page params[:page]
-
-    respond_with @versions
   end
 
   def show
-    respond_with @version
   end
 
   private

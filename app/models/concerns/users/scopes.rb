@@ -8,12 +8,8 @@ module Users::Scopes
 
   module ClassMethods
     def by_name name
-      conditions = [
-        "#{table_name}.name ILIKE :name",
-        "#{table_name}.lastname ILIKE :name"
-      ].join(' OR ')
-
-      where conditions, name: "%#{name}%"
+      where("#{table_name}.name ILIKE ?", "%#{name}%").
+        or where("#{table_name}.lastname ILIKE ?", "%#{name}%")
     end
 
     def by_role role
