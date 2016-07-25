@@ -3,56 +3,43 @@ class DescriptorsController < ApplicationController
   before_action :set_descriptor, only: [:show, :edit, :update, :destroy]
   before_action :set_title, except: [:destroy]
 
+  respond_to :html, :json
+
   def index
     @descriptors = Descriptor.all
+
+    respond_with @descriptors
   end
 
   def show
+    respond_with @descriptor
   end
 
   def new
     @descriptor = Descriptor.new
+
+    respond_with @descriptor
   end
 
   def edit
+    respond_with @descriptor
   end
 
   def create
-    @descriptor = Descriptor.new descriptor_params
+    @descriptor = Descriptor.new(descriptor_params)
 
-    respond_to do |format|
-      if @descriptor.save
-        format.html { redirect_to @descriptor, notice: t('flash.actions.create.notice', resource_name: Descriptor.model_name.human) }
-        format.json { render :show, status: :created, location: @descriptor }
-      else
-        format.html { render :new }
-        format.json { render json: @descriptor.errors, status: :unprocessable_entity }
-      end
-    end
+    @descriptor.save
+    respond_with @descriptor
   end
 
   def update
-    respond_to do |format|
-      if update_resource @descriptor, descriptor_params
-        format.html { redirect_to @descriptor, notice: t('flash.actions.update.notice', resource_name: Descriptor.model_name.human) }
-        format.json { render :show, status: :ok, location: @descriptor }
-      else
-        format.html { render :edit }
-        format.json { render json: @descriptor.errors, status: :unprocessable_entity }
-      end
-    end
+    update_resource @descriptor, descriptor_params
+    respond_with @descriptor
   end
 
   def destroy
-    respond_to do |format|
-      if @descriptor.destroy
-        format.html { redirect_to descriptors_url, notice: t('flash.actions.destroy.notice', resource_name: Descriptor.model_name.human) }
-        format.json { head :no_content }
-      else
-        format.html { redirect_to descriptors_url, alert: t('flash.actions.destroy.alert', resource_name: Descriptor.model_name.human) }
-        format.json { render json: @descriptor.errors, status: :unprocessable_entity }
-      end
-    end
+    @descriptor.destroy
+    respond_with @descriptor
   end
 
   private

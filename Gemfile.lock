@@ -180,6 +180,8 @@ GEM
       json (~> 1.4)
     redis (3.3.1)
     request_store (1.3.1)
+    responders (2.2.0)
+      railties (>= 4.2.0, < 5.1)
     roadie (3.1.1)
       css_parser (~> 1.3.4)
       nokogiri (>= 1.5.0, < 1.7.0)
@@ -190,7 +192,7 @@ GEM
     ruby-odbc (0.99997)
     rubyzip (1.2.0)
     sass (3.4.22)
-    sass-rails (5.0.6)
+    sass-rails (5.0.5)
       railties (>= 4.0.0, < 6)
       sass (~> 3.1)
       sprockets (>= 2.8, < 4.0)
@@ -277,6 +279,7 @@ DEPENDENCIES
   prawn
   prawn-table
   rails (~> 5.0.0)
+  responders
   roadie-rails
   ruby-ntlm
   ruby-odbc
