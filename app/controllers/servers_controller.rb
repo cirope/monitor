@@ -42,9 +42,6 @@ class ServersController < ApplicationController
 
   def destroy
     @server.destroy
-  rescue ActiveRecord::RecordNotDestroyed
-    flash.alert = t 'flash.servers.destroy.alert'
-  ensure
     respond_with @server
   end
 
