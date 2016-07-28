@@ -47,7 +47,7 @@ GEM
     addressable (2.4.0)
     airbrussh (1.1.0)
       sshkit (>= 1.6.1, != 1.7.0)
-    arel (7.1.0)
+    arel (7.1.1)
     bcrypt (3.1.11)
     builder (3.2.2)
     byebug (9.0.5)
@@ -60,7 +60,7 @@ GEM
     capistrano-bundler (1.1.4)
       capistrano (~> 3.1)
       sshkit (~> 1.2)
-    capistrano-harrow (0.5.2)
+    capistrano-harrow (0.5.3)
     capistrano-rails (1.1.7)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
@@ -85,7 +85,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
-    composite_primary_keys (9.0.0)
+    composite_primary_keys (9.0.1)
       activerecord (~> 5.0.0)
     concurrent-ruby (1.0.2)
     connection_pool (2.2.0)
