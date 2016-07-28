@@ -6,62 +6,46 @@ class ServersController < ApplicationController
   before_action :set_server, only: [:show, :edit, :update, :destroy]
   before_action :not_supervisor, except: [:index, :show]
 
+  respond_to :html, :json
+
   def index
     @servers = servers.order(:id).page params[:page]
+
+    respond_with @servers
   end
 
   def show
+    respond_with @server
   end
 
   def new
     @server = Server.new
+
+    respond_with @server
   end
 
   def edit
+    respond_with @server
   end
 
   def create
     @server = Server.new server_params
 
-    respond_to do |format|
-      if @server.save
-        format.html { redirect_to @server, notice: t('flash.actions.create.notice', resource_name: Server.model_name.human) }
-        format.json { render :show, status: :created, location: @server }
-      else
-        format.html { render :new }
-        format.json { render json: @server.errors, status: :unprocessable_entity }
-      end
-    end
+    @server.save
+    respond_with @server
   end
 
-  # PATCH/PUT /servers/1
   def update
-    respond_to do |format|
-      if update_resource @server, server_params
-        format.html { redirect_to @server, notice: t('flash.actions.update.notice', resource_name: Server.model_name.human) }
-        format.json { render :show, status: :ok, location: @server }
-      else
-        format.html { render :edit }
-        format.json { render json: @server.errors, status: :unprocessable_entity }
-      end
-    end
+    @server.update server_params
+    respond_with @server
   end
 
-  # DELETE /servers/1
   def destroy
-    respond_to do |format|
-      if @server.destroy
-        format.html { redirect_to servers_url, notice: t('flash.actions.destroy.notice', resource_name: Server.model_name.human) }
-        format.json { head :no_content }
-      else
-        format.html { redirect_to @server, alert: t('flash.servers.destroy.alert') }
-        format.json { render json: @server.errors, status: :unprocessable_entity }
-      end
-    end
+    @server.destroy
+    respond_with @server
   end
 
   private
-
     def set_server
       @server = Server.find params[:id]
     end

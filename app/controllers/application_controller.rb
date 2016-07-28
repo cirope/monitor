@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   include ActionTitle
   include CurrentUser
   include LdapConfig
+  include Responder
   include Roles
   include UpdateResource
 

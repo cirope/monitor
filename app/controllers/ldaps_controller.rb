@@ -4,58 +4,45 @@ class LdapsController < ApplicationController
   before_action :set_ldap, only: [:show, :edit, :update, :destroy]
   before_action :not_supervisor, except: [:index, :show]
 
+  respond_to :html
+
   def index
     @ldaps = Ldap.order(:id).page params[:page]
+
+    respond_with @ldaps
   end
 
   def show
+    respond_with @ldap
   end
 
   def new
     @ldap = Ldap.new
+
+    respond_with @ldap
   end
 
   def edit
+    respond_with @ldap
   end
 
   def create
     @ldap = Ldap.new ldap_params
 
-    respond_to do |format|
-      if @ldap.save
-        format.html { redirect_to @ldap, notice: t('flash.actions.create.notice', resource_name: Ldap.model_name.human) }
-        format.json { render :show, status: :created, location: @ldap }
-      else
-        format.html { render :new }
-        format.json { render json: @ldap.errors, status: :unprocessable_entity }
-      end
-    end
+    @ldap.save
+    respond_with @ldap
   end
 
-  # PATCH/PUT /ldaps/1
   def update
-    respond_to do |format|
-      if update_resource @ldap, ldap_params
-        format.html { redirect_to @ldap, notice: t('flash.actions.update.notice', resource_name: Ldap.model_name.human) }
-        format.json { render :show, status: :ok, location: @ldap }
-      else
-        format.html { render :edit }
-        format.json { render json: @ldap.errors, status: :unprocessable_entity }
-      end
-    end
+    @ldap.update ldap_params
+
+    respond_with @ldap
   end
 
-  # DELETE /ldaps/1
   def destroy
-    respond_to do |format|
-      if @ldap.destroy
-        format.html { redirect_to ldaps_url, notice: t('flash.actions.destroy.notice', resource_name: Ldap.model_name.human) }
-        format.json { head :no_content }
-      else
-        format.html { redirect_to ldaps_url, alert: t('flash.actions.destroy.alert', resource_name: Ldap.model_name.human) }
-        format.json { render json: @ldap.errors, status: :unprocessable_entity }
-      end
-    end
+    @ldap.destroy
+
+    respond_with @ldap
   end
 
   private

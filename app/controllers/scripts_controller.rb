@@ -6,63 +6,43 @@ class ScriptsController < ApplicationController
   before_action :set_script, only: [:show, :edit, :update, :destroy]
   before_action :check_if_can_edit, only: [:edit, :update, :destroy]
 
+  respond_to :html, :json, :pdf
+
   def index
     @scripts = scripts.order(:id).page params[:page]
+
+    respond_with @scripts
   end
 
   def show
-    respond_to do |format|
-      format.html
-      format.json
-      format.pdf  { render pdf: @script }
-    end
+    respond_with @script
   end
 
   def new
     @script = Script.new
+
+    respond_with @script
   end
 
   def edit
+    respond_with @script
   end
 
   def create
     @script = Script.new script_params
 
-    respond_to do |format|
-      if @script.save
-        format.html { redirect_to @script, notice: t('flash.actions.create.notice', resource_name: Script.model_name.human) }
-        format.json { render :show, status: :created, location: @script }
-      else
-        format.html { render :new }
-        format.json { render json: @script.errors, status: :unprocessable_entity }
-      end
-    end
+    @script.save
+    respond_with @script
   end
 
-  # PATCH/PUT /scripts/1
   def update
-    respond_to do |format|
-      if update_resource @script, script_params
-        format.html { redirect_to @script, notice: t('flash.actions.update.notice', resource_name: Script.model_name.human) }
-        format.json { render :show, status: :ok, location: @script }
-      else
-        format.html { render :edit }
-        format.json { render json: @script.errors, status: :unprocessable_entity }
-      end
-    end
+    @script.update script_params
+    respond_with @script
   end
 
-  # DELETE /scripts/1
   def destroy
-    respond_to do |format|
-      if @script.destroy
-        format.html { redirect_to scripts_url, notice: t('flash.actions.destroy.notice', resource_name: Script.model_name.human) }
-        format.json { head :no_content }
-      else
-        format.html { redirect_to scripts_url, alert: t('flash.actions.destroy.alert', resource_name: Script.model_name.human) }
-        format.json { render json: @script.errors, status: :unprocessable_entity }
-      end
-    end
+    @script.destroy
+    respond_with @script, location: scripts_url
   end
 
   private

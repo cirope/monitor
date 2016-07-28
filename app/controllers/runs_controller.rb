@@ -7,23 +7,21 @@ class RunsController < ApplicationController
   before_action :set_run, only: [:show, :destroy]
   before_action :not_author, except: [:index, :show]
 
+  respond_to :html, :js
+
   def index
     @runs = runs.reorder(scheduled_at: :desc).page params[:page]
+
+    respond_with @runs
   end
 
   def show
+    respond_with @run
   end
 
   def destroy
-    respond_to do |format|
-      if @run.destroy
-        format.html { redirect_to schedule_runs_url(@run.schedule), notice: t('flash.runs.destroy.notice') }
-        format.json { head :no_content }
-      else
-        format.html { redirect_to schedule_runs_url(@run.schedule), alert: t('flash.runs.destroy.alert') }
-        format.json { render json: @run.errors, status: :unprocessable_entity }
-      end
-    end
+    @run.destroy
+    respond_with @run, location: schedule_runs_url(@run.schedule)
   end
 
   private
