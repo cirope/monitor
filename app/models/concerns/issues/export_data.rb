@@ -1,6 +1,8 @@
 module Issues::ExportData
   extend ActiveSupport::Concern
 
+  CSV_OPTIONS = { col_sep: "\t" }
+
   def export_data
     if data.present?
       base_dir = Rails.root + "private/exports/#{SecureRandom.uuid}"
@@ -66,7 +68,9 @@ module Issues::ExportData
       end
 
       if simple_hash.present?
-        ::CSV.open(base_dir + sanitize_filename("#{name}.csv"), 'w') do |csv|
+        csv_file = base_dir + sanitize_filename("#{name}.csv")
+
+        ::CSV.open(csv_file, 'w', CSV_OPTIONS) do |csv|
           _hash = simple_hash.to_h
 
           csv << _hash.keys
@@ -92,7 +96,9 @@ module Issues::ExportData
       end
 
       if simple_array.present?
-        ::CSV.open(base_dir + sanitize_filename("#{name}_a.csv"), 'w') do |csv|
+        csv_file = base_dir + sanitize_filename("#{name}_a.csv")
+
+        ::CSV.open(csv_file, 'w', CSV_OPTIONS) do |csv|
           csv << [name]
 
           simple_array.each { |v| csv << [v] }
@@ -100,9 +106,10 @@ module Issues::ExportData
       end
 
       if simple_hashes_array.present?
-        headers = simple_hashes_array.map { |v| v.keys }.flatten.uniq
+        csv_file = base_dir + sanitize_filename("#{name}_b.csv")
+        headers  = simple_hashes_array.map { |v| v.keys }.flatten.uniq
 
-        ::CSV.open(base_dir + sanitize_filename("#{name}_b.csv"), 'w') do |csv|
+        ::CSV.open(csv_file, 'w', CSV_OPTIONS) do |csv|
           csv << headers
 
           simple_hashes_array.each do |hash|
