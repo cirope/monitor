@@ -34,6 +34,8 @@ gem 'coderay'
 
 gem 'unicorn'
 
+gem 'bundler'
+
 group :development do
   gem 'capistrano'
   gem 'capistrano-bundler'

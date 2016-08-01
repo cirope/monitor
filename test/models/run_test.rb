@@ -50,6 +50,10 @@ class RunTest < ActiveSupport::TestCase
     skip
   end
 
+  test 'by script name' do
+    skip
+  end
+
   test 'schedule' do
     skip
   end

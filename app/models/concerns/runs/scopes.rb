@@ -15,5 +15,9 @@ module Runs::Scopes
 
       start && finish ? where(scheduled_at: start..finish) : all
     end
+
+    def by_script_name name
+      joins(:script).where "#{Script.table_name}.name ILIKE ?", "%#{name}%"
+    end
   end
 end
