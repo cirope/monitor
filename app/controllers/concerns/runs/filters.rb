@@ -11,7 +11,7 @@ module Runs::Filters
 
   def filter_params
     if params[:filter].present?
-      params.require(:filter).permit :status, :scheduled_at
+      params.require(:filter).permit :status, :scheduled_at, :script_name
     else
       {}
     end

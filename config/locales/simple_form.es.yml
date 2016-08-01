@@ -35,6 +35,7 @@ es:
         interval: 'Intervalo'
         name: 'Nombre'
         scheduled_at: 'Programado para'
+        script_name: 'Guión'
         status: 'Estado'
         tags: 'Etiquetas'
         user: 'Usuario'
