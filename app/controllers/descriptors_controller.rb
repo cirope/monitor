@@ -1,5 +1,5 @@
 class DescriptorsController < ApplicationController
-  before_action :authorize, :not_guest
+  before_action :authorize, :not_guest, :not_security, :not_author
   before_action :set_descriptor, only: [:show, :edit, :update, :destroy]
   before_action :set_title, except: [:destroy]
 
@@ -7,16 +7,22 @@ class DescriptorsController < ApplicationController
 
   def index
     @descriptors = Descriptor.all
+
+    respond_with @descriptors
   end
 
   def show
+    respond_with @descriptor
   end
 
   def new
     @descriptor = Descriptor.new
+
+    respond_with @descriptor
   end
 
   def edit
+    respond_with @descriptor
   end
 
   def create

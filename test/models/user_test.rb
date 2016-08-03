@@ -118,4 +118,22 @@ class UserTest < ActiveSupport::TestCase
 
     assert_equal @user, user
   end
+
+  test 'hide' do
+    assert_difference 'User.visible.count', -User.count do
+      User.hide
+    end
+  end
+
+  test 'by role' do
+    skip
+  end
+
+  test 'by name' do
+    skip
+  end
+
+  test 'by email' do
+    skip
+  end
 end

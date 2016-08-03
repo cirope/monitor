@@ -2,7 +2,13 @@ module Comments::Notify
   extend ActiveSupport::Concern
 
   included do
-    after_commit :send_email, on: :create
+    attr_writer :notify
+
+    after_commit :send_email, on: :create, if: :notify
+  end
+
+  def notify
+    @notify.nil? ? true : @notify
   end
 
   private

@@ -1,12 +1,13 @@
 class TagsController < ApplicationController
   before_action :authorize, :not_guest
+  before_action :not_author, :not_security, except: [:index]
   before_action :set_title, except: [:destroy]
   before_action :set_tag, only: [:show, :edit, :update, :destroy]
 
   respond_to :html, :json
 
   def index
-    @tags = scope.search(query: params[:q], limit: request.xhr? && 10).order(:name).page params[:page]
+    @tags = scope.search(query: params[:q]).limit(request.xhr? && 10).order(:name).page params[:page]
 
     respond_with @tags
   end
@@ -22,6 +23,7 @@ class TagsController < ApplicationController
   end
 
   def edit
+    respond_with @tag
   end
 
   def create
@@ -48,7 +50,7 @@ class TagsController < ApplicationController
     end
 
     def tag_params
-      params.require(:tag).permit :name, :lock_version
+      params.require(:tag).permit :name, :style, :final, :export, :lock_version
     end
 
     def scope

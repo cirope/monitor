@@ -1,8 +1,11 @@
-class Server < ActiveRecord::Base
+class Server < ApplicationRecord
   include Auditable
   include Attributes::Strip
+  include Filterable
   include SearchableByName
   include Servers::Command
+  include Servers::Local
+  include Servers::Scopes
   include Servers::Ssh
   include Servers::Validation
 

@@ -2,7 +2,27 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :name, input_html: { autofocus: true } %>
+    <div class="row">
+      <div class="col-sm-8">
+        <%= f.input :name, input_html: { autofocus: true } %>
+      </div>
+      <div class="col-sm-4">
+        <%= f.input :style, collection: styles, prompt: false %>
+      </div>
+    </div>
+
+    <% @tag.kind_options.each do |option, type| %>
+      <% if type == :boolean %>
+        <div class="checkbox">
+          <label>
+            <%= f.check_box option %> <%= Tag.human_attribute_name option %>
+          </label>
+        </div>
+      <% else %>
+        <%= f.input option, as: type %>
+      <% end %>
+    <% end %>
+
     <%= f.input :lock_version, as: :hidden %>
   </div>
 

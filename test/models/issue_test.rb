@@ -3,7 +3,7 @@ require 'test_helper'
 class IssueTest < ActiveSupport::TestCase
   include ActionMailer::TestHelper
 
-  def setup
+  setup do
     @issue = issues :ls_on_atahualpa_not_well
   end
 
@@ -21,7 +21,30 @@ class IssueTest < ActiveSupport::TestCase
     assert_error @issue, :status, :inclusion
   end
 
+  test 'empty final tag validation' do
+    @issue.status = 'closed'
+
+    assert @issue.invalid?
+    assert_error @issue, :tags, :invalid
+  end
+
+  test 'more than one final tag validation' do
+    tag = Tag.create! name: 'new final tag', options: { final: true }
+
+    @issue.taggings.create! tag_id: tags(:final).id
+    @issue.taggings.create! tag_id: tag.id
+
+    @issue.status = 'closed'
+
+    assert @issue.invalid?
+    assert_error @issue, :tags, :invalid
+  end
+
   test 'next status' do
+    PaperTrail.whodunnit = nil
+
+    @issue.taggings.create! tag_id: tags(:final).id
+
     assert_equal %w(pending taken closed), @issue.next_status
 
     @issue.update! status: 'taken'
@@ -29,10 +52,16 @@ class IssueTest < ActiveSupport::TestCase
 
     @issue.update! status: 'closed'
     assert_equal %w(closed), @issue.next_status
+
+    PaperTrail.whodunnit = users(:franco).id
+
+    assert_equal %w(taken closed), @issue.next_status
+
+    PaperTrail.whodunnit = nil
   end
 
   test 'notify to' do
-    assert_emails 1 do
+    assert_enqueued_emails 1 do
       @issue.notify_to 'test@monitor.com'
     end
   end
@@ -62,45 +91,23 @@ class IssueTest < ActiveSupport::TestCase
     assert !@issue.pending?
   end
 
-  test 'increment script counter on create' do
-    script = @issue.script
+  test 'export issue data' do
+    path = @issue.export_data
 
-    assert_difference 'script.reload.active_issues_count' do
-      @issue.dup.save!
-    end
+    assert File.exist?(path)
+
+    FileUtils.rm path
   end
 
-  test 'decrement script counter on status closed' do
-    script = @issue.script
+  test 'export data' do
+    path = Issue.export_data
 
-    assert_difference 'script.reload.active_issues_count', -1 do
-      @issue.update! status: 'closed'
-    end
+    assert File.exist?(path)
+
+    FileUtils.rm path
   end
 
-  test 'no change script counter on status taken' do
-    script = @issue.script
-
-    assert_no_difference 'script.reload.active_issues_count' do
-      @issue.update! status: 'taken'
-    end
-  end
-
-  test 'decrement script counter on destroy' do
-    script = @issue.script
-
-    assert_difference 'script.reload.active_issues_count', -1 do
-      @issue.destroy!
-    end
-  end
-
-  test 'not decrement script counter on closed destroy' do
-    script = @issue.script
-
-    @issue.update! status: 'closed'
-
-    assert_no_difference 'script.reload.active_issues_count' do
-      @issue.destroy!
-    end
+  test 'add to zip' do
+    skip
   end
 end

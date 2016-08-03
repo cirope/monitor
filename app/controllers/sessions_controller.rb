@@ -27,7 +27,7 @@ class SessionsController < ApplicationController
   private
 
     def default_url
-      current_user.guest? ? issues_url : dashboard_url
+      dashboard_url
     end
 
     def store_auth_token user

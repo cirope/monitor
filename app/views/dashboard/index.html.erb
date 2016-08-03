@@ -1,6 +1,6 @@
 <%= render 'filters' %>
 
-<% if @scripts.empty? %>
+<% if @script_counts.empty? %>
   <%= render 'shared/empty_index', message: empty_message %>
 <% else %>
   <table class="table table-striped table-hover">
@@ -12,16 +12,16 @@
     </thead>
 
     <tbody>
-      <% @scripts.each do |script| %>
+      <% @script_counts.each do |script_data, count| %>
         <tr>
-          <td><%= script.name %></td>
+          <td><%= script_data.last %></td>
           <td class="text-right">
-            <%= link_to script_issue_count(script), script_issues_path(script, filter: issue_filter) %>
+            <%= link_to count, script_issues_path(script_data.first, filter: issue_filter.to_h) %>
           </td>
         </tr>
       <% end %>
     </tbody>
   </table>
 
-  <%= paginate @scripts %>
+  <%= paginate @script_counts %>
 <% end %>

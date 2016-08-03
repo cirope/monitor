@@ -7,10 +7,10 @@
     <thead>
       <tr>
         <th></th>
-        <th><%= Run.human_attribute_name 'scheduled_at' %></th>
-        <th><%= Issue.human_attribute_name 'created_at' %></th>
+        <th class="hidden-sm hidden-xs"><%= Run.human_attribute_name 'scheduled_at' %></th>
+        <th class="hidden-sm hidden-xs"><%= Issue.human_attribute_name 'created_at' %></th>
         <th><%= Issue.human_attribute_name 'description' %></th>
-        <th><%= Issue.human_attribute_name 'status' %></th>
+        <th class="hidden-xs"><%= Issue.human_attribute_name 'status' %></th>
         <th class="text-right">
           <%= link_to empty_issues_board_path, class: 'btn btn-xs btn-default', data: { method: :delete } do %>
             <%= t '.clear' %>
@@ -24,21 +24,30 @@
       <% @issues.each do |issue| %>
         <tr>
           <th><%= issue_validation_errors issue %></th>
-          <td><%= l issue.run.scheduled_at, format: :compact %></td>
-          <td><%= l issue.created_at, format: :compact %></td>
+          <td class="hidden-sm hidden-xs"><%= l issue.run.scheduled_at, format: :compact %></td>
+          <td class="hidden-sm hidden-xs"><%= l issue.created_at, format: :compact %></td>
           <td><%= truncate issue.description, length: 50 %></td>
-          <td><%= issue_status issue.status %></td>
+          <td class="hidden-xs"><%= issue_status issue.status %></td>
           <td><%= link_to_remove_from_board issue, remote: false %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
 
-  <div class="pull-left">
-    <%= link_to issues_path(ids: @issue_ids.join('|')) do %>
-      <span class="glyphicon glyphicon-link"></span>
-      <%= t '.permalink' %>
-    <% end %>
+  <div class="clearfix">
+    <%= paginate @issues %>
   </div>
-  <%= paginate @issues %>
+
+  <div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+      <%= t '.actions' %> <span class="caret"></span>
+    </button>
+
+    <ul class="dropdown-menu">
+      <li><%= link_to_create_permalink %></li>
+      <li><%= link_to_download_issue_data %></li>
+    </ul>
+  </div>
+
+  <div data-target="permalink"></div>
 <% end %>

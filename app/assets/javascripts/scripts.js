@@ -1,13 +1,17 @@
 +function () {
   var editor = null
 
-  $(document).on('ready page:load', function () {
+  $(document).on('ready turbolinks:load', function () {
     if ($('.editor').length) {
       var $editor   = $('.editor')
       var $textarea = $('#script_text')
+      var $file     = $('#script_file')
+      var $change   = $('#script_change')
       var theme     = $editor.data('readonly') ? 'solarized_dark' : 'solarized_light'
 
       editor = ace.edit($editor.get(0))
+
+      editor.$blockScrolling = Infinity
 
       editor.setTheme('ace/theme/' + theme)
       editor.getSession().setMode('ace/mode/ruby')
@@ -25,7 +29,15 @@
 
         $textarea.val(text)
 
-        $('#script_file').prop('disabled', !!text.trim())
+        if (text.trim()) {
+          $change.prop('disabled', false).val('')
+          $change.closest('.form-group').removeClass('hidden')
+          $file.prop('disabled', true).addClass('hidden')
+        } else {
+          $change.prop('disabled', true)
+          $change.closest('.form-group').addClass('hidden')
+          $file.prop('disabled', false).removeClass('hidden')
+        }
       })
     }
   })

@@ -1,12 +1,14 @@
 class RulesController < ApplicationController
-  before_action :authorize, :not_guest
+  include Rules::Filters
+
+  before_action :authorize, :not_guest, :not_security, :not_author
   before_action :set_title, except: [:destroy]
   before_action :set_rule, only: [:show, :edit, :update, :destroy]
 
   respond_to :html, :json
 
   def index
-    @rules = Rule.search(query: params[:q], limit: request.xhr? && 10).order(:id).page params[:page]
+    @rules = rules.order(:id).page params[:page]
 
     respond_with @rules
   end
@@ -22,6 +24,7 @@ class RulesController < ApplicationController
   end
 
   def edit
+    respond_with @rule
   end
 
   def create

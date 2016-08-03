@@ -1,4 +1,4 @@
-class Dispatcher < ActiveRecord::Base
+class Dispatcher < ApplicationRecord
   include Auditable
   include Dispatchers::Validation
 

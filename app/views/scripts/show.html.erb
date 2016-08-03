@@ -1,10 +1,13 @@
 <h2>
   <%= @script %>
-  <% if @script.core %>
-    <small class="pull-right">
+  <small class="pull-right">
+    <% if @script.core %>
       <span class="glyphicon glyphicon-star" title="<%= Script.human_attribute_name 'core' %>"></span>
-    </small>
-  <% end %>
+    <% end %>
+    <%= link_to script_versions_path(@script), title: t('.history') do %>
+      <span class="glyphicon glyphicon-time"></span>
+    <% end %>
+  </small>
 </h2>
 
 <% if @script.file.present? %>
@@ -17,6 +20,36 @@
 <% if @script.text.present? %>
   <textarea name="script[text]" id="script_text" class="hidden"><%= @script.text %></textarea>
   <div class="editor" data-readonly="true"></div>
+<% end %>
+
+<% if @script.change.present? %>
+  <p>
+    <strong><%= Script.human_attribute_name 'change' %></strong>:
+    <%= link_to @script.change, '#diff', data: { toggle: 'collapse' } %>
+  </p>
+
+  <div id="diff" class="panel panel-default collapse">
+    <div class="panel-body">
+      <%= last_change_diff %>
+    </div>
+  </div>
+<% end %>
+
+<% if @script.maintainers.any? %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <%= Maintainer.model_name.human count: @script.maintainers.size %>
+      </h3>
+    </div>
+    <div id="maintainers" class="panel-body">
+      <ul>
+        <% @script.maintainers.each do |maintainer| %>
+          <li><%= link_to maintainer.user, maintainer.user %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
 <% end %>
 
 <% if @script.requires.any? %>
@@ -40,10 +73,38 @@
   <ul class="list-inline">
     <% @script.tags.each do |tag| %>
       <li>
-        <span class="label label-default"><%= tag %></span>
+        <span class="label label-<%= tag.style %>"><%= tag %></span>
       </li>
     <% end %>
   </ul>
+<% end %>
+
+<% if @script.parameters.any? %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <%= Parameter.model_name.human count: @script.parameters.size %>
+      </h3>
+    </div>
+    <div id="parameters" class="panel-body">
+      <table class="table table-condensed">
+        <thead>
+          <tr>
+            <th><%= Parameter.human_attribute_name 'name' %></th>
+            <th><%= Parameter.human_attribute_name 'value' %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @script.parameters.each do |parameter| %>
+            <tr>
+              <td><%= parameter.name %></td>
+              <td><%= parameter.value %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
 <% end %>
 
 <% if @script.descriptions.any? %>
@@ -74,5 +135,10 @@
   </div>
 <% end %>
 
-<%= link_to_edit [:edit, @script] %> |
+<% if @script.can_be_edited_by? current_user %>
+  <%= link_to_edit [:edit, @script] %> |
+<% end %>
+<%= link_to script_path(@script, format: :pdf), title: t('.download_pdf') do %>
+  <span class="glyphicon glyphicon-save-file"></span>
+<% end %> |
 <%= link_to_index scripts_path %>

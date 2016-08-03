@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class DispatcherTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @dispatcher = dispatchers :cd_email
   end
 

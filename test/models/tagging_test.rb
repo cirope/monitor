@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class TaggingTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @tagging = taggings :cd_root_as_starter
   end
 

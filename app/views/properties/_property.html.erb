@@ -1,12 +1,16 @@
 <fieldset class="database_property">
   <div class="row">
-    <div class="col-md-5">
+    <div class="col-sm-5">
       <%= f.input :key, as: :slim %>
     </div>
-    <div class="col-md-6">
-      <%= f.input :value, as: :slim %>
+    <div class="col-sm-6">
+      <% if f.object.password? %>
+        <%= f.input :value, as: :password, label: false, input_html: { value: f.object.value } %>
+      <% else %>
+        <%= f.input :value, as: :slim %>
+      <% end %>
     </div>
-    <div class="col-md-1">
+    <div class="col-sm-1">
       <div class="row-controls">
         <%= f.input :id, as: :hidden %>
         <%= link_to_remove_nested_item f %>

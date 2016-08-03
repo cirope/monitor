@@ -13,9 +13,7 @@ module Ldaps::Import
           users << (result = process_entry entry)
           user   = result[:user]
 
-          if user.persisted?
-            users_by_dn[entry.dn] = user.id
-          end
+          users_by_dn[entry.dn] = user.id if user.persisted?
         end
       end
 
@@ -38,6 +36,8 @@ module Ldaps::Import
         user = create_user data: data
       end
 
+      update_tags user, entry
+
       { user: user, new: new }
     end
 
@@ -47,14 +47,13 @@ module Ldaps::Import
         name:     entry[name_attribute].first&.force_encoding('UTF-8'),
         lastname: entry[lastname_attribute].first&.force_encoding('UTF-8'),
         email:    entry[email_attribute].first&.force_encoding('UTF-8'),
-        role:     extract_role(entry)
+        role:     extract_role(entry),
+        hidden:   false
       }
     end
 
     def extract_role entry
-      role_names = entry[roles_attribute].map do |r|
-        r&.force_encoding('UTF-8').sub(/.*?cn=(.*?),.*/i, '\1')
-      end
+      role_names = roles_in entry
 
       User::ROLES.detect do |role|
         role_name = send "role_#{role}"
@@ -71,8 +70,29 @@ module Ldaps::Import
       password = SecureRandom.urlsafe_base64
 
       User.create Hash(data).merge(
-        password: password,
+        password:              password,
         password_confirmation: password
       )
+    end
+
+    def update_tags user, entry
+      roles_in(entry).each do |role_name|
+        tag = tags[role_name]
+
+        if tag && user.persisted?
+          user.taggings.where(tag_id: tag.id).first_or_create! tag: tag
+        end
+      end
+    end
+
+    def roles_in entry
+      entry[roles_attribute].map do |role|
+        role&.force_encoding('UTF-8').sub(/.*?cn=(.*?),.*/i, '\1').to_s
+      end
+    end
+
+    def tags
+      Thread.current[:ldap_import_tags] ||=
+        Hash[Tag.for_users.map { |tag| [tag.name, tag] }]
     end
 end

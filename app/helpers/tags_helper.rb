@@ -6,4 +6,24 @@ module TagsHelper
       user:   User.model_name.human(count: 0)
     }
   end
+
+  def styles
+    styles = %w(default primary success info warning danger)
+
+    styles.map { |k| [t("tags.styles.#{k}"), k] }
+  end
+
+  def tags tags
+    ActiveSupport::SafeBuffer.new.tap do |buffer|
+      tags.each do |tag|
+        buffer << content_tag(:span, class: "text-#{tag.style}") do
+          content_tag :span, nil, class: 'glyphicon glyphicon-tag', title: tag.name
+        end
+      end
+    end
+  end
+
+  def unlimited_tag_form_edition_for? kind
+    kind != 'issue' || !limited_issue_form_edition?
+  end
 end

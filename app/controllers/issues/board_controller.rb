@@ -16,11 +16,11 @@ class Issues::BoardController < ApplicationController
   end
 
   def create
-    @issues = status_present? || @issue ? issues : issues.active
+    @issues = filter_default_status? || @issue ? issues : issues.active
 
     board_session.concat(@issues.pluck('id')).uniq!
 
-    redirect_to :back unless request.xhr?
+    redirect_back(fallback_location: root_url) unless request.xhr?
   end
 
   def update
@@ -36,11 +36,11 @@ class Issues::BoardController < ApplicationController
   end
 
   def destroy
-    @issues = status_present? || @issue ? issues : issues.active
+    @issues = filter_default_status? || @issue ? issues : issues.active
 
     @issues.each { |issue| board_session.delete issue.id }
 
-    redirect_to :back unless request.xhr?
+    redirect_back(fallback_location: root_url) unless request.xhr?
   end
 
   def empty

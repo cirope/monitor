@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ServerTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @server = servers :atahualpa
   end
 
@@ -41,6 +41,14 @@ class ServerTest < ActiveSupport::TestCase
     assert_error @server, :user, :blank
   end
 
+  test 'local' do
+    assert @server.local?
+
+    @server.hostname = 'cirope.com'
+
+    assert !@server.local?
+  end
+
   test 'search' do
     servers = Server.search query: @server.name
 
@@ -53,6 +61,18 @@ class ServerTest < ActiveSupport::TestCase
   end
 
   test 'ssh options' do
+    skip
+  end
+
+  test 'by name' do
+    skip
+  end
+
+  test 'by hostname' do
+    skip
+  end
+
+  test 'by user' do
     skip
   end
 end

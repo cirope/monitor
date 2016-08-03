@@ -4,14 +4,20 @@
       <% columns.each do |c| %>
         <th><%= c %></th>
       <% end %>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <% object.each_with_index do |item, i| %>
       <tr>
         <% columns.each do |c| %>
-          <td><%= link_or_show parent, "#{i}/#{c}", item[c], object.object_id %></td>
+          <td>
+            <%= link_or_show parent, "#{i}/#{c}", item[c], object.object_id %>
+          </td>
         <% end %>
+        <td>
+          <%= link_or_show parent, i, item, object.object_id %>
+        </td>
       </tr>
     <% end %>
   </tbody>

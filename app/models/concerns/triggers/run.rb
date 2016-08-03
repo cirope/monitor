@@ -15,7 +15,11 @@ module Triggers::Run
       <<-RUBY
         begin
           $stdout = StringIO.new
-          #{callback}
+
+          ApplicationRecord.transaction do
+            #{callback}
+          end
+
           $stdout.string
         rescue => ex
           ex.inspect

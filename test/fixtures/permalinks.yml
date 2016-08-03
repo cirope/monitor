@@ -1,0 +1,3 @@
+link:
+  token: <%= SecureRandom.urlsafe_base64 32 %>
+  issues: ls_on_atahualpa_not_well

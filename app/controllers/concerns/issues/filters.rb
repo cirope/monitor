@@ -23,21 +23,19 @@ module Issues::Filters
     end
   end
 
-  def status_present?
+  def filter_default_status?
     filter_params[:status].present?
   end
 
   private
 
     def scoped_issues
-      issues = if current_user.guest?
+      if @permalink
+        @permalink.issues
+      elsif current_user.guest? || current_user.security?
         current_user.issues
       else
         @script ? Issue.script_scoped(@script) : Issue.all
       end
-
-      issues = issues.where id: params[:ids].split('|') if params[:ids]
-
-      issues
     end
 end

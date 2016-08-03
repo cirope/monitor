@@ -1,0 +1,10 @@
+<ul>
+  <% references = {} %>
+  <% object.each do |v| %>
+    <li><%= v.respond_to?(:each) ? link_to_next_reference : v %></li>
+
+    <% references[@reference] = v if v.respond_to? :each %>
+  <% end %>
+</ul>
+
+<%= render 'notifier/objects/references', references: references %>

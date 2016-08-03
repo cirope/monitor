@@ -12,12 +12,13 @@
 
 <p>
   <strong><%= Issue.human_attribute_name 'run' %></strong>:
-  <%= link_to_unless current_user.guest?, @issue.run, @issue.run %>
+  <%= link_to_unless current_user.guest? || current_user.security?, @issue.run, @issue.run %>
 </p>
 
 <% if @issue.data.present? %>
   <p>
     <strong><%= Issue.human_attribute_name 'data' %></strong>
+    <%= link_to_export_data %>
   </p>
 
   <%= render_object @issue, '' %>
@@ -33,7 +34,7 @@
     <div id="subscriptions" class="panel-body">
       <ul>
         <% @issue.subscriptions.each do |subscription| %>
-          <li><%= link_to_unless current_user.guest?, subscription.user, subscription.user %></li>
+          <li><%= link_to_unless current_user.guest? || current_user.security?, subscription.user, subscription.user %></li>
         <% end %>
       </ul>
     </div>
@@ -44,7 +45,7 @@
   <ul class="list-inline">
     <% @issue.tags.each do |tag| %>
       <li>
-        <span class="label label-default"><%= tag %></span>
+        <span class="label label-<%= tag.style %>"><%= tag %></span>
       </li>
     <% end %>
   </ul>
@@ -60,13 +61,13 @@
     <div id="comments" class="panel-body">
       <% @issue.comments.each do |comment| %>
       <div class="row">
-        <div class="col-md-10">
+        <div class="col-sm-10">
           <blockquote>
             <%= simple_format comment.text %>
             <footer><%= comment.user %></footer>
           </blockquote>
         </div>
-        <div class="col-md-2">
+        <div class="col-sm-2">
           <% if comment.file.present? %>
             <p>
               <strong><%= Comment.human_attribute_name 'file' %></strong>:
@@ -80,7 +81,7 @@
   </div>
 <% end %>
 
-<% unless params[:ids] %>
+<% unless @permalink %>
   <%= link_to_edit [:edit, @issue] %> |
 <% end %>
 <%= link_to_index issue_index_path %>

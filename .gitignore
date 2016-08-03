@@ -1,15 +1,17 @@
 # Ignore bundler config.
-/.bundle
+.bundle
 
 # Ignore all logfiles and tempfiles.
-/log/*.log
-/tmp
+log/*.log
+tmp
 
 # Ignore generated docs
-/doc
+doc
 
 # Ignore application configuration
-/config/application.yml
+config/application.yml
 
 # Ignore uploaded files
-/public/uploads
+private
+!private/exports/.gitkeep
+public/uploads

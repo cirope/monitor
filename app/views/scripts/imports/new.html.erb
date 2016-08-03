@@ -1,0 +1,20 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4 class="panel-title">
+      <%= t '.title' %>
+    </h4>
+  </div>
+
+  <div class="panel-body">
+    <%= form_tag scripts_imports_create_path, method: :post, multipart: true do %>
+      <div class="form-group">
+        <label for="file"><%= t '.file' %></label>
+        <%= file_field_tag 'file', class: 'form-control', accept: 'application/zip' %>
+      </div>
+
+      <div class="form-actions">
+        <%= submit_tag t('.submit'), class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+  </div>
+</div>

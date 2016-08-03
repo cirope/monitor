@@ -28,7 +28,7 @@
           <% @database.properties.each do |property| %>
             <tr>
               <td><%= property.key %></td>
-              <td><%= property.value %></td>
+              <td><%= value_of property %></td>
             </tr>
           <% end %>
         </tbody>
@@ -37,5 +37,7 @@
   </div>
 <% end %>
 
-<%= link_to_edit [:edit, @database] %> |
+<% unless current_user.supervisor? %>
+  <%= link_to_edit [:edit, @database] %> |
+<% end %>
 <%= link_to_index databases_path %>

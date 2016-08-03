@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class RuleTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @rule = rules :cd_email
   end
 
@@ -17,5 +17,9 @@ class RuleTest < ActiveSupport::TestCase
 
     assert rules.present?
     assert rules.all? { |s| s.name =~ /#{@rule.name}/ }
+  end
+
+  test 'by name' do
+    skip
   end
 end

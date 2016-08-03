@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ScheduleTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @schedule = schedules :ls_on_atahualpa
   end
 
@@ -130,6 +130,26 @@ class ScheduleTest < ActiveSupport::TestCase
   end
 
   test 'schedule' do
+    skip
+  end
+
+  test 'destroy' do
+    skip
+  end
+
+  test 'cleanup' do
+    skip
+  end
+
+  test 'by name' do
+    skip
+  end
+
+  test 'by interval' do
+    skip
+  end
+
+  test 'by frequency' do
     skip
   end
 end

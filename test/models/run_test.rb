@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class RunTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @run = runs :ls_on_atahualpa
   end
 
@@ -40,6 +40,18 @@ class RunTest < ActiveSupport::TestCase
     @run.status = 'ok'
 
     assert @run.ok?
+  end
+
+  test 'by status' do
+    skip
+  end
+
+  test 'by scheduled at' do
+    skip
+  end
+
+  test 'by script name' do
+    skip
   end
 
   test 'schedule' do
