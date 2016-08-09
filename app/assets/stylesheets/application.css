@@ -10,7 +10,7 @@
  *
  *= require_self
  *= require fonts
- *= require bootstrap
+ *= require bootstrap_sass
  *= require ie
  *= require chartist/chartist
  *= require daterangepicker

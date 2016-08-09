@@ -19,7 +19,7 @@
 //= require ace/mode-ruby
 //= require ace/theme-solarized_light
 //= require ace/theme-solarized_dark
-//= require bootstrap/bootstrap
+//= require bootstrap
 //= require chartist/chartist
 //= require chartist/chartist-plugin-axistitle
 //= require moment/moment
