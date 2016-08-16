@@ -1,5 +1,5 @@
 /**
-* @version: 2.1.24-beta
+* @version: 2.1.24
 * @author: Dan Grossman http://www.dangrossman.info/
 * @copyright: Copyright (c) 2012-2016 Dan Grossman. All rights reserved.
 * @license: Licensed under the MIT license. See http://www.opensource.org/licenses/mit-license.php
@@ -41,6 +41,7 @@
         this.showDropdowns = false;
         this.showWeekNumbers = false;
         this.showISOWeekNumbers = false;
+        this.showCustomRangeLabel = true;
         this.timePicker = false;
         this.timePicker24Hour = false;
         this.timePickerIncrement = 1;
@@ -227,6 +228,9 @@
         if (typeof options.showDropdowns === 'boolean')
             this.showDropdowns = options.showDropdowns;
 
+        if (typeof options.showCustomRangeLabel === 'boolean')
+            this.showCustomRangeLabel = options.showCustomRangeLabel;
+
         if (typeof options.singleDatePicker === 'boolean') {
             this.singleDatePicker = options.singleDatePicker;
             if (this.singleDatePicker)
@@ -338,7 +342,9 @@
             for (range in this.ranges) {
                 list += '<li data-range-key="' + range + '">' + range + '</li>';
             }
-            list += '<li data-range-key="' + this.locale.customRangeLabel + '">' + this.locale.customRangeLabel + '</li>';
+            if (this.showCustomRangeLabel) {
+                list += '<li data-range-key="' + this.locale.customRangeLabel + '">' + this.locale.customRangeLabel + '</li>';
+            }
             list += '</ul>';
             this.container.find('.ranges').prepend(list);
         }
@@ -1376,7 +1382,7 @@
               }
               i++;
           }
-          if (customRange) {
+          if (customRange && this.showCustomRangeLabel) {
               this.chosenLabel = this.container.find('.ranges li:last').addClass('active').html();
               this.showCalendars();
           }

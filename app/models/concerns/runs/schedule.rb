@@ -6,6 +6,10 @@ module Runs::Schedule
     scope :next_to_schedule, -> {
       pending.where "#{table_name}.scheduled_at <= ?", 2.minutes.from_now
     }
+    scope :scheduled,        -> { where status: 'scheduled' }
+    scope :overdue,          -> {
+      scheduled.where "#{table_name}.scheduled_at <= ?", 1.day.ago
+    }
   end
 
   module ClassMethods
@@ -15,6 +19,10 @@ module Runs::Schedule
 
         ScriptJob.set(wait_until: run.scheduled_at).perform_later run
       end
+    end
+
+    def cancel
+      update_all status: 'canceled'
     end
   end
 end

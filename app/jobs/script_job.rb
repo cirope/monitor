@@ -2,6 +2,8 @@ class ScriptJob < ApplicationJob
   queue_as :default
 
   def perform run
+    return if run.canceled?
+
     job      = run.job
     schedule = run.schedule
 

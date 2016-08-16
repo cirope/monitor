@@ -106,6 +106,10 @@ class ScheduleTest < ActiveSupport::TestCase
     assert @schedule.runs.pending.all? { |r| r.scheduled_at.to_s(:db) == @schedule.start.to_s(:db) }
   end
 
+  test 'cancel pending runs' do
+    skip
+  end
+
   test 'run' do
     assert_difference '@schedule.runs.count'  do
       assert_no_difference '@schedule.runs.pending.count'  do
