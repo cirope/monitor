@@ -42,6 +42,14 @@ class RunTest < ActiveSupport::TestCase
     assert @run.ok?
   end
 
+  test 'canceled' do
+    assert !@run.canceled?
+
+    @run.status = 'canceled'
+
+    assert @run.canceled?
+  end
+
   test 'by status' do
     skip
   end
@@ -59,6 +67,18 @@ class RunTest < ActiveSupport::TestCase
   end
 
   test 'execute triggers' do
+    skip
+  end
+
+  test 'scheduled' do
+    skip
+  end
+
+  test 'overdue' do
+    skip
+  end
+
+  test 'cancel' do
     skip
   end
 end

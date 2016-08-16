@@ -43,6 +43,10 @@ module Schedules::Runs
     start.advance frequency.to_sym => (intervals_since_start + 1) * interval
   end
 
+  def cancel_pending_runs
+    runs.pending.or(runs.overdue).cancel
+  end
+
   private
 
     def set_scheduled_at
