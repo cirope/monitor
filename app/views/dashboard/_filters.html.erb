@@ -52,11 +52,24 @@
           </div>
         </div>
 
-        <div class="form-actions">
-          <p class="text-right">
-            <%= f.button :submit, t('filters.submit'), class: 'btn-sm btn-default' %>
-            <%= link_to t('cancel'), dashboard_path, class: 'small' %>
-          </p>
+        <div class="row">
+          <div class="col-lg-4">
+            <%= f.input :description,
+              required: false,
+              input_html: {
+                value:     filter_params[:description],
+                class:     'input-sm'
+              }
+            %>
+          </div>
+          <div class="col-lg-4 col-lg-offset-4">
+            <div class="form-actions">
+              <p class="text-right">
+                <%= f.button :submit, t('filters.submit'), class: 'btn-sm btn-default' %>
+                <%= link_to t('cancel'), dashboard_path, class: 'small' %>
+              </p>
+            </div>
+          </div>
         </div>
       </fieldset>
     <% end %>
