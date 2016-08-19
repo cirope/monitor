@@ -272,7 +272,6 @@ DEPENDENCIES
   coffee-rails
   composite_primary_keys
   diffy
-  execjs
   figaro
   jbuilder
   jc-validates_timeliness
