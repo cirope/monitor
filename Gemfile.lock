@@ -260,7 +260,6 @@ DEPENDENCIES
   activerecord-session_store
   bcrypt
   bootstrap-sass
-  bundler
   byebug
   capistrano
   capistrano-bundler
