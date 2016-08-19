@@ -1,0 +1,13 @@
++function () {
+  var $container = $('[data-comment-id="<%= @comment.id %>"]')
+
+  <% if @comment.errors.empty? %>
+    $container.replaceWith(
+      '<%= j render('show', format: :html, comment: @comment) %>'
+    )
+  <% else %>
+    $container.replaceWith(
+      '<%= j render('form', format: :html) %>'
+    )
+  <% end %>
+}()

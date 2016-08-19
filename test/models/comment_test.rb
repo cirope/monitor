@@ -31,4 +31,10 @@ class CommentTest < ActiveSupport::TestCase
       @comment.issue.comments.create! text: 'email test', notify: false
     end
   end
+
+  test 'owned by' do
+    assert @comment.owned_by?(@comment.user)
+
+    assert !@comment.owned_by?(User.new)
+  end
 end

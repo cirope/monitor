@@ -90,7 +90,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
-    composite_primary_keys (9.0.2)
+    composite_primary_keys (9.0.4)
       activerecord (~> 5.0.0)
     concurrent-ruby (1.0.2)
     connection_pool (2.2.0)
@@ -260,7 +260,6 @@ DEPENDENCIES
   activerecord-session_store
   bcrypt
   bootstrap-sass
-  bundler
   byebug
   capistrano
   capistrano-bundler

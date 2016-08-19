@@ -21,6 +21,10 @@ es:
     index:
       title: 'Tablero de casos'
 
+  comments:
+    edit:
+      title: 'Editar comentario'
+
   dashboard:
     index:
       title: 'Listado de casos'

@@ -60,22 +60,7 @@
     </div>
     <div id="comments" class="panel-body">
       <% @issue.comments.each do |comment| %>
-      <div class="row">
-        <div class="col-sm-10">
-          <blockquote>
-            <%= simple_format comment.text %>
-            <footer><%= comment.user %></footer>
-          </blockquote>
-        </div>
-        <div class="col-sm-2">
-          <% if comment.file.present? %>
-            <p>
-              <strong><%= Comment.human_attribute_name 'file' %></strong>:
-              <%= link_to t('messages.download'), comment.file.url %>
-            </p>
-          <% end %>
-        </div>
-      </div>
+        <%= render 'comments/show', comment: comment %>
       <% end %>
     </div>
   </div>
