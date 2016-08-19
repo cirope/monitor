@@ -29,7 +29,6 @@
 //= require autocomplete
 //= require date_pickers
 //= require dynamic_form
-//= require effect_helper
 //= require filters
 //= require comments
 //= require dashboard
