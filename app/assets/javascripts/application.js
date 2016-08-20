@@ -12,7 +12,7 @@
 //
 //= require jquery3
 //= require jquery_ujs
-//= require jquery-ui/autocomplete
+//= require jquery-ui/jquery-ui
 //= require turbolinks
 //= require turbolinks_events
 //= require ace/ace

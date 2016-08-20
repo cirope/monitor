@@ -5,6 +5,7 @@
 
       self.element       = element
       self.targetElement = $(element.data('autocompleteTarget'))
+
       self.init()
     },
 
@@ -14,23 +15,12 @@
       self.element.autocomplete({
         type:      'get',
         minLength: self.element.data('autocompleteMinLength'),
-        source:    function (request, response) {
-          self._source(request, response)
-        },
-        select:    function (event, ui) {
-          self._selected(event, ui)
-        }
+        source:    self._source.bind(self),
+        select:    self._selected.bind(self)
       })
 
-      // self._rewriteDefaultRenderItem()
       self._markAsObserved()
       self._listenChanges()
-    },
-
-    _rewriteDefaultRenderItem: function () {
-      this.element.data('uiAutocomplete')._renderItem = function (ul, item) {
-        return $('<li></li>').append($('<a></a>').html(item.label)).appendTo(ul)
-      }
     },
 
     _markAsObserved: function () {
@@ -47,16 +37,10 @@
     },
 
     _renderItem: function (item) {
-      var content = $('<div></div>')
       item.label  = item.label || item.name
 
-      content.append($('<span class="title"></span>').text(item.label))
-
-      if (item.informal)
-        content.append($('<small></small>').text(item.informal))
-
       return {
-        label: content.html(),
+        label: item.label,
         value: item.label,
         item:  item
       }

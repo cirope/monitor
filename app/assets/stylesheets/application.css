@@ -14,8 +14,8 @@
  *= require ie
  *= require chartist/chartist
  *= require daterangepicker
- *= require jquery-ui
- *= require jquery-ui-theme
+ *= require jquery-ui/jquery-ui
+ *= require jquery-ui/jquery-ui.theme
  *= require main
  *= require icons
  *= require autocomplete
