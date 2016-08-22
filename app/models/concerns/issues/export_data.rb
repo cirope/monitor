@@ -1,7 +1,7 @@
 module Issues::ExportData
   extend ActiveSupport::Concern
 
-  CSV_OPTIONS = { col_sep: "\t" }
+  CSV_OPTIONS = { col_sep: ';' }
 
   def export_data
     if data.present?
@@ -73,7 +73,7 @@ module Issues::ExportData
         ::CSV.open(csv_file, 'w', CSV_OPTIONS) do |csv|
           _hash = simple_hash.to_h
 
-          csv << _hash.keys
+          csv << with_utf_bomb(_hash.keys)
           csv << _hash.values
         end
       end
@@ -99,7 +99,7 @@ module Issues::ExportData
         csv_file = base_dir + sanitize_filename("#{name}_a.csv")
 
         ::CSV.open(csv_file, 'w', CSV_OPTIONS) do |csv|
-          csv << [name]
+          csv << with_utf_bomb([name])
 
           simple_array.each { |v| csv << [v] }
         end
@@ -110,7 +110,7 @@ module Issues::ExportData
         headers  = simple_hashes_array.map { |v| v.keys }.flatten.uniq
 
         ::CSV.open(csv_file, 'w', CSV_OPTIONS) do |csv|
-          csv << headers
+          csv << with_utf_bomb(headers)
 
           simple_hashes_array.each do |hash|
             row = []
@@ -148,5 +148,11 @@ module Issues::ExportData
       base_dir.rmtree
 
       file
+    end
+
+    def with_utf_bomb array
+      array.each_with_index.map do |element, i|
+        i == 0 ? "\uFEFF#{element}" : element
+      end
     end
 end

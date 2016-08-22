@@ -10,9 +10,9 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery2
+//= require jquery3
 //= require jquery_ujs
-//= require jquery-ui/autocomplete
+//= require jquery-ui/jquery-ui
 //= require turbolinks
 //= require turbolinks_events
 //= require ace/ace
@@ -29,7 +29,6 @@
 //= require autocomplete
 //= require date_pickers
 //= require dynamic_form
-//= require effect_helper
 //= require filters
 //= require comments
 //= require dashboard
