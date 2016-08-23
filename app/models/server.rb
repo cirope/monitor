@@ -15,7 +15,7 @@ class Server < ApplicationRecord
 
   strip_fields :name
 
-  has_many :jobs, dependent: :destroy
+  has_many :jobs, dependent: :restrict_with_error
 
   def to_s
     name

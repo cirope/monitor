@@ -13,4 +13,12 @@ class JobTest < ActiveSupport::TestCase
     assert_error @job, :server, :blank
     assert_error @job, :script, :blank
   end
+
+  test 'destroy' do
+    skip
+  end
+
+  test 'cleanup' do
+    skip
+  end
 end

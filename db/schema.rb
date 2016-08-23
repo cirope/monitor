@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160717202834) do
+ActiveRecord::Schema.define(version: 20160823191005) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,8 +95,10 @@ ActiveRecord::Schema.define(version: 20160717202834) do
     t.integer  "schedule_id"
     t.integer  "server_id"
     t.integer  "script_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.boolean  "hidden",      default: false, null: false
+    t.index ["hidden"], name: "index_jobs_on_hidden", using: :btree
     t.index ["schedule_id"], name: "index_jobs_on_schedule_id", using: :btree
     t.index ["script_id"], name: "index_jobs_on_script_id", using: :btree
     t.index ["server_id"], name: "index_jobs_on_server_id", using: :btree
