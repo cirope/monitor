@@ -54,7 +54,7 @@ module Schedules::Runs
     end
 
     def jobs_changed?
-      jobs.any?(&:changed?) || taggings.any?(&:changed?)
+      jobs.any? &:changed?
     end
 
     def schedule_changed?

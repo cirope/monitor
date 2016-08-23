@@ -12,7 +12,6 @@ class Schedule < ApplicationRecord
   include Schedules::Scheduler
   include Schedules::Scopes
   include Schedules::Validation
-  include Taggable
 
   strip_fields :name
 
