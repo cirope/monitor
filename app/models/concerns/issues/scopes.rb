@@ -16,7 +16,7 @@ module Issues::Scopes
     end
 
     def by_status status
-      where status: status
+      status == 'all' ? all : where(status: status)
     end
 
     def by_description description

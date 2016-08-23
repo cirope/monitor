@@ -4,6 +4,6 @@ module DashboardHelper
   end
 
   def filter_status
-    %w(pending taken closed).map { |k| [t("issues.status.#{k}"), k] }
+    %w(pending taken closed all).map { |k| [t("issues.status.#{k}"), k] }
   end
 end
