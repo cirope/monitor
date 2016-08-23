@@ -9,10 +9,4 @@ module Databases::Properties
   def property key
     properties.detect { |property| property.key == key }&.value
   end
-
-  module ClassMethods
-    def property_of name, key
-      find_by(name: name)&.property key
-    end
-  end
 end
