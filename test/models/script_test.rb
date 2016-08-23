@@ -210,6 +210,17 @@ class ScriptTest < ActiveSupport::TestCase
     assert_equal @script.text, @script.text_with_injections
   end
 
+  test 'text with db properties injections' do
+    database = databases :postgresql
+    property = properties :trace
+
+    assert_equal @script.text, @script.text_with_injections
+
+    @script.text = "puts @@databases['#{database.name}']['#{property.key}']"
+
+    assert_equal "puts '#{property.value}'", @script.text_with_injections
+  end
+
   test 'update from data' do
     skip
   end
