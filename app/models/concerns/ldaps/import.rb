@@ -4,16 +4,12 @@ module Ldaps::Import
   def import username, password
     ldap        = ldap username, password
     ldap_filter = Net::LDAP::Filter.construct filter
-    users_by_dn = {}
     users       = []
 
     User.transaction do
       ldap.search(base: basedn, filter: ldap_filter) do |entry|
         if entry[email_attribute].present?
           users << (result = process_entry entry)
-          user   = result[:user]
-
-          users_by_dn[entry.dn] = user.id if user.persisted?
         end
       end
 
@@ -27,7 +23,7 @@ module Ldaps::Import
 
     def process_entry entry
       data = extract_data entry
-      user = User.where(email: data[:email]).take
+      user = User.where(email: data[:email]&.downcase).take
       new  = !user
 
       if user
