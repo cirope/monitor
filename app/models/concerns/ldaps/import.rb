@@ -32,7 +32,7 @@ module Ldaps::Import
         user = create_user data: data
       end
 
-      # update_tags user, entry
+      update_tags user, entry
 
       { user: user, new: new }
     end
