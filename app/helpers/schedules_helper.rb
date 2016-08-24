@@ -5,12 +5,6 @@ module SchedulesHelper
     end
   end
 
-  def schedule_taggings
-    @schedule.taggings.new if @schedule.taggings.empty?
-
-    @schedule.taggings
-  end
-
   def jobs
     @schedule.jobs.new if @schedule.jobs.empty?
 
