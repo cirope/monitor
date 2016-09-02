@@ -10,6 +10,23 @@ module Runs::Schedule
     scope :overdue,          -> {
       scheduled.where "#{table_name}.scheduled_at <= ?", 1.day.ago
     }
+    scope :running,          -> { where status: 'running' }
+  end
+
+  def should_be_canceled?
+    job.runs.running.exists?
+  end
+
+  def cancel
+    update! status: 'canceled', started_at: Time.zone.now, ended_at: Time.zone.now
+  end
+
+  def mark_as_running
+    update! status: 'running', started_at: Time.zone.now
+  end
+
+  def finish status:, output: nil, data: nil
+    update! status: status, output: output, data: data, ended_at: Time.zone.now
   end
 
   module ClassMethods

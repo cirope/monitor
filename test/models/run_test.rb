@@ -50,6 +50,36 @@ class RunTest < ActiveSupport::TestCase
     assert @run.canceled?
   end
 
+  test 'should be canceled' do
+    assert !@run.should_be_canceled?
+
+    run = @run.dup
+
+    run.save!
+    run.mark_as_running
+
+    assert @run.should_be_canceled?
+  end
+
+  test 'cancel run' do
+    @run.cancel
+
+    assert @run.reload.canceled?
+  end
+
+  test 'mark as running' do
+    @run.mark_as_running
+
+    assert_equal 'running', @run.reload.status
+  end
+
+  test 'finish' do
+    @run.finish status: 'ok'
+
+    assert_not_nil @run.reload.ended_at
+    assert_equal 'ok', @run.status
+  end
+
   test 'by status' do
     skip
   end
@@ -75,6 +105,10 @@ class RunTest < ActiveSupport::TestCase
   end
 
   test 'overdue' do
+    skip
+  end
+
+  test 'running' do
     skip
   end
 
