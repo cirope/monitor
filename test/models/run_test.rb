@@ -112,6 +112,10 @@ class RunTest < ActiveSupport::TestCase
     skip
   end
 
+  test 'canceled scope' do
+    skip
+  end
+
   test 'cancel' do
     skip
   end

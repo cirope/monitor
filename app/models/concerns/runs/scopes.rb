@@ -1,6 +1,10 @@
 module Runs::Scopes
   extend ActiveSupport::Concern
 
+  included do
+    scope :canceled, -> { where status: 'canceled' }
+  end
+
   module ClassMethods
     def by_status status
       where status: status
