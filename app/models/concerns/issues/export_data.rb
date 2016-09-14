@@ -5,7 +5,7 @@ module Issues::ExportData
 
   def export_data
     if data.present?
-      base_dir = Rails.root + "private/exports/#{SecureRandom.uuid}"
+      base_dir = EXPORTS_PATH + SecureRandom.uuid
 
       FileUtils.mkdir_p base_dir
 
@@ -25,10 +25,8 @@ module Issues::ExportData
 
   module ClassMethods
     def export_data
-      file  = "#{Rails.root}/private/exports/#{SecureRandom.uuid}.zip"
+      file  = "#{EXPORTS_PATH}/#{SecureRandom.uuid}.zip"
       files = []
-
-      FileUtils.mkdir_p File.dirname(file)
 
       ::Zip::File.open file, Zip::File::CREATE do |zipfile|
         all.map { |issue| files << issue.add_to_zip(zipfile) }
@@ -139,7 +137,7 @@ module Issues::ExportData
 
     def zip_dir_content base_dir
       entries = Dir.entries(base_dir) - %w(. ..)
-      file    = "#{Rails.root}/private/exports/#{SecureRandom.uuid}.zip"
+      file    = "#{EXPORTS_PATH}/#{SecureRandom.uuid}.zip"
 
       ::Zip::File.open file, ::Zip::File::CREATE do |zipfile|
         entries.each { |entry| zipfile.add entry, base_dir + entry }

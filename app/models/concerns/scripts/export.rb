@@ -3,9 +3,7 @@ module Scripts::Export
 
   module ClassMethods
     def export
-      file = "#{Rails.root}/private/exports/#{SecureRandom.uuid}.zip"
-
-      FileUtils.mkdir_p File.dirname(file)
+      file = "#{EXPORTS_PATH}/#{SecureRandom.uuid}.zip"
 
       ::Zip::File.open file, Zip::File::CREATE do |zipfile|
         all.each do |script|

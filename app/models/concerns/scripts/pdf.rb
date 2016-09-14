@@ -2,10 +2,8 @@ module Scripts::Pdf
   extend ActiveSupport::Concern
 
   def to_pdf
-    file = "#{Rails.root}/private/exports/#{SecureRandom.uuid}.pdf"
+    file = "#{EXPORTS_PATH}/#{SecureRandom.uuid}.pdf"
     pdf  = Prawn::Document.new
-
-    FileUtils.mkdir_p File.dirname(file)
 
     pdf.text name
 
