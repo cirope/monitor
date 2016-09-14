@@ -8,4 +8,8 @@ module RulesHelper
   def last_output trigger
     trigger.outputs.last&.text
   end
+
+  def disable_rule_edition?
+    @rule.imported_at.present?
+  end
 end
