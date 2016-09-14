@@ -1,3 +1,4 @@
 email:
+  uuid: <%= SecureRandom.uuid %>
   rule: cd_email
   callback: "puts 'test callback'"

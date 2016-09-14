@@ -3,6 +3,9 @@ class Rule < ApplicationRecord
   include Attributes::Strip
   include Filterable
   include SearchableByName
+  include Rules::Export
+  include Rules::Import
+  include Rules::JSON
   include Rules::Scopes
   include Rules::Triggers
 

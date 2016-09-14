@@ -159,12 +159,26 @@ es:
       title: 'Listado de reglas'
       empty_html: 'No hay reglas, puede crear una con el botón <span class="label label-primary">Nueva regla</span>'
       empty_search_html: 'No hay reglas que coincidan con el criterio de búsqueda'
+      import: 'Importar'
+      export: 'Exportar'
     new:
       title: 'Crear regla'
       trigger: 'Agregar disparador'
     show:
       title: 'Ver regla'
       last_output: 'Última salida'
+    exports:
+      create:
+        filename: 'reglas.zip'
+    imports:
+      create:
+        imported: 'Reglas importadas correctamente'
+        no_file: 'Debe proporcionar un archivo'
+        fail: 'Se produjo un error importando las reglas'
+      new:
+        title: 'Importar reglas'
+        file: 'Archivo'
+        submit: 'Importar'
 
   runs:
     index:
