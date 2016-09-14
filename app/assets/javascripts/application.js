@@ -43,6 +43,8 @@
 //= require password_resets
 //= require profiles
 //= require rules
+//= require rules/exports
+//= require rules/imports
 //= require runs
 //= require scripts
 //= require scripts/exports

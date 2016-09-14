@@ -35,6 +35,12 @@ Rails.application.routes.draw do
     resources :issues, only: [:show]
   end
 
+  namespace :rules do
+    get 'imports/new'
+    post 'imports/create'
+    post 'exports/create'
+  end
+
   resources :schedules do
     post   :run,     on: :member, as: :run
     delete :cleanup, on: :member, as: :cleanup
