@@ -5,7 +5,7 @@ module Schedules::Cleanup
     all_destroyed = true
 
     self.class.transaction do
-      runs.executed.or(runs.canceled).find_each do |run|
+      runs.executed.or(runs.canceled).or(runs.overdue).find_each do |run|
         destroyed = run.destroy
 
         all_destroyed &&= destroyed
