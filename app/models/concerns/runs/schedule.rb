@@ -1,18 +1,6 @@
 module Runs::Schedule
   extend ActiveSupport::Concern
 
-  included do
-    scope :pending,          -> { where status: 'pending' }
-    scope :next_to_schedule, -> {
-      pending.where "#{table_name}.scheduled_at <= ?", 2.minutes.from_now
-    }
-    scope :scheduled,        -> { where status: 'scheduled' }
-    scope :overdue,          -> {
-      scheduled.where "#{table_name}.scheduled_at <= ?", 1.day.ago
-    }
-    scope :running,          -> { where status: 'running' }
-  end
-
   def should_be_canceled?
     job.runs.running.exists?
   end

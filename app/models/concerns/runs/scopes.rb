@@ -2,7 +2,15 @@ module Runs::Scopes
   extend ActiveSupport::Concern
 
   included do
-    scope :canceled, -> { where status: 'canceled' }
+    scope :canceled,         -> { where status: 'canceled' }
+    scope :pending,          -> { where status: 'pending' }
+    scope :scheduled,        -> { where status: 'scheduled' }
+    scope :running,          -> { where status: 'running' }
+    scope :executed,         -> { where status: %w(ok error) }
+    scope :overdue,          -> { overdue_by 1, 'days' }
+    scope :next_to_schedule, -> {
+      pending.where "#{table_name}.scheduled_at <= ?", 2.minutes.from_now
+    }
   end
 
   module ClassMethods
@@ -22,6 +30,12 @@ module Runs::Scopes
 
     def by_script_name name
       joins(:script).where "#{Script.table_name}.name ILIKE ?", "%#{name}%"
+    end
+
+    def overdue_by interval, frequency
+      scheduled_at = Time.zone.now.advance frequency.to_sym => -interval
+
+      scheduled.where "#{table_name}.scheduled_at <= ?", scheduled_at
     end
   end
 end

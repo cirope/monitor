@@ -44,7 +44,7 @@ module Schedules::Runs
   end
 
   def cancel_pending_runs
-    runs.pending.or(runs.overdue).cancel
+    runs.pending.or(runs.overdue_by interval * 2, frequency).cancel
   end
 
   private
