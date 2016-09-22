@@ -10,7 +10,7 @@ module Issues::Filters
   end
 
   def issue_params
-    args = current_user.guest? ? guest_permitted : others_permitted
+    args = @issue.can_be_edited_by?(current_user) ? editors_params : guest_params
 
     params.require(:issue).permit(*args)
   end
@@ -37,5 +37,20 @@ module Issues::Filters
       else
         @script ? Issue.script_scoped(@script) : Issue.all
       end
+    end
+
+    def editors_params
+      [
+        :status, :description,
+          subscriptions_attributes: [:id, :user_id, :_destroy],
+          comments_attributes: [:id, :text, :file, :file_cache],
+          taggings_attributes: [:id, :tag_id, :_destroy]
+      ]
+    end
+
+    def guest_params
+      [
+        comments_attributes: [:id, :text, :file, :file_cache]
+      ]
     end
 end

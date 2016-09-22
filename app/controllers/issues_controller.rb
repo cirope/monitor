@@ -50,19 +50,4 @@ class IssuesController < ApplicationController
     def set_permalink
       @permalink = Permalink.find_by! token: params[:permalink_id] if params[:permalink_id]
     end
-
-    def others_permitted
-      [
-        :status, :description,
-          subscriptions_attributes: [:id, :user_id, :_destroy],
-          comments_attributes: [:id, :text, :file, :file_cache],
-          taggings_attributes: [:id, :tag_id, :_destroy]
-      ]
-    end
-
-    def guest_permitted
-      [
-        comments_attributes: [:id, :text, :file, :file_cache]
-      ]
-    end
 end

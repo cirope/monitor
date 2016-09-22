@@ -113,7 +113,7 @@ module IssuesHelper
   end
 
   def limited_issue_form_edition?
-    current_user.guest? || current_user.security?
+    !@issue.can_be_edited_by? current_user
   end
 
   def link_to_export_data
