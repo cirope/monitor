@@ -108,6 +108,10 @@ class RunTest < ActiveSupport::TestCase
     skip
   end
 
+  test 'overdue by' do
+    skip
+  end
+
   test 'running' do
     skip
   end
