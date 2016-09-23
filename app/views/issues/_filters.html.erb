@@ -73,9 +73,9 @@
               <%= f.input :show,
                 required: false,
                 collection: owner_options,
+                selected: filter_params[:show],
                 include_blank: false,
                 input_html: {
-                  value: filter_params[:show],
                   class: 'input-sm'
                 }
               %>
