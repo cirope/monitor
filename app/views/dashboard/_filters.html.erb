@@ -62,7 +62,20 @@
               }
             %>
           </div>
-          <div class="col-lg-4 col-lg-offset-4">
+          <div class="col-lg-4">
+            <% if current_user.author? || current_user.supervisor? %>
+              <%= f.input :show,
+                required: false,
+                collection: owner_options,
+                include_blank: false,
+                input_html: {
+                  value: filter_params[:show],
+                  class: 'input-sm'
+                }
+              %>
+            <% end %>
+          </div>
+          <div class="col-lg-4 bottom">
             <div class="form-actions">
               <p class="text-right">
                 <%= f.button :submit, t('filters.submit'), class: 'btn-sm btn-default' %>

@@ -19,7 +19,7 @@ class DashboardController < ApplicationController
 
     def filter_params
       params[:filter].present? ?
-        params.require(:filter).permit(:name, :status, :tags, :description) :
+        params.require(:filter).permit(:name, :status, :show, :tags, :description) :
         {}
     end
 
@@ -40,12 +40,7 @@ class DashboardController < ApplicationController
     end
 
     def scoped_issues
-      issues = if current_user.guest? || current_user.security?
-        current_user.issues
-      else
-        Issue.all
-      end
-
+      issues = show_mine? ? current_user.issues : Issue.all
       issues = issues.by_script_name filter_params[:name] if filter_params[:name].present?
 
       issues

@@ -16,7 +16,7 @@
         <tr>
           <td><%= script_data.last %></td>
           <td class="text-right">
-            <%= link_to count, script_issues_path(script_data.first, filter: issue_filter.to_h) %>
+            <%= link_to count, script_issues_path(script_data.first, filter: filter_query_hash) %>
           </td>
         </tr>
       <% end %>

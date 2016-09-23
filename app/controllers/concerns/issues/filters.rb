@@ -6,7 +6,7 @@ module Issues::Filters
   end
 
   def issues
-    scoped_issues.filter filter_params
+    scoped_issues.filter filter_params.except(:show)
   end
 
   def issue_params
@@ -17,7 +17,7 @@ module Issues::Filters
 
   def filter_params
     if params[:filter].present?
-      params.require(:filter).permit :id, :description, :status, :tags, :data, :created_at
+      params.require(:filter).permit :id, :description, :status, :show, :tags, :data, :created_at
     else
       {}
     end
@@ -27,16 +27,25 @@ module Issues::Filters
     filter_params[:status].present?
   end
 
+  def show_mine?
+    current_user.guest? || current_user.security? ||
+      (action_name == 'index' && filter_params[:show] != 'all')
+  end
+
   private
 
     def scoped_issues
       if @permalink
         @permalink.issues
-      elsif current_user.guest? || current_user.security?
-        current_user.issues
+      elsif @script
+        _issues.script_scoped(@script)
       else
-        @script ? Issue.script_scoped(@script) : Issue.all
+        _issues
       end
+    end
+
+    def _issues
+      show_mine? ? current_user.issues : Issue.all
     end
 
     def editors_params
