@@ -130,6 +130,6 @@ module IssuesHelper
   private
 
     def issues_board_path_with_params
-      issues_board_path filter: filter_params, script_id: @script.id
+      issues_board_path filter: filter_params.to_h, script_id: @script.id
     end
 end
