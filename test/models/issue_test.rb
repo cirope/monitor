@@ -66,6 +66,24 @@ class IssueTest < ActiveSupport::TestCase
     end
   end
 
+  test 'permissions' do
+    assert !@issue.can_be_edited_by?(users(:god))
+    # And here the evidence... I have more power than God
+    assert  @issue.can_be_edited_by?(users(:franco))
+
+    assert !@issue.can_be_edited_by?(users(:eduardo))
+
+    @issue.subscriptions.create! user_id: users(:eduardo).id
+
+    assert @issue.reload.can_be_edited_by?(users(:eduardo))
+
+    assert !@issue.can_be_edited_by?(users(:john))
+
+    @issue.subscriptions.create! user_id: users(:john).id
+
+    assert !@issue.reload.can_be_edited_by?(users(:john))
+  end
+
   test 'tagged with' do
     tag    = tags :important
     issues = Issue.tagged_with tag.name

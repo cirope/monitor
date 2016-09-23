@@ -36,6 +36,7 @@ es:
         name: 'Nombre'
         scheduled_at: 'Programado para'
         script_name: 'Guión'
+        show: 'Ver'
         status: 'Estado'
         tags: 'Etiquetas'
         user: 'Usuario'

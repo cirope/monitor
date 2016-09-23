@@ -113,7 +113,7 @@ module IssuesHelper
   end
 
   def limited_issue_form_edition?
-    current_user.guest? || current_user.security?
+    !@issue.can_be_edited_by? current_user
   end
 
   def link_to_export_data
@@ -130,6 +130,6 @@ module IssuesHelper
   private
 
     def issues_board_path_with_params
-      issues_board_path filter: filter_params, script_id: @script.id
+      issues_board_path filter: filter_params.to_h, script_id: @script.id
     end
 end

@@ -30,6 +30,10 @@ es:
       title: 'Listado de casos'
       empty_html: 'No hay casos activos'
       empty_search_html: 'No hay casos que coincidan con el criterio de búsqueda'
+    filters:
+      show:
+        mine: 'Míos'
+        all: 'Todos'
 
   databases:
     edit:

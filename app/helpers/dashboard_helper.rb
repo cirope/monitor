@@ -6,4 +6,12 @@ module DashboardHelper
   def filter_status
     %w(pending taken closed all).map { |k| [t("issues.status.#{k}"), k] }
   end
+
+  def owner_options
+    %w(mine all).map { |k| [t("dashboard.filters.show.#{k}"), k] }
+  end
+
+  def filter_query_hash
+    issue_filter.to_h.merge show: filter_params[:show]
+  end
 end

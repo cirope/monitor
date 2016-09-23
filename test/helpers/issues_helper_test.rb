@@ -98,6 +98,8 @@ class IssuesHelperTest < ActionView::TestCase
   end
 
   test 'limited issue form edition' do
+    @issue = issues :ls_on_atahualpa_not_well
+
     assert !limited_issue_form_edition?
 
     @current_user = users :god
