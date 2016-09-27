@@ -3,12 +3,14 @@
 
   <fieldset>
     <div class="form-inputs">
-      <%= render 'comment', f: f %>
+      <%= render 'comments/comment', f: f %>
     </div>
 
     <div class="form-actions">
       <%= f.button :submit, class: 'btn-sm btn-default' %>
-      <%= link_to t('cancel'), @comment, data: { remote: request.xhr? } %>
+      <% if @comment.persisted? %>
+        <%= link_to t('cancel'), @comment, data: { remote: request.xhr? } %>
+      <% end %>
     </div>
   </fieldset>
 

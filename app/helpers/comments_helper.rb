@@ -8,7 +8,7 @@ module CommentsHelper
   def comment_form_options
     {
       data: {
-        remote:     request.xhr?,
+        remote:     @comment.persisted? && request.xhr?,
         comment_id: @comment.id
       }
     }
