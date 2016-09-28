@@ -65,6 +65,9 @@ es:
       tag:
         one: 'Etiqueta'
         other: 'Etiquetas'
+      tagging:
+        one: 'Etiquetado'
+        other: 'Etiquetados'
       trigger:
         one: 'Disparador'
         other: 'Disparadores'
@@ -161,6 +164,9 @@ es:
         style: 'Estilo'
         final: 'Final'
         export: 'Exportar'
+      tagging:
+        tag: 'Etiqueta'
+        tag_id: 'Etiqueta'
       trigger:
         callback: 'Función'
       user:

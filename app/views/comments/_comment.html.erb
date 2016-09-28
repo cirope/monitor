@@ -1,7 +1,7 @@
 <fieldset class="comment">
   <div class="row">
     <div class="col-sm-10">
-      <%= f.input :text, label: false, input_html: { autofocus: true, rows: 4 } %>
+      <%= f.input :text, label: false, placeholder: t('.text_placeholder'), input_html: { rows: 4 } %>
       <%= f.input :issue_id, as: :hidden %>
     </div>
     <% unless request.xhr? %>

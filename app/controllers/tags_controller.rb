@@ -1,6 +1,6 @@
 class TagsController < ApplicationController
-  before_action :authorize, :not_guest
-  before_action :not_author, :not_security, except: [:index]
+  before_action :authorize
+  before_action :not_guest, :not_author, :not_security, except: [:index]
   before_action :set_title, except: [:destroy]
   before_action :set_tag, only: [:show, :edit, :update, :destroy]
 

@@ -1,0 +1,18 @@
+.tag-container {
+  position: relative;
+}
+
+.tag-container:hover .tag-controls {
+  display: inherit;
+  opacity: 1;
+  transition: all ease-in .3s;
+}
+
+.tag-controls {
+  position: absolute;
+  top: 2px;
+  right: -8px;
+  display: none;
+  opacity: 0;
+  transition: all ease-out .2s;
+}

@@ -24,6 +24,20 @@
   <%= render_object @issue, '' %>
 <% end %>
 
+<ul class="list-inline" data-tagging-list>
+  <% @issue.taggings.each do |tagging| %>
+    <%= render template: 'taggings/show', locals: { tagging: tagging } %>
+  <% end %>
+</ul>
+
+<% if @issue.can_be_light_edited_by? current_user %>
+  <div data-tagging-new>
+    <p>
+      <%= link_to t('taggings.new.title'), new_issue_tagging_path(@issue), data: { remote: true } %>
+    </p>
+  </div>
+<% end %>
+
 <% if @issue.subscriptions.any? %>
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -41,16 +55,6 @@
   </div>
 <% end %>
 
-<% if @issue.tags.any? %>
-  <ul class="list-inline">
-    <% @issue.tags.each do |tag| %>
-      <li>
-        <span class="label label-<%= tag.style %>"><%= tag %></span>
-      </li>
-    <% end %>
-  </ul>
-<% end %>
-
 <div class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title">
@@ -66,7 +70,7 @@
   </div>
 </div>
 
-<% unless @permalink %>
+<% if @permalink.blank? && (current_user.author? || current_user.supervisor?) %>
   <%= link_to_edit [:edit, @issue] %> |
 <% end %>
 <%= link_to_index issue_index_path %>

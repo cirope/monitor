@@ -52,5 +52,6 @@
 //= require scripts/versions
 //= require servers
 //= require tags
+//= require taggings
 //= require users
 //= require users/imports
