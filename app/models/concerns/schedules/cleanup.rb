@@ -18,15 +18,6 @@ module Schedules::Cleanup
   private
 
     def cleanable_runs
-      times = case frequency
-      when 'minutes'
-        10
-      when 'hours'
-        4
-      else
-        1
-      end
-
-      runs.executed.or(runs.canceled).or(runs.overdue_by interval * times, frequency)
+      runs.executed.or(runs.canceled).or(runs.overdue)
     end
 end
