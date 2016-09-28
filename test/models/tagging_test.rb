@@ -11,4 +11,11 @@ class TaggingTest < ActiveSupport::TestCase
     assert @tagging.invalid?
     assert_error @tagging, :tag, :blank
   end
+
+  test 'unique attributes' do
+    tagging = @tagging.dup
+
+    assert tagging.invalid?
+    assert_error tagging, :tag_id, :taken
+  end
 end
