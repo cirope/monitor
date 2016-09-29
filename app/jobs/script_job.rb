@@ -16,7 +16,7 @@ class ScriptJob < ApplicationJob
       run.mark_as_running
 
       Run.transaction do
-        out  = { status: 'canceled' }
+        out  = { status: 'aborted' }
         out  = job.server.execute job.script if schedule.run?
         data = ActiveSupport::JSON.decode out[:output] rescue nil
 

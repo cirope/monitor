@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  respond_to :js
+  respond_to :js, :html
 
   before_action :authorize
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
@@ -10,6 +10,13 @@ class CommentsController < ApplicationController
 
   def edit
     respond_with @comment
+  end
+
+  def create
+    @comment = current_user.comments.new comment_params
+
+    @comment.save
+    respond_with @comment, location: issue_url(@comment.issue)
   end
 
   def update
@@ -29,6 +36,6 @@ class CommentsController < ApplicationController
     end
 
     def comment_params
-      params.require(:comment).permit :text
+      params.require(:comment).permit :text, :issue_id, :file, :file_cache
     end
 end

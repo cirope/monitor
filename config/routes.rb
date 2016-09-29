@@ -22,14 +22,17 @@ Rails.application.routes.draw do
   post   'issues/exports',     to: 'issues/exports#create'
 
   # Resources
-  resources :comments, only: [:show, :edit, :update, :destroy]
+  resources :comments, except: [:index, :new]
   resources :databases
   resources :descriptors
-  resources :issues, except: [:new, :create]
   resources :ldaps
   resources :rules
   resources :servers
   resources :password_resets, only: [:new, :create, :edit, :update]
+
+  resources :issues, except: [:new, :create] do
+    resources :taggings, only: [:new, :create, :destroy]
+  end
 
   resources :permalinks, only: [:show, :create] do
     resources :issues, only: [:show]

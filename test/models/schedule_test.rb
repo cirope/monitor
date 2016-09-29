@@ -76,11 +76,13 @@ class ScheduleTest < ActiveSupport::TestCase
   end
 
   test 'last run ok' do
-    assert @schedule.last_run_ok?
+    job = @schedule.jobs.take
 
-    @schedule.runs.executed.last.update! status: 'error'
+    assert @schedule.last_runs_ok?
 
-    assert !@schedule.last_run_ok?
+    job.runs.executed.last.update! status: 'error'
+
+    assert !@schedule.reload.last_runs_ok?
   end
 
   test 'next date' do

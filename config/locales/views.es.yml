@@ -22,6 +22,8 @@ es:
       title: 'Tablero de casos'
 
   comments:
+    comment:
+      text_placeholder: 'Escriba un comentario'
     edit:
       title: 'Editar comentario'
 
@@ -198,6 +200,7 @@ es:
       ok: 'Finalizada OK'
       error: 'Finalizada con errores'
       canceled: 'Cancelada'
+      aborted: 'Abortada'
 
   scripts:
     edit:
@@ -335,6 +338,11 @@ es:
       danger: 'Peligro'
 
   taggings:
+    new:
+      title: 'Agregar etiqueta'
+    form:
+      add: 'Agregar'
+      empty: 'No se encontraron etiquetas con ese criterio'
     tagging:
       empty: 'No se encontraron etiquetas con ese criterio'
 

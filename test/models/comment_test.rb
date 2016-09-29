@@ -7,6 +7,10 @@ class CommentTest < ActiveSupport::TestCase
     @comment = comments :possitive
   end
 
+  teardown do
+    PaperTrail.whodunnit = nil
+  end
+
   test 'blank attributes' do
     @comment.text = ''
     @comment.user = nil
@@ -14,6 +18,20 @@ class CommentTest < ActiveSupport::TestCase
     assert @comment.invalid?
     assert_error @comment, :text, :blank
     assert_error @comment, :user, :blank
+  end
+
+  test 'validate user belongs to issue' do
+    PaperTrail.whodunnit = users(:john).id
+
+    comment = @comment.dup
+    issue   = @comment.issue.dup
+
+    issue.save!
+
+    comment.issue_id = issue.id
+
+    assert comment.invalid?
+    assert_error comment, :issue, :invalid
   end
 
   test 'send email after create' do
