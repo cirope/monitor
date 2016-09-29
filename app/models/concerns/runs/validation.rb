@@ -11,7 +11,7 @@ module Runs::Validation
     private
 
       def status_list
-        %w(pending scheduled running ok error canceled)
+        %w(pending scheduled running ok error canceled aborted)
       end
   end
 end

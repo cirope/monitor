@@ -30,11 +30,11 @@ module Schedules::Runs
   end
 
   def run?
-    required.all? &:last_run_ok?
+    required.all? &:last_runs_ok?
   end
 
-  def last_run_ok?
-    runs.executed.last&.ok?
+  def last_runs_ok?
+    jobs.all? { |job| job.runs.executed.last&.ok? }
   end
 
   def next_date

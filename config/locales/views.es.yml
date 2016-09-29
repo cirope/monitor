@@ -200,6 +200,7 @@ es:
       ok: 'Finalizada OK'
       error: 'Finalizada con errores'
       canceled: 'Cancelada'
+      aborted: 'Abortada'
 
   scripts:
     edit:
