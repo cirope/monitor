@@ -2,6 +2,7 @@ module Runs::Scopes
   extend ActiveSupport::Concern
 
   included do
+    scope :aborted,          -> { where status: 'aborted' }
     scope :canceled,         -> { where status: 'canceled' }
     scope :pending,          -> { where status: 'pending' }
     scope :scheduled,        -> { where status: 'scheduled' }
