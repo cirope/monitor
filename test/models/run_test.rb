@@ -53,10 +53,10 @@ class RunTest < ActiveSupport::TestCase
   test 'should be canceled' do
     assert !@run.should_be_canceled?
 
-    run = @run.dup
+    run        = @run.dup
+    run.status = 'running'
 
     run.save!
-    run.mark_as_running
 
     assert @run.should_be_canceled?
   end
@@ -67,17 +67,8 @@ class RunTest < ActiveSupport::TestCase
     assert @run.reload.canceled?
   end
 
-  test 'mark as running' do
-    @run.mark_as_running
-
-    assert_equal 'running', @run.reload.status
-  end
-
-  test 'finish' do
-    @run.finish status: 'ok'
-
-    assert_not_nil @run.reload.ended_at
-    assert_equal 'ok', @run.status
+  test 'execute' do
+    skip
   end
 
   test 'by status' do
