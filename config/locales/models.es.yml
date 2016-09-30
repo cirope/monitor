@@ -79,6 +79,7 @@ es:
       comment:
         text: 'Comentario'
         file: 'Adjunto'
+        issue: 'Caso'
       database:
         name: 'Nombre'
         driver: 'Controlador'
@@ -183,6 +184,10 @@ es:
 
     errors:
       models:
+        comment:
+          attributes:
+            issue:
+              invalid: 'no pertenece a su usuario'
         issue:
           attributes:
             tags:
