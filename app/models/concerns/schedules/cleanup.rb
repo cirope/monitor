@@ -18,6 +18,6 @@ module Schedules::Cleanup
   private
 
     def cleanable_runs
-      runs.executed.or(runs.canceled).or(runs.overdue)
+      runs.executed.or(runs.canceled).or(runs.aborted).or(runs.overdue)
     end
 end
