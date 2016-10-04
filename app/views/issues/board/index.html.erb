@@ -11,6 +11,7 @@
         <th class="hidden-sm hidden-xs"><%= Issue.human_attribute_name 'created_at' %></th>
         <th><%= Issue.human_attribute_name 'description' %></th>
         <th class="hidden-xs"><%= Issue.human_attribute_name 'status' %></th>
+        <th class="hidden-sm hidden-xs"><%= Tag.model_name.human count: 0 %></th>
         <th class="text-right">
           <%= link_to empty_issues_board_path, class: 'btn btn-xs btn-default', data: { method: :delete } do %>
             <%= t '.clear' %>
@@ -28,6 +29,7 @@
           <td class="hidden-sm hidden-xs"><%= l issue.created_at, format: :compact %></td>
           <td><%= truncate issue.description, length: 50 %></td>
           <td class="hidden-xs"><%= issue_status issue.status %></td>
+          <td class="hidden-sm hidden-xs"><%= tags issue.tags %></td>
           <td><%= link_to_remove_from_board issue, remote: false %></td>
         </tr>
       <% end %>

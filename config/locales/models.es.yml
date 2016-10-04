@@ -98,6 +98,8 @@ es:
         data: 'Datos'
         tags: 'Etiquetas'
         created_at: 'Fecha de caso'
+      issue/taggings:
+        tag_id: 'Etiqueta'
       job:
         script: 'Guión'
         server: 'Servidor'

@@ -1,0 +1,5 @@
+<fieldset class="tag">
+  <%= f.input :tag, as: :autocomplete, label: false, url: tags_path(kind: 'issue'), input_html: {
+    data: { empty_result_label: t('.empty') }
+  } %>
+</fieldset>

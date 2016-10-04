@@ -41,6 +41,29 @@ class Issues::BoardControllerTest < ActionController::TestCase
     assert_equal 'Updated', @issue.reload.description
   end
 
+  test 'should add comment to issues' do
+    assert_difference '@issue.comments.count', 1 do
+      patch :update, params: {
+        issue: { comments_attributes: [ { text: 'New comment' } ] }
+      }, session: { board_issues: [@issue.id] }
+    end
+
+    assert_redirected_to issues_board_url
+  end
+
+  test 'should replace tags from issues' do
+    assert @issue.tags.any? { |tag| tag.id == tags(:important).id }
+
+    assert_no_difference '@issue.tags.count' do
+      patch :update, params: {
+        issue: { taggings_attributes: { '0': { tag_id: tags(:final).id } } }
+      }, session: { board_issues: [@issue.id] }
+    end
+
+    assert_redirected_to issues_board_url
+    assert @issue.reload.tags.all? { |tag| tag.id != tags(:important).id }
+  end
+
   test 'should delete issue from board via xhr' do
     delete :destroy, params: { filter: { id: @issue.id } }, session: { board_issues: [@issue.id] }, xhr: true, as: :js
     assert_response :success

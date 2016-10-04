@@ -3,7 +3,7 @@
   <td><%= l issue.created_at, format: :compact %></td>
   <td><%= truncate issue.description, length: 50 %></td>
   <td><%= issue_status issue.status %></td>
-  <td class="hidden-sm"><%= tags issue.tags %></td>
+  <td class="hidden-sm hidden-xs"><%= tags issue.tags %></td>
   <td><%= link_to_show issue %></td>
   <% if current_user.author? || current_user.supervisor? %>
     <td><%= link_to_edit [:edit, issue] %></td>

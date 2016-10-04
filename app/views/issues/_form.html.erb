@@ -64,8 +64,8 @@
           </blockquote>
         <% end %>
 
-        <%= f.simple_fields_for :comments, comments do |df| %>
-          <%= render 'comments/comment', f: df %>
+        <%= f.simple_fields_for :comments, comments do |cf| %>
+          <%= render 'comments/comment', f: cf %>
         <% end %>
       </div>
     </div>
