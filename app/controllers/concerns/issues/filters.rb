@@ -32,7 +32,7 @@ module Issues::Filters
     not_in_board      = controller_name != 'board'
     in_index_action   = action_name == 'index' && filter_params[:show] != 'all'
 
-    mine_by_user_role || (in_index_action && not_in_issue_board)
+    mine_by_user_role || (in_index_action && not_in_board)
   end
 
   private

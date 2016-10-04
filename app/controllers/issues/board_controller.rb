@@ -61,7 +61,9 @@ class Issues::BoardController < ApplicationController
     end
 
     def issue_params
-      params.require(:issue).permit :description, :status
+      params.require(:issue).permit :description, :status,
+        comments_attributes: [:text],
+        taggings_attributes: [:tag_id]
     end
 
     def board_session
@@ -73,13 +75,27 @@ class Issues::BoardController < ApplicationController
     end
 
     def update_issues issues
-      _issue_params = issue_params.select { |_, value| value.present? }
+      present_issue_params = issue_params.select { |_, value| value.present? }
+      taggings_attributes  = present_issue_params.fetch(:taggings_attributes, {})
+      new_tags             = taggings_attributes.select do |index, tagging|
+        tagging[:tag_id].present?
+      end
 
       board_session_errors.clear
 
       issues.find_each do |issue|
-        unless issue.update _issue_params
+        update_issue issue, present_issue_params, new_tags.present?
+      end
+    end
+
+    def update_issue issue, issue_params, remove_previous_tags
+      Issue.transaction do
+        issue.taggings.clear if remove_previous_tags
+
+        unless issue.update issue_params
           board_session_errors[issue.id] = issue.errors.full_messages
+
+          raise ActiveRecord::Rollback
         end
       end
     end
