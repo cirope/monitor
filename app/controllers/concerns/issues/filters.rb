@@ -31,7 +31,8 @@ module Issues::Filters
     mine_by_user_role = current_user.guest? || current_user.security?
     show_all          = filter_params[:show] == 'all'
     on_board          = controller_name == 'board'
-    on_board_create   = on_board && action_name == 'create' && !show_all
+    filter_id         = filter_params[:id]
+    on_board_create   = on_board && action_name == 'create' && !filter_id && !show_all
     on_index_action   = action_name == 'index' && !show_all
 
     mine_by_user_role || on_board_create || (on_index_action && !on_board)
