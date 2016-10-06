@@ -44,7 +44,8 @@ module Issues::BoardHelper
   def link_to_destroy_all_issues
     options = {
       data: {
-        method: :delete,
+        method:  :delete,
+        toggle:  :dropdown,
         confirm: t('messages.confirmation')
       }
     }
