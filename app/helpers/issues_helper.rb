@@ -1,6 +1,8 @@
 module IssuesHelper
   def issue_index_path
-    if current_user.guest?
+    if @context == :board
+      issues_board_path
+    elsif current_user.guest?
       issues_path
     elsif @permalink
       permalink_path @permalink

@@ -82,4 +82,22 @@ class Issues::BoardControllerTest < ActionController::TestCase
     assert_equal 0, session[:board_issues].size
     assert_equal 0, session[:board_issue_errors].size
   end
+
+  test 'should destroy all issues on the board' do
+    issue = @issue.dup
+
+    assert_difference 'Issue.count' do
+      issue.save!
+    end
+
+    assert_difference 'Issue.count', -1 do
+      delete :destroy_all, session: { board_issues: [@issue.id], board_issue_errors: { @issue.id => 'Error' } }
+    end
+
+    assert_redirected_to dashboard_url
+    assert_equal 0, session[:board_issues].size
+    assert_equal 0, session[:board_issue_errors].size
+    assert issue.reload
+    assert_raise(ActiveRecord::RecordNotFound) { @issue.reload }
+  end
 end

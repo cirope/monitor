@@ -9,6 +9,7 @@ class IssuesController < ApplicationController
   before_action :set_script, only: [:index]
   before_action :set_permalink, only: [:show]
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
+  before_action :set_context, only: [:show, :edit, :update]
 
   respond_to :html, :json, :js
 
@@ -30,7 +31,7 @@ class IssuesController < ApplicationController
 
   def update
     @issue.update issue_params
-    respond_with @issue
+    respond_with @issue, location: issue_url(@issue, context: @context)
   end
 
   def destroy
@@ -50,5 +51,9 @@ class IssuesController < ApplicationController
 
     def set_permalink
       @permalink = Permalink.find_by! token: params[:permalink_id] if params[:permalink_id]
+    end
+
+    def set_context
+      @context = params[:context] == 'board' ? :board : :issues
     end
 end
