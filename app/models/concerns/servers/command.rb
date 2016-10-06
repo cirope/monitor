@@ -47,7 +47,7 @@ module Servers::Command
         ssh.exec! "rm #{script_path}"
       end
 
-      status_text = "\nExit status: #{status}" unless out[:exit_code] == 0
+      status_text = "\nExit status: #{out[:exit_code]}" unless out[:exit_code] == 0
 
       {
         status: out[:exit_code] == 0 ? 'ok' : 'error',
