@@ -40,7 +40,7 @@ class Issues::BoardController < ApplicationController
 
     @issues.each { |issue| board_session.delete issue.id }
 
-    redirect_back(fallback_location: root_url) unless request.xhr?
+    redirect_back fallback_location: root_url unless request.xhr?
   end
 
   def empty
@@ -48,6 +48,15 @@ class Issues::BoardController < ApplicationController
     board_session_errors.clear
 
     redirect_to dashboard_url, notice: t('.done')
+  end
+
+  def destroy_all
+    issues.where(id: board_session).destroy_all
+
+    board_session.clear
+    board_session_errors.clear
+
+    redirect_to dashboard_url, notice: t('.destroyed')
   end
 
   private

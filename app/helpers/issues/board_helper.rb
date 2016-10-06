@@ -40,4 +40,15 @@ module Issues::BoardHelper
       t '.download_issue_data'
     end
   end
+
+  def link_to_destroy_all_issues
+    options = {
+      data: {
+        method: :delete,
+        confirm: t('messages.confirmation')
+      }
+    }
+
+    link_to t('.destroy_all'), issues_board_destroy_all_path, options
+  end
 end
