@@ -9,6 +9,7 @@
         <th></th>
         <th class="hidden-sm hidden-xs"><%= Run.human_attribute_name 'scheduled_at' %></th>
         <th class="hidden-sm hidden-xs"><%= Issue.human_attribute_name 'created_at' %></th>
+        <th class="hidden-sm hidden-xs"><%= Script.model_name.human %></th>
         <th><%= Issue.human_attribute_name 'description' %></th>
         <th class="hidden-xs"><%= Issue.human_attribute_name 'status' %></th>
         <th class="hidden-sm hidden-xs"><%= Tag.model_name.human count: 0 %></th>
@@ -27,6 +28,7 @@
           <th><%= issue_validation_errors issue %></th>
           <td class="hidden-sm hidden-xs"><%= l issue.run.scheduled_at, format: :compact %></td>
           <td class="hidden-sm hidden-xs"><%= l issue.created_at, format: :compact %></td>
+          <td class="hidden-sm hidden-xs"><%= issue.script %></td>
           <td><%= truncate issue.description, length: 50 %></td>
           <td class="hidden-xs"><%= issue_status issue.status %></td>
           <td class="hidden-sm hidden-xs"><%= tags issue.tags %></td>
