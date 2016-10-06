@@ -16,8 +16,8 @@ module Servers::Command
     else
       execute_remote script_path
     end
-  rescue
-    { status: 'error' }
+  rescue Exception => e
+    { status: 'error', output: e.to_s }
   end
 
   private
@@ -28,10 +28,11 @@ module Servers::Command
 
     def execute_local script_path
       stdout, stderr, status = Open3.capture3 rails, 'runner', script_path
+      status_text            = "\nExit status: #{status}" if status.to_i != 0
 
       {
         status: status.to_i == 0 ? 'ok' : 'error',
-        output: [stdout, stderr].join
+        output: [stdout, stderr].join + status_text.to_s
       }
     end
 
