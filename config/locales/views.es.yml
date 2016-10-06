@@ -19,7 +19,7 @@ es:
 
   board:
     index:
-      title: 'Tablero de casos'
+      title: 'Carrito de casos'
 
   comments:
     comment:
@@ -81,10 +81,10 @@ es:
         title: 'Modificar'
         submit: 'Aplicar'
       index:
-        title: 'Tablero de casos'
+        title: 'Carrito de casos'
         clear: 'Limpiar'
-        empty_html: 'No hay casos agregados al tablero'
-        remove_from_board: 'Eliminar del tablero'
+        empty_html: 'No hay casos agregados al carrito'
+        remove_from_board: 'Eliminar del carrito'
         create_permalink: 'Crear enlace permanente'
         download_issue_data: 'Descargar datos'
         destroy_all: 'Eliminar casos'
@@ -93,9 +93,9 @@ es:
         updated: 'Todos los casos fueron actualizados'
         fail: 'No todos los casos fueron actualizados, algunos contienen errores'
       empty:
-        done: 'Se limpiaron todos los casos del tablero'
+        done: 'Se limpiaron todos los casos del carrito'
       destroy_all:
-        destroyed: 'Se eliminaron todos los casos del tablero'
+        destroyed: 'Se eliminaron todos los casos del carrito'
     edit:
       title: 'Editar caso'
     exports:
@@ -104,13 +104,13 @@ es:
     index:
       new: 'Nuevo caso'
       title: 'Listado de casos'
-      add_all: 'Agregar todos al tablero'
-      remove_all: 'Eliminar todos del tablero'
+      add_all: 'Agregar todos al carrito'
+      remove_all: 'Eliminar todos del carrito'
       empty_html: 'No tiene casos'
       empty_search_html: 'No hay casos que coincidan con el criterio de búsqueda'
     issue:
-      add_to_board: 'Agregar al tablero'
-      remove_from_board: 'Eliminar del tablero'
+      add_to_board: 'Agregar al carrito'
+      remove_from_board: 'Eliminar del carrito'
     new:
       subscription: 'Agregar usuario'
       tagging: 'Agregar etiqueta'
