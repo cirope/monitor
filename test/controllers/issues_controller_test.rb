@@ -75,7 +75,7 @@ class IssuesControllerTest < ActionController::TestCase
       end
     end
 
-    assert_redirected_to issue_url(@issue)
+    assert_redirected_to issue_url(@issue, context: 'issues')
   end
 
   test 'should destroy issue' do

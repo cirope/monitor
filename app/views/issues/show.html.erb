@@ -71,6 +71,6 @@
 </div>
 
 <% if @permalink.blank? && (current_user.author? || current_user.supervisor?) %>
-  <%= link_to_edit [:edit, @issue] %> |
+  <%= link_to_edit [:edit, @issue, context: @context] %> |
 <% end %>
 <%= link_to_index issue_index_path %>
