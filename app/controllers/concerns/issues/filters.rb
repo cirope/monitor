@@ -29,10 +29,12 @@ module Issues::Filters
 
   def show_mine?
     mine_by_user_role = current_user.guest? || current_user.security?
-    not_in_board      = controller_name != 'board'
-    in_index_action   = action_name == 'index' && filter_params[:show] != 'all'
+    show_all          = filter_params[:show] == 'all'
+    on_board          = controller_name == 'board'
+    on_board_create   = on_board && action_name == 'create' && !show_all
+    on_index_action   = action_name == 'index' && !show_all
 
-    mine_by_user_role || (in_index_action && not_in_board)
+    mine_by_user_role || on_board_create || (on_index_action && !on_board)
   end
 
   private
