@@ -7,6 +7,10 @@ class IssueTest < ActiveSupport::TestCase
     @issue = issues :ls_on_atahualpa_not_well
   end
 
+  teardown do
+    PaperTrail.whodunnit = nil
+  end
+
   test 'blank attributes' do
     @issue.status = ''
 
@@ -28,6 +32,13 @@ class IssueTest < ActiveSupport::TestCase
     assert_error @issue, :tags, :invalid
   end
 
+  test 'user can modify' do
+    PaperTrail.whodunnit = users(:eduardo).id
+
+    assert @issue.invalid?
+    assert_error @issue, :base, :user_invalid
+  end
+
   test 'more than one final tag validation' do
     tag = Tag.create! name: 'new final tag', options: { final: true }
 
@@ -41,8 +52,6 @@ class IssueTest < ActiveSupport::TestCase
   end
 
   test 'next status' do
-    PaperTrail.whodunnit = nil
-
     @issue.taggings.create! tag_id: tags(:final).id
 
     assert_equal %w(pending taken closed), @issue.next_status
@@ -56,8 +65,6 @@ class IssueTest < ActiveSupport::TestCase
     PaperTrail.whodunnit = users(:franco).id
 
     assert_equal %w(taken closed), @issue.next_status
-
-    PaperTrail.whodunnit = nil
   end
 
   test 'notify to' do
