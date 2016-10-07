@@ -37,7 +37,6 @@ gem 'capistrano'
 gem 'capistrano-rbenv'
 gem 'capistrano-bundler'
 gem 'capistrano-rails'
-gem 'capistrano-sidekiq'
 
 group :development do
   gem 'unicorn-rails'
