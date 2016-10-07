@@ -137,4 +137,12 @@ class IssueTest < ActiveSupport::TestCase
   test 'add to zip' do
     skip
   end
+
+  test 'to pdf' do
+    path = Issue.to_pdf
+
+    assert File.exist?(path)
+
+    FileUtils.rm path
+  end
 end

@@ -3,7 +3,7 @@ module Issues::Scopes
 
   included do
     scope :active, -> { where.not status: 'closed' }
-    scope :ordered_by_script_name, -> { order "#{Script.table_name}.name" }
+    scope :ordered_by_script_name, -> { reorder "#{Script.table_name}.name" }
   end
 
   module ClassMethods

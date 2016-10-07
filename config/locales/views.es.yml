@@ -87,6 +87,7 @@ es:
         remove_from_board: 'Eliminar del carrito'
         create_permalink: 'Crear enlace permanente'
         download_issue_data: 'Descargar datos'
+        download_pdf: 'Descargar PDF'
         destroy_all: 'Eliminar casos'
         actions: 'Acciones'
       update:
@@ -114,6 +115,11 @@ es:
     new:
       subscription: 'Agregar usuario'
       tagging: 'Agregar etiqueta'
+    pdf:
+      title: 'Resumen de casos'
+      issue:
+        one: 'Un caso'
+        other: '%{count} casos'
     show:
       title: 'Ver caso'
       download_data: 'Descargar datos'
