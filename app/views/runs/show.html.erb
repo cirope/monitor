@@ -32,7 +32,9 @@
       </h3>
     </div>
     <div id="output" class="panel-body">
-      <samp><%= run_output %></samp>
+      <p>
+        <samp><%= run_output %></samp>
+      </p>
     </div>
   </div>
 <% end %>
@@ -47,7 +49,9 @@
     <div id="outputs" class="panel-body">
       <% @run.outputs.with_text.each_with_index do |output, index| %>
         <h4 class="text-muted">#<%= index + 1 %> <%= output.rule %></h4>
-        <samp><%= output.text %></samp>
+        <p>
+          <samp><%= output.text %></samp>
+        </p>
       <% end %>
     </div>
   </div>
