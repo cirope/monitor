@@ -1,11 +1,9 @@
 <h2>
-  <%= Run.model_name.human count: 1 %>
-  <small>
-    <%= link_to @run.script, @run.script %>
-    <div class="pull-right">
-      <%= run_status @run.status %>
-    </div>
-  </small>
+  <span class="text-muted"><%= Run.model_name.human count: 1 %> -</span>
+  <%= link_to @run.script, @run.script %>
+  <span class="pull-right">
+    <%= run_status @run.status %>
+  </span>
 </h2>
 
 <p>
