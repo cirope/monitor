@@ -15,15 +15,6 @@
   <%= link_to_unless current_user.guest? || current_user.security?, @issue.run, @issue.run %>
 </p>
 
-<% if @issue.data.present? %>
-  <p>
-    <strong><%= Issue.human_attribute_name 'data' %></strong>
-    <%= link_to_export_data %>
-  </p>
-
-  <%= render_object @issue, '' %>
-<% end %>
-
 <ul class="list-inline" data-tagging-list>
   <% @issue.taggings.each do |tagging| %>
     <%= render template: 'taggings/show', locals: { tagging: tagging } %>
@@ -35,6 +26,20 @@
     <p>
       <%= link_to t('taggings.new.title'), new_issue_tagging_path(@issue), class: 'btn btn-default btn-xs', data: { remote: true } %>
     </p>
+  </div>
+<% end %>
+
+<% if @issue.data.present? %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <%= Issue.human_attribute_name 'data' %>
+        <span class="pull-right"><%= link_to_export_data %></span>
+      </h3>
+    </div>
+    <div id="data" class="panel-body">
+      <%= render_object @issue, '' %>
+    </div>
   </div>
 <% end %>
 
