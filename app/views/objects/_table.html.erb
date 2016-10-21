@@ -1,13 +1,15 @@
-<table class="table table-condensed table-bordered table-hover" data-container>
-  <tbody>
-    <% object.each do |k, v| %>
-      <tr>
-        <td><%= k %></td>
-        <td><%= link_or_show parent, k, v, object.object_id %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="table-responsive">
+  <table class="table table-condensed table-hover" data-container>
+    <tbody>
+      <% object.each do |k, v| %>
+        <tr>
+          <td><%= k %></td>
+          <td><%= link_or_show parent, k, v, object.object_id %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
 <% if can_be_graphed? object %>
   <div class="dropdown">

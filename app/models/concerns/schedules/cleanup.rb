@@ -4,8 +4,8 @@ module Schedules::Cleanup
   def cleanup
     all_destroyed = true
 
-    self.class.transaction do
-      runs.executed.find_each do |run|
+    Schedule.transaction do
+      cleanable_runs.find_each do |run|
         destroyed = run.destroy
 
         all_destroyed &&= destroyed
@@ -14,4 +14,10 @@ module Schedules::Cleanup
 
     all_destroyed
   end
+
+  private
+
+    def cleanable_runs
+      runs.executed.or(runs.canceled).or(runs.aborted).or(runs.overdue)
+    end
 end

@@ -64,14 +64,15 @@
           </blockquote>
         <% end %>
 
-        <%= f.simple_fields_for :comments, comments do |df| %>
-          <%= render 'comments/comment', f: df %>
+        <%= f.simple_fields_for :comments, comments do |cf| %>
+          <%= render 'comments/comment', f: cf %>
         <% end %>
       </div>
     </div>
   </div>
 
   <div class="form-actions">
+    <%= hidden_field_tag :context, @context %>
     <%= f.button :submit, class: 'btn-primary' %>
   </div>
 <% end %>

@@ -1,13 +1,12 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.0.0'
+gem 'rails', '~> 5.0.0.1'
 
 gem 'pg'
 gem 'sass-rails'
+gem 'bootstrap-sass'
 gem 'uglifier'
-gem 'coffee-rails'
 gem 'jquery-rails'
-gem 'jquery-ui-rails'
 gem 'turbolinks'
 gem 'jbuilder'
 gem 'activerecord-session_store'
@@ -34,14 +33,13 @@ gem 'coderay'
 
 gem 'unicorn'
 
-gem 'bundler'
+gem 'capistrano'
+gem 'capistrano-rbenv'
+gem 'capistrano-bundler'
+gem 'capistrano-rails'
+gem 'capistrano-sidekiq'
 
 group :development do
-  gem 'capistrano'
-  gem 'capistrano-bundler'
-  gem 'capistrano-rails'
-  gem 'capistrano-rbenv'
-  gem 'capistrano-sidekiq'
   gem 'unicorn-rails'
   gem 'web-console'
 end

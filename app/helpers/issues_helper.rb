@@ -1,6 +1,8 @@
 module IssuesHelper
   def issue_index_path
-    if current_user.guest?
+    if @context == :board
+      issues_board_path
+    elsif current_user.guest?
       issues_path
     elsif @permalink
       permalink_path @permalink
@@ -13,7 +15,9 @@ module IssuesHelper
 
   def issue_actions_cols
     if current_user.guest? || current_user.security?
-      2
+      1
+    elsif current_user.author?
+      3
     elsif params[:ids]
       1
     else
@@ -111,7 +115,7 @@ module IssuesHelper
   end
 
   def limited_issue_form_edition?
-    current_user.guest? || current_user.security?
+    !@issue.can_be_edited_by? current_user
   end
 
   def link_to_export_data
@@ -128,6 +132,6 @@ module IssuesHelper
   private
 
     def issues_board_path_with_params
-      issues_board_path filter: filter_params, script_id: @script.id
+      issues_board_path filter: filter_params.to_h, script_id: @script.id
     end
 end

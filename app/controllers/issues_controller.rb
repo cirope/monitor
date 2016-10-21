@@ -2,11 +2,14 @@ class IssuesController < ApplicationController
   include Issues::Filters
 
   before_action :authorize
-  before_action :not_guest, :not_security, except: [:index, :show, :edit, :update]
+  before_action :not_guest, except: [:index, :show]
+  before_action :not_author, only: [:destroy]
+  before_action :not_security, except: [:index, :show, :edit, :update]
   before_action :set_title, except: [:destroy]
   before_action :set_script, only: [:index]
   before_action :set_permalink, only: [:show]
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
+  before_action :set_context, only: [:show, :edit, :update]
 
   respond_to :html, :json, :js
 
@@ -28,12 +31,12 @@ class IssuesController < ApplicationController
 
   def update
     @issue.update issue_params
-    respond_with @issue
+    respond_with @issue, location: issue_url(@issue, context: @context)
   end
 
   def destroy
     @issue.destroy
-    respond_with @issue, location: script_issues_url(@issue.script, filter: params[:filter])
+    respond_with @issue, location: script_issues_url(@issue.script, filter: params[:filter]&.to_unsafe_h)
   end
 
   private
@@ -50,18 +53,7 @@ class IssuesController < ApplicationController
       @permalink = Permalink.find_by! token: params[:permalink_id] if params[:permalink_id]
     end
 
-    def others_permitted
-      [
-        :status, :description,
-          subscriptions_attributes: [:id, :user_id, :_destroy],
-          comments_attributes: [:id, :text, :file, :file_cache],
-          taggings_attributes: [:id, :tag_id, :_destroy]
-      ]
-    end
-
-    def guest_permitted
-      [
-        comments_attributes: [:id, :text, :file, :file_cache]
-      ]
+    def set_context
+      @context = params[:context] == 'board' ? :board : :issues
     end
 end

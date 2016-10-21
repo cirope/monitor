@@ -1,12 +1,12 @@
 <fieldset class="rule_trigger">
   <div class="row">
     <div class="col-sm-11">
-      <%= f.input :callback, label: false, input_html: { class: 'hidden', data: { editor: true } } %>
+      <%= f.input :callback, label: false, input_html: { class: 'hidden', data: { editor: true, readonly: disable_rule_edition? } } %>
     </div>
     <div class="col-sm-1">
       <div class="row-controls">
         <%= f.input :id, as: :hidden %>
-        <%= link_to_remove_nested_item f %>
+        <%= link_to_remove_nested_item f unless disable_rule_edition? %>
       </div>
     </div>
   </div>

@@ -38,8 +38,7 @@ class SchedulesControllerTest < ActionController::TestCase
       'Schedule.count',
       'Dependency.count',
       'Dispatcher.count',
-      'Job.count',
-      'Tagging.count'
+      'Job.count'
     ]
 
     assert_difference counts do
@@ -54,11 +53,6 @@ class SchedulesControllerTest < ActionController::TestCase
             {
               server_id: servers(:atahualpa).id.to_s,
               script_id: scripts(:cd_root).id.to_s
-            }
-          ],
-          taggings_attributes: [
-            {
-              tag_id: tags(:starters).id.to_s
             }
           ],
           dependencies_attributes: [

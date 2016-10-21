@@ -24,7 +24,7 @@ class IssuesControllerTest < ActionController::TestCase
   end
 
   test 'should get index as guest' do
-    user = users(:john)
+    user = users :john
 
     login user
 
@@ -61,7 +61,7 @@ class IssuesControllerTest < ActionController::TestCase
             ],
             taggings_attributes: [
               {
-                tag_id: tags(:important).id.to_s
+                tag_id: tags(:final).id.to_s
               }
             ],
             comments_attributes: [
@@ -75,7 +75,7 @@ class IssuesControllerTest < ActionController::TestCase
       end
     end
 
-    assert_redirected_to issue_url(@issue)
+    assert_redirected_to issue_url(@issue, context: 'issues')
   end
 
   test 'should destroy issue' do

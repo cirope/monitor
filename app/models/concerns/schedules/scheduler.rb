@@ -14,6 +14,7 @@ module Schedules::Scheduler
 
         schedule.update! scheduled_at: scheduled_at
 
+        schedule.cancel_pending_runs
         schedule.build_next_runs
       end
     end

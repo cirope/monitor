@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160717202834) do
+ActiveRecord::Schema.define(version: 20160914194650) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,8 +95,10 @@ ActiveRecord::Schema.define(version: 20160717202834) do
     t.integer  "schedule_id"
     t.integer  "server_id"
     t.integer  "script_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.boolean  "hidden",      default: false, null: false
+    t.index ["hidden"], name: "index_jobs_on_hidden", using: :btree
     t.index ["schedule_id"], name: "index_jobs_on_schedule_id", using: :btree
     t.index ["script_id"], name: "index_jobs_on_script_id", using: :btree
     t.index ["server_id"], name: "index_jobs_on_server_id", using: :btree
@@ -174,12 +176,15 @@ ActiveRecord::Schema.define(version: 20160717202834) do
   end
 
   create_table "rules", force: :cascade do |t|
-    t.string   "name",                         null: false
-    t.boolean  "enabled",      default: false, null: false
-    t.integer  "lock_version", default: 0,     null: false
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.string   "name",                                                                                         null: false
+    t.boolean  "enabled",      default: false,                                                                 null: false
+    t.integer  "lock_version", default: 0,                                                                     null: false
+    t.datetime "created_at",                                                                                   null: false
+    t.datetime "updated_at",                                                                                   null: false
+    t.uuid     "uuid",         default: -> { "(md5(((random())::text || (clock_timestamp())::text)))::uuid" }, null: false
+    t.datetime "imported_at"
     t.index ["name"], name: "index_rules_on_name", using: :btree
+    t.index ["uuid"], name: "index_rules_on_uuid", unique: true, using: :btree
   end
 
   create_table "runs", force: :cascade do |t|
@@ -287,12 +292,14 @@ ActiveRecord::Schema.define(version: 20160717202834) do
   end
 
   create_table "triggers", force: :cascade do |t|
-    t.integer  "rule_id",                  null: false
-    t.text     "callback",                 null: false
-    t.integer  "lock_version", default: 0, null: false
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.integer  "rule_id",                                                                                      null: false
+    t.text     "callback",                                                                                     null: false
+    t.integer  "lock_version", default: 0,                                                                     null: false
+    t.datetime "created_at",                                                                                   null: false
+    t.datetime "updated_at",                                                                                   null: false
+    t.uuid     "uuid",         default: -> { "(md5(((random())::text || (clock_timestamp())::text)))::uuid" }, null: false
     t.index ["rule_id"], name: "index_triggers_on_rule_id", using: :btree
+    t.index ["uuid"], name: "index_triggers_on_uuid", unique: true, using: :btree
   end
 
   create_table "users", force: :cascade do |t|

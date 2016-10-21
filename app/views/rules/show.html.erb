@@ -22,7 +22,9 @@
           <hr>
 
           <h4><%= t '.last_output' %></h4>
-          <pre><%= last_output trigger %></pre>
+          <p>
+            <samp><%= last_output trigger %></samp>
+          </p>
         <% end %>
       <% end %>
     </div>
@@ -30,4 +32,7 @@
 <% end %>
 
 <%= link_to_edit [:edit, @rule] %> |
+<%= link_to rules_exports_create_path(id: @rule), title: t('rules.index.export'), data: { method: :post } do %>
+  <span class="glyphicon glyphicon-floppy-save"></span>
+<% end %> |
 <%= link_to_index rules_path %>

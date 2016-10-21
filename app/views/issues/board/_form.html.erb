@@ -9,17 +9,33 @@
     </h4>
   </div>
   <div id="issue-board-form" class="panel-body collapse">
-    <%= simple_form_for :issue, url: issues_board_path, method: :patch do |f| %>
+    <%= simple_form_for Issue.new, url: issues_board_path, method: :patch do |f| %>
       <fieldset>
         <div class="row">
-          <div class="col-lg-5">
-            <%= f.input :description, label: false, required: false, input_html: { autofocus: true } %>
+          <div class="col-lg-6">
+            <%= f.input :description, as: :string, label: false, required: false, input_html: { autofocus: true } %>
           </div>
-          <div class="col-lg-5">
+          <div class="col-lg-6">
             <%= f.input :status, label: false, required: false, collection: filter_status, include_blank: '-' %>
           </div>
-          <div class="col-lg-2">
-            <%= f.button :submit, t('.submit'), class: 'btn-block btn-default' %>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <%= f.simple_fields_for :comments, Comment.new do |cf| %>
+              <%= cf.input :text, label: false, placeholder: t('comments.comment.text_placeholder'), input_html: { rows: 4 } %>
+            <% end %>
+          </div>
+          <div class="col-lg-6">
+            <%= f.simple_fields_for :taggings, Tagging.new do |tf| %>
+              <%= render 'issues/taggings/tagging', f: tf %>
+            <% end %>
+
+            <%= link_to_add_fields t('issues.new.tagging'), f, :taggings, kind: 'issue' %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 text-right">
+            <%= f.button :submit, t('.submit'), class: 'btn-default' %>
           </div>
         </div>
       </fieldset>

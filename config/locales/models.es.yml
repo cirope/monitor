@@ -33,8 +33,8 @@ es:
         one: 'Mantenedor'
         other: 'Mantenedores'
       output:
-        one: 'Salida'
-        other: 'Salidas'
+        one: 'Salida regla'
+        other: 'Salida reglas'
       parameter:
         one: 'Parámetro'
         other: 'Parámetros'
@@ -65,6 +65,9 @@ es:
       tag:
         one: 'Etiqueta'
         other: 'Etiquetas'
+      tagging:
+        one: 'Etiquetado'
+        other: 'Etiquetados'
       trigger:
         one: 'Disparador'
         other: 'Disparadores'
@@ -76,6 +79,7 @@ es:
       comment:
         text: 'Comentario'
         file: 'Adjunto'
+        issue: 'Caso'
       database:
         name: 'Nombre'
         driver: 'Controlador'
@@ -94,6 +98,8 @@ es:
         data: 'Datos'
         tags: 'Etiquetas'
         created_at: 'Fecha de caso'
+      issue/taggings:
+        tag_id: 'Etiqueta'
       job:
         script: 'Guión'
         server: 'Servidor'
@@ -161,6 +167,9 @@ es:
         style: 'Estilo'
         final: 'Final'
         export: 'Exportar'
+      tagging:
+        tag: 'Etiqueta'
+        tag_id: 'Etiqueta'
       trigger:
         callback: 'Función'
       user:
@@ -177,7 +186,13 @@ es:
 
     errors:
       models:
+        comment:
+          attributes:
+            issue:
+              invalid: 'no pertenece a su usuario'
         issue:
           attributes:
+            base:
+              user_invalid: 'No tiene permisos para modificar este caso'
             tags:
               invalid: 'finales debe haber una (solamente)'

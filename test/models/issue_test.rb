@@ -7,6 +7,10 @@ class IssueTest < ActiveSupport::TestCase
     @issue = issues :ls_on_atahualpa_not_well
   end
 
+  teardown do
+    PaperTrail.whodunnit = nil
+  end
+
   test 'blank attributes' do
     @issue.status = ''
 
@@ -28,6 +32,13 @@ class IssueTest < ActiveSupport::TestCase
     assert_error @issue, :tags, :invalid
   end
 
+  test 'user can modify' do
+    PaperTrail.whodunnit = users(:eduardo).id
+
+    assert @issue.invalid?
+    assert_error @issue, :base, :user_invalid
+  end
+
   test 'more than one final tag validation' do
     tag = Tag.create! name: 'new final tag', options: { final: true }
 
@@ -41,8 +52,6 @@ class IssueTest < ActiveSupport::TestCase
   end
 
   test 'next status' do
-    PaperTrail.whodunnit = nil
-
     @issue.taggings.create! tag_id: tags(:final).id
 
     assert_equal %w(pending taken closed), @issue.next_status
@@ -56,14 +65,32 @@ class IssueTest < ActiveSupport::TestCase
     PaperTrail.whodunnit = users(:franco).id
 
     assert_equal %w(taken closed), @issue.next_status
-
-    PaperTrail.whodunnit = nil
   end
 
   test 'notify to' do
     assert_enqueued_emails 1 do
       @issue.notify_to 'test@monitor.com'
     end
+  end
+
+  test 'permissions' do
+    assert !@issue.can_be_edited_by?(users(:god))
+    # And here the evidence... I have more power than God
+    assert  @issue.can_be_edited_by?(users(:franco))
+
+    assert !@issue.can_be_edited_by?(users(:eduardo))
+    assert !@issue.can_be_light_edited_by?(users(:eduardo))
+
+    @issue.subscriptions.create! user_id: users(:eduardo).id
+
+    assert @issue.reload.can_be_edited_by?(users(:eduardo))
+
+    assert !@issue.can_be_edited_by?(users(:john))
+
+    @issue.subscriptions.create! user_id: users(:john).id
+
+    assert !@issue.reload.can_be_edited_by?(users(:john))
+    assert  @issue.reload.can_be_light_edited_by?(users(:john))
   end
 
   test 'tagged with' do

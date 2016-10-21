@@ -38,23 +38,6 @@
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">
-          <a href="#tags" data-toggle="collapse">
-            <%= Tag.model_name.human count: 0 %>
-          </a>
-        </h3>
-      </div>
-      <div id="tags" class="collapse panel-body">
-        <%= f.simple_fields_for :taggings, schedule_taggings do |tf| %>
-          <%= render 'taggings/tagging', f: tf, kind: 'script' %>
-        <% end %>
-
-        <%= link_to_add_fields t('schedules.new.tagging'), f, :taggings, kind: 'script' %>
-      </div>
-    </div>
-
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">
           <a href="#dependencies" data-toggle="collapse">
             <%= Dependency.model_name.human count: 0 %>
           </a>

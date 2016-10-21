@@ -1,11 +1,11 @@
 module Issues::ExportData
   extend ActiveSupport::Concern
 
-  CSV_OPTIONS = { col_sep: "\t" }
+  CSV_OPTIONS = { col_sep: ';' }
 
   def export_data
     if data.present?
-      base_dir = Rails.root + "private/exports/#{SecureRandom.uuid}"
+      base_dir = EXPORTS_PATH + SecureRandom.uuid
 
       FileUtils.mkdir_p base_dir
 
@@ -25,10 +25,8 @@ module Issues::ExportData
 
   module ClassMethods
     def export_data
-      file  = "#{Rails.root}/private/exports/#{SecureRandom.uuid}.zip"
+      file  = "#{EXPORTS_PATH}/#{SecureRandom.uuid}.zip"
       files = []
-
-      FileUtils.mkdir_p File.dirname(file)
 
       ::Zip::File.open file, Zip::File::CREATE do |zipfile|
         all.map { |issue| files << issue.add_to_zip(zipfile) }
@@ -73,7 +71,7 @@ module Issues::ExportData
         ::CSV.open(csv_file, 'w', CSV_OPTIONS) do |csv|
           _hash = simple_hash.to_h
 
-          csv << _hash.keys
+          csv << with_utf_bomb(_hash.keys)
           csv << _hash.values
         end
       end
@@ -99,7 +97,7 @@ module Issues::ExportData
         csv_file = base_dir + sanitize_filename("#{name}_a.csv")
 
         ::CSV.open(csv_file, 'w', CSV_OPTIONS) do |csv|
-          csv << [name]
+          csv << with_utf_bomb([name])
 
           simple_array.each { |v| csv << [v] }
         end
@@ -110,7 +108,7 @@ module Issues::ExportData
         headers  = simple_hashes_array.map { |v| v.keys }.flatten.uniq
 
         ::CSV.open(csv_file, 'w', CSV_OPTIONS) do |csv|
-          csv << headers
+          csv << with_utf_bomb(headers)
 
           simple_hashes_array.each do |hash|
             row = []
@@ -139,7 +137,7 @@ module Issues::ExportData
 
     def zip_dir_content base_dir
       entries = Dir.entries(base_dir) - %w(. ..)
-      file    = "#{Rails.root}/private/exports/#{SecureRandom.uuid}.zip"
+      file    = "#{EXPORTS_PATH}/#{SecureRandom.uuid}.zip"
 
       ::Zip::File.open file, ::Zip::File::CREATE do |zipfile|
         entries.each { |entry| zipfile.add entry, base_dir + entry }
@@ -148,5 +146,11 @@ module Issues::ExportData
       base_dir.rmtree
 
       file
+    end
+
+    def with_utf_bomb array
+      array.each_with_index.map do |element, i|
+        i == 0 ? "\uFEFF#{element}" : element
+      end
     end
 end

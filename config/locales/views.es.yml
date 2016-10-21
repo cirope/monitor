@@ -19,13 +19,23 @@ es:
 
   board:
     index:
-      title: 'Tablero de casos'
+      title: 'Carrito de casos'
+
+  comments:
+    comment:
+      text_placeholder: 'Escriba un comentario'
+    edit:
+      title: 'Editar comentario'
 
   dashboard:
     index:
       title: 'Listado de casos'
       empty_html: 'No hay casos activos'
       empty_search_html: 'No hay casos que coincidan con el criterio de búsqueda'
+    filters:
+      show:
+        mine: 'Míos'
+        all: 'Todos'
 
   databases:
     edit:
@@ -71,18 +81,21 @@ es:
         title: 'Modificar'
         submit: 'Aplicar'
       index:
-        title: 'Tablero de casos'
+        title: 'Carrito de casos'
         clear: 'Limpiar'
-        empty_html: 'No hay casos agregados al tablero'
-        remove_from_board: 'Eliminar del tablero'
+        empty_html: 'No hay casos agregados al carrito'
+        remove_from_board: 'Eliminar del carrito'
         create_permalink: 'Crear enlace permanente'
         download_issue_data: 'Descargar datos'
+        destroy_all: 'Eliminar casos'
         actions: 'Acciones'
       update:
         updated: 'Todos los casos fueron actualizados'
         fail: 'No todos los casos fueron actualizados, algunos contienen errores'
       empty:
-        done: 'Se limpiaron todos los casos del tablero'
+        done: 'Se limpiaron todos los casos del carrito'
+      destroy_all:
+        destroyed: 'Se eliminaron todos los casos del carrito'
     edit:
       title: 'Editar caso'
     exports:
@@ -91,13 +104,13 @@ es:
     index:
       new: 'Nuevo caso'
       title: 'Listado de casos'
-      add_all: 'Agregar todos al tablero'
-      remove_all: 'Eliminar todos del tablero'
+      add_all: 'Agregar todos al carrito'
+      remove_all: 'Eliminar todos del carrito'
       empty_html: 'No tiene casos'
       empty_search_html: 'No hay casos que coincidan con el criterio de búsqueda'
     issue:
-      add_to_board: 'Agregar al tablero'
-      remove_from_board: 'Eliminar del tablero'
+      add_to_board: 'Agregar al carrito'
+      remove_from_board: 'Eliminar del carrito'
     new:
       subscription: 'Agregar usuario'
       tagging: 'Agregar etiqueta'
@@ -105,6 +118,7 @@ es:
       title: 'Ver caso'
       download_data: 'Descargar datos'
     status:
+      all: 'Todos'
       pending: 'Pendiente'
       taken: 'En proceso'
       closed: 'Cerrado'
@@ -154,12 +168,26 @@ es:
       title: 'Listado de reglas'
       empty_html: 'No hay reglas, puede crear una con el botón <span class="label label-primary">Nueva regla</span>'
       empty_search_html: 'No hay reglas que coincidan con el criterio de búsqueda'
+      import: 'Importar'
+      export: 'Exportar'
     new:
       title: 'Crear regla'
       trigger: 'Agregar disparador'
     show:
       title: 'Ver regla'
       last_output: 'Última salida'
+    exports:
+      create:
+        filename: 'reglas.zip'
+    imports:
+      create:
+        imported: 'Reglas importadas correctamente'
+        no_file: 'Debe proporcionar un archivo'
+        fail: 'Se produjo un error importando las reglas'
+      new:
+        title: 'Importar reglas'
+        file: 'Archivo'
+        submit: 'Importar'
 
   runs:
     index:
@@ -168,6 +196,7 @@ es:
       empty_search_html: 'No hay corridas que coincidan con el criterio de búsqueda'
     show:
       title: 'Ver corrida'
+      full_output: 'Ver salida completa'
     status:
       pending: 'Pendiente'
       scheduled: 'Programada'
@@ -175,6 +204,7 @@ es:
       ok: 'Finalizada OK'
       error: 'Finalizada con errores'
       canceled: 'Cancelada'
+      aborted: 'Abortada'
 
   scripts:
     edit:
@@ -312,6 +342,11 @@ es:
       danger: 'Peligro'
 
   taggings:
+    new:
+      title: 'Agregar etiqueta'
+    form:
+      add: 'Agregar'
+      empty: 'No se encontraron etiquetas con ese criterio'
     tagging:
       empty: 'No se encontraron etiquetas con ese criterio'
 

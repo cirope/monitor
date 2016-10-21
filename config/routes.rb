@@ -12,26 +12,37 @@ Rails.application.routes.draw do
   patch 'profile', to: 'profiles#update'
 
   # Issues board
-  get    'issues/board',       to: 'issues/board#index', as: 'issues_board'
-  post   'issues/board',       to: 'issues/board#create'
-  patch  'issues/board',       to: 'issues/board#update'
-  delete 'issues/board',       to: 'issues/board#destroy'
-  delete 'issues/board/empty', to: 'issues/board#empty', as: 'empty_issues_board'
+  get    'issues/board',             to: 'issues/board#index', as: 'issues_board'
+  post   'issues/board',             to: 'issues/board#create'
+  patch  'issues/board',             to: 'issues/board#update'
+  delete 'issues/board',             to: 'issues/board#destroy'
+  delete 'issues/board/empty',       to: 'issues/board#empty', as: 'empty_issues_board'
+  delete 'issues/board/destroy_all', to: 'issues/board#destroy_all', as: 'issues_board_destroy_all'
 
   # Issues data export
   post   'issues/exports',     to: 'issues/exports#create'
 
   # Resources
+  resources :comments, except: [:index, :new]
   resources :databases
   resources :descriptors
-  resources :issues, except: [:new, :create]
   resources :ldaps
   resources :rules
   resources :servers
   resources :password_resets, only: [:new, :create, :edit, :update]
 
+  resources :issues, except: [:new, :create] do
+    resources :taggings, only: [:new, :create, :destroy]
+  end
+
   resources :permalinks, only: [:show, :create] do
     resources :issues, only: [:show]
+  end
+
+  namespace :rules do
+    get 'imports/new'
+    post 'imports/create'
+    post 'exports/create'
   end
 
   resources :schedules do

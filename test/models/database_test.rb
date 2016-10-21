@@ -65,6 +65,12 @@ class DatabaseTest < ActiveSupport::TestCase
     assert_equal password_property.value, @database.password
   end
 
+  test 'property' do
+    property = properties :trace
+
+    assert_equal property.value, @database.property(property.key)
+  end
+
   test 'by name' do
     skip
   end
