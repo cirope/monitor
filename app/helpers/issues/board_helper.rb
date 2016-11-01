@@ -41,6 +41,12 @@ module Issues::BoardHelper
     end
   end
 
+  def link_to_download_pdf
+    link_to issues_board_path(format: :pdf) do
+      t '.download_pdf'
+    end
+  end
+
   def link_to_destroy_all_issues
     options = {
       data: {

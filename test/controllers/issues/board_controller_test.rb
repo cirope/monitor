@@ -21,6 +21,12 @@ class Issues::BoardControllerTest < ActionController::TestCase
     assert_select 'table tbody', false
   end
 
+  test 'should get index on PDF' do
+    get :index, session: { board_issues: [@issue.id] }, params: { format: :pdf }
+    assert_response :success
+    assert_equal 'application/pdf', response.content_type
+  end
+
   test 'should add issue to the board via xhr' do
     post :create, params: { filter: { id: @issue.id } }, xhr: true, as: :js
     assert_response :success
