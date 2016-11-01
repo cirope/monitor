@@ -19,5 +19,9 @@ module Users::Scopes
     def by_email email
       where "#{table_name}.email ILIKE ?", "%#{email}%"
     end
+
+    def by_issues issues
+      joins(:issues).merge(issues).distinct
+    end
   end
 end

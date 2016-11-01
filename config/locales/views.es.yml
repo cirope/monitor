@@ -117,9 +117,14 @@ es:
       tagging: 'Agregar etiqueta'
     pdf:
       title: 'Resumen de casos'
+      by_month: 'Resumen por mes'
+      summary: 'Resumen por guión y estado'
+      details: 'Detalle de casos'
       issue:
         one: 'Un caso'
         other: '%{count} casos'
+        count: 'Cantidad'
+        last_comment: 'Último comentario'
     show:
       title: 'Ver caso'
       download_data: 'Descargar datos'

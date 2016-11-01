@@ -67,4 +67,8 @@ class TagTest < ActiveSupport::TestCase
     assert tags.any?
     assert tags.all?(&:export?)
   end
+
+  test 'by issues' do
+    skip
+  end
 end
