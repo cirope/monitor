@@ -18,6 +18,7 @@ module Issues::Pdf
       put_issues_by_month_on   pdf
       put_summary_by_script_on pdf
       put_issue_details_on     pdf
+      put_footer_on            pdf
 
       pdf.render_file file
 
@@ -127,6 +128,13 @@ module Issues::Pdf
 
         put_table_on pdf, data, column_widths: { 4 => 60 }
         pdf.move_down 6
+      end
+
+      def put_footer_on pdf
+        footer  = '<page> / <total>'
+        options = { at: [pdf.bounds.right - 150, 0], align: :right, size: 9 }
+
+        pdf.number_pages footer, options
       end
 
       def put_script_descriptions_on pdf, script
