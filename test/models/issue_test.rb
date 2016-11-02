@@ -102,6 +102,15 @@ class IssueTest < ActiveSupport::TestCase
     assert issues.all? { |issue| issue.tags.any? { |t| t.name == tag.name } }
   end
 
+  test 'not tagged' do
+    Issue.take.tags.clear
+
+    issues = Issue.not_tagged
+
+    assert_not_equal 0, issues.count
+    assert issues.all? { |issue| issue.tags.empty? }
+  end
+
   test 'by created at' do
     skip
   end

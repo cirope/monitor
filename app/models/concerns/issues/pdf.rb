@@ -10,6 +10,8 @@ module Issues::Pdf
       file = "#{EXPORTS_PATH}/#{SecureRandom.uuid}.pdf"
       pdf  = Prawn::Document.new
 
+      pdf.fill_color = '222222'
+
       pdf.text I18n.t('issues.pdf.title'), size: 16
       pdf.move_down 6
 
@@ -108,13 +110,14 @@ module Issues::Pdf
       end
 
       def put_issue_details_on pdf
-        data = [issues_details_headers]
+        issues = includes(:script, :run, last_comment: :user)
+        data   = [issues_details_headers]
 
         pdf.text I18n.t('issues.pdf.details'), size: 16
         pdf.move_down 6
 
-        includes(:script, :run).ordered_by_script_name.order(:created_at).each do |issue|
-          last_comment = issue.comments.order(:created_at).last
+        issues.ordered_by_script_name.order(:created_at).each do |issue|
+          last_comment = issue.last_comment
 
           data << [
             issue.script.to_s,
@@ -191,13 +194,35 @@ module Issues::Pdf
       end
 
       def users
-        User.by_issues(all).by_role(%w(author supervisor)).reorder(:lastname)
+        User.by_issues(all).by_role(%w(author supervisor)).reorder :lastname
       end
 
       def issue_tag_list issues
-        tag_names = Tag.by_issues(issues).reorder(:name).pluck 'name'
+        result           = []
+        issues_relation  = convert_to_relation issues
+        not_tagged_count = issues_relation.not_tagged.count
 
-        tag_names.map { |name| "• #{name}" }.join("\n")
+        tag_names_for(issues_relation).each do |name, count|
+          result << "• #{name} (#{count})"
+        end
+
+        if not_tagged_count > 0
+          result << "• #{I18n.t('issues.pdf.issue.not_tagged')} (#{not_tagged_count})"
+        end
+
+        result.join("\n")
+      end
+
+      def tag_names_for issues
+        Tag.by_issues(issues).reorder(:name).group(:name).count "#{Issue.table_name}.id"
+      end
+
+      def convert_to_relation issues
+        if issues.kind_of? ActiveRecord::Relation
+          issues
+        else
+          Issue.where id: issues.map(&:id)
+        end
       end
 
       def put_table_on pdf, data, options = {}
@@ -210,8 +235,10 @@ module Issues::Pdf
         }
 
         pdf.table data, default_options.merge(options) do
-          cells.border_width = 0.5
-          row(0).font_style  = :bold
+          cells.border_width      = 0.5
+          cells.border_color      = '222222'
+          row(0).font_style       = :bold
+          row(0).background_color = 'f5f5f5'
         end
       end
   end

@@ -125,6 +125,7 @@ es:
         other: '%{count} casos'
         count: 'Cantidad'
         last_comment: 'Último comentario'
+        not_tagged: 'Sin etiquetas'
     show:
       title: 'Ver caso'
       download_data: 'Descargar datos'

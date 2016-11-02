@@ -95,6 +95,15 @@ class ScriptTest < ActiveSupport::TestCase
     assert scripts.all? { |script| script.tags.any? { |t| t.name == tag.name } }
   end
 
+  test 'not tagged' do
+    Script.take.tags.clear
+
+    scripts = Script.not_tagged
+
+    assert_not_equal 0, scripts.count
+    assert scripts.all? { |script| script.tags.empty? }
+  end
+
   test 'for export' do
     scripts = Script.for_export
 
