@@ -35,7 +35,7 @@ module Issues::Pdf
           script            = Script.find script_id
           issue_count_label = I18n.t('issues.pdf.issue', count: count)
 
-          pdf.text "• #{script} (#{issue_count_label})"
+          pdf.text "#{script} (#{issue_count_label})", style: :bold
 
           put_script_descriptions_on pdf, script
 
@@ -69,14 +69,14 @@ module Issues::Pdf
           issues_data = data.clone
 
           issues.group_by(&:script).each do |script, issues|
-            issues_data << [script.to_s, issues.size]
+            issues_data << [script.to_s, issues.size, issue_tag_list(issues)]
           end
 
           pdf.text I18n.l(month, format: '%B %Y').camelize
           pdf.move_down 6
 
           pdf.indent 16 do
-            put_table_on pdf, issues_data
+            put_table_on pdf, issues_data, column_widths: [254, 70, 200]
           end
 
           pdf.move_down 12
@@ -92,19 +92,17 @@ module Issues::Pdf
 
         counts.each do |script_data, count|
           script_id, script_name, status = *script_data
-
-          issues    = joins(:script).where(status: status, scripts: { id: script_id })
-          tag_names = Tag.by_issues(issues).reorder(:name).pluck 'name'
+          issues = joins(:script).where(status: status, scripts: { id: script_id })
 
           data << [
             script_name,
             I18n.t("issues.status.#{status}"),
             count,
-            tag_names.join('; ')
+            issue_tag_list(issues)
           ]
         end
 
-        put_table_on pdf, data
+        put_table_on pdf, data, column_widths: [210, 60, 70, 200]
         pdf.move_down 12
       end
 
@@ -127,7 +125,7 @@ module Issues::Pdf
           ]
         end
 
-        put_table_on pdf, data
+        put_table_on pdf, data, column_widths: { 4 => 60 }
         pdf.move_down 6
       end
 
@@ -159,7 +157,8 @@ module Issues::Pdf
       def issues_by_month_headers
         [
           Issue.model_name.human(count: 1),
-          I18n.t('issues.pdf.issue.count')
+          I18n.t('issues.pdf.issue.count'),
+          Tag.model_name.human(count: 0)
         ]
       end
 
@@ -187,8 +186,14 @@ module Issues::Pdf
         User.by_issues(all).by_role(%w(author supervisor)).reorder(:lastname)
       end
 
-      def put_table_on pdf, data
-        options = {
+      def issue_tag_list issues
+        tag_names = Tag.by_issues(issues).reorder(:name).pluck 'name'
+
+        tag_names.map { |name| "• #{name}" }.join("\n")
+      end
+
+      def put_table_on pdf, data, options = {}
+        default_options = {
           header: true,
           width:  pdf.bounds.width,
           cell_style: {
@@ -196,7 +201,7 @@ module Issues::Pdf
           }
         }
 
-        pdf.table data, options do
+        pdf.table data, default_options.merge(options) do
           cells.border_width = 0.5
           row(0).font_style  = :bold
         end
