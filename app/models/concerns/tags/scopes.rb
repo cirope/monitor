@@ -11,7 +11,11 @@ module Tags::Scopes
     end
 
     def by_issues issues
-      joins(:issues).merge(issues).distinct
+      if issues.kind_of? ActiveRecord::Relation
+        joins(:issues).merge(issues).distinct
+      else
+        joins(:issues).where(issues: { id: issues.map(&:id) }).distinct
+      end
     end
   end
 end
