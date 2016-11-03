@@ -52,7 +52,7 @@ module Issues::Pdf
           pdf.move_down 6
 
           pdf.indent 16 do
-            users.each { |user| pdf.text "• #{user}" }
+            pdf.text to_list(users)
           end
 
           pdf.move_down 12
@@ -110,7 +110,7 @@ module Issues::Pdf
       end
 
       def put_issue_details_on pdf
-        issues = includes(:script, :run, last_comment: :user)
+        issues = includes :script, :tags, last_comment: :user
         data   = [issues_details_headers]
 
         pdf.text I18n.t('issues.pdf.details'), size: 16
@@ -121,10 +121,10 @@ module Issues::Pdf
 
           data << [
             issue.script.to_s,
-            I18n.l(issue.run.scheduled_at, format: :compact),
             I18n.l(issue.created_at, format: :compact),
             issue.description,
             I18n.t("issues.status.#{issue.status}"),
+            to_list(issue.tags),
             [last_comment&.user.to_s, last_comment&.text].compact.join(': ')
           ]
         end
@@ -185,10 +185,10 @@ module Issues::Pdf
       def issues_details_headers
         [
           Script.model_name.human(count: 1),
-          Run.human_attribute_name('scheduled_at'),
           Issue.human_attribute_name('created_at'),
           Issue.human_attribute_name('description'),
           Issue.human_attribute_name('status'),
+          Tag.model_name.human(count: 0),
           I18n.t('issues.pdf.issue.last_comment')
         ]
       end
@@ -198,23 +198,28 @@ module Issues::Pdf
       end
 
       def issue_tag_list issues
-        result           = []
         issues_relation  = convert_to_relation issues
         not_tagged_count = issues_relation.not_tagged.count
 
-        tag_names_for(issues_relation).each do |name, count|
-          result << "• #{name} (#{count})"
-        end
-
-        if not_tagged_count > 0
-          result << "• #{I18n.t('issues.pdf.issue.not_tagged')} (#{not_tagged_count})"
-        end
-
-        result.join("\n")
+        tag_names_as_list tag_names_for(issues_relation), not_tagged_count
       end
 
       def tag_names_for issues
         Tag.by_issues(issues).reorder(:name).group(:name).count "#{Issue.table_name}.id"
+      end
+
+      def tag_names_as_list tag_names, not_tagged_count
+        list = []
+
+        tag_names.each do |name, count|
+          list << "#{name} (#{count})"
+        end
+
+        if not_tagged_count > 0
+          list << "#{I18n.t('issues.pdf.issue.not_tagged')} (#{not_tagged_count})"
+        end
+
+        to_list list
       end
 
       def convert_to_relation issues
@@ -223,6 +228,10 @@ module Issues::Pdf
         else
           Issue.where id: issues.map(&:id)
         end
+      end
+
+      def to_list list
+        list.map { |item| "• #{item}" }.join("\n")
       end
 
       def put_table_on pdf, data, options = {}
