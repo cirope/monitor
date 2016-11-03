@@ -1,5 +1,6 @@
 set :stage, :production
 set :rails_env, 'production'
+set :branch, 'new-init'
 
 role :web, %w{deployer@monitor.cirope.com}
 role :app, %w{deployer@monitor.cirope.com}
