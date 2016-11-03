@@ -5,6 +5,8 @@ module Scripts::Pdf
     file = "#{EXPORTS_PATH}/#{SecureRandom.uuid}.pdf"
     pdf  = Prawn::Document.new
 
+    pdf.fill_color = '222222'
+
     pdf.text name
 
     put_text_on   pdf
@@ -61,9 +63,10 @@ module Scripts::Pdf
     end
 
     def put_footer_on pdf
-      footer = "#{I18n.l Time.zone.now, format: :compact} (<page> / <total>)"
+      footer  = "#{I18n.l Time.zone.now, format: :compact} # <page> / <total>"
+      options = { at: [pdf.bounds.right - 150, 0], align: :right, size: 9 }
 
-      pdf.number_pages footer, at: [pdf.bounds.right - 150, 0], align: :right
+      pdf.number_pages footer, options
     end
 
     def put_table_on pdf, data
@@ -71,13 +74,15 @@ module Scripts::Pdf
         header: true,
         width: pdf.bounds.width,
         cell_style: {
-          size: 9
+          size: 8
         }
       }
 
       pdf.table data, options do
-        cells.border_width = 0.5
-        row(0).font_style  = :bold
+        cells.border_width      = 0.5
+        cells.border_color      = '222222'
+        row(0).font_style       = :bold
+        row(0).background_color = 'f5f5f5'
       end
     end
 

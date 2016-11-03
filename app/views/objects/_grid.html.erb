@@ -1,26 +1,28 @@
-<table class="table table-condensed table-bordered table-hover" data-container>
-  <thead>
-    <tr>
-      <% columns.each do |c| %>
-        <th><%= c %></th>
-      <% end %>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% object.each_with_index do |item, i| %>
+<div class="table-responsive">
+  <table class="table table-condensed table-hover" data-container>
+    <thead>
       <tr>
         <% columns.each do |c| %>
-          <td>
-            <%= link_or_show parent, "#{i}/#{c}", item[c], object.object_id %>
-          </td>
+          <th><%= c %></th>
         <% end %>
-        <td>
-          <%= link_or_show parent, i, item, object.object_id %>
-        </td>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% object.each_with_index do |item, i| %>
+        <tr>
+          <% columns.each do |c| %>
+            <td>
+              <%= link_or_show parent, "#{i}/#{c}", item[c], object.object_id %>
+            </td>
+          <% end %>
+          <td>
+            <%= link_or_show parent, i, item, object.object_id %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
 <div data-container="<%= object.object_id %>"></div>

@@ -87,6 +87,7 @@ es:
         remove_from_board: 'Eliminar del carrito'
         create_permalink: 'Crear enlace permanente'
         download_issue_data: 'Descargar datos'
+        download_pdf: 'Descargar PDF'
         destroy_all: 'Eliminar casos'
         actions: 'Acciones'
       update:
@@ -114,6 +115,17 @@ es:
     new:
       subscription: 'Agregar usuario'
       tagging: 'Agregar etiqueta'
+    pdf:
+      title: 'Resumen de casos'
+      by_month: 'Resumen por mes'
+      summary: 'Resumen por guión y estado'
+      details: 'Detalle de casos'
+      issue:
+        one: 'Un caso'
+        other: '%{count} casos'
+        count: 'Cantidad'
+        last_comment: 'Último comentario'
+        not_tagged: 'Sin etiquetas'
     show:
       title: 'Ver caso'
       download_data: 'Descargar datos'
@@ -196,6 +208,7 @@ es:
       empty_search_html: 'No hay corridas que coincidan con el criterio de búsqueda'
     show:
       title: 'Ver corrida'
+      full_output: 'Ver salida completa'
     status:
       pending: 'Pendiente'
       scheduled: 'Programada'

@@ -102,6 +102,15 @@ class IssueTest < ActiveSupport::TestCase
     assert issues.all? { |issue| issue.tags.any? { |t| t.name == tag.name } }
   end
 
+  test 'not tagged' do
+    Issue.take.tags.clear
+
+    issues = Issue.not_tagged
+
+    assert_not_equal 0, issues.count
+    assert issues.all? { |issue| issue.tags.empty? }
+  end
+
   test 'by created at' do
     skip
   end
@@ -136,5 +145,13 @@ class IssueTest < ActiveSupport::TestCase
 
   test 'add to zip' do
     skip
+  end
+
+  test 'to pdf' do
+    path = Issue.to_pdf
+
+    assert File.exist?(path)
+
+    FileUtils.rm path
   end
 end

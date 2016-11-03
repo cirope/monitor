@@ -12,7 +12,7 @@ module Comments::Validation
   private
 
     def set_user
-      self.user_id = PaperTrail.whodunnit
+      self.user_id = PaperTrail.whodunnit if PaperTrail.whodunnit
     end
 
     def user_belongs_to_issue?
