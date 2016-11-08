@@ -1,3 +1,4 @@
 cd_email:
+  uuid: <%= SecureRandom.uuid %>
   name: Email for cd
   enabled: true

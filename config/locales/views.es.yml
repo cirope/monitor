@@ -5,6 +5,8 @@ es:
     confirmation: '¿Está seguro?'
     download: 'Descargar'
     not_authorized: 'No está autorizado para ver el contenido'
+    not_allowed: 'No está autorizado para realizar la operación'
+    file_not_found: 'No se encontró el archivo'
     ldap_error: 'El servidor de autenticación no está disponible, intente nuevamente más tarde'
 
   navigation:
@@ -17,17 +19,23 @@ es:
 
   board:
     index:
-      title: 'Tablero de casos'
+      title: 'Carrito de casos'
+
+  comments:
+    comment:
+      text_placeholder: 'Escriba un comentario'
+    edit:
+      title: 'Editar comentario'
 
   dashboard:
-    filters:
-      title: 'Buscar'
-      submit: 'Aplicar'
-      empty: 'No se encontraron etiquetas con ese criterio'
     index:
       title: 'Listado de casos'
       empty_html: 'No hay casos activos'
       empty_search_html: 'No hay casos que coincidan con el criterio de búsqueda'
+    filters:
+      show:
+        mine: 'Míos'
+        all: 'Todos'
 
   databases:
     edit:
@@ -36,6 +44,7 @@ es:
       new: 'Nueva base de datos'
       title: 'Listado de bases de datos'
       empty_html: 'No hay bases de datos, puede crear una con el botón <span class="label label-primary">Nueva base de datos</span>'
+      empty_search_html: 'No hay bases de datos que coincidan con el criterio de búsqueda'
     new:
       title: 'Crear base de datos'
       property: 'Agregar propiedad'
@@ -72,37 +81,56 @@ es:
         title: 'Modificar'
         submit: 'Aplicar'
       index:
+        title: 'Carrito de casos'
         clear: 'Limpiar'
-        empty_html: 'No hay casos agregados al tablero'
-        remove_from_board: 'Eliminar del tablero'
-        permalink: 'Enlace permanente'
+        empty_html: 'No hay casos agregados al carrito'
+        remove_from_board: 'Eliminar del carrito'
+        create_permalink: 'Crear enlace permanente'
+        download_issue_data: 'Descargar datos'
+        download_pdf: 'Descargar PDF'
+        destroy_all: 'Eliminar casos'
+        actions: 'Acciones'
       update:
         updated: 'Todos los casos fueron actualizados'
         fail: 'No todos los casos fueron actualizados, algunos contienen errores'
       empty:
-        done: 'Se limpiaron todos los casos del tablero'
+        done: 'Se limpiaron todos los casos del carrito'
+      destroy_all:
+        destroyed: 'Se eliminaron todos los casos del carrito'
     edit:
       title: 'Editar caso'
-    filters:
-      title: 'Buscar'
-      submit: 'Aplicar'
-      empty: 'No se encontraron etiquetas con ese criterio'
+    exports:
+      create:
+        filename: 'datos.zip'
     index:
       new: 'Nuevo caso'
       title: 'Listado de casos'
-      add_all: 'Agregar todos al tablero'
-      remove_all: 'Eliminar todos del tablero'
+      add_all: 'Agregar todos al carrito'
+      remove_all: 'Eliminar todos del carrito'
       empty_html: 'No tiene casos'
       empty_search_html: 'No hay casos que coincidan con el criterio de búsqueda'
     issue:
-      add_to_board: 'Agregar al tablero'
-      remove_from_board: 'Eliminar del tablero'
+      add_to_board: 'Agregar al carrito'
+      remove_from_board: 'Eliminar del carrito'
     new:
       subscription: 'Agregar usuario'
       tagging: 'Agregar etiqueta'
+    pdf:
+      title: 'Resumen de casos'
+      by_month: 'Resumen por mes'
+      summary: 'Resumen por guión y estado'
+      details: 'Detalle de casos'
+      issue:
+        one: 'Un caso'
+        other: '%{count} casos'
+        count: 'Cantidad'
+        last_comment: 'Último comentario'
+        not_tagged: 'Sin etiquetas'
     show:
       title: 'Ver caso'
+      download_data: 'Descargar datos'
     status:
+      all: 'Todos'
       pending: 'Pendiente'
       taken: 'En proceso'
       closed: 'Cerrado'
@@ -119,17 +147,30 @@ es:
     show:
       title: 'Ver configuración LDAP'
 
+  maintainers:
+    maintainer:
+      empty: 'No se encontraron usuarios con ese criterio'
+
   objects:
     grid:
       more: 'Ver'
     table:
       more: 'Ver'
+      graph:
+        type: 'Tipo de gráfico'
+        line: 'Línea'
+        bar: 'Barra'
+        pie: 'Torta'
     ul:
       more: 'Ver'
 
   requires:
     require:
       empty: 'No se encontraron guiones con ese criterio'
+
+  permalinks:
+    show:
+      title: 'Casos'
 
   rules:
     edit:
@@ -138,19 +179,36 @@ es:
       new: 'Nueva regla'
       title: 'Listado de reglas'
       empty_html: 'No hay reglas, puede crear una con el botón <span class="label label-primary">Nueva regla</span>'
+      empty_search_html: 'No hay reglas que coincidan con el criterio de búsqueda'
+      import: 'Importar'
+      export: 'Exportar'
     new:
       title: 'Crear regla'
       trigger: 'Agregar disparador'
     show:
       title: 'Ver regla'
       last_output: 'Última salida'
+    exports:
+      create:
+        filename: 'reglas.zip'
+    imports:
+      create:
+        imported: 'Reglas importadas correctamente'
+        no_file: 'Debe proporcionar un archivo'
+        fail: 'Se produjo un error importando las reglas'
+      new:
+        title: 'Importar reglas'
+        file: 'Archivo'
+        submit: 'Importar'
 
   runs:
     index:
       title: 'Listado de corridas'
       empty_html: 'No hay corridas para este trabajo'
+      empty_search_html: 'No hay corridas que coincidan con el criterio de búsqueda'
     show:
       title: 'Ver corrida'
+      full_output: 'Ver salida completa'
     status:
       pending: 'Pendiente'
       scheduled: 'Programada'
@@ -158,6 +216,7 @@ es:
       ok: 'Finalizada OK'
       error: 'Finalizada con errores'
       canceled: 'Cancelada'
+      aborted: 'Abortada'
 
   scripts:
     edit:
@@ -166,14 +225,43 @@ es:
       new: 'Nuevo guión'
       title: 'Listado de guiones'
       empty_html: 'No hay guiones, puede crear uno con el botón <span class="label label-primary">Nuevo guión</span>'
+      empty_search_html: 'No hay guiones que coincidan con el criterio de búsqueda'
+      import: 'Importar'
+      export: 'Exportar'
     new:
       title: 'Crear guión'
+      maintainer: 'Agregar mantenedor'
       require: 'Agregar inclusión'
       tagging: 'Agregar etiqueta'
       parameter: 'Agregar parámetro'
       description: 'Agregar descripción'
     show:
       title: 'Ver guión'
+      history: 'Ver historial de cambios'
+      download_pdf: 'Descargar PDF'
+    exports:
+      create:
+        filename: 'guiones.zip'
+    imports:
+      create:
+        imported: 'Guiones importados correctamente'
+        no_file: 'Debe proporcionar un archivo'
+        fail: 'Se produjo un error importando los guiones'
+      new:
+        title: 'Importar guiones'
+        file: 'Archivo'
+        submit: 'Importar'
+      default_change: 'Importado el %{date}'
+    versions:
+      index:
+        title: 'Histórico de versiones'
+        change: 'Cambio'
+        empty_html: 'No hay versiones para este guión'
+        event:
+          create: 'Creación'
+      show:
+        title: 'Ver versión'
+        no_previous: 'Primer versión'
 
   schedules:
     edit:
@@ -182,6 +270,7 @@ es:
       new: 'Nuevo trabajo'
       title: 'Listado de trabajos'
       empty_html: 'No hay trabajos, puede crear uno con el botón <span class="label label-primary">Nuevo trabajo</span>'
+      empty_search_html: 'No hay trabajos que coincidan con el criterio de búsqueda'
     new:
       title: 'Crear trabajo'
       job: 'Agregar guión'
@@ -211,6 +300,7 @@ es:
       new: 'Nuevo servidor'
       title: 'Listado de servidores'
       empty_html: 'No hay servidores, puede crear uno con el botón <span class="label label-primary">Nuevo servidor</span>'
+      empty_search_html: 'No hay servidores que coincidan con el criterio de búsqueda'
     new:
       title: 'Crear servidor'
     show:
@@ -264,6 +354,11 @@ es:
       danger: 'Peligro'
 
   taggings:
+    new:
+      title: 'Agregar etiqueta'
+    form:
+      add: 'Agregar'
+      empty: 'No se encontraron etiquetas con ese criterio'
     tagging:
       empty: 'No se encontraron etiquetas con ese criterio'
 
@@ -275,6 +370,7 @@ es:
       title: 'Listado de usuarios'
       ldap_import: 'Importar desde LDAP'
       empty_html: 'No hay usuarios, puede crear uno con el botón <span class="label label-primary">Nuevo usuario</span>'
+      empty_search_html: 'No hay usuarios que coincidan con el criterio de búsqueda'
     new:
       title: 'Crear usuario'
       tagging: 'Agregar etiqueta'

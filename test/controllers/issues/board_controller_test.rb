@@ -8,72 +8,102 @@ class Issues::BoardControllerTest < ActionController::TestCase
     login
   end
 
-  teardown do
-    session[:board_issues] = nil
-  end
-
   test 'should get index' do
-    session[:board_issues] = [@issue.id]
-
-    get :index
+    get :index, session: { board_issues: [@issue.id] }
     assert_response :success
-    assert_not_nil assigns(:issues)
-    assert_equal session[:board_issues].size, assigns(:issues).size
-    assert_equal @issue.id, assigns(:issues).first.id
+    assert_select 'table tbody tr', session[:board_issues].size
+    assert_select 'table tbody tr td', text: @issue.description
   end
 
   test 'should get empty index' do
     get :index
     assert_response :success
-    assert_not_nil assigns(:issues)
-    assert_equal 0, assigns(:issues).size
+    assert_select 'table tbody', false
+  end
+
+  test 'should get index on PDF' do
+    get :index, session: { board_issues: [@issue.id] }, params: { format: :pdf }
+    assert_response :success
+    assert_equal 'application/pdf', response.content_type
   end
 
   test 'should add issue to the board via xhr' do
-    xhr :post, :create, filter: { id: @issue.id }, format: :js
+    post :create, params: { filter: { id: @issue.id } }, xhr: true, as: :js
     assert_response :success
-    assert_template 'issues/board/create'
     assert_includes session[:board_issues], @issue.id
   end
 
   test 'should add issue to the board via filter' do
-    post :create, filter: { description: @issue.description }
-    assert_redirected_to :back
+    post :create, params: { filter: { description: @issue.description } }
+    assert_response :redirect
     assert_includes session[:board_issues], @issue.id
   end
 
   test 'should update issues' do
     session[:board_issues] = [@issue.id]
 
-    patch :update, issue: { description: 'Updated' }
+    patch :update, params: { issue: { description: 'Updated' } }, session: { board_issues: [@issue.id] }
     assert_redirected_to issues_board_url
     assert_equal 'Updated', @issue.reload.description
   end
 
-  test 'should delete issue from board via xhr' do
-    session[:board_issues] = [@issue.id]
+  test 'should add comment to issues' do
+    assert_difference '@issue.comments.count', 1 do
+      patch :update, params: {
+        issue: { comments_attributes: [ { text: 'New comment' } ] }
+      }, session: { board_issues: [@issue.id] }
+    end
 
-    xhr :delete, :destroy, filter: { id: @issue.id }, format: :js
+    assert_redirected_to issues_board_url
+  end
+
+  test 'should replace tags from issues' do
+    assert @issue.tags.any? { |tag| tag.id == tags(:important).id }
+
+    assert_no_difference '@issue.tags.count' do
+      patch :update, params: {
+        issue: { taggings_attributes: { '0': { tag_id: tags(:final).id } } }
+      }, session: { board_issues: [@issue.id] }
+    end
+
+    assert_redirected_to issues_board_url
+    assert @issue.reload.tags.all? { |tag| tag.id != tags(:important).id }
+  end
+
+  test 'should delete issue from board via xhr' do
+    delete :destroy, params: { filter: { id: @issue.id } }, session: { board_issues: [@issue.id] }, xhr: true, as: :js
     assert_response :success
-    assert_template 'issues/board/destroy'
     assert session[:board_issues].exclude?(@issue.id)
   end
 
   test 'should delete issue from board via filter' do
-    session[:board_issues] = [@issue.id]
-
-    delete :destroy, filter: { description: @issue.description }
-    assert_redirected_to :back
+    delete :destroy, params: { filter: { description: @issue.description } }, session: { board_issues: [@issue.id] }
+    assert_response :redirect
     assert session[:board_issues].exclude?(@issue.id)
   end
 
   test 'should empty the board' do
-    session[:board_issues]       = [@issue.id]
-    session[:board_issue_errors] = { @issue.id => 'Error' }
-
-    delete :empty
+    delete :empty, session: { board_issues: [@issue.id], board_issue_errors: { @issue.id => 'Error' } }
     assert_redirected_to dashboard_url
     assert_equal 0, session[:board_issues].size
     assert_equal 0, session[:board_issue_errors].size
+  end
+
+  test 'should destroy all issues on the board' do
+    issue = @issue.dup
+
+    assert_difference 'Issue.count' do
+      issue.save!
+    end
+
+    assert_difference 'Issue.count', -1 do
+      delete :destroy_all, session: { board_issues: [@issue.id], board_issue_errors: { @issue.id => 'Error' } }
+    end
+
+    assert_redirected_to dashboard_url
+    assert_equal 0, session[:board_issues].size
+    assert_equal 0, session[:board_issue_errors].size
+    assert issue.reload
+    assert_raise(ActiveRecord::RecordNotFound) { @issue.reload }
   end
 end

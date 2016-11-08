@@ -12,15 +12,35 @@
 
 <p>
   <strong><%= Issue.human_attribute_name 'run' %></strong>:
-  <%= link_to_unless current_user.guest?, @issue.run, @issue.run %>
+  <%= link_to_unless current_user.guest? || current_user.security?, @issue.run, @issue.run %>
 </p>
 
-<% if @issue.data.present? %>
-  <p>
-    <strong><%= Issue.human_attribute_name 'data' %></strong>
-  </p>
+<ul class="list-inline" data-tagging-list>
+  <% @issue.taggings.each do |tagging| %>
+    <%= render template: 'taggings/show', locals: { tagging: tagging } %>
+  <% end %>
+</ul>
 
-  <%= render_object @issue, '' %>
+<% if @issue.can_be_light_edited_by? current_user %>
+  <div data-tagging-new>
+    <p>
+      <%= link_to t('taggings.new.title'), new_issue_tagging_path(@issue), class: 'btn btn-default btn-xs', data: { remote: true } %>
+    </p>
+  </div>
+<% end %>
+
+<% if @issue.data.present? %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <%= Issue.human_attribute_name 'data' %>
+        <span class="pull-right"><%= link_to_export_data %></span>
+      </h3>
+    </div>
+    <div id="data" class="panel-body">
+      <%= render_object @issue, '' %>
+    </div>
+  </div>
 <% end %>
 
 <% if @issue.subscriptions.any? %>
@@ -33,54 +53,29 @@
     <div id="subscriptions" class="panel-body">
       <ul>
         <% @issue.subscriptions.each do |subscription| %>
-          <li><%= link_to_unless current_user.guest?, subscription.user, subscription.user %></li>
+          <li><%= link_to_unless current_user.guest? || current_user.security?, subscription.user, subscription.user %></li>
         <% end %>
       </ul>
     </div>
   </div>
 <% end %>
 
-<% if @issue.tags.any? %>
-  <ul class="list-inline">
-    <% @issue.tags.each do |tag| %>
-      <li>
-        <span class="label label-<%= tag.style %>"><%= tag %></span>
-      </li>
-    <% end %>
-  </ul>
-<% end %>
-
-<% if @issue.comments.any? %>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">
-        <%= Comment.model_name.human count: @issue.comments.size %>
-      </h3>
-    </div>
-    <div id="comments" class="panel-body">
-      <% @issue.comments.each do |comment| %>
-      <div class="row">
-        <div class="col-sm-10">
-          <blockquote>
-            <%= simple_format comment.text %>
-            <footer><%= comment.user %></footer>
-          </blockquote>
-        </div>
-        <div class="col-sm-2">
-          <% if comment.file.present? %>
-            <p>
-              <strong><%= Comment.human_attribute_name 'file' %></strong>:
-              <%= link_to t('messages.download'), comment.file.url %>
-            </p>
-          <% end %>
-        </div>
-      </div>
-      <% end %>
-    </div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">
+      <%= Comment.model_name.human count: 0 %>
+    </h3>
   </div>
-<% end %>
+  <div id="comments" class="panel-body">
+    <% @issue.comments.each do |comment| %>
+      <%= render 'comments/show', comment: comment %>
+    <% end %>
 
-<% unless params[:ids] %>
-  <%= link_to_edit [:edit, @issue] %> |
+    <%= render template: 'comments/new', locals: { :@comment => @issue.comments.new } %>
+  </div>
+</div>
+
+<% if @permalink.blank? && (current_user.author? || current_user.supervisor?) %>
+  <%= link_to_edit [:edit, @issue, context: @context] %> |
 <% end %>
 <%= link_to_index issue_index_path %>

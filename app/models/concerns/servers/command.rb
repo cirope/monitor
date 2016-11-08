@@ -2,26 +2,58 @@ module Servers::Command
   extend ActiveSupport::Concern
 
   def execute script
-    out         = {}
     script_path = script.copy_to self
 
-    Net::SSH.start hostname, user, ssh_options do |ssh|
-      ssh.exec! "chmod +x #{script_path}"
-
-      out = ssh_exec! ssh, "$SHELL -ci #{script_path}"
-
-      ssh.exec! "rm #{script_path}"
+    if script_path.blank?
+      return {
+        status: 'error',
+        output: 'Script transfer failed'
+      }
     end
 
-    {
-      status: out[:exit_code] == 0 ? 'ok' : 'error',
-      output: out[:output]
-    }
-  rescue
-    { status: 'error' }
+    if local?
+      execute_local  script_path
+    else
+      execute_remote script_path
+    end
+  rescue => ex
+    { status: 'error', output: ex.to_s }
   end
 
   private
+
+    def rails
+      "#{Rails.root}/bin/rails"
+    end
+
+    def execute_local script_path
+      stdout, stderr, status = Open3.capture3 rails, 'runner', script_path
+      status_text            = "\nExit status: #{status}" unless status.to_i == 0
+
+      {
+        status: status.to_i == 0 ? 'ok' : 'error',
+        output: [stdout, stderr].join + status_text.to_s
+      }
+    end
+
+    def execute_remote script_path
+      out = {}
+
+      Net::SSH.start hostname, user, ssh_options do |ssh|
+        ssh.exec! "chmod +x #{script_path}"
+
+        out = ssh_exec! ssh, "$SHELL -ci #{script_path}"
+
+        ssh.exec! "rm #{script_path}"
+      end
+
+      status_text = "\nExit status: #{out[:exit_code]}" unless out[:exit_code] == 0
+
+      {
+        status: out[:exit_code] == 0 ? 'ok' : 'error',
+        output: out[:output].to_s + status_text.to_s
+      }
+    end
 
     def ssh_exec! ssh, command
       output    = ''

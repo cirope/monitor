@@ -4,7 +4,7 @@ default: &default
   host: localhost
   pool: 5
   username: <%= ENV['TRAVIS'] ? 'postgres' : 'monitor' %>
-  password: <%= ENV['TRAVIS'] ? '' : 'monitor' %>
+  password: <%= ENV['TRAVIS'] ? '' : ENV['APP_DB_PASSWORD'] || 'monitor' %>
 
 development:
   <<: *default

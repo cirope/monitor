@@ -1,0 +1,7 @@
+class AddUuidToScripts < ActiveRecord::Migration
+  def change
+    add_column :scripts, :uuid, :uuid, null: false, default: 'md5(random()::text || clock_timestamp()::text)::uuid'
+
+    add_index :scripts, :uuid, unique: true
+  end
+end

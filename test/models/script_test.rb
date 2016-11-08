@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ScriptTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @script = scripts :ls
   end
 
@@ -22,6 +22,15 @@ class ScriptTest < ActiveSupport::TestCase
     assert_error script, :name, :taken
   end
 
+  test 'attributes length' do
+    @script.name = 'abcde' * 52
+    @script.change = 'abcde' * 52
+
+    assert @script.invalid?
+    assert_error @script, :name, :too_long, count: 255
+    assert_error @script, :change, :too_long, count: 255
+  end
+
   test 'not text and file validation' do
     @script.file = Rack::Test::UploadedFile.new(
       "#{Rails.root}/test/fixtures/files/test.sh", 'text/plain', false
@@ -31,7 +40,18 @@ class ScriptTest < ActiveSupport::TestCase
     assert_error @script, :file, :invalid
   end
 
-  test 'can not destroy when active issues' do
+  test 'text modification should ask change' do
+    @script.change = ''
+
+    assert @script.valid?
+
+    @script.text = 'puts "123"'
+
+    assert @script.invalid?
+    assert_error @script, :change, :blank
+  end
+
+  test 'can not destroy when issues' do
     assert_no_difference 'Script.count' do
       @script.destroy
     end
@@ -57,7 +77,7 @@ class ScriptTest < ActiveSupport::TestCase
   end
 
   test 'body includes defaults' do
-    Script.create! name: 'Core test', core: true, text: 'puts "Core script"'
+    Script.create! name: 'Core test', core: true, text: 'puts "Core script"', change: 'Initial'
 
     assert_match /Core script/, @script.body
   end
@@ -73,5 +93,148 @@ class ScriptTest < ActiveSupport::TestCase
     assert_not_equal 0, scripts.count
     assert_not_equal 0, scripts.take.tags.count
     assert scripts.all? { |script| script.tags.any? { |t| t.name == tag.name } }
+  end
+
+  test 'not tagged' do
+    Script.take.tags.clear
+
+    scripts = Script.not_tagged
+
+    assert_not_equal 0, scripts.count
+    assert scripts.all? { |script| script.tags.empty? }
+  end
+
+  test 'for export' do
+    scripts = Script.for_export
+
+    assert scripts.all? { |script| script.tags.any? &:export? }
+  end
+
+  test 'can be edited by' do
+    user = @script.maintainers.take.user
+
+    assert @script.can_be_edited_by?(user)
+
+    user = users :john
+
+    assert !@script.can_be_edited_by?(user)
+
+    user = users :franco
+
+    assert @script.can_be_edited_by?(user)
+  end
+
+  test 'to json' do
+    assert_equal @script.name, ActiveSupport::JSON.decode(@script.to_json)['name']
+  end
+
+  test 'to pdf' do
+    path = @script.to_pdf
+
+    assert File.exist?(path)
+
+    FileUtils.rm path
+  end
+
+  test 'export' do
+    path = Script.export
+
+    assert File.exist?(path)
+
+    FileUtils.rm path
+  end
+
+  test 'add to zip' do
+    zipfile_path      = "#{SecureRandom.uuid}.zip"
+    expected_filename = "#{@script.uuid}.json"
+
+    ::Zip::File.open zipfile_path, Zip::File::CREATE do |zipfile|
+      assert !zipfile.find_entry(expected_filename)
+
+      @script.add_to_zip zipfile
+
+      assert zipfile.find_entry(expected_filename)
+    end
+
+    FileUtils.rm zipfile_path
+  end
+
+  test 'import an existing script' do
+    path = Script.where(id: @script.id).export
+
+    @script.parameters.clear
+    @script.requires.clear
+    @script.update! name: 'Updated'
+
+    assert_no_difference 'Script.count' do
+      Script.import path
+    end
+
+    assert_not_equal 'Updated', @script.reload.name
+    assert @script.parameters.any?
+    assert @script.requires.any?
+
+    FileUtils.rm path
+  end
+
+  test 'import a new script' do
+    uuid   = SecureRandom.uuid
+    script = @script.dup
+
+    script.name = 'Should be imported as new'
+    script.uuid = uuid
+    script.save!
+
+    path = Script.where(id: script.id).export
+
+    script.destroy!
+
+    assert_difference 'Script.count' do
+      Script.import path
+    end
+
+    assert Script.find_by uuid: uuid
+
+    FileUtils.rm path
+  end
+
+  test 'text with db injections' do
+    db = databases :postgresql
+
+    assert_equal @script.text, @script.text_with_injections
+
+    @script.text = "ODBC.connect('#{db.name}')"
+
+    # Driver no FreeTDS
+    assert_equal @script.text, @script.text_with_injections
+
+    expected = "ODBC.connect('#{db.name}', '#{db.user}', '#{db.password}')"
+
+    db.update! driver: 'FreeTDS'
+
+    assert_equal expected, @script.text_with_injections
+
+    @script.text = "ODBC.connect('#{db.name}', 'custom_user', 'custom_password')"
+
+    assert_equal @script.text, @script.text_with_injections
+  end
+
+  test 'text with db properties injections' do
+    database = databases :postgresql
+    property = properties :trace
+
+    assert_equal @script.text, @script.text_with_injections
+
+    @script.text = "puts @@databases['#{database.name}']['#{property.key}']"
+
+    assert_equal "puts '#{property.value}'", @script.text_with_injections
+  end
+
+  test 'update from data' do
+    skip
+  end
+
+  test 'by name' do
+    skip
   end
 end

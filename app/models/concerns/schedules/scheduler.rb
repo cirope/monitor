@@ -9,11 +9,12 @@ module Schedules::Scheduler
 
   module ClassMethods
     def schedule
-      next_to_schedule.find_each do |schedule|
+      visible.next_to_schedule.find_each do |schedule|
         scheduled_at = schedule.next_date
 
         schedule.update! scheduled_at: scheduled_at
 
+        schedule.cancel_pending_runs
         schedule.build_next_runs
       end
     end

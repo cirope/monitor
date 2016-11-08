@@ -1,4 +1,4 @@
-<%= render 'filters' unless params[:ids] %>
+<%= render 'filters' %>
 
 <% if @issues.empty? %>
   <%= render 'shared/empty_index', message: empty_message %>
@@ -20,7 +20,7 @@
         <th><%= Issue.human_attribute_name 'created_at' %></th>
         <th><%= Issue.human_attribute_name 'description' %></th>
         <th><%= Issue.human_attribute_name 'status' %></th>
-        <th class="hidden-sm"><%= Tag.model_name.human count: 0 %></th>
+        <th class="hidden-sm hidden-xs"><%= Tag.model_name.human count: 0 %></th>
         <th class="text-right" colspan="<%= issue_actions_cols %>">
           <% if @script %>
             <div class="btn-group" role="group">

@@ -10,10 +10,10 @@ set :deploy_via, :remote_cache
 set :scm, :git
 
 set :linked_files, %w{config/application.yml}
-set :linked_dirs, %w{log public/uploads}
+set :linked_dirs, %w{log public/uploads private}
 
 set :rbenv_type, :user
-set :rbenv_ruby, '2.3.0'
+set :rbenv_ruby, '2.3.1'
 
 set :keep_releases, 5
 

@@ -1,0 +1,8 @@
++function () {
+  var $container = $('[data-tagging-new]')
+
+  $container
+    .html('<%= j render('form', format: :html) %>')
+    .find('[autofocus]')
+    .focus()
+}()

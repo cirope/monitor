@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ScheduleTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @schedule = schedules :ls_on_atahualpa
   end
 
@@ -76,11 +76,13 @@ class ScheduleTest < ActiveSupport::TestCase
   end
 
   test 'last run ok' do
-    assert @schedule.last_run_ok?
+    job = @schedule.jobs.take
 
-    @schedule.runs.executed.last.update! status: 'error'
+    assert @schedule.last_runs_ok?
 
-    assert !@schedule.last_run_ok?
+    job.runs.executed.last.update! status: 'error'
+
+    assert !@schedule.reload.last_runs_ok?
   end
 
   test 'next date' do
@@ -104,6 +106,10 @@ class ScheduleTest < ActiveSupport::TestCase
     end
 
     assert @schedule.runs.pending.all? { |r| r.scheduled_at.to_s(:db) == @schedule.start.to_s(:db) }
+  end
+
+  test 'cancel pending runs' do
+    skip
   end
 
   test 'run' do
@@ -138,6 +144,18 @@ class ScheduleTest < ActiveSupport::TestCase
   end
 
   test 'cleanup' do
+    skip
+  end
+
+  test 'by name' do
+    skip
+  end
+
+  test 'by interval' do
+    skip
+  end
+
+  test 'by frequency' do
     skip
   end
 end

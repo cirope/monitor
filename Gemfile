@@ -1,13 +1,12 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.2.6'
+gem 'rails', '~> 5.0.0.1'
 
 gem 'pg'
 gem 'sass-rails'
+gem 'bootstrap-sass'
 gem 'uglifier'
-gem 'coffee-rails'
 gem 'jquery-rails'
-gem 'jquery-ui-rails'
 gem 'turbolinks'
 gem 'jbuilder'
 gem 'activerecord-session_store'
@@ -15,14 +14,10 @@ gem 'net-ldap'
 gem 'bcrypt'
 gem 'responders'
 gem 'simple_form'
-gem 'irreverent'
 gem 'figaro'
 gem 'carrierwave'
 gem 'jc-validates_timeliness'
-gem 'momentjs-rails'
-gem 'bootstrap-daterangepicker-rails', '0.1.3'
-gem 'will_paginate'
-gem 'will_paginate-bootstrap'
+gem 'kaminari'
 gem 'net-ssh'
 gem 'net-scp'
 gem 'sidekiq'
@@ -30,15 +25,21 @@ gem 'whenever', require: false
 gem 'paper_trail'
 gem 'roadie-rails'
 gem 'ruby-ntlm'
+gem 'rubyzip', require: 'zip'
+gem 'diffy'
+gem 'prawn'
+gem 'prawn-table'
+gem 'coderay'
 
 gem 'unicorn'
 
+gem 'capistrano'
+gem 'capistrano-rbenv'
+gem 'capistrano-bundler'
+gem 'capistrano-rails'
+gem 'capistrano-sidekiq'
+
 group :development do
-  gem 'capistrano'
-  gem 'capistrano-bundler'
-  gem 'capistrano-rails'
-  gem 'capistrano-rbenv'
-  gem 'capistrano-sidekiq'
   gem 'unicorn-rails'
   gem 'web-console'
 end
@@ -49,9 +50,12 @@ end
 
 group :test do
   gem 'timecop'
-  gem 'test_after_commit' # TODO: remove when Rails 5.0
 end
 
 group :doc do
   gem 'sdoc', require: false
 end
+
+# Some user script dependencies
+gem 'composite_primary_keys', require: false
+gem 'ruby-odbc', require: false

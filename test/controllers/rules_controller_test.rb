@@ -10,16 +10,22 @@ class RulesControllerTest < ActionController::TestCase
   test 'should get index' do
     get :index
     assert_response :success
-    assert_not_nil assigns(:rules)
   end
 
-  test 'should filtered index' do
-    get :index, q: @rule.name, format: :json
+  test 'should get filtered index for autocomplete' do
+    get :index, params: { q: @rule.name, format: :json }
     assert_response :success
 
-    rules = assigns :rules
+    rules = JSON.parse @response.body
+
     assert_equal 1, rules.size
-    assert_equal @rule.name, rules.first.name
+    assert_equal @rule.name, rules.first['name']
+  end
+
+  test 'should get filtered index' do
+    get :index, params: { filter: { name: 'undefined' } }
+    assert_response :success
+    assert_select '.alert', text: I18n.t('rules.index.empty_search_html')
   end
 
   test 'should get new' do
@@ -29,39 +35,45 @@ class RulesControllerTest < ActionController::TestCase
 
   test 'should create rule' do
     assert_difference ['Rule.count', 'Trigger.count'] do
-      post :create, rule: {
-        name: 'Send email if anything goes wrong',
-        enabled: '1',
-        triggers_attributes: [
-          {
-            callback: 'puts "test callback"',
-            action: 'puts "test action"'
-          }
-        ]
+      post :create, params: {
+        rule: {
+          name: 'Send email if anything goes wrong',
+          enabled: '1',
+          triggers_attributes: [
+            {
+              callback: 'puts "test callback"',
+              action: 'puts "test action"'
+            }
+          ]
+        }
       }
     end
 
-    assert_redirected_to rule_url(assigns(:rule))
+    assert_redirected_to rule_url(Rule.last)
   end
 
   test 'should show rule' do
-    get :show, id: @rule
+    get :show, params: { id: @rule }
     assert_response :success
   end
 
   test 'should get edit' do
-    get :edit, id: @rule
+    get :edit, params: { id: @rule }
     assert_response :success
   end
 
   test 'should update rule' do
-    patch :update, id: @rule, rule: { name: 'Updated name' }
-    assert_redirected_to rule_url(assigns(:rule))
+    patch :update, params: {
+      id: @rule,
+      rule: { name: 'Updated name' }
+    }
+
+    assert_redirected_to rule_url(@rule)
   end
 
   test 'should destroy rule' do
     assert_difference 'Rule.count', -1 do
-      delete :destroy, id: @rule
+      delete :destroy, params: { id: @rule }
     end
 
     assert_redirected_to rules_url

@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class SubscriptionTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @subscription = subscriptions :franco_ls_on_atahualpa
   end
 

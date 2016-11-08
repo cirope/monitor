@@ -1,5 +1,7 @@
 +function () {
   var container = '[data-container="<%= params[:container_id] %>"]'
 
-  $(container).html('<%= j render_object(@issue, params[:key]) %>')
+  $(container).
+    html('<%= j render_object(@issue, params[:key]) %>').
+    trigger('object.mt.added')
 }()

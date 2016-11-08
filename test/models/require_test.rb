@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class RequireTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @require = requires :cd_root_before_ls
   end
 

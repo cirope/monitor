@@ -7,16 +7,22 @@ class DescriptorsController < ApplicationController
 
   def index
     @descriptors = Descriptor.all
+
+    respond_with @descriptors
   end
 
   def show
+    respond_with @descriptor
   end
 
   def new
     @descriptor = Descriptor.new
+
+    respond_with @descriptor
   end
 
   def edit
+    respond_with @descriptor
   end
 
   def create

@@ -1,8 +1,10 @@
-class Issue < ActiveRecord::Base
+class Issue < ApplicationRecord
   include Auditable
   include Issues::Comments
-  include Issues::Counters
+  include Issues::ExportData
   include Issues::Notifications
+  include Issues::Pdf
+  include Issues::Permissions
   include Issues::Scopes
   include Issues::Status
   include Issues::Subscriptions
@@ -13,8 +15,9 @@ class Issue < ActiveRecord::Base
   belongs_to :run
   has_one :script, through: :run
   has_many :users, through: :subscriptions
+  has_and_belongs_to_many :permalinks
 
   def to_s
-    run.to_s
+    script.to_s
   end
 end

@@ -11,7 +11,10 @@ class ProfilesControllerTest < ActionController::TestCase
   end
 
   test 'should get update' do
-    patch :update, user: { name: 'Updated name' }
+    patch :update, params: {
+      user: { name: 'Updated name' }
+    }
+
     assert_redirected_to root_url
   end
 end

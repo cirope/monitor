@@ -1,13 +1,15 @@
+<%= render 'filters' %>
+
 <% if @databases.empty? %>
-  <%= render 'shared/empty_index', message: t('.empty_html') %>
+  <%= render 'shared/empty_index', message: empty_message %>
 <% else %>
   <table class="table table-striped table-hover">
     <thead>
       <tr>
         <th><%= Database.human_attribute_name 'name' %></th>
         <th><%= Database.human_attribute_name 'driver' %></th>
-        <th colspan="3">
-          <%= link_to_new new_database_path, class: 'btn btn-default btn-xs pull-right' %>
+        <th colspan="<%= current_user.supervisor? ? 1 : 3 %>">
+          <%= link_to_new new_database_path, class: 'btn btn-default btn-xs pull-right' unless current_user.supervisor? %>
         </th>
       </tr>
     </thead>
@@ -18,8 +20,10 @@
           <td><%= database.name %></td>
           <td><%= database.driver %></td>
           <td><%= link_to_show database %></td>
-          <td><%= link_to_edit [:edit, database] %></td>
-          <td><%= link_to_destroy database %></td>
+          <% unless current_user.supervisor? %>
+            <td><%= link_to_edit [:edit, database] %></td>
+            <td><%= link_to_destroy database %></td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>
@@ -28,4 +32,6 @@
   <%= paginate @databases %>
 <% end %>
 
-<%= link_to_new new_database_path, class: 'btn btn-primary' %>
+<% unless current_user.supervisor? %>
+  <%= link_to_new new_database_path, class: 'btn btn-primary' %>
+<% end %>

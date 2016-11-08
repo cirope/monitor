@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class TagTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @tag = tags :starters
   end
 
@@ -43,10 +43,32 @@ class TagTest < ActiveSupport::TestCase
     assert_error @tag, :style, :inclusion
   end
 
+  test 'can not destroy when final and has taggables' do
+    tag   = tags :final
+    issue = issues :ls_on_atahualpa_not_well
+
+    issue.taggings.create! tag_id: tag.id
+
+    assert_no_difference 'Tag.count' do
+      tag.destroy
+    end
+  end
+
   test 'search' do
     tags = Tag.search query: @tag.name
 
-    assert tags.present?
+    assert tags.any?
     assert tags.all? { |s| s.name =~ /#{@tag.name}/ }
+  end
+
+  test 'export' do
+    tags = Tag.export true
+
+    assert tags.any?
+    assert tags.all?(&:export?)
+  end
+
+  test 'by issues' do
+    skip
   end
 end

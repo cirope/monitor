@@ -2,6 +2,7 @@ starters:
   name: Starters
   kind: script
   style: default
+  options: { "export": true }
 
 libs:
   name: Libraries
@@ -13,7 +14,18 @@ important:
   kind: issue
   style: default
 
+final:
+  name: Final
+  kind: issue
+  style: default
+  options: { "final": true }
+
 admins:
   name: Admins
+  kind: user
+  style: default
+
+guest:
+  name: Guest role
   kind: user
   style: default

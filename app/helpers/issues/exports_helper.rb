@@ -1,0 +1,2 @@
+module Issues::ExportsHelper
+end

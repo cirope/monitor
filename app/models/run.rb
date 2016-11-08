@@ -1,5 +1,7 @@
-class Run < ActiveRecord::Base
-  include Runs::Schedule
+class Run < ApplicationRecord
+  include Filterable
+  include Runs::Execution
+  include Runs::Scopes
   include Runs::Status
   include Runs::Validation
   include Runs::Triggers

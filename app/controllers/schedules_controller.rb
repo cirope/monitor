@@ -1,12 +1,15 @@
 class SchedulesController < ApplicationController
+  include Schedules::Filters
+
   before_action :authorize, :not_guest, :not_security
   before_action :set_title, except: [:destroy]
   before_action :set_schedule, only: [:show, :edit, :update, :destroy, :run, :cleanup]
+  before_action :not_author, except: [:index, :show, :run]
 
   respond_to :html, :json
 
   def index
-    @schedules = Schedule.visible.search(query: params[:q], limit: request.xhr? && 10).page params[:page]
+    @schedules = schedules.visible.page params[:page]
 
     respond_with @schedules
   end
@@ -22,6 +25,7 @@ class SchedulesController < ApplicationController
   end
 
   def edit
+    respond_with @schedule
   end
 
   def create
@@ -55,6 +59,7 @@ class SchedulesController < ApplicationController
   end
 
   private
+
     def set_schedule
       @schedule = Schedule.find params[:id]
     end
@@ -62,7 +67,6 @@ class SchedulesController < ApplicationController
     def schedule_params
       params.require(:schedule).permit :name, :start, :end, :interval, :frequency, :lock_version,
         jobs_attributes: [:id, :server_id, :script_id, :_destroy],
-        taggings_attributes: [:id, :tag_id, :_destroy],
         dependencies_attributes: [:id, :schedule_id, :_destroy],
         dispatchers_attributes: [:id, :rule_id, :_destroy]
     end

@@ -14,17 +14,15 @@ module Triggers::Run
     def code
       <<-RUBY
         begin
-          $stdout = StringIO.new
+          Thread.current[:stdout] = stdout = StringIO.new
 
-          ActiveRecord::Base.transaction do
+          ApplicationRecord.transaction do
             #{callback}
           end
 
-          $stdout.string
+          stdout.string
         rescue => ex
           ex.inspect
-        ensure
-          $stdout = STDOUT
         end
       RUBY
     end

@@ -1,0 +1,18 @@
+<%= simple_form_for @comment, comment_form_options do |f| %>
+  <%= f.error_notification %>
+
+  <fieldset>
+    <div class="form-inputs">
+      <%= render 'comments/comment', f: f %>
+    </div>
+
+    <div class="form-actions">
+      <%= f.button :submit, class: 'btn-sm btn-default' %>
+      <% if @comment.persisted? %>
+        <%= link_to t('cancel'), @comment, data: { remote: request.xhr? } %>
+      <% end %>
+    </div>
+  </fieldset>
+
+  <hr>
+<% end %>

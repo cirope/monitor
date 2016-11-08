@@ -1,0 +1,11 @@
+<h2>
+  <%= version_change_for @version %>
+</h2>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    <%= version_diff_to_previous %>
+  </div>
+</div>
+
+<%= link_to_index script_versions_path(@script) %>

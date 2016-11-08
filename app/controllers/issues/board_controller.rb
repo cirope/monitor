@@ -6,11 +6,12 @@ class Issues::BoardController < ApplicationController
   before_action :set_issue,  only: [:create, :destroy]
   before_action :set_script, only: [:create, :destroy]
 
-  respond_to :html, :js
+  respond_to :html, :js, :pdf
 
   def index
     @issue_ids = issues.where(id: board_session).pluck 'id'
-    @issues = issues.order(:created_at).where(id: board_session).page params[:page]
+    @issues = issues.order(:created_at).where id: board_session
+    @issues = @issues.page params[:page] unless request.format == :pdf
 
     respond_with @issues
   end
@@ -20,7 +21,7 @@ class Issues::BoardController < ApplicationController
 
     board_session.concat(@issues.pluck('id')).uniq!
 
-    redirect_to :back unless request.xhr?
+    redirect_back(fallback_location: root_url) unless request.xhr?
   end
 
   def update
@@ -40,7 +41,7 @@ class Issues::BoardController < ApplicationController
 
     @issues.each { |issue| board_session.delete issue.id }
 
-    redirect_to :back unless request.xhr?
+    redirect_back fallback_location: root_url unless request.xhr?
   end
 
   def empty
@@ -48,6 +49,15 @@ class Issues::BoardController < ApplicationController
     board_session_errors.clear
 
     redirect_to dashboard_url, notice: t('.done')
+  end
+
+  def destroy_all
+    issues.where(id: board_session).destroy_all
+
+    board_session.clear
+    board_session_errors.clear
+
+    redirect_to dashboard_url, notice: t('.destroyed')
   end
 
   private
@@ -61,7 +71,9 @@ class Issues::BoardController < ApplicationController
     end
 
     def issue_params
-      params.require(:issue).permit :description, :status
+      params.require(:issue).permit :description, :status,
+        comments_attributes: [:text],
+        taggings_attributes: [:tag_id]
     end
 
     def board_session
@@ -73,13 +85,27 @@ class Issues::BoardController < ApplicationController
     end
 
     def update_issues issues
-      _issue_params = issue_params.select { |_, value| value.present? }
+      present_issue_params = issue_params.select { |_, value| value.present? }
+      taggings_attributes  = present_issue_params.fetch(:taggings_attributes, {})
+      new_tags             = taggings_attributes.select do |index, tagging|
+        tagging[:tag_id].present?
+      end
 
       board_session_errors.clear
 
       issues.find_each do |issue|
-        unless issue.update _issue_params
+        update_issue issue, present_issue_params, new_tags.present?
+      end
+    end
+
+    def update_issue issue, issue_params, remove_previous_tags
+      Issue.transaction do
+        issue.taggings.clear if remove_previous_tags
+
+        unless issue.update issue_params
           board_session_errors[issue.id] = issue.errors.full_messages
+
+          raise ActiveRecord::Rollback
         end
       end
     end

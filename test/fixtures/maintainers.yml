@@ -1,0 +1,7 @@
+cd_root_author:
+  user: eduardo
+  script: cd_root
+
+ls_author:
+  user: eduardo
+  script: ls

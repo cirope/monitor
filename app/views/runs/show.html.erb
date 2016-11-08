@@ -1,11 +1,9 @@
 <h2>
-  <%= Run.model_name.human count: 1 %>
-  <small>
-    <%= link_to @run.script, @run.script %>
-    <div class="pull-right">
-      <%= run_status @run.status %>
-    </div>
-  </small>
+  <span class="text-muted"><%= Run.model_name.human count: 1 %> -</span>
+  <%= link_to @run.script, @run.script %>
+  <span class="pull-right">
+    <%= run_status @run.status %>
+  </span>
 </h2>
 
 <p>
@@ -20,20 +18,56 @@
   <strong><%= Run.human_attribute_name 'ended_at' %></strong>:
   <%= l @run.ended_at, format: :compact if @run.ended_at %>
 </p>
-<% if @run.output.present? %>
-  <p>
-    <strong><%= Run.human_attribute_name 'output' %></strong>
-  </p>
 
-  <pre><%= truncate @run.output, length: 200 %></pre>
+<% if @run.output.present? %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <%= Run.human_attribute_name 'output' %>
+        <% if @run.output.length > 200 %>
+          <%= link_to run_path(@run, full_output: true), title: t('.full_output') do %>
+            <span class="glyphicon glyphicon-eye-open"></span>
+          <% end %>
+        <% end %>
+      </h3>
+    </div>
+    <div id="output" class="panel-body">
+      <p>
+        <samp><%= run_output %></samp>
+      </p>
+    </div>
+  </div>
+<% end %>
+
+<% if @run.outputs.with_text.any? %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <%= Output.model_name.human count: @run.outputs.size %>
+      </h3>
+    </div>
+    <div id="outputs" class="panel-body">
+      <% @run.outputs.with_text.each_with_index do |output, index| %>
+        <h4 class="text-muted">#<%= index + 1 %> <%= output.rule %></h4>
+        <p>
+          <samp><%= output.text %></samp>
+        </p>
+      <% end %>
+    </div>
+  </div>
 <% end %>
 
 <% if @run.data.present? %>
-  <p>
-    <strong><%= Run.human_attribute_name 'data' %></strong>
-  </p>
-
-  <%= render_object @run, '' %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <%= Run.human_attribute_name 'data' %>
+      </h3>
+    </div>
+    <div id="data" class="panel-body">
+      <%= render_object @run, '' %>
+    </div>
+  </div>
 <% end %>
 
 <% if @run.issues.any? %>
@@ -44,7 +78,7 @@
       </h3>
     </div>
     <div id="issues" class="panel-body">
-      <ul>
+      <ul class="list-unstyled">
         <% @run.issues.each do |issue| %>
           <li><%= link_to issue, issue %></li>
         <% end %>

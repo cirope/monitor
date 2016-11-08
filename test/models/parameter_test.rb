@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ParameterTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @parameter = parameters :ls_dir
   end
 

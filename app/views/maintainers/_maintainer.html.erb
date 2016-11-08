@@ -1,0 +1,15 @@
+<fieldset class="script_maintainer">
+  <div class="row">
+    <div class="col-sm-11">
+      <%= f.input :user, as: :autocomplete, label: false, url: users_path(role: 'author'), input_html: {
+        data: { empty_result_label: t('.empty') }
+      } %>
+    </div>
+    <div class="col-sm-1">
+      <div class="row-controls">
+        <%= f.input :id, as: :hidden %>
+        <%= link_to_remove_nested_item f %>
+      </div>
+    </div>
+  </div>
+</fieldset>

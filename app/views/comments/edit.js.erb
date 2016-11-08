@@ -1,0 +1,5 @@
++function () {
+  $('[data-comment-id="<%= @comment.id %>"]').replaceWith(
+    '<%= j render('form', format: :html) %>'
+  )
+}()

@@ -1,5 +1,7 @@
-class Job < ActiveRecord::Base
+class Job < ApplicationRecord
   include Auditable
+  include Jobs::Cleanup
+  include Jobs::Destroy
   include Jobs::Validation
 
   belongs_to :schedule

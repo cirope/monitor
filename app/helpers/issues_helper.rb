@@ -1,17 +1,23 @@
 module IssuesHelper
   def issue_index_path
-    if current_user.guest?
+    if @context == :board
+      issues_board_path
+    elsif current_user.guest?
       issues_path
-    elsif params[:ids]
-      issues_path ids: params[:ids]
-    else
+    elsif @permalink
+      permalink_path @permalink
+    elsif @script || @issue
       script_issues_path(@script || @issue.script)
+    else
+      issues_path
     end
   end
 
   def issue_actions_cols
-    if current_user.guest?
-      2
+    if current_user.guest? || current_user.security?
+      1
+    elsif current_user.author?
+      3
     elsif params[:ids]
       1
     else
@@ -108,9 +114,24 @@ module IssuesHelper
     end
   end
 
+  def limited_issue_form_edition?
+    !@issue.can_be_edited_by? current_user
+  end
+
+  def link_to_export_data
+    options = {
+      title: t('.download_data'),
+      data:  { method: :post }
+    }
+
+    link_to issues_exports_path(ids: [@issue.id]), options do
+      content_tag :span, nil, class: 'glyphicon glyphicon-download'
+    end
+  end
+
   private
 
     def issues_board_path_with_params
-      issues_board_path filter: filter_params, script_id: @script.id
+      issues_board_path filter: filter_params.to_h, script_id: @script.id
     end
 end

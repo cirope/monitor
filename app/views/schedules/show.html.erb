@@ -81,7 +81,7 @@
       <ul>
         <% @schedule.dispatchers.each do |dispatcher| %>
           <li>
-            <%= link_to dispatcher.rule, dispatcher.rule, class: ('text-striked' unless dispatcher.rule.enabled) %>
+            <%= link_to_if current_user.supervisor?, dispatcher.rule, dispatcher.rule, class: ('text-striked' unless dispatcher.rule.enabled) %>
           </li>
         <% end %>
       </ul>
@@ -97,6 +97,8 @@
   <p class="text-muted"><%= t '.empty_runs' %></p>
 <% end %>
 
-<%= link_to_edit [:edit, @schedule] %> |
-<%= link_to_cleanup @schedule %> |
+<% unless current_user.author? %>
+  <%= link_to_edit [:edit, @schedule] %> |
+  <%= link_to_cleanup @schedule %> |
+<% end %>
 <%= link_to_index schedules_path %>

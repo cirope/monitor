@@ -8,14 +8,7 @@
     <strong><%= Issue.human_attribute_name 'data' %></strong>
   </p>
 
-  <table>
-    <% @issue.data.each do |k, v| %>
-      <tr>
-        <td><%= k %></td>
-        <td><%= v %></td>
-      </tr>
-    <% end %>
-  </table>
+  <%= render_object_for_email @issue.data %>
 <% end %>
 
 <p>

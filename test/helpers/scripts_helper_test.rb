@@ -1,6 +1,17 @@
 require 'test_helper'
 
 class ScriptsHelperTest < ActionView::TestCase
+  test 'script maintainers' do
+    @script = scripts :ls
+
+    assert_equal @script.maintainers, maintainers
+
+    @script = Script.new
+
+    assert_equal 1, maintainers.size
+    assert maintainers.all?(&:new_record?)
+  end
+
   test 'script requires' do
     @script = scripts :ls
 
@@ -47,5 +58,25 @@ class ScriptsHelperTest < ActionView::TestCase
 
   test 'file identifier' do
     skip
+  end
+
+  test 'disable edition' do
+    @script = scripts :ls
+
+    assert !disable_edition?
+
+    @script.imported_at = Time.zone.now
+
+    assert disable_edition?
+  end
+
+  test 'imported tag' do
+    skip
+  end
+
+  test 'last change diff' do
+    @script = scripts :ls
+
+    assert_kind_of String, last_change_diff
   end
 end

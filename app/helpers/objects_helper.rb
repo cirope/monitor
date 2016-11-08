@@ -22,6 +22,18 @@ module ObjectsHelper
     end
   end
 
+  def can_be_graphed? object
+    object.values.all? { |v| v.kind_of? Numeric }
+  end
+
+  def graph_container object
+    content_tag :div, nil, class: 'ct-chart ct-golden-section', data: {
+      graph:  object.object_id,
+      labels: object.keys,
+      series: object.values
+    }
+  end
+
   private
 
     def _render parent, object

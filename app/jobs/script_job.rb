@@ -1,24 +1,11 @@
-class ScriptJob < ActiveJob::Base
+class ScriptJob < ApplicationJob
   queue_as :default
 
   def perform run
-    job      = run.job
-    schedule = run.schedule
-
-    run.update! status: 'running', started_at: Time.zone.now
+    return if run.canceled?
 
     Run.transaction do
-      out  = { status: 'canceled' }
-      out  = job.server.execute job.script if schedule.run?
-      data = ActiveSupport::JSON.decode out[:output] rescue nil
-
-      run.update!(
-        status:   out[:status],
-        output:   out[:output],
-        data:     data,
-        ended_at: Time.zone.now
-      )
-
+      run.should_be_canceled? ? run.cancel : run.execute
       run.execute_triggers
     end
   end

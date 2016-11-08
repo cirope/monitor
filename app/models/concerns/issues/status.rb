@@ -1,18 +1,26 @@
 module Issues::Status
   extend ActiveSupport::Concern
 
-  included do
-    STATUS_TRANSITIONS = {
-      pending: %w(pending taken closed),
-      taken:   %w(taken closed),
-      closed:  %w(closed)
-    }
+  STATUS_TRANSITIONS = {
+    pending: %w(pending taken closed),
+    taken:   %w(taken closed),
+    closed:  %w(closed)
+  }.freeze
 
+  SUPERVISOR_STATUS_TRANSITIONS = STATUS_TRANSITIONS.merge(
+    closed: %w(taken closed)
+  ).freeze
+
+  included do
     before_validation :set_default_status
   end
 
   def next_status
-    STATUS_TRANSITIONS[(status_was || status).to_sym] || []
+    user        = User.find PaperTrail.whodunnit if PaperTrail.whodunnit
+    transitions = user&.supervisor? ?
+      SUPERVISOR_STATUS_TRANSITIONS : STATUS_TRANSITIONS
+
+    transitions[(status_was || status).to_sym] || []
   end
 
   %w(pending taken closed).each do |status|

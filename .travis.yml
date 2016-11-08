@@ -2,12 +2,13 @@ language: ruby
 cache: bundler
 sudo: false
 rvm:
-  - 2.3.0
+  - 2.3.1
 addons:
   apt:
     packages:
     - slapd
     - ldap-utils
+    - unixodbc-dev
   postgresql: 9.4
 before_script:
   - 'cp config/application.travis.yml config/application.yml'

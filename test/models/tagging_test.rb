@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class TaggingTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @tagging = taggings :cd_root_as_starter
   end
 
@@ -10,5 +10,12 @@ class TaggingTest < ActiveSupport::TestCase
 
     assert @tagging.invalid?
     assert_error @tagging, :tag, :blank
+  end
+
+  test 'unique attributes' do
+    tagging = @tagging.dup
+
+    assert tagging.invalid?
+    assert_error tagging, :tag_id, :taken
   end
 end

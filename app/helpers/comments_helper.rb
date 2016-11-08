@@ -4,4 +4,13 @@ module CommentsHelper
 
     object.file.identifier || object.file_identifier if object.file?
   end
+
+  def comment_form_options
+    {
+      data: {
+        remote:     @comment.persisted? && request.xhr?,
+        comment_id: @comment.id
+      }
+    }
+  end
 end
