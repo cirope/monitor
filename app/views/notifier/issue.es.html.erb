@@ -1,12 +1,10 @@
 <h2>Nuevo caso</h2>
 
-<p>Descripción: <%= @issue.description %></p>
-<p>Corrida: <%= @issue.run %></p>
+<p><strong>Descripción</strong>: <%= @issue.description %></p>
+<p><strong>Corrida</strong>: <%= @issue.run %></p>
 
 <% if @issue.data.present? %>
-  <p>
-    <strong><%= Issue.human_attribute_name 'data' %></strong>
-  </p>
+  <h3><%= Issue.human_attribute_name 'data' %></h3>
 
   <%= render_object_for_email @issue.data %>
 <% end %>

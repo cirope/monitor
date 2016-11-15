@@ -21,6 +21,7 @@ class Notifier < ApplicationMailer
 
   def comment comment, users
     @comment = comment
+    @issue   = comment.issue
 
     mail to: users.map(&:email)
   end
