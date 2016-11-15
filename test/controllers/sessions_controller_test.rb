@@ -19,6 +19,17 @@ class SessionsControllerTest < ActionController::TestCase
     assert_equal @user.id, current_user.id
   end
 
+  test 'should create a new session and redirect to previous url' do
+    Ldap.default.destroy!
+
+    post :create,
+      params:  { username: @user.email, password: '123' },
+      session: { previous_url: schedules_url }
+
+    assert_redirected_to schedules_url
+    assert_equal @user.id, current_user.id
+  end
+
   test 'should create a new session via LDAP' do
     post :create, params: { username: @user.username, password: 'admin123' }
 
