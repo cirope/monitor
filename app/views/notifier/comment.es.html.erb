@@ -1,10 +1,14 @@
 <h2>Nuevo comentario</h2>
 
+<p><strong>Guión</strong>: <%= @issue.script %></p>
+<p><strong>Descripción</strong>: <%= @issue.description %></p>
+
+<h3>Comentario</h3>
 <blockquote>
   <%= simple_format @comment.text %>
   <footer><%= @comment.user %></footer>
 </blockquote>
 
 <p>
-  <%= link_to 'Ver contexto', issue_url(@comment.issue) %>
+  <%= link_to 'Ver contexto', issue_url(@issue) %>
 </p>
