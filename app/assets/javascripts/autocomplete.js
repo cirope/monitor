@@ -1,15 +1,15 @@
 +function ($) {
-  var autocomplete = {
-    attach: function (element) {
+  var Autocomplete = (function () {
+    function Autocomplete (element) {
       var self = this
 
       self.element       = element
       self.targetElement = $(element.data('autocompleteTarget'))
 
       self.init()
-    },
+    }
 
-    init: function () {
+    Autocomplete.prototype.init = function () {
       var self = this
 
       self.element.autocomplete({
@@ -21,22 +21,22 @@
 
       self._markAsObserved()
       self._listenChanges()
-    },
+    }
 
-    _markAsObserved: function () {
+    Autocomplete.prototype._markAsObserved = function () {
       this.element.attr('data-observed', true)
-    },
+    }
 
-    _listenChanges: function () {
+    Autocomplete.prototype._listenChanges = function () {
       var self = this
 
       self.element.change(function () {
         if (! self.element.val().trim())
           self.targetElement.val(undefined)
       })
-    },
+    }
 
-    _renderItem: function (item) {
+    Autocomplete.prototype._renderItem = function (item) {
       item.label  = item.label || item.name
 
       return {
@@ -44,9 +44,9 @@
         value: item.label,
         item:  item
       }
-    },
+    }
 
-    _renderResponse: function (data, response) {
+    Autocomplete.prototype._renderResponse = function (data, response) {
       var self  = this
       var items = []
 
@@ -63,9 +63,9 @@
       }
 
       response(items)
-    },
+    }
 
-    _selected: function (event, ui) {
+    Autocomplete.prototype._selected = function (event, ui) {
       var self     = this
       var selected = ui.item
 
@@ -78,9 +78,9 @@
       })
 
       return false
-    },
+    }
 
-    _source: function (request, response) {
+    Autocomplete.prototype._source = function (request, response) {
       var self = this
 
       jQuery.ajax({
@@ -92,13 +92,15 @@
         }
       })
     }
-  }
+
+    return Autocomplete
+  })()
 
   jQuery(function ($) {
     var selector = 'input[data-autocomplete-url]:not([data-observed])'
 
     $(document).on('focus', selector, function () {
-      autocomplete.attach($(this))
+      new Autocomplete($(this))
     })
   })
 }(jQuery)
