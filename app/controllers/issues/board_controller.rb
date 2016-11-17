@@ -72,8 +72,9 @@ class Issues::BoardController < ApplicationController
 
     def issue_params
       params.require(:issue).permit :description, :status,
-        comments_attributes: [:text],
-        taggings_attributes: [:tag_id]
+        comments_attributes:      [:text],
+        taggings_attributes:      [:tag_id],
+        subscriptions_attributes: [:user_id]
     end
 
     def board_session

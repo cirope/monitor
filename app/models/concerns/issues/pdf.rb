@@ -129,7 +129,7 @@ module Issues::Pdf
           ]
         end
 
-        put_table_on pdf, data, column_widths: { 4 => 60 }
+        put_table_on pdf, data, column_widths: { 3 => 50, 4 => 60 }
         pdf.move_down 6
       end
 
