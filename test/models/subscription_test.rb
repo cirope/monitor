@@ -11,4 +11,11 @@ class SubscriptionTest < ActiveSupport::TestCase
     assert @subscription.invalid?
     assert_error @subscription, :user, :blank
   end
+
+  test 'unique attributes' do
+    subscription = @subscription.dup
+
+    assert subscription.invalid?
+    assert_error subscription, :user_id, :taken
+  end
 end

@@ -134,6 +134,12 @@ es:
       pending: 'Pendiente'
       taken: 'En proceso'
       closed: 'Cerrado'
+    subscriptions:
+      subscription:
+        empty: 'No se encontraron usuarios con ese criterio'
+    taggings:
+      tagging:
+        empty: 'No se encontraron etiquetas con ese criterio'
 
   ldaps:
     edit:

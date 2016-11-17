@@ -57,7 +57,7 @@ class IssuesControllerTest < ActionController::TestCase
           issue: {
             status: 'taken',
             subscriptions_attributes: [
-              { user_id: users(:john).id.to_s }
+              { user_id: users(:eduardo).id.to_s }
             ],
             taggings_attributes: [
               {
