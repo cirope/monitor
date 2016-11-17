@@ -81,6 +81,7 @@ class IssueTest < ActiveSupport::TestCase
     assert !@issue.can_be_edited_by?(users(:eduardo))
     assert !@issue.can_be_light_edited_by?(users(:eduardo))
 
+    @issue.subscriptions.clear
     @issue.subscriptions.create! user_id: users(:eduardo).id
 
     assert @issue.reload.can_be_edited_by?(users(:eduardo))
