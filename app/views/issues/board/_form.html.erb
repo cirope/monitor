@@ -19,20 +19,36 @@
             <%= f.input :status, label: false, required: false, collection: filter_status, include_blank: '-' %>
           </div>
         </div>
+
         <div class="row">
           <div class="col-lg-6">
-            <%= f.simple_fields_for :comments, Comment.new do |cf| %>
-              <%= cf.input :text, label: false, placeholder: t('comments.comment.text_placeholder'), input_html: { rows: 4 } %>
+            <%= f.simple_fields_for :subscriptions, Subscription.new do |sf| %>
+              <%= render 'issues/subscriptions/subscription', f: sf %>
             <% end %>
+
+            <p>
+              <%= link_to_add_fields t('issues.new.subscription'), f, :subscriptions %>
+            </p>
           </div>
           <div class="col-lg-6">
             <%= f.simple_fields_for :taggings, Tagging.new do |tf| %>
               <%= render 'issues/taggings/tagging', f: tf %>
             <% end %>
 
-            <%= link_to_add_fields t('issues.new.tagging'), f, :taggings, kind: 'issue' %>
+            <p>
+              <%= link_to_add_fields t('issues.new.tagging'), f, :taggings, kind: 'issue' %>
+            </p>
           </div>
         </div>
+
+        <div class="row">
+          <div class="col-lg-12">
+            <%= f.simple_fields_for :comments, Comment.new do |cf| %>
+              <%= cf.input :text, label: false, placeholder: t('comments.comment.text_placeholder'), input_html: { rows: 2 } %>
+            <% end %>
+          </div>
+        </div>
+
         <div class="row">
           <div class="col-lg-12 text-right">
             <%= f.button :submit, t('.submit'), class: 'btn-default' %>
