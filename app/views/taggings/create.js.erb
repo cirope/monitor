@@ -2,18 +2,13 @@
   var $container     = $('[data-tagging-list]')
   var $formContainer = $('[data-tagging-new]')
 
-  <% if @tagging.errors.empty? %>
+  <% if @new_tagging.persisted? %>
     $container
-      .append('<%= j render(template: 'taggings/show', format: :html, locals: { tagging: @tagging }) %>')
-
-    $formContainer
-      .html('<%= j render('form', format: :html, :@tagging => current_user.taggings.new) %>')
-      .find('[autofocus]')
-      .focus()
-  <% else %>
-    $formContainer
-      .html('<%= j render('form', format: :html) %>')
-      .find('[autofocus]')
-      .focus()
+      .append('<%= j render(template: 'taggings/show', format: :html, locals: { tagging: @new_tagging }) %>')
   <% end %>
+
+  $formContainer
+    .html('<%= j render('form', format: :html) %>')
+    .find('[autofocus]')
+    .focus()
 }()

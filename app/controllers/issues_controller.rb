@@ -22,6 +22,8 @@ class IssuesController < ApplicationController
   end
 
   def show
+    @comment = @issue.comments.new
+
     respond_with @issue
   end
 
