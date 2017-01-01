@@ -14,10 +14,14 @@
         </div>
       </div>
     </div>
-    <div class="hidden">
-      <%= f.input :text, input_html: { rows: 5, disabled: disable_edition? } %>
-    </div>
-    <div class="editor" <%= 'data-readonly="true"' if disable_edition? %>></div>
+
+    <%= f.input :text, label: false, input_html: {
+      rows: 5,
+      disabled: disable_edition?,
+      class: 'editor',
+      data: { readonly: disable_edition? }
+    } %>
+
     <%= f.input :file, label: false, hint: file_identifier, input_html: {
       disabled: disable_edition? || @script.text.present?,
       class: @script.text.present? && 'hidden'

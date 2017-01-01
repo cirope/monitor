@@ -15,10 +15,11 @@
 //= require jquery-ui/widgets/autocomplete
 //= require turbolinks
 //= require turbolinks_events
-//= require ace/ace
-//= require ace/mode-ruby
-//= require ace/theme-solarized_light
-//= require ace/theme-solarized_dark
+//= require codemirror/codemirror
+//= require codemirror/addon/active-line
+//= require codemirror/addon/closebrackets
+//= require codemirror/addon/matchbrackets
+//= require codemirror/mode/ruby
 //= require bootstrap
 //= require chartist/chartist
 //= require chartist/chartist-plugin-axistitle
