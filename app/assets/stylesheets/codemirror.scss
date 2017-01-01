@@ -1,0 +1,16 @@
+.CodeMirror {
+  height: 30em;
+  margin: .5em 0em;
+  box-shadow: none !important;
+  font: 14px/normal 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+
+  .CodeMirror-lines {
+    padding: 0px;
+  }
+}
+
+.tiny-editor {
+  .CodeMirror {
+    height: 15em;
+  }
+}

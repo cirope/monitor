@@ -2,32 +2,26 @@
   var editor = null
 
   $(document).on('ready turbolinks:load', function () {
-    if ($('.editor').length) {
-      var $editor   = $('.editor')
+    if ($('#script_text').length) {
       var $textarea = $('#script_text')
       var $file     = $('#script_file')
       var $change   = $('#script_change')
-      var theme     = $editor.data('readonly') ? 'solarized_dark' : 'solarized_light'
+      var readonly  = $textarea.data('readonly')
+      var options   = {
+        mode:              'ruby',
+        tabSize:           2,
+        autoCloseBrackets: true,
+        matchBrackets:     true,
+        lineNumbers:       true,
+        styleActiveLine:   true,
+        theme:             readonly ? 'solarized dark' :  'solarized light',
+        readOnly:          readonly
+      }
 
-      editor = ace.edit($editor.get(0))
+      editor = CodeMirror.fromTextArea($textarea.get(0), options)
 
-      editor.$blockScrolling = Infinity
-
-      editor.setTheme('ace/theme/' + theme)
-      editor.getSession().setMode('ace/mode/ruby')
-
-      editor.setValue($textarea.val())
-      editor.getSession().setTabSize(2)
-      editor.getSession().setUseSoftTabs(true)
-      editor.setReadOnly($editor.data('readonly'))
-      editor.clearSelection()
-      editor.gotoLine(0, 0)
-      editor.setFontSize(14)
-
-      editor.getSession().on('change', function () {
+      editor.on('change', function (editor) {
         var text = editor.getValue()
-
-        $textarea.val(text)
 
         if (text.trim()) {
           $change.prop('disabled', false).val('')
@@ -43,6 +37,6 @@
   })
 
   $(document).on('change', '#script_file', function () {
-    editor && editor.setReadOnly($(this).val())
+    editor && editor.setOption('readOnly', $(this).val())
   })
 }()
