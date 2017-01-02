@@ -1,5 +1,7 @@
-class Run < ActiveRecord::Base
-  include Runs::Schedule
+class Run < ApplicationRecord
+  include Filterable
+  include Runs::Execution
+  include Runs::Scopes
   include Runs::Status
   include Runs::Validation
   include Runs::Triggers
@@ -8,7 +10,7 @@ class Run < ActiveRecord::Base
   has_one :script, through: :job
   has_one :server, through: :job
   has_one :schedule, through: :job
-  has_many :issues, dependent: :destroy
+  has_many :issues, dependent: :restrict_with_error
   has_many :outputs, dependent: :destroy
 
   def to_s

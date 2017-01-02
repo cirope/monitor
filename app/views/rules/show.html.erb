@@ -14,15 +14,17 @@
     </div>
     <div id="triggers" class="panel-body">
       <% @rule.triggers.each do |trigger| %>
-        <textarea id="trigger_callback_<%= trigger.id %>" class="hidden" data-editor data-readonly="true">
-          <%= trigger.callback %>
-        </textarea>
+        <div class="tiny-editor">
+          <textarea id="trigger_callback_<%= trigger.id %>" data-editor data-readonly="true"><%= trigger.callback %></textarea>
+        </div>
 
         <% if last_output(trigger).present? %>
           <hr>
 
           <h4><%= t '.last_output' %></h4>
-          <pre><%= last_output trigger %></pre>
+          <p>
+            <samp><%= last_output trigger %></samp>
+          </p>
         <% end %>
       <% end %>
     </div>
@@ -30,4 +32,7 @@
 <% end %>
 
 <%= link_to_edit [:edit, @rule] %> |
+<%= link_to rules_exports_create_path(id: @rule), title: t('rules.index.export'), data: { method: :post } do %>
+  <span class="glyphicon glyphicon-floppy-save"></span>
+<% end %> |
 <%= link_to_index rules_path %>

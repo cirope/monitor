@@ -1,4 +1,21 @@
-<h2><%= @tag %></h2>
+<h2>
+  <div class="label label-<%= @tag.style %>">
+    <%= @tag %>
+  </div>
+</h2>
+
+<hr>
+
+<% @tag.kind_options.each do |option, type| %>
+  <p>
+    <strong><%= Tag.human_attribute_name option %></strong>:
+    <% if type == :boolean %>
+      <%= t(@tag.send(option) ? 'yes' : 'no') %>
+    <% else %>
+      <%= @tag.send(option) %>
+    <% end %>
+  </p>
+<% end %>
 
 <%= link_to_edit [:edit, @tag, kind: @tag.kind] %> |
 <%= link_to_index tags_path %>

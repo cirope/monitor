@@ -107,7 +107,10 @@ class LdapTest < ActiveSupport::TestCase
 
     @ldap.import 'admin', 'admin123'
 
-    assert_not_nil User.where(email: 'juan@administrators.com').take
+    user = User.where(email: 'juan@administrators.com').take
+
+    assert_not_nil user
+    assert_equal tags(:guest), user.tags.take
   end
 
   test 'default' do

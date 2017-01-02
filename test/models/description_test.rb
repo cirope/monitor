@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class DescriptionTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @description = descriptions :ls_author
   end
 
@@ -21,5 +21,14 @@ class DescriptionTest < ActiveSupport::TestCase
     assert @description.invalid?
     assert_error @description, :name, :too_long, count: 255
     assert_error @description, :value, :too_long, count: 255
+  end
+
+  test 'attributes format' do
+    @description.name = 'with } invalid char =)'
+    @description.value = 'with } invalid char =)'
+
+    assert @description.invalid?
+    assert_error @description, :name, :invalid
+    assert_error @description, :value, :invalid
   end
 end

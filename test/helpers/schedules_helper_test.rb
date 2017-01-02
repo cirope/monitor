@@ -16,17 +16,6 @@ class SchedulesHelperTest < ActionView::TestCase
     assert jobs.all?(&:new_record?)
   end
 
-  test 'schedule taggings' do
-    @schedule = schedules :ls_on_atahualpa
-
-    assert_equal @schedule.taggings, schedule_taggings
-
-    @schedule = Schedule.new
-
-    assert_equal 1, schedule_taggings.size
-    assert schedule_taggings.all?(&:new_record?)
-  end
-
   test 'schedule dependencies' do
     @schedule = schedules :ls_on_atahualpa
 
@@ -57,5 +46,11 @@ class SchedulesHelperTest < ActionView::TestCase
     @schedule = schedules :ls_on_atahualpa
 
     assert_match 'test link', link_to_run { 'test link' }
+  end
+
+  test 'link to cleanup' do
+    schedule = schedules :ls_on_atahualpa
+
+    assert_match I18n.t('schedules.cleanup'), link_to_cleanup(schedule)
   end
 end

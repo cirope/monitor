@@ -3,6 +3,7 @@ class ApplicationMailer < ActionMailer::Base
   include Roadie::Rails::Automatic
 
   add_template_helper ApplicationHelper
+  add_template_helper MailerHelper
 
   default from: "'#{app_name}' <#{ENV['EMAIL_ADDRESS']}>"
   layout 'mailer'

@@ -1,36 +1,42 @@
 +function () {
   var editor = null
 
-  $(document).on('ready page:load', function () {
-    if ($('.editor').length) {
-      var $editor   = $('.editor')
+  $(document).on('ready turbolinks:load', function () {
+    if ($('#script_text').length) {
       var $textarea = $('#script_text')
-      var theme     = $editor.data('readonly') ? 'solarized_dark' : 'solarized_light'
+      var $file     = $('#script_file')
+      var $change   = $('#script_change')
+      var readonly  = $textarea.data('readonly')
+      var options   = {
+        mode:              'ruby',
+        tabSize:           2,
+        autoCloseBrackets: true,
+        matchBrackets:     true,
+        lineNumbers:       true,
+        styleActiveLine:   true,
+        theme:             readonly ? 'solarized dark' :  'solarized light',
+        readOnly:          readonly
+      }
 
-      editor = ace.edit($editor.get(0))
+      editor = CodeMirror.fromTextArea($textarea.get(0), options)
 
-      editor.setTheme('ace/theme/' + theme)
-      editor.getSession().setMode('ace/mode/ruby')
-
-      editor.setValue($textarea.val())
-      editor.getSession().setTabSize(2)
-      editor.getSession().setUseSoftTabs(true)
-      editor.setReadOnly($editor.data('readonly'))
-      editor.clearSelection()
-      editor.gotoLine(0, 0)
-      editor.setFontSize(14)
-
-      editor.getSession().on('change', function () {
+      editor.on('change', function (editor) {
         var text = editor.getValue()
 
-        $textarea.val(text)
-
-        $('#script_file').prop('disabled', !!text.trim())
+        if (text.trim()) {
+          $change.prop('disabled', false).val('')
+          $change.closest('.form-group').removeClass('hidden')
+          $file.prop('disabled', true).addClass('hidden')
+        } else {
+          $change.prop('disabled', true)
+          $change.closest('.form-group').addClass('hidden')
+          $file.prop('disabled', false).removeClass('hidden')
+        }
       })
     }
   })
 
   $(document).on('change', '#script_file', function () {
-    editor && editor.setReadOnly($(this).val())
+    editor && editor.setOption('readOnly', $(this).val())
   })
 }()

@@ -1,7 +1,12 @@
-class Rule < ActiveRecord::Base
+class Rule < ApplicationRecord
   include Auditable
   include Attributes::Strip
+  include Filterable
   include SearchableByName
+  include Rules::Export
+  include Rules::Import
+  include Rules::JSON
+  include Rules::Scopes
   include Rules::Triggers
 
   validates :name, presence: true

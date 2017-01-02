@@ -3,6 +3,7 @@ module Issues::Scopes
 
   included do
     scope :active, -> { where.not status: 'closed' }
+    scope :ordered_by_script_name, -> { reorder "#{Script.table_name}.name" }
   end
 
   module ClassMethods
@@ -15,7 +16,7 @@ module Issues::Scopes
     end
 
     def by_status status
-      where status: status
+      status == 'all' ? all : where(status: status)
     end
 
     def by_description description
@@ -34,6 +35,14 @@ module Issues::Scopes
 
     def by_data data
       where "#{table_name}.data @> ?", data
+    end
+
+    def by_script_name name
+      joins(:script).where "#{Script.table_name}.name ILIKE ?", "%#{name}%"
+    end
+
+    def grouped_by_script
+      joins(:script).group "#{Script.table_name}.id", "#{Script.table_name}.name"
     end
   end
 end

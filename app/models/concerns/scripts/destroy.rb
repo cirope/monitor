@@ -8,10 +8,10 @@ module Scripts::Destroy
   private
 
     def allow_destruction?
-      if active_issues_count > 0
+      if issues.count > 0
 				errors.add :base, 'Script can not be destroyed'
 
-				false
+				throw :abort
 			end
     end
 end

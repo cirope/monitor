@@ -4,6 +4,7 @@ class ProfilesController < ApplicationController
   before_action :authorize, :set_user, :set_title
 
   def edit
+    respond_with @user
   end
 
   def update

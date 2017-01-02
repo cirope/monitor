@@ -1,6 +1,12 @@
 Nuevo comentario
 ================================================================================
 
+Guión: <%= @issue.script %>
+Descripción: <%= @issue.description %>
+
+Comentario
+--------------------------------------------------------------------------------
+
 <%= @comment.user %>:
 
 <% @comment.text.each_line do |l| %>
@@ -8,4 +14,4 @@ Nuevo comentario
 <% end %>
 
 Para ver el comentario en su contexto visite el siguiente enlace:
-<%= issue_url @comment.issue %>
+<%= issue_url @issue %>

@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class DependencyTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @dependency = dependencies :last_cd_runs_on_atahualpa
   end
 

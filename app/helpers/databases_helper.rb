@@ -4,4 +4,12 @@ module DatabasesHelper
 
     @database.properties
   end
+
+  def value_of property
+    if property.password?
+      '*' * property.value.length
+    else
+      property.value
+    end
+  end
 end

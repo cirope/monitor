@@ -3,5 +3,6 @@ module Subscriptions::Validation
 
   included do
     validates :user, presence: true
+    validates :user_id, uniqueness: { scope: :issue_id }
   end
 end

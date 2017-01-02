@@ -1,11 +1,11 @@
-class Comment < ActiveRecord::Base
+class Comment < ApplicationRecord
   include Auditable
   include Comments::Notify
+  include Comments::Owner
   include Comments::Validation
 
   mount_uploader :file, FileUploader
 
-  belongs_to :user
   belongs_to :issue
   has_many :users, through: :issue
 

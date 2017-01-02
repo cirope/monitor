@@ -44,13 +44,31 @@ es:
         notice: 'Regla eliminada'
         alert:  'La regla no pudo ser eliminada'
 
+    runs:
+      create:
+        notice: 'Corrida creada'
+      update:
+        notice: 'Corrida actualizada'
+        alert:  ''
+      destroy:
+        notice: 'Corrida eliminada'
+        alert:  'La corrida no pudo ser eliminada, tiene casos asociados'
+
     schedules:
       run:
         notice: 'Ejecución programada'
+      destroy:
+        notice: 'Trabajo en proceso de eliminación'
+      cleanup:
+        notice: 'Se programó la limpieza del trabajo'
 
     scripts:
       destroy:
         alert:  'El guión no pudo ser eliminado, tiene casos activos asociados'
+
+    servers:
+      destroy:
+        alert: 'El servidor no pudo ser eliminado, tiene casos asociados'
 
     sessions:
       create:
@@ -58,6 +76,16 @@ es:
         logged_in: 'Bienvenido'
       destroy:
         logged_out: 'Hasta la próxima'
+
+    tags:
+      create:
+        notice: 'Etiqueta creada'
+      update:
+        notice: 'Etiqueta actualizada'
+        alert:  ''
+      destroy:
+        notice: 'Etiqueta eliminada'
+        alert:  'La etiqueta no pudo ser eliminada, es final y tiene casos asociados'
 
     users:
       update:

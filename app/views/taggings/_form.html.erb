@@ -1,0 +1,12 @@
+<%= simple_form_for [@issue, @tagging], class: 'form-inline', data: { remote: request.xhr? } do |f| %>
+  <%= f.input :tag, wrapper: :vertical_input_group, label: false do %>
+    <%= f.input_field :tag, as: :autocomplete, url: tags_path(kind: 'issue'), autofocus: true, data: {
+      empty_result_label: t('.empty')
+    } %>
+
+    <div class="input-group-btn">
+      <%= f.button :submit, t('.add'), class: 'btn-default' %>
+      <%= link_to t('done'), @issue, class: 'btn btn-default' %>
+    </div>
+  <% end %>
+<% end %>

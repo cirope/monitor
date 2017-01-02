@@ -5,12 +5,6 @@ module SchedulesHelper
     end
   end
 
-  def schedule_taggings
-    @schedule.taggings.new if @schedule.taggings.empty?
-
-    @schedule.taggings
-  end
-
   def jobs
     @schedule.jobs.new if @schedule.jobs.empty?
 
@@ -47,6 +41,20 @@ module SchedulesHelper
 
     link_to url, options do
       capture &block if block_given?
+    end
+  end
+
+  def link_to_cleanup schedule
+    options = {
+      title: t('schedules.cleanup'),
+      data:  {
+        method:  :delete,
+        confirm: t('messages.confirmation')
+      }
+    }
+
+    link_to cleanup_schedule_path(schedule), options do
+      content_tag :span, nil, class: 'glyphicon glyphicon-erase'
     end
   end
 end

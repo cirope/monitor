@@ -8,20 +8,17 @@ class DashboardControllerTest < ActionController::TestCase
   test 'should get index' do
     get :index
     assert_response :success
-    assert_not_nil assigns(:scripts)
   end
 
   test 'should get filtered index' do
-    get :index, filter: { name: 'undefined' }
+    get :index, params: { filter: { name: 'undefined' } }
     assert_response :success
-    assert_not_nil assigns(:scripts)
-    assert assigns(:scripts).empty?
+    assert_select '.alert', text: I18n.t('dashboard.index.empty_search_html')
   end
 
   test 'should get filtered index using issue tags' do
-    get :index, filter: { tags: tags(:important).name }
+    get :index, params: { filter: { tags: tags(:important).name } }
     assert_response :success
-    assert_not_nil assigns(:scripts)
-    assert assigns(:scripts).any?
+    assert_select 'table tbody'
   end
 end

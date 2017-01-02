@@ -1,4 +1,4 @@
-class Property < ActiveRecord::Base
+class Property < ApplicationRecord
   include Auditable
   include Properties::Validations
 
@@ -6,5 +6,9 @@ class Property < ActiveRecord::Base
 
   def to_s
     "#{key} -> #{value}"
+  end
+
+  def password?
+    key =~ /pass|pwd/i
   end
 end

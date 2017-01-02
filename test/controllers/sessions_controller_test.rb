@@ -13,14 +13,25 @@ class SessionsControllerTest < ActionController::TestCase
   test 'should create a new session' do
     Ldap.default.destroy!
 
-    post :create, { username: @user.email, password: '123' }
+    post :create, params: { username: @user.email, password: '123' }
 
     assert_redirected_to dashboard_url
     assert_equal @user.id, current_user.id
   end
 
+  test 'should create a new session and redirect to previous url' do
+    Ldap.default.destroy!
+
+    post :create,
+      params:  { username: @user.email, password: '123' },
+      session: { previous_url: schedules_url }
+
+    assert_redirected_to schedules_url
+    assert_equal @user.id, current_user.id
+  end
+
   test 'should create a new session via LDAP' do
-    post :create, { username: @user.username, password: 'admin123' }
+    post :create, params: { username: @user.username, password: 'admin123' }
 
     assert_redirected_to dashboard_url
     assert_equal @user.id, current_user.id
@@ -29,14 +40,14 @@ class SessionsControllerTest < ActionController::TestCase
   test 'should not create a new session' do
     Ldap.default.destroy!
 
-    post :create, { username: @user.email, password: 'wrong' }
+    post :create, params: { username: @user.email, password: 'wrong' }
 
     assert_response :success
     assert_nil current_user
   end
 
   test 'should get destroy' do
-    cookies.encrypted[:auth_token] = @user.auth_token
+    @controller.send(:cookies).encrypted[:auth_token] = @user.auth_token
 
     assert_not_nil current_user
 
@@ -48,7 +59,7 @@ class SessionsControllerTest < ActionController::TestCase
 
   private
 
-  def current_user
-    @controller.send :current_user
-  end
+    def current_user
+      @controller.send :current_user
+    end
 end

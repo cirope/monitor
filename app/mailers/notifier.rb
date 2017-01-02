@@ -3,6 +3,10 @@ class Notifier < ApplicationMailer
     message = message.with_indifferent_access
     @body   = message[:body]
 
+    (message[:attachments] || {}).each do |filename, file|
+      attachments[filename] = file
+    end
+
     mail to:      message[:to],
          cc:      message[:cc],
          bcc:     message[:bcc],
@@ -17,6 +21,7 @@ class Notifier < ApplicationMailer
 
   def comment comment, users
     @comment = comment
+    @issue   = comment.issue
 
     mail to: users.map(&:email)
   end

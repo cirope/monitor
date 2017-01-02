@@ -1,8 +1,11 @@
-class Server < ActiveRecord::Base
+class Server < ApplicationRecord
   include Auditable
   include Attributes::Strip
+  include Filterable
   include SearchableByName
   include Servers::Command
+  include Servers::Local
+  include Servers::Scopes
   include Servers::Ssh
   include Servers::Validation
 
@@ -12,7 +15,7 @@ class Server < ActiveRecord::Base
 
   strip_fields :name
 
-  has_many :jobs, dependent: :destroy
+  has_many :jobs, dependent: :restrict_with_error
 
   def to_s
     name

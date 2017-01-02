@@ -1,0 +1,5 @@
+<fieldset class="user">
+  <%= f.input :user, as: :autocomplete, label: false, url: users_path, input_html: {
+    data: { empty_result_label: t('.empty') }
+  } %>
+</fieldset>

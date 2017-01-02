@@ -29,9 +29,18 @@ es:
       ldap:
         one: 'Configuración LDAP'
         other: 'LDAP'
+      maintainer:
+        one: 'Mantenedor'
+        other: 'Mantenedores'
       output:
-        one: 'Salida'
-        other: 'Salidas'
+        one: 'Salida regla'
+        other: 'Salida reglas'
+      parameter:
+        one: 'Parámetro'
+        other: 'Parámetros'
+      permalink:
+        one: 'Enlace permanente'
+        other: 'Enlaces permanentes'
       property:
         one: 'Propiedad'
         other: 'Propiedades'
@@ -56,6 +65,9 @@ es:
       tag:
         one: 'Etiqueta'
         other: 'Etiquetas'
+      tagging:
+        one: 'Etiquetado'
+        other: 'Etiquetados'
       trigger:
         one: 'Disparador'
         other: 'Disparadores'
@@ -67,6 +79,7 @@ es:
       comment:
         text: 'Comentario'
         file: 'Adjunto'
+        issue: 'Caso'
       database:
         name: 'Nombre'
         driver: 'Controlador'
@@ -83,7 +96,10 @@ es:
         description: 'Descripción'
         run: 'Corrida'
         data: 'Datos'
+        tags: 'Etiquetas'
         created_at: 'Fecha de caso'
+      issue/taggings:
+        tag_id: 'Etiqueta'
       job:
         script: 'Guión'
         server: 'Servidor'
@@ -104,6 +120,13 @@ es:
         role_author: 'Grupo autor'
         role_supervisor: 'Grupo supervisor'
         role_security: 'Grupo seguridad'
+      maintainer:
+        user: 'Usuario'
+      parameter:
+        name: 'Nombre'
+        value: 'Valor'
+      permalink:
+        token: 'Testigo'
       property:
         key: 'Atributo'
         value: 'Valor'
@@ -130,6 +153,7 @@ es:
         file: 'Archivo'
         text: 'Contenido'
         core: 'Principal'
+        change: 'Comentario del último cambio'
       server:
         name: 'Nombre'
         hostname: 'Dirección'
@@ -140,6 +164,12 @@ es:
         user: 'Usuario'
       tag:
         name: 'Nombre'
+        style: 'Estilo'
+        final: 'Final'
+        export: 'Exportar'
+      tagging:
+        tag: 'Etiqueta'
+        tag_id: 'Etiqueta'
       trigger:
         callback: 'Función'
       user:
@@ -150,3 +180,19 @@ es:
         password: 'Contraseña'
         password_confirmation: 'Confirmación'
         role: 'Rol'
+      paper_trail/version:
+        whodunnit: 'Usuario'
+        created_at: 'Modificado el'
+
+    errors:
+      models:
+        comment:
+          attributes:
+            issue:
+              invalid: 'no pertenece a su usuario'
+        issue:
+          attributes:
+            base:
+              user_invalid: 'No tiene permisos para modificar este caso'
+            tags:
+              invalid: 'finales debe haber una (solamente)'

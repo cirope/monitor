@@ -8,4 +8,29 @@ class UsersHelperTest < ActionView::TestCase
   test 'roles label' do
     assert_match /href/, roles_label
   end
+
+  test 'user taggings' do
+    @user = users :franco
+
+    assert_equal @user.taggings, user_taggings
+
+    @user = User.new
+
+    assert_equal 1, user_taggings.size
+    assert user_taggings.all?(&:new_record?)
+  end
+
+  test 'user actions columns' do
+    assert_kind_of Integer, user_actions_columns
+  end
+
+  private
+
+    def current_user
+      users :franco
+    end
+
+    def ldap
+      ldaps :ldap_server
+    end
 end

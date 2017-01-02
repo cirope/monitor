@@ -3,8 +3,12 @@ require 'test_helper'
 class CommentTest < ActiveSupport::TestCase
   include ActionMailer::TestHelper
 
-  def setup
+  setup do
     @comment = comments :possitive
+  end
+
+  teardown do
+    PaperTrail.whodunnit = nil
   end
 
   test 'blank attributes' do
@@ -16,16 +20,39 @@ class CommentTest < ActiveSupport::TestCase
     assert_error @comment, :user, :blank
   end
 
+  test 'validate user belongs to issue' do
+    PaperTrail.whodunnit = users(:john).id
+
+    comment = @comment.dup
+    issue   = @comment.issue.dup
+
+    issue.save!
+
+    comment.issue_id = issue.id
+
+    assert comment.invalid?
+    assert_error comment, :issue, :invalid
+  end
+
   test 'send email after create' do
     PaperTrail.whodunnit = users(:franco).id
 
-    assert_emails 1 do
+    assert_enqueued_emails 1 do
       @comment.issue.comments.create! text: 'email test'
     end
+  end
 
-    email = ActionMailer::Base.deliveries.last
+  test 'do not send email after create if notify is false' do
+    PaperTrail.whodunnit = users(:franco).id
 
-    assert email.to.any?
-    assert email.to.exclude?(@comment.user.email)
+    assert_no_enqueued_emails do
+      @comment.issue.comments.create! text: 'email test', notify: false
+    end
+  end
+
+  test 'owned by' do
+    assert @comment.owned_by?(@comment.user)
+
+    assert !@comment.owned_by?(User.new)
   end
 end

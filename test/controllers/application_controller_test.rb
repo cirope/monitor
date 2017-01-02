@@ -11,7 +11,6 @@ class ApplicationControllerTest < ActionController::TestCase
     @controller.action_name = 'create'
 
     assert_equal I18n.t('users.new.title'), set_title
-    assert_not_nil assigns(:title)
 
     @controller.action_name = 'edit'
 
@@ -87,6 +86,22 @@ class ApplicationControllerTest < ActionController::TestCase
     assert_redirected_to issues_url
   end
 
+  test 'should store location' do
+    @request.instance_variable_set(:@fullpath, issues_path)
+
+    store_location
+
+    assert_equal issues_path, session[:previous_url]
+  end
+
+  test 'should not store location' do
+    @request.instance_variable_set(:@fullpath, login_path)
+
+    store_location
+
+    assert_nil session[:previous_url]
+  end
+
   private
 
     def set_title
@@ -103,5 +118,9 @@ class ApplicationControllerTest < ActionController::TestCase
 
     def update_resource *args
       @controller.send :update_resource, *args
+    end
+
+    def store_location
+      @controller.send :store_location
     end
 end

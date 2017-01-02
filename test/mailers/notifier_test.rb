@@ -2,12 +2,22 @@ require 'test_helper'
 
 class NotifierTest < ActionMailer::TestCase
   test 'notify' do
-    message = { to: 'test@monitor.com', body: 'Test message' }
+    path    = File.join Rails.root, 'test', 'fixtures', 'files', 'test.sh'
+    file    = File.read path
+    message = {
+      to:          'test@monitor.com',
+      body:        'Test message',
+      attachments: {
+        'test.sh': file
+      }
+    }
     mail    = Notifier.notify message
 
     assert_equal I18n.t('notifier.notify.subject'), mail.subject
     assert_equal [message[:to]], mail.to
     assert_equal [ENV['EMAIL_ADDRESS']], mail.from
+    assert_equal 1, mail.attachments.size
+    assert_match mail.attachments.first.filename, message[:attachments].keys.first
     assert_match message[:body], mail.html_part.body.decoded
     assert_match message[:body], mail.text_part.body.decoded
   end

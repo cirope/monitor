@@ -1,0 +1,58 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <% if filters? %>
+      <p class="text-warning pull-right">
+        <span class="glyphicon glyphicon-filter"></span>
+        <%= link_to schedule_runs_path(@schedule), title: t('cancel') do %>
+          <span class="glyphicon glyphicon-remove-circle"></span>
+        <% end %>
+      </p>
+    <% end %>
+    <h4 class="panel-title">
+      <a href="#filters" data-toggle="collapse">
+        <span class="glyphicon glyphicon-search"></span>
+        <%= t 'filters.title' %>
+        <span class="caret"></span>
+      </a>
+    </h4>
+  </div>
+  <div id="filters" class="panel-body collapse">
+    <%= simple_form_for :filter, method: :get do |f| %>
+      <fieldset>
+        <div class="row">
+          <div class="col-lg-4">
+            <%= f.input :status, required: false,
+              collection: filter_run_status, include_blank: '-', selected: filter_params[:status],
+              input_html: {
+                class: 'input-sm'
+              }
+            %>
+          </div>
+          <div class="col-lg-4">
+            <%= f.input :scheduled_at, as: :date_picker, required: false,
+              input_html: {
+                value: filter_params[:scheduled_at],
+                class: 'input-sm',
+                data:  { date_range: true }
+              }
+            %>
+          </div>
+          <div class="col-lg-4">
+            <%= f.input :script_name,
+              required: false,
+              input_html: {
+                value:     filter_params[:script_name],
+                class:     'input-sm'
+              }
+            %>
+          </div>
+        </div>
+
+        <p class="text-right">
+          <%= f.button :submit, t('filters.submit'), class: 'btn-sm btn-default' %>
+          <%= link_to t('cancel'), schedule_runs_path(@schedule), class: 'small' %>
+        </p>
+      </fieldset>
+    <% end %>
+  </div>
+</div>

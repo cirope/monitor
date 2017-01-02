@@ -30,17 +30,21 @@ module Schedules::Runs
   end
 
   def run?
-    required.all? &:last_run_ok?
+    required.all? &:last_runs_ok?
   end
 
-  def last_run_ok?
-    runs.executed.last&.ok?
+  def last_runs_ok?
+    jobs.all? { |job| job.runs.executed.last&.ok? }
   end
 
   def next_date
     interval = self.interval || 1
 
     start.advance frequency.to_sym => (intervals_since_start + 1) * interval
+  end
+
+  def cancel_pending_runs
+    runs.pending.or(runs.overdue).cancel
   end
 
   private
@@ -50,7 +54,7 @@ module Schedules::Runs
     end
 
     def jobs_changed?
-      jobs.any?(&:changed?) || taggings.any?(&:changed?)
+      jobs.any? &:changed?
     end
 
     def schedule_changed?

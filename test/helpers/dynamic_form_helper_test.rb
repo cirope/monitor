@@ -3,7 +3,7 @@ require 'test_helper'
 class DynamicFormHelperTest < ActionView::TestCase
   test 'link to add fields' do
     simple_fields_for(Script.new) do |f|
-      link = link_to_add_fields 'Add relation', f, :requires
+      link = link_to_add_fields 'Add maintainer', f, :maintainers
 
       assert_match /addNestedItem/, link
     end

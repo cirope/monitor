@@ -2,10 +2,8 @@ module Scripts::Scopes
   extend ActiveSupport::Concern
 
   included do
-    scope :ordered, -> { order :name }
-    scope :with_active_issues, -> {
-      where "#{table_name}.active_issues_count > ?", 0
-    }
+    scope :ordered,    -> { order :name }
+    scope :for_export, -> { joins(:tags).merge Tag.export(true) }
   end
 
   module ClassMethods
