@@ -16,12 +16,12 @@
 //= require turbolinks
 //= require turbolinks_events
 //= require codemirror/codemirror
-//= require codemirror/addon/active-line
-//= require codemirror/addon/closebrackets
-//= require codemirror/addon/matchbrackets
+//= require codemirror/addon/edit/closebrackets
+//= require codemirror/addon/edit/matchbrackets
 //= require codemirror/addon/fold/foldcode
 //= require codemirror/addon/fold/foldgutter
 //= require codemirror/addon/fold/brace-fold
+//= require codemirror/addon/selection/active-line
 //= require codemirror/mode/ruby
 //= require bootstrap
 //= require chartist/chartist
