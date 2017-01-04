@@ -9,8 +9,10 @@ var startEditors = function () {
       matchBrackets:     true,
       lineNumbers:       true,
       styleActiveLine:   true,
+      foldGutter:        true,
       theme:             readonly ? 'solarized dark' :  'solarized light',
-      readOnly:          readonly
+      readOnly:          readonly,
+      gutters:           ['CodeMirror-linenumbers', 'CodeMirror-foldgutter']
     }
 
     CodeMirror.fromTextArea($textarea.get(0), options)
