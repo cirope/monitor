@@ -19,6 +19,9 @@
 //= require codemirror/addon/active-line
 //= require codemirror/addon/closebrackets
 //= require codemirror/addon/matchbrackets
+//= require codemirror/addon/fold/foldcode
+//= require codemirror/addon/fold/foldgutter
+//= require codemirror/addon/fold/brace-fold
 //= require codemirror/mode/ruby
 //= require bootstrap
 //= require chartist/chartist
