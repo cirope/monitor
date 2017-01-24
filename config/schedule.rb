@@ -2,8 +2,11 @@ every 1.minutes do
   runner 'Schedule.schedule; Run.schedule'
 end
 
-every 30.minutes do
-  command "cd #{path} && bundle exec cap localhost sidekiq:restart"
+every 1.minutes do
+  check   = '(ps aux | grep sidekiq | grep -v grep) > /dev/null'
+  restart = "(cd #{path} && bundle exec cap localhost sidekiq:restart)"
+
+  command "#{check} || #{restart}"
 end
 
 every 1.day do
