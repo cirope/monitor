@@ -6,7 +6,7 @@ module Schedules::Cleanup
 
     Schedule.transaction do
       cleanable_runs.find_each do |run|
-        destroyed = run.reload.destroy
+        destroyed = run.reload.destroy rescue false
 
         all_destroyed &&= destroyed
       end
