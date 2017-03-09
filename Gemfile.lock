@@ -67,7 +67,7 @@ GEM
       capistrano (~> 3.1)
       sshkit (~> 1.2)
     capistrano-harrow (0.5.3)
-    capistrano-rails (1.2.2)
+    capistrano-rails (1.2.3)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
     capistrano-rbenv (2.1.0)
@@ -86,7 +86,7 @@ GEM
       activerecord (~> 5.0.0)
     concurrent-ruby (1.0.5)
     connection_pool (2.2.1)
-    css_parser (1.4.9)
+    css_parser (1.4.10)
       addressable
     debug_inspector (0.0.2)
     diffy (3.1.0)
@@ -229,7 +229,7 @@ GEM
     turbolinks-source (5.0.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    uglifier (3.1.2)
+    uglifier (3.1.6)
       execjs (>= 0.3.0, < 3)
     unicorn (5.2.0)
       kgio (~> 2.6)
@@ -296,4 +296,4 @@ DEPENDENCIES
   whenever
 
 BUNDLED WITH
-   1.14.5
+   1.14.6
