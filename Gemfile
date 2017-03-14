@@ -39,11 +39,15 @@ gem 'capistrano-rbenv'
 gem 'capistrano-bundler'
 gem 'capistrano-rails'
 gem 'capistrano-sidekiq'
-gem 'rbnacl' # Support for ed25519 ssh keys
+
 
 group :development do
   gem 'unicorn-rails'
   gem 'web-console'
+
+  # Support for ed25519 ssh keys
+  gem 'rbnacl'
+  gem 'bcrypt_pbkdf'
 end
 
 group :development, :test do
