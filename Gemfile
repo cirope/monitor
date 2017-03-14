@@ -39,6 +39,7 @@ gem 'capistrano-rbenv'
 gem 'capistrano-bundler'
 gem 'capistrano-rails'
 gem 'capistrano-sidekiq'
+gem 'rbnacl' # Support for ed25519 ssh keys
 
 group :development do
   gem 'unicorn-rails'
