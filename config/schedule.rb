@@ -1,6 +1,6 @@
 env :PATH, ENV['PATH']
 
-every 1.minutes do
+every 5.minutes do
   runner 'Schedule.schedule; Run.schedule'
 end
 
