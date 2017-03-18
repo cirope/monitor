@@ -34,6 +34,8 @@ gem 'coderay'
 
 gem 'unicorn'
 
+gem 'newrelic_rpm'
+
 gem 'capistrano'
 gem 'capistrano-rbenv'
 gem 'capistrano-bundler'

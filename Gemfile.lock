@@ -133,6 +133,7 @@ GEM
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (4.1.0)
+    newrelic_rpm (4.0.0.332)
     nio4r (2.0.0)
     nokogiri (1.7.0.1)
       mini_portile2 (~> 2.1.0)
@@ -273,6 +274,7 @@ DEPENDENCIES
   net-ldap
   net-scp
   net-ssh
+  newrelic_rpm
   paper_trail
   pg
   prawn
