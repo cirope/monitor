@@ -1,4 +1,4 @@
-class CreateLdaps < ActiveRecord::Migration
+class CreateLdaps < ActiveRecord::Migration[4.2]
   def change
     create_table :ldaps do |t|
       t.string :hostname, null: false

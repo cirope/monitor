@@ -1,4 +1,4 @@
-class AddHiddenToSchedules < ActiveRecord::Migration
+class AddHiddenToSchedules < ActiveRecord::Migration[4.2]
   def change
     add_column :schedules, :hidden, :boolean, null: false, default: false
 

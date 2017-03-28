@@ -1,4 +1,4 @@
-class AddFileToComments < ActiveRecord::Migration
+class AddFileToComments < ActiveRecord::Migration[4.2]
   def change
     add_column :comments, :file, :string
   end

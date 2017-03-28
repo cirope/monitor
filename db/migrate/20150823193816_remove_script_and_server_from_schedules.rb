@@ -1,4 +1,4 @@
-class RemoveScriptAndServerFromSchedules < ActiveRecord::Migration
+class RemoveScriptAndServerFromSchedules < ActiveRecord::Migration[4.2]
   def change
     change_table :schedules do |t|
       t.remove :script_id
