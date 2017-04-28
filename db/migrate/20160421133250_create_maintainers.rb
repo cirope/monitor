@@ -1,4 +1,4 @@
-class CreateMaintainers < ActiveRecord::Migration
+class CreateMaintainers < ActiveRecord::Migration[4.2]
   def change
     create_table :maintainers do |t|
       t.references :user, null: false, index: true, foreign_key: {
