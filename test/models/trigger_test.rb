@@ -13,9 +13,8 @@ class TriggerTest < ActiveSupport::TestCase
   end
 
   test 'code attributes' do
-    error = '<compiled>:1: syntax error, unexpected end-of-input, expecting keyword_end'
-
     @trigger.callback = 'def x; true; en'
+    error = syntax_errors_for @trigger.callback
 
     assert @trigger.invalid?
     assert_error @trigger, :callback, :syntax, errors: error
@@ -24,4 +23,14 @@ class TriggerTest < ActiveSupport::TestCase
   test 'run on' do
     skip
   end
+
+  private
+
+    def syntax_errors_for code
+      RubyVM::InstructionSequence.compile code
+
+      false
+    rescue SyntaxError => ex
+      ex.message.lines.first.chomp
+    end
 end
