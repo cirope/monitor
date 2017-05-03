@@ -31,6 +31,15 @@ class ScriptTest < ActiveSupport::TestCase
     assert_error @script, :change, :too_long, count: 255
   end
 
+  test 'code attributes' do
+    error = '<compiled>:1: syntax error, unexpected end-of-input, expecting keyword_end'
+
+    @script.text = 'def x; true; en'
+
+    assert @script.invalid?
+    assert_error @script, :text, :syntax, errors: error
+  end
+
   test 'not text and file validation' do
     @script.file = Rack::Test::UploadedFile.new(
       "#{Rails.root}/test/fixtures/files/test.sh", 'text/plain', false
