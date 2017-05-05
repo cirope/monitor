@@ -52,19 +52,21 @@ class IssueTest < ActiveSupport::TestCase
   end
 
   test 'next status' do
+    PaperTrail.whodunnit = nil
+
     @issue.taggings.create! tag_id: tags(:final).id
 
     assert_equal %w(pending taken closed), @issue.next_status
 
     @issue.update! status: 'taken'
-    assert_equal %w(taken closed), @issue.reload.next_status
+    assert_equal %w(taken closed), @issue.next_status
 
     @issue.update! status: 'closed'
-    assert_equal %w(closed), @issue.reload.next_status
+    assert_equal %w(closed), @issue.next_status
 
     PaperTrail.whodunnit = users(:franco).id
 
-    assert_equal %w(taken closed), @issue.reload.next_status
+    assert_equal %w(taken closed), @issue.next_status
   end
 
   test 'notify to' do
