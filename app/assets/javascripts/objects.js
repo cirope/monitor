@@ -1,3 +1,7 @@
+$(document).on('turbolinks:load', function () {
+  $('.ct-chart').parent().trigger('object.mt.added')
+})
+
 $(document).on('object.mt.added', function (event) {
   var $chart  = $(event.currentTarget).find('.ct-chart')
   var options = $chart.data('options')
