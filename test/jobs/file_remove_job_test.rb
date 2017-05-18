@@ -10,6 +10,8 @@ class FileRemoveJobTest < ActiveJob::TestCase
 
     FileRemoveJob.perform_now path
 
+    sleep 0.002
+
     assert !path.exist?
   end
 end
