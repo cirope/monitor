@@ -6,11 +6,12 @@ class Issues::BoardController < ApplicationController
   before_action :set_issue,  only: [:create, :destroy]
   before_action :set_script, only: [:create, :destroy]
 
-  respond_to :html, :js
+  respond_to :html, :js, :pdf
 
   def index
     @issue_ids = issues.where(id: board_session).pluck 'id'
-    @issues = issues.order(:created_at).where(id: board_session).page params[:page]
+    @issues = issues.order(:created_at).where id: board_session
+    @issues = @issues.page params[:page] unless request.format == :pdf
 
     respond_with @issues
   end
@@ -71,8 +72,9 @@ class Issues::BoardController < ApplicationController
 
     def issue_params
       params.require(:issue).permit :description, :status,
-        comments_attributes: [:text],
-        taggings_attributes: [:tag_id]
+        comments_attributes:      [:text],
+        taggings_attributes:      [:tag_id],
+        subscriptions_attributes: [:user_id]
     end
 
     def board_session

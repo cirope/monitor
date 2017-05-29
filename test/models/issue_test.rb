@@ -52,6 +52,8 @@ class IssueTest < ActiveSupport::TestCase
   end
 
   test 'next status' do
+    PaperTrail.whodunnit = nil
+
     @issue.taggings.create! tag_id: tags(:final).id
 
     assert_equal %w(pending taken closed), @issue.next_status
@@ -81,6 +83,7 @@ class IssueTest < ActiveSupport::TestCase
     assert !@issue.can_be_edited_by?(users(:eduardo))
     assert !@issue.can_be_light_edited_by?(users(:eduardo))
 
+    @issue.subscriptions.clear
     @issue.subscriptions.create! user_id: users(:eduardo).id
 
     assert @issue.reload.can_be_edited_by?(users(:eduardo))
@@ -100,6 +103,15 @@ class IssueTest < ActiveSupport::TestCase
     assert_not_equal 0, issues.count
     assert_not_equal 0, issues.take.tags.count
     assert issues.all? { |issue| issue.tags.any? { |t| t.name == tag.name } }
+  end
+
+  test 'not tagged' do
+    Issue.take.tags.clear
+
+    issues = Issue.not_tagged
+
+    assert_not_equal 0, issues.count
+    assert issues.all? { |issue| issue.tags.empty? }
   end
 
   test 'by created at' do
@@ -136,5 +148,13 @@ class IssueTest < ActiveSupport::TestCase
 
   test 'add to zip' do
     skip
+  end
+
+  test 'to pdf' do
+    path = Issue.to_pdf
+
+    assert File.exist?(path)
+
+    FileUtils.rm path
   end
 end

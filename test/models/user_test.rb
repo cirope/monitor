@@ -136,4 +136,8 @@ class UserTest < ActiveSupport::TestCase
   test 'by email' do
     skip
   end
+
+  test 'by issues' do
+    skip
+  end
 end

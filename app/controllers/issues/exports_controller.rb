@@ -7,6 +7,7 @@ class Issues::ExportsController < ApplicationController
     path = @issues.export_data
     mime = Mime::Type.lookup_by_extension 'zip'
 
+    set_file_download_headers path
     send_file path, type: mime, filename: t('.filename')
 
     FileRemoveJob.set(wait: 15.minutes).perform_later path

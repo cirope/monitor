@@ -1,9 +1,11 @@
 class ApplicationController < ActionController::Base
   include ActionTitle
+  include CacheControl
   include CurrentUser
   include LdapConfig
   include Responder
   include Roles
+  include StoreLocation
   include UpdateResource
 
   protect_from_forgery with: :exception

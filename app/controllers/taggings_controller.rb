@@ -12,9 +12,9 @@ class TaggingsController < ApplicationController
   end
 
   def create
-    @tagging = @issue.taggings.new tagging_params
+    @tagging = @new_tagging = @issue.taggings.new tagging_params
+    @tagging = current_user.taggings.new if @tagging.save
 
-    @tagging.save
     respond_with @tagging
   end
 

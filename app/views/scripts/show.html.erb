@@ -18,8 +18,7 @@
 <% end %>
 
 <% if @script.text.present? %>
-  <textarea name="script[text]" id="script_text" class="hidden"><%= @script.text %></textarea>
-  <div class="editor" data-readonly="true"></div>
+  <textarea name="script[text]" id="script_text" class="editor" data-readonly="true"><%= @script.text %></textarea>
 <% end %>
 
 <% if @script.change.present? %>

@@ -31,6 +31,14 @@ class ScriptTest < ActiveSupport::TestCase
     assert_error @script, :change, :too_long, count: 255
   end
 
+  test 'code attributes' do
+    @script.text = 'def x; true; en'
+    error = syntax_errors_for @script.text
+
+    assert @script.invalid?
+    assert_error @script, :text, :syntax, errors: error
+  end
+
   test 'not text and file validation' do
     @script.file = Rack::Test::UploadedFile.new(
       "#{Rails.root}/test/fixtures/files/test.sh", 'text/plain', false
@@ -93,6 +101,15 @@ class ScriptTest < ActiveSupport::TestCase
     assert_not_equal 0, scripts.count
     assert_not_equal 0, scripts.take.tags.count
     assert scripts.all? { |script| script.tags.any? { |t| t.name == tag.name } }
+  end
+
+  test 'not tagged' do
+    Script.take.tags.clear
+
+    scripts = Script.not_tagged
+
+    assert_not_equal 0, scripts.count
+    assert scripts.all? { |script| script.tags.empty? }
   end
 
   test 'for export' do
@@ -228,4 +245,14 @@ class ScriptTest < ActiveSupport::TestCase
   test 'by name' do
     skip
   end
+
+  private
+
+    def syntax_errors_for code
+      RubyVM::InstructionSequence.compile code
+
+      false
+    rescue SyntaxError => ex
+      ex.message.lines.first.chomp
+    end
 end

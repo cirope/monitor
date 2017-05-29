@@ -14,6 +14,6 @@ class NotifierPreview < ActionMailer::Preview
   def comment
     comment = Comment.take
 
-    Notifier.comment comment, comment.users.pluck('email')
+    Notifier.comment comment, comment.users
   end
 end
