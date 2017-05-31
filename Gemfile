@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.0.3'
+gem 'rails', '~> 5.1.1'
 
 gem 'pg'
 gem 'sass-rails'
@@ -46,6 +46,7 @@ gem 'capistrano-sidekiq'
 group :development do
   gem 'unicorn-rails'
   gem 'web-console'
+  gem 'listen'
 
   # Support for ed25519 ssh keys
   gem 'rbnacl'
@@ -61,5 +62,5 @@ group :test do
 end
 
 # Some user script dependencies
-gem 'composite_primary_keys', require: false
+# gem 'composite_primary_keys', '>= 9', require: false
 gem 'ruby-odbc', require: false
