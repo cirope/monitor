@@ -8,6 +8,6 @@ class FileRemoveJob < ApplicationJob
   private
 
     def rm path
-      Thread.new { sleep 0.001; FileUtils.rm path }
+      Thread.new { sleep 0.01; FileUtils.rm path }
     end
 end
