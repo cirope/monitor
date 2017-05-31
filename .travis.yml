@@ -3,15 +3,14 @@ cache: bundler
 sudo: false
 dist: trusty
 rvm:
-  - 2.3.4
-  - 2.4.1
+  - 2.3.1
 addons:
   apt:
     packages:
     - slapd
     - ldap-utils
     - unixodbc-dev
-  postgresql: 9.4
+  postgresql: 9.5
 before_script:
   - 'cp config/application.travis.yml config/application.yml'
   - "psql -c 'create database monitor_test;' -U postgres"
