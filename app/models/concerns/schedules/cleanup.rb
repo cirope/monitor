@@ -4,12 +4,14 @@ module Schedules::Cleanup
   def cleanup
     all_destroyed = true
 
-    Schedule.transaction do
-      cleanable_runs.find_each do |run|
-        destroyed = run.reload.destroy rescue false
+    cleanable_runs.find_each do |run|
+      destroyed = begin
+                    run.reload.destroy
+                  rescue ActiveRecord::RecordNotFound
+                    false
+                  end
 
-        all_destroyed &&= destroyed
-      end
+      all_destroyed &&= destroyed
     end
 
     all_destroyed
