@@ -212,6 +212,7 @@ es:
       title: 'Listado de corridas'
       empty_html: 'No hay corridas para este trabajo'
       empty_search_html: 'No hay corridas que coincidan con el criterio de búsqueda'
+      run_time: 'Tiempo de ejecución'
     show:
       title: 'Ver corrida'
       full_output: 'Ver salida completa'

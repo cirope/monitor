@@ -12,12 +12,19 @@ class TriggerTest < ActiveSupport::TestCase
     assert_error @trigger, :callback, :blank
   end
 
-  test 'code attributes' do
+  test 'validates attributes syntax' do
     @trigger.callback = 'def x; true; en'
     error = syntax_errors_for @trigger.callback
 
     assert @trigger.invalid?
     assert_error @trigger, :callback, :syntax, errors: error
+  end
+
+  test 'validates attributes encoding' do
+    @trigger.callback = "\n\t"
+
+    assert @trigger.invalid?
+    assert_error @trigger, :callback, :pdf_encoding
   end
 
   test 'run on' do

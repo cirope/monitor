@@ -31,12 +31,19 @@ class ScriptTest < ActiveSupport::TestCase
     assert_error @script, :change, :too_long, count: 255
   end
 
-  test 'code attributes' do
+  test 'validates attributes syntax' do
     @script.text = 'def x; true; en'
     error = syntax_errors_for @script.text
 
     assert @script.invalid?
     assert_error @script, :text, :syntax, errors: error
+  end
+
+  test 'validates attributes encoding' do
+    @script.text = "\n\t"
+
+    assert @script.invalid?
+    assert_error @script, :text, :pdf_encoding
   end
 
   test 'not text and file validation' do
