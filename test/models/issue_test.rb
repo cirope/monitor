@@ -25,6 +25,13 @@ class IssueTest < ActiveSupport::TestCase
     assert_error @issue, :status, :inclusion
   end
 
+  test 'validates attributes encoding' do
+    @issue.description = "\n\t"
+
+    assert @issue.invalid?
+    assert_error @issue, :description, :pdf_encoding
+  end
+
   test 'empty final tag validation' do
     @issue.status = 'closed'
 
