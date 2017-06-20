@@ -42,7 +42,9 @@
           </div>
           <div class="col-lg-4">
             <%= f.input :status, required: false,
-              collection: filter_status, include_blank: '-', selected: filter_params[:status],
+              collection: filter_status,
+              include_blank: '-',
+              selected: filter_params[:status],
               input_html: {
                 class: 'input-sm'
               }
