@@ -7,7 +7,8 @@ module Schedules::Cleanup
     cleanable_runs.find_each do |run|
       destroyed = begin
                     run.reload.destroy
-                  rescue ActiveRecord::RecordNotFound
+                  rescue ActiveRecord::RecordNotFound,
+                         ActiveRecord::StaleObjectError
                     false
                   end
 
