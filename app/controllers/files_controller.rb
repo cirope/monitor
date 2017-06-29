@@ -7,9 +7,7 @@ class FilesController < ApplicationController
     if safe_file_path? file
       mime_type = Mime::Type.lookup_by_extension File.extname(file)[1..-1]
 
-      response.headers['Last-Modified'] = File.mtime(file).httpdate
-      response.headers['Cache-Control'] = 'private, no-store'
-
+      set_file_download_headers file
       send_file file, type: mime_type || 'application/octet-stream'
     else
       redirect_to root_url, notice: t('messages.file_not_found')

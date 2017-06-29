@@ -25,6 +25,13 @@ class IssueTest < ActiveSupport::TestCase
     assert_error @issue, :status, :inclusion
   end
 
+  test 'validates attributes encoding' do
+    @issue.description = "\n\t"
+
+    assert @issue.invalid?
+    assert_error @issue, :description, :pdf_encoding
+  end
+
   test 'empty final tag validation' do
     @issue.status = 'closed'
 
@@ -52,6 +59,8 @@ class IssueTest < ActiveSupport::TestCase
   end
 
   test 'next status' do
+    PaperTrail.whodunnit = nil
+
     @issue.taggings.create! tag_id: tags(:final).id
 
     assert_equal %w(pending taken closed), @issue.next_status

@@ -1,4 +1,4 @@
-class AddJobToRuns < ActiveRecord::Migration
+class AddJobToRuns < ActiveRecord::Migration[4.2]
   def change
     change_table :runs do |t|
       t.remove :schedule_id

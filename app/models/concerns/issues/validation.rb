@@ -3,6 +3,7 @@ module Issues::Validation
 
   included do
     validates :status, presence: true, inclusion: { in: :next_status }
+    validates :description, pdf_encoding: true
     validate :has_final_tag
     validate :user_can_modify
   end

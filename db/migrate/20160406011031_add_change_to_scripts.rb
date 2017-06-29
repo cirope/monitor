@@ -1,4 +1,4 @@
-class AddChangeToScripts < ActiveRecord::Migration
+class AddChangeToScripts < ActiveRecord::Migration[4.2]
   def change
     add_column :scripts, :change, :string
   end

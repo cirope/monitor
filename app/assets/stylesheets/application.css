@@ -13,9 +13,13 @@
  *= require bootstrap_sass
  *= require ie
  *= require chartist/chartist
+ *= require codemirror/codemirror
+ *= require codemirror/foldgutter
+ *= require codemirror/solarized
+ *= require codemirror
  *= require daterangepicker
- *= require jquery-ui/jquery-ui
- *= require jquery-ui/jquery-ui.theme
+ *= require jquery-ui
+ *= require jquery-ui.theme
  *= require main
  *= require icons
  *= require autocomplete

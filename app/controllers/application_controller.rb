@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   include ActionTitle
+  include CacheControl
   include CurrentUser
   include LdapConfig
   include Responder

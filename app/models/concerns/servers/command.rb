@@ -37,43 +37,21 @@ module Servers::Command
     end
 
     def execute_remote script_path
-      out = {}
+      out = Net::SSH::Connection::Session::StringWithExitstatus.new '', 0
 
       Net::SSH.start hostname, user, ssh_options do |ssh|
         ssh.exec! "chmod +x #{script_path}"
 
-        out = ssh_exec! ssh, "$SHELL -ci #{script_path}"
+        out = ssh.exec! "$SHELL -ci #{script_path}"
 
         ssh.exec! "rm #{script_path}"
       end
 
-      status_text = "\nExit status: #{out[:exit_code]}" unless out[:exit_code] == 0
+      status_text = "\nExit status: #{out.exitstatus}" unless out.exitstatus == 0
 
       {
-        status: out[:exit_code] == 0 ? 'ok' : 'error',
-        output: out[:output].to_s + status_text.to_s
+        status: out.exitstatus == 0 ? 'ok' : 'error',
+        output: out.to_s + status_text.to_s
       }
-    end
-
-    def ssh_exec! ssh, command
-      output    = ''
-      exit_code = nil
-
-      ssh.open_channel do |channel|
-        channel.exec command do |ch, success|
-          raise "FAILED: couldn't execute command" unless success
-
-          channel.on_data          { |ch, data|       output << data }
-          channel.on_extended_data { |ch, type, data| output << data }
-
-          channel.on_request 'exit-status' do |ch, data|
-            exit_code = data.read_long
-          end
-        end
-      end
-
-      ssh.loop
-
-      { output: output, exit_code: exit_code }
     end
 end

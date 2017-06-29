@@ -10,7 +10,7 @@ module Runs::Scopes
     scope :executed,         -> { where status: %w(ok error) }
     scope :overdue,          -> { overdue_by 1, 'days' }
     scope :next_to_schedule, -> {
-      pending.where "#{table_name}.scheduled_at <= ?", 2.minutes.from_now
+      pending.where "#{table_name}.scheduled_at <= ?", 10.minutes.from_now
     }
   end
 

@@ -1,31 +1,21 @@
 var startEditors = function () {
   $('[data-editor]').each(function (i, element) {
     var $textarea = $(element)
-    var editorId  = $textarea.prop('id') + '_editor'
+    var readonly  = $textarea.data('readonly')
+    var options   = {
+      mode:              'ruby',
+      tabSize:           2,
+      autoCloseBrackets: true,
+      matchBrackets:     true,
+      lineNumbers:       true,
+      styleActiveLine:   true,
+      foldGutter:        true,
+      theme:             readonly ? 'solarized dark' :  'solarized light',
+      readOnly:          readonly,
+      gutters:           ['CodeMirror-linenumbers', 'CodeMirror-foldgutter']
+    }
 
-    $textarea.after('<div id="' + editorId + '" class="tiny-editor"></div>')
-    $textarea.val($textarea.val().trim())
-
-    var $editor = $('#' + editorId)
-    var editor  = ace.edit($editor.get(0))
-    var theme   = $textarea.data('readonly') ? 'solarized_dark' : 'solarized_light'
-
-    editor.$blockScrolling = Infinity
-
-    editor.setTheme('ace/theme/' + theme)
-    editor.getSession().setMode('ace/mode/ruby')
-
-    editor.setValue($textarea.val())
-    editor.getSession().setTabSize(2)
-    editor.getSession().setUseSoftTabs(true)
-    editor.setReadOnly($textarea.data('readonly'))
-    editor.clearSelection()
-    editor.gotoLine(0, 0)
-    editor.setFontSize(14)
-
-    editor.getSession().on('change', function () {
-      $textarea.val(editor.getValue())
-    })
+    CodeMirror.fromTextArea($textarea.get(0), options)
 
     $textarea.removeAttr('data-editor')
   })

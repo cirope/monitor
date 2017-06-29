@@ -43,7 +43,10 @@
             </div>
             <div class="col-lg-4">
               <%= f.input :status,
-                required: false, collection: filter_status, include_blank: '-', selected: filter_params[:status],
+                required: false,
+                collection: filter_status,
+                include_blank: '-',
+                selected: filter_params[:status],
                 input_html: {
                   class: 'input-sm'
                 }
@@ -57,8 +60,8 @@
             <%= f.input :description,
               required: false,
               input_html: {
-                value:     filter_params[:description],
-                class:     'input-sm'
+                value: filter_params[:description],
+                class: 'input-sm'
               }
             %>
           </div>
@@ -68,8 +71,8 @@
                 required: false,
                 collection: owner_options,
                 include_blank: false,
+                selected: filter_params[:show],
                 input_html: {
-                  value: filter_params[:show],
                   class: 'input-sm'
                 }
               %>

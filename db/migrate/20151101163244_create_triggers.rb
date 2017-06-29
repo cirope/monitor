@@ -1,4 +1,4 @@
-class CreateTriggers < ActiveRecord::Migration
+class CreateTriggers < ActiveRecord::Migration[4.2]
   def change
     create_table :triggers do |t|
       t.references :rule, index: true, null: false, foreign_key: {

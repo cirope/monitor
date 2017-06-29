@@ -31,6 +31,21 @@ class ScriptTest < ActiveSupport::TestCase
     assert_error @script, :change, :too_long, count: 255
   end
 
+  test 'validates attributes syntax' do
+    @script.text = 'def x; true; en'
+    error = syntax_errors_for @script.text
+
+    assert @script.invalid?
+    assert_error @script, :text, :syntax, errors: error
+  end
+
+  test 'validates attributes encoding' do
+    @script.text = "\n\t"
+
+    assert @script.invalid?
+    assert_error @script, :text, :pdf_encoding
+  end
+
   test 'not text and file validation' do
     @script.file = Rack::Test::UploadedFile.new(
       "#{Rails.root}/test/fixtures/files/test.sh", 'text/plain', false
@@ -237,4 +252,14 @@ class ScriptTest < ActiveSupport::TestCase
   test 'by name' do
     skip
   end
+
+  private
+
+    def syntax_errors_for code
+      RubyVM::InstructionSequence.compile code
+
+      false
+    rescue SyntaxError => ex
+      ex.message.lines.first.chomp
+    end
 end

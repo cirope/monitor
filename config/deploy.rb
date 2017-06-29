@@ -7,7 +7,6 @@ set :log_level, :error
 
 set :deploy_to, "/var/www/#{fetch(:application)}"
 set :deploy_via, :remote_cache
-set :scm, :git
 
 set :linked_files, %w{config/application.yml}
 set :linked_dirs, %w{log public/uploads private tmp/pids}
@@ -18,7 +17,7 @@ set :rbenv_ruby, '2.3.0'
 set :keep_releases, 5
 
 namespace :deploy do
-  after :publishing, :restart
-  after :published,  'sidekiq:restart'
-  after :finishing,  :cleanup
+  before :check,     'config:upload'
+  after  :publishing, :restart
+  after  :finishing,  'deploy:cleanup'
 end
