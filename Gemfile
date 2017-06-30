@@ -41,7 +41,6 @@ gem 'capistrano-rbenv'
 gem 'capistrano-bundler'
 gem 'capistrano-rails'
 
-
 group :development do
   gem 'unicorn-rails'
   gem 'web-console'

@@ -17,7 +17,8 @@ set :rbenv_ruby, '2.3.0'
 set :keep_releases, 5
 
 namespace :deploy do
-  before :check,     'config:upload'
+  before :check,      'config:upload'
   after  :publishing, :restart
-  after  :finishing,  'deploy:cleanup'
+  after  :published,  'sidekiq:restart'
+  after  :finishing,  :cleanup
 end
