@@ -88,7 +88,7 @@ module Ldaps::Import
     end
 
     def tags
-      Thread.current[:ldap_import_tags] ||=
+      RequestStore.store[:ldap_import_tags] ||=
         Hash[Tag.for_users.map { |tag| [tag.name, tag] }]
     end
 end

@@ -21,6 +21,7 @@ gem 'jc-validates_timeliness'
 gem 'kaminari'
 gem 'net-ssh'
 gem 'net-scp'
+gem 'request_store'
 gem 'sidekiq'
 gem 'whenever', require: false
 gem 'paper_trail'
