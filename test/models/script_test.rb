@@ -256,10 +256,14 @@ class ScriptTest < ActiveSupport::TestCase
   private
 
     def syntax_errors_for code
+      RequestStore.store[:stderr] = stderr = StringIO.new
+
       RubyVM::InstructionSequence.compile code
 
       false
     rescue SyntaxError => ex
-      ex.message.lines.first.chomp
+      ex.message.lines.concat([stderr.string]).join("\n")
+    ensure
+      RequestStore.store[:stderr] = STDERR
     end
 end
