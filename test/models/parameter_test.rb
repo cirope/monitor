@@ -16,11 +16,9 @@ class ParameterTest < ActiveSupport::TestCase
 
   test 'attributes length' do
     @parameter.name = 'abcde' * 52
-    @parameter.value = 'abcde' * 52
 
     assert @parameter.invalid?
     assert_error @parameter, :name, :too_long, count: 255
-    assert_error @parameter, :value, :too_long, count: 255
   end
 
   test 'attributes format' do

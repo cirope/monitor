@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.0.4'
+gem 'rails', '~> 5.0.5'
 
 gem 'pg'
 gem 'sass-rails'
@@ -21,6 +21,7 @@ gem 'jc-validates_timeliness'
 gem 'kaminari'
 gem 'net-ssh'
 gem 'net-scp'
+gem 'request_store'
 gem 'sidekiq'
 gem 'whenever', require: false
 gem 'paper_trail'
