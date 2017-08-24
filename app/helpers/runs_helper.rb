@@ -24,6 +24,12 @@ module RunsHelper
     end
   end
 
+  def run_time run
+    if run.started_at && run.ended_at
+      distance_of_time_in_words run.started_at, run.ended_at, include_seconds: true
+    end
+  end
+
   def filter_run_status
     %w(pending scheduled running ok error canceled aborted).map do |k|
       [t("runs.status.#{k}"), k]

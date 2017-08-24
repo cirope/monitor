@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.0.1'
+gem 'rails', '~> 5.0.5'
 
 gem 'pg'
 gem 'sass-rails'
@@ -21,6 +21,7 @@ gem 'jc-validates_timeliness'
 gem 'kaminari'
 gem 'net-ssh'
 gem 'net-scp'
+gem 'request_store'
 gem 'sidekiq'
 gem 'whenever', require: false
 gem 'paper_trail'
@@ -34,15 +35,22 @@ gem 'coderay'
 
 gem 'unicorn'
 
+gem 'newrelic_rpm'
+
 gem 'capistrano'
 gem 'capistrano-rbenv'
 gem 'capistrano-bundler'
 gem 'capistrano-rails'
 gem 'capistrano-sidekiq'
 
+
 group :development do
   gem 'unicorn-rails'
   gem 'web-console'
+
+  # Support for ed25519 ssh keys
+  gem 'rbnacl'
+  gem 'bcrypt_pbkdf'
 end
 
 group :development, :test do

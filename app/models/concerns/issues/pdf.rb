@@ -1,4 +1,4 @@
-module Issues::Pdf
+module Issues::PDF
   extend ActiveSupport::Concern
 
   module ClassMethods
@@ -110,7 +110,7 @@ module Issues::Pdf
       end
 
       def put_issue_details_on pdf
-        issues = includes :script, :tags, last_comment: :user
+        issues = includes :script, :tags
         data   = [issues_details_headers]
 
         pdf.text I18n.t('issues.pdf.details'), size: 16

@@ -1,10 +1,10 @@
-<h2>
+<h3>
   <span class="text-muted"><%= Run.model_name.human count: 1 %> -</span>
   <%= link_to @run.script, @run.script %>
   <span class="pull-right">
     <%= run_status @run.status %>
   </span>
-</h2>
+</h3>
 
 <p>
   <strong><%= Run.human_attribute_name 'scheduled_at' %></strong>:

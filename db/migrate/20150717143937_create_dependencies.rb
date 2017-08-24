@@ -1,4 +1,4 @@
-class CreateDependencies < ActiveRecord::Migration
+class CreateDependencies < ActiveRecord::Migration[4.2]
   def change
     create_table :dependencies do |t|
       t.references :dependent, index: true, null: false

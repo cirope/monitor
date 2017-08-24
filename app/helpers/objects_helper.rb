@@ -1,6 +1,6 @@
 module ObjectsHelper
   def render_object parent, key
-    path   = key.split '/'
+    path   = key.split '__/__'
     object = parent.data
 
     path.each do |index|
@@ -12,7 +12,7 @@ module ObjectsHelper
 
   def link_or_show parent, key, object, id
     if object.is_a?(Hash) || object.is_a?(Array)
-      key = [params[:key], key].compact.join '/'
+      key = [params[:key], key].compact.join '__/__'
 
       link_to [parent, key: key, container_id: id], data: { remote: true } do
         content_tag :span, nil, class: 'glyphicon glyphicon-search', title: t('.more')

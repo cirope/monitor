@@ -14,7 +14,7 @@ module Triggers::Run
     def code
       <<-RUBY
         begin
-          Thread.current[:stdout] = stdout = StringIO.new
+          RequestStore.store[:stdout] = stdout = StringIO.new
 
           ApplicationRecord.transaction do
             #{callback}
