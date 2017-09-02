@@ -6,7 +6,7 @@ module Issues::Filters
   end
 
   def issues
-    scoped_issues.filter filter_params.except(:show)
+    scoped_issues.filter filter_params.except(:show, :user)
   end
 
   def issue_params
@@ -17,7 +17,7 @@ module Issues::Filters
 
   def filter_params
     if params[:filter].present?
-      params.require(:filter).permit :id, :description, :status, :show, :tags, :data, :created_at
+      params.require(:filter).permit :id, :description, :status, :user, :user_id, :show, :tags, :data, :created_at
     else
       {}
     end

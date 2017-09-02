@@ -37,6 +37,10 @@ module Issues::Scopes
       where "#{table_name}.data @> ?", data
     end
 
+    def by_user_id user_id
+      joins(:users).where "#{User.table_name}.id = ?", user_id
+    end
+
     def by_script_name name
       joins(:script).where "#{Script.table_name}.name ILIKE ?", "%#{name}%"
     end
