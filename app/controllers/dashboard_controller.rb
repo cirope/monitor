@@ -19,12 +19,12 @@ class DashboardController < ApplicationController
 
     def filter_params
       params[:filter].present? ?
-        params.require(:filter).permit(:name, :status, :show, :tags, :description) :
+        params.require(:filter).permit(:name, :status, :show, :tags, :user_id, :user, :description) :
         {}
     end
 
     def issue_filter
-      filter_params.slice :status, :tags, :description
+      filter_params.slice :status, :tags, :description, :user_id
     end
 
     def issues

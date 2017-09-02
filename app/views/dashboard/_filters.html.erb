@@ -32,12 +32,11 @@
               %>
             </div>
             <div class="col-lg-4">
-              <%= f.input :tags,
-                required: false, as: :autocomplete, url: tags_path(kind: 'issue'),
+              <%= f.input :description,
+                required: false,
                 input_html: {
-                  value: filter_params[:tags],
-                  class: 'input-sm',
-                  data:  { empty_result_label: t('filters.tags.empty') }
+                  value: filter_params[:description],
+                  class: 'input-sm'
                 }
               %>
             </div>
@@ -57,11 +56,22 @@
 
         <div class="row">
           <div class="col-lg-4">
-            <%= f.input :description,
-              required: false,
+            <%= f.input :user,
+              required: false, as: :autocomplete, url: users_path,
               input_html: {
-                value: filter_params[:description],
-                class: 'input-sm'
+                value: filter_params[:user],
+                class: 'input-sm',
+                data:  { empty_result_label: t('filters.users.empty') }
+              }
+            %>
+          </div>
+          <div class="col-lg-4">
+            <%= f.input :tags,
+              required: false, as: :autocomplete, url: tags_path(kind: 'issue'),
+              input_html: {
+                value: filter_params[:tags],
+                class: 'input-sm',
+                data:  { empty_result_label: t('filters.tags.empty') }
               }
             %>
           </div>
@@ -78,7 +88,10 @@
               %>
             <% end %>
           </div>
-          <div class="col-lg-4 bottom">
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4 col-lg-offset-8 bottom">
             <div class="form-actions">
               <p class="text-right">
                 <%= f.button :submit, t('filters.submit'), class: 'btn-sm btn-default' %>
