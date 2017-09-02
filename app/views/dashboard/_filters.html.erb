@@ -52,51 +52,60 @@
               %>
             </div>
           </div>
-        </div>
 
-        <div class="row">
-          <div class="col-lg-4">
-            <%= f.input :user,
-              required: false, as: :autocomplete, url: users_path,
-              input_html: {
-                value: filter_params[:user],
-                class: 'input-sm',
-                data:  { empty_result_label: t('filters.users.empty') }
-              }
-            %>
-          </div>
-          <div class="col-lg-4">
-            <%= f.input :tags,
-              required: false, as: :autocomplete, url: tags_path(kind: 'issue'),
-              input_html: {
-                value: filter_params[:tags],
-                class: 'input-sm',
-                data:  { empty_result_label: t('filters.tags.empty') }
-              }
-            %>
-          </div>
-          <div class="col-lg-4">
-            <% if current_user.author? || current_user.supervisor? %>
-              <%= f.input :show,
-                required: false,
-                collection: owner_options,
-                include_blank: false,
-                selected: filter_params[:show],
+          <div class="row">
+            <div class="col-lg-4">
+              <%= f.input :user,
+                required: false, as: :autocomplete, url: users_path,
                 input_html: {
+                  value: filter_params[:user],
+                  class: 'input-sm',
+                  data:  { empty_result_label: t('filters.users.empty') }
+                }
+              %>
+            </div>
+            <div class="col-lg-4">
+              <%= f.input :tags,
+                required: false, as: :autocomplete, url: tags_path(kind: 'issue'),
+                input_html: {
+                  value: filter_params[:tags],
+                  class: 'input-sm',
+                  data:  { empty_result_label: t('filters.tags.empty') }
+                }
+              %>
+            </div>
+            <div class="col-lg-4">
+              <%= f.input :comment,
+                required: false,
+                input_html: {
+                  value: filter_params[:comment],
                   class: 'input-sm'
                 }
               %>
-            <% end %>
+            </div>
           </div>
-        </div>
 
-        <div class="row">
-          <div class="col-lg-4 col-lg-offset-8 bottom">
-            <div class="form-actions">
-              <p class="text-right">
-                <%= f.button :submit, t('filters.submit'), class: 'btn-sm btn-default' %>
-                <%= link_to t('cancel'), dashboard_path, class: 'small' %>
-              </p>
+          <div class="row">
+            <div class="col-lg-4">
+              <% if current_user.author? || current_user.supervisor? %>
+                <%= f.input :show,
+                  required: false,
+                  collection: owner_options,
+                  include_blank: false,
+                  selected: filter_params[:show],
+                  input_html: {
+                    class: 'input-sm'
+                  }
+                %>
+              <% end %>
+            </div>
+            <div class="col-lg-4 col-lg-offset-4 bottom">
+              <div class="form-actions">
+                <p class="text-right">
+                  <%= f.button :submit, t('filters.submit'), class: 'btn-sm btn-default' %>
+                  <%= link_to t('cancel'), dashboard_path, class: 'small' %>
+                </p>
+              </div>
             </div>
           </div>
         </div>
