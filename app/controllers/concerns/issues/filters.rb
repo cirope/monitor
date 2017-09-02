@@ -1,6 +1,19 @@
 module Issues::Filters
   extend ActiveSupport::Concern
 
+  PERMITED_FILTER_PARAMS = [
+    :id,
+    :description,
+    :status,
+    :user,
+    :user_id,
+    :show,
+    :tags,
+    :data,
+    :comment,
+    :created_at
+  ]
+
   included do
     helper_method :filter_params
   end
@@ -17,7 +30,7 @@ module Issues::Filters
 
   def filter_params
     if params[:filter].present?
-      params.require(:filter).permit :id, :description, :status, :user, :user_id, :show, :tags, :data, :created_at
+      params.require(:filter).permit *PERMITED_FILTER_PARAMS
     else
       {}
     end

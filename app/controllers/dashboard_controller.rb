@@ -1,4 +1,5 @@
 class DashboardController < ApplicationController
+
   include Issues::Filters
 
   before_action :authorize
@@ -9,6 +10,10 @@ class DashboardController < ApplicationController
 
   respond_to :html
 
+  PERMITED_FILTER_PARAMS = [
+    :name, :status, :show, :tags, :user_id, :user, :description, :comment
+  ]
+
   def index
     @script_counts = Kaminari.paginate_array(issue_count_by_script.to_a).page params[:page]
 
@@ -18,13 +23,15 @@ class DashboardController < ApplicationController
   private
 
     def filter_params
-      params[:filter].present? ?
-        params.require(:filter).permit(:name, :status, :show, :tags, :user_id, :user, :description) :
+      if params[:filter].present?
+        params.require(:filter).permit *PERMITED_FILTER_PARAMS
+      else
         {}
+      end
     end
 
     def issue_filter
-      filter_params.slice :status, :tags, :description, :user_id
+      filter_params.slice :status, :tags, :description, :user_id, :comment
     end
 
     def issues

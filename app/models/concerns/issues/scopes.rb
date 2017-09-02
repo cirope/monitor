@@ -45,6 +45,10 @@ module Issues::Scopes
       joins(:script).where "#{Script.table_name}.name ILIKE ?", "%#{name}%"
     end
 
+    def by_comment comment
+      left_joins(:comments).where "#{Comment.table_name}.text ILIKE ?", "%#{comment}%"
+    end
+
     def grouped_by_script
       joins(:script).group "#{Script.table_name}.id", "#{Script.table_name}.name"
     end

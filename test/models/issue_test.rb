@@ -137,6 +137,13 @@ class IssueTest < ActiveSupport::TestCase
     assert issues.all? { |issue| issue.users.include?(user) }
   end
 
+  test 'by comment' do
+    issues = Issue.by_comment('wat')
+
+    assert_not_equal 0, issues.count
+    assert issues.all? { |issue| issue.comments.any? { |c| c.text =~ /wat/i } }
+  end
+
   test 'pending?' do
     assert @issue.pending?
 
