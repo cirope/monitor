@@ -20,7 +20,7 @@
 //= require codemirror/addon/edit/matchbrackets
 //= require codemirror/addon/fold/foldcode
 //= require codemirror/addon/fold/foldgutter
-//= require codemirror/addon/fold/brace-fold
+//= require codemirror/addon/fold/indent-fold
 //= require codemirror/addon/selection/active-line
 //= require codemirror/mode/ruby
 //= require bootstrap

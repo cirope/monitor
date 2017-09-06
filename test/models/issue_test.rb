@@ -129,6 +129,21 @@ class IssueTest < ActiveSupport::TestCase
     skip
   end
 
+  test 'by user id' do
+    user   = users :john
+    issues = Issue.by_user_id(user.id)
+
+    assert_not_equal 0, issues.count
+    assert issues.all? { |issue| issue.users.include?(user) }
+  end
+
+  test 'by comment' do
+    issues = Issue.by_comment('wat')
+
+    assert_not_equal 0, issues.count
+    assert issues.all? { |issue| issue.comments.any? { |c| c.text =~ /wat/i } }
+  end
+
   test 'pending?' do
     assert @issue.pending?
 
