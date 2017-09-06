@@ -2,5 +2,7 @@ es:
   filters:
     title: 'Buscar'
     submit: 'Aplicar'
+    users:
+      empty: 'No se encontraron usuarios con ese criterio'
     tags:
       empty: 'No se encontraron etiquetas con ese criterio'

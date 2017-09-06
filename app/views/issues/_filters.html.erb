@@ -31,12 +31,11 @@
             %>
           </div>
           <div class="col-lg-4">
-            <%= f.input :tags,
-              required: false, as: :autocomplete, url: tags_path(kind: 'issue'),
+            <%= f.input :created_at, as: :date_picker, required: false,
               input_html: {
-                value: filter_params[:tags],
+                value: filter_params[:created_at],
                 class: 'input-sm',
-                data:  { empty_result_label: t('filters.tags.empty') }
+                data:  { date_range: true }
               }
             %>
           </div>
@@ -51,16 +50,43 @@
             %>
           </div>
         </div>
+
         <div class="row">
           <div class="col-lg-4">
-            <%= f.input :created_at, as: :date_picker, required: false,
+            <%= f.input :user,
+              required: false, as: :autocomplete, url: users_path,
+              hidden_input_html: {
+                value: filter_params[:user_id]
+              },
               input_html: {
-                value: filter_params[:created_at],
+                value: filter_params[:user],
                 class: 'input-sm',
-                data:  { date_range: true }
+                data:  { empty_result_label: t('filters.users.empty') }
               }
             %>
           </div>
+          <div class="col-lg-4">
+            <%= f.input :tags,
+              required: false, as: :autocomplete, url: tags_path(kind: 'issue'),
+              input_html: {
+                value: filter_params[:tags],
+                class: 'input-sm',
+                data:  { empty_result_label: t('filters.tags.empty') }
+              }
+            %>
+          </div>
+          <div class="col-lg-4">
+            <%= f.input :comment,
+              required: false,
+              input_html: {
+                value: filter_params[:comment],
+                class: 'input-sm'
+              }
+            %>
+          </div>
+        </div>
+
+        <div class="row">
           <div class="col-lg-4">
             <%= f.input :data,
               required: false,
@@ -83,13 +109,13 @@
               %>
             <% end %>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-4 col-lg-offset-8 bottom">
-            <p class="text-right">
-              <%= f.button :submit, t('filters.submit'), class: 'btn-sm btn-default' %>
-              <%= link_to t('cancel'), issue_index_path, class: 'small' %>
-            </p>
+          <div class="col-lg-4 bottom">
+            <div class="form-actions">
+              <p class="text-right">
+                <%= f.button :submit, t('filters.submit'), class: 'btn-sm btn-default' %>
+                <%= link_to t('cancel'), issue_index_path, class: 'small' %>
+              </p>
+            </div>
           </div>
         </div>
       </fieldset>
