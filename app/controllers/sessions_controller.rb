@@ -11,9 +11,11 @@ class SessionsController < ApplicationController
 
     if user && user.auth(params[:password])
       store_auth_token user
+
       redirect_to default_url, notice: t('.logged_in', scope: :flash)
     else
       flash.now.alert = t '.invalid', scope: :flash
+
       render 'new'
     end
   end
@@ -21,6 +23,7 @@ class SessionsController < ApplicationController
   def destroy
     reset_session
     cookies.delete :auth_token
+
     redirect_to root_url, notice: t('.logged_out', scope: :flash)
   end
 

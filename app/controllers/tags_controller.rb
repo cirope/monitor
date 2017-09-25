@@ -35,11 +35,13 @@ class TagsController < ApplicationController
 
   def update
     @tag.update tag_params
+
     respond_with @tag, location: [@tag, kind: @tag.kind]
   end
 
   def destroy
     @tag.destroy
+
     respond_with @tag
   end
 

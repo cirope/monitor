@@ -20,6 +20,7 @@ class TaggingsController < ApplicationController
 
   def destroy
     @tagging.destroy
+
     respond_with @tagging
   end
 
