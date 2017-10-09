@@ -9,6 +9,7 @@ class ProfilesController < ApplicationController
 
   def update
     update_resource @user, user_params, stale_location: profile_path
+
     respond_with @user, location: root_url
   end
 

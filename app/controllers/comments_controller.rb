@@ -21,11 +21,13 @@ class CommentsController < ApplicationController
 
   def update
     update_resource @comment, comment_params
+
     respond_with @comment
   end
 
   def destroy
     @comment.destroy
+
     respond_with @comment
   end
 

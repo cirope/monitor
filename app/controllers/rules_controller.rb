@@ -36,11 +36,13 @@ class RulesController < ApplicationController
 
   def update
     @rule.update rule_params
+
     respond_with @rule
   end
 
   def destroy
     @rule.destroy
+
     respond_with @rule
   end
 

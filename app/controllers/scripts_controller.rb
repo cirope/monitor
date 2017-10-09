@@ -37,11 +37,13 @@ class ScriptsController < ApplicationController
 
   def update
     @script.update script_params
+
     respond_with @script
   end
 
   def destroy
     @script.destroy
+
     respond_with @script, location: scripts_url
   end
 

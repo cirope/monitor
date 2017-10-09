@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.0.6'
+gem 'rails', '~> 5.1.4'
 
 gem 'pg'
 gem 'sass-rails'
@@ -45,6 +45,7 @@ gem 'capistrano-rails'
 group :development do
   gem 'unicorn-rails'
   gem 'web-console'
+  gem 'listen'
 
   # Support for ed25519 ssh keys
   gem 'rbnacl'

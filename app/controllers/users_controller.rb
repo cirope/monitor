@@ -43,12 +43,14 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   def update
     update_resource @user, user_params
+
     respond_with @user
   end
 
   # DELETE /users/1
   def destroy
     @user.destroy
+
     respond_with @user, location: users_url
   end
 

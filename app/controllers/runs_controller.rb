@@ -21,6 +21,7 @@ class RunsController < ApplicationController
 
   def destroy
     @run.destroy
+
     respond_with @run, location: schedule_runs_url(@run.schedule)
   end
 

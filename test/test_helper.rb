@@ -1,5 +1,3 @@
-ENV['RAILS_ENV'] ||= 'test'
-
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'sidekiq/testing'
@@ -7,8 +5,6 @@ require 'sidekiq/testing'
 Sidekiq::Testing.inline!
 
 class ActiveSupport::TestCase
-  ActiveRecord::Migration.check_pending!
-
   set_fixture_class versions: PaperTrail::Version
 
   fixtures :all

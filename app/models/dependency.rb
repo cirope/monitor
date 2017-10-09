@@ -3,6 +3,6 @@ class Dependency < ApplicationRecord
 
   validates :schedule, presence: true
 
-  belongs_to :dependent, class_name: 'Schedule'
+  belongs_to :dependent, class_name: 'Schedule', optional: true
   belongs_to :schedule
 end
