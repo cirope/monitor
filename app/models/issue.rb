@@ -3,7 +3,7 @@ class Issue < ApplicationRecord
   include Issues::Comments
   include Issues::ExportData
   include Issues::Notifications
-  include Issues::Pdf
+  include Issues::PDF
   include Issues::Permissions
   include Issues::Scopes
   include Issues::Status

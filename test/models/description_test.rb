@@ -16,11 +16,9 @@ class DescriptionTest < ActiveSupport::TestCase
 
   test 'attributes length' do
     @description.name = 'abcde' * 52
-    @description.value = 'abcde' * 52
 
     assert @description.invalid?
     assert_error @description, :name, :too_long, count: 255
-    assert_error @description, :value, :too_long, count: 255
   end
 
   test 'attributes format' do

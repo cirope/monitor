@@ -199,4 +199,5 @@ es:
 
   errors:
     messages:
+      pdf_encoding: 'tiene símbolos no válidos'
       syntax: 'tiene errores de sintaxis: %{errors}'

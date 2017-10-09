@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.1.1'
+gem 'rails', '~> 5.1.4'
 
 gem 'pg'
 gem 'sass-rails'
@@ -21,6 +21,7 @@ gem 'jc-validates_timeliness'
 gem 'kaminari'
 gem 'net-ssh'
 gem 'net-scp'
+gem 'request_store'
 gem 'sidekiq'
 gem 'whenever', require: false
 gem 'paper_trail'
@@ -62,5 +63,5 @@ group :test do
 end
 
 # Some user script dependencies
-# gem 'composite_primary_keys', '>= 9', require: false
+gem 'composite_primary_keys', require: false
 gem 'ruby-odbc', require: false

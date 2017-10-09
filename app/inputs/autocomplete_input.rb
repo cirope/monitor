@@ -14,7 +14,10 @@ class AutocompleteInput < SimpleForm::Inputs::Base
     end
 
     def hidden_field
-      @builder.hidden_field "#{attribute_name}_id", id: id_field
+      hidden_input_html    = Hash options[:hidden_input_html]
+      hidden_input_options = { id: id_field }.merge(hidden_input_html)
+
+      @builder.hidden_field "#{attribute_name}_id", hidden_input_options
     end
 
     def model
