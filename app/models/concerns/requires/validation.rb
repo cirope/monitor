@@ -15,7 +15,7 @@ module Requires::Validation
     end
 
     def require_ids
-      ids = self.caller.requires.map do |r|
+      ids = Array(self.caller&.requires).map do |r|
         [r.script_id] + r.script.requires.pluck('script_id')
       end
 
