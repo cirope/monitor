@@ -86,8 +86,8 @@ ActiveRecord::Schema.define(version: 20170902003256) do
   end
 
   create_table "issues_permalinks", id: false, force: :cascade do |t|
-    t.integer "issue_id", null: false
-    t.integer "permalink_id", null: false
+    t.bigint "issue_id", null: false
+    t.bigint "permalink_id", null: false
     t.index ["issue_id"], name: "index_issues_permalinks_on_issue_id"
     t.index ["permalink_id"], name: "index_issues_permalinks_on_permalink_id"
   end
@@ -232,7 +232,7 @@ ActiveRecord::Schema.define(version: 20170902003256) do
     t.datetime "updated_at", null: false
     t.boolean "core"
     t.string "change"
-    t.uuid "uuid", default: -> { "(md5(((random())::text || (clock_timestamp())::text)))::uuid" }
+    t.uuid "uuid", default: -> { "(md5(((random())::text || (clock_timestamp())::text)))::uuid" }, null: false
     t.datetime "imported_at"
     t.index ["core"], name: "index_scripts_on_core"
     t.index ["name"], name: "index_scripts_on_name"
@@ -271,8 +271,8 @@ ActiveRecord::Schema.define(version: 20170902003256) do
 
   create_table "taggings", id: :serial, force: :cascade do |t|
     t.integer "tag_id", null: false
-    t.integer "taggable_id", null: false
     t.string "taggable_type", null: false
+    t.integer "taggable_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["tag_id"], name: "index_taggings_on_tag_id"
