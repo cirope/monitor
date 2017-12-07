@@ -10,6 +10,7 @@ class Run < ApplicationRecord
   has_one :script, through: :job
   has_one :server, through: :job
   has_one :schedule, through: :job
+  has_many :dispatchers, through: :schedule
   has_many :issues, dependent: :restrict_with_error
   has_many :outputs, dependent: :destroy
 

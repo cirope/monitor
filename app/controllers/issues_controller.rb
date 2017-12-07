@@ -33,11 +33,13 @@ class IssuesController < ApplicationController
 
   def update
     @issue.update issue_params
+
     respond_with @issue, location: issue_url(@issue, context: @context)
   end
 
   def destroy
     @issue.destroy
+
     respond_with @issue, location: script_issues_url(@issue.script, filter: params[:filter]&.to_unsafe_h)
   end
 

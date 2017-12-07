@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.0.3'
+gem 'rails', '~> 5.1.4'
 
 gem 'pg'
 gem 'sass-rails'
@@ -21,6 +21,7 @@ gem 'jc-validates_timeliness'
 gem 'kaminari'
 gem 'net-ssh'
 gem 'net-scp'
+gem 'request_store'
 gem 'sidekiq'
 gem 'whenever', require: false
 gem 'paper_trail'
@@ -46,9 +47,10 @@ gem 'capistrano-sidekiq'
 group :development do
   gem 'unicorn-rails'
   gem 'web-console'
+  gem 'listen'
 
   # Support for ed25519 ssh keys
-  gem 'rbnacl'
+  gem 'rbnacl', '< 5.0' # TODO: check net-ssh dependency to _unleash_
   gem 'bcrypt_pbkdf'
 end
 

@@ -13,7 +13,6 @@ class Rule < ApplicationRecord
 
   scope :ordered, -> { order :name }
 
-  belongs_to :schedule
   has_many :dispatchers, dependent: :destroy
 
   strip_fields :name
