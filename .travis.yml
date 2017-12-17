@@ -2,15 +2,18 @@ language: ruby
 cache: bundler
 sudo: false
 rvm:
-  - 2.3.4
-  - 2.4.2
+  - 2.3.6
+  - 2.4.3
 addons:
   apt:
     packages:
     - slapd
     - ldap-utils
     - unixodbc-dev
-  postgresql: 9.4
+    postgresql:
+      - 9.4
+      - 9.5
+      - 9.6
 before_script:
   - 'cp config/application.travis.yml config/application.yml'
   - "psql -c 'create database monitor_test;' -U postgres"
