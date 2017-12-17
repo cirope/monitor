@@ -10,10 +10,10 @@ addons:
     - slapd
     - ldap-utils
     - unixodbc-dev
-    postgresql:
-      - 9.4
-      - 9.5
-      - 9.6
+  postgresql:
+    - 9.4
+    - 9.5
+    - 9.6
 before_script:
   - 'cp config/application.travis.yml config/application.yml'
   - "psql -c 'create database monitor_test;' -U postgres"
