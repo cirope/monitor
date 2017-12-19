@@ -22,7 +22,7 @@ class Issues::BoardControllerTest < ActionController::TestCase
   end
 
   test 'should get index on PDF' do
-    get :index, session: { board_issues: [@issue.id] }, params: { format: :pdf }
+    get :index, session: { board_issues: [@issue.id] }, as: :pdf
     assert_response :success
     assert_equal 'application/pdf', response.content_type
   end

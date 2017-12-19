@@ -3,7 +3,7 @@ class Notifier < ApplicationMailer
     message = message.with_indifferent_access
     @body   = message[:body]
 
-    (message[:attachments] || {}).each do |filename, file|
+    Hash(message[:attachments]).each do |filename, file|
       attachments[filename] = file
     end
 

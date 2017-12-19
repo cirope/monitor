@@ -15,9 +15,8 @@ class PermalinksControllerTest < ActionController::TestCase
           issue_ids: [
             issues(:ls_on_atahualpa_not_well).id.to_s
           ]
-        },
-        format: :js
-      }
+        }
+      }, as: :js
     end
 
     assert_response :success

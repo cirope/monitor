@@ -13,7 +13,7 @@ class RulesControllerTest < ActionController::TestCase
   end
 
   test 'should get filtered index for autocomplete' do
-    get :index, params: { q: @rule.name, format: :json }
+    get :index, params: { q: @rule.name }, as: :json
     assert_response :success
 
     rules = JSON.parse @response.body

@@ -13,7 +13,7 @@ class ServersControllerTest < ActionController::TestCase
   end
 
   test 'should get filtered index for autocomplete' do
-    get :index, params: { q: @server.name, format: :json }
+    get :index, params: { q: @server.name }, as: :json
     assert_response :success
 
     servers = JSON.parse @response.body
