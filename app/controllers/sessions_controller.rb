@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.by_username_or_email params[:username]
+    user = User.visible.by_username_or_email params[:username]
 
     if user && user.auth(params[:password])
       store_auth_token user
