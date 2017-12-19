@@ -223,7 +223,7 @@ class ScriptTest < ActiveSupport::TestCase
     # Driver no FreeTDS
     assert_equal @script.text, @script.text_with_injections
 
-    expected = "ODBC.connect('#{db.name}', '#{db.user}', '#{db.password}')"
+    expected = "ODBC.connect('#{db.name}', '#{db.user}', '#{db.password}')\r\n"
 
     db.update! driver: 'FreeTDS'
 
