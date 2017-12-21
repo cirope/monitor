@@ -6,7 +6,7 @@ class ThreadedStringIO < StringIO
   private
 
     def out
-      Thread.current[:stdout] || STDOUT
+      RequestStore.store[:stdout] || STDOUT
     end
 end
 

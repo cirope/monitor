@@ -67,11 +67,11 @@
     </h3>
   </div>
   <div id="comments" class="panel-body">
-    <% @issue.comments.each do |comment| %>
+    <% @issue.comments.reject(&:new_record?).each do |comment| %>
       <%= render 'comments/show', comment: comment %>
     <% end %>
 
-    <%= render template: 'comments/new', locals: { :@comment => @issue.comments.new } %>
+    <%= render template: 'comments/new' %>
   </div>
 </div>
 

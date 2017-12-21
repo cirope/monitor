@@ -4,7 +4,7 @@ class Job < ApplicationRecord
   include Jobs::Destroy
   include Jobs::Validation
 
-  belongs_to :schedule
+  belongs_to :schedule, optional: true
   belongs_to :server
   belongs_to :script
   has_many :runs, dependent: :destroy, autosave: true

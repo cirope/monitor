@@ -25,6 +25,13 @@ class IssueTest < ActiveSupport::TestCase
     assert_error @issue, :status, :inclusion
   end
 
+  test 'validates attributes encoding' do
+    @issue.description = "\n\t"
+
+    assert @issue.invalid?
+    assert_error @issue, :description, :pdf_encoding
+  end
+
   test 'empty final tag validation' do
     @issue.status = 'closed'
 
@@ -52,6 +59,8 @@ class IssueTest < ActiveSupport::TestCase
   end
 
   test 'next status' do
+    PaperTrail.whodunnit = nil
+
     @issue.taggings.create! tag_id: tags(:final).id
 
     assert_equal %w(pending taken closed), @issue.next_status
@@ -118,6 +127,21 @@ class IssueTest < ActiveSupport::TestCase
 
   test 'by data' do
     skip
+  end
+
+  test 'by user id' do
+    user   = users :john
+    issues = Issue.by_user_id(user.id)
+
+    assert_not_equal 0, issues.count
+    assert issues.all? { |issue| issue.users.include?(user) }
+  end
+
+  test 'by comment' do
+    issues = Issue.by_comment('wat')
+
+    assert_not_equal 0, issues.count
+    assert issues.all? { |issue| issue.comments.any? { |c| c.text =~ /wat/i } }
   end
 
   test 'pending?' do

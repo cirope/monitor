@@ -2,15 +2,15 @@ module Runs::Scopes
   extend ActiveSupport::Concern
 
   included do
-    scope :aborted,          -> { where status: 'aborted' }
-    scope :canceled,         -> { where status: 'canceled' }
-    scope :pending,          -> { where status: 'pending' }
-    scope :scheduled,        -> { where status: 'scheduled' }
-    scope :running,          -> { where status: 'running' }
-    scope :executed,         -> { where status: %w(ok error) }
+    scope :aborted,          -> { by_status 'aborted' }
+    scope :canceled,         -> { by_status 'canceled' }
+    scope :pending,          -> { by_status 'pending' }
+    scope :scheduled,        -> { by_status 'scheduled' }
+    scope :running,          -> { by_status 'running' }
+    scope :executed,         -> { by_status %w(ok error) }
     scope :overdue,          -> { overdue_by 1, 'days' }
     scope :next_to_schedule, -> {
-      pending.where "#{table_name}.scheduled_at <= ?", 2.minutes.from_now
+      pending.where "#{table_name}.scheduled_at <= ?", 10.minutes.from_now
     }
   end
 

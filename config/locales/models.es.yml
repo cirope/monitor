@@ -196,3 +196,8 @@ es:
               user_invalid: 'No tiene permisos para modificar este caso'
             tags:
               invalid: 'finales debe haber una (solamente)'
+
+  errors:
+    messages:
+      pdf_encoding: 'tiene símbolos no válidos'
+      syntax: 'tiene errores de sintaxis: %{errors}'

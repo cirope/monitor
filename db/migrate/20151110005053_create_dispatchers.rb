@@ -1,4 +1,4 @@
-class CreateDispatchers < ActiveRecord::Migration
+class CreateDispatchers < ActiveRecord::Migration[4.2]
   def change
     create_table :dispatchers do |t|
       t.references :schedule, index: true, foreign_key: {

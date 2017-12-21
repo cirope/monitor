@@ -12,13 +12,17 @@
 //
 //= require jquery3
 //= require jquery_ujs
-//= require jquery-ui/jquery-ui
+//= require jquery-ui/widgets/autocomplete
 //= require turbolinks
 //= require turbolinks_events
-//= require ace/ace
-//= require ace/mode-ruby
-//= require ace/theme-solarized_light
-//= require ace/theme-solarized_dark
+//= require codemirror/codemirror
+//= require codemirror/addon/edit/closebrackets
+//= require codemirror/addon/edit/matchbrackets
+//= require codemirror/addon/fold/foldcode
+//= require codemirror/addon/fold/foldgutter
+//= require codemirror/addon/fold/indent-fold
+//= require codemirror/addon/selection/active-line
+//= require codemirror/mode/ruby
 //= require bootstrap
 //= require chartist/chartist
 //= require chartist/chartist-plugin-axistitle

@@ -1,4 +1,4 @@
-class AddActiveIssuesCountToScripts < ActiveRecord::Migration
+class AddActiveIssuesCountToScripts < ActiveRecord::Migration[4.2]
   def change
     add_column :scripts, :active_issues_count, :integer, null: false, default: 0
 

@@ -17,10 +17,21 @@ class IssuesControllerTest < ActionController::TestCase
   test 'should get filtered index' do
     get :index, params: {
       script_id: @issue.script.id,
-      filter: { description: 'undefined' }
+      filter: { description: 'undefined', user: 'none', user_id: '1' }
     }
     assert_response :success
     assert_select '.alert', text: I18n.t('issues.index.empty_search_html')
+  end
+
+  test 'should get filtered index using issue user' do
+    user = @issue.users.take!
+
+    get :index, params: {
+      script_id: @issue.script.id,
+      filter: { user: user.to_s, user_id: user.id }
+    }
+    assert_response :success
+    assert_select 'table tbody'
   end
 
   test 'should get index as guest' do

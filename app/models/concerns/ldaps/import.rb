@@ -39,10 +39,10 @@ module Ldaps::Import
 
     def extract_data entry
       {
-        username: entry[username_attribute].first&.force_encoding('UTF-8'),
-        name:     entry[name_attribute].first&.force_encoding('UTF-8'),
-        lastname: entry[lastname_attribute].first&.force_encoding('UTF-8'),
-        email:    entry[email_attribute].first&.force_encoding('UTF-8'),
+        username: entry[username_attribute].first&.force_encoding('UTF-8')&.to_s,
+        name:     entry[name_attribute].first&.force_encoding('UTF-8')&.to_s,
+        lastname: entry[lastname_attribute].first&.force_encoding('UTF-8')&.to_s,
+        email:    entry[email_attribute].first&.force_encoding('UTF-8')&.to_s,
         role:     extract_role(entry),
         hidden:   false
       }
@@ -88,7 +88,7 @@ module Ldaps::Import
     end
 
     def tags
-      Thread.current[:ldap_import_tags] ||=
+      RequestStore.store[:ldap_import_tags] ||=
         Hash[Tag.for_users.map { |tag| [tag.name, tag] }]
     end
 end

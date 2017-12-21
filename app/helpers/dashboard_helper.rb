@@ -12,6 +12,7 @@ module DashboardHelper
   end
 
   def filter_query_hash
-    issue_filter.to_h.merge show: filter_params[:show]
+    issue_filter.to_h.merge show: filter_params[:show],
+                            user: filter_params[:user]
   end
 end

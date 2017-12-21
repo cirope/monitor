@@ -14,9 +14,9 @@
     </div>
     <div id="triggers" class="panel-body">
       <% @rule.triggers.each do |trigger| %>
-        <textarea id="trigger_callback_<%= trigger.id %>" class="hidden" data-editor data-readonly="true">
-          <%= trigger.callback %>
-        </textarea>
+        <div class="tiny-editor">
+          <textarea id="trigger_callback_<%= trigger.id %>" data-editor data-readonly="true"><%= trigger.callback %></textarea>
+        </div>
 
         <% if last_output(trigger).present? %>
           <hr>

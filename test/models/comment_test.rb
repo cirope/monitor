@@ -34,6 +34,13 @@ class CommentTest < ActiveSupport::TestCase
     assert_error comment, :issue, :invalid
   end
 
+  test 'validates attributes encoding' do
+    @comment.text = "\n\t"
+
+    assert @comment.invalid?
+    assert_error @comment, :text, :pdf_encoding
+  end
+
   test 'send email after create' do
     PaperTrail.whodunnit = users(:franco).id
 

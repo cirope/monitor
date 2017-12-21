@@ -3,10 +3,10 @@
 
   <div class="form-inputs">
     <div class="row">
-      <div class="col-lg-11 col-md-10 col-xs-9">
+      <div class="col-lg-10 col-md-9 col-xs-7">
         <%= f.input :name, input_html: { autofocus: true, disabled: disable_edition? } %>
       </div>
-      <div class="col-lg-1 col-md-2 col-xs-3 bottom text-right">
+      <div class="col-lg-2 col-md-3 col-xs-5 bottom text-right">
         <div class="checkbox">
           <label>
             <%= f.check_box :core, disabled: disable_edition? %> <%= Script.human_attribute_name 'core' %>
@@ -14,10 +14,14 @@
         </div>
       </div>
     </div>
-    <div class="hidden">
-      <%= f.input :text, input_html: { rows: 5, disabled: disable_edition? } %>
-    </div>
-    <div class="editor" <%= 'data-readonly="true"' if disable_edition? %>></div>
+
+    <%= f.input :text, label: false, input_html: {
+      rows: 5,
+      disabled: disable_edition?,
+      class: 'editor',
+      data: { readonly: disable_edition? }
+    } %>
+
     <%= f.input :file, label: false, hint: file_identifier, input_html: {
       disabled: disable_edition? || @script.text.present?,
       class: @script.text.present? && 'hidden'

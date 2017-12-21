@@ -30,8 +30,9 @@ module Scripts::Injections
 
       if db && db.driver.downcase == 'freetds' && db.user && db.password
         arguments = "'#{connection_name}', '#{db.user}', '#{db.password}'"
+        new_line  = line.sub ODBC_CONNECTION_REGEX, "ODBC.connect(#{arguments})"
 
-        line.sub ODBC_CONNECTION_REGEX, "ODBC.connect(#{arguments})"
+        "#{new_line}\r\n"
       else
         line
       end
