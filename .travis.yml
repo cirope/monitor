@@ -4,6 +4,7 @@ sudo: false
 rvm:
   - 2.3.6
   - 2.4.3
+  - 2.5.0
 addons:
   apt:
     packages:
@@ -11,6 +12,8 @@ addons:
     - ldap-utils
     - unixodbc-dev
   postgresql: 9.4
+before_install:
+  - 'gem update --system'
 before_script:
   - 'cp config/application.travis.yml config/application.yml'
   - "psql -c 'create database monitor_test;' -U postgres"
