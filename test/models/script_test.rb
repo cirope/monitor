@@ -234,6 +234,18 @@ class ScriptTest < ActiveSupport::TestCase
     assert_equal @script.text, @script.text_with_injections
   end
 
+  test 'text with ar injections' do
+    db = databases :postgresql
+
+    assert_equal @script.text, @script.text_with_injections
+
+    @script.text = "@@ar_connection['#{db.name}']"
+    config       = db.ar_config
+    expected     = "ActiveRecord::Base.establish_connection(#{config})"
+
+    assert_equal expected, @script.text_with_injections
+  end
+
   test 'text with db properties injections' do
     database = databases :postgresql
     property = properties :trace
