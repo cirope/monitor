@@ -246,7 +246,7 @@ GEM
     turbolinks-source (5.0.3)
     tzinfo (1.2.4)
       thread_safe (~> 0.1)
-    uglifier (4.1.0)
+    uglifier (4.0.2)
       execjs (>= 0.3.0, < 3)
     unicorn (5.4.0)
       kgio (~> 2.6)
@@ -310,7 +310,7 @@ DEPENDENCIES
   simple_form
   timecop
   turbolinks
-  uglifier
+  uglifier (= 4.0.2)
   unicorn
   unicorn-rails
   web-console
