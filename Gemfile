@@ -63,6 +63,7 @@ group :test do
   gem 'timecop'
 end
 
-# Some user script dependencies
-gem 'composite_primary_keys', require: false
-gem 'ruby-odbc', require: false
+# Separate script gem dependencies from application dependencies
+extra_gemfile = File.join File.dirname(__FILE__), 'Gemfile.local'
+
+instance_eval File.read(extra_gemfile) if File.readable? extra_gemfile
