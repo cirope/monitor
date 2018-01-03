@@ -1,5 +1,7 @@
 language: ruby
-cache: bundler
+cache:
+  directories:
+    - $HOME/bundler
 sudo: false
 rvm:
   - 2.3.6
@@ -22,4 +24,4 @@ before_script:
   - 'bundle exec rake ldap:reset'
 install:
   - 'rm ${BUNDLE_GEMFILE}.lock'
-  - 'bundle install --path ${BUNDLE_PATH}'
+  - 'bundle install --path ${HOME}/bundler'
