@@ -15,6 +15,7 @@ addons:
 before_install:
   - 'gem update --system'
 before_script:
+  - "rm ${BUNDLE_GEMFILE}.lock"
   - 'cp config/application.travis.yml config/application.yml'
   - "psql -c 'create database monitor_test;' -U postgres"
   - 'bundle exec rake db:migrate'
