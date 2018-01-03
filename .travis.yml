@@ -1,5 +1,7 @@
 language: ruby
-cache: bundler
+cache:
+  directories:
+    - $HOME/bundler
 sudo: false
 rvm:
   - 2.3.6
@@ -20,3 +22,6 @@ before_script:
   - 'bundle exec rake db:migrate'
   - 'slapd -f test/fixtures/ldap/slapd.conf -h ldap://localhost:3389'
   - 'bundle exec rake ldap:reset'
+install:
+  - 'rm ${BUNDLE_GEMFILE}.lock'
+  - 'bundle install --path ${HOME}/bundler'
