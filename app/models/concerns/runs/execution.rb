@@ -2,8 +2,6 @@ module Runs::Execution
   extend ActiveSupport::Concern
 
   def execute
-    mark_as_running
-
     out  = { status: 'aborted' }
     out  = job.server.execute job.script if schedule.run?
     data = ActiveSupport::JSON.decode out[:output] rescue nil
@@ -17,6 +15,10 @@ module Runs::Execution
 
   def cancel
     update! status: 'canceled', started_at: Time.zone.now, ended_at: Time.zone.now
+  end
+
+  def mark_as_running
+    update! status: 'running', started_at: Time.zone.now
   end
 
   module ClassMethods
@@ -34,10 +36,6 @@ module Runs::Execution
   end
 
   private
-
-    def mark_as_running
-      update! status: 'running', started_at: Time.zone.now
-    end
 
     def finish status:, output: nil, data: nil
       update! status: status, output: output, data: data, ended_at: Time.zone.now

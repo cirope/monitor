@@ -24,4 +24,4 @@ before_script:
   - 'bundle exec rake ldap:reset'
 install:
   - 'rm ${BUNDLE_GEMFILE}.lock'
-  - 'bundle install --path ${HOME}/bundler'
+  - 'eval bundle install --jobs=3 --retry=3 --path=${BUNDLE_PATH:-vendor/bundle}'
