@@ -71,6 +71,10 @@ class RunTest < ActiveSupport::TestCase
     skip
   end
 
+  test 'mark as running' do
+    skip
+  end
+
   test 'by status' do
     skip
   end
