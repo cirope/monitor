@@ -21,8 +21,8 @@
       <% @schedules.each do |schedule| %>
         <tr <%== 'class="text-muted text-striked"' if schedule.end&.past? %>>
           <td><%= schedule.name %></td>
-          <td class="visible-lg"><%= l schedule.start, format: :long %></td>
-          <td class="visible-lg"><%= l schedule.end, format: :long if schedule.end %></td>
+          <td class="visible-lg"><%= l schedule.start, format: :compact %></td>
+          <td class="visible-lg"><%= l schedule.end, format: :compact if schedule.end %></td>
           <td class="visible-lg"><%= schedule.interval %></td>
           <td class="visible-lg"><%= t "schedules.frequencies.#{schedule.frequency}" if schedule.frequency %></td>
           <td><%= link_to_runs schedule %></td>
