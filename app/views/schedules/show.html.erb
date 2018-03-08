@@ -10,11 +10,11 @@
 
 <p>
   <strong><%= Schedule.human_attribute_name 'start' %></strong>:
-  <%= l @schedule.start, format: :long %>
+  <%= l @schedule.start, format: :compact %>
 </p>
 <p>
   <strong><%= Schedule.human_attribute_name 'end' %></strong>:
-  <%= l @schedule.end, format: :long if @schedule.end %>
+  <%= l @schedule.end, format: :compact if @schedule.end %>
 </p>
 <p>
   <strong><%= Schedule.human_attribute_name 'interval' %></strong>:
