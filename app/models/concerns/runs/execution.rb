@@ -10,7 +10,7 @@ module Runs::Execution
   end
 
   def should_be_canceled?
-    job.runs.running.exists?
+    job.runs.where.not(id: id).running.exists?
   end
 
   def cancel
