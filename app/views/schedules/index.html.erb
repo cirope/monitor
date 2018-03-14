@@ -12,7 +12,7 @@
         <th class="visible-lg"><%= Schedule.human_attribute_name 'interval' %></th>
         <th class="visible-lg"><%= Schedule.human_attribute_name 'frequency' %></th>
         <th colspan="<%= current_user.author? ? 2 : 4 %>">
-          <%= link_to_new new_schedule_path, class: 'btn btn-default btn-xs pull-right' %>
+          <%= link_to_new new_schedule_path, class: 'btn btn-default btn-xs pull-right' unless current_user.author? %>
         </th>
       </tr>
     </thead>
@@ -39,4 +39,4 @@
   <%= paginate @schedules %>
 <% end %>
 
-<%= link_to_new new_schedule_path, class: 'btn btn-primary' %>
+<%= link_to_new new_schedule_path, class: 'btn btn-primary' unless current_user.author? %>
