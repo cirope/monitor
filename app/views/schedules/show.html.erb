@@ -89,15 +89,8 @@
   </div>
 <% end %>
 
-<% if @schedule.runs.any? %>
-  <p>
-    <%= link_to Run.model_name.human(count: @schedule.runs.count), schedule_runs_path(@schedule) %>
-  </p>
-<% else %>
-  <p class="text-muted"><%= t '.empty_runs' %></p>
-<% end %>
-
 <% unless current_user.author? %>
+  <%= link_to_runs @schedule %> |
   <%= link_to_edit [:edit, @schedule] %> |
   <%= link_to_cleanup @schedule %> |
 <% end %>
