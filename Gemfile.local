@@ -11,5 +11,5 @@ unless ENV['TRAVIS']
   gem 'activerecord-sqlserver-adapter', require: false
 
   # MySQL driver
-  gem 'mysql2'
+  gem 'mysql2', '~> 0.4.10'
 end
