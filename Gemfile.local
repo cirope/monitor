@@ -9,4 +9,7 @@ unless ENV['TRAVIS']
   # SQL Server ActiveRecord adapter
   gem 'tiny_tds', '< 2.0.0', require: false
   gem 'activerecord-sqlserver-adapter', require: false
+
+  # MySQL driver
+  gem 'mysql2'
 end

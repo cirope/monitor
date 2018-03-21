@@ -65,7 +65,7 @@ GEM
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
     builder (3.2.3)
-    byebug (10.0.0)
+    byebug (10.0.1)
     capistrano (3.10.1)
       airbrussh (>= 1.0.0)
       i18n
@@ -144,6 +144,7 @@ GEM
     mini_portile2 (2.3.0)
     minitest (5.11.3)
     multi_json (1.13.1)
+    mysql2 (0.5.0)
     net-ldap (0.16.1)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -306,6 +307,7 @@ DEPENDENCIES
   jquery-ui-rails
   kaminari
   listen
+  mysql2
   net-ldap
   net-scp
   net-ssh
