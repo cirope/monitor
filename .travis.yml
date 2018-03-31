@@ -13,7 +13,7 @@ addons:
     - unixodbc-dev
   postgresql: 9.4
 before_install:
-  - 'gem update --system'
+  - 'gem install bundler'
 before_script:
   - 'cp config/application.travis.yml config/application.yml'
   - "psql -c 'create database monitor_test;' -U postgres"
