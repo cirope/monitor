@@ -8,7 +8,7 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   teardown do
-    PaperTrail.whodunnit = nil
+    PaperTrail.request.whodunnit = nil
   end
 
   test 'blank attributes' do
@@ -21,7 +21,7 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   test 'validate user belongs to issue' do
-    PaperTrail.whodunnit = users(:john).id
+    PaperTrail.request.whodunnit = users(:john).id
 
     comment = @comment.dup
     issue   = @comment.issue.dup
@@ -42,7 +42,7 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   test 'send email after create' do
-    PaperTrail.whodunnit = users(:franco).id
+    PaperTrail.request.whodunnit = users(:franco).id
 
     assert_enqueued_emails 1 do
       @comment.issue.comments.create! text: 'email test'
@@ -50,7 +50,7 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   test 'do not send email after create if notify is false' do
-    PaperTrail.whodunnit = users(:franco).id
+    PaperTrail.request.whodunnit = users(:franco).id
 
     assert_no_enqueued_emails do
       @comment.issue.comments.create! text: 'email test', notify: false

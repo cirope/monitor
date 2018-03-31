@@ -8,7 +8,7 @@ class IssueTest < ActiveSupport::TestCase
   end
 
   teardown do
-    PaperTrail.whodunnit = nil
+    PaperTrail.request.whodunnit = nil
   end
 
   test 'blank attributes' do
@@ -40,7 +40,7 @@ class IssueTest < ActiveSupport::TestCase
   end
 
   test 'user can modify' do
-    PaperTrail.whodunnit = users(:eduardo).id
+    PaperTrail.request.whodunnit = users(:eduardo).id
 
     assert @issue.invalid?
     assert_error @issue, :base, :user_invalid
@@ -59,7 +59,7 @@ class IssueTest < ActiveSupport::TestCase
   end
 
   test 'next status' do
-    PaperTrail.whodunnit = nil
+    PaperTrail.request.whodunnit = nil
 
     @issue.taggings.create! tag_id: tags(:final).id
 
@@ -71,7 +71,7 @@ class IssueTest < ActiveSupport::TestCase
     @issue.update! status: 'closed'
     assert_equal %w(closed), @issue.next_status
 
-    PaperTrail.whodunnit = users(:franco).id
+    PaperTrail.request.whodunnit = users(:franco).id
 
     assert_equal %w(taken closed), @issue.next_status
   end

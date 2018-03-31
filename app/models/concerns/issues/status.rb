@@ -16,9 +16,15 @@ module Issues::Status
   end
 
   def next_status
-    user        = User.find PaperTrail.whodunnit if PaperTrail.whodunnit
-    transitions = user&.supervisor? ?
-      SUPERVISOR_STATUS_TRANSITIONS : STATUS_TRANSITIONS
+    if PaperTrail.request.whodunnit
+      user = User.find PaperTrail.request.whodunnit
+    end
+
+    transitions = if user&.supervisor?
+                    SUPERVISOR_STATUS_TRANSITIONS
+                  else
+                    STATUS_TRANSITIONS
+                  end
 
     transitions[(status_was || status).to_sym] || []
   end
