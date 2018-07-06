@@ -37,11 +37,13 @@ class DatabasesController < ApplicationController
 
   def update
     @database.update database_params
+
     respond_with @database
   end
 
   def destroy
     @database.destroy
+
     respond_with @database
   end
 

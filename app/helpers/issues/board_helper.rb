@@ -23,7 +23,7 @@ module Issues::BoardHelper
       }
     }
 
-    link_to permalinks_path(permalink: { issue_ids: @issue_ids }), options do
+    link_to permalinks_path, options do
       t '.create_permalink'
     end
   end
@@ -36,7 +36,7 @@ module Issues::BoardHelper
       }
     }
 
-    link_to issues_exports_path(ids: @issue_ids), options do
+    link_to issues_exports_path, options do
       t '.download_issue_data'
     end
   end

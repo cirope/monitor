@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.0.5'
+gem 'rails', '~> 5.2.0'
 
 gem 'pg'
 gem 'sass-rails'
@@ -22,6 +22,7 @@ gem 'kaminari'
 gem 'net-ssh'
 gem 'net-scp'
 gem 'request_store'
+gem 'request_store-sidekiq'
 gem 'sidekiq'
 gem 'whenever', require: false
 gem 'paper_trail'
@@ -45,9 +46,10 @@ gem 'capistrano-rails'
 group :development do
   gem 'unicorn-rails'
   gem 'web-console'
+  gem 'listen'
 
   # Support for ed25519 ssh keys
-  gem 'rbnacl'
+  gem 'ed25519'
   gem 'bcrypt_pbkdf'
 end
 
@@ -59,6 +61,7 @@ group :test do
   gem 'timecop'
 end
 
-# Some user script dependencies
-gem 'composite_primary_keys', require: false
-gem 'ruby-odbc', require: false
+# Separate script gem dependencies from application dependencies
+extra_gemfile = File.join File.dirname(__FILE__), 'Gemfile.local'
+
+instance_eval File.read(extra_gemfile) if File.readable? extra_gemfile

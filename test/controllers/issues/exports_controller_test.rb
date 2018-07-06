@@ -10,4 +10,10 @@ class Issues::ExportsControllerTest < ActionController::TestCase
     assert_response :success
     assert_equal 'application/zip', response.content_type
   end
+
+  test 'should create using session default' do
+    post :create, session: { board_issues: Issue.pluck('id') }
+    assert_response :success
+    assert_equal 'application/zip', response.content_type
+  end
 end

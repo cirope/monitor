@@ -37,6 +37,7 @@ class SchedulesController < ApplicationController
 
   def update
     @schedule.update schedule_params
+
     respond_with @schedule
   end
 

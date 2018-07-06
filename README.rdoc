@@ -4,6 +4,4 @@ Web application that runs against _any_ data source and _explore_ for defects
 
 === Build Status {<img src="https://secure.travis-ci.org/cirope/monitor.png"/>}[http://travis-ci.org/cirope/monitor]
 
-=== Dependency Status {<img src="https://gemnasium.com/cirope/monitor.png?travis"/>}[https://gemnasium.com/cirope/monitor]
-
 === Code Status {<img src="https://codeclimate.com/github/cirope/monitor.png"/>}[https://codeclimate.com/github/cirope/monitor]

@@ -9,7 +9,6 @@ class Issues::BoardController < ApplicationController
   respond_to :html, :js, :pdf
 
   def index
-    @issue_ids = issues.where(id: board_session).pluck 'id'
     @issues = issues.order(:created_at).where id: board_session
     @issues = @issues.page params[:page] unless request.format == :pdf
 

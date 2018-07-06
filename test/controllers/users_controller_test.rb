@@ -13,7 +13,7 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test 'should get filtered index for autocomplete' do
-    get :index, params: { q: @user.name, role: @user.role, format: :json }
+    get :index, params: { q: @user.name, role: @user.role }, as: :json
     assert_response :success
 
     users = JSON.parse @response.body
