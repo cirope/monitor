@@ -5,8 +5,4 @@ unless ENV['TRAVIS']
   # Oracle ActiveRecord adapter
   gem 'ruby-oci8', require: false
   gem 'activerecord-oracle_enhanced-adapter', require: false
-
-  # SQL Server ActiveRecord adapter
-  gem 'tiny_tds', '< 2.0.0', require: false
-  gem 'activerecord-sqlserver-adapter', require: false
 end
