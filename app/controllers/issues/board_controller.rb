@@ -70,10 +70,16 @@ class Issues::BoardController < ApplicationController
     end
 
     def issue_params
-      params.require(:issue).permit :description, :status,
+      permit = [
+        :status,
         comments_attributes:      [:text],
         taggings_attributes:      [:tag_id],
         subscriptions_attributes: [:user_id]
+      ]
+
+      permit = [:description] + permit if current_user.supervisor?
+
+      params.require(:issue).permit *permit
     end
 
     def board_session
