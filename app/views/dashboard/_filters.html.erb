@@ -23,7 +23,7 @@
           <div class="row">
             <div class="col-lg-4">
               <%= f.input :name,
-                required: false,
+                required:   false,
                 input_html: {
                   value:     filter_params[:name],
                   class:     'input-sm',
@@ -33,7 +33,7 @@
             </div>
             <div class="col-lg-4">
               <%= f.input :description,
-                required: false,
+                required:   false,
                 input_html: {
                   value: filter_params[:description],
                   class: 'input-sm'
@@ -42,13 +42,11 @@
             </div>
             <div class="col-lg-4">
               <%= f.input :status,
-                required: false,
-                collection: filter_status,
+                required:      false,
+                collection:    filter_status,
+                selected:      filter_params[:status],
                 include_blank: '-',
-                selected: filter_params[:status],
-                input_html: {
-                  class: 'input-sm'
-                }
+                input_html:    { class: 'input-sm' }
               %>
             </div>
           </div>
@@ -56,7 +54,9 @@
           <div class="row">
             <div class="col-lg-4">
               <%= f.input :user,
-                required: false, as: :autocomplete, url: users_path,
+                required:   false,
+                as:         :autocomplete,
+                url:        users_path,
                 input_html: {
                   value: filter_params[:user],
                   class: 'input-sm',
@@ -66,7 +66,9 @@
             </div>
             <div class="col-lg-4">
               <%= f.input :tags,
-                required: false, as: :autocomplete, url: tags_path(kind: 'issue'),
+                required:   false,
+                as:         :autocomplete,
+                url:        tags_path(kind: 'issue'),
                 input_html: {
                   value: filter_params[:tags],
                   class: 'input-sm',
@@ -76,7 +78,7 @@
             </div>
             <div class="col-lg-4">
               <%= f.input :comment,
-                required: false,
+                required:   false,
                 input_html: {
                   value: filter_params[:comment],
                   class: 'input-sm'
@@ -89,13 +91,11 @@
             <div class="col-lg-4">
               <% if current_user.author? || current_user.supervisor? %>
                 <%= f.input :show,
-                  required: false,
-                  collection: owner_options,
+                  required:      false,
                   include_blank: false,
-                  selected: filter_params[:show],
-                  input_html: {
-                    class: 'input-sm'
-                  }
+                  collection:    owner_options,
+                  selected:      filter_params[:show],
+                  input_html:    { class: 'input-sm' }
                 %>
               <% end %>
             </div>
