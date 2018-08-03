@@ -2,6 +2,7 @@ class Issues::BoardController < ApplicationController
   include Issues::Filters
 
   before_action :authorize, :not_guest
+  before_action :only_supervisor, only: [:destroy_all]
   before_action :set_title
   before_action :set_issue,  only: [:create, :destroy]
   before_action :set_script, only: [:create, :destroy]
@@ -70,10 +71,16 @@ class Issues::BoardController < ApplicationController
     end
 
     def issue_params
-      params.require(:issue).permit :description, :status,
+      permit = [
+        :status,
         comments_attributes:      [:text],
         taggings_attributes:      [:tag_id],
         subscriptions_attributes: [:user_id]
+      ]
+
+      permit = [:description] + permit if current_user.supervisor?
+
+      params.require(:issue).permit *permit
     end
 
     def board_session

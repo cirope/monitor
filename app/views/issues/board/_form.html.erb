@@ -12,10 +12,12 @@
     <%= simple_form_for Issue.new, url: issues_board_path, method: :patch do |f| %>
       <fieldset>
         <div class="row">
-          <div class="col-lg-6">
-            <%= f.input :description, as: :string, label: false, required: false, input_html: { autofocus: true } %>
-          </div>
-          <div class="col-lg-6">
+          <% if current_user.supervisor? %>
+            <div class="col-lg-6">
+              <%= f.input :description, as: :string, label: false, required: false, input_html: { autofocus: true } %>
+            </div>
+          <% end %>
+          <div class="col-lg-<%= current_user.supervisor? ? 6 : 12 %>">
             <%= f.input :status, label: false, required: false, collection: filter_status, include_blank: '-' %>
           </div>
         </div>
