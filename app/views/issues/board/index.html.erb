@@ -55,8 +55,11 @@
       <li><%= link_to_create_permalink %></li>
       <li><%= link_to_download_issue_data %></li>
       <li><%= link_to_download_pdf %></li>
-      <li class="divider"></li>
-      <li><%= link_to_destroy_all_issues %></li>
+
+      <% if current_user.supervisor? %>
+        <li class="divider"></li>
+        <li><%= link_to_destroy_all_issues %></li>
+      <% end %>
     </ul>
   </div>
 

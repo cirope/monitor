@@ -42,7 +42,9 @@ class Issues::BoardControllerTest < ActionController::TestCase
   test 'should update issues' do
     session[:board_issues] = [@issue.id]
 
-    patch :update, params: { issue: { description: 'Updated' } }, session: { board_issues: [@issue.id] }
+    patch :update, params: {
+      issue: { description: 'Updated' }
+    }, session: { board_issues: [@issue.id] }
     assert_redirected_to issues_board_url
     assert_equal 'Updated', @issue.reload.description
   end
