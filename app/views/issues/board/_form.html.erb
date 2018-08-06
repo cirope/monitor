@@ -44,11 +44,14 @@
         </div>
 
         <div class="row">
-          <div class="col-lg-12">
-            <%= f.simple_fields_for :comments, Comment.new do |cf| %>
+          <%= f.simple_fields_for :comments, Comment.new do |cf| %>
+            <div class="col-sm-10">
               <%= cf.input :text, label: false, placeholder: t('comments.comment.text_placeholder'), input_html: { rows: 2 } %>
-            <% end %>
-          </div>
+            </div>
+            <div class="col-sm-2">
+              <%= cf.input :file, label: false %>
+            </div>
+          <% end %>
         </div>
 
         <div class="row">

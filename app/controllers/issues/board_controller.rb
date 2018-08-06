@@ -73,7 +73,7 @@ class Issues::BoardController < ApplicationController
     def issue_params
       permit = [
         :status,
-        comments_attributes:      [:text],
+        comments_attributes:      [:text, :file],
         taggings_attributes:      [:tag_id],
         subscriptions_attributes: [:user_id]
       ]

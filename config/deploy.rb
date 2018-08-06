@@ -20,5 +20,6 @@ namespace :deploy do
   before :check,      'config:upload'
   after  :publishing, :restart
   after  :published,  'sidekiq:restart'
+  after  :finishing,  :move_files
   after  :finishing,  :cleanup
 end

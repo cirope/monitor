@@ -54,13 +54,17 @@ class Issues::BoardControllerTest < ActionController::TestCase
       patch :update, params: {
         issue: {
           comments_attributes: [
-            { text: 'New comment' }
+            {
+              text: 'New comment',
+              file: fixture_file_upload('files/test.sh', 'text/plain', false)
+            }
           ]
         }
       }, session: { board_issues: [@issue.id] }
     end
 
     assert_redirected_to issues_board_url
+    assert @issue.last_comment.file?
   end
 
   test 'should replace tags from issues' do
