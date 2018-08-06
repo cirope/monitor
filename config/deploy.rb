@@ -17,7 +17,8 @@ set :rbenv_ruby, '2.5.1'
 set :keep_releases, 5
 
 namespace :deploy do
-  before :check,     'config:upload'
+  before :check,      'config:upload'
   after  :publishing, :restart
-  after  :finishing,  'deploy:cleanup'
+  after  :finishing,  :move_files
+  after  :finishing,  :cleanup
 end
