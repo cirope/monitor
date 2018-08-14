@@ -49,7 +49,7 @@ group :development do
   gem 'listen'
 
   # Support for ed25519 ssh keys
-  gem 'rbnacl', '< 5.0' # TODO: check net-ssh dependency to _unleash_
+  gem 'ed25519'
   gem 'bcrypt_pbkdf'
 end
 

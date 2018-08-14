@@ -88,6 +88,7 @@ GEM
     css_parser (1.6.0)
       addressable
     diffy (3.2.1)
+    ed25519 (1.2.4)
     erubi (1.7.1)
     execjs (2.7.0)
     ffi (1.9.25)
@@ -192,8 +193,6 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
-    rbnacl (4.0.2)
-      ffi
     redis (4.0.2)
     request_store (1.4.1)
       rack (>= 1.4)
@@ -290,6 +289,7 @@ DEPENDENCIES
   carrierwave
   coderay
   diffy
+  ed25519
   figaro
   jbuilder
   jc-validates_timeliness
@@ -306,7 +306,6 @@ DEPENDENCIES
   prawn
   prawn-table
   rails (~> 5.1.6)
-  rbnacl (< 5.0)
   request_store
   request_store-sidekiq
   responders
