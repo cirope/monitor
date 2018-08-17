@@ -14,6 +14,10 @@ module Issues::BoardHelper
     end
   end
 
+  def issues_board_status
+    Issue.statuses.map { |k| [t("issues.status.#{k}"), k] }
+  end
+
   def link_to_create_permalink
     options = {
       data:  {
