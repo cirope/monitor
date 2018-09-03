@@ -44,7 +44,6 @@ gem 'capistrano-bundler'
 gem 'capistrano-rails'
 gem 'capistrano-sidekiq'
 
-
 group :development do
   gem 'unicorn-rails'
   gem 'web-console'
