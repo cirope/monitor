@@ -18,7 +18,13 @@
 <% end %>
 
 <% if @script.text.present? %>
-  <textarea name="script[text]" id="script_text" class="editor" data-readonly="true"><%= @script.text %></textarea>
+  <textarea
+    name="script[text]"
+    id="script_text"
+    class="editor"
+    data-phrases="<%= editor_phrases.to_json %>"
+    data-readonly="true"
+    ><%= @script.text %></textarea>
 <% end %>
 
 <% if @script.change.present? %>
