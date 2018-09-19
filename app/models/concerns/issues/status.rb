@@ -1,6 +1,8 @@
 module Issues::Status
   extend ActiveSupport::Concern
 
+  STATUSES = %w(pending taken closed)
+
   STATUS_TRANSITIONS = {
     pending: %w(pending taken closed),
     taken:   %w(taken closed),
@@ -13,6 +15,12 @@ module Issues::Status
 
   included do
     before_validation :set_default_status
+  end
+
+  module ClassMethods
+    def statuses
+      STATUSES
+    end
   end
 
   def next_status
@@ -29,7 +37,7 @@ module Issues::Status
     transitions[(status_was || status).to_sym] || []
   end
 
-  %w(pending taken closed).each do |status|
+  STATUSES.each do |status|
     define_method "#{status}?" do
       self.status == status
     end

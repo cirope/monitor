@@ -16,11 +16,14 @@
 //= require turbolinks
 //= require turbolinks_events
 //= require codemirror/codemirror
+//= require codemirror/addon/dialog/dialog
 //= require codemirror/addon/edit/closebrackets
 //= require codemirror/addon/edit/matchbrackets
 //= require codemirror/addon/fold/foldcode
 //= require codemirror/addon/fold/foldgutter
 //= require codemirror/addon/fold/indent-fold
+//= require codemirror/addon/search/search
+//= require codemirror/addon/search/searchcursor
 //= require codemirror/addon/selection/active-line
 //= require codemirror/mode/ruby
 //= require bootstrap
@@ -35,6 +38,7 @@
 //= require dynamic_form
 //= require filters
 //= require comments
+//= require console
 //= require dashboard
 //= require databases
 //= require descriptors

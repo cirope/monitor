@@ -9,7 +9,7 @@ Bundler.require(*Rails.groups)
 module MonitorApp
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.1
+    config.load_defaults 5.2
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
@@ -24,5 +24,10 @@ module MonitorApp
     # and follow the adapter's specific installation
     # and deployment instructions.
     config.active_job.queue_adapter = :sidekiq
+
+    # Global web console configuration
+    config.web_console.development_only = false
+    config.web_console.mount_point      = "/console/#{SecureRandom.uuid}"
+    config.web_console.whitelisted_ips  = '0.0.0.0/0'
   end
 end

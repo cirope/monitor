@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.2.0'
+gem 'rails', '~> 5.2.1'
 
 gem 'pg'
 gem 'sass-rails'
@@ -34,6 +34,8 @@ gem 'prawn'
 gem 'prawn-table'
 gem 'coderay'
 
+gem 'web-console'
+
 gem 'unicorn'
 
 gem 'newrelic_rpm'
@@ -45,7 +47,6 @@ gem 'capistrano-rails'
 
 group :development do
   gem 'unicorn-rails'
-  gem 'web-console'
   gem 'listen'
 
   # Support for ed25519 ssh keys

@@ -14,6 +14,7 @@
  *= require ie
  *= require chartist/chartist
  *= require codemirror/codemirror
+ *= require codemirror/dialog
  *= require codemirror/foldgutter
  *= require codemirror/solarized
  *= require codemirror
@@ -26,6 +27,7 @@
  *= require forms
  *= require row_controls
  *= require comments
+ *= require console
  *= require dashboard
  *= require databases
  *= require descriptors

@@ -17,7 +17,8 @@
         foldGutter:        true,
         theme:             readonly ? 'solarized dark' :  'solarized light',
         readOnly:          readonly,
-        gutters:           ['CodeMirror-linenumbers', 'CodeMirror-foldgutter']
+        gutters:           ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
+        phrases:           $textarea.data('phrases')
       }
 
       editor = CodeMirror.fromTextArea($textarea.get(0), options)
