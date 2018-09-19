@@ -38,6 +38,7 @@
 //= require dynamic_form
 //= require filters
 //= require comments
+//= require console
 //= require dashboard
 //= require databases
 //= require descriptors

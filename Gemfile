@@ -34,6 +34,8 @@ gem 'prawn'
 gem 'prawn-table'
 gem 'coderay'
 
+gem 'web-console'
+
 gem 'unicorn'
 
 gem 'newrelic_rpm'
@@ -46,7 +48,6 @@ gem 'capistrano-sidekiq'
 
 group :development do
   gem 'unicorn-rails'
-  gem 'web-console'
   gem 'listen'
 
   # Support for ed25519 ssh keys

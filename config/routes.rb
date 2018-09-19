@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   # Dashboard
   get 'dashboard', to: 'dashboard#index', as: 'dashboard'
 
+  # Web console
+  get 'console', to: 'console#show', as: 'console'
+
   # Sessions
   get    'login',    to: 'sessions#new', as: 'login'
   post   'sessions', to: 'sessions#create', as: 'sessions'

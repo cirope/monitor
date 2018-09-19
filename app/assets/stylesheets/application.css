@@ -27,6 +27,7 @@
  *= require forms
  *= require row_controls
  *= require comments
+ *= require console
  *= require dashboard
  *= require databases
  *= require descriptors
