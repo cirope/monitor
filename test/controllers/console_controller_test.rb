@@ -23,6 +23,6 @@ class ConsoleControllerTest < ActionController::TestCase
     login
 
     get :show
-    assert_redirected_to issues_url
+    assert_redirected_to login_url
   end
 end
