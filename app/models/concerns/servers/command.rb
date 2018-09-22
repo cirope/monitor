@@ -39,6 +39,8 @@ module Servers::Command
     def execute_remote script_path
       out = Net::SSH::Connection::Session::StringWithExitstatus.new '', 0
 
+      byebug
+
       Net::SSH.start hostname, user, ssh_options do |ssh|
         ssh.exec! "chmod +x #{script_path}"
 
@@ -54,4 +56,34 @@ module Servers::Command
         output: out.to_s + status_text.to_s
       }
     end
+
+def parse_and_find_the_milonguen(script, stderror)
+  mansa = /#{script.uuid}\.rb:(\d+):in(.*)/
+
+  body = script.body.split("\n")
+
+  lines_with_error = stderror.split("\n").map do |line|
+    match, line, error = *line.match(mansa)
+    [line.to_i - 1 , error] if line && error
+  end.compact
+
+  guiones = {}
+  lines_with_error.map do |line_number, error_msg|
+    line = [body[line_number].strip, error_msg].join(' =>  ')
+
+    guion = nil
+    n = line_number
+    until guion || n.zero?
+      n -= 1
+      guion = body[n] if body[n].start_with?('# Begin ')
+    end
+
+    guiones[guion] ||=  []
+    guiones[guion] << line
+  end
+
+  ap guiones
+end
+# parse_and_find_the_milonguen(script, run.output)
+
 end
