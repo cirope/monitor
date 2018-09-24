@@ -22,7 +22,7 @@ module Triggers::Run
 
           stdout.string
         rescue => ex
-          ex.inspect
+          [stdout.string, ex.inspect].reject(&:blank?).join("\n")
         end
       RUBY
     end
