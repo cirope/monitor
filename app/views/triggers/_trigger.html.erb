@@ -1,7 +1,13 @@
 <fieldset class="rule_trigger">
   <div class="row">
     <div class="col-sm-11 tiny-editor">
-      <%= f.input :callback, label: false, input_html: { data: { editor: true, readonly: disable_rule_edition? } } %>
+      <%= f.input :callback, label: false, input_html: {
+        data: {
+          editor: true,
+          readonly: disable_rule_edition?,
+          phrases: editor_phrases.to_json
+        }
+      } %>
     </div>
     <div class="col-sm-1">
       <div class="row-controls">

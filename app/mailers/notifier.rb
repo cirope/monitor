@@ -25,4 +25,11 @@ class Notifier < ApplicationMailer
 
     mail to: users.map(&:email)
   end
+
+  def mass_comment user:, comment:, permalink:
+    @comment   = comment
+    @permalink = permalink
+
+    mail to: user.email
+  end
 end
