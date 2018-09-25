@@ -82,6 +82,7 @@ es:
   issues:
     board:
       form:
+        group_comments_email: 'Agrupar correo'
         title: 'Modificar'
         submit: 'Aplicar'
       index:

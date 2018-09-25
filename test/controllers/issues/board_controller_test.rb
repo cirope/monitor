@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class Issues::BoardControllerTest < ActionController::TestCase
+  include ActionMailer::TestHelper
+
   setup do
     @issue = issues :ls_on_atahualpa_not_well
     request.env['HTTP_REFERER'] = root_url
@@ -50,17 +52,46 @@ class Issues::BoardControllerTest < ActionController::TestCase
   end
 
   test 'should add comment to issues' do
-    assert_difference '@issue.comments.count' do
-      patch :update, params: {
-        issue: {
-          comments_attributes: [
-            {
-              text: 'New comment',
-              file: fixture_file_upload('files/test.sh', 'text/plain', false)
+    assert_enqueued_emails Issue.count do
+      assert_no_difference 'Permalink.count' do
+        assert_difference '@issue.comments.count' do
+          patch :update, params: {
+            issue: {
+              comments_attributes: {
+                '0' => {
+                  text: 'New comment',
+                  file: fixture_file_upload('files/test.sh', 'text/plain', false)
+                }
+              }
             }
-          ]
-        }
-      }, session: { board_issues: [@issue.id] }
+          }, session: { board_issues: Issue.ids }
+        end
+      end
+    end
+
+    assert_redirected_to issues_board_url
+    assert @issue.last_comment.file?
+  end
+
+  test 'should add grouped comment to issues' do
+    expected_count = User.joins(:issues).count.pred
+
+    assert_enqueued_emails expected_count do
+      assert_difference 'Permalink.count', expected_count do
+        assert_difference '@issue.comments.count' do
+          patch :update, params: {
+            issue: {
+              group_comments_email: '1',
+              comments_attributes: {
+                '0' => {
+                  text: 'New comment',
+                  file: fixture_file_upload('files/test.sh', 'text/plain', false)
+                }
+              }
+            }
+          }, session: { board_issues: Issue.ids }
+        end
+      end
     end
 
     assert_redirected_to issues_board_url
