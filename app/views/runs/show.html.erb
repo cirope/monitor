@@ -39,6 +39,8 @@
   </div>
 <% end %>
 
+<%= render 'parsed_errors_output' if @run.error? && @run.output.present? %>
+
 <% if @run.outputs.with_text.any? %>
   <div class="panel panel-default">
     <div class="panel-heading">

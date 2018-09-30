@@ -1,6 +1,18 @@
 +function () {
   var editor = null
 
+  jumpToLineIfNeeded = function(editor) {
+    var params = (new URL(document.location)).searchParams;
+
+    if (params.get('line')) {
+      line = parseInt(params.get('line')) - 1;
+
+      editor.scrollIntoView({ line: line, ch: 0 }, 200);
+      editor.setCursor({ line: line, ch: 0 });
+      editor.focus();
+    }
+  };
+
   $(document).on('ready turbolinks:load', function () {
     if ($('#script_text').length) {
       var $textarea = $('#script_text')
@@ -22,6 +34,7 @@
       }
 
       editor = CodeMirror.fromTextArea($textarea.get(0), options)
+      window.editor = editor;
 
       editor.on('change', function (editor) {
         var text = editor.getValue()
@@ -35,7 +48,9 @@
           $change.closest('.form-group').addClass('hidden')
           $file.prop('disabled', false).removeClass('hidden')
         }
-      })
+      });
+
+      jumpToLineIfNeeded(editor);
     }
   })
 

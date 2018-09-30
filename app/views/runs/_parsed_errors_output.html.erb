@@ -1,0 +1,25 @@
+<div id="output_parsed_errors">
+  <h3><%= t 'runs.show.scripts_with_errors' %>:</h3>
+  <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    <% @run.parse_and_find_lines_with_error.each do |script, errors| %>
+      <div class="panel panel-danger">
+        <div class="panel-heading" role="tab">
+          <h4 class="panel-title">
+            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#<%= script.uuid %>" aria-expanded="true" aria-controls="<%= script.uuid %>">
+              <%= script %>
+            </a>
+          </h4>
+        </div>
+        <div id="<%= script.uuid %>" class="panel-collapse collapse in" role="tabpanel">
+          <div class="panel-body">
+            <ul>
+              <% errors.each do |error| %>
+                <li><%= runs_output_error_line_with_link(error, script) %></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
