@@ -1,11 +1,11 @@
 +function () {
   var editor = null
 
-  jumpToLineIfNeeded = function(editor) {
-    var params = (new URL(document.location)).searchParams;
+  jumpToLine = function(editor) {
+    var params = (new URL(window.location)).searchParams;
 
     if (params.get('line')) {
-      line = parseInt(params.get('line')) - 1;
+      line = +params.get('line') - 1;
 
       editor.scrollIntoView({ line: line, ch: 0 }, 200);
       editor.setCursor({ line: line, ch: 0 });
@@ -34,7 +34,6 @@
       }
 
       editor = CodeMirror.fromTextArea($textarea.get(0), options)
-      window.editor = editor;
 
       editor.on('change', function (editor) {
         var text = editor.getValue()
@@ -50,7 +49,7 @@
         }
       });
 
-      jumpToLineIfNeeded(editor);
+      jumpToLine(editor);
     }
   })
 

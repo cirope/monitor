@@ -39,8 +39,6 @@ module Servers::Command
     def execute_remote script_path
       out = Net::SSH::Connection::Session::StringWithExitstatus.new '', 0
 
-      byebug
-
       Net::SSH.start hostname, user, ssh_options do |ssh|
         ssh.exec! "chmod +x #{script_path}"
 

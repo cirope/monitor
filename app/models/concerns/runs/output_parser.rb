@@ -7,14 +7,12 @@ module Runs::OutputParser
     scripts_with_error = {}
 
     output_lines_with_error.map do |line_number, error_msg|
-      result = original_script_from_error_line(line_number, error_msg)
+      uuid, values = original_script_from_error_line line_number, error_msg
 
-      next if result.nil?
-
-      uuid, values = result
-
-      scripts_with_error[uuid] ||= []
-      scripts_with_error[uuid] << values
+      if uuid
+        scripts_with_error[uuid] ||= []
+        scripts_with_error[uuid] << values
+      end
     end
 
     scripts = Script.where(uuid: scripts_with_error.keys.uniq)
@@ -30,14 +28,14 @@ module Runs::OutputParser
       own_script_errors = /#{script.uuid}#{Regexp.escape script.extension}:(\d+):in(.*)/
 
       output.split("\n").map do |line|
-        _match, line_number, error = *line.match(own_script_errors)
+        match, line_number, error = *line.match(own_script_errors)
 
         [line_number.to_i - 1 , error] if line_number && error
       end.compact
     end
 
-    def original_script_from_error_line(line_number, error)
-      @parsed_body ||= script.body.split("\n")
+    def original_script_from_error_line line_number, error
+      @parsed_body ||= script.body.split "\n"
 
       script_uuid = nil
       n = line_number
@@ -49,14 +47,12 @@ module Runs::OutputParser
         _match, script_uuid = *@parsed_body[n].match(/ (#{UUID_REGEX}) /) # match old errors too
       end
 
-      return if script_uuid.blank?
-
       [
         script_uuid,
         {
           error: [@parsed_body[line_number].strip, error].join(' =>  '),
           line:  (line_number - n - 1)  # Calculamos la linea real del script
         }
-      ]
+      ] if script_uuid.present?
     end
 end
