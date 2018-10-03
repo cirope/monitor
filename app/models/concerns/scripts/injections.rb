@@ -2,6 +2,7 @@ module Scripts::Injections
   extend ActiveSupport::Concern
 
   ODBC_CONNECTION_REGEX = /ODBC.connect\(?\s*['"](\w+)['"]\s*\)?/
+  AR_CONNECTION_REGEX   = /@@ar_connection\[['"](\w+)['"]\]/
   DB_PROPERTY_REGEX     = /@@databases\[['"](\w+)['"]\]\[['"](\w+)['"]\]/
 
   def text_with_injections
@@ -10,6 +11,10 @@ module Scripts::Injections
         connection_name = match.captures.first
 
         inject_db_properties line, connection_name
+      elsif (match = line.match(AR_CONNECTION_REGEX))
+        connection_name = match.captures.first
+
+        inject_ar_connection line, connection_name
       elsif (match = line.match(DB_PROPERTY_REGEX))
         connection_name = match.captures.first
         property_key    = match.captures.last
@@ -28,10 +33,23 @@ module Scripts::Injections
     def inject_db_properties line, connection_name
       db = Database.find_by name: connection_name
 
-      if db && db.driver.downcase == 'freetds' && db.user && db.password
+      if db && db.driver.downcase =~ /freetds/ && db.user && db.password
         arguments = "'#{connection_name}', '#{db.user}', '#{db.password}'"
+        new_line  = line.sub ODBC_CONNECTION_REGEX, "ODBC.connect(#{arguments})"
 
-        line.sub ODBC_CONNECTION_REGEX, "ODBC.connect(#{arguments})"
+        "#{new_line}\r\n"
+      else
+        line
+      end
+    end
+
+    def inject_ar_connection line, connection_name
+      db = Database.find_by name: connection_name
+
+      if db
+        connection = "ActiveRecord::Base.establish_connection(#{db.ar_config})"
+
+        line.sub AR_CONNECTION_REGEX, connection
       else
         line
       end

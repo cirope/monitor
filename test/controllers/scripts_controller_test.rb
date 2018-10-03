@@ -13,7 +13,7 @@ class ScriptsControllerTest < ActionController::TestCase
   end
 
   test 'should get filtered index for autocomplete' do
-    get :index, params: { q: @script.name, format: :json }
+    get :index, params: { q: @script.name }, as: :json
     assert_response :success
 
     scripts = JSON.parse @response.body
@@ -90,7 +90,7 @@ class ScriptsControllerTest < ActionController::TestCase
   end
 
   test 'should show script in PDF' do
-    get :show, params: { id: @script, format: :pdf }
+    get :show, params: { id: @script }, as: :pdf
     assert_response :success
     assert_equal 'application/pdf', response.content_type
   end

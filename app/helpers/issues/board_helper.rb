@@ -14,6 +14,10 @@ module Issues::BoardHelper
     end
   end
 
+  def issues_board_status
+    Issue.statuses.map { |k| [t("issues.status.#{k}"), k] }
+  end
+
   def link_to_create_permalink
     options = {
       data:  {
@@ -23,7 +27,7 @@ module Issues::BoardHelper
       }
     }
 
-    link_to permalinks_path(permalink: { issue_ids: @issue_ids }), options do
+    link_to permalinks_path, options do
       t '.create_permalink'
     end
   end
@@ -36,7 +40,7 @@ module Issues::BoardHelper
       }
     }
 
-    link_to issues_exports_path(ids: @issue_ids), options do
+    link_to issues_exports_path, options do
       t '.download_issue_data'
     end
   end

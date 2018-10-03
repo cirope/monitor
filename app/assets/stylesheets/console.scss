@@ -1,0 +1,9 @@
+#console {
+  top: 47px;
+  height: calc(100% - 47px);
+  z-index: 0;
+
+  .close-button {
+    display: none;
+  }
+}

@@ -34,11 +34,13 @@ class DescriptorsController < ApplicationController
 
   def update
     update_resource @descriptor, descriptor_params
+
     respond_with @descriptor
   end
 
   def destroy
     @descriptor.destroy
+
     respond_with @descriptor
   end
 

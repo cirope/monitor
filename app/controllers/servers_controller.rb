@@ -37,11 +37,13 @@ class ServersController < ApplicationController
 
   def update
     @server.update server_params
+
     respond_with @server
   end
 
   def destroy
     @server.destroy
+
     respond_with @server
   end
 

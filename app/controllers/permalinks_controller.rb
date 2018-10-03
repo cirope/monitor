@@ -4,6 +4,7 @@ class PermalinksController < ApplicationController
   before_action :authorize
   before_action :not_guest, :not_security, only: [:create]
   before_action :set_permalink, only: [:show]
+  before_action :set_default_params, only: [:create]
   before_action :set_title
 
   # GET /permalinks/token
@@ -13,10 +14,8 @@ class PermalinksController < ApplicationController
 
   # POST /permalinks
   def create
-    token      = SecureRandom.urlsafe_base64 32
-    @permalink = Permalink.new permalink_params.merge(token: token)
+    @permalink = Permalink.create permalink_params
 
-    @permalink.save
     respond_with @permalink
   end
 
@@ -27,6 +26,14 @@ class PermalinksController < ApplicationController
     end
 
     def permalink_params
-      params.require(:permalink).permit :token, issue_ids: []
+      params.require(:permalink).permit issue_ids: []
+    end
+
+    def set_default_params
+      params[:permalink] ||= { issue_ids: board_issues }
+    end
+
+    def board_issues
+      session[:board_issues] ||= []
     end
 end

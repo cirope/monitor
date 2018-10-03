@@ -8,7 +8,7 @@ class IssueTest < ActiveSupport::TestCase
   end
 
   teardown do
-    PaperTrail.whodunnit = nil
+    PaperTrail.request.whodunnit = nil
   end
 
   test 'blank attributes' do
@@ -40,7 +40,7 @@ class IssueTest < ActiveSupport::TestCase
   end
 
   test 'user can modify' do
-    PaperTrail.whodunnit = users(:eduardo).id
+    PaperTrail.request.whodunnit = users(:eduardo).id
 
     assert @issue.invalid?
     assert_error @issue, :base, :user_invalid
@@ -59,7 +59,7 @@ class IssueTest < ActiveSupport::TestCase
   end
 
   test 'next status' do
-    PaperTrail.whodunnit = nil
+    PaperTrail.request.whodunnit = nil
 
     @issue.taggings.create! tag_id: tags(:final).id
 
@@ -71,7 +71,7 @@ class IssueTest < ActiveSupport::TestCase
     @issue.update! status: 'closed'
     assert_equal %w(closed), @issue.next_status
 
-    PaperTrail.whodunnit = users(:franco).id
+    PaperTrail.request.whodunnit = users(:franco).id
 
     assert_equal %w(taken closed), @issue.next_status
   end
@@ -129,6 +129,21 @@ class IssueTest < ActiveSupport::TestCase
     skip
   end
 
+  test 'by user id' do
+    user   = users :john
+    issues = Issue.by_user_id(user.id)
+
+    assert_not_equal 0, issues.count
+    assert issues.all? { |issue| issue.users.include?(user) }
+  end
+
+  test 'by comment' do
+    issues = Issue.by_comment('wat')
+
+    assert_not_equal 0, issues.count
+    assert issues.all? { |issue| issue.comments.any? { |c| c.text =~ /wat/i } }
+  end
+
   test 'pending?' do
     assert @issue.pending?
 
@@ -163,5 +178,16 @@ class IssueTest < ActiveSupport::TestCase
     assert File.exist?(path)
 
     FileUtils.rm path
+  end
+
+  test 'comment' do
+    user       = users :franco
+    user_count = User.joins(:issues).count
+
+    assert user_count > 1
+
+    assert_enqueued_emails user_count.pred do
+      Issue.comment text: 'Mass comment test', user_id: user.id
+    end
   end
 end

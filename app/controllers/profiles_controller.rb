@@ -9,6 +9,7 @@ class ProfilesController < ApplicationController
 
   def update
     update_resource @user, user_params, stale_location: profile_path
+
     respond_with @user, location: root_url
   end
 
@@ -19,6 +20,6 @@ class ProfilesController < ApplicationController
     end
 
     def user_params
-      params.require(:user).permit :name, :lastname, :email, :password, :password_confirmation, :lock_version
+      params.require(:user).permit :name, :lastname, :email, :username, :password, :password_confirmation, :lock_version
     end
 end

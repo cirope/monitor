@@ -12,11 +12,13 @@
     <%= simple_form_for Issue.new, url: issues_board_path, method: :patch do |f| %>
       <fieldset>
         <div class="row">
-          <div class="col-lg-6">
-            <%= f.input :description, as: :string, label: false, required: false, input_html: { autofocus: true } %>
-          </div>
-          <div class="col-lg-6">
-            <%= f.input :status, label: false, required: false, collection: filter_status, include_blank: '-' %>
+          <% if current_user.supervisor? %>
+            <div class="col-lg-6">
+              <%= f.input :description, as: :string, label: false, required: false, input_html: { autofocus: true } %>
+            </div>
+          <% end %>
+          <div class="col-lg-<%= current_user.supervisor? ? 6 : 12 %>">
+            <%= f.input :status, label: false, required: false, collection: issues_board_status, include_blank: '-' %>
           </div>
         </div>
 
@@ -42,11 +44,22 @@
         </div>
 
         <div class="row">
-          <div class="col-lg-12">
-            <%= f.simple_fields_for :comments, Comment.new do |cf| %>
+          <%= f.simple_fields_for :comments, Comment.new do |cf| %>
+            <div class="col-sm-6">
               <%= cf.input :text, label: false, placeholder: t('comments.comment.text_placeholder'), input_html: { rows: 2 } %>
-            <% end %>
-          </div>
+            </div>
+            <div class="col-sm-3">
+              <%= cf.input :file, label: false %>
+            </div>
+            <div class="col-sm-3 text-right">
+              <div class="checkbox">
+                <label>
+                  <%= check_box_tag 'issue[group_comments_email]', 1, params[:issue]&[:group_comments_email] %>
+                  <%= t '.group_comments_email' %>
+                </label>
+              </div>
+            </div>
+          <% end %>
         </div>
 
         <div class="row">

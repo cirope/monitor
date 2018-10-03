@@ -16,6 +16,10 @@ class Issues::ExportsController < ApplicationController
   private
 
     def set_issues
-      @issues = issues.where id: params[:ids]
+      @issues = issues.where id: params[:ids] || board_issues
+    end
+
+    def board_issues
+      session[:board_issues] ||= []
     end
 end

@@ -27,6 +27,10 @@ es:
     edit:
       title: 'Editar comentario'
 
+  console:
+    show:
+      title: 'Consola'
+
   dashboard:
     index:
       title: 'Listado de casos'
@@ -78,6 +82,7 @@ es:
   issues:
     board:
       form:
+        group_comments_email: 'Agrupar correo'
         title: 'Modificar'
         submit: 'Aplicar'
       index:

@@ -26,8 +26,10 @@ es:
     #     password: 'No special characters, please.'
     labels:
       filter:
+        comment: 'Comentario'
         created_at: 'Fecha de creación'
         data: 'Datos'
+        description: 'Descripción'
         driver: 'Controlador'
         email: 'Correo'
         frequency: 'Frecuencia'

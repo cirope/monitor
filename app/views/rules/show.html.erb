@@ -15,7 +15,12 @@
     <div id="triggers" class="panel-body">
       <% @rule.triggers.each do |trigger| %>
         <div class="tiny-editor">
-          <textarea id="trigger_callback_<%= trigger.id %>" data-editor data-readonly="true"><%= trigger.callback %></textarea>
+          <textarea
+            id="trigger_callback_<%= trigger.id %>"
+            data-editor
+            data-phrases="<%= editor_phrases.to_json %>"
+            data-readonly="true"
+            ><%= trigger.callback %></textarea>
         </div>
 
         <% if last_output(trigger).present? %>
@@ -23,7 +28,7 @@
 
           <h4><%= t '.last_output' %></h4>
           <p>
-            <samp><%= last_output trigger %></samp>
+            <pre><samp><%= last_output trigger %></samp></pre>
           </p>
         <% end %>
       <% end %>

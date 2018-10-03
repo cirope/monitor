@@ -3,7 +3,7 @@ class Notifier < ApplicationMailer
     message = message.with_indifferent_access
     @body   = message[:body]
 
-    (message[:attachments] || {}).each do |filename, file|
+    Hash(message[:attachments]).each do |filename, file|
       attachments[filename] = file
     end
 
@@ -24,5 +24,12 @@ class Notifier < ApplicationMailer
     @issue   = comment.issue
 
     mail to: users.map(&:email)
+  end
+
+  def mass_comment user:, comment:, permalink:
+    @comment   = comment
+    @permalink = permalink
+
+    mail to: user.email
   end
 end

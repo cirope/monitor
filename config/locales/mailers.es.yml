@@ -6,6 +6,11 @@ es:
       subject: 'Nuevo caso'
     comment:
       subject: 'Nuevo comentario'
+    mass_comment:
+      subject: 'Nuevo comentario'
+      issues:
+        one: 'un caso'
+        other: '%{count} casos'
 
   user_mailer:
     password_reset:

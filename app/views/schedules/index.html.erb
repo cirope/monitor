@@ -12,7 +12,7 @@
         <th class="visible-lg"><%= Schedule.human_attribute_name 'interval' %></th>
         <th class="visible-lg"><%= Schedule.human_attribute_name 'frequency' %></th>
         <th colspan="<%= current_user.author? ? 2 : 4 %>">
-          <%= link_to_new new_schedule_path, class: 'btn btn-default btn-xs pull-right' %>
+          <%= link_to_new new_schedule_path, class: 'btn btn-default btn-xs pull-right' unless current_user.author? %>
         </th>
       </tr>
     </thead>
@@ -21,8 +21,8 @@
       <% @schedules.each do |schedule| %>
         <tr <%== 'class="text-muted text-striked"' if schedule.end&.past? %>>
           <td><%= schedule.name %></td>
-          <td class="visible-lg"><%= l schedule.start, format: :short %></td>
-          <td class="visible-lg"><%= l schedule.end, format: :short if schedule.end %></td>
+          <td class="visible-lg"><%= l schedule.start, format: :compact %></td>
+          <td class="visible-lg"><%= l schedule.end, format: :compact if schedule.end %></td>
           <td class="visible-lg"><%= schedule.interval %></td>
           <td class="visible-lg"><%= t "schedules.frequencies.#{schedule.frequency}" if schedule.frequency %></td>
           <td><%= link_to_runs schedule %></td>
@@ -39,4 +39,4 @@
   <%= paginate @schedules %>
 <% end %>
 
-<%= link_to_new new_schedule_path, class: 'btn btn-primary' %>
+<%= link_to_new new_schedule_path, class: 'btn btn-primary' unless current_user.author? %>

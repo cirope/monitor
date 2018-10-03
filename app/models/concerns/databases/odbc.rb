@@ -1,4 +1,4 @@
-module Databases::Odbc
+module Databases::ODBC
   extend ActiveSupport::Concern
 
   included do

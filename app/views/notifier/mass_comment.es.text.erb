@@ -1,0 +1,16 @@
+Nuevo comentario
+================================================================================
+
+Comentario
+--------------------------------------------------------------------------------
+
+<%= @comment.user %>:
+
+<% @comment.text.each_line do |l| %>
+  | <%= l %>
+<% end %>
+
+Se hizo el siguiente comentario en <%= t '.issues', count: @permalink.issues.count %>, para verlos visite
+el siguiente enlace:
+
+<%= permalink_url @permalink %>
