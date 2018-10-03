@@ -39,8 +39,7 @@ module RunsHelper
   def runs_output_error_line_with_link script, error
     link = link_to(
       "L##{error[:line]}",
-      script_path(script.id, line: error[:line]),
-      target: '_blank'
+      script_path(script.id, line: error[:line])
     )
 
     [link, content_tag(:code, error[:error])].join(' | ').html_safe

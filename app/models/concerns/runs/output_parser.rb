@@ -4,21 +4,19 @@ module Runs::OutputParser
   def parse_and_find_lines_with_error
     return {} unless error?
 
-    scripts_with_error = {}
-
-    output_lines_with_error.map do |line_number, error_msg|
-      uuid, values = original_script_from_error_line line_number, error_msg
+    errors = output_lines_with_error.each_with_object({}) do |(n, error), memo|
+      uuid, values = original_script_from_error_line n, error
 
       if uuid
-        scripts_with_error[uuid] ||= []
-        scripts_with_error[uuid] << values
+        memo[uuid] ||= []
+        memo[uuid] << values
       end
     end
 
-    scripts = Script.where(uuid: scripts_with_error.keys.uniq)
+    scripts = Script.where uuid: errors.keys.uniq
 
     scripts.each_with_object({}) do |script, memo|
-      memo[script] = scripts_with_error[script.uuid]
+      memo[script] = errors[script.uuid]
     end
   end
 

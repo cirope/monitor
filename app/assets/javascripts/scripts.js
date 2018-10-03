@@ -2,14 +2,14 @@
   var editor = null
 
   jumpToLine = function(editor) {
-    var params = (new URL(window.location)).searchParams;
+    var params = (new URL(window.location)).searchParams
 
     if (params.get('line')) {
-      line = +params.get('line') - 1;
+      line = +params.get('line') - 1
 
-      editor.scrollIntoView({ line: line, ch: 0 }, 200);
-      editor.setCursor({ line: line, ch: 0 });
-      editor.focus();
+      editor.scrollIntoView({ line: line, ch: 0 }, 200)
+      editor.setCursor({ line: line, ch: 0 })
+      editor.focus()
     }
   };
 
@@ -47,9 +47,9 @@
           $change.closest('.form-group').addClass('hidden')
           $file.prop('disabled', false).removeClass('hidden')
         }
-      });
+      })
 
-      jumpToLine(editor);
+      jumpToLine(editor)
     }
   })
 

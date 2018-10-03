@@ -1,22 +1,20 @@
-<div id="output_parsed_errors">
-  <div class="panel panel-danger">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <%= link_to t('runs.show.scripts_with_errors'), "#script_errors",
-          data: { toggle: 'collapse' } %>
-      </h4>
-    </div>
-    <div id="script_errors" class="panel-collapse collapse in">
-      <div class="panel-body">
-        <% @run.parse_and_find_lines_with_error.each do |script, errors| %>
-          <h3><%= script %>:</h3>
-          <ul>
-            <% errors.each do |error| %>
-              <li><%= runs_output_error_line_with_link script, error %></li>
-            <% end %>
-          </ul>
-        <% end %>
-      </div>
+<div class="panel panel-danger">
+  <div class="panel-heading">
+    <h4 class="panel-title">
+      <%= link_to t('runs.show.scripts_with_errors'), "#script_errors",
+        data: { toggle: 'collapse' } %>
+    </h4>
+  </div>
+  <div id="script_errors" class="panel-collapse collapse in">
+    <div class="panel-body">
+      <% @run.parse_and_find_lines_with_error.each do |script, errors| %>
+        <h3><%= script %></h3>
+        <ul>
+          <% errors.each do |error| %>
+            <li><%= runs_output_error_line_with_link script, error %></li>
+          <% end %>
+        </ul>
+      <% end %>
     </div>
   </div>
 </div>
