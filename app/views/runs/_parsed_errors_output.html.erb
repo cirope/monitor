@@ -11,7 +11,9 @@
         <h3><%= script %></h3>
         <ul>
           <% errors.each do |error| %>
-            <li><%= runs_output_error_line_with_link script, error %></li>
+            <li>
+              <%= runs_output_error_line_with_link script, error, @run.modified_scripts? %>
+            </li>
           <% end %>
         </ul>
       <% end %>

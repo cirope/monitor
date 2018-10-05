@@ -13,11 +13,19 @@ module Runs::OutputParser
       end
     end
 
-    scripts = Script.where uuid: errors.keys.uniq
+    scripts = Script.where uuid: errors.keys
 
     scripts.each_with_object({}) do |script, memo|
       memo[script] = errors[script.uuid]
     end
+  end
+
+  def modified_scripts?
+    updates = script.class.cores.distinct.pluck(:updated_at)
+    updates << script.updated_at
+    updates += script.includes.pluck(:updated_at)
+
+    updates.any? { |d| d > updated_at }
   end
 
   private
@@ -35,14 +43,15 @@ module Runs::OutputParser
     def original_script_from_error_line line_number, error
       @parsed_body ||= script.body.split "\n"
 
-      script_uuid = nil
       n = line_number
+      script_uuid = nil
 
-      until script_uuid || n.zero?
+      line_number.times do
         n -= 1
 
-        # _match, script_uuid = *@parsed_body[n].match(/\A# Begin (#{UUID_REGEX}) /)
-        _match, script_uuid = *@parsed_body[n].match(/ (#{UUID_REGEX}) /) # match old errors too
+        match, script_uuid = *@parsed_body[n].match(/ (#{UUID_REGEX}) /)
+
+        break if script_uuid
       end
 
       [

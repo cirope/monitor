@@ -36,12 +36,12 @@ module RunsHelper
     end
   end
 
-  def runs_output_error_line_with_link script, error
+  def runs_output_error_line_with_link script, error, modified
     link = link_to(
       "L##{error[:line]}",
       script_path(script.id, line: error[:line])
-    )
+    ) unless modified
 
-    [link, content_tag(:code, error[:error])].join(' | ').html_safe
+    [link, content_tag(:code, error[:error])].compact.join(' | ').html_safe
   end
 end
