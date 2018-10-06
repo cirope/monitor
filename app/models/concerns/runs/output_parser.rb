@@ -20,12 +20,13 @@ module Runs::OutputParser
     end
   end
 
-  def modified_scripts?
-    updates = script.class.cores.distinct.pluck(:updated_at)
-    updates << script.updated_at
-    updates += script.includes.pluck(:updated_at)
+  def still_valid?
+    dates = script.class.cores.distinct.pluck(:updated_at)
+    dates += script.includes.pluck(:updated_at)
 
-    updates.any? { |d| d > updated_at }
+    dates << script.updated_at
+
+    dates.all? { |d| d <= updated_at }
   end
 
   private

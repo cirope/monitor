@@ -12,7 +12,7 @@
         <ul>
           <% errors.each do |error| %>
             <li>
-              <%= runs_output_error_line_with_link script, error, @run.modified_scripts? %>
+              <%= runs_output_error_line_with_link script, error, !@run.still_valid? %>
             </li>
           <% end %>
         </ul>

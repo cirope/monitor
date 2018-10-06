@@ -36,11 +36,11 @@ module RunsHelper
     end
   end
 
-  def runs_output_error_line_with_link script, error, modified
+  def runs_output_error_line_with_link script, error, tainted
     link = link_to(
       "L##{error[:line]}",
       script_path(script.id, line: error[:line])
-    ) unless modified
+    ) unless tainted
 
     [link, content_tag(:code, error[:error])].compact.join(' | ').html_safe
   end
