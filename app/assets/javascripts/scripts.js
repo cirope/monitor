@@ -1,11 +1,37 @@
 +function () {
   var editor = null
 
-  jumpToLine = function(editor) {
-    var params = (new URL(window.location)).searchParams
+  queryParams = function(paramsList) {
+    // paramsList = window.location.search.substr(1).split('&')
+    if (paramsList == '')
+      return {}
 
-    if (params.get('line')) {
-      line = +params.get('line') - 1
+    var params = {}
+
+    for (var i = 0; i < paramsList.length; ++i) {
+      var keyValue = paramsList[i].split('=', 2)
+      var value = keyValue[1]
+
+      if (value)
+        value = decodeURIComponent(value.replace(/\+/g, ' '))
+      else
+        value = ''
+
+        params[keyValue[0]] = value
+    }
+
+    return params
+  }
+
+  jumpToLine = function(editor) {
+    var params = null
+
+    try {
+      params = queryParams(window.location.search.substr(1).split('&'))
+    } catch(e) { }
+
+    if (params && params['line']) {
+      line = +params['line'] - 1
 
       editor.scrollIntoView({ line: line, ch: 0 }, 200)
       editor.setCursor({ line: line, ch: 0 })

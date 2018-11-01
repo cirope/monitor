@@ -21,8 +21,8 @@ module Runs::OutputParser
   end
 
   def still_valid?
-    dates = script.class.cores.distinct.pluck(:updated_at)
-    dates += script.includes.pluck(:updated_at)
+    dates  = script.class.cores.distinct.pluck :updated_at
+    dates += script.includes.pluck :updated_at
 
     dates << script.updated_at
 
@@ -44,22 +44,26 @@ module Runs::OutputParser
     def original_script_from_error_line line_number, error
       @parsed_body ||= script.body.split "\n"
 
-      n = line_number
+      n           = line_number
+      delta       = 0
       script_uuid = nil
 
-      line_number.times do
+      until n.zero?
         n -= 1
 
         match, script_uuid = *@parsed_body[n].match(/ (#{UUID_REGEX}) /)
 
-        break if script_uuid
+        if script_uuid
+          delta = n
+          n = 0
+        end
       end
 
       [
         script_uuid,
         {
           error: [@parsed_body[line_number].strip, error].join(' =>  '),
-          line:  (line_number - n - 1)  # Calculamos la linea real del script
+          line:  (line_number - delta - 1)
         }
       ] if script_uuid.present?
     end
