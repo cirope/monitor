@@ -12,12 +12,13 @@
       var keyValue = paramsList[i].split('=', 2)
       var value = keyValue[1]
 
-      if (value)
+      if (value) {
         value = decodeURIComponent(value.replace(/\+/g, ' '))
-      else
+      } else {
         value = ''
+      }
 
-        params[keyValue[0]] = value
+      params[keyValue[0]] = value
     }
 
     return params
