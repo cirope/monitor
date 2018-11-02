@@ -1,8 +1,9 @@
 +function () {
   var editor = null
 
-  queryParams = function(paramsList) {
-    // paramsList = window.location.search.substr(1).split('&')
+  urlQueryParams = function() {
+    paramsList = window.location.search.substr(1).split('&')
+
     if (paramsList == '')
       return {}
 
@@ -12,11 +13,10 @@
       var keyValue = paramsList[i].split('=', 2)
       var value = keyValue[1]
 
-      if (value) {
+      if (value)
         value = decodeURIComponent(value.replace(/\+/g, ' '))
-      } else {
+      else
         value = ''
-      }
 
       params[keyValue[0]] = value
     }
@@ -25,11 +25,7 @@
   }
 
   jumpToLine = function(editor) {
-    var params = null
-
-    try {
-      params = queryParams(window.location.search.substr(1).split('&'))
-    } catch(e) { }
+    var params = urlQueryParams()
 
     if (params && params['line']) {
       line = +params['line'] - 1
