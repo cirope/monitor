@@ -2,12 +2,11 @@
   var editor = null
 
   urlQueryParams = function() {
-    paramsList = window.location.search.substr(1).split('&')
+    var paramsList = window.location.search.substr(1).split('&')
+    var params = {}
 
     if (paramsList == '')
-      return {}
-
-    var params = {}
+      return params
 
     for (var i = 0; i < paramsList.length; ++i) {
       var keyValue = paramsList[i].split('=', 2)
