@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170902003256) do
+ActiveRecord::Schema.define(version: 2018_11_25_004524) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,6 +70,19 @@ ActiveRecord::Schema.define(version: 20170902003256) do
     t.index ["schedule_id"], name: "index_dispatchers_on_schedule_id"
   end
 
+  create_table "executions", force: :cascade do |t|
+    t.integer "script_id", null: false
+    t.integer "server_id", null: false
+    t.integer "status", default: 1
+    t.datetime "started_at"
+    t.datetime "ended_at"
+    t.text "output"
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["script_id"], name: "index_executions_on_script_id"
+  end
+
   create_table "issues", id: :serial, force: :cascade do |t|
     t.string "status", null: false
     t.text "description"
@@ -86,8 +99,8 @@ ActiveRecord::Schema.define(version: 20170902003256) do
   end
 
   create_table "issues_permalinks", id: false, force: :cascade do |t|
-    t.bigint "issue_id", null: false
-    t.bigint "permalink_id", null: false
+    t.integer "issue_id", null: false
+    t.integer "permalink_id", null: false
     t.index ["issue_id"], name: "index_issues_permalinks_on_issue_id"
     t.index ["permalink_id"], name: "index_issues_permalinks_on_permalink_id"
   end

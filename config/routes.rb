@@ -64,6 +64,7 @@ Rails.application.routes.draw do
   resources :scripts do
     resources :issues,   only: [:index]
     resources :versions, only: [:index, :show], controller: 'scripts/versions'
+    resources :executions, only: [:index, :new, :create, :show]
   end
 
   namespace :users do

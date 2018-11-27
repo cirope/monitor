@@ -63,3 +63,5 @@
 //= require taggings
 //= require users
 //= require users/imports
+//= require cable
+//= require executions
