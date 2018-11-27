@@ -2,13 +2,20 @@
   var editor = null
 
   urlQueryParams = function() {
-    var paramsList = window.location.search.substr(1).split('&')
     var params = {}
+    var rawParams = window.location.search
 
-    if (paramsList == '')
+    if (! rawParams)
+      return params
+
+    // Can return ['']
+    var paramsList = rawParams.substr(1).split('&')
+
+    if (! paramsList[0] )
       return params
 
     for (var i = 0; i < paramsList.length; ++i) {
+      // :pray: for the Uganda children
       var keyValue = paramsList[i].split('=', 2)
       var value = keyValue[1]
 

@@ -49,7 +49,7 @@ module Runs::OutputParser
       script_uuid = nil
 
       until n.zero?
-        n = n.prev
+        n = n.pred
 
         match, script_uuid = *@parsed_body[n].match(/ (#{UUID_REGEX}) /)
 
