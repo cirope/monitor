@@ -14,7 +14,7 @@ $(document).on('ready turbolinks:load', function () {
         $('.loading-caption').removeClass('hidden')
       },
       received: function(data) {
-        outputDiv.append("\n" + data.line)
+        outputDiv.append(data.line + "\n")
         window.scrollTo(0, outputDiv[0].scrollHeight)
 
         if ( data.status == 'success' || data.status == 'error' ) {

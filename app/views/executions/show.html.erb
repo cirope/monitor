@@ -23,18 +23,19 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title">
-      <%= Run.human_attribute_name 'output' %>
+      <%= Execution.human_attribute_name 'output' %>
     </h3>
   </div>
   <div class="panel-body">
-    <% if @execution.pending? || @execution.running? %>
-      <pre data-actioncable-watch-execution="<%= @execution.id %>">
-      </pre>
-    <% else %>
+    <p>
       <pre>
-        <%= @execution.output %>
+        <% if @execution.pending? || @execution.running? %>
+          <samp data-actioncable-watch-execution="<%= @execution.id %>"></samp>
+        <% else %>
+          <samp><%= @execution.output %></samp>
+        <% end %>
       </pre>
-    <% end %>
+    </p>
   </div>
 </div>
 
