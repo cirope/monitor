@@ -5,9 +5,8 @@ $(document).on('ready turbolinks:load', function () {
     return
 
   var executionId = outputDiv.data('actioncable-watch-execution')
-  var cableSubscription = null
 
-  cableSubscription = App.cable.subscriptions.create(
+  App.cable.subscriptions.create(
     { channel: "ExecutionChannel", id: executionId },
     {
       connected: function() {

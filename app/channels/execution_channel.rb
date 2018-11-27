@@ -4,7 +4,9 @@ class ExecutionChannel < ApplicationCable::Channel
   end
 
   def initial_output
-    (execution.output || '').split("\n").each do |line|
+    return if execution.output.blank?
+
+    execution.output.split("\n").each do |line|
       self.class.send_line(execution.id, line)
     end
   end
