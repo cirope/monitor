@@ -3,7 +3,7 @@
 
   urlQueryParams = function() {
     var params = {}
-    var rawParams = window.location.search
+    var rawParams = window.location.search || ''
 
     if (! rawParams)
       return params
