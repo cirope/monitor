@@ -1,18 +1,16 @@
 class ExecutionsController < ApplicationController
   respond_to :html, :json
 
-  before_action :authorize
-  before_action :set_title, except: [:destroy]
-  before_action :set_script
+  before_action :authorize, :set_script
 
   # GET /executions
   def index
-    @executions = @script.executions.page(params[:page])
+    @executions = @script.executions.page params[:page]
   end
 
   # GET /executions/1
   def show
-    @execution = @script.executions.find(params[:id])
+    @execution = @script.executions.find params[:id]
   end
 
   # GET /executions/new
@@ -23,7 +21,7 @@ class ExecutionsController < ApplicationController
   # POST /executions
   def create
     @execution = @script.executions.build(execution_params)
-    @execution.user_id = current_user.try(:id)
+    @execution.user_id = current_user.try :id
 
     @execution.save
 
@@ -33,7 +31,7 @@ class ExecutionsController < ApplicationController
   private
 
     def set_script
-      @script = Script.find(params[:script_id])
+      @script = Script.find params[:script_id]
     end
 
     def execution_params

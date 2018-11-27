@@ -76,6 +76,8 @@ es:
       empty: 'No se encontraron reglas con ese criterio'
 
   executions:
+    index:
+      empty_html: 'No hay ejecuciones'
     status:
       pending: 'Pendiente'
       running: 'Corriendo'
