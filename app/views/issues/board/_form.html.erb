@@ -45,11 +45,19 @@
 
         <div class="row">
           <%= f.simple_fields_for :comments, Comment.new do |cf| %>
-            <div class="col-sm-10">
+            <div class="col-sm-6">
               <%= cf.input :text, label: false, placeholder: t('comments.comment.text_placeholder'), input_html: { rows: 2 } %>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-3">
               <%= cf.input :file, label: false %>
+            </div>
+            <div class="col-sm-3 text-right">
+              <div class="checkbox">
+                <label>
+                  <%= check_box_tag 'issue[group_comments_email]', 1, params[:issue]&[:group_comments_email] %>
+                  <%= t '.group_comments_email' %>
+                </label>
+              </div>
             </div>
           <% end %>
         </div>

@@ -14,10 +14,8 @@ class PermalinksController < ApplicationController
 
   # POST /permalinks
   def create
-    token      = SecureRandom.urlsafe_base64 32
-    @permalink = Permalink.new permalink_params.merge(token: token)
+    @permalink = Permalink.create permalink_params
 
-    @permalink.save
     respond_with @permalink
   end
 

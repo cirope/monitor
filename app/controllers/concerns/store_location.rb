@@ -12,7 +12,7 @@ module StoreLocation
   private
 
     def exclude_from_store?
-      !request.get? || request.xhr? || excluded_path?
+      !request.get? || !request.format.html? || request.xhr? || excluded_path?
     end
 
     def excluded_path?

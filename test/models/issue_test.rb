@@ -179,4 +179,15 @@ class IssueTest < ActiveSupport::TestCase
 
     FileUtils.rm path
   end
+
+  test 'comment' do
+    user       = users :franco
+    user_count = User.joins(:issues).count
+
+    assert user_count > 1
+
+    assert_enqueued_emails user_count.pred do
+      Issue.comment text: 'Mass comment test', user_id: user.id
+    end
+  end
 end
