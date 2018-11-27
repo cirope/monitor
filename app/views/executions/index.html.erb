@@ -1,33 +1,31 @@
+<h5>
+  <%= Execution.model_name.human count: @executions.count %> |
+  <%= link_to @script, @script %>
+</h5>
+
+<hr>
+
 <% if @executions.empty? %>
   <%= render 'shared/empty_index', message: t('.empty_html') %>
 <% else %>
   <table class="table table-striped table-hover">
     <thead>
       <tr>
-        <th><%= Execution.human_attribute_name 'script_id' %></th>
-        <th><%= Execution.human_attribute_name 'server_id' %></th>
+        <th><%= Execution.human_attribute_name 'server' %></th>
         <th><%= Execution.human_attribute_name 'status' %></th>
         <th><%= Execution.human_attribute_name 'started_at' %></th>
         <th><%= Execution.human_attribute_name 'ended_at' %></th>
-        <th><%= Execution.human_attribute_name 'output' %></th>
-        <th colspan="3">
-          <%= link_to_new new_execution_path, class: 'btn btn-default btn-xs pull-right' %>
-        </th>
       </tr>
     </thead>
 
     <tbody>
       <% @executions.each do |execution| %>
         <tr>
-          <td><%= execution.script_id %></td>
-          <td><%= execution.server_id %></td>
-          <td><%= execution.status %></td>
-          <td><%= execution.started_at %></td>
-          <td><%= execution.ended_at %></td>
-          <td><%= execution.output %></td>
-          <td><%= link_to_show execution %></td>
-          <td><%= link_to_edit [:edit, execution] %></td>
-          <td><%= link_to_destroy execution %></td>
+          <td><%= execution.server %></td>
+          <td><%= execution_status execution.status %></td>
+          <td><%= l execution.started_at, format: :compact if execution.started_at %></td>
+          <td><%= l execution.ended_at, format: :compact if execution.ended_at %></td>
+          <td><%= link_to_show [@script, execution] %></td>
         </tr>
       <% end %>
     </tbody>
@@ -35,5 +33,3 @@
 
   <%= paginate @executions %>
 <% end %>
-
-<%= link_to_new new_execution_path, class: 'btn btn-primary' %>

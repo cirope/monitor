@@ -6,7 +6,7 @@ class Execution < ApplicationRecord
 
   enum status: [:success, :pending, :running, :error]
 
-  after_create :schedule_execution
+  after_commit :schedule_execution, on: :create
 
   def schedule_execution
     ExecutionJob.perform_later(self.id)

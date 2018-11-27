@@ -7,7 +7,7 @@ class ExecutionsController < ApplicationController
 
   # GET /executions
   def index
-    @executions = @script.executions
+    @executions = @script.executions.page(params[:page])
   end
 
   # GET /executions/1

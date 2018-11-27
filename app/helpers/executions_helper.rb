@@ -5,14 +5,12 @@ module ExecutionsHelper
               'label-success'
             when 'error'
               'label-danger'
-            when 'canceled'
-              'label-warning'
-            when 'aborted'
+            when 'running'
               'label-warning'
             else
               'label-default'
             end
 
-    content_tag :span, t("runs.status.#{status}"), class: "label #{klass}"
+    content_tag :span, t("executions.status.#{status}"), class: "label #{klass}"
   end
 end
