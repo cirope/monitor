@@ -2,8 +2,7 @@ module CurrentUser
   extend ActiveSupport::Concern
 
   included do
-    puts self
-    (helper_method :current_user) rescue nil
+    helper_method :current_user if self == ApplicationController
   end
 
   def current_user

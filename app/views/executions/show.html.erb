@@ -30,7 +30,7 @@
     <p>
       <pre>
         <% if @execution.pending? || @execution.running? %>
-          <samp data-actioncable-watch-execution="<%= @execution.id %>"></samp>
+          <samp data-actioncable-watch="execution" data-actioncable-watch-execution-id="<%= @execution.id %>"></samp>
         <% else %>
           <samp><%= @execution.output %></samp>
         <% end %>
