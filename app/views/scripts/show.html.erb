@@ -152,7 +152,5 @@
 <%= link_to script_path(@script, format: :pdf), title: t('.download_pdf') do %>
   <span class="glyphicon glyphicon-file"></span>
 <% end %> |
-<% if @script.executions.any? %>
-  <%= link_to t('.executions_list'), script_executions_path(@script) %> |
-<% end %>
+<%= link_to t('.executions_list'), script_executions_path(@script) %> |
 <%= link_to_index scripts_path %>

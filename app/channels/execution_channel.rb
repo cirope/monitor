@@ -14,7 +14,7 @@ class ExecutionChannel < ApplicationCable::Channel
   def self.send_line execution_id, line, status: nil
     ActionCable.server.broadcast(
       "execution_#{execution_id}",
-      line: line,
+      line:   line,
       status: status
     )
   end

@@ -2,7 +2,8 @@ module CurrentUser
   extend ActiveSupport::Concern
 
   included do
-    helper_method :current_user
+    puts self
+    (helper_method :current_user) rescue nil
   end
 
   def current_user

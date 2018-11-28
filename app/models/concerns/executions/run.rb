@@ -4,7 +4,7 @@ module Executions::Run
   def run
     self.update(
       started_at: Time.zone.now,
-      status: :running
+      status:     :running
     )
 
     server.run_execution self

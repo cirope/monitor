@@ -1,6 +1,5 @@
 class Execution < ApplicationRecord
-  has_paper_trail
-
+  include Auditable
   include Executions::Callbacks
   include Executions::Run
   include Executions::Validation

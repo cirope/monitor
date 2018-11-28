@@ -96,8 +96,8 @@ es:
         name: 'Nombre'
       execution:
         status: 'Estado'
-        started_at: 'Fecha inicio ejecución'
-        ended_at: 'Fecha fin ejecución'
+        started_at: 'Inicio'
+        ended_at: 'Fin'
         output: 'Salida'
         server: 'Servidor'
       issue:

@@ -23,7 +23,7 @@ es:
 
     executions:
       create:
-        notice: 'Ejecución creada, observando...'
+        notice: 'Ejecutando...'
 
     password_resets:
       update:

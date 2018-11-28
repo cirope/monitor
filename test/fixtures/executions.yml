@@ -1,6 +1,6 @@
 live_ls:
   script: ls
   server: atahualpa
-  status: :running
-  started_at: 2018-11-24 21:45:24
+  status: <%= Execution.statuses[:running] %>
+  started_at: <%= Time.zone.now %>
   user: franco
