@@ -1,5 +1,5 @@
 module ExecutionsHelper
-  def execution_status(status)
+  def execution_status status
     klass = case status.to_s
             when 'success'
               'label-success'

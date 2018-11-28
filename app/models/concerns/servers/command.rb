@@ -32,7 +32,7 @@ module Servers::Command
       status = thread.value.exitstatus.to_i
     end
 
-    execution.update_output("Exit status: #{status}") unless status == 0
+    execution.update_output "Exit status: #{status}" unless status == 0
 
     execution.status = status == 0 ? :success : :error
   end

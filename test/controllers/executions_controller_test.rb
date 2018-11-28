@@ -3,7 +3,7 @@ require 'test_helper'
 class ExecutionsControllerTest < ActionController::TestCase
 
   setup do
-    @execution = executions(:live_ls)
+    @execution = executions :live_ls
 
     login
   end

@@ -6,7 +6,8 @@ module Executions::Callbacks
   end
 
   private
+
     def schedule_execution
-      ExecutionJob.perform_later(self.id)
+      ExecutionJob.perform_later self.id
     end
 end

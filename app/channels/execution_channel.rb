@@ -7,11 +7,11 @@ class ExecutionChannel < ApplicationCable::Channel
     return if execution.output.blank?
 
     execution.output.split("\n").each do |line|
-      self.class.send_line(execution.id, line)
+      self.class.send_line execution.id, line
     end
   end
 
-  def self.send_line(execution_id, line, status: nil)
+  def self.send_line execution_id, line, status: nil
     ActionCable.server.broadcast(
       "execution_#{execution_id}",
       line: line,
@@ -20,6 +20,6 @@ class ExecutionChannel < ApplicationCable::Channel
   end
 
   def execution
-    @execution ||= ::Execution.find(params[:id])
+    @execution ||= ::Execution.find params[:id]
   end
 end

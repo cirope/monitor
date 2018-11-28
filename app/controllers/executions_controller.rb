@@ -20,7 +20,7 @@ class ExecutionsController < ApplicationController
 
   # POST /executions
   def create
-    @execution = @script.executions.build(execution_params)
+    @execution = @script.executions.build execution_params
     @execution.user_id = current_user.try :id
 
     @execution.save
