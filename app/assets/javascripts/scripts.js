@@ -1,8 +1,8 @@
 +function () {
   var editor = null
 
-  urlQueryParams = function() {
-    var params = {}
+  urlQueryParams = function () {
+    var params    = {}
     var rawParams = window.location.search || ''
 
     if (! rawParams)
@@ -17,7 +17,7 @@
     for (var i = 0; i < paramsList.length; ++i) {
       // :pray: for the Uganda children
       var keyValue = paramsList[i].split('=', 2)
-      var value = keyValue[1]
+      var value    = keyValue[1]
 
       if (value)
         value = decodeURIComponent(value.replace(/\+/g, ' '))
@@ -30,7 +30,7 @@
     return params
   }
 
-  jumpToLine = function(editor) {
+  jumpToLine = function (editor) {
     var params = urlQueryParams()
 
     if (params && params['line']) {
