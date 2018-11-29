@@ -35,4 +35,13 @@ module RunsHelper
       [t("runs.status.#{k}"), k]
     end
   end
+
+  def runs_output_error_line_with_link script, error, valid
+    link = link_to(
+      "L##{error[:line]}",
+      script_path(script.id, line: error[:line])
+    ) if valid
+
+    [link, content_tag(:code, error[:error])].compact.join(' | ').html_safe
+  end
 end
