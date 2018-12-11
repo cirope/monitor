@@ -9,14 +9,16 @@ module Scripts::Copy
     if server.local?
       path
     else
-      extension = file.present? ? File.extname(file.path) : '.rb'
-
       remote_copy server, "/tmp/script-#{uuid}#{extension}"
     end
   rescue => ex
     Rails.logger.error ex
 
     nil
+  end
+
+  def extension
+    file.present? ? File.extname(file.path) : '.rb'
   end
 
   def body inclusion = false
@@ -29,7 +31,7 @@ module Scripts::Copy
     end
 
     body << variables
-    body << commented_text(inclusion || "script #{uuid} body")
+    body << commented_text(inclusion || 'script body')
   end
 
   private
@@ -56,9 +58,9 @@ module Scripts::Copy
 
     def commented_text comment
       [
-        "# Begin #{name} #{comment}",
+        "# Begin #{uuid} #{name} #{comment}",
         "#{text_with_injections}",
-        "# End #{name} #{comment}\n\n"
+        "# End #{uuid} #{name} #{comment}\n\n"
       ].join("\n\n")
     end
 

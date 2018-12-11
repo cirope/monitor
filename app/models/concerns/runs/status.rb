@@ -8,4 +8,8 @@ module Runs::Status
   def canceled?
     status == 'canceled'
   end
+
+  def error?
+    status == 'error'
+  end
 end

@@ -230,6 +230,7 @@ es:
     show:
       title: 'Ver corrida'
       full_output: 'Ver salida completa'
+      scripts_with_errors: 'Guiones con errores'
     status:
       pending: 'Pendiente'
       scheduled: 'Programada'
