@@ -4,6 +4,7 @@ $(document).on('ready turbolinks:load', function () {
   if (! outputDiv.length)
     return
 
+  var body        = body || document.querySelector('body')
   var executionId = outputDiv.data('actioncable-watch-execution-id')
 
   App.cable.subscriptions.create(
@@ -15,7 +16,7 @@ $(document).on('ready turbolinks:load', function () {
       },
       received: function (data) {
         outputDiv.append(data.line + "\n")
-        outputDiv[0].scrollIntoView(false)
+        body.scrollIntoView(false)
 
         if (data.status === 'success' || data.status === 'error') {
           window.location.reload()
