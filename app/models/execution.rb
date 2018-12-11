@@ -8,5 +8,10 @@ class Execution < ApplicationRecord
   belongs_to :server
   belongs_to :user
 
-  enum status: [:success, :pending, :running, :error]
+  enum status: {
+    success: 'success',
+    pending: 'pending',
+    running: 'running',
+    error:   'error'
+  }
 end

@@ -3,11 +3,11 @@ module Executions::Run
 
   def run
     self.update(
-      started_at: Time.zone.now,
-      status:     :running
+      status:     :running,
+      started_at: Time.zone.now
     )
 
-    server.run_execution self
+    server.execution self
 
     self.ended_at = Time.zone.now
 

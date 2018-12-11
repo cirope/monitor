@@ -3,7 +3,7 @@ class ExecutionChannel < ApplicationCable::Channel
     stream_from "execution_#{execution.id}"
   end
 
-  def initial_output
+  def fetch
     return if execution.output.blank?
 
     execution.output.split("\n").each do |line|

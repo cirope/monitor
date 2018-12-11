@@ -20,7 +20,7 @@ module Servers::Command
     { status: 'error', output: ex.to_s }
   end
 
-  def run_execution(execution)
+  def execution(execution)
     script_path = execution.script.copy_to self
     status      = nil
 
