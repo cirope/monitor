@@ -7,7 +7,7 @@ module Schedules::Filters
 
   def schedules
     schedules = Schedule.search query: params[:q]
-    schedules = schedules.filter filter_params
+    schedules = schedules.filter_by filter_params
     schedules = schedules.limit 10 if request.xhr?
 
     schedules
