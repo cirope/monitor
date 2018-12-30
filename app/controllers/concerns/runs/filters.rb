@@ -6,7 +6,7 @@ module Runs::Filters
   end
 
   def runs
-    @schedule.runs.filter filter_params
+    @schedule.runs.filter_by filter_params
   end
 
   def filter_params
