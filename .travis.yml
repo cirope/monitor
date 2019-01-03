@@ -19,8 +19,6 @@ services:
 env:
   - ENABLE_WEB_CONSOLE='true'
   - ENABLE_WEB_CONSOLE='false'
-before_install:
-  - 'gem install bundler'
 before_script:
   - 'cp config/application.travis.yml config/application.yml'
   - "psql -c 'create database monitor_test;' -U postgres"
