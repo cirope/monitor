@@ -4,6 +4,7 @@ module Users::Scopes
   included do
     scope :ordered, -> { order :lastname, :name, :id }
     scope :visible, -> { where hidden: false }
+    scope :hidden,  -> { where hidden: true }
   end
 
   module ClassMethods
