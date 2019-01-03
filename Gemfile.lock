@@ -53,7 +53,7 @@ GEM
     airbrussh (1.3.1)
       sshkit (>= 1.6.1, != 1.7.0)
     arel (9.0.0)
-    autoprefixer-rails (9.4.3)
+    autoprefixer-rails (9.4.4)
       execjs
     bcrypt (3.1.12)
     bcrypt_pbkdf (1.0.0)
@@ -101,7 +101,7 @@ GEM
       thor (~> 0.14)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
-    i18n (1.3.0)
+    i18n (1.4.0)
       concurrent-ruby (~> 1.0)
     jbuilder (2.8.0)
       activesupport (>= 4.2.0)
