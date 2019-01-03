@@ -1,6 +1,47 @@
 +function () {
   var editor = null
 
+  urlQueryParams = function () {
+    var params    = {}
+    var rawParams = window.location.search || ''
+
+    if (! rawParams)
+      return params
+
+    // Can return ['']
+    var paramsList = rawParams.substr(1).split('&')
+
+    if (! paramsList[0] )
+      return params
+
+    for (var i = 0; i < paramsList.length; ++i) {
+      // :pray: for the Uganda children
+      var keyValue = paramsList[i].split('=', 2)
+      var value    = keyValue[1]
+
+      if (value)
+        value = decodeURIComponent(value.replace(/\+/g, ' '))
+      else
+        value = ''
+
+      params[keyValue[0]] = value
+    }
+
+    return params
+  }
+
+  jumpToLine = function (editor) {
+    var params = urlQueryParams()
+
+    if (params && params['line']) {
+      line = +params['line'] - 1
+
+      editor.scrollIntoView({ line: line, ch: 0 }, 200)
+      editor.setCursor({ line: line, ch: 0 })
+      editor.focus()
+    }
+  };
+
   $(document).on('ready turbolinks:load', function () {
     if ($('#script_text').length) {
       var $textarea = $('#script_text')
@@ -36,6 +77,8 @@
           $file.prop('disabled', false).removeClass('hidden')
         }
       })
+
+      jumpToLine(editor)
     }
   })
 

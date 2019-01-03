@@ -19,7 +19,7 @@ module Issues::Filters
   end
 
   def issues
-    scoped_issues.filter filter_params.except(:show, :user)
+    scoped_issues.filter_by filter_params.except(:show, :user)
   end
 
   def issue_params

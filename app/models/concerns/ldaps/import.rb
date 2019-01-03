@@ -23,7 +23,7 @@ module Ldaps::Import
 
     def process_entry entry
       data = extract_data entry
-      user = User.where(email: data[:email]&.downcase).take
+      user = find_user data
       new  = !user
 
       if user
@@ -35,6 +35,11 @@ module Ldaps::Import
       update_tags user, entry
 
       { user: user, new: new }
+    end
+
+    def find_user data
+      User.where(email: data[:email]&.downcase).take ||
+        User.where(username: data[:username]&.downcase).take
     end
 
     def extract_data entry
