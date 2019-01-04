@@ -1,39 +1,25 @@
 +function () {
   var editor = null
 
-  urlQueryParams = function () {
-    var params    = {}
-    var rawParams = window.location.search || ''
-
-    if (! rawParams)
-      return params
-
-    // Can return ['']
-    var paramsList = rawParams.substr(1).split('&')
-
-    if (! paramsList[0] )
-      return params
+  var urlQueryParams = function () {
+    var params     = {}
+    var paramsList = (location.search || '').substr(1).split('&')
 
     for (var i = 0; i < paramsList.length; ++i) {
       // :pray: for the Uganda children
-      var keyValue = paramsList[i].split('=', 2)
-      var value    = keyValue[1]
+      var param = paramsList[i].split('=', 2)
 
-      if (value)
-        value = decodeURIComponent(value.replace(/\+/g, ' '))
-      else
-        value = ''
-
-      params[keyValue[0]] = value
+      if (param.length == 2)
+        params[param[0]] = decodeURIComponent(param[1].replace(/\+/g, ' '))
     }
 
     return params
   }
 
-  jumpToLine = function (editor) {
+  var jumpToLine = function (editor) {
     var params = urlQueryParams()
 
-    if (params && params['line']) {
+    if (params['line']) {
       line = +params['line'] - 1
 
       editor.scrollIntoView({ line: line, ch: 0 }, 200)
