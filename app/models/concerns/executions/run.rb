@@ -2,28 +2,28 @@ module Executions::Run
   extend ActiveSupport::Concern
 
   def run
-    self.update(
+    update(
       status:     :running,
       started_at: Time.zone.now
     )
 
-    server.execution self
+    self.status = server.execution self
 
     self.ended_at = Time.zone.now
 
     # Fake PaperTrail change output
     current_output = self.output
     self.output = ''
-    self.clear_attribute_changes([:output])
+    clear_attribute_changes([:output])
     self.output = current_output
 
     ExecutionChannel.send_line id, '', status: status
 
-    self.save!
+    save!
   end
 
   def new_line line
-    PaperTrail.request(enabled: false) do
+    PaperTrail.request enabled: false do
       update!(
         output: [output, line].compact.join("\n")
       )
