@@ -13,8 +13,10 @@ module Executions::Run
 
     # Fake PaperTrail change output
     current_output = self.output
-    self.output = ''
-    clear_attribute_changes([:output])
+    self.output    = ''
+
+    clear_attribute_changes [:output]
+
     self.output = current_output
 
     ExecutionChannel.send_line id, '', status: status
