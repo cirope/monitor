@@ -18,7 +18,7 @@ class ExecutionTest < ActiveSupport::TestCase
     execution = @execution.dup
 
     assert_enqueued_jobs 1 do
-      execution.save
+      execution.save!
     end
   end
 end
