@@ -6,7 +6,7 @@ module ExecutionsHelper
             when 'error'
               'label-danger'
             when 'running'
-              'label-warning'
+              'label-info'
             else
               'label-default'
             end

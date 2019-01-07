@@ -12,19 +12,19 @@ module Executions::Run
     self.ended_at = Time.zone.now
 
     # Fake PaperTrail change output
-    updated_output = self.output
+    current_output = self.output
     self.output = ''
     self.clear_attribute_changes([:output])
-    self.output = updated_output
+    self.output = current_output
 
     ExecutionChannel.send_line id, '', status: status
 
     self.save!
   end
 
-  def update_output line
+  def new_line line
     PaperTrail.request(enabled: false) do
-      update(
+      update!(
         output: [output, line].compact.join("\n")
       )
 
