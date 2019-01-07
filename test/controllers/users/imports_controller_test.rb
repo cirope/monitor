@@ -11,8 +11,8 @@ class Users::ImportsControllerTest < ActionController::TestCase
   end
 
   test 'should create import' do
-    assert_difference 'User.count' do
-      assert_difference 'User.visible.count', -User.count.pred do
+    assert_difference 'User.count', 2 do
+      assert_difference 'User.hidden.count', User.count do
         post :create, params: {
           import: { username: 'admin', password: 'admin123' }
         }

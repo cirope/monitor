@@ -2,7 +2,7 @@ module Filterable
   extend ActiveSupport::Concern
 
   module ClassMethods
-    def filter params
+    def filter_by params
       results = all
 
       params.each do |param, value|

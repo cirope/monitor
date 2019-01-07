@@ -7,7 +7,7 @@ module Servers::Filters
 
   def servers
     servers = Server.search query: params[:q]
-    servers = servers.filter filter_params
+    servers = servers.filter_by filter_params
     servers = servers.limit 10 if request.xhr?
 
     servers

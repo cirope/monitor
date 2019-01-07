@@ -6,6 +6,7 @@ rvm:
   - 2.3.8
   - 2.4.5
   - 2.5.3
+  - 2.6.0
 addons:
   apt:
     packages:
@@ -18,8 +19,6 @@ services:
 env:
   - ENABLE_WEB_CONSOLE='true'
   - ENABLE_WEB_CONSOLE='false'
-before_install:
-  - 'gem install bundler'
 before_script:
   - 'cp config/application.travis.yml config/application.yml'
   - "psql -c 'create database monitor_test;' -U postgres"

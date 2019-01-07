@@ -95,6 +95,8 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'auth' do
+    @user.update! username: 'admin'
+
     assert @user.auth('admin123') # LDAP
 
     Ldap.default.destroy!

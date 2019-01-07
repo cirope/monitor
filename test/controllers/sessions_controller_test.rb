@@ -31,6 +31,8 @@ class SessionsControllerTest < ActionController::TestCase
   end
 
   test 'should create a new session via LDAP' do
+    @user.update! username: 'admin'
+
     post :create, params: { username: @user.username, password: 'admin123' }
 
     assert_redirected_to dashboard_url
