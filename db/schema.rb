@@ -71,16 +71,18 @@ ActiveRecord::Schema.define(version: 2018_11_25_004524) do
   end
 
   create_table "executions", force: :cascade do |t|
-    t.integer "script_id", null: false
-    t.integer "server_id", null: false
-    t.string "status", limit: 20, default: "pending"
+    t.bigint "script_id", null: false
+    t.bigint "server_id", null: false
+    t.string "status", default: "pending"
     t.datetime "started_at"
     t.datetime "ended_at"
     t.text "output"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["script_id"], name: "index_executions_on_script_id"
+    t.index ["server_id"], name: "index_executions_on_server_id"
+    t.index ["user_id"], name: "index_executions_on_user_id"
   end
 
   create_table "issues", id: :serial, force: :cascade do |t|
@@ -99,8 +101,8 @@ ActiveRecord::Schema.define(version: 2018_11_25_004524) do
   end
 
   create_table "issues_permalinks", id: false, force: :cascade do |t|
-    t.integer "issue_id", null: false
-    t.integer "permalink_id", null: false
+    t.bigint "issue_id", null: false
+    t.bigint "permalink_id", null: false
     t.index ["issue_id"], name: "index_issues_permalinks_on_issue_id"
     t.index ["permalink_id"], name: "index_issues_permalinks_on_permalink_id"
   end
