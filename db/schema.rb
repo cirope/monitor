@@ -99,8 +99,8 @@ ActiveRecord::Schema.define(version: 2018_11_25_004524) do
   end
 
   create_table "issues_permalinks", id: false, force: :cascade do |t|
-    t.bigint "issue_id", null: false
-    t.bigint "permalink_id", null: false
+    t.integer "issue_id", null: false
+    t.integer "permalink_id", null: false
     t.index ["issue_id"], name: "index_issues_permalinks_on_issue_id"
     t.index ["permalink_id"], name: "index_issues_permalinks_on_permalink_id"
   end

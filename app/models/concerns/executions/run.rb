@@ -7,17 +7,17 @@ module Executions::Run
       started_at: Time.zone.now
     )
 
-    self.status = server.execution self
-
+    self.status   = server.execution self
     self.ended_at = Time.zone.now
 
     # Fake PaperTrail change output
-    current_output = self.output
-    self.output    = ''
+    self.output.tap do |current_output|
+      self.output = ''
 
-    clear_attribute_changes [:output]
+      clear_attribute_changes [:output]
 
-    self.output = current_output
+      self.output = current_output
+    end
 
     ExecutionChannel.send_line id, '', status: status
 
