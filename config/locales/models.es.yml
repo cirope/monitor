@@ -20,6 +20,9 @@ es:
       description:
         one: 'Atributo'
         other: 'Atributos'
+      execution:
+        one: 'Ejecución'
+        other: 'Ejecuciones'
       issue:
         one: 'Caso'
         other: 'Casos'
@@ -91,6 +94,12 @@ es:
         value: 'Valor'
       descriptor:
         name: 'Nombre'
+      execution:
+        status: 'Estado'
+        started_at: 'Inicio'
+        ended_at: 'Fin'
+        output: 'Salida'
+        server: 'Servidor'
       issue:
         status: 'Estado'
         description: 'Descripción'

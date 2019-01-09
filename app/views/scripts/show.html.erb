@@ -4,6 +4,9 @@
     <% if @script.core %>
       <span class="glyphicon glyphicon-star" title="<%= Script.human_attribute_name 'core' %>"></span>
     <% end %>
+    <%= link_to new_script_execution_path(@script), title: t('.execute_now') do %>
+      <span class="glyphicon glyphicon-play"></span>
+    <% end %> |
     <%= link_to script_versions_path(@script), title: t('.history') do %>
       <span class="glyphicon glyphicon-time"></span>
     <% end %>
@@ -149,4 +152,5 @@
 <%= link_to script_path(@script, format: :pdf), title: t('.download_pdf') do %>
   <span class="glyphicon glyphicon-file"></span>
 <% end %> |
+<%= link_to t('.executions_list'), script_executions_path(@script) %> |
 <%= link_to_index scripts_path %>

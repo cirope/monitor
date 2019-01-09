@@ -2,7 +2,7 @@ module CurrentUser
   extend ActiveSupport::Concern
 
   included do
-    helper_method :current_user
+    helper_method :current_user if respond_to? :helper_method
   end
 
   def current_user

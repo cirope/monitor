@@ -20,6 +20,26 @@ module Servers::Command
     { status: 'error', output: ex.to_s }
   end
 
+  def execution execution
+    script_path = execution.script.copy_to self
+    status      = 1
+
+    Open3.popen2e rails, 'runner', script_path do |stdin, stdout, thread|
+      while line = stdout.gets
+        execution.new_line line
+      end
+
+      status = thread.value.exitstatus.to_i
+    end
+
+    if status.zero?
+      :success
+    else
+      execution.new_line "Exit status: #{status}"
+      :error
+    end
+  end
+
   private
 
     def rails

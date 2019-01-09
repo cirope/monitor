@@ -21,6 +21,10 @@ es:
         notice: 'Base de datos eliminada'
         alert:  'La base de datos no pudo ser eliminada'
 
+    executions:
+      create:
+        notice: 'Ejecutando...'
+
     password_resets:
       update:
         notice: 'Contraseña cambiada correctamente'

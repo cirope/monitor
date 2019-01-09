@@ -75,6 +75,15 @@ es:
     dispatcher:
       empty: 'No se encontraron reglas con ese criterio'
 
+  executions:
+    index:
+      empty_html: 'No hay ejecuciones'
+    status:
+      pending: 'Pendiente'
+      running: 'Corriendo'
+      success: 'Finalizada OK'
+      error: 'Finalizada con errores'
+
   imports:
     new:
       title: 'Importar usuarios desde LDAP'
@@ -252,6 +261,8 @@ es:
       title: 'Ver guión'
       history: 'Ver historial de cambios'
       download_pdf: 'Descargar PDF'
+      execute_now: 'Ejecutar ahora'
+      executions_list: 'Ejecuciones'
     exports:
       create:
         filename: 'guiones.zip'
