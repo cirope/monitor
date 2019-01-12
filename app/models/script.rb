@@ -16,6 +16,7 @@ class Script < ApplicationRecord
   include Scripts::Requires
   include Scripts::Scopes
   include Scripts::Validation
+  include Scripts::Versions
   include Filterable
   include Taggable
 
