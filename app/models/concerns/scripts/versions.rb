@@ -10,4 +10,10 @@ module Scripts::Versions
       change: I18n.t('scripts.reverts.reverted_from', title: reified.change)
     )
   end
+
+  def versions_with_text_changes
+    versions.where(
+      "#{versions.table_name}.object_changes ->> 'text' IS NOT NULL"
+    )
+  end
 end
