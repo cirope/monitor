@@ -285,7 +285,6 @@ es:
           create: 'Creación'
       show:
         title: 'Ver versión'
-        no_previous: 'Primer versión'
 
   schedules:
     edit:
