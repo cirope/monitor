@@ -6,7 +6,9 @@ class Scripts::VersionsController < ApplicationController
   respond_to :html
 
   def index
-    @versions = @script.versions.reorder(created_at: :desc).page params[:page]
+    @versions = @script.versions_with_text_changes.reorder(
+      created_at: :desc
+    ).preload(:user).page params[:page]
 
     respond_with @versions
   end

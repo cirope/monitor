@@ -294,6 +294,21 @@ class ScriptTest < ActiveSupport::TestCase
     refute @script.revert_to version
   end
 
+  test 'versions with text changes' do
+    script = Script.create!(
+      name:   'Hello world',
+      text:   'puts "Hello world"',
+      change: 'Initial'
+    )
+
+    assert_equal 1, script.versions_with_text_changes.count
+
+    assert_difference 'PaperTrail::Version.count' do
+      assert_no_difference 'script.versions_with_text_changes.count' do
+        script.update name: 'Super hello world', change: 'change title'
+      end
+    end
+  end
 
   private
 
