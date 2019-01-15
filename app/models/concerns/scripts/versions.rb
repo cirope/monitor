@@ -2,7 +2,7 @@ module Scripts::Versions
   extend ActiveSupport::Concern
 
   def revert_to version
-    reified  = version.reify dup: true
+    reified = version.reify dup: true
 
     update(
       name:   reified.name,
