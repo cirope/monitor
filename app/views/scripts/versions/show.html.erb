@@ -13,8 +13,5 @@
   script_reverts_path(@script.id, @version.id),
   method: :post,
   class: "btn btn-primary",
-  data: {
-    confirm: t('messages.confirmation')
-  }
-) %> |
+  data: { confirm: t('messages.confirmation') }) %> |
 <%= link_to_index script_versions_path(@script) %>
