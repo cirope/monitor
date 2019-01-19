@@ -8,10 +8,12 @@
   </div>
 </div>
 
-<%= link_to(
-  t('.revert'),
-  script_reverts_path(@script.id, @version.id),
-  method: :post,
-  class: "btn btn-primary",
-  data: { confirm: t('messages.confirmation') }) %> |
+<% if @script.can_be_edited_by? current_user %>
+  <%= link_to(
+    t('.revert'),
+    script_reverts_path(@script.id, @version.id),
+    method: :post,
+    class: "btn btn-primary",
+    data: { confirm: t('messages.confirmation') }) %> |
+<% end %>
 <%= link_to_index script_versions_path(@script) %>

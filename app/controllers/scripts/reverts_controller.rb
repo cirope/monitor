@@ -2,6 +2,7 @@ class Scripts::RevertsController < ApplicationController
   before_action :authorize, :not_guest, :not_security
   before_action :set_title, only: [:create]
   before_action :set_script
+  before_action :check_if_can_edit
 
   respond_to :html
 
@@ -19,5 +20,11 @@ class Scripts::RevertsController < ApplicationController
 
     def set_script
       @script = Script.find params[:script_id]
+    end
+
+    def check_if_can_edit
+      unless @script.can_be_edited_by? current_user
+        redirect_to scripts_url, alert: t('messages.not_allowed')
+      end
     end
 end
