@@ -272,12 +272,18 @@ class ScriptTest < ActiveSupport::TestCase
       change: 'Initial'
     )
 
-    assert_equal 1, script.versions_with_text_changes.count
-
     assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'script.versions_with_text_changes.count' do
-        script.update name: 'Super hello world', change: 'change title'
+        script.update! name: 'Super hello world', change: 'change title'
       end
+    end
+
+    assert_difference 'script.versions_with_text_changes.count' do
+      script.update!(
+        name:   'Triple hello world',
+        text:   '3.times { puts "Hello world" }',
+        change: 'Hello 3'
+      )
     end
   end
 
