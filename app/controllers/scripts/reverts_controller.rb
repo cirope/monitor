@@ -1,8 +1,6 @@
 class Scripts::RevertsController < ApplicationController
   before_action :authorize, :not_guest, :not_security
-  before_action :set_title, only: [:create]
-  before_action :set_script
-  before_action :check_if_can_edit
+  before_action :set_script, :check_if_can_edit
 
   respond_to :html
 
