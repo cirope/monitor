@@ -285,6 +285,12 @@ es:
           create: 'Creación'
       show:
         title: 'Ver versión'
+        revert: 'Restaurar versión'
+    reverts:
+      reverted_from: 'Restaurado de "%{title}"'
+      create:
+        reverted: 'Versión restaurada'
+        cannot_be_reverted: 'Hubo un problema al restaurar la versión'
 
   schedules:
     edit:
