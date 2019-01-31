@@ -285,7 +285,7 @@ es:
           create: 'Creación'
       show:
         title: 'Ver versión'
-        revert: "Restaurar versión"
+        revert: 'Restaurar versión'
     reverts:
       reverted_from: 'Restaurado de "%{title}"'
       create:
