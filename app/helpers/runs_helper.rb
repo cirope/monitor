@@ -36,7 +36,7 @@ module RunsHelper
     end
   end
 
-  def runs_output_error_line_with_link script, error, valid
+  def exec_output_error_line_with_link script, error, valid
     link = link_to(
       "L##{error[:line]}",
       script_path(script.id, line: error[:line])

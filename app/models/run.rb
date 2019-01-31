@@ -5,7 +5,7 @@ class Run < ApplicationRecord
   include Runs::Status
   include Runs::Validation
   include Runs::Triggers
-  include Runs::OutputParser
+  include Outputs::Parser
 
   belongs_to :job
   has_one :script, through: :job

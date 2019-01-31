@@ -23,18 +23,22 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title">
-      <%= Execution.human_attribute_name 'output' %>
+      <%= link_to Execution.human_attribute_name('output'), '#execution_errors', data: { toggle: 'collapse' } %>
     </h3>
   </div>
-  <div class="panel-body">
-    <p>
-      <pre>
-        <% if @execution.pending? || @execution.running? %>
-          <samp data-actioncable-watch="execution" data-actioncable-watch-execution-id="<%= @execution.id %>"></samp>
-        <% else %>
-          <samp><%= @execution.output %></samp>
-        <% end %>
-      </pre>
-    </p>
+  <div id="execution_errors" class="panel-collapse collapse in">
+    <div class="panel-body">
+      <p>
+        <pre>
+          <% if @execution.pending? || @execution.running? %>
+             <samp data-actioncable-watch="execution" data-actioncable-watch-execution-id="<%= @execution.id %>"></samp>
+          <% else %>
+             <samp><%= @execution.output %></samp>
+          <% end %>
+        </pre>
+      </p>
+    </div>
   </div>
 </div>
+
+<%= render 'shared/parsed_output_errors', exec: @execution if @execution.output.present? && @execution.error? %>
