@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_25_004524) do
+ActiveRecord::Schema.define(version: 2019_02_01_020049) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -101,8 +101,8 @@ ActiveRecord::Schema.define(version: 2018_11_25_004524) do
   end
 
   create_table "issues_permalinks", id: false, force: :cascade do |t|
-    t.bigint "issue_id", null: false
-    t.bigint "permalink_id", null: false
+    t.integer "issue_id", null: false
+    t.integer "permalink_id", null: false
     t.index ["issue_id"], name: "index_issues_permalinks_on_issue_id"
     t.index ["permalink_id"], name: "index_issues_permalinks_on_permalink_id"
   end
@@ -144,6 +144,15 @@ ActiveRecord::Schema.define(version: 2018_11_25_004524) do
     t.datetime "updated_at", null: false
     t.index ["script_id"], name: "index_maintainers_on_script_id"
     t.index ["user_id"], name: "index_maintainers_on_user_id"
+  end
+
+  create_table "metrics_users", id: false, force: :cascade do |t|
+    t.date "date"
+    t.string "user_id"
+    t.integer "count", default: 0
+    t.decimal "amount", precision: 15, scale: 2, default: "0.0"
+    t.index ["date"], name: "index_metrics_users_on_date"
+    t.index ["user_id"], name: "index_metrics_users_on_user_id"
   end
 
   create_table "outputs", id: :serial, force: :cascade do |t|
