@@ -3,7 +3,6 @@ module Executions::Validation
 
   included do
     validates :script, :server, :user, presence: true
-
     validate :server_should_be_local
   end
 
