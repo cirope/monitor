@@ -199,6 +199,10 @@ es:
           attributes:
             issue:
               invalid: 'no pertenece a su usuario'
+        execution:
+          attributes:
+            server:
+              should_be_local: 'debe ser un servidor local'
         issue:
           attributes:
             base:

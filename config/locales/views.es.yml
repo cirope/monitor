@@ -184,6 +184,10 @@ es:
     ul:
       more: 'Ver'
 
+  outputs:
+    show:
+      scripts_with_errors: 'Guiones con errores'
+
   requires:
     require:
       empty: 'No se encontraron guiones con ese criterio'
@@ -230,7 +234,6 @@ es:
     show:
       title: 'Ver corrida'
       full_output: 'Ver salida completa'
-      scripts_with_errors: 'Guiones con errores'
     status:
       pending: 'Pendiente'
       scheduled: 'Programada'

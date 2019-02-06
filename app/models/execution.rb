@@ -3,6 +3,7 @@ class Execution < ApplicationRecord
   include Executions::Callbacks
   include Executions::Run
   include Executions::Validation
+  include Outputs::Parser
 
   belongs_to :script
   belongs_to :server
