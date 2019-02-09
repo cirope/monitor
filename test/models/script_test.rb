@@ -265,6 +265,57 @@ class ScriptTest < ActiveSupport::TestCase
     skip
   end
 
+  test 'revert to version' do
+    code   = @script.text
+    commit = @script.change
+
+    @script.update! change: 'Commit 1', text: 'ls -l'
+
+    assert_equal 'Commit 1', @script.reload.change
+    assert_equal 'ls -l', @script.text
+
+    assert @script.revert_to @script.versions.first
+
+    assert_equal(
+      I18n.t('scripts.reverts.reverted_from', title: commit),
+      @script.reload.change
+    )
+    assert_equal code, @script.text
+  end
+
+  test 'cannot revert to version' do
+    @script.paper_trail.save_with_version # generate 1 version
+
+    version = @script.versions.first
+
+    version.object['name'] = nil
+    version.save!
+
+    refute @script.revert_to version
+  end
+
+  test 'versions with text changes' do
+    script = Script.create!(
+      name:   'Hello world',
+      text:   'puts "Hello world"',
+      change: 'Initial'
+    )
+
+    assert_difference 'PaperTrail::Version.count' do
+      assert_no_difference 'script.versions_with_text_changes.count' do
+        script.update! name: 'Super hello world', change: 'change title'
+      end
+    end
+
+    assert_difference 'script.versions_with_text_changes.count' do
+      script.update!(
+        name:   'Triple hello world',
+        text:   '3.times { puts "Hello world" }',
+        change: 'Hello 3'
+      )
+    end
+  end
+
   private
 
     def syntax_errors_for code

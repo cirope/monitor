@@ -16,6 +16,7 @@ class Script < ApplicationRecord
   include Scripts::Requires
   include Scripts::Scopes
   include Scripts::Validation
+  include Scripts::Versions
   include Filterable
   include Taggable
 
@@ -26,6 +27,7 @@ class Script < ApplicationRecord
   has_many :jobs, dependent: :destroy
   has_many :runs, through: :jobs
   has_many :issues, through: :runs
+  has_many :executions, dependent: :destroy
 
   def to_s
     name

@@ -75,6 +75,15 @@ es:
     dispatcher:
       empty: 'No se encontraron reglas con ese criterio'
 
+  executions:
+    index:
+      empty_html: 'No hay ejecuciones'
+    status:
+      pending: 'Pendiente'
+      running: 'Corriendo'
+      success: 'Finalizada OK'
+      error: 'Finalizada con errores'
+
   imports:
     new:
       title: 'Importar usuarios desde LDAP'
@@ -175,6 +184,10 @@ es:
     ul:
       more: 'Ver'
 
+  outputs:
+    show:
+      scripts_with_errors: 'Guiones con errores'
+
   requires:
     require:
       empty: 'No se encontraron guiones con ese criterio'
@@ -221,7 +234,6 @@ es:
     show:
       title: 'Ver corrida'
       full_output: 'Ver salida completa'
-      scripts_with_errors: 'Guiones con errores'
     status:
       pending: 'Pendiente'
       scheduled: 'Programada'
@@ -252,6 +264,8 @@ es:
       title: 'Ver guión'
       history: 'Ver historial de cambios'
       download_pdf: 'Descargar PDF'
+      execute_now: 'Ejecutar ahora'
+      executions_list: 'Ejecuciones'
     exports:
       create:
         filename: 'guiones.zip'
@@ -274,7 +288,12 @@ es:
           create: 'Creación'
       show:
         title: 'Ver versión'
-        no_previous: 'Primer versión'
+        revert: 'Restaurar versión'
+    reverts:
+      reverted_from: 'Restaurado de "%{title}"'
+      create:
+        reverted: 'Versión restaurada'
+        cannot_be_reverted: 'Hubo un problema al restaurar la versión'
 
   schedules:
     edit:

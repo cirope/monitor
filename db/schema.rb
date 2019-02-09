@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170902003256) do
+ActiveRecord::Schema.define(version: 2018_11_25_004524) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,21 @@ ActiveRecord::Schema.define(version: 20170902003256) do
     t.datetime "updated_at", null: false
     t.index ["rule_id"], name: "index_dispatchers_on_rule_id"
     t.index ["schedule_id"], name: "index_dispatchers_on_schedule_id"
+  end
+
+  create_table "executions", force: :cascade do |t|
+    t.bigint "script_id", null: false
+    t.bigint "server_id", null: false
+    t.string "status", default: "pending"
+    t.datetime "started_at"
+    t.datetime "ended_at"
+    t.text "output"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["script_id"], name: "index_executions_on_script_id"
+    t.index ["server_id"], name: "index_executions_on_server_id"
+    t.index ["user_id"], name: "index_executions_on_user_id"
   end
 
   create_table "issues", id: :serial, force: :cascade do |t|
