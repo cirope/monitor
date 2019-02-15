@@ -11,6 +11,16 @@ es:
         notice: '%{resource_name} eliminado'
         alert:  '%{resource_name} no pudo ser eliminado'
 
+    accounts:
+      create:
+        notice: 'Cuenta creada'
+      update:
+        notice: 'Cuenta actualizada'
+        alert:  ''
+      destroy:
+        notice: 'Cuenta eliminada'
+        alert:  'La cuenta no pudo ser eliminada'
+
     databases:
       create:
         notice: 'Base de datos creada'

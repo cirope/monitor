@@ -17,6 +17,19 @@ es:
     logout: 'Salir'
     show: 'Ver'
 
+  accounts:
+    edit:
+      title: 'Editar cuenta'
+    index:
+      new: 'Nueva cuenta'
+      title: 'Listado de cuentas'
+      empty_html: 'No hay cuentas, puede crear una con el botón <span class="label label-primary">Nueva cuenta</span>'
+      empty_search_html: 'No hay cuentas que coincidan con el criterio de búsqueda'
+    new:
+      title: 'Crear cuenta'
+    show:
+      title: 'Ver cuenta'
+
   board:
     index:
       title: 'Carrito de casos'

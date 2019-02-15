@@ -5,6 +5,9 @@ es:
 
   activerecord:
     models:
+      account:
+        one: 'Cuenta'
+        other: 'Cuentas'
       comment:
         one: 'Comentario'
         other: 'Comentarios'
@@ -79,6 +82,9 @@ es:
         other: 'Usuarios'
 
     attributes:
+      account:
+        name: 'Nombre'
+        tenant_name: 'Contexto'
       comment:
         text: 'Comentario'
         file: 'Adjunto'

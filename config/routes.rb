@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   post   'issues/exports',     to: 'issues/exports#create'
 
   # Resources
+  resources :accounts
   resources :comments, except: [:index, :new]
   resources :databases
   resources :descriptors
