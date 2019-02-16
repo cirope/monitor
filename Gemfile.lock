@@ -52,6 +52,14 @@ GEM
       public_suffix (>= 2.0.2, < 4.0)
     airbrussh (1.3.1)
       sshkit (>= 1.6.1, != 1.7.0)
+    apartment (2.2.0)
+      activerecord (>= 3.1.2, < 6.0)
+      parallel (>= 0.7.1)
+      public_suffix (>= 2)
+      rack (>= 1.3.6)
+    apartment-sidekiq (1.2.0)
+      apartment (>= 1.0)
+      sidekiq (>= 2.11)
     arel (9.0.0)
     autoprefixer-rails (9.4.7)
       execjs
@@ -62,7 +70,7 @@ GEM
       autoprefixer-rails (>= 5.2.1)
       sassc (>= 2.0.0)
     builder (3.2.3)
-    byebug (10.0.2)
+    byebug (11.0.0)
     capistrano (3.11.0)
       airbrussh (>= 1.0.0)
       i18n
@@ -156,6 +164,7 @@ GEM
     paper_trail (10.2.0)
       activerecord (>= 4.2, < 6.1)
       request_store (~> 1.1)
+    parallel (1.13.0)
     pdf-core (0.7.0)
     pg (1.1.4)
     prawn (2.2.2)
@@ -281,6 +290,8 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-session_store
+  apartment
+  apartment-sidekiq
   bcrypt
   bcrypt_pbkdf
   bootstrap-sass

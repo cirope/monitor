@@ -7,6 +7,12 @@ class AccountsControllerTest < ActionController::TestCase
     login
   end
 
+  teardown do
+    if Apartment.connection.schema_exists? @account.tenant_name
+      Apartment::Tenant.drop @account.tenant_name
+    end
+  end
+
   test 'should get index' do
     get :index
     assert_response :success
