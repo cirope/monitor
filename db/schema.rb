@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_12_215518) do
+ActiveRecord::Schema.define(version: 2019_02_16_141952) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -153,6 +153,17 @@ ActiveRecord::Schema.define(version: 2019_02_12_215518) do
     t.datetime "updated_at", null: false
     t.index ["script_id"], name: "index_maintainers_on_script_id"
     t.index ["user_id"], name: "index_maintainers_on_user_id"
+  end
+
+  create_table "memberships", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.string "email", null: false
+    t.boolean "default", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id", "email"], name: "index_memberships_on_account_id_and_email", unique: true
+    t.index ["account_id"], name: "index_memberships_on_account_id"
+    t.index ["email"], name: "index_memberships_on_email"
   end
 
   create_table "outputs", id: :serial, force: :cascade do |t|
@@ -376,6 +387,7 @@ ActiveRecord::Schema.define(version: 2019_02_12_215518) do
   add_foreign_key "jobs", "servers", on_update: :restrict, on_delete: :restrict
   add_foreign_key "maintainers", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "maintainers", "users", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "memberships", "accounts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "outputs", "runs", on_update: :restrict, on_delete: :restrict
   add_foreign_key "outputs", "triggers", on_update: :restrict, on_delete: :restrict
   add_foreign_key "parameters", "scripts", on_update: :restrict, on_delete: :restrict

@@ -24,7 +24,7 @@ class AccountsControllerTest < ActionController::TestCase
   end
 
   test 'should create account' do
-    assert_difference 'Account.count' do
+    assert_difference ['Account.count', 'Membership.count'] do
       post :create, params: {
         account: {
           name:        'New account',
