@@ -1,5 +1,5 @@
 _fixture:
-    model_class: Property
+  model_class: Property
 
 trace:
   key: Trace
