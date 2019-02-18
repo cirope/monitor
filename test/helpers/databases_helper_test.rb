@@ -2,7 +2,7 @@ require 'test_helper'
 
 class DatabasesHelperTest < ActionView::TestCase
   test 'database properties' do
-    @database = databases :postgresql
+    @database = send 'public.databases', :postgresql
 
     assert_equal @database.properties, properties
 

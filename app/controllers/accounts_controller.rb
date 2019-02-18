@@ -34,7 +34,9 @@ class AccountsController < ApplicationController
   def create
     @account = Account.new account_params
 
-    @account.enroll current_user if @account.save
+    Account.transaction do
+      @account.enroll current_user, copy_user: true if @account.save
+    end
 
     respond_with @account
   end

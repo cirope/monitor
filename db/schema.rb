@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_16_141952) do
+ActiveRecord::Schema.define(version: 2019_02_17_160445) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,8 @@ ActiveRecord::Schema.define(version: 2019_02_16_141952) do
     t.string "description", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "account_id"
+    t.index ["account_id"], name: "index_databases_on_account_id"
     t.index ["name"], name: "index_databases_on_name"
   end
 
@@ -158,12 +160,14 @@ ActiveRecord::Schema.define(version: 2019_02_16_141952) do
   create_table "memberships", force: :cascade do |t|
     t.bigint "account_id", null: false
     t.string "email", null: false
+    t.string "username"
     t.boolean "default", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id", "email"], name: "index_memberships_on_account_id_and_email", unique: true
     t.index ["account_id"], name: "index_memberships_on_account_id"
     t.index ["email"], name: "index_memberships_on_email"
+    t.index ["username"], name: "index_memberships_on_username"
   end
 
   create_table "outputs", id: :serial, force: :cascade do |t|
@@ -374,6 +378,7 @@ ActiveRecord::Schema.define(version: 2019_02_16_141952) do
 
   add_foreign_key "comments", "issues", on_update: :restrict, on_delete: :restrict
   add_foreign_key "comments", "users", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "databases", "accounts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "dependencies", "schedules", column: "dependent_id", on_update: :restrict, on_delete: :restrict
   add_foreign_key "dependencies", "schedules", on_update: :restrict, on_delete: :restrict
   add_foreign_key "descriptions", "scripts", on_update: :restrict, on_delete: :restrict

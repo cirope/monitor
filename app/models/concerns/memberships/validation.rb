@@ -3,6 +3,6 @@ module Memberships::Validation
 
   included do
     validates :email, :account, presence: true
-    validates :email, uniqueness: { case_sensitive: false, scope: :account_id }
+    validates :email, uniqueness: { case_sensitive: false, scope: :account }
   end
 end

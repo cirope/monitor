@@ -38,6 +38,9 @@ es:
       maintainer:
         one: 'Mantenedor'
         other: 'Mantenedores'
+      membership:
+        one: 'Registro'
+        other: 'Registros'
       output:
         one: 'Salida regla'
         other: 'Salida reglas'
@@ -137,6 +140,10 @@ es:
         role_security: 'Grupo seguridad'
       maintainer:
         user: 'Usuario'
+      membership:
+        email: 'Correo'
+        default: 'Principal'
+        account: 'Cuenta'
       parameter:
         name: 'Nombre'
         value: 'Valor'

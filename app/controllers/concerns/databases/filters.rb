@@ -6,7 +6,7 @@ module Databases::Filters
   end
 
   def databases
-    Database.filter_by filter_params
+    @account.databases.filter_by filter_params
   end
 
   def filter_params

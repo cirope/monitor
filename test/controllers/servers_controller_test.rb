@@ -4,7 +4,7 @@ class ServersControllerTest < ActionController::TestCase
   setup do
     @server = servers :atahualpa
 
-    login users(:god)
+    login user: users(:god)
   end
 
   test 'should get index' do

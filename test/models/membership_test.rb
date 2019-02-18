@@ -2,7 +2,7 @@ require 'test_helper'
 
 class MembershipTest < ActiveSupport::TestCase
   setup do
-    @membership = memberships :franco_default
+    @membership = send 'public.memberships', :franco_default
   end
 
   test 'blank attributes' do
@@ -19,5 +19,15 @@ class MembershipTest < ActiveSupport::TestCase
 
     assert membership.invalid?
     assert_error membership, :email, :taken
+  end
+
+  test 'all by username or email' do
+    membership = Membership.all_by_username_or_email(@membership.email).take!
+
+    assert_equal @membership, membership
+
+    membership = Membership.all_by_username_or_email(@membership.email).take!
+
+    assert_equal @membership, membership
   end
 end

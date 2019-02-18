@@ -12,6 +12,6 @@ module CurrentUser
   private
 
     def user_by_auth_token
-      User.find_by auth_token: cookies.encrypted[:auth_token]
+      Current.user = User.find_by auth_token: cookies.encrypted[:auth_token]
     end
 end

@@ -3,6 +3,12 @@ require 'test_helper'
 class UserTest < ActiveSupport::TestCase
   setup do
     @user = users :franco
+
+    Current.account = send 'public.accounts', :default
+  end
+
+  teardown do
+    Current.account = nil
   end
 
   test 'should generate token on create' do
@@ -125,6 +131,35 @@ class UserTest < ActiveSupport::TestCase
     assert_difference 'User.visible.count', -User.count do
       User.hide
     end
+  end
+
+  test 'update memberships on email change' do
+    membership_ids = @user.memberships.ids
+
+    assert membership_ids.any?
+
+    @user.update! email: 'new@email.com'
+
+    assert(Membership.where(id: membership_ids).all? do |membership|
+      membership.email == @user.email
+    end)
+  end
+
+  test 'update memberships on username change' do
+    membership_ids = @user.memberships.ids
+
+    assert membership_ids.any?
+
+    @user.update! username: 'new_username'
+
+    assert(Membership.where(id: membership_ids).all? do |membership|
+      membership.username == @user.username
+    end)
+  end
+
+  test 'do not allow email membership overlap' do
+    # TODO: complete model logic and test
+    skip
   end
 
   test 'by role' do

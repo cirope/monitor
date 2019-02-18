@@ -37,7 +37,7 @@ class IssuesControllerTest < ActionController::TestCase
   test 'should get index as guest' do
     user = users :john
 
-    login user
+    login user: user
 
     get :index
     assert_response :success

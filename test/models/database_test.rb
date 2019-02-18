@@ -2,7 +2,7 @@ require 'test_helper'
 
 class DatabaseTest < ActiveSupport::TestCase
   setup do
-    @database = databases :postgresql
+    @database = send 'public.databases', :postgresql
   end
 
   test 'blank attributes' do
@@ -54,19 +54,19 @@ class DatabaseTest < ActiveSupport::TestCase
   end
 
   test 'user' do
-    user_property = properties :postgresql_user
+    user_property = send 'public.properties', :postgresql_user
 
     assert_equal user_property.value, @database.user
   end
 
   test 'password' do
-    password_property = properties :postgresql_password
+    password_property = send 'public.properties', :postgresql_password
 
     assert_equal password_property.value, @database.password
   end
 
   test 'property' do
-    property = properties :trace
+    property = send 'public.properties', :trace
 
     assert_equal property.value, @database.property(property.key)
   end

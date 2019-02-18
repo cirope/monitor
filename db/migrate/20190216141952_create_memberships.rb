@@ -5,6 +5,7 @@ class CreateMemberships < ActiveRecord::Migration[5.2]
         on_delete: :restrict, on_update: :restrict
       }
       t.string :email, index: true, null: false
+      t.string :username, index: true
       t.boolean :default, null: false, default: false
 
       t.timestamps null: false

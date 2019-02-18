@@ -1,0 +1,17 @@
+_fixture:
+    model_class: Property
+
+trace:
+  key: Trace
+  value: 'No'
+  database_id: <%= ActiveRecord::FixtureSet.identify :postgresql %>
+
+postgresql_user:
+  key: User
+  value: admin
+  database_id: <%= ActiveRecord::FixtureSet.identify :postgresql %>
+
+postgresql_password:
+  key: Password
+  value: secret
+  database_id: <%= ActiveRecord::FixtureSet.identify :postgresql %>

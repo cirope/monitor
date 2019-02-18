@@ -2,15 +2,9 @@ require 'test_helper'
 
 class AccountsControllerTest < ActionController::TestCase
   setup do
-    @account = accounts :default
+    @account = send 'public.accounts', :default
 
     login
-  end
-
-  teardown do
-    if Apartment.connection.schema_exists? @account.tenant_name
-      Apartment::Tenant.drop @account.tenant_name
-    end
   end
 
   test 'should get index' do
