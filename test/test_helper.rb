@@ -42,6 +42,8 @@ class ActiveRecord::FixtureSet
 
     reset_cache
 
+    fs_names = %w(public.accounts) | fs_names
+
     old_create_fixtures f_dir, fs_names, *args
   end
 end
