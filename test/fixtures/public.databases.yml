@@ -4,4 +4,4 @@ postgresql:
   name: PostgreSQL
   driver: PostgreSQL
   description: PostgreSQL test database
-  account_id: <%= ActiveRecord::FixtureSet.identify :default %>
+  account: default

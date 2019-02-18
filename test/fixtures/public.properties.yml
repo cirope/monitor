@@ -4,14 +4,14 @@ _fixture:
 trace:
   key: Trace
   value: 'No'
-  database_id: <%= ActiveRecord::FixtureSet.identify :postgresql %>
+  database: postgresql
 
 postgresql_user:
   key: User
   value: admin
-  database_id: <%= ActiveRecord::FixtureSet.identify :postgresql %>
+  database: postgresql
 
 postgresql_password:
   key: Password
   value: secret
-  database_id: <%= ActiveRecord::FixtureSet.identify :postgresql %>
+  database: postgresql
