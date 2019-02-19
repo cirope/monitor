@@ -1,2 +1,4 @@
-gem 'composite_primary_keys', require: false
+# gem 'composite_primary_keys', require: false
+# https://github.com/composite-primary-keys/composite_primary_keys/pull/472
+gem 'composite_primary_keys', require: false, github: 'kajisha/composite_primary_keys', branch: 'master'
 gem 'ruby-odbc', require: false

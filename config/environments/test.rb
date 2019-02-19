@@ -50,4 +50,7 @@ Rails.application.configure do
 
     Timecop.travel t
   end
+
+  # Prevent expensive template finalization at end of test suite runs.
+  config.action_view.finalize_compiled_template_methods = false
 end

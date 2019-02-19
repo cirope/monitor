@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.2.2'
+gem 'rails', '~> 6.0.0.beta1'
 
 gem 'pg'
 gem 'sassc-rails'
@@ -26,7 +26,7 @@ gem 'request_store-sidekiq'
 gem 'sidekiq'
 gem 'whenever', require: false
 gem 'paper_trail'
-gem 'roadie-rails'
+# gem 'roadie-rails'
 gem 'ruby-ntlm'
 gem 'rubyzip', require: 'zip'
 gem 'diffy'
