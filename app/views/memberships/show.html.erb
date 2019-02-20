@@ -1,0 +1,8 @@
+<h2><%= @membership.account %></h2>
+
+<p>
+  <strong><%= Membership.human_attribute_name 'default' %></strong>:
+  <%= t @membership.default ? 'yes' : 'no' %>
+</p>
+
+<%= link_to_index memberships_path %>

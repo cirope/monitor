@@ -39,8 +39,8 @@ es:
         one: 'Mantenedor'
         other: 'Mantenedores'
       membership:
-        one: 'Registro'
-        other: 'Registros'
+        one: 'Acceso'
+        other: 'Accesos'
       output:
         one: 'Salida regla'
         other: 'Salida reglas'

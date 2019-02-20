@@ -1,0 +1,25 @@
+<% if @memberships.empty? %>
+  <%= render 'shared/empty_index', message: t('.empty_html') %>
+<% else %>
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th><%= Membership.human_attribute_name 'account' %></th>
+        <th><%= Membership.human_attribute_name 'default' %></th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @memberships.each do |membership| %>
+        <tr>
+          <td><%= membership.account %></td>
+          <td><%= t membership.default ? 'yes' : 'no' %></td>
+          <td><%= link_to_show membership %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= paginate @memberships %>
+<% end %>

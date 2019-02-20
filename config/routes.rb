@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   resources :databases
   resources :descriptors
   resources :ldaps
+  resources :memberships, only: [:index, :show, :update]
   resources :rules
   resources :servers
   resources :password_resets, only: [:new, :create, :edit, :update]
