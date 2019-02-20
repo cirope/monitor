@@ -4,6 +4,6 @@ module ApplicationHelper
   end
 
   def title
-    [app_name, @title].compact.join(' | ')
+    [app_name, current_account&.name, @title].compact.join(' | ')
   end
 end
