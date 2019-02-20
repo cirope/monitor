@@ -26,7 +26,6 @@ class SessionsController < ApplicationController
   def destroy
     reset_session
     cookies.delete :auth_token
-    cookies.delete :tenant_name
 
     redirect_to root_url, notice: t('.logged_out', scope: :flash)
   end
@@ -46,11 +45,7 @@ class SessionsController < ApplicationController
     end
 
     def store_current_account account
-      if params[:remember_me]
-        cookies.permanent.encrypted[:tenant_name] = account.tenant_name
-      else
-        cookies.encrypted[:tenant_name] = account.tenant_name
-      end
+      session[:tenant_name] = account.tenant_name
     end
 
     def switch_to_account username

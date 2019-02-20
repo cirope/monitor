@@ -6,7 +6,7 @@
       <tr>
         <th><%= Membership.human_attribute_name 'account' %></th>
         <th><%= Membership.human_attribute_name 'default' %></th>
-        <th></th>
+        <th colspan="2"></th>
       </tr>
     </thead>
 
@@ -15,6 +15,7 @@
         <tr>
           <td><%= membership.account %></td>
           <td><%= t membership.default ? 'yes' : 'no' %></td>
+          <td><%= link_to_switch membership %></td>
           <td><%= link_to_show membership %></td>
         </tr>
       <% end %>

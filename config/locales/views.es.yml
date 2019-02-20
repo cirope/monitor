@@ -16,6 +16,7 @@ es:
     loading: 'Cargando...'
     logout: 'Salir'
     show: 'Ver'
+    switch: 'Ingresar'
 
   accounts:
     edit:
@@ -183,6 +184,12 @@ es:
   maintainers:
     maintainer:
       empty: 'No se encontraron usuarios con ese criterio'
+
+  memberships:
+    index:
+      title: 'Listado de accesos'
+    show:
+      title: 'Ver acceso'
 
   objects:
     grid:

@@ -7,7 +7,11 @@ class MembershipsController < ApplicationController
 
   # GET /memberships
   def index
-    @memberships = current_user.memberships.includes(:account).page params[:page]
+    @memberships = current_user.
+      memberships.
+      includes(:account).
+      order(Arel.sql "#{Account.table_name}.name").
+      page params[:page]
   end
 
   # GET /memberships/1

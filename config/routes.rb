@@ -31,13 +31,16 @@ Rails.application.routes.draw do
   resources :databases
   resources :descriptors
   resources :ldaps
-  resources :memberships, only: [:index, :show, :update]
   resources :rules
   resources :servers
   resources :password_resets, only: [:new, :create, :edit, :update]
 
   resources :issues, except: [:new, :create] do
     resources :taggings, only: [:new, :create, :destroy]
+  end
+
+  resources :memberships, only: [:index, :show, :update] do
+    resources :switch, only: [:create], controller: 'memberships/switch'
   end
 
   resources :permalinks, only: [:show, :create] do

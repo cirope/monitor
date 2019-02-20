@@ -35,6 +35,11 @@ es:
       create:
         notice: 'Ejecutando...'
 
+    memberships:
+      switch:
+        create:
+          notice: 'Bienvenido a %{account}'
+
     password_resets:
       update:
         notice: 'Contraseña cambiada correctamente'

@@ -37,6 +37,7 @@
 //= require date_pickers
 //= require dynamic_form
 //= require filters
+//= require accounts
 //= require comments
 //= require console
 //= require dashboard
@@ -46,6 +47,8 @@
 //= require issues/board
 //= require issues/exports
 //= require ldaps
+//= require memberships
+//= require memberships/switch
 //= require objects
 //= require permalinks
 //= require password_resets
