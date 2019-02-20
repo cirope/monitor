@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 6.0.0.beta1'
+gem 'rails', '6.0.0.beta1'
 
 gem 'pg'
 gem 'sassc-rails'
@@ -34,7 +34,9 @@ gem 'prawn'
 gem 'prawn-table'
 gem 'coderay'
 
-gem 'web-console'
+group :development, :production do
+  gem 'web-console'
+end
 
 gem 'unicorn'
 

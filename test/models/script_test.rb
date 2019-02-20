@@ -98,7 +98,7 @@ class ScriptTest < ActiveSupport::TestCase
   end
 
   test 'copy to' do
-    skip 'tangalanga'
+    skip
   end
 
   test 'tagged with' do
@@ -258,11 +258,11 @@ class ScriptTest < ActiveSupport::TestCase
   end
 
   test 'update from data' do
-    skip 'Tangalanga'
+    skip
   end
 
   test 'by name' do
-    skip 'Tangalanga'
+    skip
   end
 
   test 'revert to version' do

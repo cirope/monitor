@@ -1,4 +1,5 @@
-require File.expand_path('../../config/environment', __FILE__)
+ENV['RAILS_ENV'] ||= 'test'
+require_relative '../config/environment'
 require 'rails/test_help'
 require 'sidekiq/testing'
 
@@ -6,7 +7,8 @@ Sidekiq::Testing.inline!
 
 class ActiveSupport::TestCase
   # Run tests in parallel with specified workers
-  parallelize(workers: :number_of_processors)
+  # Lo comentamos hasta que esté mas pulido
+  # parallelize(workers: :number_of_processors)
 
   set_fixture_class versions: PaperTrail::Version
 
