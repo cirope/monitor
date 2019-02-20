@@ -26,7 +26,7 @@ gem 'request_store-sidekiq'
 gem 'sidekiq'
 gem 'whenever', require: false
 gem 'paper_trail'
-gem 'roadie-rails'
+gem 'roadie-rails', '< 2.0'
 gem 'ruby-ntlm'
 gem 'rubyzip', require: 'zip'
 gem 'diffy'
