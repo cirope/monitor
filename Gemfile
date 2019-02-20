@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '~> 5.2.2'
 
 gem 'pg'
-gem 'sassc-rails'
+gem 'sassc-rails', '< 2.0'
 gem 'bootstrap-sass'
 gem 'uglifier'
 gem 'jquery-rails'
