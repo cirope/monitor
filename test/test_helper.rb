@@ -22,7 +22,7 @@ end
 
 class ActionController::TestCase
   def login user: users(:franco)
-    @controller.send(:cookies).encrypted[:auth_token] = user.auth_token
+    @controller.send(:cookies).encrypted[:token] = user.auth_token
   end
 end
 

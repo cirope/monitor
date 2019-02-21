@@ -49,7 +49,7 @@ class SessionsControllerTest < ActionController::TestCase
   end
 
   test 'should get destroy' do
-    @controller.send(:cookies).encrypted[:auth_token] = @user.auth_token
+    @controller.send(:cookies).encrypted[:token] = @user.auth_token
 
     assert_not_nil current_user
 

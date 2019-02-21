@@ -128,7 +128,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'hide' do
-    assert_difference ['User.visible.count'], -User.count do
+    assert_difference 'User.visible.count', -User.count do
       User.hide
     end
   end

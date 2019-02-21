@@ -25,7 +25,7 @@ class SessionsController < ApplicationController
 
   def destroy
     reset_session
-    cookies.delete :auth_token
+    cookies.delete :token
 
     redirect_to root_url, notice: t('.logged_out', scope: :flash)
   end
@@ -38,9 +38,9 @@ class SessionsController < ApplicationController
 
     def store_auth_token user
       if params[:remember_me]
-        cookies.permanent.encrypted[:auth_token] = user.auth_token
+        cookies.permanent.encrypted[:token] = user.auth_token
       else
-        cookies.encrypted[:auth_token] = user.auth_token
+        cookies.encrypted[:token] = user.auth_token
       end
     end
 
