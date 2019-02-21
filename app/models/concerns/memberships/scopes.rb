@@ -3,6 +3,7 @@ module Memberships::Scopes
 
   included do
     scope :default, -> { where default: true }
+    scope :current, -> { where account_id: Current.account&.id }
   end
 
   module ClassMethods

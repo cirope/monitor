@@ -157,9 +157,18 @@ class UserTest < ActiveSupport::TestCase
     end)
   end
 
-  test 'do not allow email membership overlap' do
-    # TODO: complete model logic and test
-    skip
+  test 'delete only the current membership on destroy' do
+    account = Account.create! name: 'Test', tenant_name: 'test'
+
+    assert_difference '@user.memberships.count' do
+      account.enroll @user, copy_user: true
+    end
+
+    assert_difference ['User.visible.count', '@user.memberships.count'], -1 do
+      @user.destroy!
+    end
+
+    assert Membership.where(email: @user.email).exists?
   end
 
   test 'by role' do

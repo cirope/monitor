@@ -2,13 +2,15 @@ require 'test_helper'
 
 class MembershipsHelperTest < ActionView::TestCase
   test 'link to switch' do
+    @virtual_path = 'memberships.index'
+
     membership = send 'public.memberships', :franco_default
 
     assert_match t('navigation.switch'), link_to_switch(membership)
 
     set_account
 
-    assert_nil link_to_switch(membership)
+    assert_match t('.current'), link_to_switch(membership)
   end
 
   private

@@ -188,6 +188,7 @@ es:
   memberships:
     index:
       title: 'Listado de accesos'
+      current: 'Cuenta actual'
     show:
       title: 'Ver acceso'
 

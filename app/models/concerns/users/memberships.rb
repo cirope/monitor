@@ -5,8 +5,9 @@ module Users::Memberships
     before_create :create_membership
     before_save   :update_memberships, on: :update
 
-    has_many :memberships, foreign_key: :email, primary_key: :email,
-      dependent: :destroy
+    has_many :memberships, foreign_key: :email, primary_key: :email
+    has_one :current_membership, -> { current }, class_name: 'Membership',
+      foreign_key: :email, primary_key: :email, dependent: :destroy
   end
 
   private
