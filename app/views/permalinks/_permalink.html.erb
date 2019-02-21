@@ -8,7 +8,7 @@
   </div>
   <div class="panel-body">
     <p>
-      <%= link_to permalink_url(@permalink), @permalink %>
+      <%= link_to account_permalink_url(current_account, @permalink), [current_account, @permalink] %>
     </p>
   </div>
 </div>

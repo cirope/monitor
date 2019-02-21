@@ -26,7 +26,6 @@ Rails.application.routes.draw do
   post   'issues/exports',     to: 'issues/exports#create'
 
   # Resources
-  resources :accounts
   resources :comments, except: [:index, :new]
   resources :databases
   resources :descriptors
@@ -34,6 +33,12 @@ Rails.application.routes.draw do
   resources :rules
   resources :servers
   resources :password_resets, only: [:new, :create, :edit, :update]
+
+  resources :accounts do
+    resources :issues, only: [:show]
+    resources :permalinks, only: [:show]
+    resources :password_resets, only: [:edit]
+  end
 
   resources :issues, except: [:new, :create] do
     resources :taggings, only: [:new, :create, :destroy]

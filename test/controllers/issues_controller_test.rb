@@ -55,6 +55,15 @@ class IssuesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test 'should show issue with account' do
+    account = send 'public.accounts', :default
+
+    get :show, params: { id: @issue, account_id: account }
+
+    assert account.tenant_name, session[:tenant_name]
+    assert_redirected_to issue_url(@issue)
+  end
+
   test 'should get edit' do
     get :edit, params: { id: @issue }
     assert_response :success

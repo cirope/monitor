@@ -17,4 +17,8 @@ class Account < ApplicationRecord
   def to_s
     name
   end
+
+  def to_param
+    tenant_name
+  end
 end

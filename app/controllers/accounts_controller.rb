@@ -58,7 +58,7 @@ class AccountsController < ApplicationController
   private
 
     def set_account
-      @account = Account.find params[:id]
+      @account = Account.find_by! tenant_name: params[:id]
     end
 
     def account_params

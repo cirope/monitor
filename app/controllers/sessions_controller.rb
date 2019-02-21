@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    switch_to_account params[:username] do |account|
+    switch_to_default_account_for params[:username] do |account|
       user = User.visible.by_username_or_email params[:username]
 
       if user && account && user.auth(params[:password])
@@ -48,7 +48,7 @@ class SessionsController < ApplicationController
       session[:tenant_name] = account.tenant_name
     end
 
-    def switch_to_account username
+    def switch_to_default_account_for username
       account = Account.default_by_username_or_email username
 
       Apartment::Tenant.switch account&.tenant_name do
