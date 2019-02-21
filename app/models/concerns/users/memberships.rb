@@ -17,6 +17,7 @@ module Users::Memberships
     end
 
     def update_memberships
+      create_membership          if hidden_changed? && hidden == false
       update_membership_email    if email_changed?
       update_membership_username if username_changed? && username_was.present?
     end
