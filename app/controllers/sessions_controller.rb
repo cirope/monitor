@@ -37,11 +37,13 @@ class SessionsController < ApplicationController
     end
 
     def store_auth_token user
-      if params[:remember_me]
-        cookies.permanent.encrypted[:token] = user.auth_token
-      else
-        cookies.encrypted[:token] = user.auth_token
-      end
+      jar = params[:remember_me] ? cookies.permanent : cookies
+
+      jar.encrypted[:token] = {
+        value:    user.auth_token,
+        secure:   Rails.application.config.force_ssl,
+        httponly: true
+      }
     end
 
     def store_current_account account
