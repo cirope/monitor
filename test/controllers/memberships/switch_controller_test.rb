@@ -12,5 +12,6 @@ class Memberships::SwitchControllerTest < ActionController::TestCase
 
     assert_redirected_to root_url
     assert_equal @membership.account.tenant_name, session[:tenant_name]
+    assert_equal @membership.user.auth_token, cookies.encrypted[:token]
   end
 end

@@ -5,6 +5,12 @@ class Memberships::SwitchController < ApplicationController
   def create
     account = @membership.account
 
+    Apartment::Tenant.switch account.tenant_name do
+      user = User.find_by! email: @membership.email
+
+      cookies.encrypted[:token] = user.auth_token
+    end
+
     session[:tenant_name] = account.tenant_name
 
     redirect_to root_url, notice: t('.notice', account: account.name, scope: :flash)
