@@ -44,7 +44,7 @@ private
   end
 
   def enroll_all_users_to account
-    Apartment::Tenant.switch account.tenant_name do
+    account.switch do
       User.all.each do |user|
         account.enroll user, default: true
       end
@@ -64,7 +64,7 @@ private
   end
 
   def migrate_public_versions_data_from account
-    Apartment::Tenant.switch account.tenant_name do
+    account.switch do
       versions = PaperTrail::Version.where(
         item_type: %w(Account Database Property Membership)
       ).order(:id)

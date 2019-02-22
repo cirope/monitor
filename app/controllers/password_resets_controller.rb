@@ -10,7 +10,7 @@ class PasswordResetsController < ApplicationController
     membership = Membership.default.find_by email: params[:email]
 
     if membership
-      Apartment::Tenant.switch membership.account.tenant_name do
+      membership.account.switch do
         user = membership.user
 
         user.prepare_password_reset
@@ -48,7 +48,7 @@ class PasswordResetsController < ApplicationController
       if params[:account_id]
         account = Account.find_by! tenant_name: params[:account_id]
 
-        Apartment::Tenant.switch(account.tenant_name) { set_user }
+        account.switch { set_user }
 
         session[:tenant_name] = account.tenant_name
 

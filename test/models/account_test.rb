@@ -60,7 +60,7 @@ class AccountTest < ActiveSupport::TestCase
   end
 
   test 'enroll' do
-    Apartment::Tenant.switch @account.tenant_name do
+    @account.switch do
       assert_difference '@account.memberships.count' do
         assert_no_difference 'User.count' do
           @account.enroll users(:john)
@@ -70,12 +70,12 @@ class AccountTest < ActiveSupport::TestCase
   end
 
   test 'enroll with copy' do
-    Current.account = Account.create! name: 'Test', tenant_name: 'test'
-    user            = users :john
+    account = Account.create! name: 'Test', tenant_name: 'test'
+    user    = users :john
 
-    Apartment::Tenant.switch Current.account.tenant_name do
-      assert_difference ['Current.account.memberships.count', 'User.count'] do
-        Current.account.enroll user, copy_user: true
+    account.switch do
+      assert_difference ['account.memberships.count', 'User.count'] do
+        account.enroll user, copy_user: true
       end
     end
   end
@@ -98,6 +98,15 @@ class AccountTest < ActiveSupport::TestCase
       Account.on_each do |account|
         Issue.take.destroy!
       end
+    end
+  end
+
+  test 'switch' do
+    account = Account.create! name: 'Test', tenant_name: 'test'
+
+    account.switch do
+      assert User.all.empty?
+      assert_equal account, Current.account
     end
   end
 end
