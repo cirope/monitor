@@ -7,7 +7,7 @@
     <thead>
       <tr>
         <th><%= Account.human_attribute_name 'name' %></th>
-        <th><%= Account.human_attribute_name 'tenant_name' %></th>
+        <th class="hidden-xs"><%= Account.human_attribute_name 'tenant_name' %></th>
         <th colspan="2">
           <%= link_to_new new_account_path, class: 'btn btn-default btn-xs pull-right' %>
         </th>
@@ -18,7 +18,7 @@
       <% @accounts.each do |account| %>
         <tr>
           <td><%= account.name %></td>
-          <td><%= account.tenant_name %></td>
+          <td class="hidden-xs"><%= account.tenant_name %></td>
           <td><%= link_to_show account %></td>
           <td><%= link_to_edit [:edit, account] %></td>
         </tr>
