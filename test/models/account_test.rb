@@ -27,11 +27,11 @@ class AccountTest < ActiveSupport::TestCase
 
   test 'attributes length' do
     @account.name = 'abcde' * 52
-    @account.tenant_name = 'abcde' * 52
+    @account.tenant_name = 'abcde' * 13
 
     assert @account.invalid?
     assert_error @account, :name, :too_long, count: 255
-    assert_error @account, :tenant_name, :too_long, count: 255
+    assert_error @account, :tenant_name, :too_long, count: 63
   end
 
   test 'formatted attributes' do
