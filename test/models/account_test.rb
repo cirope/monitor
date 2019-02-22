@@ -46,6 +46,12 @@ class AccountTest < ActiveSupport::TestCase
     assert_error @account, :tenant_name, :invalid
   end
 
+  test 'destroy is not an option' do
+    assert_no_difference 'Account.count' do
+      @account.destroy
+    end
+  end
+
   test 'exluded attributes' do
     @account.tenant_name = 'public'
 

@@ -34,7 +34,7 @@ Rails.application.routes.draw do
   resources :servers
   resources :password_resets, only: [:new, :create, :edit, :update]
 
-  resources :accounts do
+  resources :accounts, except: [:destroy] do
     resources :issues, only: [:show]
     resources :permalinks, only: [:show]
     resources :password_resets, only: [:edit]

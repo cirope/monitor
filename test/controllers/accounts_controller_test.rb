@@ -50,12 +50,4 @@ class AccountsControllerTest < ActionController::TestCase
 
     assert_redirected_to account_url(@account)
   end
-
-  test 'should destroy account' do
-    assert_difference 'Account.count', -1 do
-      delete :destroy, params: { id: @account }
-    end
-
-    assert_redirected_to accounts_url
-  end
 end

@@ -2,9 +2,9 @@ class AccountsController < ApplicationController
   respond_to :html
 
   before_action :authorize, :not_guest
-  before_action :set_account, only: [:show, :edit, :update, :destroy]
-  before_action :set_title, except: [:destroy]
-  before_action :not_author, only: [:edit, :update, :destroy]
+  before_action :set_account, only: [:show, :edit, :update]
+  before_action :set_title
+  before_action :not_author, only: [:edit, :update]
 
   # GET /accounts
   def index
@@ -44,13 +44,6 @@ class AccountsController < ApplicationController
   # PATCH/PUT /accounts/1
   def update
     update_resource @account, account_params
-
-    respond_with @account
-  end
-
-  # DELETE /accounts/1
-  def destroy
-    @account.destroy
 
     respond_with @account
   end
