@@ -109,4 +109,12 @@ class AccountTest < ActiveSupport::TestCase
       assert_equal account, Current.account
     end
   end
+
+  test 'by name' do
+    skip
+  end
+
+  test 'by tenant name' do
+    skip
+  end
 end

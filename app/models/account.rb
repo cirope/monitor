@@ -5,9 +5,11 @@ class Account < ApplicationRecord
   include Accounts::Memberships
   include Accounts::OnEach
   include Accounts::Request
+  include Accounts::Scope
   include Accounts::Tenant
   include Accounts::Validation
   include PublicAuditable
+  include Filterable
 
   strip_fields :name, :tenant_name
   downcase_fields :tenant_name

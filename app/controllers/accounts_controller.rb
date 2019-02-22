@@ -1,4 +1,6 @@
 class AccountsController < ApplicationController
+  include Accounts::Filters
+
   respond_to :html
 
   before_action :authorize, :not_guest
@@ -8,7 +10,7 @@ class AccountsController < ApplicationController
 
   # GET /accounts
   def index
-    @accounts = Account.order(:tenant_name).page params[:page]
+    @accounts = accounts.order(:tenant_name).page params[:page]
 
     respond_with @accounts
   end
