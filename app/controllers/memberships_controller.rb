@@ -1,5 +1,5 @@
 class MembershipsController < ApplicationController
-  respond_to :html
+  respond_to :html, :js
 
   before_action :authorize
   before_action :set_membership, only: [:show, :update]
@@ -21,18 +21,19 @@ class MembershipsController < ApplicationController
 
   # PATCH/PUT /memberships/1
   def update
-    update_resource @membership, membership_params
+    @default_membership = current_user.default_membership
+    update              = @default_membership != @membership
 
-    respond_with @membership
+    Membership.transaction do
+      if update && @membership.update(default: true)
+        @default_membership.update! default: false
+      end
+    end
   end
 
   private
 
     def set_membership
       @membership = current_user.memberships.find params[:id]
-    end
-
-    def membership_params
-      params.require(:membership).permit :default
     end
 end

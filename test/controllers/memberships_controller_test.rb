@@ -19,12 +19,12 @@ class MembershipsControllerTest < ActionController::TestCase
   end
 
   test 'should update membership' do
-    patch :update, params: {
-      id: @membership,
-      membership: { default: '0' }
-    }
+    account    = Account.create! name: 'Test', tenant_name: 'test'
+    membership = account.enroll @membership.user, default: false
 
-    assert_redirected_to membership_url(@membership)
-    refute @membership.reload.default
+    patch :update, params: { id: membership }, xhr: true, as: :js
+
+    assert_response :success
+    assert membership.reload.default
   end
 end

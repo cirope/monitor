@@ -186,9 +186,12 @@ es:
       empty: 'No se encontraron usuarios con ese criterio'
 
   memberships:
+    membership:
+      make_default: 'Convertir en cuenta principal'
+      default: 'Cuenta principal'
+      current: 'Cuenta actual'
     index:
       title: 'Listado de accesos'
-      current: 'Cuenta actual'
     show:
       title: 'Ver acceso'
 

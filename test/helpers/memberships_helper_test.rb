@@ -1,8 +1,20 @@
 require 'test_helper'
 
 class MembershipsHelperTest < ActionView::TestCase
+  test 'link to default' do
+    @virtual_path = 'memberships.membership'
+
+    membership = send 'public.memberships', :franco_default
+
+    assert_match t('.default'), link_to_default(membership)
+
+    membership.update! default: false
+
+    assert_match t('.make_default'), link_to_default(membership)
+  end
+
   test 'link to switch' do
-    @virtual_path = 'memberships.index'
+    @virtual_path = 'memberships.membership'
 
     membership = send 'public.memberships', :franco_default
 

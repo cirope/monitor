@@ -133,16 +133,6 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
-  test 'member of' do
-    account = send 'public.accounts', :default
-
-    assert @user.member_of?(account)
-
-    account = Account.create! name: 'Test', tenant_name: 'test'
-
-    refute @user.member_of?(account)
-  end
-
   test 'update memberships on email change' do
     membership_ids = @user.memberships.ids
 

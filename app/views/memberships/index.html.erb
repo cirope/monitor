@@ -12,12 +12,7 @@
 
     <tbody>
       <% @memberships.each do |membership| %>
-        <tr <%== 'class="info"' if current_account == membership.account %>>
-          <td><%= membership.account %></td>
-          <td><%= t membership.default ? 'yes' : 'no' %></td>
-          <td><%= link_to_switch membership %></td>
-          <td><%= link_to_show membership %></td>
-        </tr>
+        <%= render 'membership', membership: membership %>
       <% end %>
     </tbody>
   </table>
