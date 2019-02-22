@@ -8,7 +8,11 @@ class Memberships::SwitchController < ApplicationController
     Apartment::Tenant.switch account.tenant_name do
       user = User.find_by! email: @membership.email
 
-      cookies.encrypted[:token] = user.auth_token
+      cookies.encrypted[:token] = {
+        value:    user.auth_token,
+        secure:   Rails.application.config.force_ssl,
+        httponly: true
+      }
     end
 
     session[:tenant_name] = account.tenant_name
