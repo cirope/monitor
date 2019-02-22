@@ -92,4 +92,12 @@ class AccountTest < ActiveSupport::TestCase
 
     assert_equal membership.account, account
   end
+
+  test 'on each' do
+    assert_difference 'Issue.count', -1 do
+      Account.on_each do |account|
+        Issue.take.destroy!
+      end
+    end
+  end
 end

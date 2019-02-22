@@ -3,6 +3,7 @@ class Account < ApplicationRecord
   include Attributes::Downcase
   include Accounts::Destroy
   include Accounts::Memberships
+  include Accounts::OnEach
   include Accounts::Request
   include Accounts::Tenant
   include Accounts::Validation
