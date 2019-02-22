@@ -9,5 +9,9 @@ module Databases::Scopes
     def by_driver driver
       where "#{table_name}.driver ILIKE ?", "%#{driver}%"
     end
+
+    def current
+      joins(:account).references(:accounts).merge Account.current
+    end
   end
 end

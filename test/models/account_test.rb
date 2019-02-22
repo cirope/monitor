@@ -110,6 +110,10 @@ class AccountTest < ActiveSupport::TestCase
     end
   end
 
+  test 'current' do
+    skip
+  end
+
   test 'by name' do
     skip
   end

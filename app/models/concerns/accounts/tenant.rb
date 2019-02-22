@@ -23,6 +23,12 @@ module Accounts::Tenant
     Apartment::Tenant.switch! tenant_name
   end
 
+  module ClassMethods
+    def current
+      where tenant_name: Apartment::Tenant.current
+    end
+  end
+
   private
 
     def create_tenant
