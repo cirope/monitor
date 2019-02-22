@@ -1,6 +1,7 @@
 class Membership < ApplicationRecord
   include Attributes::Strip
   include Attributes::Downcase
+  include Filterable
   include Memberships::Validation
   include Memberships::Scopes
   include PublicAuditable

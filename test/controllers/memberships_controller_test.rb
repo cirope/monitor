@@ -13,6 +13,12 @@ class MembershipsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test 'should get filtered index' do
+    get :index, params: { filter: { name: 'undefined' } }
+    assert_response :success
+    assert_select '.alert', text: I18n.t('memberships.index.empty_search_html')
+  end
+
   test 'should show membership' do
     get :show, params: { id: @membership }
     assert_response :success

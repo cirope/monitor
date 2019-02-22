@@ -1,4 +1,6 @@
 class MembershipsController < ApplicationController
+  include Memberships::Filters
+
   respond_to :html, :js
 
   before_action :authorize
@@ -7,8 +9,7 @@ class MembershipsController < ApplicationController
 
   # GET /memberships
   def index
-    @memberships = current_user.
-      memberships.
+    @memberships = memberships.
       includes(:account).
       order(Arel.sql "#{Account.table_name}.name").
       page params[:page]
