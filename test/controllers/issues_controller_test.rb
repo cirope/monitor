@@ -37,7 +37,7 @@ class IssuesControllerTest < ActionController::TestCase
   test 'should get index as guest' do
     user = users :john
 
-    login user
+    login user: user
 
     get :index
     assert_response :success
@@ -53,6 +53,15 @@ class IssuesControllerTest < ActionController::TestCase
 
     get :show, params: { id: permalink.issues.take, permalink_id: permalink }
     assert_response :success
+  end
+
+  test 'should show issue with account' do
+    account = send 'public.accounts', :default
+
+    get :show, params: { id: @issue, account_id: account }
+
+    assert account.tenant_name, session[:tenant_name]
+    assert_redirected_to issue_url(@issue)
   end
 
   test 'should get edit' do

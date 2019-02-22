@@ -40,4 +40,13 @@ class PermalinksControllerTest < ActionController::TestCase
 
     assert_response :success
   end
+
+  test 'should show permalink with account' do
+    account = send 'public.accounts', :default
+
+    get :show, params: { id: @permalink, account_id: account }
+
+    assert account.tenant_name, session[:tenant_name]
+    assert_redirected_to permalink_url(@permalink)
+  end
 end

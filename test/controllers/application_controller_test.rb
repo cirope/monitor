@@ -69,7 +69,7 @@ class ApplicationControllerTest < ActionController::TestCase
   test 'should check not supervisor role' do
     user = users :franco
 
-    login user
+    login user: user
 
     @controller.send(:not_supervisor)
 
@@ -79,7 +79,7 @@ class ApplicationControllerTest < ActionController::TestCase
   test 'should check guest role' do
     user = users :franco
 
-    login user
+    login user: user
 
     @controller.send(:only_guest)
 

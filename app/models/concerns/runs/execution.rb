@@ -23,16 +23,24 @@ module Runs::Execution
 
   module ClassMethods
     def schedule
-      next_to_schedule.find_each do |run|
-        run.update! status: 'scheduled'
-
-        ScriptJob.set(wait_until: run.scheduled_at).perform_later run
+      Account.on_each do
+        schedule_all
       end
     end
 
     def cancel
       update_all status: 'canceled'
     end
+
+    private
+
+      def schedule_all
+        next_to_schedule.find_each do |run|
+          run.update! status: 'scheduled'
+
+          ScriptJob.set(wait_until: run.scheduled_at).perform_later run
+        end
+      end
   end
 
   private

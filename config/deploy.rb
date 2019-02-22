@@ -18,6 +18,7 @@ set :keep_releases, 5
 
 namespace :deploy do
   before :check,      'config:upload'
+  before :publishing, :tenant
   after  :publishing, :restart
   after  :published,  'sidekiq:restart'
   after  :finishing,  :move_files

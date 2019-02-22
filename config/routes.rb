@@ -34,8 +34,18 @@ Rails.application.routes.draw do
   resources :servers
   resources :password_resets, only: [:new, :create, :edit, :update]
 
+  resources :accounts, except: [:destroy] do
+    resources :issues, only: [:show]
+    resources :permalinks, only: [:show]
+    resources :password_resets, only: [:edit]
+  end
+
   resources :issues, except: [:new, :create] do
     resources :taggings, only: [:new, :create, :destroy]
+  end
+
+  resources :memberships, only: [:index, :show, :update] do
+    resources :switch, only: [:create], controller: 'memberships/switch'
   end
 
   resources :permalinks, only: [:show, :create] do

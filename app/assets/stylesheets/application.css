@@ -26,6 +26,7 @@
  *= require autocomplete
  *= require forms
  *= require row_controls
+ *= require accounts
  *= require comments
  *= require console
  *= require dashboard
@@ -35,6 +36,8 @@
  *= require issues/board
  *= require issues/exports
  *= require ldaps
+ *= require memberships
+ *= require memberships/switch
  *= require permalinks
  *= require password_resets
  *= require profiles

@@ -5,6 +5,10 @@ class LdapTest < ActiveSupport::TestCase
     @ldap = ldaps :ldap_server
   end
 
+  teardown do
+    Current.account = nil
+  end
+
   test 'validates presence' do
     @ldap.hostname = ''
     @ldap.port = nil
@@ -103,6 +107,8 @@ class LdapTest < ActiveSupport::TestCase
   end
 
   test 'import' do
+    Current.account = send 'public.accounts', :default
+
     assert_nil User.where(email: 'juan@administrators.com').take
 
     @ldap.import 'admin', 'admin123'

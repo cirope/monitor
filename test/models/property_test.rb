@@ -2,7 +2,7 @@ require 'test_helper'
 
 class PropertyTest < ActiveSupport::TestCase
   setup do
-    @property = properties :trace
+    @property = send 'public.properties', :trace
   end
 
   test 'blank attributes' do

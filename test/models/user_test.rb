@@ -3,6 +3,12 @@ require 'test_helper'
 class UserTest < ActiveSupport::TestCase
   setup do
     @user = users :franco
+
+    Current.account = send 'public.accounts', :default
+  end
+
+  teardown do
+    Current.account = nil
   end
 
   test 'should generate token on create' do
@@ -124,6 +130,54 @@ class UserTest < ActiveSupport::TestCase
   test 'hide' do
     assert_difference 'User.visible.count', -User.count do
       User.hide
+    end
+  end
+
+  test 'update memberships on email change' do
+    membership_ids = @user.memberships.ids
+
+    assert membership_ids.any?
+
+    @user.update! email: 'new@email.com'
+
+    assert(Membership.where(id: membership_ids).all? do |membership|
+      membership.email == @user.email
+    end)
+  end
+
+  test 'update memberships on username change' do
+    membership_ids = @user.memberships.ids
+
+    assert membership_ids.any?
+
+    @user.update! username: 'new_username'
+
+    assert(Membership.where(id: membership_ids).all? do |membership|
+      membership.username == @user.username
+    end)
+  end
+
+  test 'delete only the current membership on destroy' do
+    account = Account.create! name: 'Test', tenant_name: 'test'
+
+    assert_difference '@user.memberships.count' do
+      account.enroll @user, copy_user: true
+    end
+
+    assert_difference ['User.visible.count', '@user.memberships.count'], -1 do
+      @user.destroy!
+    end
+
+    assert Membership.where(email: @user.email).exists?
+  end
+
+  test 'create membership if hidden is updated to false' do
+    assert_difference ['User.visible.count', '@user.memberships.count'], -1 do
+      @user.destroy!
+    end
+
+    assert_difference ['User.visible.count', '@user.memberships.count'] do
+      @user.update! hidden: false
     end
   end
 

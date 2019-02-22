@@ -2,6 +2,8 @@ module Users::Destroy
   extend ActiveSupport::Concern
 
   def destroy
+    current_membership.destroy!
+
     update hidden: true
   end
 
