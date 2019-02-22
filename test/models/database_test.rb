@@ -71,6 +71,10 @@ class DatabaseTest < ActiveSupport::TestCase
     assert_equal property.value, @database.property(property.key)
   end
 
+  test 'current' do
+    skip
+  end
+
   test 'by name' do
     skip
   end

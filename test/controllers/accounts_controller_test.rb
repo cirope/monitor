@@ -12,6 +12,12 @@ class AccountsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test 'should get filtered index' do
+    get :index, params: { filter: { name: 'undefined' } }
+    assert_response :success
+    assert_select '.alert', text: I18n.t('accounts.index.empty_search_html')
+  end
+
   test 'should get new' do
     get :new
     assert_response :success

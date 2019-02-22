@@ -53,8 +53,6 @@ class SessionsController < ApplicationController
     def switch_to_default_account_for username
       account = Account.default_by_username_or_email username
 
-      Apartment::Tenant.switch account&.tenant_name do
-        yield account
-      end
+      account&.switch { yield account }
     end
 end

@@ -11,5 +11,15 @@ module Memberships::Scopes
       where(email: username.to_s.strip.downcase).
         or where(username: username.to_s.strip.downcase)
     end
+
+    def by_name name
+      joins(:account).references(:accounts).merge Account.by_name(name)
+    end
+
+    def by_tenant_name tenant_name
+      joins(:account).
+        references(:accounts).
+        merge Account.by_tenant_name(tenant_name)
+    end
   end
 end

@@ -31,7 +31,7 @@ module Accounts::Memberships
       current_account = Current.account
       Current.account = self
 
-      Apartment::Tenant.switch tenant_name do
+      switch do
         User.create! user.attributes.except 'id',
                                             'created_at',
                                             'updated_at',

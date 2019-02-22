@@ -30,7 +30,7 @@ class PermalinksController < ApplicationController
       if params[:account_id]
         account = Account.find_by! tenant_name: params[:account_id]
 
-        Apartment::Tenant.switch(account.tenant_name) { set_permalink }
+        account.switch { set_permalink }
 
         session[:tenant_name] = account.tenant_name
 
