@@ -1,6 +1,6 @@
 set :stage, :production
 set :rails_env, 'production'
-set :branch, 'new-init'
+set :branch, 'new-init-multi-tenant'
 
 role :web, %w{deployer@demo.greditsoft.com}
 role :app, %w{deployer@demo.greditsoft.com}
