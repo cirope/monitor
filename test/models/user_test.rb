@@ -157,7 +157,7 @@ class UserTest < ActiveSupport::TestCase
     end)
   end
 
-  test 'delete only the current membership on destroy' do
+  test 'delete only the current membership on hide' do
     account = Account.create! name: 'Test', tenant_name: 'test'
 
     assert_difference '@user.memberships.count' do
@@ -165,7 +165,7 @@ class UserTest < ActiveSupport::TestCase
     end
 
     assert_difference ['User.visible.count', '@user.memberships.count'], -1 do
-      @user.destroy!
+      @user.hide
     end
 
     assert Membership.where(email: @user.email).exists?
@@ -173,7 +173,7 @@ class UserTest < ActiveSupport::TestCase
 
   test 'create membership if hidden is updated to false' do
     assert_difference ['User.visible.count', '@user.memberships.count'], -1 do
-      @user.destroy!
+      @user.hide
     end
 
     assert_difference ['User.visible.count', '@user.memberships.count'] do

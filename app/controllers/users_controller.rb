@@ -49,7 +49,7 @@ class UsersController < ApplicationController
 
   # DELETE /users/1
   def destroy
-    @user.destroy
+    @user.hide
 
     respond_with @user, location: users_url
   end
