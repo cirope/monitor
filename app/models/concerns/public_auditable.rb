@@ -3,7 +3,7 @@ module PublicAuditable
 
   included do
     has_paper_trail ignore: [:lock_version], versions: {
-      class_name: 'PublicVersion'
+      class_name: 'Version'
     }
   end
 end
