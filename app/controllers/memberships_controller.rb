@@ -23,13 +23,8 @@ class MembershipsController < ApplicationController
   # PATCH/PUT /memberships/1
   def update
     @default_membership = current_user.default_membership
-    update              = @default_membership != @membership
 
-    Membership.transaction do
-      if update && @membership.update(default: true)
-        @default_membership.update! default: false
-      end
-    end
+    @membership.update! default: true
   end
 
   private

@@ -2,8 +2,10 @@ class Membership < ApplicationRecord
   include Attributes::Strip
   include Attributes::Downcase
   include Filterable
-  include Memberships::Validation
+  include Memberships::Default
+  include Memberships::Destroy
   include Memberships::Scopes
+  include Memberships::Validation
   include PublicAuditable
 
   strip_fields :email, :username
