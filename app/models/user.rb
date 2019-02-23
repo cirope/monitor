@@ -5,8 +5,8 @@ class User < ApplicationRecord
   include Attributes::Strip
   include Attributes::Downcase
   include Users::Authentication
+  include Users::Hide
   include Users::Memberships
-  include Users::Destroy
   include Users::Overrides
   include Users::PasswordReset
   include Users::Roles
