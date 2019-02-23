@@ -19,11 +19,6 @@ class MembershipsControllerTest < ActionController::TestCase
     assert_select '.alert', text: I18n.t('memberships.index.empty_search_html')
   end
 
-  test 'should show membership' do
-    get :show, params: { id: @membership }
-    assert_response :success
-  end
-
   test 'should update membership' do
     account    = Account.create! name: 'Test', tenant_name: 'test'
     membership = account.enroll @membership.user, default: false

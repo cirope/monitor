@@ -44,7 +44,7 @@ Rails.application.routes.draw do
     resources :taggings, only: [:new, :create, :destroy]
   end
 
-  resources :memberships, only: [:index, :show, :update] do
+  resources :memberships, only: [:index, :update] do
     resources :switch, only: [:create], controller: 'memberships/switch'
   end
 

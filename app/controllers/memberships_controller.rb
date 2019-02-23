@@ -4,7 +4,7 @@ class MembershipsController < ApplicationController
   respond_to :html, :js
 
   before_action :authorize
-  before_action :set_membership, only: [:show, :update]
+  before_action :set_membership, only: [:update]
   before_action :set_title, except: [:destroy]
 
   # GET /memberships
@@ -13,11 +13,6 @@ class MembershipsController < ApplicationController
       includes(:account).
       order(Arel.sql "#{Account.table_name}.name").
       page params[:page]
-  end
-
-  # GET /memberships/1
-  def show
-    respond_with @membership
   end
 
   # PATCH/PUT /memberships/1
