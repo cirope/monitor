@@ -3,7 +3,7 @@ module Users::Memberships
 
   included do
     before_create :create_membership
-    before_save   :update_memberships, on: :update
+    before_update :update_memberships
 
     has_many :memberships, foreign_key: :email, primary_key: :email
     has_one :default_membership, -> { default }, class_name: 'Membership',
@@ -15,7 +15,9 @@ module Users::Memberships
   private
 
     def create_membership
-      Current.account.enroll self, default: memberships.empty?
+      memberships.build username: username,
+                        account:  Current.account,
+                        default:  memberships.empty?
     end
 
     def update_memberships
