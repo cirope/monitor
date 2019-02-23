@@ -70,7 +70,7 @@ private
       ).order(:id)
 
       versions.each do |version|
-        PublicVersion.create! version.attributes.except 'id'
+        Version.create! version.attributes.except 'id'
 
         version.destroy!
       end
