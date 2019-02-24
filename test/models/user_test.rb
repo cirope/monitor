@@ -82,6 +82,44 @@ class UserTest < ActiveSupport::TestCase
     assert_error @user, :role, :inclusion
   end
 
+  test 'username globally taken on create' do
+    account = Account.create! name: 'Test', tenant_name: 'test'
+
+    account.switch do
+      user       = @user.dup
+      user.email = 'other@email.com'
+
+      refute user.save
+      assert_error user, :username, :globally_taken
+    end
+  end
+
+  test 'username globally taken on update' do
+    account  = Account.create! name: 'Test', tenant_name: 'test'
+    user     = account.enroll @user, copy_user: true
+    username = users(:eduardo).username
+
+    account.switch do
+      user.username = username
+
+      assert user.invalid?
+      assert_error user, :username, :globally_taken
+    end
+  end
+
+  test 'email globally taken' do
+    account = Account.create! name: 'Test', tenant_name: 'test'
+    user    = account.enroll @user, copy_user: true
+    email   = users(:eduardo).email
+
+    account.switch do
+      user.email = email
+
+      assert user.invalid?
+      assert_error user, :email, :globally_taken
+    end
+  end
+
   test 'guest?' do
     @user.role = 'guest'
     assert @user.guest?

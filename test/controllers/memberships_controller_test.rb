@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class MembershipsControllerTest < ActionController::TestCase
-
   setup do
     @membership = send 'public.memberships', :franco_default
 

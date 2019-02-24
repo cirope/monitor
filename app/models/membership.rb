@@ -12,5 +12,6 @@ class Membership < ApplicationRecord
   downcase_fields :email, :username
 
   belongs_to :account
-  belongs_to :user, foreign_key: :email, primary_key: :email, optional: true
+  belongs_to :user, foreign_key: :email, primary_key: :email, optional: true,
+    inverse_of: :memberships
 end
