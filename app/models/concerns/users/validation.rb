@@ -12,20 +12,21 @@ module Users::Validation
       format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }
 
     validate :email_is_not_globally_taken,
-             :username_is_not_globally_taken, if: :persisted?
+             :username_is_not_globally_taken
   end
 
   private
 
     def email_is_not_globally_taken
-      if email_changed? && Membership.where(email: email).exists?
+      if persisted? && email_changed? && Membership.where(email: email).exists?
         errors.add :email, :globally_taken
       end
     end
 
     def username_is_not_globally_taken
       others = Membership.where(username: username).where.not email: email
-      taken  = username_changed?     &&
+      taken  = persisted?            &&
+               username_changed?     &&
                username.present?     &&
                username_was.present? &&
                others.exists?
