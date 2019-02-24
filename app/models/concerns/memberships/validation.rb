@@ -15,7 +15,7 @@ module Memberships::Validation
         where.not(email: email_was || email)
 
       if username.present? && membership_with_different_email.exists?
-        errors.add :username
+        errors.add :username, :taken
         user&.errors&.add :username, :globally_taken
       end
     end
