@@ -5,7 +5,8 @@ module Users::Memberships
     before_create :create_membership
     before_update :update_memberships
 
-    has_many :memberships, foreign_key: :email, primary_key: :email
+    has_many :memberships, foreign_key: :email, primary_key: :email,
+      inverse_of: :user
     has_one :default_membership, -> { default }, class_name: 'Membership',
       foreign_key: :email, primary_key: :email
     has_one :current_membership, -> { current }, class_name: 'Membership',
@@ -27,22 +28,14 @@ module Users::Memberships
     end
 
     def update_membership_email
-      if Membership.where(email: email).exists?
-        errors.add :email, :taken
-      else
-        Membership.where(email: email_was).find_each do |membership|
-          membership.update! email: email
-        end
+      Membership.where(email: email_was).find_each do |membership|
+        membership.update! email: email
       end
     end
 
     def update_membership_username
-      if Membership.where(username: username).where.not(email: email).exists?
-        errors.add :username, :taken
-      else
-        Membership.where(username: username_was).find_each do |membership|
-          membership.update! username: username
-        end
+      Membership.where(username: username_was).find_each do |membership|
+        membership.update! username: username
       end
     end
 end

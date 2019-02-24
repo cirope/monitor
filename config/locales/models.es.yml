@@ -222,6 +222,12 @@ es:
               user_invalid: 'No tiene permisos para modificar este caso'
             tags:
               invalid: 'finales debe haber una (solamente)'
+        user:
+          attributes:
+            email:
+              globally_taken: 'ya está en uso en otra cuenta'
+            username:
+              globally_taken: 'ya está en uso en otra cuenta'
 
   errors:
     messages:
