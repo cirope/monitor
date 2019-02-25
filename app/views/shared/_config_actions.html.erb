@@ -14,7 +14,7 @@
           <%= menu_item_for Descriptor, descriptors_path %>
         <% end %>
 
-        <%= menu_item_for Account, accounts_path %>
+        <%= menu_item_for Account, accounts_path if current_account.default? %>
         <%= menu_item_for Server, servers_path %>
         <%= menu_item_for Database, databases_path %>
         <%= menu_item_for Ldap, ldaps_path %>

@@ -73,7 +73,7 @@ class ApplicationControllerTest < ActionController::TestCase
 
     @controller.send(:not_supervisor)
 
-    assert_redirected_to issues_url
+    assert_redirected_to root_url
   end
 
   test 'should check guest role' do
@@ -83,7 +83,7 @@ class ApplicationControllerTest < ActionController::TestCase
 
     @controller.send(:only_guest)
 
-    assert_redirected_to issues_url
+    assert_redirected_to root_url
   end
 
   test 'should store location' do

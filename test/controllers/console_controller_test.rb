@@ -14,7 +14,7 @@ class ConsoleControllerTest < ActionController::TestCase
     login user: users(:eduardo)
 
     get :show
-    assert_redirected_to issues_url
+    assert_redirected_to root_url
   end
 
   test 'should be redirected if disabled' do

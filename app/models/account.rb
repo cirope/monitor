@@ -1,6 +1,7 @@
 class Account < ApplicationRecord
   include Attributes::Strip
   include Attributes::Downcase
+  include Accounts::Default
   include Accounts::Destroy
   include Accounts::Memberships
   include Accounts::OnEach
