@@ -14,6 +14,6 @@ module Roles
   private
 
     def not_authorized_redirect condition
-      redirect_to issues_url, alert: t('messages.not_authorized') if condition
+      redirect_to root_url, alert: t('messages.not_authorized') if condition
     end
 end

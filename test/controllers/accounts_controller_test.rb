@@ -56,4 +56,15 @@ class AccountsControllerTest < ActionController::TestCase
 
     assert_redirected_to account_url(@account)
   end
+
+  test 'access should be restricted to default account' do
+    account = Account.create! name: 'Test', tenant_name: 'test'
+    user    = account.enroll users(:franco), copy_user: true
+
+    account.switch do
+      get :index
+
+      assert_redirected_to root_url
+    end
+  end
 end

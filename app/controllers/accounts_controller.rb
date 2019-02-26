@@ -3,10 +3,9 @@ class AccountsController < ApplicationController
 
   respond_to :html
 
-  before_action :authorize, :not_guest
+  before_action :authorize, :not_guest, :not_author, :from_default_account
   before_action :set_account, only: [:show, :edit, :update]
   before_action :set_title
-  before_action :not_author, only: [:edit, :update]
 
   # GET /accounts
   def index
@@ -58,5 +57,9 @@ class AccountsController < ApplicationController
 
     def account_params
       params.require(:account).permit :name, :tenant_name, :lock_version
+    end
+
+    def from_default_account
+      not_authorized_redirect !current_account.default?
     end
 end
