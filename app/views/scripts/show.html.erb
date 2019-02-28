@@ -4,7 +4,7 @@
     <% if @script.core %>
       <span class="glyphicon glyphicon-star" title="<%= Script.human_attribute_name 'core' %>"></span>
     <% end %>
-    <%= link_to new_script_execution_path(@script), title: t('.execute_now') do %>
+    <%= link_to script_executions_path(@script), title: t('.execute_now'), class: 'btn btn-default', data: { method: :post } do %>
       <span class="glyphicon glyphicon-play"></span>
     <% end %> |
     <%= link_to script_versions_path(@script), title: t('.history') do %>

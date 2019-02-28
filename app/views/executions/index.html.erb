@@ -13,8 +13,8 @@
       <tr>
         <th><%= Execution.human_attribute_name 'server' %></th>
         <th><%= Execution.human_attribute_name 'status' %></th>
-        <th><%= Execution.human_attribute_name 'started_at' %></th>
-        <th><%= Execution.human_attribute_name 'ended_at' %></th>
+        <th class="hidden-sm hidden-xs"><%= Execution.human_attribute_name 'started_at' %></th>
+        <th class="hidden-sm hidden-xs"><%= Execution.human_attribute_name 'ended_at' %></th>
       </tr>
     </thead>
 
@@ -23,8 +23,8 @@
         <tr>
           <td><%= execution.server %></td>
           <td><%= execution_status execution.status %></td>
-          <td><%= l execution.started_at, format: :compact if execution.started_at %></td>
-          <td><%= l execution.ended_at, format: :compact if execution.ended_at %></td>
+          <td class="hidden-sm hidden-xs"><%= l execution.started_at, format: :compact if execution.started_at %></td>
+          <td class="hidden-sm hidden-xs"><%= l execution.ended_at, format: :compact if execution.ended_at %></td>
           <td><%= link_to_show [@script, execution] %></td>
         </tr>
       <% end %>
