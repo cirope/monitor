@@ -4,6 +4,7 @@ atahualpa:
   user: franco
   password: secret
   credential:
+  default: true
 
 gardelito:
   name: Gardelito
@@ -11,3 +12,4 @@ gardelito:
   user: franco
   password: secret
   credential:
+  default: false

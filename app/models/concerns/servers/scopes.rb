@@ -1,6 +1,10 @@
 module Servers::Scopes
   extend ActiveSupport::Concern
 
+  included do
+    scope :default, -> { where default: true }
+  end
+
   module ClassMethods
     def by_name name
       where "#{table_name}.name ILIKE ?", "%#{name}%"

@@ -4,6 +4,7 @@ class Server < ApplicationRecord
   include Filterable
   include SearchableByName
   include Servers::Command
+  include Servers::Default
   include Servers::Local
   include Servers::Scopes
   include Servers::Ssh

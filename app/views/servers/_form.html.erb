@@ -12,7 +12,13 @@
         <%= f.input :password %>
       </div>
     </div>
+
     <%= f.input :credential, input_html: { disabled: @server.password.present? } %>
+    <%= f.input :default, as: :boolean,
+                          inline_label: true,
+                          label: false,
+                          wrapper_html: { class: 'checkbox' },
+                          input_html: { disabled: @server.persisted? && !@server.local? } %>
     <%= f.input :lock_version, as: :hidden %>
   </div>
 

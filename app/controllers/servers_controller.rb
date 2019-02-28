@@ -53,6 +53,13 @@ class ServersController < ApplicationController
     end
 
     def server_params
-      params.require(:server).permit :name, :hostname, :user, :password, :credential, :credential_cache, :lock_version
+      params.require(:server).permit :name,
+                                     :hostname,
+                                     :user,
+                                     :password,
+                                     :credential,
+                                     :credential_cache,
+                                     :default,
+                                     :lock_version
     end
 end

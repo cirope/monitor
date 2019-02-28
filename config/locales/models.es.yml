@@ -182,6 +182,7 @@ es:
         user: 'Usuario'
         password: 'Contraseña'
         credential: 'Credencial'
+        default: 'Principal'
       subscription:
         user: 'Usuario'
       tag:
@@ -222,6 +223,10 @@ es:
               user_invalid: 'No tiene permisos para modificar este caso'
             tags:
               invalid: 'finales debe haber una (solamente)'
+        server:
+          attributes:
+            default:
+              invalid: 'solo puede establecerse para servidores locales'
         user:
           attributes:
             email:
