@@ -13,19 +13,9 @@ class ExecutionsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test 'should get new' do
-    get :new, params: { script_id: @execution.script_id }
-    assert_response :success
-  end
-
   test 'should create execution' do
     assert_difference 'Execution.count' do
-      post :create, params: {
-        script_id: @execution.script_id,
-        execution: {
-          server_id:  servers(:atahualpa).id
-        }
-      }
+      post :create, params: { script_id: @execution.script_id }
     end
 
     assert_redirected_to script_execution_url(@execution.script, Execution.last)
