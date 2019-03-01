@@ -36,7 +36,7 @@ GEM
     activerecord-oracle_enhanced-adapter (5.2.4)
       activerecord (~> 5.2.0)
       ruby-plsql (>= 0.6.0)
-    activerecord-session_store (1.1.1)
+    activerecord-session_store (1.1.2)
       actionpack (>= 4.0)
       activerecord (>= 4.0)
       multi_json (~> 1.11, >= 1.11.2)
