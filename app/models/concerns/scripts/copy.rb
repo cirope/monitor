@@ -24,7 +24,8 @@ module Scripts::Copy
   def body inclusion = false
     body = inclusion ? '' : "#!/usr/bin/env ruby\n\n"
 
-    body << cores_code unless inclusion
+    body << settings    unless inclusion
+    body << cores_code  unless inclusion
 
     includes.each do |script|
       body << script.body('local inclusion')
@@ -62,6 +63,12 @@ module Scripts::Copy
         "#{text_with_injections}",
         "# End #{uuid} #{name} #{comment}\n\n"
       ].join("\n\n")
+    end
+
+    def settings
+      String.new.tap do |buffer|
+        buffer << "STDOUT.sync = true\n"
+      end
     end
 
     def cores_code

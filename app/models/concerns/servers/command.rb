@@ -27,8 +27,6 @@ module Servers::Command
     ]
 
     Open3.popen2e *cmd do |stdin, stdout, thread|
-      STDOUT.sync = true
-
       stdout.each { |line| execution.new_line line }
 
       status = thread.value.exitstatus.to_i
