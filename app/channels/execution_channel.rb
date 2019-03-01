@@ -7,7 +7,7 @@ class ExecutionChannel < ApplicationCable::Channel
     return if execution.output.blank?
 
     execution.output.split(/\r?\n/).each do |line|
-      self.class.send_line execution.id, line
+      self.class.send_line execution.id, "#{line}\r\n"
     end
   end
 

@@ -11,7 +11,7 @@ module Executions::Run
     self.ended_at = Time.zone.now
 
     # Fake PaperTrail change output
-    self.output.tap do |current_output|
+    output.tap do |current_output|
       self.output = ''
 
       clear_attribute_changes [:output]
