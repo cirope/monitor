@@ -29,13 +29,13 @@
   <div id="execution-errors" class="panel-collapse collapse in">
     <div class="panel-body">
       <p>
-        <pre>
-          <% if @execution.pending? || @execution.running? %>
-             <samp data-actioncable-watch="execution" data-actioncable-watch-execution-id="<%= @execution.id %>"></samp>
-          <% else %>
-             <samp><%= @execution.output %></samp>
-          <% end %>
-        </pre>
+        <% if @execution.pending? || @execution.running? %>
+          <pre><samp
+            data-actioncable-watch="execution"
+            data-actioncable-watch-execution-id="<%= @execution.id %>"></samp></pre>
+        <% else %>
+          <pre><samp><%= @execution.output %></samp></pre>
+        <% end %>
       </p>
     </div>
   </div>

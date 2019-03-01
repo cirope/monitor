@@ -5,7 +5,7 @@ $(document).on('ready turbolinks:load', function () {
     return
 
   var body        = body || document.querySelector('body')
-  var executionId = outputDiv.data('actioncable-watch-execution-id')
+  var executionId = outputDiv.data('actioncableWatchExecutionId')
 
   App.cable.subscriptions.create(
     { channel: 'ExecutionChannel', id: executionId },
@@ -14,8 +14,9 @@ $(document).on('ready turbolinks:load', function () {
         this.perform('fetch')
         $('.loading-caption').removeClass('hidden')
       },
+
       received: function (data) {
-        outputDiv.append(data.line + "\n")
+        outputDiv.append(data.line)
         body.scrollIntoView(false)
 
         if (data.status === 'success' || data.status === 'error') {

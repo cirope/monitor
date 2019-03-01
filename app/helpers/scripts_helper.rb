@@ -55,4 +55,20 @@ module ScriptsHelper
 
     raw Diffy::Diff.new(previous&.text, @script.text, include_plus_and_minus_in_html: true)
   end
+
+  def link_to_execute &block
+    url     = script_executions_path @script
+    options = {
+      class: 'btn btn-sm btn-default',
+      title: t('.execute_now'),
+      data:  {
+        method:  :post,
+        confirm: t('messages.confirmation')
+      }
+    }
+
+    link_to url, options do
+      capture &block if block_given?
+    end
+  end
 end

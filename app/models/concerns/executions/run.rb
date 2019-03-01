@@ -26,7 +26,7 @@ module Executions::Run
 
   def new_line line
     PaperTrail.request enabled: false do
-      update! output: [output, line].compact.join("\n")
+      update! output: [output, line].compact.join
 
       ExecutionChannel.send_line id, line, status: status
     end
