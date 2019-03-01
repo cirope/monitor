@@ -183,6 +183,7 @@ private
         'user',
         'password',
         'credential',
+        'default',
         'lock_version',
         'created_at',
         'updated_at'
