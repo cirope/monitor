@@ -5,6 +5,7 @@ module Comments::Validation
     attr_readonly :user_id, :issue_id
 
     before_validation :set_user, on: :create
+
     validates :text, :user, presence: true
     validates :text, pdf_encoding: true
     validate :user_belongs_to_issue?, on: :create
