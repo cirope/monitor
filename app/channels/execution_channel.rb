@@ -1,6 +1,6 @@
 class ExecutionChannel < ApplicationCable::Channel
   def subscribed
-    stream_from_account "execution_#{params[:id]}"
+    stream_from_account "execution_#{execution.id}"
   end
 
   def fetch
@@ -20,6 +20,14 @@ class ExecutionChannel < ApplicationCable::Channel
   private
 
     def execution
-      @execution ||= ::Execution.find params[:id]
+      @execution ||= find_execution
+    end
+
+    def find_execution
+      execution = nil
+
+      current_account.switch { execution = ::Execution.find params[:id] }
+
+      execution
     end
 end
