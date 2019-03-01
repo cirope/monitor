@@ -25,9 +25,7 @@ module Servers::Command
     status      = 1
 
     Open3.popen2e rails, 'runner', script_path do |stdin, stdout, thread|
-      while line = stdout.gets
-        execution.new_line line
-      end
+      stdout.each { |line| execution.new_line line }
 
       status = thread.value.exitstatus.to_i
     end
