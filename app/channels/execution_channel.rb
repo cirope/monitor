@@ -1,6 +1,6 @@
 class ExecutionChannel < ApplicationCable::Channel
   def subscribed
-    stream_from_account "execution_#{execution.id}"
+    stream_from_account "execution:#{execution.id}"
   end
 
   def fetch
@@ -12,7 +12,7 @@ class ExecutionChannel < ApplicationCable::Channel
   end
 
   def self.send_line execution_id, line, status: nil
-    broadcasting = broadcasting_for_current_account "execution_#{execution_id}"
+    broadcasting = broadcasting_for_current_account "execution:#{execution_id}"
 
     ActionCable.server.broadcast broadcasting, line: line, status: status
   end
