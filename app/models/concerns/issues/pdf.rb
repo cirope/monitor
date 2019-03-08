@@ -1,4 +1,4 @@
-module Issues::PDF
+module Issues::Pdf
   extend ActiveSupport::Concern
 
   module ClassMethods

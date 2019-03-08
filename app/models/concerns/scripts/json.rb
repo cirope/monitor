@@ -1,4 +1,4 @@
-module Scripts::JSON
+module Scripts::Json
   extend ActiveSupport::Concern
 
   JSON_EXCLUDED_ATTRIBUTES   = [:id, :file, :lock_version, :imported_at]

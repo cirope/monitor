@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
-gem 'rails', '6.0.0.beta1'
+gem 'rails', '6.0.0.beta2'
+# gem 'rails', github: 'rails/rails'
 
 gem 'pg'
 gem 'sassc-rails'
