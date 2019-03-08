@@ -61,7 +61,7 @@ GEM
       apartment (>= 1.0)
       sidekiq (>= 2.11)
     arel (9.0.0)
-    autoprefixer-rails (9.4.9)
+    autoprefixer-rails (9.4.10.1)
       execjs
     bcrypt (3.1.12)
     bcrypt_pbkdf (1.0.0)
@@ -109,7 +109,7 @@ GEM
       thor (~> 0.14)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
-    i18n (1.5.3)
+    i18n (1.6.0)
       concurrent-ruby (~> 1.0)
     jbuilder (2.8.0)
       activesupport (>= 4.2.0)
@@ -266,7 +266,7 @@ GEM
       thread_safe (~> 0.1)
     uglifier (4.1.20)
       execjs (>= 0.3.0, < 3)
-    unicorn (5.4.1)
+    unicorn (5.5.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
     unicorn-rails (2.2.1)
@@ -341,4 +341,4 @@ DEPENDENCIES
   whenever
 
 BUNDLED WITH
-   1.17.3
+   2.0.1

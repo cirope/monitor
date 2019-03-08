@@ -30,11 +30,11 @@
     <div class="panel-body">
       <p>
         <% if @execution.pending? || @execution.running? %>
-          <pre><samp
+          <pre class="console"><samp
             data-actioncable-watch="execution"
             data-actioncable-watch-execution-id="<%= @execution.id %>"></samp></pre>
         <% else %>
-          <pre><samp><%= @execution.output %></samp></pre>
+          <pre class="console"><samp><%= @execution.output %></samp></pre>
         <% end %>
       </p>
     </div>

@@ -7,6 +7,8 @@ $(document).on('ready turbolinks:load', function () {
   var body        = body || document.querySelector('body')
   var executionId = outputDiv.data('actioncableWatchExecutionId')
 
+  $('.loading-caption').removeClass('hidden')
+
   App.cable.subscriptions.create(
     {
       channel: 'ExecutionChannel',
@@ -16,16 +18,18 @@ $(document).on('ready turbolinks:load', function () {
     {
       connected: function () {
         this.perform('fetch')
-        $('.loading-caption').removeClass('hidden')
+      },
+
+      disconnected: function () {
+        $('.loading-caption').addClass('hidden')
       },
 
       received: function (data) {
         outputDiv.append(data.line)
         body.scrollIntoView(false)
 
-        if (data.status === 'success' || data.status === 'error') {
+        if (data.status === 'success' || data.status === 'error')
           window.location.reload()
-        }
       }
     }
   )

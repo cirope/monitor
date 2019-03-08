@@ -32,6 +32,7 @@
  *= require dashboard
  *= require databases
  *= require descriptors
+ *= require executions
  *= require issues
  *= require issues/board
  *= require issues/exports

@@ -11,8 +11,10 @@ module ApplicationCable
     def connect
       Apartment::Tenant.switch! Account.from_request(request)
 
-      self.current_user    = fetch_current_user    || reject_unauthorized_connection
-      self.current_account = fetch_current_account || reject_unauthorized_connection
+      self.current_user    = fetch_current_user
+      self.current_account = fetch_current_account
+
+      reject_unauthorized_connection unless current_user && current_account
     end
 
     def disconnect
