@@ -63,8 +63,8 @@ es:
         one: 'Guión'
         other: 'Guiones'
       serie:
-        one: "Serie"
-        other: "Series"
+        one: 'Serie'
+        other: 'Series'
       server:
         one: 'Servidor'
         other: 'Servidores'
