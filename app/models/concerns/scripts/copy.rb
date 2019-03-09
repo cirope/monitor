@@ -24,8 +24,10 @@ module Scripts::Copy
   def body inclusion = false
     body = inclusion ? '' : "#!/usr/bin/env ruby\n\n"
 
-    body << settings    unless inclusion
-    body << cores_code  unless inclusion
+    unless inclusion
+      body << settings
+      body << cores_code
+    end
 
     includes.each do |script|
       body << script.body('local inclusion')

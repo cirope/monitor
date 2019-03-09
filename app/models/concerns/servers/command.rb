@@ -21,13 +21,13 @@ module Servers::Command
   end
 
   def execution execution
-    status = 1
-    cmd    = [
-      rails, 'runner', '-e', Rails.env, execution.script.copy_to(self)
-    ]
+    script_path = execution.script.copy_to self
+    status      = 1
 
-    Open3.popen2e *cmd do |stdin, stdout, thread|
-      stdout.each { |line| execution.new_line line }
+    Open3.popen2e rails, 'runner', script_path do |stdin, stdout, thread|
+      stdout.each do |line|
+        execution.new_line line
+      end
 
       status = thread.value.exitstatus.to_i
     end

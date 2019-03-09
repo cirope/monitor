@@ -4,17 +4,19 @@ class ExecutionChannel < ApplicationCable::Channel
   end
 
   def fetch
-    return if execution.output.blank?
-
-    execution.output.split(/\r?\n/).each do |line|
-      self.class.send_line execution.id, "#{line}\r\n"
+    String(execution.output).lines.each_with_index do |line, i|
+      self.class.send_line execution.id, line:   line,
+                                         order:  i.next,
+                                         status: execution.status
     end
   end
 
-  def self.send_line execution_id, line, status: nil
+  def self.send_line execution_id, line:, order:, status:
     broadcasting = broadcasting_for_current_account "execution:#{execution_id}"
 
-    ActionCable.server.broadcast broadcasting, line: line, status: status
+    ActionCable.server.broadcast broadcasting, line:   line,
+                                               order:  order,
+                                               status: status
   end
 
   private
@@ -26,7 +28,9 @@ class ExecutionChannel < ApplicationCable::Channel
     def find_execution
       execution = nil
 
-      current_account.switch { execution = ::Execution.find params[:id] }
+      current_account.switch do
+        execution = ::Execution.find params[:id]
+      end
 
       execution
     end

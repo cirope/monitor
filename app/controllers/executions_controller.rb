@@ -5,7 +5,7 @@ class ExecutionsController < ApplicationController
 
   # GET /executions
   def index
-    @executions = @script.executions.page params[:page]
+    @executions = @script.executions.order(started_at: :desc).page params[:page]
   end
 
   # GET /executions/1

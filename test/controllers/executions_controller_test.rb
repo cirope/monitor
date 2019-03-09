@@ -25,4 +25,12 @@ class ExecutionsControllerTest < ActionController::TestCase
     get :show, params: { id: @execution, script_id: @execution.script_id }
     assert_response :success
   end
+
+  test 'should show execution as JS' do
+    get :show, params: {
+      id: @execution, script_id: @execution.script_id
+    }, xhr: true, as: :js
+
+    assert_response :success
+  end
 end
