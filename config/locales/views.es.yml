@@ -290,6 +290,7 @@ es:
       history: 'Ver historial de cambios'
       download_pdf: 'Descargar PDF'
       execute_now: 'Ejecutar ahora'
+      no_server: 'Debe establecer un servidor principal'
       executions_list: 'Ejecuciones'
     exports:
       create:
