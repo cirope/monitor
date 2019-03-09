@@ -20,9 +20,10 @@ class Serie < ApplicationRecord
       date:       date,
       identifier: identifier
     )
+
     s.count  = s.count.to_i + 1
     s.amount = s.amount.to_f + amount
-    s.data   = (s.data || {}).merge(attributes)
+    s.data   = (s.data || {}).merge attributes
     s.save!
   end
 

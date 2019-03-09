@@ -2,7 +2,7 @@ require 'test_helper'
 
 class SerieTest < ActiveSupport::TestCase
   def setup
-    @serie = series(:first_account)
+    @serie = series :first_account
   end
 
   test 'blank attributes' do

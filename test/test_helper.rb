@@ -10,8 +10,6 @@ class ActiveSupport::TestCase
   # Lo comentamos hasta que esté mas pulido
   # parallelize(workers: :number_of_processors)
 
-  set_fixture_class versions: PaperTrail::Version
-
   fixtures :all
 
   def assert_error model, attribute, type, options = {}
