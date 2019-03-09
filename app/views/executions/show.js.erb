@@ -1,0 +1,17 @@
++function () {
+  var $status = $('[data-status]')
+
+  $status.
+    html('<%= j execution_status(@execution.status) %>').
+    attr('data-status', '<%= @execution.status %>').
+    data('status', '<%= @execution.status %>')
+
+  <% if @execution.status == 'success' || @execution.status == 'error' %>
+    $('.loading-caption').addClass('hidden')
+    $('.alert.alert-info').alert('close')
+  <% else %>
+    setTimeout(function () {
+      $('.loading-caption').removeClass('hidden')
+    })
+  <% end %>
+}()

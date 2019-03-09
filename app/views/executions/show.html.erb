@@ -1,7 +1,9 @@
 <h3>
   <span class="text-muted"><%= Execution.model_name.human count: 1 %> -</span>
+
   <%= link_to @execution.script, @execution.script %>
-  <span class="pull-right">
+
+  <span class="pull-right" data-status="<%= @execution.status %>" data-status-refresh-url="<%= script_execution_path @script, @execution %>">
     <%= execution_status @execution.status %>
   </span>
 </h3>
