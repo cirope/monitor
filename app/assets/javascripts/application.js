@@ -43,6 +43,7 @@
 //= require dashboard
 //= require databases
 //= require descriptors
+//= require executions
 //= require issues
 //= require issues/board
 //= require issues/exports
@@ -69,4 +70,4 @@
 
 //= require action_cable
 //= require cable
-//= require executions
+//= require channels/execution
