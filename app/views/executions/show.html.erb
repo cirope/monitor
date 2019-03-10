@@ -15,11 +15,15 @@
 
 <p>
   <strong><%= Execution.human_attribute_name 'started_at' %></strong>:
-  <%= l @execution.started_at, format: :compact if @execution.started_at %>
+  <span data-started-at>
+    <%= l @execution.started_at, format: :compact if @execution.started_at %>
+  </span>
 </p>
 <p>
   <strong><%= Execution.human_attribute_name 'ended_at' %></strong>:
-  <%= l @execution.ended_at, format: :compact if @execution.ended_at %>
+  <span data-ended-at>
+    <%= l @execution.ended_at, format: :compact if @execution.ended_at %>
+  </span>
 </p>
 
 <div class="panel panel-default">
