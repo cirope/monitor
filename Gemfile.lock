@@ -67,7 +67,7 @@ GEM
       apartment (>= 1.0)
       sidekiq (>= 2.11)
     arel (9.0.0)
-    autoprefixer-rails (9.4.10.1)
+    autoprefixer-rails (9.4.10.2)
       execjs
     bcrypt (3.1.12)
     bcrypt_pbkdf (1.0.0)

@@ -81,9 +81,17 @@ class ScriptsHelperTest < ActionView::TestCase
   end
 
   test 'link to execute' do
+    @server       = servers :atahualpa
     @script       = scripts :ls
     @virtual_path = 'scripts.show'
 
     assert_match t('.execute_now'), link_to_execute
+  end
+
+  test 'disabled link to execute' do
+    @script       = scripts :ls
+    @virtual_path = 'scripts.show'
+
+    assert_match t('.no_server'), link_to_execute
   end
 end

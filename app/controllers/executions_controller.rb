@@ -2,6 +2,7 @@ class ExecutionsController < ApplicationController
   respond_to :html
 
   before_action :authorize, :set_script
+  before_action :set_server, only: [:create]
 
   # GET /executions
   def index
@@ -28,10 +29,14 @@ class ExecutionsController < ApplicationController
       @script = Script.find params[:script_id]
     end
 
+    def set_server
+      @server = Server.default.take!
+    end
+
     def execution_params
       {
         user:   current_user,
-        server: Server.default.take!
+        server: @server
       }
     end
 end
