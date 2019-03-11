@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ScriptJob < ApplicationJob
   queue_as :default
 

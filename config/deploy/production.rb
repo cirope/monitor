@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 set :stage, :production
 set :rails_env, 'production'
 set :branch, 'new-init-multi-tenant'

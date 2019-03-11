@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LdapsController < ApplicationController
   before_action :authorize, :not_guest, :not_author
   before_action :set_title, except: [:destroy]

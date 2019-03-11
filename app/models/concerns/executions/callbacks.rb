@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Executions::Callbacks
   extend ActiveSupport::Concern
 

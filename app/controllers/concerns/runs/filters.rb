@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Runs::Filters
   extend ActiveSupport::Concern
 

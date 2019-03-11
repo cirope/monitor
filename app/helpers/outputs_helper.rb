@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module OutputsHelper
   def link_to_error_line script, error, valid
     link = link_to(

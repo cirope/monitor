@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class IssuesController < ApplicationController
   include Issues::Filters
 

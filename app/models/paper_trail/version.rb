@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PaperTrail::Version < ::ActiveRecord::Base
   include PaperTrail::VersionConcern
 

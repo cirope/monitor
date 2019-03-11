@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   def app_name
     ENV['APP_NAME'].presence || I18n.t('app_name')

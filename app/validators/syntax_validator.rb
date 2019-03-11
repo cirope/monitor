@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SyntaxValidator < ActiveModel::EachValidator
   def validate_each record, attribute, value
     errors = has_syntax_errors? value.to_s

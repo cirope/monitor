@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module FlashHelper
   def flash_message
     flash[:alert] || flash[:notice]

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RunsHelper
   def run_status status
     klass = case status

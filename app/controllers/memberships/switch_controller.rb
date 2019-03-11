@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Memberships::SwitchController < ApplicationController
   before_action :authorize
   before_action :set_membership

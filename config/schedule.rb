@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 env :PATH, ENV['PATH']
 
 every 5.minutes do

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Server < ApplicationRecord
   include Auditable
   include Attributes::Strip

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SchedulesHelper
   def frequencies
     %w(minutes hours days weeks months).map do |frequency|

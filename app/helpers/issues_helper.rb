@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module IssuesHelper
   def issue_index_path
     if @context == :board
