@@ -14,7 +14,17 @@
     $('[data-ended-at]').html('<%= l @execution.ended_at, format: :compact %>')
   <% end %>
 
-  <% if @execution.status == 'success' || @execution.status == 'error' %>
+  <% if @execution.output.present? && @execution.error? %>
+    $('[data-output-error]').html(
+      '<%= j render('shared/parsed_output_errors', exec: @execution) %>'
+    )
+
+    setTimeout(function () {
+      document.querySelector('body').scrollIntoView(false)
+    })
+  <% end %>
+
+  <% if @execution.success? || @execution.error? %>
     $('.loading-caption').addClass('hidden')
     $('.alert.alert-info').alert('close')
   <% else %>

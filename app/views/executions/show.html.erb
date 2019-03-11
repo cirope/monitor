@@ -29,10 +29,10 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title">
-      <%= link_to Execution.human_attribute_name('output'), '#execution-errors', data: { toggle: 'collapse' } %>
+      <%= link_to Execution.human_attribute_name('output'), '#execution-output', data: { toggle: 'collapse' } %>
     </h3>
   </div>
-  <div id="execution-errors" class="panel-collapse collapse in">
+  <div id="execution-output" class="panel-collapse collapse in">
     <div class="panel-body">
       <p>
         <% if @execution.pending? || @execution.running? %>
@@ -47,4 +47,8 @@
   </div>
 </div>
 
-<%= render 'shared/parsed_output_errors', exec: @execution if @execution.output.present? && @execution.error? %>
+<div data-output-error>
+  <% if @execution.output.present? && @execution.error? %>
+    <%= render 'shared/parsed_output_errors', exec: @execution %>
+  <% end %>
+</div>
