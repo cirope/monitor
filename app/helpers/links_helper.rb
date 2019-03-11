@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module LinksHelper
   def link_to_destroy(*args)
     options = args.extract_options!

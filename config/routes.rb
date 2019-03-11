@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   # Dashboard
   get 'dashboard', to: 'dashboard#index', as: 'dashboard'

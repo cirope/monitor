@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module MembershipsHelper
   def link_to_default membership
     if membership.default

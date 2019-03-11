@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Permalink < ApplicationRecord
   include Auditable
   include Permalinks::Defaults

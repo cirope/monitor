@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ActiveRecord::Base.transaction do
   if Account.where(tenant_name: 'default').empty?
     account = Account.create!(

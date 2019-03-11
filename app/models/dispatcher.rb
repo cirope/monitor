@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Dispatcher < ApplicationRecord
   include Auditable
   include Dispatchers::Validation

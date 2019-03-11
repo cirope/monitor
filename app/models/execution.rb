@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Execution < ApplicationRecord
   include Auditable
   include Executions::Callbacks

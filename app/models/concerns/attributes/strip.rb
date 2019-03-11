@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Attributes::Strip
   extend ActiveSupport::Concern
 

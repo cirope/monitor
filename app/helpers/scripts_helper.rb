@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ScriptsHelper
   def maintainers
     @script.maintainers.new if @script.maintainers.empty?

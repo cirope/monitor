@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddDefaultToServers < ActiveRecord::Migration[5.2]
   def change
     change_table :servers do |t|

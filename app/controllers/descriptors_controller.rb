@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DescriptorsController < ApplicationController
   before_action :authorize, :not_guest, :not_security, :not_author
   before_action :set_descriptor, only: [:show, :edit, :update, :destroy]

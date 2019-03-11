@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Databases::Scopes
   extend ActiveSupport::Concern
 

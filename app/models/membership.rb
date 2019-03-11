@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Membership < ApplicationRecord
   include Attributes::Strip
   include Attributes::Downcase
