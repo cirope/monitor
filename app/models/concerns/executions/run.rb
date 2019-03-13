@@ -1,6 +1,5 @@
 module Executions::Run
   extend ActiveSupport::Concern
-  TOPRC_HOME ||= ::Rails.root.join('lib', 'top')
 
   def run
     update(
@@ -33,44 +32,14 @@ module Executions::Run
     end
   end
 
-  def check_process
-    command = "HOME=#{TOPRC_HOME} top -p #{Process.pid} -n 1 -b| tail -n 1"
-    # [PID USER RES %CPU %MEM TIME+ COMMAND]
-    Thread.new {
-      loop do
-        pid, memory, cpu, memory_p = *IO.popen(command).read.split(' ')
+  def run_with_profiler
+    start_profiler
 
-        if pid.to_i > 0
-          register_resources(
-            cpu:               cpu,
-            memory_percentage: memory_p,
-            memory:            memory
-          )
-        end
-        # break unless self.running?
-        sleep 2 # o lo que sea
-      end
-    }
-  end
+    run
 
-  def register_resources(keys)
-    puts keys
-  end
-
-  def manso
-    self.status = :pending
-    tanga = Thread.new {
-
-      @a = []
-      begin
-        Timeout.timeout(10) do
-          @a = []
-          loop { @a << 3*3*3*3*3*3*3*3*3*rand*rand*rand }
-        end
-      rescue Timeout::Error => e
-      end
-    }
-    self.check_process
-    tanga.join
+    stop_profiler
+  rescue => e
+    stop_profiler
+    raise e
   end
 end

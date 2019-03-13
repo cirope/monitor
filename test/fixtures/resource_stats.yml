@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  resourceable_id: 1
+  resourceable_type: MyString
+  cpu: 9.99
+  memory: MyString
+  memory_percentage: 9.99
+
+two:
+  resourceable_id: 1
+  resourceable_type: MyString
+  cpu: 9.99
+  memory: MyString
+  memory_percentage: 9.99

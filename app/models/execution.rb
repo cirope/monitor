@@ -4,6 +4,7 @@ class Execution < ApplicationRecord
   include Executions::Run
   include Executions::Validation
   include Outputs::Parser
+  include Resourceable
 
   belongs_to :script
   belongs_to :server

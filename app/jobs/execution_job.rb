@@ -2,11 +2,10 @@ class ExecutionJob < ApplicationJob
   queue_as :default
 
   def perform execution_id
-    p Process.pid
-    p system("rails runner -e #{Rails.env} 'Execution.find(#{execution_id}).manso && raise Exception'")
+    status = system(
+      "rails runner -e #{Rails.env} 'Execution.find(#{execution_id}).run_with_profiler'"
+    )
 
-    # execution = Execution.find execution_id
-
-    # execution.run
+    raise Exception, 'can not run_with_profiler' unless status
   end
 end

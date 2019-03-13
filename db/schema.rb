@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_25_004524) do
+ActiveRecord::Schema.define(version: 2019_03_13_023727) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -101,8 +101,8 @@ ActiveRecord::Schema.define(version: 2018_11_25_004524) do
   end
 
   create_table "issues_permalinks", id: false, force: :cascade do |t|
-    t.bigint "issue_id", null: false
-    t.bigint "permalink_id", null: false
+    t.integer "issue_id", null: false
+    t.integer "permalink_id", null: false
     t.index ["issue_id"], name: "index_issues_permalinks_on_issue_id"
     t.index ["permalink_id"], name: "index_issues_permalinks_on_permalink_id"
   end
@@ -189,6 +189,16 @@ ActiveRecord::Schema.define(version: 2018_11_25_004524) do
     t.datetime "updated_at", null: false
     t.index ["caller_id"], name: "index_requires_on_caller_id"
     t.index ["script_id"], name: "index_requires_on_script_id"
+  end
+
+  create_table "resource_stats", force: :cascade do |t|
+    t.string "resourceable_type", null: false
+    t.bigint "resourceable_id", null: false
+    t.decimal "cpu", precision: 4, scale: 1
+    t.string "memory"
+    t.decimal "memory_percentage", precision: 4, scale: 1
+    t.datetime "created_at", null: false
+    t.index ["resourceable_type", "resourceable_id"], name: "index_resource_stats_on_resourceable_type_and_resourceable_id"
   end
 
   create_table "rules", id: :serial, force: :cascade do |t|

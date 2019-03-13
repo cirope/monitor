@@ -24,7 +24,13 @@ module Servers::Command
     script_path = execution.script.copy_to self
     status      = 1
 
+    # en caso de interrupción, no siga ejecutando
+    @runner_thread = nil
+    at_exit { @runner_thread.try(:kill) }
+
     Open3.popen2e rails, 'runner', script_path do |stdin, stdout, thread|
+      @runner_thread = thread
+
       while line = stdout.gets
         execution.new_line line
       end
