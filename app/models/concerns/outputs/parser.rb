@@ -1,4 +1,6 @@
-module Runs::OutputParser
+# frozen_string_literal: true
+
+module Outputs::Parser
   extend ActiveSupport::Concern
 
   def parse_and_find_lines_with_error

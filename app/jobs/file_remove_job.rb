@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FileRemoveJob < ApplicationJob
   queue_as :default
 

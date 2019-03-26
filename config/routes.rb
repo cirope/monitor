@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   # Dashboard
   get 'dashboard', to: 'dashboard#index', as: 'dashboard'
@@ -34,8 +36,18 @@ Rails.application.routes.draw do
   resources :servers
   resources :password_resets, only: [:new, :create, :edit, :update]
 
+  resources :accounts, except: [:destroy] do
+    resources :issues, only: [:show]
+    resources :permalinks, only: [:show]
+    resources :password_resets, only: [:edit]
+  end
+
   resources :issues, except: [:new, :create] do
     resources :taggings, only: [:new, :create, :destroy]
+  end
+
+  resources :memberships, only: [:index, :update] do
+    resources :switch, only: [:create], controller: 'memberships/switch'
   end
 
   resources :permalinks, only: [:show, :create] do
@@ -64,6 +76,8 @@ Rails.application.routes.draw do
   resources :scripts do
     resources :issues,   only: [:index]
     resources :versions, only: [:index, :show], controller: 'scripts/versions'
+    resources :executions, only: [:index, :create, :show]
+    resources :reverts, only: [:create], controller: 'scripts/reverts'
   end
 
   namespace :users do

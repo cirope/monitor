@@ -1,3 +1,6 @@
+_fixture:
+  model_class: Property
+
 trace:
   key: Trace
   value: 'No'

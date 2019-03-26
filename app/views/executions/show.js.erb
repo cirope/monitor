@@ -1,0 +1,35 @@
++function () {
+  var $status = $('[data-status]')
+
+  $status.
+    html('<%= j execution_status(@execution.status) %>').
+    attr('data-status', '<%= @execution.status %>').
+    data('status', '<%= @execution.status %>')
+
+  <% if @execution.started_at %>
+    $('[data-started-at]').html('<%= l @execution.started_at, format: :compact %>')
+  <% end %>
+
+  <% if @execution.ended_at %>
+    $('[data-ended-at]').html('<%= l @execution.ended_at, format: :compact %>')
+  <% end %>
+
+  <% if @execution.output.present? && @execution.error? %>
+    $('[data-output-error]').html(
+      '<%= j render('shared/parsed_output_errors', exec: @execution) %>'
+    )
+
+    setTimeout(function () {
+      document.querySelector('body').scrollIntoView(false)
+    })
+  <% end %>
+
+  <% if @execution.success? || @execution.error? %>
+    $('.loading-caption').addClass('hidden')
+    $('.alert.alert-info').alert('close')
+  <% else %>
+    setTimeout(function () {
+      $('.loading-caption').removeClass('hidden')
+    })
+  <% end %>
+}()

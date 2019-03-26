@@ -16,6 +16,20 @@ es:
     loading: 'Cargando...'
     logout: 'Salir'
     show: 'Ver'
+    switch: 'Ingresar'
+
+  accounts:
+    edit:
+      title: 'Editar cuenta'
+    index:
+      new: 'Nueva cuenta'
+      title: 'Listado de cuentas'
+      empty_html: 'No hay cuentas, puede crear una con el botón <span class="label label-primary">Nueva cuenta</span>'
+      empty_search_html: 'No hay cuentas que coincidan con el criterio de búsqueda'
+    new:
+      title: 'Crear cuenta'
+    show:
+      title: 'Ver cuenta'
 
   board:
     index:
@@ -74,6 +88,15 @@ es:
   dispatchers:
     dispatcher:
       empty: 'No se encontraron reglas con ese criterio'
+
+  executions:
+    index:
+      empty_html: 'No hay ejecuciones'
+    status:
+      pending: 'Pendiente'
+      running: 'Corriendo'
+      success: 'Finalizada OK'
+      error: 'Finalizada con errores'
 
   imports:
     new:
@@ -162,6 +185,17 @@ es:
     maintainer:
       empty: 'No se encontraron usuarios con ese criterio'
 
+  memberships:
+    membership:
+      make_default: 'Convertir en cuenta principal'
+      default: 'Cuenta principal'
+      current: 'Cuenta actual'
+    index:
+      title: 'Listado de accesos'
+      empty_search_html: 'No hay cuentas que coincidan con el criterio de búsqueda'
+    show:
+      title: 'Ver acceso'
+
   objects:
     grid:
       more: 'Ver'
@@ -174,6 +208,10 @@ es:
         pie: 'Torta'
     ul:
       more: 'Ver'
+
+  outputs:
+    show:
+      scripts_with_errors: 'Guiones con errores'
 
   requires:
     require:
@@ -221,7 +259,6 @@ es:
     show:
       title: 'Ver corrida'
       full_output: 'Ver salida completa'
-      scripts_with_errors: 'Guiones con errores'
     status:
       pending: 'Pendiente'
       scheduled: 'Programada'
@@ -252,6 +289,9 @@ es:
       title: 'Ver guión'
       history: 'Ver historial de cambios'
       download_pdf: 'Descargar PDF'
+      execute_now: 'Ejecutar ahora'
+      no_server: 'Debe establecer un servidor principal'
+      executions_list: 'Ejecuciones'
     exports:
       create:
         filename: 'guiones.zip'
@@ -274,7 +314,12 @@ es:
           create: 'Creación'
       show:
         title: 'Ver versión'
-        no_previous: 'Primer versión'
+        revert: 'Restaurar versión'
+    reverts:
+      reverted_from: 'Restaurado de "%{title}"'
+      create:
+        reverted: 'Versión restaurada'
+        cannot_be_reverted: 'Hubo un problema al restaurar la versión'
 
   schedules:
     edit:

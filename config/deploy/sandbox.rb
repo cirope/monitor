@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 set :stage, :sandbox
 set :rails_env, 'sandbox'
 set :ssh_options, { port: 2222 }

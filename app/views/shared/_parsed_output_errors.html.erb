@@ -1,18 +1,17 @@
 <div class="panel panel-danger">
   <div class="panel-heading">
     <h4 class="panel-title">
-      <%= link_to t('runs.show.scripts_with_errors'), "#script_errors",
+      <%= link_to t('outputs.show.scripts_with_errors'), '#output-errors',
         data: { toggle: 'collapse' } %>
     </h4>
   </div>
-  <div id="script_errors" class="panel-collapse collapse in">
+  <div id="output-errors" class="panel-collapse collapse in">
     <div class="panel-body">
-      <% @run.parse_and_find_lines_with_error.each do |script, errors| %>
-        <h3><%= script %></h3>
+      <% exec.parse_and_find_lines_with_error.each do |script, errors| %>
         <ul>
           <% errors.each do |error| %>
             <li>
-              <%= runs_output_error_line_with_link script, error, @run.still_valid? %>
+              <%= link_to_error_line script, error, exec.still_valid? %>
             </li>
           <% end %>
         </ul>

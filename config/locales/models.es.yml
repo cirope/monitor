@@ -5,6 +5,9 @@ es:
 
   activerecord:
     models:
+      account:
+        one: 'Cuenta'
+        other: 'Cuentas'
       comment:
         one: 'Comentario'
         other: 'Comentarios'
@@ -20,6 +23,9 @@ es:
       description:
         one: 'Atributo'
         other: 'Atributos'
+      execution:
+        one: 'Ejecución'
+        other: 'Ejecuciones'
       issue:
         one: 'Caso'
         other: 'Casos'
@@ -32,6 +38,9 @@ es:
       maintainer:
         one: 'Mantenedor'
         other: 'Mantenedores'
+      membership:
+        one: 'Acceso'
+        other: 'Accesos'
       output:
         one: 'Salida regla'
         other: 'Salida reglas'
@@ -76,6 +85,9 @@ es:
         other: 'Usuarios'
 
     attributes:
+      account:
+        name: 'Nombre'
+        tenant_name: 'Contexto'
       comment:
         text: 'Comentario'
         file: 'Adjunto'
@@ -91,6 +103,12 @@ es:
         value: 'Valor'
       descriptor:
         name: 'Nombre'
+      execution:
+        status: 'Estado'
+        started_at: 'Inicio'
+        ended_at: 'Fin'
+        output: 'Salida'
+        server: 'Servidor'
       issue:
         status: 'Estado'
         description: 'Descripción'
@@ -122,6 +140,10 @@ es:
         role_security: 'Grupo seguridad'
       maintainer:
         user: 'Usuario'
+      membership:
+        email: 'Correo'
+        default: 'Principal'
+        account: 'Cuenta'
       parameter:
         name: 'Nombre'
         value: 'Valor'
@@ -160,6 +182,7 @@ es:
         user: 'Usuario'
         password: 'Contraseña'
         credential: 'Credencial'
+        default: 'Principal'
       subscription:
         user: 'Usuario'
       tag:
@@ -190,12 +213,26 @@ es:
           attributes:
             issue:
               invalid: 'no pertenece a su usuario'
+        execution:
+          attributes:
+            server:
+              should_be_local: 'debe ser un servidor local'
         issue:
           attributes:
             base:
               user_invalid: 'No tiene permisos para modificar este caso'
             tags:
               invalid: 'finales debe haber una (solamente)'
+        server:
+          attributes:
+            default:
+              invalid: 'solo puede establecerse para servidores locales'
+        user:
+          attributes:
+            email:
+              globally_taken: 'ya está en uso en otra cuenta'
+            username:
+              globally_taken: 'ya está en uso en otra cuenta'
 
   errors:
     messages:

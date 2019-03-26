@@ -37,15 +37,19 @@
 //= require date_pickers
 //= require dynamic_form
 //= require filters
+//= require accounts
 //= require comments
 //= require console
 //= require dashboard
 //= require databases
 //= require descriptors
+//= require executions
 //= require issues
 //= require issues/board
 //= require issues/exports
 //= require ldaps
+//= require memberships
+//= require memberships/switch
 //= require objects
 //= require permalinks
 //= require password_resets
@@ -63,3 +67,7 @@
 //= require taggings
 //= require users
 //= require users/imports
+
+//= require action_cable
+//= require cable
+//= require channels/execution

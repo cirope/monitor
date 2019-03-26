@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Scripts::Injections
   extend ActiveSupport::Concern
 
@@ -31,7 +33,7 @@ module Scripts::Injections
   private
 
     def inject_db_properties line, connection_name
-      db = Database.find_by name: connection_name
+      db = Database.current.find_by name: connection_name
 
       if db && db.driver.downcase =~ /freetds/ && db.user && db.password
         arguments = "'#{connection_name}', '#{db.user}', '#{db.password}'"
@@ -44,7 +46,7 @@ module Scripts::Injections
     end
 
     def inject_ar_connection line, connection_name
-      db = Database.find_by name: connection_name
+      db = Database.current.find_by name: connection_name
 
       if db
         connection = "ActiveRecord::Base.establish_connection(#{db.ar_config})"
@@ -56,7 +58,7 @@ module Scripts::Injections
     end
 
     def replace_db_property line, connection_name, property_key
-      db = Database.find_by name: connection_name
+      db = Database.current.find_by name: connection_name
 
       if db && db.property(property_key)
         value = db.property property_key

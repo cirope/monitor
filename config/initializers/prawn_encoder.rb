@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Prawn::PrawnEncoder < CodeRay::Encoders::Encoder
   register_for :to_prawn
 

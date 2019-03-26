@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module UsersHelper
   def roles
     User::ROLES.map { |k| [t("users.roles.#{k}"), k] }

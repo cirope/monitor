@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 inputs = %w[
   CollectionSelectInput
   DateTimeInput

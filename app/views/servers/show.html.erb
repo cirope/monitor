@@ -19,6 +19,11 @@
   </p>
 <% end %>
 
+<p>
+  <strong><%= Server.human_attribute_name 'default' %></strong>:
+  <%= t @server.default ? 'yes' : 'no' %>
+</p>
+
 <% unless current_user.supervisor? %>
   <%= link_to_edit [:edit, @server] %> |
 <% end %>

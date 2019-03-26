@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class IssueTest < ActiveSupport::TestCase
@@ -181,13 +183,13 @@ class IssueTest < ActiveSupport::TestCase
   end
 
   test 'comment' do
-    user       = users :franco
-    user_count = User.joins(:issues).count
+    user                         = users :franco
+    PaperTrail.request.whodunnit = user.id
 
-    assert user_count > 1
+    assert user.issues.any?
 
-    assert_enqueued_emails user_count.pred do
-      Issue.comment text: 'Mass comment test', user_id: user.id
+    assert_enqueued_emails user.issues.count do
+      user.issues.comment text: 'Mass comment test'
     end
   end
 end
