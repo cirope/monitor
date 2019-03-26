@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RulesHelper
   def triggers
     @rule.triggers.new if @rule.triggers.empty?

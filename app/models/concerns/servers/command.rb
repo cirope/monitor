@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Servers::Command
   extend ActiveSupport::Concern
 
@@ -25,7 +27,7 @@ module Servers::Command
     status      = 1
 
     Open3.popen2e rails, 'runner', script_path do |stdin, stdout, thread|
-      while line = stdout.gets
+      stdout.each do |line|
         execution.new_line line
       end
 

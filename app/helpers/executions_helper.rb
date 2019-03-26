@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ExecutionsHelper
   def execution_status status
     klass = case status.to_s

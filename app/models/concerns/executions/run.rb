@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Executions::Run
   extend ActiveSupport::Concern
 
@@ -11,7 +13,7 @@ module Executions::Run
     self.ended_at = Time.zone.now
 
     # Fake PaperTrail change output
-    self.output.tap do |current_output|
+    output.tap do |current_output|
       self.output = ''
 
       clear_attribute_changes [:output]
@@ -19,16 +21,26 @@ module Executions::Run
       self.output = current_output
     end
 
-    ExecutionChannel.send_line id, '', status: status
+    ExecutionChannel.send_line id, line:   nil,
+                                   order:  lines_count.next,
+                                   status: status
 
     save!
   end
 
   def new_line line
     PaperTrail.request enabled: false do
-      update! output: [output, line].compact.join("\n")
+      update! output: [output, line].compact.join
 
-      ExecutionChannel.send_line id, line, status: status
+      ExecutionChannel.send_line id, line:   line,
+                                     order:  lines_count,
+                                     status: status
     end
   end
+
+  private
+
+    def lines_count
+      output.lines.size
+    end
 end

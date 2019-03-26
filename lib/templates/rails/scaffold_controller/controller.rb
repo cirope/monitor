@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 <% module_namespacing do -%>
 class <%= controller_class_name %>Controller < ApplicationController
   respond_to :html, :json

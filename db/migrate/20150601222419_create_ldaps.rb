@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateLdaps < ActiveRecord::Migration[4.2]
   def change
     create_table :ldaps do |t|

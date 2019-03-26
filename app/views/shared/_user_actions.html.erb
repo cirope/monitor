@@ -10,8 +10,9 @@
         <li>
           <%= link_to t('profiles.edit.title'), profile_path %>
         </li>
-        <li class="divider"></li>
       <% end %>
+      <%= menu_item_for Membership, memberships_path %>
+      <li class="divider"></li>
       <li>
         <%= link_to t('navigation.logout'), logout_path, data: { method: :delete } %>
       </li>

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ObjectsHelper
   def render_object parent, key
     path   = key.split '__/__'

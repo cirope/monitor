@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Scripts::VersionsHelper
   def version_change_for version
     change = version.object_changes['change']&.last || (version.reify&.change || '-')

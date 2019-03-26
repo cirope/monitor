@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DynamicFormHelper
   def link_to_add_fields name, form, association, options = {}
     link_to(
@@ -9,9 +11,8 @@ module DynamicFormHelper
   end
 
   def link_to_remove_nested_item form
-    out = destroy_field(form) || ''
-
-    out << link_to(
+    out  = destroy_field(form) || ''
+    out += link_to(
       remove_icon, '#',
       title: t('navigation.destroy'),
       data: remove_field_data(form),

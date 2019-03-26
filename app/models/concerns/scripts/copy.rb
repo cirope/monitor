@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Scripts::Copy
   extend ActiveSupport::Concern
 
@@ -24,14 +26,17 @@ module Scripts::Copy
   def body inclusion = false
     body = inclusion ? '' : "#!/usr/bin/env ruby\n\n"
 
-    body << cores_code unless inclusion
-
-    includes.each do |script|
-      body << script.body('local inclusion')
+    unless inclusion
+      body += settings
+      body += cores_code
     end
 
-    body << variables
-    body << commented_text(inclusion || 'script body')
+    includes.each do |script|
+      body += script.body('local inclusion')
+    end
+
+    body += variables
+    body += commented_text(inclusion || 'script body')
   end
 
   private
@@ -64,26 +69,32 @@ module Scripts::Copy
       ].join("\n\n")
     end
 
+    def settings
+      StringIO.new.tap do |buffer|
+        buffer << "STDOUT.sync = true\n"
+      end.string
+    end
+
     def cores_code
-      String.new.tap do |buffer|
+      StringIO.new.tap do |buffer|
         self.class.cores.where.not(id: id).distinct.each do |script|
           buffer << script.body('core inclusion')
         end
-      end
+      end.string
     end
 
     def variables
-      String.new.tap do |buffer|
+      StringIO.new.tap do |buffer|
         buffer << as_inner_varialble('parameters', parameters)
         buffer << as_inner_varialble('attributes', descriptions)
-      end
+      end.string
     end
 
     def as_inner_varialble name, collection
       result = "#{name} ||= {}\n\n"
 
       collection.each do |object|
-        result << "#{name}[%Q[#{object.name}]] = %Q[#{object.value}]\n"
+        result += "#{name}[%Q[#{object.name}]] = %Q[#{object.value}]\n"
       end
 
       "#{result}\n"

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 set :application, 'demo.greditsoft.com'
 set :user, 'deployer'
 set :repo_url, 'https://github.com/cirope/monitor.git'
@@ -18,6 +20,8 @@ set :keep_releases, 5
 
 namespace :deploy do
   before :check,      'config:upload'
+  before :publishing, :tenant
+  before :publishing, :db_updates
   after  :publishing, :restart
   after  :published,  'sidekiq:restart'
   after  :finishing,  :move_files

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 EXPORTS_PATH = Rails.root + 'private/exports'
 ENABLE_WEB_CONSOLE = ENV['ENABLE_WEB_CONSOLE'] == 'true'
 # Ruby SecureRandom.uuid regex match

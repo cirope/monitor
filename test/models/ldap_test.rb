@@ -1,8 +1,14 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class LdapTest < ActiveSupport::TestCase
   setup do
     @ldap = ldaps :ldap_server
+  end
+
+  teardown do
+    Current.account = nil
   end
 
   test 'validates presence' do
@@ -103,6 +109,8 @@ class LdapTest < ActiveSupport::TestCase
   end
 
   test 'import' do
+    Current.account = send 'public.accounts', :default
+
     assert_nil User.where(email: 'juan@administrators.com').take
 
     @ldap.import 'admin', 'admin123'

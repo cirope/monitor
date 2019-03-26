@@ -1,4 +1,7 @@
+_fixture:
+  model_class: Database
 postgresql:
   name: PostgreSQL
   driver: PostgreSQL
   description: PostgreSQL test database
+  account: default
