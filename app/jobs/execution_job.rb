@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ExecutionJob < ApplicationJob
   queue_as :default
 

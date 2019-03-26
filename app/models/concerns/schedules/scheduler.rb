@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Schedules::Scheduler
   extend ActiveSupport::Concern
 
@@ -9,14 +11,22 @@ module Schedules::Scheduler
 
   module ClassMethods
     def schedule
-      visible.next_to_schedule.find_each do |schedule|
-        scheduled_at = schedule.next_date
-
-        schedule.update! scheduled_at: scheduled_at
-
-        schedule.cancel_pending_runs
-        schedule.build_next_runs
+      Account.on_each do
+        schedule_all
       end
     end
+
+    private
+
+      def schedule_all
+        visible.next_to_schedule.find_each do |schedule|
+          scheduled_at = schedule.next_date
+
+          schedule.update! scheduled_at: scheduled_at
+
+          schedule.cancel_pending_runs
+          schedule.build_next_runs
+        end
+      end
   end
 end

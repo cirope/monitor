@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Ldap < ApplicationRecord
   include Auditable
   include Attributes::Strip

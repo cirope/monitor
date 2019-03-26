@@ -16,6 +16,20 @@ es:
     loading: 'Cargando...'
     logout: 'Salir'
     show: 'Ver'
+    switch: 'Ingresar'
+
+  accounts:
+    edit:
+      title: 'Editar cuenta'
+    index:
+      new: 'Nueva cuenta'
+      title: 'Listado de cuentas'
+      empty_html: 'No hay cuentas, puede crear una con el botón <span class="label label-primary">Nueva cuenta</span>'
+      empty_search_html: 'No hay cuentas que coincidan con el criterio de búsqueda'
+    new:
+      title: 'Crear cuenta'
+    show:
+      title: 'Ver cuenta'
 
   board:
     index:
@@ -171,6 +185,17 @@ es:
     maintainer:
       empty: 'No se encontraron usuarios con ese criterio'
 
+  memberships:
+    membership:
+      make_default: 'Convertir en cuenta principal'
+      default: 'Cuenta principal'
+      current: 'Cuenta actual'
+    index:
+      title: 'Listado de accesos'
+      empty_search_html: 'No hay cuentas que coincidan con el criterio de búsqueda'
+    show:
+      title: 'Ver acceso'
+
   objects:
     grid:
       more: 'Ver'
@@ -265,6 +290,7 @@ es:
       history: 'Ver historial de cambios'
       download_pdf: 'Descargar PDF'
       execute_now: 'Ejecutar ahora'
+      no_server: 'Debe establecer un servidor principal'
       executions_list: 'Ejecuciones'
     exports:
       create:

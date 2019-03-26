@@ -36,6 +36,7 @@ es:
         hostname: 'Dirección'
         interval: 'Intervalo'
         name: 'Nombre'
+        tenant_name: 'Contexto'
         scheduled_at: 'Programado para'
         script_name: 'Guión'
         show: 'Ver'

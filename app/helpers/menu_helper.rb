@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module MenuHelper
   def menu_item_for model, path, show_active = false
     link = link_to model.model_name.human(count: 0), path

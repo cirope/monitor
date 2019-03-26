@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ScriptsHelper
   def maintainers
     @script.maintainers.new if @script.maintainers.empty?
@@ -52,7 +54,46 @@ module ScriptsHelper
 
   def last_change_diff
     previous = @script.paper_trail.previous_version
+    options  = { include_plus_and_minus_in_html: true }
 
-    raw Diffy::Diff.new(previous&.text, @script.text, include_plus_and_minus_in_html: true)
+    raw Diffy::Diff.new(previous&.text, @script.text, options)
   end
+
+  def link_to_execute &block
+    if @server
+      link_to_create_execution &block
+    else
+      disabled_link_to_execute &block
+    end
+  end
+
+  private
+
+    def link_to_create_execution &block
+      url     = script_executions_path @script
+      options = {
+        class: 'btn btn-sm btn-default',
+        title: t('.execute_now'),
+        data:  {
+          method:  :post,
+          confirm: t('messages.confirmation')
+        }
+      }
+
+      link_to url, options do
+        capture &block if block_given?
+      end
+    end
+
+    def disabled_link_to_execute &block
+      options = {
+        title:    t('.no_server'),
+        class:    'btn btn-sm btn-default',
+        disabled: true
+      }
+
+      content_tag :button, options do
+        capture &block if block_given?
+      end
+    end
 end

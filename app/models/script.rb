@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Script < ApplicationRecord
   include Auditable
   include Attributes::Strip

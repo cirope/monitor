@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PdfEncodingValidator < ActiveModel::EachValidator
   def validate_each record, attribute, value
     encoded_value = value&.encode('windows-1252') rescue :invalid
