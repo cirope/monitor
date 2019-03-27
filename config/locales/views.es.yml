@@ -260,13 +260,14 @@ es:
       title: 'Ver corrida'
       full_output: 'Ver salida completa'
     status:
+      aborted: 'Abortada'
+      canceled: 'Cancelada'
       pending: 'Pendiente'
       scheduled: 'Programada'
       running: 'Corriendo'
+      killed: 'Finalizada forzosamente'
       ok: 'Finalizada OK'
       error: 'Finalizada con errores'
-      canceled: 'Cancelada'
-      aborted: 'Abortada'
 
   scripts:
     edit:

@@ -9,7 +9,7 @@ module RunsHelper
               'label-danger'
             when 'canceled'
               'label-warning'
-            when 'aborted'
+            when 'aborted', 'killed'
               'label-warning'
             else
               'label-default'
@@ -33,7 +33,7 @@ module RunsHelper
   end
 
   def filter_run_status
-    %w(pending scheduled running ok error canceled aborted).map do |k|
+    Run.statuses.keys.map do |k|
       [t("runs.status.#{k}"), k]
     end
   end

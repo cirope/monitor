@@ -18,13 +18,6 @@ class RunTest < ActiveSupport::TestCase
     assert_error @run, :job, :blank
   end
 
-  test 'included attributes' do
-    @run.status = 'no_way'
-
-    assert @run.invalid?
-    assert_error @run, :status, :inclusion
-  end
-
   test 'date attributes' do
     @run.scheduled_at = '13/13/13'
     @run.started_at = '13/13/13'

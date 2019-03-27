@@ -5,7 +5,7 @@ module Executions::Run
 
   def run
     update(
-      status:     :running,
+      status:     'running',
       started_at: Time.zone.now
     )
 

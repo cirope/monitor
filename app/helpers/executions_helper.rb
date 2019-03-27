@@ -9,6 +9,8 @@ module ExecutionsHelper
               'label-danger'
             when 'running'
               'label-info'
+            when 'killed'
+              'label-warning'
             else
               'label-default'
             end

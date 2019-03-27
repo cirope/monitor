@@ -40,7 +40,7 @@ module Runs::Execution
 
       def schedule_all
         next_to_schedule.find_each do |run|
-          run.update! status: 'scheduled'
+          run.scheduled!
 
           RunJob.set(wait_until: run.scheduled_at).perform_later run
         end
