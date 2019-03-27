@@ -4,3 +4,4 @@ live_ls:
   status: <%= Execution.statuses[:running] %>
   started_at: <%= Time.zone.now.to_s :db %>
   user: franco
+  pid: 123

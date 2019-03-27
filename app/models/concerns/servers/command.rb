@@ -3,8 +3,8 @@
 module Servers::Command
   extend ActiveSupport::Concern
 
-  def execute script
-    script_path = script.copy_to self
+  def execute run
+    script_path = run.script.copy_to self
 
     if script_path.blank?
       return {
@@ -14,9 +14,9 @@ module Servers::Command
     end
 
     if local?
-      execute_local  script_path
+      execute_local  run, script_path
     else
-      execute_remote script_path
+      execute_remote run, script_path
     end
   rescue => ex
     { status: 'error', output: ex.to_s }
@@ -27,9 +27,9 @@ module Servers::Command
     status      = 1
 
     Open3.popen2e rails, 'runner', script_path do |stdin, stdout, thread|
-      stdout.each do |line|
-        execution.new_line line
-      end
+      execution.update! pid: thread.pid
+
+      stdout.each { |line| execution.new_line line }
 
       status = thread.value.exitstatus.to_i
     end
@@ -48,17 +48,27 @@ module Servers::Command
       "#{Rails.root}/bin/rails"
     end
 
-    def execute_local script_path
-      stdout, stderr, status = Open3.capture3 rails, 'runner', script_path
-      status_text            = "\nExit status: #{status}" unless status.to_i == 0
+    def execute_local run, script_path
+      status = 1
+      output = StringIO.new
+
+      Open3.popen2e rails, 'runner', script_path do |stdin, stdout, thread|
+        run.update! pid: thread.pid
+
+        stdout.each { |line| output << line }
+
+        status = thread.value.exitstatus.to_i
+      end
+
+      output << "\nExit status: #{status}" unless status.zero?
 
       {
-        status: status.to_i == 0 ? 'ok' : 'error',
-        output: [stdout, stderr].join + status_text.to_s
+        status: status.zero? ? 'ok' : 'error',
+        output: output.string.presence
       }
     end
 
-    def execute_remote script_path
+    def execute_remote run, script_path
       out = Net::SSH::Connection::Session::StringWithExitstatus.new '', 0
 
       Net::SSH.start hostname, user, ssh_options do |ssh|
