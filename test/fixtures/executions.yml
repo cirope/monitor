@@ -4,4 +4,4 @@ live_ls:
   status: <%= Execution.statuses[:running] %>
   started_at: <%= Time.zone.now.to_s :db %>
   user: franco
-  pid: 123
+  pid: 123456789 # So it does not kill some random process when tested

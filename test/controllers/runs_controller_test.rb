@@ -28,6 +28,16 @@ class RunsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test 'should update run' do
+    patch :update, params: { id: @run }, xhr: true, as: :js
+    assert_response :success
+  end
+
+  test 'should update run with force param' do
+    patch :update, params: { id: @run, force: true }, xhr: true, as: :js
+    assert_response :success
+  end
+
   test 'should destroy run' do
     assert_difference 'Run.count', -1 do
       delete :destroy, params: { id: @run }

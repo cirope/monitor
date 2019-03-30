@@ -34,11 +34,14 @@ module Servers::Command
       status = thread.value.exitstatus.to_i
     end
 
-    if status.zero?
-      :success
+    if execution.killed?
+      'killed'
+    elsif status.zero?
+      'success'
     else
       execution.new_line "Exit status: #{status}"
-      :error
+
+      'error'
     end
   end
 
@@ -49,21 +52,30 @@ module Servers::Command
     end
 
     def execute_local run, script_path
-      status = 1
-      output = StringIO.new
+      status      = ''
+      exit_status = 1
+      output      = StringIO.new
 
       Open3.popen2e rails, 'runner', script_path do |stdin, stdout, thread|
         run.update! pid: thread.pid
 
         stdout.each { |line| output << line }
 
-        status = thread.value.exitstatus.to_i
+        exit_status = thread.value.exitstatus.to_i
       end
 
-      output << "\nExit status: #{status}" unless status.zero?
+      output << "\nExit status: #{exit_status}" unless exit_status.zero?
+
+      status = if run.killed?
+                 'killed'
+               elsif exit_status.zero?
+                 'ok'
+               else
+                 'error'
+               end
 
       {
-        status: status.zero? ? 'ok' : 'error',
+        status: status,
         output: output.string.presence
       }
     end
@@ -79,10 +91,10 @@ module Servers::Command
         ssh.exec! "rm #{script_path}"
       end
 
-      status_text = "\nExit status: #{out.exitstatus}" unless out.exitstatus == 0
+      status_text = "\nExit status: #{out.exitstatus}" unless out.exitstatus.zero?
 
       {
-        status: out.exitstatus == 0 ? 'ok' : 'error',
+        status: out.exitstatus.zero? ? 'ok' : 'error',
         output: out.to_s + status_text.to_s
       }
     end

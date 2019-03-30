@@ -2,6 +2,7 @@
 
 class Execution < ApplicationRecord
   include Auditable
+  include Killable
   include Executions::Callbacks
   include Executions::Run
   include Executions::Status

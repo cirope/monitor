@@ -113,4 +113,12 @@ class RunTest < ActiveSupport::TestCase
   test 'cancel' do
     skip
   end
+
+  test 'kill' do
+    skip
+  end
+
+  test 'force kill' do
+    skip
+  end
 end
