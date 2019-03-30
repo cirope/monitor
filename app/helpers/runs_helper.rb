@@ -61,7 +61,7 @@ module RunsHelper
 
   def link_to_kill_run
     options = {
-      class: 'btn btn-sm btn-warning',
+      class: 'btn btn-sm btn-danger',
       title: t('.finish'),
       data:  {
         method:       :patch,

@@ -41,7 +41,7 @@ module ExecutionsHelper
 
   def link_to_kill_execution
     options = {
-      class: 'btn btn-warning',
+      class: 'btn btn-danger',
       title: t('.finish'),
       data:  {
         method:       :patch,
