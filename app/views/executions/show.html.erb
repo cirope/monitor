@@ -1,9 +1,11 @@
 <h3>
   <span class="text-muted"><%= Execution.model_name.human count: 1 %> -</span>
 
-  <%= link_to @execution.script, @execution.script %>
+  <%= link_to @script, @script %>
 
-  <span class="pull-right" data-status="<%= @execution.status %>" data-status-refresh-url="<%= script_execution_path @script, @execution %>">
+  <span class="pull-right" data-status="<%= @execution.status %>"
+                           data-pid="<%= @execution.pid %>"
+                           data-status-refresh-url="<%= script_execution_path @script, @execution %>">
     <%= execution_status @execution.status %>
   </span>
 </h3>
@@ -45,6 +47,10 @@
       </p>
     </div>
   </div>
+</div>
+
+<div class="text-right" data-kill-actions>
+  <%= render 'kill_actions' if @execution.can_be_killed? %>
 </div>
 
 <div data-output-error>

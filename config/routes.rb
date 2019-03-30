@@ -64,7 +64,7 @@ Rails.application.routes.draw do
     post   :run,     on: :member, as: :run
     delete :cleanup, on: :member, as: :cleanup
 
-    resources :runs, shallow: true, only: [:index, :show, :destroy]
+    resources :runs, shallow: true, only: [:index, :show, :update, :destroy]
   end
 
   namespace :scripts do
@@ -76,7 +76,7 @@ Rails.application.routes.draw do
   resources :scripts do
     resources :issues,   only: [:index]
     resources :versions, only: [:index, :show], controller: 'scripts/versions'
-    resources :executions, only: [:index, :create, :show]
+    resources :executions, only: [:index, :create, :update, :show]
     resources :reverts, only: [:create], controller: 'scripts/reverts'
   end
 

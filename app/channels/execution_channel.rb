@@ -9,16 +9,18 @@ class ExecutionChannel < ApplicationCable::Channel
     String(execution.output).lines.each_with_index do |line, i|
       self.class.send_line execution.id, line:   line,
                                          order:  i.next,
-                                         status: execution.status
+                                         status: execution.status,
+                                         pid:    execution.pid
     end
   end
 
-  def self.send_line execution_id, line:, order:, status:
+  def self.send_line execution_id, line:, order:, status:, pid:
     broadcasting = broadcasting_for_current_account "execution:#{execution_id}"
 
     ActionCable.server.broadcast broadcasting, line:   line,
                                                order:  order,
-                                               status: status
+                                               status: status,
+                                               pid:    pid
   end
 
   private

@@ -4,8 +4,10 @@ module Runs::Execution
   extend ActiveSupport::Concern
 
   def execute
+    mark_as_running
+
     out  = { status: 'aborted' }
-    out  = job.server.execute job.script if schedule.run?
+    out  = server.execute self if schedule.run?
     data = ActiveSupport::JSON.decode out[:output] rescue nil
 
     finish status: out[:status], output: out[:output], data: data
@@ -38,9 +40,9 @@ module Runs::Execution
 
       def schedule_all
         next_to_schedule.find_each do |run|
-          run.update! status: 'scheduled'
+          run.scheduled!
 
-          ScriptJob.set(wait_until: run.scheduled_at).perform_later run
+          RunJob.set(wait_until: run.scheduled_at).perform_later run
         end
       end
   end

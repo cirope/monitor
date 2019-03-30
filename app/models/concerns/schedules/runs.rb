@@ -27,7 +27,7 @@ module Schedules::Runs
     jobs.each do |job|
       run = job.runs.create! status: 'scheduled', scheduled_at: scheduled_at
 
-      ScriptJob.perform_later run
+      RunJob.perform_later run
     end
   end
 

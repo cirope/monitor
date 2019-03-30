@@ -89,4 +89,11 @@
   </div>
 <% end %>
 
+<% if @run.can_be_killed? %>
+  <div class="pull-right">
+    <%= link_to_force_kill_run %>
+    <%= link_to_kill_run %>
+  </div>
+<% end %>
+
 <%= link_to_index schedule_runs_path(@run.schedule) %>

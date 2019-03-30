@@ -8,7 +8,7 @@ $(document).on('ready turbolinks:load', function () {
         outputDiv.data('order', data.order)
         outputDiv.append(data.line)
 
-        status.check(data.status)
+        status.check(data)
 
         body.scrollIntoView(false)
 
@@ -50,18 +50,32 @@ $(document).on('ready turbolinks:load', function () {
       }
     }
     var status = {
-      check: function (newStatus) {
+      check: function (data) {
         var lastStatus = $('[data-status]').data('status')
+        var lastPid    = +$('[data-pid]').data('pid')
+        var url        = $('[data-status-refresh-url]').data('statusRefreshUrl')
 
-        if (lastStatus !== newStatus)
-          status._refresh()
+        if (lastStatus !== data.status || (data.pid && lastPid !== data.pid))
+          status._refresh(url)
       },
 
-      _refresh: function () {
-        var url = $('[data-status-refresh-url]').data('statusRefreshUrl')
+      _refresh: function (url) {
+        var fetching = outputDiv.data('fetching')
+        var queue    = outputDiv.data('queue') || []
 
-        if (url)
-          jQuery.getScript(url)
+        if (url && ! fetching) {
+          outputDiv.data('fetching', true)
+
+          jQuery.getScript(url).done(function () {
+            var queuedUrl = queue.shift()
+
+            outputDiv.data('fetching', false)
+            outputDiv.data('queue', queue)
+            status._refresh(queuedUrl)
+          })
+        } else if (url) {
+          outputDiv.data('queue', queue.concat(url))
+        }
       }
     }
 

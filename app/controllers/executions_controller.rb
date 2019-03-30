@@ -3,8 +3,9 @@
 class ExecutionsController < ApplicationController
   respond_to :html
 
-  before_action :authorize, :set_script
+  before_action :authorize, :not_guest, :not_security, :set_script
   before_action :set_server, only: [:create]
+  before_action :set_execution, only: [:show, :update]
 
   # GET /executions
   def index
@@ -13,7 +14,6 @@ class ExecutionsController < ApplicationController
 
   # GET /executions/1
   def show
-    @execution = @script.executions.find params[:id]
   end
 
   # POST /executions
@@ -25,10 +25,22 @@ class ExecutionsController < ApplicationController
     respond_with @script, @execution
   end
 
+  def update
+    if params[:force]
+      @execution.force_kill
+    else
+      @execution.kill
+    end
+  end
+
   private
 
     def set_script
       @script = Script.find params[:script_id]
+    end
+
+    def set_execution
+      @execution = @script.executions.find params[:id]
     end
 
     def set_server
