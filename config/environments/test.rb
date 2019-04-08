@@ -45,11 +45,11 @@ Rails.application.configure do
   config.active_support.deprecation = :stderr
 
   # Raises error for missing translations
-  # config.action_view.raise_on_missing_translations = true
+  config.action_view.raise_on_missing_translations = true
 
   # Set timecop to January 5, 2017 10:05:00 AM UTC
   config.after_initialize do
-    t = Time.utc 2018, 1, 4, 10, 5, 0
+    t = Time.utc 2019, 1, 3, 10, 5, 0
 
     Timecop.travel t
   end

@@ -16,7 +16,7 @@ class FiltersHelperTest < ActionView::TestCase
   end
 
   test 'dashboard empty message' do
-    @virtual_path = ''
+    @virtual_path = 'dashboard.index'
 
     assert_kind_of String, empty_message
   end
