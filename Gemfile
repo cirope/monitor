@@ -28,7 +28,7 @@ gem 'sidekiq'
 gem 'apartment-sidekiq'
 gem 'whenever', require: false
 gem 'paper_trail'
-# gem 'roadie-rails'
+gem 'premailer-rails'
 gem 'ruby-ntlm'
 gem 'rubyzip', require: 'zip'
 gem 'diffy'
