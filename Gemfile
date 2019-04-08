@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
 gem 'rails', '~> 6.0.0.beta3'
-# gem 'rails', github: 'rails/rails'
 
 gem 'pg'
+gem 'apartment'
 gem 'sassc-rails'
 gem 'bootstrap-sass'
 gem 'uglifier'
@@ -25,6 +25,7 @@ gem 'net-scp'
 gem 'request_store'
 gem 'request_store-sidekiq'
 gem 'sidekiq'
+gem 'apartment-sidekiq'
 gem 'whenever', require: false
 gem 'paper_trail'
 # gem 'roadie-rails'

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module StoreLocation
   extend ActiveSupport::Concern
 
@@ -20,7 +22,8 @@ module StoreLocation
         /^\/$/,
         /^\/login.*$/,
         /^\/password_resets\/new.*$/,
-        /^\/password_resets\/.*\/edit.*$/
+        /^\/password_resets\/.*\/edit.*$/,
+        /^\/accounts\/.*\/password_resets\/.*\/edit.*$/
       ]
 
       excluded_paths.any? { |path| request.fullpath =~ path }

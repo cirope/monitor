@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class RunsHelperTest < ActionView::TestCase
@@ -19,5 +21,19 @@ class RunsHelperTest < ActionView::TestCase
 
   test 'filter run status' do
     assert_respond_to filter_run_status, :each
+  end
+
+  test 'link to force kill' do
+    @virtual_path = ''
+    @run          = runs :ls_on_atahualpa
+
+    assert_match 'glyphicon-fire', link_to_force_kill_run
+  end
+
+  test 'link to kill' do
+    @virtual_path = ''
+    @run          = runs :ls_on_atahualpa
+
+    assert_match 'glyphicon-screenshot', link_to_kill_run
   end
 end

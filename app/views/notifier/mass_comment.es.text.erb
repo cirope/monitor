@@ -13,4 +13,4 @@ Comentario
 Se hizo el siguiente comentario en <%= t '.issues', count: @permalink.issues.count %>, para verlos visite
 el siguiente enlace:
 
-<%= permalink_url @permalink %>
+<%= account_permalink_url current_account, @permalink %>

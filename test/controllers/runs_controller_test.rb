@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class RunsControllerTest < ActionController::TestCase
@@ -23,6 +25,16 @@ class RunsControllerTest < ActionController::TestCase
 
   test 'should show run' do
     get :show, params: { id: @run }
+    assert_response :success
+  end
+
+  test 'should update run' do
+    patch :update, params: { id: @run }, xhr: true, as: :js
+    assert_response :success
+  end
+
+  test 'should update run with force param' do
+    patch :update, params: { id: @run, force: true }, xhr: true, as: :js
     assert_response :success
   end
 

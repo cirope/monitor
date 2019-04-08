@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class ServerTest < ActiveSupport::TestCase
@@ -39,6 +41,21 @@ class ServerTest < ActiveSupport::TestCase
 
     assert @server.invalid?
     assert_error @server, :user, :blank
+  end
+
+  test 'default only if local' do
+    @server.hostname = '192.168.1.1'
+
+    assert @server.invalid?
+    assert_error @server, :default, :invalid
+  end
+
+  test 'mark as no default when default is marked' do
+    server = servers :gardelito
+
+    server.update! default: true
+
+    assert_equal 1, Server.default.count
   end
 
   test 'local' do

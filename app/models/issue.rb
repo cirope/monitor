@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Issue < ApplicationRecord
   include Auditable
   include Issues::Comments

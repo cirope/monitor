@@ -1,7 +1,11 @@
 <h3>
   <span class="text-muted"><%= Execution.model_name.human count: 1 %> -</span>
-  <%= link_to @execution.script, @execution.script %>
-  <span class="pull-right">
+
+  <%= link_to @script, @script %>
+
+  <span class="pull-right" data-status="<%= @execution.status %>"
+                           data-pid="<%= @execution.pid %>"
+                           data-status-refresh-url="<%= script_execution_path @script, @execution %>">
     <%= execution_status @execution.status %>
   </span>
 </h3>
@@ -13,32 +17,44 @@
 
 <p>
   <strong><%= Execution.human_attribute_name 'started_at' %></strong>:
-  <%= l @execution.started_at, format: :compact if @execution.started_at %>
+  <span data-started-at>
+    <%= l @execution.started_at, format: :compact if @execution.started_at %>
+  </span>
 </p>
 <p>
   <strong><%= Execution.human_attribute_name 'ended_at' %></strong>:
-  <%= l @execution.ended_at, format: :compact if @execution.ended_at %>
+  <span data-ended-at>
+    <%= l @execution.ended_at, format: :compact if @execution.ended_at %>
+  </span>
 </p>
 
 <div class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title">
-      <%= link_to Execution.human_attribute_name('output'), '#execution-errors', data: { toggle: 'collapse' } %>
+      <%= link_to Execution.human_attribute_name('output'), '#execution-output', data: { toggle: 'collapse' } %>
     </h3>
   </div>
-  <div id="execution-errors" class="panel-collapse collapse in">
+  <div id="execution-output" class="panel-collapse collapse in">
     <div class="panel-body">
       <p>
-        <pre>
-          <% if @execution.pending? || @execution.running? %>
-             <samp data-actioncable-watch="execution" data-actioncable-watch-execution-id="<%= @execution.id %>"></samp>
-          <% else %>
-             <samp><%= @execution.output %></samp>
-          <% end %>
-        </pre>
+        <% if @execution.pending? || @execution.running? %>
+          <pre class="console"><samp
+            data-actioncable-watch="execution"
+            data-actioncable-watch-execution-id="<%= @execution.id %>"></samp></pre>
+        <% else %>
+          <pre class="console"><samp><%= @execution.output %></samp></pre>
+        <% end %>
       </p>
     </div>
   </div>
 </div>
 
-<%= render 'shared/parsed_output_errors', exec: @execution if @execution.output.present? && @execution.error? %>
+<div class="text-right" data-kill-actions>
+  <%= render 'kill_actions' if @execution.can_be_killed? %>
+</div>
+
+<div data-output-error>
+  <% if @execution.output.present? && @execution.error? %>
+    <%= render 'shared/parsed_output_errors', exec: @execution %>
+  <% end %>
+</div>

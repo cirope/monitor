@@ -71,6 +71,14 @@ GEM
       zeitwerk (~> 1.3, >= 1.3.1)
     airbrussh (1.3.1)
       sshkit (>= 1.6.1, != 1.7.0)
+    apartment (2.2.0)
+      activerecord (>= 3.1.2, < 6.0)
+      parallel (>= 0.7.1)
+      public_suffix (>= 2)
+      rack (>= 1.3.6)
+    apartment-sidekiq (1.2.0)
+      apartment (>= 1.0)
+      sidekiq (>= 2.11)
     autoprefixer-rails (9.5.1)
       execjs
     bcrypt (3.1.12)
@@ -170,6 +178,7 @@ GEM
     paper_trail (10.2.1)
       activerecord (>= 4.2, < 6.1)
       request_store (~> 1.1)
+    parallel (1.17.0)
     pdf-core (0.7.0)
     pg (1.1.4)
     prawn (2.2.2)
@@ -177,6 +186,7 @@ GEM
       ttfunk (~> 1.5)
     prawn-table (0.2.2)
       prawn (>= 1.3.0, < 3.0.0)
+    public_suffix (3.0.3)
     rack (2.0.7)
     rack-protection (2.0.5)
       rack
@@ -291,6 +301,8 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-session_store
+  apartment
+  apartment-sidekiq
   bcrypt
   bcrypt_pbkdf
   bootstrap-sass

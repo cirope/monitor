@@ -1,7 +1,11 @@
-module Users::Destroy
+# frozen_string_literal: true
+
+module Users::Hide
   extend ActiveSupport::Concern
 
-  def destroy
+  def hide
+    current_membership.destroy!
+
     update hidden: true
   end
 

@@ -1,6 +1,12 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class IssuesHelperTest < ActionView::TestCase
+  teardown do
+    PaperTrail.request.whodunnit = nil
+  end
+
   test 'issue index path' do
     skip
   end
@@ -9,7 +15,15 @@ class IssuesHelperTest < ActionView::TestCase
     assert_kind_of Integer, issue_actions_cols
   end
 
-  test 'status' do
+  test 'status with current user' do
+    PaperTrail.request.whodunnit = users(:franco).id
+
+    @issue = issues :ls_on_atahualpa_not_well
+
+    assert_respond_to status, :each
+  end
+
+  test 'status without current user' do
     @issue = issues :ls_on_atahualpa_not_well
 
     assert_respond_to status, :each

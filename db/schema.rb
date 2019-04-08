@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_25_004524) do
+ActiveRecord::Schema.define(version: 2019_03_11_115509) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "accounts", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "tenant_name", limit: 63, null: false
+    t.integer "lock_version", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_accounts_on_name"
+    t.index ["tenant_name"], name: "index_accounts_on_tenant_name", unique: true
+  end
 
   create_table "comments", id: :serial, force: :cascade do |t|
     t.text "text", null: false
@@ -33,6 +43,8 @@ ActiveRecord::Schema.define(version: 2018_11_25_004524) do
     t.string "description", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "account_id"
+    t.index ["account_id"], name: "index_databases_on_account_id"
     t.index ["name"], name: "index_databases_on_name"
   end
 
@@ -80,8 +92,10 @@ ActiveRecord::Schema.define(version: 2018_11_25_004524) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "pid"
     t.index ["script_id"], name: "index_executions_on_script_id"
     t.index ["server_id"], name: "index_executions_on_server_id"
+    t.index ["started_at"], name: "index_executions_on_started_at"
     t.index ["user_id"], name: "index_executions_on_user_id"
   end
 
@@ -144,6 +158,19 @@ ActiveRecord::Schema.define(version: 2018_11_25_004524) do
     t.datetime "updated_at", null: false
     t.index ["script_id"], name: "index_maintainers_on_script_id"
     t.index ["user_id"], name: "index_maintainers_on_user_id"
+  end
+
+  create_table "memberships", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.string "email", null: false
+    t.string "username"
+    t.boolean "default", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id", "email"], name: "index_memberships_on_account_id_and_email", unique: true
+    t.index ["account_id"], name: "index_memberships_on_account_id"
+    t.index ["email"], name: "index_memberships_on_email"
+    t.index ["username"], name: "index_memberships_on_username"
   end
 
   create_table "outputs", id: :serial, force: :cascade do |t|
@@ -214,6 +241,7 @@ ActiveRecord::Schema.define(version: 2018_11_25_004524) do
     t.datetime "updated_at", null: false
     t.integer "job_id"
     t.jsonb "data"
+    t.integer "pid"
     t.index ["data"], name: "index_runs_on_data", using: :gin
     t.index ["job_id"], name: "index_runs_on_job_id"
     t.index ["scheduled_at"], name: "index_runs_on_scheduled_at"
@@ -263,6 +291,8 @@ ActiveRecord::Schema.define(version: 2018_11_25_004524) do
     t.integer "lock_version", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "default", default: false, null: false
+    t.index ["default"], name: "index_servers_on_default"
     t.index ["name"], name: "index_servers_on_name"
   end
 
@@ -354,6 +384,7 @@ ActiveRecord::Schema.define(version: 2018_11_25_004524) do
 
   add_foreign_key "comments", "issues", on_update: :restrict, on_delete: :restrict
   add_foreign_key "comments", "users", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "databases", "accounts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "dependencies", "schedules", column: "dependent_id", on_update: :restrict, on_delete: :restrict
   add_foreign_key "dependencies", "schedules", on_update: :restrict, on_delete: :restrict
   add_foreign_key "descriptions", "scripts", on_update: :restrict, on_delete: :restrict
@@ -367,6 +398,7 @@ ActiveRecord::Schema.define(version: 2018_11_25_004524) do
   add_foreign_key "jobs", "servers", on_update: :restrict, on_delete: :restrict
   add_foreign_key "maintainers", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "maintainers", "users", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "memberships", "accounts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "outputs", "runs", on_update: :restrict, on_delete: :restrict
   add_foreign_key "outputs", "triggers", on_update: :restrict, on_delete: :restrict
   add_foreign_key "parameters", "scripts", on_update: :restrict, on_delete: :restrict

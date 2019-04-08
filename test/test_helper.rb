@@ -1,9 +1,15 @@
-ENV['RAILS_ENV'] ||= 'test'
+# frozen_string_literal: true
+
 require_relative '../config/environment'
+
 require 'rails/test_help'
 require 'sidekiq/testing'
 
 Sidekiq::Testing.inline!
+
+Apartment::Tenant.drop    'default' rescue nil
+Apartment::Tenant.create  'default'
+Apartment::Tenant.switch! 'default'
 
 class ActiveSupport::TestCase
   # Run tests in parallel with specified workers
@@ -20,11 +26,29 @@ class ActiveSupport::TestCase
 end
 
 class ActionController::TestCase
-  def login user = users(:franco)
-    @controller.send(:cookies).encrypted[:auth_token] = user.auth_token
+  def login user: users(:franco)
+    @controller.send(:cookies).encrypted[:token] = user.auth_token
   end
 end
 
 class ActionView::TestCase
   include SimpleForm::ActionViewExtensions::FormHelper
+end
+
+class ActiveRecord::FixtureSet
+  class << self
+    alias :old_create_fixtures :create_fixtures
+  end
+
+  def self.create_fixtures f_dir, fs_names, *args
+    Membership.delete_all
+    Property.delete_all
+    Database.delete_all
+
+    reset_cache
+
+    fs_names = %w(public.accounts) | fs_names
+
+    old_create_fixtures f_dir, fs_names, *args
+  end
 end

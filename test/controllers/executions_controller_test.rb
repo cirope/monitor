@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class ExecutionsControllerTest < ActionController::TestCase
@@ -13,19 +15,9 @@ class ExecutionsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test 'should get new' do
-    get :new, params: { script_id: @execution.script_id }
-    assert_response :success
-  end
-
   test 'should create execution' do
     assert_difference 'Execution.count' do
-      post :create, params: {
-        script_id: @execution.script_id,
-        execution: {
-          server_id:  servers(:atahualpa).id
-        }
-      }
+      post :create, params: { script_id: @execution.script_id }
     end
 
     assert_redirected_to script_execution_url(@execution.script, Execution.last)
@@ -33,6 +25,30 @@ class ExecutionsControllerTest < ActionController::TestCase
 
   test 'should show execution' do
     get :show, params: { id: @execution, script_id: @execution.script_id }
+    assert_response :success
+  end
+
+  test 'should show execution as JS' do
+    get :show, params: {
+      id: @execution, script_id: @execution.script_id
+    }, xhr: true, as: :js
+
+    assert_response :success
+  end
+
+  test 'should update execution' do
+    patch :update, params: {
+      id: @execution, script_id: @execution.script_id
+    }, xhr: true, as: :js
+
+    assert_response :success
+  end
+
+  test 'should update execution with force param' do
+    patch :update, params: {
+      id: @execution, script_id: @execution.script_id, force: true
+    }, xhr: true, as: :js
+
     assert_response :success
   end
 end

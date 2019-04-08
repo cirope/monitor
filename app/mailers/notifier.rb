@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Notifier < ApplicationMailer
   def notify message
     message = message.with_indifferent_access

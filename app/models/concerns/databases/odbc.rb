@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Databases::Odbc
   extend ActiveSupport::Concern
 
@@ -8,11 +10,11 @@ module Databases::Odbc
   def odbc_string
     result = "[#{name}]\n"
 
-    result << "Driver = #{driver}\n"
-    result << "Description = #{description}\n"
+    result += "Driver = #{driver}\n"
+    result += "Description = #{description}\n"
 
     properties.each do |property|
-      result << "#{property.key} = #{property.value}\n"
+      result += "#{property.key} = #{property.value}\n"
     end
 
     result

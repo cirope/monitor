@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class ScriptTest < ActiveSupport::TestCase
@@ -214,7 +216,7 @@ class ScriptTest < ActiveSupport::TestCase
   end
 
   test 'text with db injections' do
-    db = databases :postgresql
+    db = send 'public.databases', :postgresql
 
     assert_equal @script.text, @script.text_with_injections
 
@@ -235,7 +237,7 @@ class ScriptTest < ActiveSupport::TestCase
   end
 
   test 'text with ar injections' do
-    db = databases :postgresql
+    db = send 'public.databases', :postgresql
 
     assert_equal @script.text, @script.text_with_injections
 
@@ -247,8 +249,8 @@ class ScriptTest < ActiveSupport::TestCase
   end
 
   test 'text with db properties injections' do
-    database = databases :postgresql
-    property = properties :trace
+    database = send 'public.databases', :postgresql
+    property = send 'public.properties', :trace
 
     assert_equal @script.text, @script.text_with_injections
 

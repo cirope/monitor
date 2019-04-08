@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class RunTest < ActiveSupport::TestCase
@@ -14,13 +16,6 @@ class RunTest < ActiveSupport::TestCase
     assert_error @run, :status, :blank
     assert_error @run, :scheduled_at, :blank
     assert_error @run, :job, :blank
-  end
-
-  test 'included attributes' do
-    @run.status = 'no_way'
-
-    assert @run.invalid?
-    assert_error @run, :status, :inclusion
   end
 
   test 'date attributes' do
@@ -116,6 +111,14 @@ class RunTest < ActiveSupport::TestCase
   end
 
   test 'cancel' do
+    skip
+  end
+
+  test 'kill' do
+    skip
+  end
+
+  test 'force kill' do
     skip
   end
 end

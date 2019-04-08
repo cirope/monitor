@@ -16,6 +16,20 @@ es:
     loading: 'Cargando...'
     logout: 'Salir'
     show: 'Ver'
+    switch: 'Ingresar'
+
+  accounts:
+    edit:
+      title: 'Editar cuenta'
+    index:
+      new: 'Nueva cuenta'
+      title: 'Listado de cuentas'
+      empty_html: 'No hay cuentas, puede crear una con el botón <span class="label label-primary">Nueva cuenta</span>'
+      empty_search_html: 'No hay cuentas que coincidan con el criterio de búsqueda'
+    new:
+      title: 'Crear cuenta'
+    show:
+      title: 'Ver cuenta'
 
   board:
     index:
@@ -78,10 +92,15 @@ es:
   executions:
     index:
       empty_html: 'No hay ejecuciones'
+    kill_actions:
+      finishing: 'Terminando...'
+      finish: 'Terminar'
+      kill: 'Terminar forzosamente'
     status:
       pending: 'Pendiente'
       running: 'Corriendo'
       success: 'Finalizada OK'
+      killed: 'Terminada'
       error: 'Finalizada con errores'
 
   imports:
@@ -171,6 +190,17 @@ es:
     maintainer:
       empty: 'No se encontraron usuarios con ese criterio'
 
+  memberships:
+    membership:
+      make_default: 'Convertir en cuenta principal'
+      default: 'Cuenta principal'
+      current: 'Cuenta actual'
+    index:
+      title: 'Listado de accesos'
+      empty_search_html: 'No hay cuentas que coincidan con el criterio de búsqueda'
+    show:
+      title: 'Ver acceso'
+
   objects:
     grid:
       more: 'Ver'
@@ -234,14 +264,18 @@ es:
     show:
       title: 'Ver corrida'
       full_output: 'Ver salida completa'
+      finishing: 'Terminando...'
+      finish: 'Terminar'
+      kill: 'Terminar forzosamente'
     status:
+      aborted: 'Abortada'
+      canceled: 'Cancelada'
       pending: 'Pendiente'
       scheduled: 'Programada'
       running: 'Corriendo'
+      killed: 'Finalizada forzosamente'
       ok: 'Finalizada OK'
       error: 'Finalizada con errores'
-      canceled: 'Cancelada'
-      aborted: 'Abortada'
 
   scripts:
     edit:
@@ -265,6 +299,7 @@ es:
       history: 'Ver historial de cambios'
       download_pdf: 'Descargar PDF'
       execute_now: 'Ejecutar ahora'
+      no_server: 'Debe establecer un servidor principal'
       executions_list: 'Ejecuciones'
     exports:
       create:

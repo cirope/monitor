@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 class Run < ApplicationRecord
   include Filterable
+  include Killable
   include Runs::Execution
   include Runs::Scopes
   include Runs::Status

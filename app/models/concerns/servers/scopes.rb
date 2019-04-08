@@ -1,5 +1,11 @@
+# frozen_string_literal: true
+
 module Servers::Scopes
   extend ActiveSupport::Concern
+
+  included do
+    scope :default, -> { where default: true }
+  end
 
   module ClassMethods
     def by_name name

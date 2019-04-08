@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module LdapConfig
   extend ActiveSupport::Concern
 
