@@ -6,11 +6,11 @@ default: &default
   pool: 5
   username: <%= ENV['TRAVIS'] ? 'postgres' : 'monitor' %>
   password: <%= ENV['TRAVIS'] ? '' : ENV['APP_DB_PASSWORD'] || 'monitor' %>
-  database: <%= "monitor_#{ENV['RAILS_ENV']}" %>
+  database: <%= "monitor_#{Rails.env}" %>
 
 metrics_default: &metrics_default
   <<: *default
-  database: <%= "metrics_#{ENV['RAILS_ENV']}" %>
+  database: <%= "metrics_#{Rails.env}" %>
   migrations_paths: db/metrics_migrate
 
 development:
