@@ -13,8 +13,10 @@ Apartment::Tenant.switch! 'default'
 
 class ActiveSupport::TestCase
   # Run tests in parallel with specified workers
-  # Lo comentamos hasta que esté mas pulido
+  # Commented out until further _polishment_
   # parallelize(workers: :number_of_processors)
+
+  set_fixture_class versions: PaperTrail::Version
 
   fixtures :all
 

@@ -1,6 +1,3 @@
-_fixture:
-  model_class: PaperTrail::Version
-
 cd_root_creation:
   event: create
   whodunnit: <%= ActiveRecord::FixtureSet.identify :franco %>
