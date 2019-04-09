@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Serie < ApplicationRecord
   establish_connection :metrics
 

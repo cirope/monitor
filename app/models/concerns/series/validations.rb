@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Series::Validations
   extend ActiveSupport::Concern
 
