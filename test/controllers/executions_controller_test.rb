@@ -35,4 +35,20 @@ class ExecutionsControllerTest < ActionController::TestCase
 
     assert_response :success
   end
+
+  test 'should update execution' do
+    patch :update, params: {
+      id: @execution, script_id: @execution.script_id
+    }, xhr: true, as: :js
+
+    assert_response :success
+  end
+
+  test 'should update execution with force param' do
+    patch :update, params: {
+      id: @execution, script_id: @execution.script_id, force: true
+    }, xhr: true, as: :js
+
+    assert_response :success
+  end
 end

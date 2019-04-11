@@ -5,6 +5,7 @@ past_ls_on_atahualpa:
   ended_at: <%= 58.minutes.ago.to_s :db %>
   output: "/home\n/root"
   job: ls_on_atahualpa
+  pid:
 
 clean_ls_on_atahualpa:
   status: ok
@@ -13,6 +14,7 @@ clean_ls_on_atahualpa:
   ended_at: <%= 58.minutes.ago.to_s :db %>
   output: "/home\n/root"
   job: ls_on_atahualpa
+  pid:
 
 ls_on_atahualpa:
   status: pending
@@ -21,3 +23,4 @@ ls_on_atahualpa:
   ended_at:
   output:
   job: ls_on_atahualpa
+  pid:

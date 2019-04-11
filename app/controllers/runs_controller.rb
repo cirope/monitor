@@ -3,11 +3,11 @@
 class RunsController < ApplicationController
   include Runs::Filters
 
-  before_action :authorize, :not_guest
+  before_action :authorize, :not_guest, :not_security
   before_action :set_title, except: [:destroy]
   before_action :set_schedule, only: [:index]
-  before_action :set_run, only: [:show, :destroy]
-  before_action :not_author, except: [:index, :show]
+  before_action :set_run, only: [:show, :update, :destroy]
+  before_action :not_author, except: [:index, :update, :show]
 
   respond_to :html, :js
 
@@ -19,6 +19,14 @@ class RunsController < ApplicationController
 
   def show
     respond_with @run
+  end
+
+  def update
+    @killed = if params[:force]
+                @run.force_kill
+              else
+                @run.kill
+              end
   end
 
   def destroy

@@ -92,10 +92,15 @@ es:
   executions:
     index:
       empty_html: 'No hay ejecuciones'
+    kill_actions:
+      finishing: 'Terminando...'
+      finish: 'Terminar'
+      kill: 'Terminar forzosamente'
     status:
       pending: 'Pendiente'
       running: 'Corriendo'
       success: 'Finalizada OK'
+      killed: 'Terminada'
       error: 'Finalizada con errores'
 
   imports:
@@ -259,14 +264,18 @@ es:
     show:
       title: 'Ver corrida'
       full_output: 'Ver salida completa'
+      finishing: 'Terminando...'
+      finish: 'Terminar'
+      kill: 'Terminar forzosamente'
     status:
+      aborted: 'Abortada'
+      canceled: 'Cancelada'
       pending: 'Pendiente'
       scheduled: 'Programada'
       running: 'Corriendo'
+      killed: 'Finalizada forzosamente'
       ok: 'Finalizada OK'
       error: 'Finalizada con errores'
-      canceled: 'Cancelada'
-      aborted: 'Abortada'
 
   scripts:
     edit:

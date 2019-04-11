@@ -9,7 +9,7 @@ module RunsHelper
               'label-danger'
             when 'canceled'
               'label-warning'
-            when 'aborted'
+            when 'aborted', 'killed'
               'label-warning'
             else
               'label-default'
@@ -33,8 +33,49 @@ module RunsHelper
   end
 
   def filter_run_status
-    %w(pending scheduled running ok error canceled aborted).map do |k|
+    Run.statuses.keys.map do |k|
       [t("runs.status.#{k}"), k]
+    end
+  end
+
+  def link_to_force_kill_run
+    options = {
+      class: 'btn btn-sm btn-danger',
+      title: t('.kill'),
+      data:  {
+        method:       :patch,
+        remote:       true,
+        params:       { force: true }.to_query,
+        confirm:      t('messages.confirmation'),
+        disable_with: t('.finishing')
+      }
+    }
+
+    link_to @run, options do
+      raw [
+        content_tag(:span, nil, class: 'glyphicon glyphicon-fire'),
+        t('.kill')
+      ].join ' '
+    end
+  end
+
+  def link_to_kill_run
+    options = {
+      class: 'btn btn-sm btn-danger',
+      title: t('.finish'),
+      data:  {
+        method:       :patch,
+        remote:       true,
+        confirm:      t('messages.confirmation'),
+        disable_with: t('.finishing')
+      }
+    }
+
+    link_to @run, options do
+      raw [
+        content_tag(:span, nil, class: 'glyphicon glyphicon-screenshot'),
+        t('.finish')
+      ].join ' '
     end
   end
 end

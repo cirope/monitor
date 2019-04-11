@@ -5,7 +5,7 @@ module Executions::Run
 
   def run
     update(
-      status:     :running,
+      status:     'running',
       started_at: Time.zone.now
     )
 
@@ -21,10 +21,6 @@ module Executions::Run
       self.output = current_output
     end
 
-    ExecutionChannel.send_line id, line:   nil,
-                                   order:  lines_count.next,
-                                   status: status
-
     save!
   end
 
@@ -34,13 +30,14 @@ module Executions::Run
 
       ExecutionChannel.send_line id, line:   line,
                                      order:  lines_count,
-                                     status: status
+                                     status: status,
+                                     pid:    pid
     end
   end
 
   private
 
     def lines_count
-      output.lines.size
+      output.to_s.lines.size
     end
 end
