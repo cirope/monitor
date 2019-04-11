@@ -85,7 +85,7 @@ GEM
       execjs
     bcrypt (3.1.12)
     bcrypt_pbkdf (1.0.1)
-    bindex (0.6.0)
+    bindex (0.7.0)
     bootstrap-sass (3.4.1)
       autoprefixer-rails (>= 5.2.1)
       sassc (>= 2.0.0)
@@ -180,7 +180,7 @@ GEM
     nio4r (2.3.1)
     nokogiri (1.10.2)
       mini_portile2 (~> 2.4.0)
-    paper_trail (10.2.1)
+    paper_trail (10.3.0)
       activerecord (>= 4.2, < 6.1)
       request_store (~> 1.1)
     parallel (1.17.0)

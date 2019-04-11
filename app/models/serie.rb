@@ -13,9 +13,7 @@ class Serie < ApplicationRecord
     name       = extract_translated_attr_from :name, attributes
     identifier = extract_translated_attr_from :identifier, attributes
     amount     = extract_translated_attr_from :amount, attributes
-
-    ts   = attributes.delete :ts
-    date = Time.at(ts).to_date
+    date       = Time.at(attributes.delete :ts).to_date
 
     s = find_or_initialize_by(
       name:       name,
@@ -25,7 +23,8 @@ class Serie < ApplicationRecord
 
     s.count  = s.count.to_i + 1
     s.amount = s.amount.to_f + amount
-    s.data   = (s.data || {}).merge attributes
+    s.data   = Hash(s.data).merge attributes
+
     s.save!
   end
 
