@@ -12,7 +12,7 @@ addons:
     - slapd
     - ldap-utils
     - unixodbc-dev
-  postgresql: 10
+  postgresql: 9.4
 services:
   - postgresql
 env:
