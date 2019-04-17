@@ -3,8 +3,8 @@
     <caption>
       <h4>
         <%= @script %>
-        <small class="pull-right">
-          <%= link_to t('back'), dashboard_path %>
+        <small class="float-right">
+          <%= link_to t('back'), dashboard_path, class: 'small' %>
         </small>
       </h4>
     </caption>
@@ -15,7 +15,7 @@
       <th><%= Issue.human_attribute_name 'created_at' %></th>
       <th><%= Issue.human_attribute_name 'description' %></th>
       <th><%= Issue.human_attribute_name 'status' %></th>
-      <th class="hidden-sm"><%= Tag.model_name.human count: 0 %></th>
+      <th class="d-none d-md-table-cell"><%= Tag.model_name.human count: 0 %></th>
       <th></th>
     </tr>
   </thead>
@@ -27,7 +27,7 @@
         <td><%= l issue.created_at, format: :compact %></td>
         <td><%= truncate issue.description, length: 50 %></td>
         <td><%= issue_status issue.status %></td>
-        <td class="hidden-sm"><%= tags issue.tags %></td>
+        <td class="d-none d-md-table-cell"><%= tags issue.tags %></td>
         <td><%= link_to_show permalink_issue_path(@permalink, issue) %></td>
       </tr>
     <% end %>

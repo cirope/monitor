@@ -80,7 +80,7 @@ $(document).on('ready turbolinks:load', function () {
     }
 
     setTimeout(function () {
-      $('.loading-caption').removeClass('hidden')
+      $('.loading-caption').removeAttr('hidden')
     })
 
     App.cable.subscriptions.create(

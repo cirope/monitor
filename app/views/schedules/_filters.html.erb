@@ -1,22 +1,20 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
+<div class="card mb-3">
+  <div class="card-header">
+    <a class="dropdown-toggle text-reset" href="#filters" data-toggle="collapse">
+      <%= icon 'fas', 'search' %>
+      <%= t 'filters.title' %>
+    </a>
+
     <% if filters? %>
-      <p class="text-warning pull-right">
-        <span class="glyphicon glyphicon-filter"></span>
+      <p class="text-warning mb-0 float-right">
+        <%= icon 'fas', 'filter' %>
         <%= link_to schedules_path, title: t('cancel') do %>
-          <span class="glyphicon glyphicon-remove-circle"></span>
+          <%= icon 'far', 'times-circle' %>
         <% end %>
       </p>
     <% end %>
-    <h4 class="panel-title">
-      <a href="#filters" data-toggle="collapse">
-        <span class="glyphicon glyphicon-search"></span>
-        <%= t 'filters.title' %>
-        <span class="caret"></span>
-      </a>
-    </h4>
   </div>
-  <div id="filters" class="panel-body collapse">
+  <div id="filters" class="card-body collapse">
     <%= simple_form_for :filter, method: :get do |f| %>
       <fieldset>
         <div class="row">
@@ -25,7 +23,7 @@
               required: false,
               input_html: {
                 value:     filter_params[:name],
-                class:     'input-sm',
+                class:     'form-control-sm',
                 autofocus: true
               }
             %>
@@ -35,7 +33,7 @@
               required: false,
               input_html: {
                 value: filter_params[:interval],
-                class: 'input-sm'
+                class: 'form-control-sm'
               }
             %>
           </div>
@@ -43,15 +41,15 @@
             <%= f.input :frequency,
               required: false, collection: frequencies, include_blank: '-', selected: filter_params[:frequency],
               input_html: {
-                class: 'input-sm'
+                class: 'form-control-sm'
               }
             %>
           </div>
         </div>
 
         <div class="form-actions">
-          <p class="text-right">
-            <%= f.button :submit, t('filters.submit'), class: 'btn-sm btn-default' %>
+          <p class="text-right mb-0">
+            <%= f.button :submit, t('filters.submit'), class: 'btn-sm btn-secondary' %>
             <%= link_to t('cancel'), schedules_path, class: 'small' %>
           </p>
         </div>

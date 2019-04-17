@@ -11,10 +11,10 @@
       <li>
         <strong><%= link_to_if user.persisted?, user, user %></strong>
         <% if user.errors.present? %>
-          <span class="label label-danger"><%= t '.error' %></span> |
+          <span class="badge badge-danger"><%= t '.error' %></span> |
           <%= user.errors.full_messages.to_sentence %>
         <% else %>
-          <span class="label label-success">
+          <span class="badge badge-success">
             <%= t import[:new] ? '.created' : '.updated' %>
           </span>
         <% end %>
@@ -35,6 +35,6 @@
 
 <hr>
 
-<p>
+<p class="mb-3">
   <%= link_to User.model_name.human(count: 0), users_path %>
 </p>

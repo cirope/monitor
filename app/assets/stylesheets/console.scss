@@ -1,9 +1,22 @@
+@import "bootstrap/functions";
+@import "bootstrap/variables";
+@import "yeti_theme/variables";
+
 #console {
-  top: 47px;
-  height: calc(100% - 47px);
+  top: 56px;
+  height: calc(100% - 56px);
   z-index: 0;
 
   .close-button {
+    display: none;
+  }
+
+  .console-inner {
+    font-size: $font-size-base * 1.1;
+    font-family: $font-family-monospace;
+  }
+
+  .resizer {
     display: none;
   }
 }

@@ -30,9 +30,9 @@ class IssuesHelperTest < ActionView::TestCase
   end
 
   test 'issue status' do
-    assert_match /label-default/, issue_status('pending')
-    assert_match /label-warning/, issue_status('taken')
-    assert_match /label-success/, issue_status('closed')
+    assert_match /badge-secondary/, issue_status('pending')
+    assert_match /badge-warning/, issue_status('taken')
+    assert_match /badge-success/, issue_status('closed')
   end
 
   test 'subscriptions' do

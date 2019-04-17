@@ -17,7 +17,7 @@ module ObjectsHelper
       key = [params[:key], key].compact.join '__/__'
 
       link_to [parent, key: key, container_id: id], data: { remote: true } do
-        content_tag :span, nil, class: 'glyphicon glyphicon-search', title: t('.more')
+        icon 'fas', 'search', title: t('.more')
       end
     else
       object || raw('&nbsp;')

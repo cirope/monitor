@@ -55,12 +55,12 @@
 
         if (text.trim()) {
           $change.prop('disabled', false).val('')
-          $change.closest('.form-group').removeClass('hidden')
-          $file.prop('disabled', true).addClass('hidden')
+          $change.closest('.form-group').removeAttr('hidden')
+          $file.prop('disabled', true).attr('hidden', true)
         } else {
           $change.prop('disabled', true)
-          $change.closest('.form-group').addClass('hidden')
-          $file.prop('disabled', false).removeClass('hidden')
+          $change.closest('.form-group').attr('hidden', true)
+          $file.prop('disabled', false).removeAttr('hidden')
         }
       })
 

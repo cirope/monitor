@@ -26,6 +26,7 @@
 //= require codemirror/addon/search/searchcursor
 //= require codemirror/addon/selection/active-line
 //= require codemirror/mode/ruby
+//= require popper
 //= require bootstrap
 //= require chartist/chartist
 //= require chartist/chartist-plugin-axistitle

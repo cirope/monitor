@@ -209,6 +209,7 @@ class UserTest < ActiveSupport::TestCase
     end
 
     assert Membership.where(email: @user.email).exists?
+    refute @user.visible?
   end
 
   test 'create membership if hidden is updated to false' do
@@ -216,9 +217,13 @@ class UserTest < ActiveSupport::TestCase
       @user.hide
     end
 
+    refute @user.visible?
+
     assert_difference ['User.visible.count', '@user.memberships.count'] do
       @user.update! hidden: false
     end
+
+    assert @user.visible?
   end
 
   test 'by role' do

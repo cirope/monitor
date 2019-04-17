@@ -11,6 +11,7 @@
  *= require_self
  *= require fonts
  *= require bootstrap_sass
+ *= require font_awesome
  *= require ie
  *= require chartist/chartist
  *= require codemirror/codemirror

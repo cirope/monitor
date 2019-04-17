@@ -10,7 +10,7 @@
     <thead>
       <tr>
         <th><%= PaperTrail::Version.human_attribute_name 'whodunnit' %></th>
-        <th class="hidden-sm hidden-xs"><%= t '.change' %></th>
+        <th class="d-none d-md-table-cell"><%= t '.change' %></th>
         <th><%= PaperTrail::Version.human_attribute_name 'created_at' %></th>
         <th></th>
       </tr>
@@ -19,7 +19,7 @@
       <% @versions.each do |version| %>
         <tr>
           <td><%= version.user %></td>
-          <td class="hidden-sm hidden-xs"><%= truncate version_change_for(version) %></td>
+          <td class="d-none d-md-table-cell"><%= truncate version_change_for(version) %></td>
           <td><%= l version_change_date_for(version), format: :compact %></td>
           <td><%= link_to_show script_version_path(@script, version) %></td>
         </tr>
