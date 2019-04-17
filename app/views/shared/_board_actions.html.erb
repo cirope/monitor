@@ -1,12 +1,8 @@
-<ul id="board" class="nav navbar-nav navbar-right">
+<li id="board" class="nav-item<%= ' active' if controller_name == 'board' && !request.xhr? %>">
   <% if show_board? %>
-    <li <%== 'class="active"' if controller_name == 'board' %>>
-      <%= link_to issues_board_path, title: t('board.index.title') do %>
-        <span class="glyphicon glyphicon-shopping-cart"></span>
-        <span class="badge badge-default">
-          <%= board_session.size %>
-        </span>
-      <% end %>
-    </li>
+    <%= link_to issues_board_path, title: t('board.index.title'), class: 'nav-link' do %>
+      <%= icon 'fas', 'shopping-cart' %>
+      <span class="badge badge-pill badge-primary"><%= board_session.size %></span>
+    <% end %>
   <% end %>
-</ul>
+</li>

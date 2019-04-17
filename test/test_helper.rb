@@ -34,6 +34,7 @@ class ActionController::TestCase
 end
 
 class ActionView::TestCase
+  include FontAwesome::Sass::Rails::ViewHelpers
   include SimpleForm::ActionViewExtensions::FormHelper
 end
 

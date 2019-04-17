@@ -7,7 +7,6 @@ class User < ApplicationRecord
   include Attributes::Strip
   include Attributes::Downcase
   include Users::Authentication
-  include Users::Hide
   include Users::Memberships
   include Users::Overrides
   include Users::PasswordReset
@@ -15,6 +14,7 @@ class User < ApplicationRecord
   include Users::Scopes
   include Users::Search
   include Users::Validation
+  include Users::Visibility
 
   strip_fields :name, :lastname, :email, :username
   downcase_fields :email, :username

@@ -11,7 +11,7 @@ module Issues::BoardHelper
 
     if error
       content_tag :abbr, class: 'text-warning', title: error.join(' | ') do
-        content_tag :span, nil, class: 'glyphicon glyphicon-warning-sign'
+        icon 'fas', 'exclamation-triangle'
       end
     end
   end
@@ -22,6 +22,7 @@ module Issues::BoardHelper
 
   def link_to_create_permalink
     options = {
+      class: 'dropdown-item',
       data:  {
         remote: true,
         method: :post,
@@ -36,6 +37,7 @@ module Issues::BoardHelper
 
   def link_to_download_issue_data
     options = {
+      class: 'dropdown-item',
       data:  {
         method: :post,
         toggle: :dropdown
@@ -48,14 +50,15 @@ module Issues::BoardHelper
   end
 
   def link_to_download_pdf
-    link_to issues_board_path(format: :pdf) do
+    link_to issues_board_path(format: :pdf), class: 'dropdown-item' do
       t '.download_pdf'
     end
   end
 
   def link_to_destroy_all_issues
     options = {
-      data: {
+      class: 'dropdown-item',
+      data:  {
         method:  :delete,
         toggle:  :dropdown,
         confirm: t('messages.confirmation')

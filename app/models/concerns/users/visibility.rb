@@ -1,12 +1,16 @@
 # frozen_string_literal: true
 
-module Users::Hide
+module Users::Visibility
   extend ActiveSupport::Concern
 
   def hide
     current_membership.destroy!
 
     update hidden: true
+  end
+
+  def visible?
+    !hidden
   end
 
   module ClassMethods

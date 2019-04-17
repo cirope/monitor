@@ -3,46 +3,44 @@
 
   <%= link_to @script, @script %>
 
-  <span class="pull-right" data-status="<%= @execution.status %>"
-                           data-pid="<%= @execution.pid %>"
-                           data-status-refresh-url="<%= script_execution_path @script, @execution %>">
+  <span class="float-right" data-status="<%= @execution.status %>"
+                            data-pid="<%= @execution.pid %>"
+                            data-status-refresh-url="<%= script_execution_path @script, @execution %>">
     <%= execution_status @execution.status %>
   </span>
 </h3>
 
-<p>
+<p class="mb-1">
   <strong><%= Execution.human_attribute_name 'server' %></strong>:
   <%= @execution.server %>
 </p>
 
-<p>
+<p class="mb-1">
   <strong><%= Execution.human_attribute_name 'started_at' %></strong>:
   <span data-started-at>
     <%= l @execution.started_at, format: :compact if @execution.started_at %>
   </span>
 </p>
-<p>
+<p class="mb-1">
   <strong><%= Execution.human_attribute_name 'ended_at' %></strong>:
   <span data-ended-at>
     <%= l @execution.ended_at, format: :compact if @execution.ended_at %>
   </span>
 </p>
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">
-      <%= link_to Execution.human_attribute_name('output'), '#execution-output', data: { toggle: 'collapse' } %>
-    </h3>
+<div class="card my-3">
+  <div class="card-header">
+    <%= link_to Execution.human_attribute_name('output'), '#execution-output', class: 'text-reset', data: { toggle: 'collapse' } %>
   </div>
-  <div id="execution-output" class="panel-collapse collapse in">
-    <div class="panel-body">
-      <p>
+  <div id="execution-output" class="panel-collapse collapse show">
+    <div class="card-body">
+      <p class="mb-0">
         <% if @execution.pending? || @execution.running? %>
-          <pre class="console"><samp
+          <pre class="console p-1"><samp
             data-actioncable-watch="execution"
             data-actioncable-watch-execution-id="<%= @execution.id %>"></samp></pre>
         <% else %>
-          <pre class="console"><samp><%= @execution.output %></samp></pre>
+          <pre class="console p-1"><samp><%= @execution.output %></samp></pre>
         <% end %>
       </p>
     </div>

@@ -4,18 +4,18 @@ module ExecutionsHelper
   def execution_status status
     klass = case status.to_s
             when 'success'
-              'label-success'
+              'badge-success'
             when 'error'
-              'label-danger'
+              'badge-danger'
             when 'running'
-              'label-info'
+              'badge-info'
             when 'killed'
-              'label-warning'
+              'badge-warning'
             else
-              'label-default'
+              'badge-secondary'
             end
 
-    content_tag :span, t("executions.status.#{status}"), class: "label #{klass}"
+    content_tag :span, t("executions.status.#{status}"), class: "badge #{klass}"
   end
 
   def link_to_force_kill_execution
@@ -33,7 +33,7 @@ module ExecutionsHelper
 
     link_to [@script, @execution], options do
       raw [
-        content_tag(:span, nil, class: 'glyphicon glyphicon-fire'),
+        icon('fas', 'skull'),
         t('.kill')
       ].join ' '
     end
@@ -53,7 +53,7 @@ module ExecutionsHelper
 
     link_to [@script, @execution], options do
       raw [
-        content_tag(:span, nil, class: 'glyphicon glyphicon-screenshot'),
+        icon('far', 'stop-circle'),
         t('.finish')
       ].join ' '
     end

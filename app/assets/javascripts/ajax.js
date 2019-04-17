@@ -1,7 +1,7 @@
 $(document).
   ajaxStart(function () {
-    $('.loading-caption').removeClass('hidden')
+    $('.loading-caption').removeAttr('hidden')
   }).
   ajaxStop(function () {
-    $('.loading-caption').addClass('hidden')
+    $('.loading-caption').attr('hidden', true)
   })

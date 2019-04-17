@@ -4,9 +4,9 @@ require 'test_helper'
 
 class RunsHelperTest < ActionView::TestCase
   test 'run status' do
-    assert_match /label-success/, run_status('ok')
-    assert_match /label-danger/, run_status('error')
-    assert_match /label-default/, run_status('pending')
+    assert_match /badge-success/, run_status('ok')
+    assert_match /badge-danger/, run_status('error')
+    assert_match /badge-secondary/, run_status('pending')
   end
 
   test 'run output' do
@@ -27,13 +27,13 @@ class RunsHelperTest < ActionView::TestCase
     @virtual_path = 'runs.show'
     @run          = runs :ls_on_atahualpa
 
-    assert_match 'glyphicon-fire', link_to_force_kill_run
+    assert_match 'skull', link_to_force_kill_run
   end
 
   test 'link to kill' do
     @virtual_path = 'runs.show'
     @run          = runs :ls_on_atahualpa
 
-    assert_match 'glyphicon-screenshot', link_to_kill_run
+    assert_match 'stop-circle', link_to_kill_run
   end
 end

@@ -1,22 +1,20 @@
 <h2><%= @database %></h2>
 
-<p>
+<p class="mb-1">
   <strong><%= Database.human_attribute_name 'driver' %></strong>:
   <%= @database.driver %>
 </p>
-<p>
+<p class="mb-1">
   <strong><%= Database.human_attribute_name 'description' %></strong>:
   <%= @database.description %>
 </p>
 
 <% if @database.properties.any? %>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">
-        <%= Property.model_name.human count: @database.properties.size %>
-      </h3>
+  <div class="card my-3">
+    <div class="card-header">
+      <%= Property.model_name.human count: @database.properties.size %>
     </div>
-    <div id="properties" class="panel-body">
+    <div id="properties" class="card-body">
       <table class="table table-hover">
         <thead>
           <tr>

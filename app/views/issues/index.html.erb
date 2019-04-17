@@ -8,8 +8,8 @@
       <caption>
         <h4>
           <%= @script %>
-          <small class="pull-right">
-            <%= link_to t('back'), dashboard_path %>
+          <small class="float-right">
+            <%= link_to t('back'), dashboard_path, class: 'small' %>
           </small>
         </h4>
       </caption>
@@ -20,7 +20,7 @@
         <th><%= Issue.human_attribute_name 'created_at' %></th>
         <th><%= Issue.human_attribute_name 'description' %></th>
         <th><%= Issue.human_attribute_name 'status' %></th>
-        <th class="hidden-sm hidden-xs"><%= Tag.model_name.human count: 0 %></th>
+        <th class="d-none d-md-table-cell"><%= Tag.model_name.human count: 0 %></th>
         <th class="text-right" colspan="<%= issue_actions_cols %>">
           <% if @script %>
             <div class="btn-group" role="group">
