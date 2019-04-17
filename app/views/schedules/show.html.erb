@@ -1,38 +1,36 @@
 <h2>
   <%= @schedule %>
-  <div class="pull-right">
+  <div class="float-right">
     <%= link_to_run do %>
-      <span class="glyphicon glyphicon-play"></span>
+      <%= icon 'fas', 'play' %>
       <%= t '.run' %>
     <% end %>
   </div>
 </h2>
 
-<p>
+<p class="mb-1">
   <strong><%= Schedule.human_attribute_name 'start' %></strong>:
   <%= l @schedule.start, format: :compact %>
 </p>
-<p>
+<p class="mb-1">
   <strong><%= Schedule.human_attribute_name 'end' %></strong>:
   <%= l @schedule.end, format: :compact if @schedule.end %>
 </p>
-<p>
+<p class="mb-1">
   <strong><%= Schedule.human_attribute_name 'interval' %></strong>:
   <%= @schedule.interval %>
 </p>
-<p>
+<p class="mb-1">
   <strong><%= Schedule.human_attribute_name 'frequency' %></strong>:
   <%= t "schedules.frequencies.#{@schedule.frequency}" if @schedule.frequency %>
 </p>
 
 <% if @schedule.jobs.any? %>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">
-        <%= Job.model_name.human count: @schedule.jobs.size %>
-      </h3>
+  <div class="card my-3">
+    <div class="card-header">
+      <%= Job.model_name.human count: @schedule.jobs.size %>
     </div>
-    <div id="jobs" class="panel-body">
+    <div id="jobs" class="card-body">
       <table class="table table-hover">
         <thead>
           <tr>
@@ -54,13 +52,11 @@
 <% end %>
 
 <% if @schedule.dependencies.any? %>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">
-        <%= Dependency.model_name.human count: @schedule.dependencies.size %>
-      </h3>
+  <div class="card my-3">
+    <div class="card-header">
+      <%= Dependency.model_name.human count: @schedule.dependencies.size %>
     </div>
-    <div id="dependencies" class="panel-body">
+    <div id="dependencies" class="card-body">
       <ul>
         <% @schedule.dependencies.each do |dependency| %>
           <li><%= link_to dependency.schedule, dependency.schedule %></li>
@@ -71,13 +67,11 @@
 <% end %>
 
 <% if @schedule.dispatchers.any? %>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">
-        <%= Rule.model_name.human count: @schedule.dispatchers.size %>
-      </h3>
+  <div class="card my-3">
+    <div class="card-header">
+      <%= Rule.model_name.human count: @schedule.dispatchers.size %>
     </div>
-    <div id="dispatchers" class="panel-body">
+    <div id="dispatchers" class="card-body">
       <ul>
         <% @schedule.dispatchers.each do |dispatcher| %>
           <li>

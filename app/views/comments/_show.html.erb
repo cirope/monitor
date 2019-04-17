@@ -1,8 +1,8 @@
 <div class="row" data-comment-id="<%= comment.id %>">
   <div class="col-sm-10">
-    <blockquote class="controls-container">
-      <%= simple_format comment.text %>
-      <footer><%= comment.user %></footer>
+    <blockquote class="blockquote ml-3 controls-container">
+      <%= simple_format comment.text, class: 'mb-0' %>
+      <footer class="blockquote-footer"><%= comment.user %></footer>
 
       <% if comment.owned_by? current_user %>
         <div class="row-controls">
@@ -14,9 +14,9 @@
   </div>
   <div class="col-sm-2">
     <% if comment.file.present? %>
-      <p>
-      <strong><%= Comment.human_attribute_name 'file' %></strong>:
-      <%= link_to t('messages.download'), comment.file.url %>
+      <p class="mb-0">
+        <strong><%= Comment.human_attribute_name 'file' %></strong>:
+        <%= link_to t('messages.download'), comment.file.url %>
       </p>
     <% end %>
   </div>

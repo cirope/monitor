@@ -33,11 +33,11 @@
   <% end %>
 
   <% if @execution.finished? %>
-    $('.loading-caption').addClass('hidden')
+    $('.loading-caption').attr('hidden', true)
     $('.alert.alert-info').alert('close')
   <% else %>
     setTimeout(function () {
-      $('.loading-caption').removeClass('hidden')
+      $('.loading-caption').removeAttr('hidden')
     })
   <% end %>
 }()

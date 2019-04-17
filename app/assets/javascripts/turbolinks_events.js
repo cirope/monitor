@@ -1,9 +1,9 @@
 $(document).on('turbolinks:request-start', function () {
-  $('.loading-caption').removeClass('hidden')
+  $('.loading-caption').removeAttr('hidden')
 })
 
 $(document).on('turbolinks:request-end', function () {
-  $('.loading-caption').addClass('hidden')
+  $('.loading-caption').attr('hidden', true)
 })
 
 $(document).on('turbolinks:load', function () {

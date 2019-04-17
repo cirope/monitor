@@ -47,7 +47,7 @@ module ScriptsHelper
       title = t 'scripts.imports.default_change', date: date
 
       content_tag :abbr, title: title do
-        content_tag :span, nil, class: 'glyphicon glyphicon-asterisk'
+        icon 'fas', 'asterisk'
       end
     end
   end
@@ -72,7 +72,7 @@ module ScriptsHelper
     def link_to_create_execution &block
       url     = script_executions_path @script
       options = {
-        class: 'btn btn-sm btn-default',
+        class: 'btn btn-sm btn-secondary',
         title: t('.execute_now'),
         data:  {
           method:  :post,
@@ -88,7 +88,7 @@ module ScriptsHelper
     def disabled_link_to_execute &block
       options = {
         title:    t('.no_server'),
-        class:    'btn btn-sm btn-default',
+        class:    'btn btn-sm btn-secondary',
         disabled: true
       }
 

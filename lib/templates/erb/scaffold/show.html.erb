@@ -1,7 +1,7 @@
 <h2><%%= @<%= singular_table_name %> %></h2>
 
 <%- attributes.each do |attribute| -%>
-<p>
+<p class="mb-1">
   <strong><%%= <%= singular_table_name.camelize %>.human_attribute_name '<%= attribute.name %>' %></strong>:
   <%%= @<%= singular_table_name %>.<%= attribute.name %> %>
 </p>

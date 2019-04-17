@@ -20,13 +20,11 @@
       </div>
     </div>
 
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">
-          <%= Job.model_name.human count: 0 %>
-        </h3>
+    <div class="card mb-3">
+      <div class="card-header">
+        <%= Job.model_name.human count: 0 %>
       </div>
-      <div id="jobs" class="panel-body">
+      <div id="jobs" class="card-body">
         <%= f.simple_fields_for :jobs, jobs do |rf| %>
           <%= render 'jobs/job', f: rf %>
         <% end %>
@@ -35,15 +33,13 @@
       </div>
     </div>
 
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">
-          <a href="#dependencies" data-toggle="collapse">
-            <%= Dependency.model_name.human count: 0 %>
-          </a>
-        </h3>
+    <div class="card mb-3">
+      <div class="card-header">
+        <a class="text-reset" href="#dependencies" data-toggle="collapse">
+          <%= Dependency.model_name.human count: 0 %>
+        </a>
       </div>
-      <div id="dependencies" class="collapse panel-body">
+      <div id="dependencies" class="collapse card-body">
         <%= f.simple_fields_for :dependencies, dependencies do |df| %>
           <%= render 'dependencies/dependency', f: df %>
         <% end %>
@@ -52,15 +48,13 @@
       </div>
     </div>
 
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">
-          <a href="#dispatchers" data-toggle="collapse">
-            <%= Rule.model_name.human count: 0 %>
-          </a>
-        </h3>
+    <div class="card mb-3">
+      <div class="card-header">
+        <a class="text-reset" href="#dispatchers" data-toggle="collapse">
+          <%= Rule.model_name.human count: 0 %>
+        </a>
       </div>
-      <div id="dispatchers" class="collapse panel-body">
+      <div id="dispatchers" class="collapse card-body">
         <%= f.simple_fields_for :dispatchers, dispatchers do |rf| %>
           <%= render 'dispatchers/dispatcher', f: rf %>
         <% end %>

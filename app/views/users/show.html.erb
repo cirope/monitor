@@ -1,10 +1,10 @@
 <h1><%= @user %></h1>
 
-<p>
+<p class="mb-1">
   <%= mail_to @user.email %>
 </p>
 
-<p>
+<p class="mb-1">
   <strong><%= roles_label %></strong>:
   <%= t "users.roles.#{@user.role}" %>
 </p>
@@ -12,8 +12,8 @@
 <% if @user.tags.any? %>
   <ul class="list-inline">
     <% @user.tags.each do |tag| %>
-      <li>
-        <span class="label label-<%= tag.style %>"><%= tag %></span>
+      <li class="list-inline-item">
+        <span class="badge badge-<%= tag.style %>"><%= tag %></span>
       </li>
     <% end %>
   </ul>

@@ -8,7 +8,7 @@ module Tags::Validation
     validates :name, uniqueness: { case_sensitive: false }
     validates :kind, inclusion: { in: %w(script issue user) }
     validates :style, inclusion: {
-      in: %w(default primary success info warning danger)
+      in: %w(primary secondary success info warning danger)
     }
   end
 end

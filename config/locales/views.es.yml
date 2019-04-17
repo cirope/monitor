@@ -24,7 +24,7 @@ es:
     index:
       new: 'Nueva cuenta'
       title: 'Listado de cuentas'
-      empty_html: 'No hay cuentas, puede crear una con el botón <span class="label label-primary">Nueva cuenta</span>'
+      empty_html: 'No hay cuentas, puede crear una con el botón <span class="badge badge-primary">Nueva cuenta</span>'
       empty_search_html: 'No hay cuentas que coincidan con el criterio de búsqueda'
     new:
       title: 'Crear cuenta'
@@ -61,7 +61,7 @@ es:
     index:
       new: 'Nueva base de datos'
       title: 'Listado de bases de datos'
-      empty_html: 'No hay bases de datos, puede crear una con el botón <span class="label label-primary">Nueva base de datos</span>'
+      empty_html: 'No hay bases de datos, puede crear una con el botón <span class="badge badge-primary">Nueva base de datos</span>'
       empty_search_html: 'No hay bases de datos que coincidan con el criterio de búsqueda'
     new:
       title: 'Crear base de datos'
@@ -75,7 +75,7 @@ es:
     index:
       new: 'Nuevo descriptor'
       title: 'Listado de descriptores'
-      empty_html: 'No hay descriptores, puede crear uno con el botón <span class="label label-primary">Nuevo descriptor</span>'
+      empty_html: 'No hay descriptores, puede crear uno con el botón <span class="badge badge-primary">Nuevo descriptor</span>'
     new:
       title: 'Crear descriptor'
     show:
@@ -180,7 +180,7 @@ es:
     index:
       new: 'Nueva configuración LDAP'
       title: 'Listado de configuraciones LDAP'
-      empty_html: 'No hay configuraciones LDAP, puede crear una con el botón <span class="label label-primary">Nueva configuración LDAP</span>'
+      empty_html: 'No hay configuraciones LDAP, puede crear una con el botón <span class="badge badge-primary">Nueva configuración LDAP</span>'
     new:
       title: 'Crear configuración LDAP'
     show:
@@ -232,7 +232,7 @@ es:
     index:
       new: 'Nueva regla'
       title: 'Listado de reglas'
-      empty_html: 'No hay reglas, puede crear una con el botón <span class="label label-primary">Nueva regla</span>'
+      empty_html: 'No hay reglas, puede crear una con el botón <span class="badge badge-primary">Nueva regla</span>'
       empty_search_html: 'No hay reglas que coincidan con el criterio de búsqueda'
       import: 'Importar'
       export: 'Exportar'
@@ -283,7 +283,7 @@ es:
     index:
       new: 'Nuevo guión'
       title: 'Listado de guiones'
-      empty_html: 'No hay guiones, puede crear uno con el botón <span class="label label-primary">Nuevo guión</span>'
+      empty_html: 'No hay guiones, puede crear uno con el botón <span class="badge badge-primary">Nuevo guión</span>'
       empty_search_html: 'No hay guiones que coincidan con el criterio de búsqueda'
       import: 'Importar'
       export: 'Exportar'
@@ -336,7 +336,7 @@ es:
     index:
       new: 'Nuevo trabajo'
       title: 'Listado de trabajos'
-      empty_html: 'No hay trabajos, puede crear uno con el botón <span class="label label-primary">Nuevo trabajo</span>'
+      empty_html: 'No hay trabajos, puede crear uno con el botón <span class="badge badge-primary">Nuevo trabajo</span>'
       empty_search_html: 'No hay trabajos que coincidan con el criterio de búsqueda'
     new:
       title: 'Crear trabajo'
@@ -366,7 +366,7 @@ es:
     index:
       new: 'Nuevo servidor'
       title: 'Listado de servidores'
-      empty_html: 'No hay servidores, puede crear uno con el botón <span class="label label-primary">Nuevo servidor</span>'
+      empty_html: 'No hay servidores, puede crear uno con el botón <span class="badge badge-primary">Nuevo servidor</span>'
       empty_search_html: 'No hay servidores que coincidan con el criterio de búsqueda'
     new:
       title: 'Crear servidor'
@@ -407,13 +407,13 @@ es:
     index:
       new: 'Nueva etiqueta'
       title: 'Listado de etiquetas'
-      empty_html: 'No hay etiquetas, puede crear una con el botón <span class="label label-primary">Nueva etiqueta</span>'
+      empty_html: 'No hay etiquetas, puede crear una con el botón <span class="badge badge-primary">Nueva etiqueta</span>'
     new:
       title: 'Crear etiqueta'
     show:
       title: 'Ver etiqueta'
     styles:
-      default: 'Por defecto'
+      secondary: 'Por defecto'
       primary: 'Importante'
       success: 'Exitosa'
       info: 'Informativa'
@@ -436,7 +436,7 @@ es:
       new: 'Nuevo usuario'
       title: 'Listado de usuarios'
       ldap_import: 'Importar desde LDAP'
-      empty_html: 'No hay usuarios, puede crear uno con el botón <span class="label label-primary">Nuevo usuario</span>'
+      empty_html: 'No hay usuarios, puede crear uno con el botón <span class="badge badge-primary">Nuevo usuario</span>'
       empty_search_html: 'No hay usuarios que coincidan con el criterio de búsqueda'
     new:
       title: 'Crear usuario'

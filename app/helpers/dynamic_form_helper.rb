@@ -4,7 +4,7 @@ module DynamicFormHelper
   def link_to_add_fields name, form, association, options = {}
     link_to(
       name, '#',
-      class: 'btn btn-default btn-sm',
+      class: 'btn btn-secondary btn-sm',
       title: name,
       data: add_field_data(form, association, options)
     )
@@ -50,7 +50,7 @@ module DynamicFormHelper
     end
 
     def remove_icon
-      content_tag :span, nil, class: 'glyphicon glyphicon-remove-circle'
+      icon 'far', 'times-circle'
     end
 
     def destroy_field form

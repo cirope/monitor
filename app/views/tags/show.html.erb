@@ -1,5 +1,5 @@
 <h2>
-  <div class="label label-<%= @tag.style %>">
+  <div class="badge badge-<%= @tag.style %>">
     <%= @tag %>
   </div>
 </h2>
@@ -7,7 +7,7 @@
 <hr>
 
 <% @tag.kind_options.each do |option, type| %>
-  <p>
+  <p class="mb-1">
     <strong><%= Tag.human_attribute_name option %></strong>:
     <% if type == :boolean %>
       <%= t(@tag.send(option) ? 'yes' : 'no') %>
@@ -17,5 +17,7 @@
   </p>
 <% end %>
 
-<%= link_to_edit [:edit, @tag, kind: @tag.kind] %> |
-<%= link_to_index tags_path %>
+<div class="mt-3">
+  <%= link_to_edit [:edit, @tag, kind: @tag.kind] %> |
+  <%= link_to_index tags_path %>
+</div>

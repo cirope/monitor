@@ -6,18 +6,16 @@
     <%= f.input :description, input_html: { rows: 4, readonly: limited_issue_form_edition? } %>
     <%= f.input :lock_version, as: :hidden %>
 
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">
-          <a href="#subscriptions" data-toggle="collapse">
-            <%= User.model_name.human count: 0 %>
-          </a>
-          <span class="badge badge-default pull-right">
-            <%= @issue.subscriptions.count %>
-          </span>
-        </h3>
+    <div class="card mb-3">
+      <div class="card-header">
+        <a class="text-reset" href="#subscriptions" data-toggle="collapse">
+          <%= User.model_name.human count: 0 %>
+        </a>
+        <span class="badge badge-pill badge-light float-right">
+          <%= @issue.subscriptions.count %>
+        </span>
       </div>
-      <div id="subscriptions" class="collapse panel-body">
+      <div id="subscriptions" class="collapse card-body">
         <%= f.simple_fields_for :subscriptions, subscriptions do |df| %>
           <%= render 'subscriptions/subscription', f: df %>
         <% end %>
@@ -26,18 +24,16 @@
       </div>
     </div>
 
-    <div class="panel <%= @issue.errors[:tags].blank? ? 'panel-default' : 'panel-danger' %>">
-      <div class="panel-heading">
-        <h3 class="panel-title">
-          <a href="#tags" data-toggle="collapse">
-            <%= Tag.model_name.human count: 0 %>
-          </a>
-          <span class="badge badge-default pull-right">
-            <%= @issue.taggings.count %>
-          </span>
-        </h3>
+    <div class="card mb-3<%= ' border-danger' if @issue.errors[:tags].present? %>">
+      <div class="card-header">
+        <a class="text-reset" href="#tags" data-toggle="collapse">
+          <%= Tag.model_name.human count: 0 %>
+        </a>
+        <span class="badge badge-pill badge-light float-right">
+          <%= @issue.taggings.count %>
+        </span>
       </div>
-      <div id="tags" class="collapse panel-body">
+      <div id="tags" class="collapse card-body">
         <% @issue.errors.full_messages_for(:tags).each do |error| %>
           <p class="text-danger"><%= error %></p>
         <% end %>
@@ -50,17 +46,15 @@
       </div>
     </div>
 
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">
-          <%= Comment.model_name.human count: 0 %>
-        </h3>
+    <div class="card">
+      <div class="card-header">
+        <%= Comment.model_name.human count: 0 %>
       </div>
-      <div id="comments" class="panel-body">
+      <div id="comments" class="card-body">
         <% @issue.comments.reject(&:new_record?).each do |comment| %>
-          <blockquote>
-            <%= simple_format comment.text %>
-            <footer><%= comment.user %></footer>
+          <blockquote class="blockquote ml-3">
+            <%= simple_format comment.text, class: 'mb-0' %>
+            <footer class="blockquote-footer"><%= comment.user %></footer>
           </blockquote>
         <% end %>
 

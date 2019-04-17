@@ -1,18 +1,18 @@
-<h2>
+<h2 class="mb-3">
   <%= @script %>
-  <small class="pull-right">
+  <small class="float-right">
     <% if @script.core %>
-      <span class="glyphicon glyphicon-star" title="<%= Script.human_attribute_name 'core' %>"></span>
+      <%= icon 'fas', 'star', class: 'mr-2', title: Script.human_attribute_name('core') %>
     <% end %>
     <%= link_to_execute do %>
-      <span class="glyphicon glyphicon-play"></span>
+      <%= icon 'fas', 'play' %>
       <%= t '.execute_now' %>
     <% end %>
   </small>
 </h2>
 
 <% if @script.file.present? %>
-  <p>
+  <p class="mb-1">
     <strong><%= Script.human_attribute_name 'file' %></strong>:
     <%= link_to t('messages.download'), @script.file.url %>
   </p>
@@ -28,26 +28,24 @@
 <% end %>
 
 <% if @script.change.present? %>
-  <p>
+  <p class="mb-3">
     <strong><%= Script.human_attribute_name 'change' %></strong>:
     <%= link_to @script.change, '#diff', data: { toggle: 'collapse' } %>
   </p>
 
-  <div id="diff" class="panel panel-default collapse">
-    <div class="panel-body">
+  <div id="diff" class="card collapse my-3">
+    <div class="card-body">
       <%= last_change_diff %>
     </div>
   </div>
 <% end %>
 
 <% if @script.maintainers.any? %>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">
-        <%= Maintainer.model_name.human count: @script.maintainers.size %>
-      </h3>
+  <div class="card mb-3">
+    <div class="card-header">
+      <%= Maintainer.model_name.human count: @script.maintainers.size %>
     </div>
-    <div id="maintainers" class="panel-body">
+    <div id="maintainers" class="card-body">
       <ul>
         <% @script.maintainers.each do |maintainer| %>
           <li><%= link_to maintainer.user, maintainer.user %></li>
@@ -58,13 +56,11 @@
 <% end %>
 
 <% if @script.requires.any? %>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">
-        <%= Require.model_name.human count: @script.requires.size %>
-      </h3>
+  <div class="card mb-3">
+    <div class="card-header">
+      <%= Require.model_name.human count: @script.requires.size %>
     </div>
-    <div id="requires" class="panel-body">
+    <div id="requires" class="card-body">
       <ul>
         <% @script.requires.each do |require| %>
           <li><%= link_to require.script, require.script %></li>
@@ -77,22 +73,20 @@
 <% if @script.tags.any? %>
   <ul class="list-inline">
     <% @script.tags.each do |tag| %>
-      <li>
-        <span class="label label-<%= tag.style %>"><%= tag %></span>
+      <li class="list-inline-item">
+        <span class="badge badge-<%= tag.style %>"><%= tag %></span>
       </li>
     <% end %>
   </ul>
 <% end %>
 
 <% if @script.parameters.any? %>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">
-        <%= Parameter.model_name.human count: @script.parameters.size %>
-      </h3>
+  <div class="card mb-3">
+    <div class="card-header">
+      <%= Parameter.model_name.human count: @script.parameters.size %>
     </div>
-    <div id="parameters" class="panel-body">
-      <table class="table table-condensed">
+    <div id="parameters" class="card-body">
+      <table class="table table-sm">
         <thead>
           <tr>
             <th><%= Parameter.human_attribute_name 'name' %></th>
@@ -113,14 +107,12 @@
 <% end %>
 
 <% if @script.descriptions.any? %>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">
-        <%= Description.model_name.human count: @script.descriptions.size %>
-      </h3>
+  <div class="card mb-3">
+    <div class="card-header">
+      <%= Description.model_name.human count: @script.descriptions.size %>
     </div>
-    <div id="descriptions" class="panel-body">
-      <table class="table table-condensed">
+    <div id="descriptions" class="card-body">
+      <table class="table table-sm">
         <thead>
           <tr>
             <th><%= Description.human_attribute_name 'name' %></th>
@@ -144,13 +136,13 @@
   <%= link_to_edit [:edit, @script] %> |
 <% end %>
 <%= link_to scripts_exports_create_path(id: @script), title: t('scripts.index.export'), data: { method: :post } do %>
-  <span class="glyphicon glyphicon-floppy-save"></span>
+  <%= icon 'fas', 'save' %>
 <% end %> |
 <%= link_to script_path(@script, format: :pdf), title: t('.download_pdf') do %>
-  <span class="glyphicon glyphicon-file"></span>
+  <%= icon 'fas', 'file-pdf' %>
 <% end %> |
 <%= link_to script_versions_path(@script), title: t('.history') do %>
-  <span class="glyphicon glyphicon-time"></span>
+  <%= icon 'fas', 'history' %>
 <% end %> |
 <%= link_to t('.executions_list'), script_executions_path(@script) %> |
 <%= link_to_index scripts_path %>
