@@ -73,7 +73,7 @@ module RunsHelper
 
     link_to @run, options do
       raw [
-        icon('far', 'stop-circle'),
+        icon('fas', 'stop-circle'),
         t('.finish')
       ].join ' '
     end

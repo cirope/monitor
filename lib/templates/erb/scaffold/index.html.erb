@@ -19,9 +19,9 @@
           <%- attributes.each do |attribute| -%>
           <td><%%= <%= singular_table_name %>.<%= attribute.name %> %></td>
           <%- end -%>
-          <td><%%= link_to_show <%= singular_table_name %> %></td>
-          <td><%%= link_to_edit [:edit, <%= singular_table_name %>] %></td>
-          <td><%%= link_to_destroy <%= singular_table_name %> %></td>
+          <td class="text-right"><%%= link_to_show <%= singular_table_name %> %></td>
+          <td class="text-right"><%%= link_to_edit [:edit, <%= singular_table_name %>] %></td>
+          <td class="text-right"><%%= link_to_destroy <%= singular_table_name %> %></td>
         </tr>
       <%% end %>
     </tbody>

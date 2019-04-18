@@ -21,7 +21,7 @@
           <td><%= version.user %></td>
           <td class="d-none d-md-table-cell"><%= truncate version_change_for(version) %></td>
           <td><%= l version_change_date_for(version), format: :compact %></td>
-          <td><%= link_to_show script_version_path(@script, version) %></td>
+          <td class="text-right"><%= link_to_show script_version_path(@script, version) %></td>
         </tr>
       <% end %>
     </tbody>

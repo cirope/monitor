@@ -3,8 +3,8 @@
 module MembershipsHelper
   def link_to_default membership
     if membership.default
-      content_tag :span, class: 'text-warning', title: t('.default') do
-        icon 'fas', 'star'
+      content_tag :span, class: 'text-success', title: t('.default') do
+        icon 'fas', 'toggle-on'
       end
     else
       options = {
@@ -14,7 +14,7 @@ module MembershipsHelper
       }
 
       link_to membership, options do
-        icon 'far', 'star'
+        icon 'fas', 'toggle-off'
       end
     end
   end

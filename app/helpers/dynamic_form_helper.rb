@@ -50,7 +50,7 @@ module DynamicFormHelper
     end
 
     def remove_icon
-      icon 'far', 'times-circle'
+      icon 'fas', 'times-circle'
     end
 
     def destroy_field form

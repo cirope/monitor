@@ -28,7 +28,7 @@
         <td><%= truncate issue.description, length: 50 %></td>
         <td><%= issue_status issue.status %></td>
         <td class="d-none d-md-table-cell"><%= tags issue.tags %></td>
-        <td><%= link_to_show permalink_issue_path(@permalink, issue) %></td>
+        <td class="text-right"><%= link_to_show permalink_issue_path(@permalink, issue) %></td>
       </tr>
     <% end %>
   </tbody>

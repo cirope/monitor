@@ -53,7 +53,7 @@ module ExecutionsHelper
 
     link_to [@script, @execution], options do
       raw [
-        icon('far', 'stop-circle'),
+        icon('fas', 'stop-circle'),
         t('.finish')
       ].join ' '
     end

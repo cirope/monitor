@@ -4,7 +4,7 @@
       <% object.each do |k, v| %>
         <tr>
           <td><%= k %></td>
-          <td><%= link_or_show parent, k, v, object.object_id %></td>
+          <td class="text-right"><%= link_or_show parent, k, v, object.object_id %></td>
         </tr>
       <% end %>
     </tbody>
