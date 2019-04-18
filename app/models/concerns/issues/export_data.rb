@@ -9,8 +9,6 @@ module Issues::ExportData
     if data.present?
       base_dir = EXPORTS_PATH + SecureRandom.uuid
 
-      FileUtils.mkdir_p base_dir
-
       export_to_csvs  base_dir
       zip_dir_content base_dir
     end
