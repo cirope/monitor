@@ -24,6 +24,10 @@ class MenuHelperTest < ActionView::TestCase
     assert_equal link, dropdown_item_for(User, users_path)
   end
 
+  test 'link to edit profile' do
+    assert_match t('profiles.edit.title'), link_to_edit_profile
+  end
+
   test 'show board?' do
     assert !show_board?
 

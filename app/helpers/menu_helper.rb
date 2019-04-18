@@ -23,6 +23,16 @@ module MenuHelper
     link_to model.model_name.human(count: 0), path, options
   end
 
+  def link_to_edit_profile
+    options = if controller_name == 'profiles'
+                { class: 'dropdown-item active' }
+              else
+                { class: 'dropdown-item' }
+              end
+
+    link_to t('profiles.edit.title'), profile_path, options
+  end
+
   def show_board?
     board_session.present?
   end
