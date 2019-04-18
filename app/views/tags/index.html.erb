@@ -25,9 +25,9 @@
       <% @tags.each do |tag| %>
         <tr>
           <td><%= tag.name %></td>
-          <td><%= link_to_show [tag, kind: tag.kind] %></td>
-          <td><%= link_to_edit [:edit, tag, kind: tag.kind] %></td>
-          <td><%= link_to_destroy [tag, kind: tag.kind] %></td>
+          <td class="text-right"><%= link_to_show [tag, kind: tag.kind] %></td>
+          <td class="text-right"><%= link_to_edit [:edit, tag, kind: tag.kind] %></td>
+          <td class="text-right"><%= link_to_destroy [tag, kind: tag.kind] %></td>
         </tr>
       <% end %>
     </tbody>

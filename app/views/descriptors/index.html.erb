@@ -15,9 +15,9 @@
       <% @descriptors.each do |descriptor| %>
         <tr>
           <td><%= descriptor.name %></td>
-          <td><%= link_to_show descriptor %></td>
-          <td><%= link_to_edit [:edit, descriptor] %></td>
-          <td><%= link_to_destroy descriptor %></td>
+          <td class="text-right"><%= link_to_show descriptor %></td>
+          <td class="text-right"><%= link_to_edit [:edit, descriptor] %></td>
+          <td class="text-right"><%= link_to_destroy descriptor %></td>
         </tr>
       <% end %>
     </tbody>

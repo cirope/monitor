@@ -25,11 +25,11 @@
           <td class="d-none d-lg-table-cell"><%= l schedule.end, format: :compact if schedule.end %></td>
           <td class="d-none d-lg-table-cell"><%= schedule.interval %></td>
           <td class="d-none d-lg-table-cell"><%= t "schedules.frequencies.#{schedule.frequency}" if schedule.frequency %></td>
-          <td><%= link_to_runs schedule %></td>
-          <td><%= link_to_show schedule %></td>
+          <td class="text-right"><%= link_to_runs schedule %></td>
+          <td class="text-right"><%= link_to_show schedule %></td>
           <% unless current_user.author? %>
-            <td><%= link_to_edit [:edit, schedule] %></td>
-            <td><%= link_to_destroy schedule %></td>
+            <td class="text-right"><%= link_to_edit [:edit, schedule] %></td>
+            <td class="text-right"><%= link_to_destroy schedule %></td>
           <% end %>
         </tr>
       <% end %>

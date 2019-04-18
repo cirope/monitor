@@ -19,8 +19,8 @@
         <tr>
           <td><%= account.name %></td>
           <td class="d-none d-sm-table-cell"><%= account.tenant_name %></td>
-          <td><%= link_to_show account %></td>
-          <td><%= link_to_edit [:edit, account] %></td>
+          <td class="text-right"><%= link_to_show account %></td>
+          <td class="text-right"><%= link_to_edit [:edit, account] %></td>
         </tr>
       <% end %>
     </tbody>

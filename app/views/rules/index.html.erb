@@ -17,9 +17,9 @@
       <% @rules.each do |rule| %>
         <tr <%== 'class="text-striked text-muted"' unless rule.enabled %>>
           <td><%= rule.name %></td>
-          <td><%= link_to_show rule %></td>
-          <td><%= link_to_edit [:edit, rule] %></td>
-          <td><%= link_to_destroy rule %></td>
+          <td class="text-right"><%= link_to_show rule %></td>
+          <td class="text-right"><%= link_to_edit [:edit, rule] %></td>
+          <td class="text-right"><%= link_to_destroy rule %></td>
         </tr>
       <% end %>
     </tbody>

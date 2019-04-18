@@ -4,12 +4,12 @@
   <td><%= truncate issue.description, length: 50 %></td>
   <td><%= issue_status issue.status %></td>
   <td class="d-none d-md-table-cell"><%= tags issue.tags %></td>
-  <td><%= link_to_show issue %></td>
+  <td class="text-right"><%= link_to_show issue %></td>
   <% if current_user.author? || current_user.supervisor? %>
-    <td><%= link_to_edit [:edit, issue] %></td>
-    <td><%= is_in_board?(issue) ? link_to_remove_from_board(issue) : link_to_add_to_board(issue) %></td>
+    <td class="text-right"><%= link_to_edit [:edit, issue] %></td>
+    <td class="text-right"><%= is_in_board?(issue) ? link_to_remove_from_board(issue) : link_to_add_to_board(issue) %></td>
     <% unless current_user.author? %>
-      <td><%= link_to_destroy [issue, filter: filter_params.to_h] %></td>
+      <td class="text-right"><%= link_to_destroy [issue, filter: filter_params.to_h] %></td>
     <% end %>
   <% end %>
 </tr>

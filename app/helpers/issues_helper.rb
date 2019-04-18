@@ -94,7 +94,7 @@ module IssuesHelper
 
   def link_to_add_all_to_board
     options = {
-      class: 'btn btn-sm btn-secondary',
+      class: 'btn btn-sm btn-secondary py-0',
       title: t('.add_all'),
       data:  { method: :post }
     }
@@ -106,7 +106,7 @@ module IssuesHelper
 
   def link_to_remove_all_from_board
     options = {
-      class: 'btn btn-sm btn-secondary',
+      class: 'btn btn-sm btn-secondary py-0',
       title: t('.remove_all'),
       data:  { method: :delete }
     }
