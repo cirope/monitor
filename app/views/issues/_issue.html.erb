@@ -1,9 +1,9 @@
 <tr data-issue="<%= issue.id %>">
-  <td><%= l issue.run.scheduled_at, format: :compact %></td>
-  <td><%= l issue.created_at, format: :compact %></td>
+  <td class="d-none d-md-table-cell"><%= l issue.run.scheduled_at, format: :compact %></td>
+  <td class="d-none d-sm-table-cell"><%= l issue.created_at, format: :compact %></td>
   <td><%= truncate issue.description, length: 50 %></td>
-  <td><%= issue_status issue.status %></td>
-  <td class="d-none d-md-table-cell"><%= tags issue.tags %></td>
+  <td class="d-none d-sm-table-cell"><%= issue_status issue.status %></td>
+  <td class="d-none d-lg-table-cell"><%= tags issue.tags %></td>
   <td class="text-right"><%= link_to_show issue %></td>
   <% if current_user.author? || current_user.supervisor? %>
     <td class="text-right"><%= link_to_edit [:edit, issue] %></td>
