@@ -112,7 +112,7 @@ module IssuesHelper
     }
 
     link_to issues_board_path_with_params, options do
-      icon 'far', 'times-circle'
+      icon 'fas', 'times-circle'
     end
   end
 
@@ -127,7 +127,7 @@ module IssuesHelper
     }
 
     link_to issues_exports_path(ids: [@issue.id]), options do
-      icon 'far', 'arrow-alt-circle-down'
+      icon 'fas', 'arrow-alt-circle-down'
     end
   end
 
