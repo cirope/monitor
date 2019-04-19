@@ -23,6 +23,3 @@ before_script:
   - 'bundle exec rake db:migrate'
   - 'slapd -f test/fixtures/ldap/slapd.conf -h ldap://localhost:3389'
   - 'bundle exec rake ldap:reset'
-install:
-  - 'rm ${BUNDLE_GEMFILE}.lock'
-  - 'eval bundle install --jobs=3 --retry=3 --path=${BUNDLE_PATH:-vendor/bundle}'
