@@ -46,7 +46,7 @@ module ScriptsHelper
       date  = l script.imported_at, format: :compact
       title = t 'scripts.imports.default_change', date: date
 
-      content_tag :abbr, title: title do
+      content_tag :abbr, title: title, class: 'text-info initialism mr-2' do
         icon 'fas', 'asterisk'
       end
     end
