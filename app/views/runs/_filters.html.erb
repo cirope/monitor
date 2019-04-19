@@ -22,7 +22,8 @@
             <%= f.input :status, required: false,
               collection: filter_run_status, include_blank: '-', selected: filter_params[:status],
               input_html: {
-                class: 'form-control-sm'
+                autofocus: true,
+                class:     'form-control-sm'
               }
             %>
           </div>
