@@ -1,8 +1,6 @@
 language: ruby
 dist: xenial
-cache:
-  directories:
-    - $HOME/bundler
+cache: bundler
 sudo: false
 rvm:
   - 2.5.5
