@@ -1,10 +1,5 @@
 <div class="card mb-3">
   <div class="card-header">
-    <a class="dropdown-toggle text-reset d-block" href="#filters" data-toggle="collapse">
-      <%= icon 'fas', 'search' %>
-      <%= t 'filters.title' %>
-    </a>
-
     <% if filters? %>
       <p class="text-warning mb-0 float-right">
         <%= icon 'fas', 'filter' %>
@@ -13,6 +8,11 @@
         <% end %>
       </p>
     <% end %>
+
+    <a class="dropdown-toggle text-reset d-block" href="#filters" data-toggle="collapse">
+      <%= icon 'fas', 'search' %>
+      <%= t 'filters.title' %>
+    </a>
   </div>
   <div id="filters" class="card-body collapse">
     <%= simple_form_for :filter, method: :get do |f| %>
