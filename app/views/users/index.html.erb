@@ -25,11 +25,11 @@
           <td><%= user.lastname %></td>
           <td class="d-none d-sm-table-cell"><%= mail_to user.email %></td>
           <td class="d-none d-md-table-cell"><%= tags user.tags %></td>
-          <td><%= link_to_show user %></td>
+          <td class="text-right"><%= link_to_show user %></td>
           <% unless current_user.author? %>
-            <td><%= link_to_edit [:edit, user] %></td>
+            <td class="text-right"><%= link_to_edit [:edit, user] %></td>
             <% unless ldap %>
-              <td><%= link_to_destroy user %></td>
+              <td class="text-right"><%= link_to_destroy user %></td>
             <% end %>
           <% end %>
         </tr>

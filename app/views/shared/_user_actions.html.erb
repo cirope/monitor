@@ -4,10 +4,7 @@
   </a>
 
   <div class="dropdown-menu">
-    <% unless ldap %>
-      <%= link_to t('profiles.edit.title'), profile_path, class: 'dropdown-item' %>
-    <% end %>
-
+    <%= link_to_edit_profile unless ldap %>
     <%= dropdown_item_for Membership, memberships_path %>
 
     <div class="dropdown-divider"></div>

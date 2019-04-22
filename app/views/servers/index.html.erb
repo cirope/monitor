@@ -23,10 +23,10 @@
           <td class="d-none d-sm-table-cell"><%= server.hostname %></td>
           <td class="d-none d-lg-table-cell"><%= server.user %></td>
           <td class="d-none d-lg-table-cell"><%= t server.default ? 'yes' : 'no' %></td>
-          <td><%= link_to_show server %></td>
+          <td class="text-right"><%= link_to_show server %></td>
           <% unless current_user.supervisor? %>
-            <td><%= link_to_edit [:edit, server] %></td>
-            <td><%= link_to_destroy server %></td>
+            <td class="text-right"><%= link_to_edit [:edit, server] %></td>
+            <td class="text-right"><%= link_to_destroy server %></td>
           <% end %>
         </tr>
       <% end %>

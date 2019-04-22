@@ -37,9 +37,9 @@
           <td class="d-none d-lg-table-cell"><%= l run.started_at, format: :long if run.started_at %></td>
           <td class="d-none d-lg-table-cell"><%= l run.ended_at, format: :long if run.ended_at %></td>
           <td class="d-none d-sm-table-cell"><%= run_time run %></td>
-          <td><%= link_to_show run %></td>
+          <td class="text-right"><%= link_to_show run %></td>
           <% unless current_user.author? %>
-            <td><%= link_to_destroy run %></td>
+            <td class="text-right"><%= link_to_destroy run %></td>
           <% end %>
         </tr>
       <% end %>

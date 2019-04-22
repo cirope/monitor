@@ -1,20 +1,20 @@
 <div class="row" data-comment-id="<%= comment.id %>">
-  <div class="col-sm-10">
+  <div class="col-lg-10 col-md-9">
     <blockquote class="blockquote ml-3 controls-container">
-      <%= simple_format comment.text, class: 'mb-0' %>
-      <footer class="blockquote-footer"><%= comment.user %></footer>
-
       <% if comment.owned_by? current_user %>
-        <div class="row-controls">
+        <div class="row-controls float-right">
           <%= link_to_edit [:edit, comment], data: { remote: true } %> |
           <%= link_to_destroy comment, data: { remote: true } %>
         </div>
       <% end %>
+
+      <%= simple_format comment.text, class: 'mb-0' %>
+      <footer class="blockquote-footer"><%= comment.user %></footer>
     </blockquote>
   </div>
-  <div class="col-sm-2">
+  <div class="col-lg-2 col-md-3">
     <% if comment.file.present? %>
-      <p class="mb-0">
+      <p class="mb-3">
         <strong><%= Comment.human_attribute_name 'file' %></strong>:
         <%= link_to t('messages.download'), comment.file.url %>
       </p>

@@ -32,11 +32,11 @@
           <td><%= truncate issue.description, length: 50 %></td>
           <td class="d-none d-sm-table-cell"><%= issue_status issue.status %></td>
           <td class="d-none d-md-table-cell"><%= tags issue.tags %></td>
-          <td><%= link_to_show [issue, context: :board] %></td>
+          <td class="text-right"><%= link_to_show [issue, context: :board] %></td>
           <% if current_user.author? || current_user.supervisor? %>
-            <td><%= link_to_edit [:edit, issue, context: :board] %></td>
+            <td class="text-right"><%= link_to_edit [:edit, issue, context: :board] %></td>
           <% end %>
-          <td><%= link_to_remove_from_board issue, remote: false %></td>
+          <td class="text-right"><%= link_to_remove_from_board issue, remote: false %></td>
         </tr>
       <% end %>
     </tbody>

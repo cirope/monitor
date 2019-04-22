@@ -16,14 +16,14 @@
     <% end %>
     <thead>
       <tr>
-        <th><%= Run.human_attribute_name 'scheduled_at' %></th>
-        <th><%= Issue.human_attribute_name 'created_at' %></th>
+        <th class="d-none d-md-table-cell"><%= Run.human_attribute_name 'scheduled_at' %></th>
+        <th class="d-none d-sm-table-cell"><%= Issue.human_attribute_name 'created_at' %></th>
         <th><%= Issue.human_attribute_name 'description' %></th>
-        <th><%= Issue.human_attribute_name 'status' %></th>
-        <th class="d-none d-md-table-cell"><%= Tag.model_name.human count: 0 %></th>
+        <th class="d-none d-sm-table-cell"><%= Issue.human_attribute_name 'status' %></th>
+        <th class="d-none d-lg-table-cell"><%= Tag.model_name.human count: 0 %></th>
         <th class="text-right" colspan="<%= issue_actions_cols %>">
           <% if @script %>
-            <div class="btn-group" role="group">
+            <div class="btn-group mr-n2" role="group">
               <%= link_to_add_all_to_board %>
               <%= link_to_remove_all_from_board %>
             </div>

@@ -11,11 +11,11 @@
   <% end %>
   <thead>
     <tr>
-      <th><%= Run.human_attribute_name 'scheduled_at' %></th>
-      <th><%= Issue.human_attribute_name 'created_at' %></th>
+      <th class="d-none d-md-table-cell"><%= Run.human_attribute_name 'scheduled_at' %></th>
+      <th class="d-none d-sm-table-cell"><%= Issue.human_attribute_name 'created_at' %></th>
       <th><%= Issue.human_attribute_name 'description' %></th>
-      <th><%= Issue.human_attribute_name 'status' %></th>
-      <th class="d-none d-md-table-cell"><%= Tag.model_name.human count: 0 %></th>
+      <th class="d-none d-sm-table-cell"><%= Issue.human_attribute_name 'status' %></th>
+      <th class="d-none d-lg-table-cell"><%= Tag.model_name.human count: 0 %></th>
       <th></th>
     </tr>
   </thead>
@@ -23,12 +23,12 @@
   <tbody>
     <% @issues.each do |issue| %>
       <tr>
-        <td><%= l issue.run.scheduled_at, format: :compact %></td>
-        <td><%= l issue.created_at, format: :compact %></td>
+        <td class="d-none d-md-table-cell"><%= l issue.run.scheduled_at, format: :compact %></td>
+        <td class="d-none d-sm-table-cell"><%= l issue.created_at, format: :compact %></td>
         <td><%= truncate issue.description, length: 50 %></td>
-        <td><%= issue_status issue.status %></td>
-        <td class="d-none d-md-table-cell"><%= tags issue.tags %></td>
-        <td><%= link_to_show permalink_issue_path(@permalink, issue) %></td>
+        <td class="d-none d-sm-table-cell"><%= issue_status issue.status %></td>
+        <td class="d-none d-lg-table-cell"><%= tags issue.tags %></td>
+        <td class="text-right"><%= link_to_show permalink_issue_path(@permalink, issue) %></td>
       </tr>
     <% end %>
   </tbody>

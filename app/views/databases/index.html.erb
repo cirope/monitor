@@ -19,10 +19,10 @@
         <tr>
           <td><%= database.name %></td>
           <td><%= database.driver %></td>
-          <td><%= link_to_show database %></td>
+          <td class="text-right"><%= link_to_show database %></td>
           <% unless current_user.supervisor? %>
-            <td><%= link_to_edit [:edit, database] %></td>
-            <td><%= link_to_destroy database %></td>
+            <td class="text-right"><%= link_to_edit [:edit, database] %></td>
+            <td class="text-right"><%= link_to_destroy database %></td>
           <% end %>
         </tr>
       <% end %>
