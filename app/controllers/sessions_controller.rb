@@ -35,7 +35,7 @@ class SessionsController < ApplicationController
   private
 
     def default_url
-      session.delete(:previous_url) || dashboard_url
+      session.delete(:previous_url) || home_url
     end
 
     def store_auth_token user

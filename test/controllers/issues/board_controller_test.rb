@@ -159,7 +159,7 @@ class Issues::BoardControllerTest < ActionController::TestCase
       board_issue_errors: { @issue.id => 'Error' }
     }
 
-    assert_redirected_to dashboard_url
+    assert_redirected_to home_url
     assert_equal 0, session[:board_issues].size
     assert_equal 0, session[:board_issue_errors].size
   end
@@ -178,7 +178,7 @@ class Issues::BoardControllerTest < ActionController::TestCase
       }
     end
 
-    assert_redirected_to dashboard_url
+    assert_redirected_to home_url
     assert_equal 0, session[:board_issues].size
     assert_equal 0, session[:board_issue_errors].size
     assert issue.reload

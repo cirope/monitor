@@ -1,16 +1,12 @@
 # frozen_string_literal: true
 
-module DashboardHelper
-  def dashboard_empty_message
-    t filters? ? '.empty_search_html' : '.empty_html'
-  end
-
+module HomeHelper
   def filter_status
     (Issue.statuses + ['all']).map { |k| [t("issues.status.#{k}"), k] }
   end
 
   def owner_options
-    %w(mine all).map { |k| [t("dashboard.filters.show.#{k}"), k] }
+    %w(mine all).map { |k| [t("home.filters.show.#{k}"), k] }
   end
 
   def filter_query_hash

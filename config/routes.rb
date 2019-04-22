@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  # Dashboard
-  get 'dashboard', to: 'dashboard#index', as: 'dashboard'
+  # Home
+  get 'home', to: 'home#index', as: 'home'
 
   # Web console
   get 'console', to: 'console#show', as: 'console'

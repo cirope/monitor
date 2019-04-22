@@ -45,16 +45,6 @@ es:
     show:
       title: 'Consola'
 
-  dashboard:
-    index:
-      title: 'Listado de casos'
-      empty_html: 'No hay casos activos'
-      empty_search_html: 'No hay casos que coincidan con el criterio de búsqueda'
-    filters:
-      show:
-        mine: 'Míos'
-        all: 'Todos'
-
   databases:
     edit:
       title: 'Editar base de datos'
@@ -102,6 +92,16 @@ es:
       success: 'Finalizada OK'
       killed: 'Terminada'
       error: 'Finalizada con errores'
+
+  home:
+    index:
+      title: 'Listado de casos'
+      empty_html: 'No hay casos activos'
+      empty_search_html: 'No hay casos que coincidan con el criterio de búsqueda'
+    filters:
+      show:
+        mine: 'Míos'
+        all: 'Todos'
 
   imports:
     new:

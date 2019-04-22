@@ -52,7 +52,7 @@ class Issues::BoardController < ApplicationController
     board_session.clear
     board_session_errors.clear
 
-    redirect_to dashboard_url, notice: t('.done')
+    redirect_to home_url, notice: t('.done')
   end
 
   def destroy_all
@@ -61,7 +61,7 @@ class Issues::BoardController < ApplicationController
     board_session.clear
     board_session_errors.clear
 
-    redirect_to dashboard_url, notice: t('.destroyed')
+    redirect_to home_url, notice: t('.destroyed')
   end
 
   private

@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class DashboardControllerTest < ActionController::TestCase
+class HomeControllerTest < ActionController::TestCase
   setup do
     login
   end
@@ -19,7 +19,7 @@ class DashboardControllerTest < ActionController::TestCase
       }
     }
     assert_response :success
-    assert_select '.alert', text: I18n.t('dashboard.index.empty_search_html')
+    assert_select '.alert', text: I18n.t('home.index.empty_search_html')
   end
 
   test 'should get filtered index using issue tags' do

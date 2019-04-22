@@ -3,7 +3,7 @@
     <% if filters? %>
       <p class="text-warning mb-0 float-right">
         <%= icon 'fas', 'filter' %>
-        <%= link_to dashboard_path, title: t('cancel') do %>
+        <%= link_to home_path, title: t('cancel') do %>
           <%= icon 'fas', 'times-circle' %>
         <% end %>
       </p>
@@ -101,7 +101,7 @@
               <div class="form-actions">
                 <p class="text-right mb-0">
                   <%= f.button :submit, t('filters.submit'), class: 'btn-sm btn-secondary' %>
-                  <%= link_to t('cancel'), dashboard_path, class: 'small' %>
+                  <%= link_to t('cancel'), home_path, class: 'small' %>
                 </p>
               </div>
             </div>

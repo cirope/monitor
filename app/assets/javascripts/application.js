@@ -41,10 +41,10 @@
 //= require accounts
 //= require comments
 //= require console
-//= require dashboard
 //= require databases
 //= require descriptors
 //= require executions
+//= require home
 //= require issues
 //= require issues/board
 //= require issues/exports

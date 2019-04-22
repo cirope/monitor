@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class DashboardController < ApplicationController
+class HomeController < ApplicationController
 
   include Issues::Filters
 

@@ -17,7 +17,7 @@ class SessionsControllerTest < ActionController::TestCase
 
     post :create, params: { username: @user.email, password: '123' }
 
-    assert_redirected_to dashboard_url
+    assert_redirected_to home_url
     assert_equal @user.id, current_user.id
   end
 
@@ -37,7 +37,7 @@ class SessionsControllerTest < ActionController::TestCase
 
     post :create, params: { username: @user.username, password: 'admin123' }
 
-    assert_redirected_to dashboard_url
+    assert_redirected_to home_url
     assert_equal @user.id, current_user.id
   end
 
