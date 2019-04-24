@@ -5,6 +5,7 @@ class CreateDashboards < ActiveRecord::Migration[5.2]
       t.references :user, foreign_key: {
         on_delete: :restrict, on_update: :restrict
       }
+      t.integer :lock_version, default: 0, null: false
 
       t.timestamps null: false
     end

@@ -60,6 +60,6 @@ class DashboardsController < ApplicationController
     end
 
     def dashboard_params
-      params.require(:dashboard).permit :name
+      params.require(:dashboard).permit :name, :lock_version
     end
 end

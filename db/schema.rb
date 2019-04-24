@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 2019_04_22_175349) do
   create_table "dashboards", force: :cascade do |t|
     t.string "name", null: false
     t.bigint "user_id"
+    t.integer "lock_version", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_dashboards_on_name"
