@@ -25,10 +25,11 @@ Rails.application.routes.draw do
   delete 'issues/board/destroy_all', to: 'issues/board#destroy_all', as: 'issues_board_destroy_all'
 
   # Issues data export
-  post   'issues/exports',     to: 'issues/exports#create'
+  post   'issues/exports',           to: 'issues/exports#create'
 
   # Resources
   resources :comments, except: [:index, :new]
+  resources :dashboards
   resources :databases
   resources :descriptors
   resources :ldaps

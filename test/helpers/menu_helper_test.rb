@@ -28,6 +28,10 @@ class MenuHelperTest < ActionView::TestCase
     assert_match t('profiles.edit.title'), link_to_edit_profile
   end
 
+  test 'link to logout' do
+    assert_match t('navigation.logout'), link_to_logout
+  end
+
   test 'show board?' do
     assert !show_board?
 

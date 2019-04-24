@@ -41,6 +41,7 @@
 //= require accounts
 //= require comments
 //= require console
+//= require dashboards
 //= require databases
 //= require descriptors
 //= require executions

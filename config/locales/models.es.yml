@@ -11,6 +11,9 @@ es:
       comment:
         one: 'Comentario'
         other: 'Comentarios'
+      dashboard:
+        one: 'Tablero'
+        other: 'Tableros'
       database:
         one: 'Base de datos'
         other: 'Bases de datos'
@@ -92,6 +95,8 @@ es:
         text: 'Comentario'
         file: 'Adjunto'
         issue: 'Caso'
+      dashboard:
+        name: 'Nombre'
       database:
         name: 'Nombre'
         driver: 'Controlador'

@@ -5,10 +5,12 @@
 
   <div class="dropdown-menu">
     <%= link_to_edit_profile unless ldap %>
+
+    <%= dropdown_item_for Dashboard, dashboards_path %>
     <%= dropdown_item_for Membership, memberships_path %>
 
     <div class="dropdown-divider"></div>
 
-    <%= link_to t('navigation.logout'), logout_path, class: 'dropdown-item', data: { method: :delete } %>
+    <%= link_to_logout %>
   </div>
 </li>

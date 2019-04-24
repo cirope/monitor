@@ -33,6 +33,15 @@ module MenuHelper
     link_to t('profiles.edit.title'), profile_path, options
   end
 
+  def link_to_logout
+    options = {
+      class: 'dropdown-item',
+      data:  { method: :delete }
+    }
+
+    link_to t('navigation.logout'), logout_path, options
+  end
+
   def show_board?
     board_session.present?
   end
