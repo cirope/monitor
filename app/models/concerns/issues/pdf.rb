@@ -17,6 +17,12 @@ module Issues::PDF
       pdf.text I18n.t('issues.pdf.title'), size: 16
       pdf.move_down 6
 
+      @scoped = self.all
+      ActiveRecord::Associations::Preloader.new.preload(
+        @scoped,
+        [:tags, :last_comment, script: :descriptions]
+      )
+
       put_names_on             pdf
       put_users_on             pdf
       put_issues_by_month_on   pdf
@@ -37,7 +43,7 @@ module Issues::PDF
         grouped_issues.each do |script_data, count|
           script_id, script_name = *script_data
 
-          script            = Script.find script_id
+          script            = @scoped.find { |i| i.script.id == script_id }.script
           issue_count_label = I18n.t('issues.pdf.issue', count: count)
 
           pdf.text "#{script} (#{issue_count_label})", style: :bold
@@ -49,7 +55,7 @@ module Issues::PDF
       end
 
       def put_users_on pdf
-        if users.any?
+        if (users = users.to_a).any?
           pdf.text User.model_name.human(count: 0), size: 16
           pdf.move_down 6
 
@@ -63,15 +69,15 @@ module Issues::PDF
 
       def put_issues_by_month_on pdf
         data           = [issues_by_month_headers]
-        grouped_issues = includes(:script).group_by do |issue|
-          issue.created_at.beginning_of_month
+        grouped_issues = @scoped.group_by do |issue|
+          issue.created_at.to_date.beginning_of_month
         end
 
         pdf.text I18n.t('issues.pdf.by_month'), size: 16
         pdf.move_down 6
 
         grouped_issues.each do |month, issues|
-          issues_data = data.clone
+          issues_data = data.dup
 
           issues.group_by(&:script).each do |script, issues|
             issues_data << [script.to_s, issues.size, issue_tag_list(issues)]
@@ -97,7 +103,7 @@ module Issues::PDF
 
         counts.each do |script_data, count|
           script_id, script_name, status = *script_data
-          issues = joins(:script).where(status: status, scripts: { id: script_id })
+          issues = @scoped.select { |i| i.status == status && i.script&.id == script_id }
 
           data << [
             script_name,
@@ -112,13 +118,12 @@ module Issues::PDF
       end
 
       def put_issue_details_on pdf
-        issues = includes :script, :tags
         data   = [issues_details_headers]
 
         pdf.text I18n.t('issues.pdf.details'), size: 16
         pdf.move_down 6
 
-        issues.ordered_by_script_name.order(:created_at).each do |issue|
+        @scoped.sort_by { |i| [i.script.name, i.created_at] }.each do |issue|
           last_comment = issue.last_comment
 
           data << [
@@ -196,18 +201,23 @@ module Issues::PDF
       end
 
       def users
-        User.by_issues(all).by_role(%w(author supervisor)).reorder :lastname
+        User.by_issues(@scoped).by_role(%w(author supervisor)).reorder :lastname
       end
 
       def issue_tag_list issues
-        issues_relation  = convert_to_relation issues
-        not_tagged_count = issues_relation.not_tagged.count
+        not_tagged_count = issues.count { |i| i.tags.empty? }
 
-        tag_names_as_list tag_names_for(issues_relation), not_tagged_count
+        tag_names_as_list tag_names_for(issues), not_tagged_count
       end
 
       def tag_names_for issues
-        Tag.by_issues(issues).reorder(:name).group(:name).count "#{Issue.table_name}.id"
+        tags = Hash.new(0)
+
+        issues.each do |i|
+          i.tags.map(&:name).uniq.each { |name| tags[name] += 1}
+        end
+
+        tags
       end
 
       def tag_names_as_list tag_names, not_tagged_count
@@ -222,14 +232,6 @@ module Issues::PDF
         end
 
         to_list list
-      end
-
-      def convert_to_relation issues
-        if issues.kind_of? ActiveRecord::Relation
-          issues
-        else
-          Issue.where id: issues.map(&:id)
-        end
       end
 
       def to_list list
