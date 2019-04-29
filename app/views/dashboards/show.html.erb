@@ -1,6 +1,6 @@
 <h2><%= @dashboard %></h2>
 
-<div id="panels">
+<div class="row" id="panels">
   <% @dashboard.panels.order(:title).each do |panel| %>
     <%= render 'panels/panel', panel: panel %>
   <% end %>

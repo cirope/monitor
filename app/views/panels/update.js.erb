@@ -1,11 +1,20 @@
 +function () {
-  $('[data-panel-id="<%= @panel.id %>"]').
-    find('.btn').
-    attr('disabled', true)
+  var $container = $('[data-panel-id="<%= @panel.id %>"]')
 
-  Turbolinks.visit('<%= dashboard_path @panel.dashboard %>')
+  <% if @panel.errors.empty? %>
+    $container.
+      find('.btn').
+      attr('disabled', true)
 
-  setTimeout(function () {
-    $('.loading-caption').removeAttr('hidden')
-  })
+    Turbolinks.visit('<%= dashboard_path @panel.dashboard %>')
+
+    setTimeout(function () {
+      $('.loading-caption').removeAttr('hidden')
+    })
+  <% else %>
+    $container.
+      html('<%= j render('form') %>').
+      find('[autofocus]').
+      focus()
+  <% end %>
 }()
