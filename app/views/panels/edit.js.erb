@@ -1,0 +1,6 @@
++function () {
+  $('[data-panel-id="<%= @panel.id %>"]').
+    html('<%= j render('form') %>').
+    find('[autofocus]').
+    focus()
+}()

@@ -53,8 +53,9 @@
 //= require memberships
 //= require memberships/switch
 //= require objects
-//= require permalinks
+//= require panels
 //= require password_resets
+//= require permalinks
 //= require profiles
 //= require rules
 //= require rules/exports

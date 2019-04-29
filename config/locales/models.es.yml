@@ -47,6 +47,9 @@ es:
       output:
         one: 'Salida regla'
         other: 'Salida reglas'
+      panel:
+        one: 'Panel'
+        other: 'Paneles'
       parameter:
         one: 'Parámetro'
         other: 'Parámetros'
@@ -149,6 +152,11 @@ es:
         email: 'Correo'
         default: 'Principal'
         account: 'Cuenta'
+      panel:
+        title: 'Título'
+        height: 'Alto'
+        width: 'Ancho'
+        order: 'Orden'
       parameter:
         name: 'Nombre'
         value: 'Valor'

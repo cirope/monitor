@@ -1,0 +1,15 @@
+<div data-panel-id="<%= panel.id %>">
+  <div class="card my-3 controls-container">
+    <div class="card-header">
+      <span class="row-controls float-right">
+        <%= link_to_edit [:edit, panel], data: { remote: true } %> |
+        <%= link_to_destroy panel, data: { remote: true } %>
+      </span>
+
+      <p class="mb-0"><%= panel %></p>
+    </div>
+
+    <div class="card-body">
+    </div>
+  </div>
+</div>

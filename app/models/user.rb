@@ -7,6 +7,7 @@ class User < ApplicationRecord
   include Attributes::Strip
   include Attributes::Downcase
   include Users::Authentication
+  include Users::Dashboards
   include Users::Memberships
   include Users::Overrides
   include Users::PasswordReset
@@ -20,7 +21,6 @@ class User < ApplicationRecord
   downcase_fields :email, :username
 
   has_many :comments, dependent: :destroy
-  has_many :dashboards, dependent: :destroy
   has_many :subscriptions, dependent: :destroy
   has_many :issues, through: :subscriptions
 end

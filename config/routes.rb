@@ -29,7 +29,6 @@ Rails.application.routes.draw do
 
   # Resources
   resources :comments, except: [:index, :new]
-  resources :dashboards
   resources :databases
   resources :descriptors
   resources :ldaps
@@ -41,6 +40,10 @@ Rails.application.routes.draw do
     resources :issues, only: [:show]
     resources :permalinks, only: [:show]
     resources :password_resets, only: [:edit]
+  end
+
+  resources :dashboards do
+    resources :panels, shallow: true, except: [:index]
   end
 
   resources :issues, except: [:new, :create] do

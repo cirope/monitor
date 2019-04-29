@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Dashboard < ApplicationRecord
   include Auditable
   include Attributes::Strip
@@ -6,6 +8,7 @@ class Dashboard < ApplicationRecord
   strip_fields :name
 
   belongs_to :user
+  has_many :panels, dependent: :destroy
 
   def to_s
     name

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_22_175349) do
+ActiveRecord::Schema.define(version: 2019_04_24_144500) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -192,6 +192,18 @@ ActiveRecord::Schema.define(version: 2019_04_22_175349) do
     t.index ["created_at"], name: "index_outputs_on_created_at"
     t.index ["run_id"], name: "index_outputs_on_run_id"
     t.index ["trigger_id"], name: "index_outputs_on_trigger_id"
+  end
+
+  create_table "panels", force: :cascade do |t|
+    t.string "title", null: false
+    t.integer "height", default: 1, null: false
+    t.integer "width", default: 1, null: false
+    t.bigint "dashboard_id"
+    t.integer "lock_version", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["dashboard_id"], name: "index_panels_on_dashboard_id"
+    t.index ["title"], name: "index_panels_on_title"
   end
 
   create_table "parameters", id: :serial, force: :cascade do |t|
@@ -412,6 +424,7 @@ ActiveRecord::Schema.define(version: 2019_04_22_175349) do
   add_foreign_key "memberships", "accounts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "outputs", "runs", on_update: :restrict, on_delete: :restrict
   add_foreign_key "outputs", "triggers", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "panels", "dashboards", on_update: :restrict, on_delete: :restrict
   add_foreign_key "parameters", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "properties", "databases", on_update: :restrict, on_delete: :restrict
   add_foreign_key "requires", "scripts", column: "caller_id", on_update: :restrict, on_delete: :restrict

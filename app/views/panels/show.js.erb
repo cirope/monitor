@@ -1,0 +1,9 @@
++function () {
+  <% if @panel %>
+    $('[data-panel-id="<%= @panel.id %>"]').
+      html('<%= j render('panel', panel: @panel) %>')
+  <% else %>
+    $('#new-panel').html('')
+    $('[data-new-panel-btn]').removeAttr('hidden')
+  <% end %>
+}()

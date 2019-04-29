@@ -1,0 +1,11 @@
++function () {
+  $('[data-panel-id="<%= @panel.id %>"]').
+    find('.btn').
+    attr('disabled', true)
+
+  Turbolinks.visit('<%= dashboard_path @panel.dashboard %>')
+
+  setTimeout(function () {
+    $('.loading-caption').removeAttr('hidden')
+  })
+}()
