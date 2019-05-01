@@ -17,7 +17,7 @@ module Issues::PDF
         pdf.text I18n.t('issues.pdf.title'), size: 16
         pdf.move_down 6
 
-        @scoped = all.includes(:script).ordered_by_script_name.order(created_at: :asc).preload(
+        @scoped = all.includes(:script).ordered_by_script_name.order(:created_at).preload(
           :tags, last_comment: :user, script: :descriptions
         )
 
@@ -65,7 +65,6 @@ module Issues::PDF
       end
 
       def put_issues_by_month_on pdf
-        data           = [issues_by_month_headers]
         grouped_issues = @scoped.group_by do |issue|
           issue.created_at.to_date.beginning_of_month
         end
@@ -74,7 +73,7 @@ module Issues::PDF
         pdf.move_down 6
 
         grouped_issues.each do |month, issues|
-          issues_data = data.dup
+          issues_data = [issues_by_month_headers]
 
           issues.group_by(&:script).each do |script, issues|
             issues_data << [script.to_s, issues.size, issue_tag_list(issues)]
