@@ -119,7 +119,7 @@ module Issues::PDF
         pdf.text I18n.t('issues.pdf.details'), size: 16
         pdf.move_down 6
 
-        statuses = I18n.t('issues.status')
+        statuses = I18n.t 'issues.status'
 
         @scoped.each do |issue|
           last_comment = issue.last_comment
