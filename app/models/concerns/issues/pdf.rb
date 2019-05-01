@@ -10,27 +10,24 @@ module Issues::PDF
 
     def to_pdf
       file = "#{EXPORTS_PATH}/#{SecureRandom.uuid}.pdf"
-      pdf  = Prawn::Document.new
 
-      pdf.fill_color = '222222'
+      Prawn::Document.generate(file) do |pdf|
+        pdf.fill_color = '222222'
 
-      pdf.text I18n.t('issues.pdf.title'), size: 16
-      pdf.move_down 6
+        pdf.text I18n.t('issues.pdf.title'), size: 16
+        pdf.move_down 6
 
-      @scoped = self.all
-      ActiveRecord::Associations::Preloader.new.preload(
-        @scoped,
-        [:tags, :last_comment, script: :descriptions]
-      )
+        @scoped = all.includes(:script).ordered_by_script_name.order(created_at: :asc).preload(
+          :tags, last_comment: :user, script: :descriptions
+        )
 
-      put_names_on             pdf
-      put_users_on             pdf
-      put_issues_by_month_on   pdf
-      put_summary_by_script_on pdf
-      put_issue_details_on     pdf
-      put_footer_on            pdf
-
-      pdf.render_file file
+        put_names_on             pdf
+        put_users_on             pdf
+        put_issues_by_month_on   pdf
+        put_summary_by_script_on pdf
+        put_issue_details_on     pdf
+        put_footer_on            pdf
+      end
 
       file
     end
@@ -123,20 +120,23 @@ module Issues::PDF
         pdf.text I18n.t('issues.pdf.details'), size: 16
         pdf.move_down 6
 
-        @scoped.sort_by { |i| [i.script.name, i.created_at] }.each do |issue|
+        statuses = I18n.t('issues.status')
+
+        @scoped.each do |issue|
           last_comment = issue.last_comment
 
           data << [
             issue.script.to_s,
             I18n.l(issue.created_at, format: :compact),
             issue.description,
-            I18n.t("issues.status.#{issue.status}"),
+            statuses[issue.status],
             to_list(issue.tags),
             [last_comment&.user.to_s, last_comment&.text].compact.join(': ')
           ]
         end
 
         put_table_on pdf, data, column_widths: { 3 => 50, 4 => 60 }
+
         pdf.move_down 6
       end
 
@@ -207,17 +207,11 @@ module Issues::PDF
       def issue_tag_list issues
         not_tagged_count = issues.count { |i| i.tags.empty? }
 
-        tag_names_as_list tag_names_for(issues), not_tagged_count
+        tag_names_as_list tag_names_for(convert_to_relation issues), not_tagged_count
       end
 
       def tag_names_for issues
-        tags = Hash.new(0)
-
-        issues.each do |i|
-          i.tags.map(&:name).uniq.each { |name| tags[name] += 1}
-        end
-
-        tags
+        Tag.by_issues(issues).reorder(:name).group(:name).count "#{Issue.table_name}.id"
       end
 
       def tag_names_as_list tag_names, not_tagged_count
@@ -232,6 +226,14 @@ module Issues::PDF
         end
 
         to_list list
+      end
+
+      def convert_to_relation issues
+        if issues.kind_of? ActiveRecord::Relation
+          issues
+        else
+          Issue.where id: issues.map(&:id)
+        end
       end
 
       def to_list list
