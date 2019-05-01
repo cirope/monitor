@@ -11,19 +11,25 @@ class <%= controller_class_name %>Controller < ApplicationController
   # GET <%= route_url %>
   def index
     @<%= plural_table_name %> = <%= orm_class.all class_name %>
+
+    respond_with @<%= plural_table_name %>
   end
 
   # GET <%= route_url %>/1
   def show
+    respond_with @<%= singular_table_name %>
   end
 
   # GET <%= route_url %>/new
   def new
     @<%= singular_table_name %> = <%= orm_class.build class_name %>
+
+    respond_with @<%= singular_table_name %>
   end
 
   # GET <%= route_url %>/1/edit
   def edit
+    respond_with @<%= singular_table_name %>
   end
 
   # POST <%= route_url %>
@@ -37,12 +43,14 @@ class <%= controller_class_name %>Controller < ApplicationController
   # PATCH/PUT <%= route_url %>/1
   def update
     update_resource @<%= singular_table_name %>, <%= "#{singular_table_name}_params" %>
+
     respond_with @<%= singular_table_name %>
   end
 
   # DELETE <%= route_url %>/1
   def destroy
     @<%= orm_instance.destroy %>
+
     respond_with @<%= singular_table_name %>
   end
 
