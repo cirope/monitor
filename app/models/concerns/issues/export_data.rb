@@ -31,7 +31,7 @@ module Issues::ExportData
       files = []
 
       ::Zip::File.open file, Zip::File::CREATE do |zipfile|
-        all.map { |issue| files << issue.add_to_zip(zipfile) }
+        all.each { |issue| files << issue.add_to_zip(zipfile) }
       end
 
       data_file_path file, files
