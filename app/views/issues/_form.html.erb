@@ -8,12 +8,12 @@
 
     <div class="card mb-3">
       <div class="card-header">
-        <a class="text-reset" href="#subscriptions" data-toggle="collapse">
-          <%= User.model_name.human count: 0 %>
-        </a>
         <span class="badge badge-pill badge-light float-right">
           <%= @issue.subscriptions.count %>
         </span>
+        <a class="text-reset d-block" href="#subscriptions" data-toggle="collapse">
+          <%= User.model_name.human count: 0 %>
+        </a>
       </div>
       <div id="subscriptions" class="collapse card-body">
         <%= f.simple_fields_for :subscriptions, subscriptions do |df| %>
@@ -26,12 +26,12 @@
 
     <div class="card mb-3<%= ' border-danger' if @issue.errors[:tags].present? %>">
       <div class="card-header">
-        <a class="text-reset" href="#tags" data-toggle="collapse">
-          <%= Tag.model_name.human count: 0 %>
-        </a>
         <span class="badge badge-pill badge-light float-right">
           <%= @issue.taggings.count %>
         </span>
+        <a class="text-reset d-block" href="#tags" data-toggle="collapse">
+          <%= Tag.model_name.human count: 0 %>
+        </a>
       </div>
       <div id="tags" class="collapse card-body">
         <% @issue.errors.full_messages_for(:tags).each do |error| %>

@@ -1,6 +1,9 @@
+@import "bootstrap/functions";
+@import "bootstrap/variables";
+
 .loading-caption {
   width: 10em;
-  z-index: 1100;
+  z-index: $zindex-modal;
 }
 
 .text-striked {
