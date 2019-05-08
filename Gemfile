@@ -27,7 +27,7 @@ gem 'request_store'
 gem 'request_store-sidekiq'
 gem 'sidekiq'
 gem 'apartment-sidekiq'
-gem 'whenever', require: false
+gem 'whenever', '0.10.0', require: false
 gem 'paper_trail'
 gem 'roadie-rails'
 gem 'ruby-ntlm'
