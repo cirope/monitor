@@ -3,7 +3,7 @@
     <%= link_to t('outputs.show.scripts_with_errors'), '#output-errors',
       class: 'text-reset', data: { toggle: 'collapse' } %>
   </div>
-  <div id="output-errors" class="panel-collapse collapse show">
+  <div id="output-errors" class="collapse show">
     <div class="card-body">
       <% exec.parse_and_find_lines_with_error.each do |script, errors| %>
         <ul>

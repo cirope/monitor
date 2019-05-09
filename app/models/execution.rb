@@ -7,6 +7,7 @@ class Execution < ApplicationRecord
   include Executions::Run
   include Executions::Status
   include Executions::Validation
+  include Measureable
   include Outputs::Parser
 
   belongs_to :script

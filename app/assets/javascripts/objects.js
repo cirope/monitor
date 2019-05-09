@@ -1,33 +1,12 @@
-$(document).on('turbolinks:load', function () {
-  $('.ct-chart').parent().trigger('object.mt.added')
-})
++function () {
+  var renderChart = function ($chart, type) {
+    var chart   = $chart.get(0)
+    var options = $chart.data('options')
+    var data    = {
+      labels: $chart.data('labels'),
+      series: type === 'pie' ? $chart.data('series') : [$chart.data('series')]
+    }
 
-$(document).on('object.mt.added', function (event) {
-  var $chart  = $(event.currentTarget).find('.ct-chart')
-  var options = $chart.data('options')
-  var data    = {
-    labels: $chart.data('labels'),
-    series: $chart.data('series')
-  }
-
-  if ($chart.length)
-    new Chartist.Pie($chart.get(0), data, options)
-})
-
-$(document).on('click', '[data-graph-type]', function (event) {
-  var $link   = $(event.currentTarget)
-  var $chart  = $('[data-graph="' + $link.data('graphTarget') + '"]')
-  var chart   = $chart.get(0)
-  var type    = $link.data('graphType')
-  var options = $chart.data('options')
-  var data    = {
-    labels: $chart.data('labels'),
-    series: type === 'pie' ? $chart.data('series') : [$chart.data('series')]
-  }
-
-  event.preventDefault()
-
-  if ($chart.length) {
     if (type === 'line') {
       new Chartist.Line(chart, data, options)
     } else if (type === 'bar') {
@@ -36,4 +15,30 @@ $(document).on('click', '[data-graph-type]', function (event) {
       new Chartist.Pie(chart, data, options)
     }
   }
-})
+
+  $(document).on('turbolinks:load', function () {
+    $('.ct-chart').parent().trigger('object.mt.added')
+  })
+
+  $(document).on('object.mt.added', function (event) {
+    var $charts = $(event.currentTarget).find('.ct-chart')
+
+    $charts.each(function (i, chart) {
+      var $chart = $(chart)
+      var type   = $chart.data('type')
+
+      renderChart($chart, type)
+    })
+  })
+
+  $(document).on('click', '[data-graph-type]', function (event) {
+    var $link   = $(event.currentTarget)
+    var $chart  = $('[data-graph="' + $link.data('graphTarget') + '"]')
+    var type    = $link.data('graphType')
+
+    event.preventDefault()
+
+    if ($chart.length)
+      renderChart($chart.get(0), type)
+  })
+}()

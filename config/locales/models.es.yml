@@ -38,6 +38,9 @@ es:
       maintainer:
         one: 'Mantenedor'
         other: 'Mantenedores'
+      measure:
+        one: 'Métrica'
+        other: 'Métricas'
       membership:
         one: 'Acceso'
         other: 'Accesos'
@@ -140,6 +143,10 @@ es:
         role_security: 'Grupo seguridad'
       maintainer:
         user: 'Usuario'
+      measure:
+        measureable: 'Métrica de'
+        cpu: 'CPU'
+        memory_in_kb: 'Memoria RAM'
       membership:
         email: 'Correo'
         default: 'Principal'

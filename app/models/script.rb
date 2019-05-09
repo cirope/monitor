@@ -30,6 +30,7 @@ class Script < ApplicationRecord
   has_many :runs, through: :jobs
   has_many :issues, through: :runs
   has_many :executions, dependent: :destroy
+  has_many :measures, through: :executions
 
   def to_s
     name
