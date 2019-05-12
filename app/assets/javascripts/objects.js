@@ -32,9 +32,9 @@
   })
 
   $(document).on('click', '[data-graph-type]', function (event) {
-    var $link   = $(event.currentTarget)
-    var $chart  = $('[data-graph="' + $link.data('graphTarget') + '"]')
-    var type    = $link.data('graphType')
+    var $link  = $(event.currentTarget)
+    var $chart = $('[data-graph="' + $link.data('graphTarget') + '"]')
+    var type   = $link.data('graphType')
 
     event.preventDefault()
 
