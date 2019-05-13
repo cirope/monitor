@@ -160,6 +160,16 @@ ActiveRecord::Schema.define(version: 2019_04_15_141826) do
     t.index ["user_id"], name: "index_maintainers_on_user_id"
   end
 
+  create_table "measures", force: :cascade do |t|
+    t.string "measureable_type", null: false
+    t.bigint "measureable_id", null: false
+    t.decimal "cpu", precision: 4, scale: 1, null: false
+    t.integer "memory_in_kb"
+    t.datetime "created_at", null: false
+    t.index ["created_at"], name: "index_measures_on_created_at"
+    t.index ["measureable_type", "measureable_id"], name: "index_measures_on_measureable_type_and_measureable_id"
+  end
+
   create_table "memberships", force: :cascade do |t|
     t.bigint "account_id", null: false
     t.string "email", null: false

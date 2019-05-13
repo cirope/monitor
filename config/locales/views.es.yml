@@ -301,6 +301,7 @@ es:
       execute_now: 'Ejecutar ahora'
       no_server: 'Debe establecer un servidor principal'
       executions_list: 'Ejecuciones'
+      measures_list: 'Métricas'
     exports:
       create:
         filename: 'guiones.zip'
@@ -314,6 +315,10 @@ es:
         file: 'Archivo'
         submit: 'Importar'
       default_change: 'Importado el %{date}'
+    measures:
+      index:
+        title: 'Métricas'
+        empty_html: 'No hay métricas para este guión'
     versions:
       index:
         title: 'Histórico de versiones'
