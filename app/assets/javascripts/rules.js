@@ -1,4 +1,6 @@
 +function () {
+  var editor = null
+
   var startEditors = function () {
     $('[data-editor]').each(function (i, element) {
       var $textarea = $(element)
@@ -17,7 +19,11 @@
         phrases:           $textarea.data('phrases')
       }
 
-      CodeMirror.fromTextArea($textarea.get(0), options)
+      editor = CodeMirror.fromTextArea($textarea.get(0), options)
+
+      editor.on('change', function (editor) {
+        $textarea.trigger('change')
+      })
 
       $textarea.removeAttr('data-editor')
     })

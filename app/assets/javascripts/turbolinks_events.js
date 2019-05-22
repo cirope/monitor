@@ -8,4 +8,12 @@ $(document).on('turbolinks:request-end', function () {
 
 $(document).on('turbolinks:load', function () {
   $('[autofocus]').focus()
+
+  State.unsavedData = false
+})
+
+$(document).on('turbolinks:before-visit', function(){
+  if (State.unsavedData) {
+    return confirm(State.unsavedDataWarning)
+  }
 })

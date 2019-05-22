@@ -40,6 +40,7 @@
 //= require filters
 //= require accounts
 //= require comments
+//= require common
 //= require console
 //= require dashboard
 //= require databases

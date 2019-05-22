@@ -62,6 +62,8 @@
           $change.closest('.form-group').attr('hidden', true)
           $file.prop('disabled', false).removeAttr('hidden')
         }
+
+        $textarea.trigger('change')
       })
 
       jumpToLine(editor)
