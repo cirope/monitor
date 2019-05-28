@@ -1,8 +1,6 @@
-<li id="board" class="nav-item<%= ' active' if controller_name == 'board' && !request.xhr? %>">
-  <% if show_board? %>
-    <%= link_to issues_board_path, title: t('board.index.title'), class: 'nav-link' do %>
-      <%= icon 'fas', 'shopping-cart' %>
-      <span class="badge badge-pill badge-primary"><%= board_session.size %></span>
-    <% end %>
+<% if show_board? %>
+  <%= link_to issues_board_path, title: t('board.index.title'), class: 'nav-link' do %>
+    <%= icon 'fas', 'shopping-cart' %>
+    <span class="badge badge-pill badge-primary"><%= board_session.size %></span>
   <% end %>
-</li>
+<% end %>
