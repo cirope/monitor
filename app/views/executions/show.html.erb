@@ -28,22 +28,22 @@
   </span>
 </p>
 
+<%= render 'scripts/measures/graphs' if @measures.any? %>
+
 <div class="card my-3">
   <div class="card-header">
     <%= link_to Execution.human_attribute_name('output'), '#execution-output', class: 'text-reset', data: { toggle: 'collapse' } %>
   </div>
-  <div id="execution-output" class="panel-collapse collapse show">
-    <div class="card-body">
-      <p class="mb-0">
-        <% if @execution.pending? || @execution.running? %>
-          <pre class="console p-1"><samp
-            data-actioncable-watch="execution"
-            data-actioncable-watch-execution-id="<%= @execution.id %>"></samp></pre>
-        <% else %>
-          <pre class="console p-1"><samp><%= @execution.output %></samp></pre>
-        <% end %>
-      </p>
-    </div>
+  <div id="execution-output" class="card-body collapse show">
+    <p class="mb-0">
+      <% if @execution.pending? || @execution.running? %>
+        <pre class="console p-1"><samp
+          data-actioncable-watch="execution"
+          data-actioncable-watch-execution-id="<%= @execution.id %>"></samp></pre>
+      <% else %>
+        <pre class="console p-1"><samp><%= @execution.output %></samp></pre>
+      <% end %>
+    </p>
   </div>
 </div>
 

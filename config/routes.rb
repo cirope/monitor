@@ -78,6 +78,7 @@ Rails.application.routes.draw do
     resources :versions, only: [:index, :show], controller: 'scripts/versions'
     resources :executions, only: [:index, :create, :update, :show]
     resources :reverts, only: [:create], controller: 'scripts/reverts'
+    resources :measures, only: [:index], controller: 'scripts/measures'
   end
 
   namespace :users do
