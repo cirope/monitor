@@ -15,7 +15,7 @@ module Exporter
           subdir
         ].compact.reduce :+
 
-        path.mkdir unless path.directory?
+        FileUtils.mkdir_p path unless path.directory?
 
         path
       end
