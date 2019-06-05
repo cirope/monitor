@@ -3,6 +3,7 @@
 class Rule < ApplicationRecord
   include Auditable
   include Attributes::Strip
+  include Exporter
   include Filterable
   include SearchableByName
   include Rules::Export

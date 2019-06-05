@@ -5,17 +5,25 @@ require 'test_helper'
 class FilesControllerTest < ActionController::TestCase
   setup do
     login
+
+    Current.account = send 'public.accounts', :default
+  end
+
+  teardown do
+    Current.account = nil
   end
 
   test 'should download file' do
-    relative_path = "#{SecureRandom.uuid}.txt"
+    relative_path = "#{Current.account.tenant_name}/#{SecureRandom.uuid}.txt"
     full_path     = "#{Rails.root}/private/#{relative_path}"
 
-    FileUtils.touch full_path
+    FileUtils.mkdir_p "#{Rails.root}/private/#{Current.account.tenant_name}"
+
+    File.open(full_path, 'w') { |f| f << 'Test content' }
 
     get :show, params: { path: relative_path }
     assert_response :success
-    assert_equal File.open(full_path, encoding: 'ASCII-8BIT').read, @response.body
+    assert_equal 'Test content', @response.body
 
     FileUtils.rm full_path
   end

@@ -7,6 +7,10 @@ class ScriptTest < ActiveSupport::TestCase
     @script = scripts :ls
   end
 
+  teardown do
+    Current.account = nil
+  end
+
   test 'blank attributes' do
     @script.name = ''
     @script.text = ''
@@ -146,7 +150,8 @@ class ScriptTest < ActiveSupport::TestCase
   end
 
   test 'to pdf' do
-    path = @script.to_pdf
+    Current.account = send 'public.accounts', :default
+    path            = @script.to_pdf
 
     assert File.exist?(path)
 
@@ -154,7 +159,8 @@ class ScriptTest < ActiveSupport::TestCase
   end
 
   test 'export' do
-    path = Script.export
+    Current.account = send 'public.accounts', :default
+    path            = Script.export
 
     assert File.exist?(path)
 
@@ -177,7 +183,8 @@ class ScriptTest < ActiveSupport::TestCase
   end
 
   test 'import an existing script' do
-    path = Script.where(id: @script.id).export
+    Current.account = send 'public.accounts', :default
+    path            = Script.where(id: @script.id).export
 
     @script.parameters.clear
     @script.requires.clear
@@ -202,7 +209,8 @@ class ScriptTest < ActiveSupport::TestCase
     script.uuid = uuid
     script.save!
 
-    path = Script.where(id: script.id).export
+    Current.account = send 'public.accounts', :default
+    path            = Script.where(id: script.id).export
 
     script.destroy!
 

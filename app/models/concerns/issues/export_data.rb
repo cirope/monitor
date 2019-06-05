@@ -7,9 +7,7 @@ module Issues::ExportData
 
   def export_data
     if data.present?
-      base_dir = EXPORTS_PATH + SecureRandom.uuid
-
-      FileUtils.mkdir_p base_dir
+      base_dir = export_path SecureRandom.uuid
 
       export_to_csvs  base_dir
       zip_dir_content base_dir
@@ -27,7 +25,7 @@ module Issues::ExportData
 
   module ClassMethods
     def export_data
-      file  = "#{EXPORTS_PATH}/#{SecureRandom.uuid}.zip"
+      file  = "#{export_path}/#{SecureRandom.uuid}.zip"
       files = []
 
       ::Zip::File.open file, Zip::File::CREATE do |zipfile|
@@ -139,7 +137,7 @@ module Issues::ExportData
 
     def zip_dir_content base_dir
       entries = Dir.entries(base_dir) - %w(. ..)
-      file    = "#{EXPORTS_PATH}/#{SecureRandom.uuid}.zip"
+      file    = "#{export_path}/#{SecureRandom.uuid}.zip"
 
       ::Zip::File.open file, ::Zip::File::CREATE do |zipfile|
         entries.each { |entry| zipfile.add entry, base_dir + entry }
