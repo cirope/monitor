@@ -1,11 +1,9 @@
 <header class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
     <%= link_to app_name, root_url, class: 'navbar-brand', title: current_account&.name %>
+    <%= render 'shared/board_actions' %>
 
     <% if current_user&.visible? %>
-      <div class="d-lg-none navbar-nav">
-        <%= render 'shared/board_actions' %>
-      </div>
       <button type="button" class="navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -28,9 +26,6 @@
         </ul>
 
         <ul class="navbar-nav">
-          <li class="d-none d-lg-block nav-item<%= ' active' if controller_name == 'board' && !request.xhr? %>">
-            <%= render 'shared/board_actions' %>
-          </li>
           <%= render 'shared/user_actions' %>
         </ul>
       </nav>
