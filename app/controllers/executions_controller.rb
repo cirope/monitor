@@ -14,7 +14,7 @@ class ExecutionsController < ApplicationController
 
   # GET /executions/1
   def show
-    @measures = @execution.measures.reorder(created_at: :desc).limit 20
+    @measures = @execution.measures.reorder(created_at: :desc).limit 100
   end
 
   # POST /executions

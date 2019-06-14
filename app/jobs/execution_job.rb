@@ -6,6 +6,6 @@ class ExecutionJob < ApplicationJob
   def perform execution_id
     execution = Execution.find execution_id
 
-    execution.with_measure { execution.run }
+    execution.run
   end
 end

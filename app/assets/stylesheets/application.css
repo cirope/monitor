@@ -34,6 +34,7 @@
  *= require databases
  *= require descriptors
  *= require executions
+ *= require graphs
  *= require issues
  *= require issues/board
  *= require issues/exports
