@@ -26,7 +26,7 @@ module Measurable
         end
 
         record_measure
-      end
+      end if File.directory? "/proc/#{pid}"
     end
 
     def record_measure
