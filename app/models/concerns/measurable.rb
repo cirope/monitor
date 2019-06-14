@@ -12,9 +12,11 @@ module Measurable
   private
 
     def schedule_measure
-      tenant_name = Apartment::Tenant.current
+      if pid_changed? && pid && File.directory?("/proc/#{pid}")
+        tenant_name = Apartment::Tenant.current
 
-      Thread.new { measure tenant_name } if pid_changed? && pid
+        Thread.new { measure tenant_name }
+      end
     end
 
     def measure tenant_name
@@ -26,7 +28,7 @@ module Measurable
         end
 
         record_measure
-      end if File.directory? "/proc/#{pid}"
+      end
     end
 
     def record_measure
