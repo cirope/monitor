@@ -4,7 +4,8 @@ module Measurable
   extend ActiveSupport::Concern
 
   included do
-    before_save :schedule_measure, on: :update
+    # TODO: if some day we test this, remove the condition =)
+    before_save :schedule_measure, on: :update, unless: -> { Rails.env.test? }
 
     has_many :measures, as: :measurable, dependent: :destroy
   end
