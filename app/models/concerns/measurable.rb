@@ -26,8 +26,6 @@ module Measurable
 
           sleep 2
         end
-
-        record_measure
       end
     end
 
