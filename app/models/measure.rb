@@ -1,11 +1,12 @@
+# frozen_string_literal: true
+
 class Measure < ApplicationRecord
-  belongs_to :measureable, polymorphic: true
+  include Measures::Validation
 
-  def memory_in_b
-    memory_in_kb * 1024 if memory_in_kb
-  end
+  belongs_to :measurable, polymorphic: true
+  has_one :script, through: :measurable
 
-  def memory_in_mb
-    (memory_in_kb / 1024.0).round if memory_in_kb
+  def memory_in_megabytes
+    memory_in_bytes / 1_048_576.0
   end
 end

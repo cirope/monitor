@@ -18,6 +18,8 @@ class RunsController < ApplicationController
   end
 
   def show
+    @measures = @run.measures.reorder(created_at: :desc).limit 100
+
     respond_with @run
   end
 

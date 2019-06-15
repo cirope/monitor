@@ -35,6 +35,14 @@
   <% if @execution.finished? %>
     $('.loading-caption').attr('hidden', true)
     $('.alert.alert-info').alert('close')
+
+    <% if @measures.any? %>
+      $('[data-graphs]').
+        html('<%= j render('scripts/measures/graphs', format: :time) %>').
+        find('.ct-chart').
+        parent().
+        trigger('object.mt.added')
+    <% end %>
   <% else %>
     setTimeout(function () {
       $('.loading-caption').removeAttr('hidden')

@@ -77,6 +77,8 @@
   </div>
 <% end %>
 
+<%= render 'scripts/measures/graphs', format: :time if @measures.any? %>
+
 <% if @run.can_be_killed? %>
   <div class="float-right">
     <%= link_to_force_kill_run %>
