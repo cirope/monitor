@@ -1,6 +1,7 @@
 <header class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
     <%= link_to app_name, root_url, class: 'navbar-brand', title: current_account&.name %>
+    <%= render 'shared/board_actions' %>
 
     <% if current_user&.visible? %>
       <button type="button" class="navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse">
@@ -25,7 +26,6 @@
         </ul>
 
         <ul class="navbar-nav">
-          <%= render 'shared/board_actions' %>
           <%= render 'shared/user_actions' %>
         </ul>
       </nav>
