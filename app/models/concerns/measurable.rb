@@ -13,7 +13,7 @@ module Measurable
   private
 
     def schedule_measure
-      if pid_changed? && pid && File.directory?("/proc/#{pid}")
+      if pid_changed? && pid
         tenant_name = Apartment::Tenant.current
 
         Thread.new { measure tenant_name }
@@ -35,9 +35,9 @@ module Measurable
       process_cycles = current_process_cycles
 
       if valid_measure? cpu_cycles, process_cycles
-        process_cpu = (process_cycles - @previous_process_cycles) /
-                      (cpu_cycles - @previous_cpu_cycles).to_f    *
-                      100.0
+        net_process_cycles = process_cycles - @previous_process_cycles
+        net_cpu_cycles     = cpu_cycles     - @previous_cpu_cycles
+        process_cpu        = (net_process_cycles / net_cpu_cycles.to_f) * 100.0
 
         measures.create! cpu: process_cpu, memory_in_bytes: process_memory
       end
