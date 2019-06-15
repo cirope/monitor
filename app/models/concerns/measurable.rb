@@ -5,7 +5,7 @@ module Measurable
 
   included do
     # TODO: if some day we test this, remove the condition =)
-    before_save :schedule_measure, on: :update, unless: -> { Rails.env.test? }
+    before_save :schedule_measure, on: :update
 
     has_many :measures, as: :measurable, dependent: :destroy
   end
@@ -16,17 +16,21 @@ module Measurable
       if pid_changed? && pid
         tenant_name = Apartment::Tenant.current
 
-        Thread.new { measure tenant_name }
+        if Rails.env.test?
+          measure # Needs to be online for testing
+        else
+          Thread.new do
+            Apartment::Tenant.switch(tenant_name) { measure }
+          end
+        end
       end
     end
 
-    def measure tenant_name
-      Apartment::Tenant.switch tenant_name do
-        while File.directory? "/proc/#{pid}"
-          @previous_cpu_cycles, @previous_process_cycles = *record_measure
+    def measure
+      while File.directory? "/proc/#{pid}"
+        @previous_cpu_cycles, @previous_process_cycles = *record_measure
 
-          sleep 2
-        end
+        sleep 2
       end
     end
 
