@@ -1,16 +1,19 @@
 <header class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
     <%= link_to app_name, root_url, class: 'navbar-brand', title: current_account&.name %>
-    <%= render 'shared/board_actions' %>
 
     <% if current_user&.visible? %>
-      <button type="button" class="navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    <% end %>
+      <div class="ml-auto order-1 order-lg-2">
+        <%= render 'shared/board_actions' %>
+      </div>
 
-    <% if current_user&.visible? %>
-      <nav class="collapse navbar-collapse">
+      <div class="order-2">
+        <button type="button" class="navbar-toggler ml-2" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+
+      <nav class="collapse navbar-collapse order-3 order-lg-1">
         <ul class="navbar-nav mr-auto">
           <% unless current_user.guest? %>
             <%= render 'shared/config_actions' %>
