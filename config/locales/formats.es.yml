@@ -1,4 +1,6 @@
 es:
   time:
     formats:
-      compact: '%d/%m/%Y %H:%M'
+      time: '%H:%M:%S'
+      compact: '%d/%m/%y %H:%M'
+      full: '%d/%m/%y %H:%M:%S'

@@ -161,13 +161,13 @@ ActiveRecord::Schema.define(version: 2019_04_15_141826) do
   end
 
   create_table "measures", force: :cascade do |t|
-    t.string "measureable_type", null: false
-    t.bigint "measureable_id", null: false
-    t.decimal "cpu", precision: 4, scale: 1, null: false
-    t.integer "memory_in_kb"
+    t.string "measurable_type", null: false
+    t.bigint "measurable_id", null: false
+    t.decimal "cpu", precision: 5, scale: 1, null: false
+    t.bigint "memory_in_bytes", null: false
     t.datetime "created_at", null: false
     t.index ["created_at"], name: "index_measures_on_created_at"
-    t.index ["measureable_type", "measureable_id"], name: "index_measures_on_measureable_type_and_measureable_id"
+    t.index ["measurable_type", "measurable_id"], name: "index_measures_on_measurable_type_and_measurable_id"
   end
 
   create_table "memberships", force: :cascade do |t|
@@ -326,8 +326,8 @@ ActiveRecord::Schema.define(version: 2019_04_15_141826) do
 
   create_table "taggings", id: :serial, force: :cascade do |t|
     t.integer "tag_id", null: false
-    t.string "taggable_type", null: false
     t.integer "taggable_id", null: false
+    t.string "taggable_type", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["tag_id"], name: "index_taggings_on_tag_id"

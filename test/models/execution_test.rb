@@ -54,4 +54,8 @@ class ExecutionTest < ActiveSupport::TestCase
   test 'force kill' do
     skip
   end
+
+  test 'measures' do
+    skip
+  end
 end

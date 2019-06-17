@@ -144,9 +144,9 @@ es:
       maintainer:
         user: 'Usuario'
       measure:
-        measureable: 'Métrica de'
+        measurable: 'Métrica de'
         cpu: 'CPU'
-        memory_in_kb: 'Memoria RAM'
+        memory_in_bytes: 'Memoria RAM'
       membership:
         email: 'Correo'
         default: 'Principal'
