@@ -7,8 +7,7 @@ module Scripts::Versions
     reified = version.reify dup: true
 
     update(
-      name:   reified.name,
-      text:   reified.text,
+      text:   version.object_changes['text']&.last || reified.text,
       change: I18n.t('scripts.reverts.reverted_from', title: reified.change)
     )
   end
