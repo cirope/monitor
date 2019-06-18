@@ -276,21 +276,19 @@ class ScriptTest < ActiveSupport::TestCase
   end
 
   test 'revert to version' do
-    code   = @script.text
-    commit = @script.change
+    @script.update! change: 'Commit 1', text: 'puts "test"'
 
-    @script.update! change: 'Commit 1', text: 'ls -l'
+    version = @script.versions.last
 
-    assert_equal 'Commit 1', @script.reload.change
-    assert_equal 'ls -l', @script.text
+    @script.update! change: 'Commit 2', text: 'puts "to revert"'
 
-    assert @script.revert_to @script.versions.first
+    assert @script.revert_to(version)
 
     assert_equal(
-      I18n.t('scripts.reverts.reverted_from', title: commit),
+      I18n.t('scripts.reverts.reverted_from', title: 'Commit 1'),
       @script.reload.change
     )
-    assert_equal code, @script.text
+    assert_equal 'puts "test"', @script.text
   end
 
   test 'cannot revert to version' do
@@ -298,7 +296,7 @@ class ScriptTest < ActiveSupport::TestCase
 
     version = @script.versions.first
 
-    version.object['name'] = nil
+    version.object['text'] = nil
     version.save!
 
     refute @script.revert_to version
