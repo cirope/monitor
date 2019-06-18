@@ -11,3 +11,16 @@
     display: flex;
   }
 }
+
+.ct-chart.ct-measure {
+  margin-bottom: 1em;
+
+  .ct-chart-line {
+    overflow: visible;
+  }
+
+  .ct-label.ct-horizontal {
+    transform-origin: 3em 12em;
+    transform: rotate(-20deg);
+  }
+}
