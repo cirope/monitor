@@ -29,7 +29,9 @@ module ObjectsHelper
   end
 
   def graph_container object, options = {}
-    content_tag :div, nil, class: 'ct-chart', data: {
+    container_class = options[:class] || 'ct-chart'
+
+    content_tag :div, nil, class: container_class, data: {
       graph:  object.object_id,
       labels: object.keys,
       series: object.values

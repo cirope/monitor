@@ -28,6 +28,6 @@ module Scripts::MeasuresHelper
       memo[l measure.created_at, format: format] = measure.send method
     end
 
-    graph_container stats.sort.to_h, type: 'line', options: { height: '20%' }
+    graph_container stats.sort.to_h, type: 'line', class: 'ct-chart ct-measure'
   end
 end
