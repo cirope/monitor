@@ -19,6 +19,8 @@ class FilesController < ApplicationController
   private
 
     def safe_file_path? file
-      file.exist? && file.file? && file.to_s.start_with?("#{Rails.root}/private")
+      root_path = Rails.root + 'private' + current_account.tenant_name
+
+      file.exist? && file.file? && file.to_s.start_with?(root_path.to_s)
     end
 end

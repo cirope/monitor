@@ -144,6 +144,8 @@
 <%= link_to script_versions_path(@script), title: t('.history') do %>
   <%= icon 'fas', 'history' %>
 <% end %> |
+<%= link_to script_measures_path(@script, type: 'execution'), title: t('.measures_list') do %>
+  <%= icon 'fas', 'tachometer-alt' %>
+<% end %> |
 <%= link_to t('.executions_list'), script_executions_path(@script) %> |
-<%= link_to t('.measures_list'), script_measures_path(@script) %> |
 <%= link_to_index scripts_path %>

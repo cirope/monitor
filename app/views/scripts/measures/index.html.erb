@@ -1,3 +1,13 @@
+<ul class="nav nav-tabs mb-3">
+  <% measure_types.each do |type, name| %>
+    <% active = type.to_s == params[:type] %>
+
+    <%= content_tag :li, class: 'nav-item' do %>
+      <%= link_to name, script_measures_path(@script, type: type), class: "nav-link#{' active' if active}" %>
+    <% end %>
+  <% end %>
+</ul>
+
 <% if @measures.empty? %>
   <%= render 'shared/empty_index', message: t('.empty_html') %>
 <% else %>
@@ -9,28 +19,27 @@
     </caption>
     <thead>
       <tr>
-        <th><%= Measure.human_attribute_name 'measureable' %></th>
+        <th><%= Measure.human_attribute_name 'measurable' %></th>
         <th><%= Measure.human_attribute_name 'cpu' %></th>
-        <th><%= Measure.human_attribute_name 'memory_in_kb' %></th>
-        <th><%= Measure.human_attribute_name 'created_at' %></th>
+        <th class="d-none d-sm-table-cell"><%= Measure.human_attribute_name 'memory_in_bytes' %></th>
+        <th class="d-none d-sm-table-cell"><%= Measure.human_attribute_name 'created_at' %></th>
       </tr>
     </thead>
     <tbody>
       <% @measures.each do |measure| %>
         <tr>
           <td>
-            <%= link_to measure.measureable.class.model_name.human, [@script, measure.measureable] %> |
-            <%= execution_status measure.measureable.status %>
+            <%= link_to measurable_name(measure.measurable), measurable_path(measure.measurable) %>
           </td>
-          <td><%= measure.cpu %>%</td>
-          <td><%= number_to_human_size(measure.memory_in_b) if measure.memory_in_kb %></td>
-          <td><%= l measure.created_at, format: :compact %></td>
+          <td><%= number_to_percentage measure.cpu, precision: 1 %></td>
+          <td class="d-none d-sm-table-cell"><%= number_to_human_size measure.memory_in_bytes, significant: false %></td>
+          <td class="d-none d-sm-table-cell"><%= l measure.created_at, format: :compact %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
 
-  <%= render 'scripts/measures/graphs' %>
+  <%= render 'scripts/measures/graphs', format: :full %>
 
   <%= paginate @measures %>
 <% end %>

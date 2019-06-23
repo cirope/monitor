@@ -10,6 +10,10 @@ class IssueTest < ActiveSupport::TestCase
   end
 
   teardown do
+    Current.account = nil
+  end
+
+  teardown do
     PaperTrail.request.whodunnit = nil
   end
 
@@ -155,7 +159,8 @@ class IssueTest < ActiveSupport::TestCase
   end
 
   test 'export issue data' do
-    path = @issue.export_data
+    Current.account = send 'public.accounts', :default
+    path            = @issue.export_data
 
     assert File.exist?(path)
 
@@ -163,7 +168,8 @@ class IssueTest < ActiveSupport::TestCase
   end
 
   test 'export data' do
-    path = Issue.export_data
+    Current.account = send 'public.accounts', :default
+    path            = Issue.export_data
 
     assert File.exist?(path)
 
@@ -175,7 +181,8 @@ class IssueTest < ActiveSupport::TestCase
   end
 
   test 'to pdf' do
-    path = Issue.to_pdf
+    Current.account = send 'public.accounts', :default
+    path            = Issue.to_pdf
 
     assert File.exist?(path)
 

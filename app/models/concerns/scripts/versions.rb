@@ -5,11 +5,12 @@ module Scripts::Versions
 
   def revert_to version
     reified = version.reify dup: true
+    text    = version.object_changes['text']&.last   || reified.text
+    change  = version.object_changes['change']&.last || reified.change
 
     update(
-      name:   reified.name,
-      text:   reified.text,
-      change: I18n.t('scripts.reverts.reverted_from', title: reified.change)
+      text:   text,
+      change: I18n.t('scripts.reverts.reverted_from', title: change)
     )
   end
 

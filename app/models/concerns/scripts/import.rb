@@ -75,8 +75,6 @@ module Scripts::Import
       def require_attributes requires_data
         uuids = requires_data.map { |require_data| require_data['script']['uuid'] }
 
-        puts uuids
-
         Script.where(uuid: uuids).map { |script| { script_id: script.id } }
       end
   end

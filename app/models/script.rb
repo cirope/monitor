@@ -3,6 +3,7 @@
 class Script < ApplicationRecord
   include Auditable
   include Attributes::Strip
+  include Exporter
   include SearchableByName
   include Scripts::Copy
   include Scripts::Descriptions
@@ -30,7 +31,8 @@ class Script < ApplicationRecord
   has_many :runs, through: :jobs
   has_many :issues, through: :runs
   has_many :executions, dependent: :destroy
-  has_many :measures, through: :executions
+  has_many :execution_measures, through: :executions, class_name: 'Measure', source: :measures
+  has_many :run_measures, through: :runs, class_name: 'Measure', source: :measures
 
   def to_s
     name

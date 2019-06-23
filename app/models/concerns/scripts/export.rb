@@ -5,7 +5,7 @@ module Scripts::Export
 
   module ClassMethods
     def export
-      file = "#{EXPORTS_PATH}/#{SecureRandom.uuid}.zip"
+      file = "#{export_path}/#{SecureRandom.uuid}.zip"
 
       ::Zip::File.open file, Zip::File::CREATE do |zipfile|
         all.each do |script|

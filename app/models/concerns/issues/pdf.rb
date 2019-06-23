@@ -9,7 +9,7 @@ module Issues::PDF
     end
 
     def to_pdf
-      file = "#{EXPORTS_PATH}/#{SecureRandom.uuid}.pdf"
+      file = "#{export_path}/#{SecureRandom.uuid}.pdf"
 
       Prawn::Document.generate(file) do |pdf|
         pdf.fill_color = '222222'

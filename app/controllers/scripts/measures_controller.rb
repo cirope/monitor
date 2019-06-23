@@ -7,9 +7,7 @@ class Scripts::MeasuresController < ApplicationController
   respond_to :html
 
   def index
-    @measures = @script.measures.reorder(
-      created_at: :desc
-    ).page params[:page]
+    @measures = measures.reorder(created_at: :desc).page params[:page]
 
     respond_with @measures
   end
@@ -18,5 +16,14 @@ class Scripts::MeasuresController < ApplicationController
 
     def set_script
       @script = Script.find params[:script_id]
+    end
+
+    def measures
+      case params[:type]
+      when 'execution'
+        @script.execution_measures
+      when 'run'
+        @script.run_measures
+      end
     end
 end

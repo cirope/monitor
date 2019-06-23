@@ -2,6 +2,7 @@
 
 class Issue < ApplicationRecord
   include Auditable
+  include Exporter
   include Issues::Comments
   include Issues::ExportData
   include Issues::Notifications
