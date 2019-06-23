@@ -8,7 +8,6 @@ es:
     ldap_error: 'El servidor de autenticación no está disponible, intente nuevamente más tarde'
     not_allowed: 'No está autorizado para realizar la operación'
     not_authorized: 'No está autorizado para ver el contenido'
-    unsaved_data_warning: 'Ha modificado el contenido, si abandona la página perderá todos los cambios'
 
   navigation:
     destroy: 'Eliminar'
@@ -89,6 +88,10 @@ es:
   dispatchers:
     dispatcher:
       empty: 'No se encontraron reglas con ese criterio'
+
+  editor:
+    edit:
+      unsaved_data_warning: 'Ha modificado el contenido, si abandona la página perderá todos los cambios'
 
   executions:
     index:

@@ -40,11 +40,11 @@
 //= require filters
 //= require accounts
 //= require comments
-//= require common
 //= require console
 //= require dashboard
 //= require databases
 //= require descriptors
+//= require editor
 //= require executions
 //= require issues
 //= require issues/board
