@@ -1,8 +1,7 @@
 +function () {
-  var editor = null
-
   var startEditors = function () {
     $('[data-editor]').each(function (i, element) {
+      var editor    = null
       var $textarea = $(element)
       var readonly  = $textarea.data('readonly')
       var options   = {
