@@ -2,7 +2,7 @@
   var _onBeforeUnload = function (event) {
     var editor = $('.editor[data-observe-changes]')
 
-    if (editor.length && editor.data('unsavedData')) {
+    if (editor.data('unsavedData')) {
       if (event) event.returnValue = editor.data('unsavedDataWarning')
 
       return editor.data('unsavedDataWarning')
@@ -22,14 +22,10 @@
     $('.editor[data-observe-changes]').data('unsavedData', false)
   })
 
-  $(document).on('turbolinks:load', function () {
-    $('.editor[data-observe-changes]').data('unsavedData', false)
-  })
-
-  $(document).on('turbolinks:before-visit', function(){
+  $(document).on('turbolinks:before-visit', function (){
     var editor = $('.editor[data-observe-changes]')
 
-    if (editor.length && editor.data('unsavedData')) {
+    if (editor.data('unsavedData')) {
       return confirm(editor.data('unsavedDataWarning'))
     }
   })
