@@ -25,8 +25,6 @@
   $(document).on('turbolinks:before-visit', function (){
     var editor = $('.editor[data-observe-changes]')
 
-    if (editor.data('unsavedData')) {
-      return confirm(editor.data('unsavedDataWarning'))
-    }
+    if (editor.data('unsavedData')) return confirm(editor.data('unsavedDataWarning'))
   })
 }()
