@@ -41,7 +41,7 @@ gem 'web-console'
 
 gem 'unicorn'
 
-gem 'newrelic_rpm'
+gem 'newrelic_rpm', '~> 6.2.0'
 
 gem 'capistrano'
 gem 'capistrano-rbenv'
