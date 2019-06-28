@@ -44,6 +44,7 @@
 //= require dashboard
 //= require databases
 //= require descriptors
+//= require editor
 //= require executions
 //= require issues
 //= require issues/board
