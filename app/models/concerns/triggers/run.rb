@@ -24,7 +24,10 @@ module Triggers::Run
 
           stdout.string
         rescue => ex
-          [stdout.string, ex.inspect].reject(&:blank?).join("\n")
+          error = [stdout.string, ex.message]
+          error += ex.backtrace.select { |line| line.start_with?('(eval):') || line.start_with?(Rails.root.to_s) }
+
+          error.reject(&:blank?).join("\n")
         end
       RUBY
     end

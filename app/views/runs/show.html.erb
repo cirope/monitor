@@ -46,6 +46,18 @@
       <% @run.outputs.with_text.each_with_index do |output, index| %>
         <h4 class="text-muted">#<%= index + 1 %> <%= output.rule %></h4>
         <pre><samp><%= output.text %></samp></pre>
+
+        <% output.parse_and_find_lines_with_error.tap do |errors| %>
+          <% if errors %>
+            <ul>
+              <% errors.each do |error| %>
+                <li>
+                  <%= link_to_error_line output.rule, error, output.still_valid?, { model_id:  output.trigger_id } %>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
+        <% end %>
       <% end %>
     </div>
   </div>

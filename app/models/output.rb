@@ -3,6 +3,7 @@
 class Output < ApplicationRecord
   include Auditable
   include Outputs::Scopes
+  include Outputs::TextParser
   include Outputs::Validation
 
   belongs_to :trigger
