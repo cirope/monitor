@@ -220,20 +220,12 @@ es:
           attributes:
             issue:
               invalid: 'no pertenece a su usuario'
-        execution:
-          attributes:
-            server:
-              should_be_local: 'debe ser un servidor local'
         issue:
           attributes:
             base:
               user_invalid: 'No tiene permisos para modificar este caso'
             tags:
               invalid: 'finales debe haber una (solamente)'
-        server:
-          attributes:
-            default:
-              invalid: 'solo puede establecerse para servidores locales'
         user:
           attributes:
             email:
