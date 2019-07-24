@@ -119,7 +119,7 @@ module Servers::Command
 
         output_proc = -> (data) { execution.new_line data }
 
-        status = ssh_exec_with_realtime_output ssh, "$SHELL -c #{script_path}", output_proc
+        status = ssh_exec_with_pty ssh, "$SHELL -c #{script_path}", output_proc
 
         # Clean the script
         ssh.exec! "rm #{script_path}"
@@ -128,7 +128,7 @@ module Servers::Command
       status
     end
 
-    def ssh_exec_with_realtime_output ssh, command, output_proc
+    def ssh_exec_with_pty ssh, command, output_proc
       status = 1
 
       channel = ssh.open_channel do |och|
