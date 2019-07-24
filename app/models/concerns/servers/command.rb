@@ -117,7 +117,7 @@ module Servers::Command
         # execution permission
         ssh.exec! "chmod +x #{script_path}"
 
-        output_proc = proc { |data| execution.new_line data }
+        output_proc = -> (data) { execution.new_line data }
 
         status = ssh_exec_with_realtime_output ssh, "$SHELL -c #{script_path}", output_proc
 
@@ -139,7 +139,7 @@ module Servers::Command
         och.exec command do |ch, success|
           # STDOUT
           ch.on_data do |_ch, data|
-            output_proc.call data
+            output_proc[data]
           end
 
           # STDERR
@@ -148,7 +148,7 @@ module Servers::Command
           end
 
           # Command status
-          ch.on_request "exit-status" do |_ch, data|
+          ch.on_request 'exit-status' do |_ch, data|
             status = data.read_long
           end
         end
