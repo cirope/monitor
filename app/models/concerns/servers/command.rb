@@ -117,35 +117,45 @@ module Servers::Command
         # execution permission
         ssh.exec! "chmod +x #{script_path}"
 
-        channel = ssh.open_channel do |och|
-          # Realtime log output
-          och.request_pty
+        output_proc = proc { |data| execution.new_line data }
 
-          # Script execution
-          och.exec "$SHELL -c #{script_path}" do |ch, success|
-            # STDOUT
-            ch.on_data do |ch, data|
-              execution.new_line data
-            end
-
-            # STDERR
-            ch.on_extended_data do |_c, _type, data|
-              execution.new_line data
-            end
-
-            # Script status
-            ch.on_request "exit-status" do |ch, data|
-              status = data.read_long
-            end
-          end
-        end
-
-        # Wait until the command finish
-        channel.wait
+        status = ssh_exec_with_realtime_output ssh, "$SHELL -c #{script_path}", output_proc
 
         # Clean the script
         ssh.exec! "rm #{script_path}"
       end
+
+      status
+    end
+
+    def ssh_exec_with_realtime_output ssh, command, output_proc
+      status = 1
+
+      channel = ssh.open_channel do |och|
+        # Realtime log output
+        och.request_pty
+
+        # Command execution
+        och.exec command do |ch, success|
+          # STDOUT
+          ch.on_data do |_ch, data|
+            output_proc.call data
+          end
+
+          # STDERR
+          ch.on_extended_data do |_ch, _type, data|
+            output_proc.call data
+          end
+
+          # Command status
+          ch.on_request "exit-status" do |_ch, data|
+            status = data.read_long
+          end
+        end
+      end
+
+      # Wait until the command finish
+      channel.wait
 
       status
     end
