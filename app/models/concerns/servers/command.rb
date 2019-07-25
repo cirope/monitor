@@ -117,9 +117,9 @@ module Servers::Command
         # execution permission
         ssh.exec! "chmod +x #{script_path}"
 
-        output_proc = -> (data) { execution.new_line data }
-
-        status = ssh_exec_with_pty ssh, "$SHELL -c #{script_path}", output_proc
+        status = ssh_exec_with_pty ssh, "$SHELL -c #{script_path}" do |data|
+          execution.new_line data
+        end
 
         # Clean the script
         ssh.exec! "rm #{script_path}"
@@ -128,7 +128,7 @@ module Servers::Command
       status
     end
 
-    def ssh_exec_with_pty ssh, command, output_proc
+    def ssh_exec_with_pty ssh, command
       status = 1
 
       channel = ssh.open_channel do |och|
@@ -139,12 +139,12 @@ module Servers::Command
         och.exec command do |ch, success|
           # STDOUT
           ch.on_data do |_ch, data|
-            output_proc[data]
+            yield data
           end
 
           # STDERR
           ch.on_extended_data do |_ch, _type, data|
-            output_proc.call data
+            yield data
           end
 
           # Command status
