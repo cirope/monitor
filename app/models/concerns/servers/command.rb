@@ -24,15 +24,12 @@ module Servers::Command
 
   def execution execution
     script_path = execution.script.copy_to self
-    status      = 1
 
-    Open3.popen2e rails, 'runner', script_path do |stdin, stdout, thread|
-      execution.update! pid: thread.pid
-
-      stdout.each { |line| execution.new_line line }
-
-      status = thread.value.exitstatus.to_i
-    end
+    status = if local?
+               local_execution execution, script_path
+             else
+               remote_execution execution, script_path
+             end
 
     if execution.killed?
       'killed'
@@ -97,5 +94,69 @@ module Servers::Command
         status: out.exitstatus.zero? ? 'ok' : 'error',
         output: out.to_s + status_text.to_s
       }
+    end
+
+    def local_execution execution, script_path
+      status = 1
+
+      Open3.popen2e rails, 'runner', script_path do |stdin, stdout, thread|
+        execution.update! pid: thread.pid
+
+        stdout.each { |line| execution.new_line line }
+
+        status = thread.value.exitstatus.to_i
+      end
+
+      status
+    end
+
+    def remote_execution execution, script_path
+      status = 1
+
+      Net::SSH.start hostname, user, ssh_options  do |ssh|
+        # execution permission
+        ssh.exec! "chmod +x #{script_path}"
+
+        status = ssh_exec_with_pty ssh, "$SHELL -c #{script_path}" do |data|
+          execution.new_line data
+        end
+
+        # Clean the script
+        ssh.exec! "rm #{script_path}"
+      end
+
+      status
+    end
+
+    def ssh_exec_with_pty ssh, command
+      status = 1
+
+      channel = ssh.open_channel do |och|
+        # Realtime log output
+        och.request_pty
+
+        # Command execution
+        och.exec command do |ch, success|
+          # STDOUT
+          ch.on_data do |_ch, data|
+            yield data
+          end
+
+          # STDERR
+          ch.on_extended_data do |_ch, _type, data|
+            yield data
+          end
+
+          # Command status
+          ch.on_request 'exit-status' do |_ch, data|
+            status = data.read_long
+          end
+        end
+      end
+
+      # Wait until the command finish
+      channel.wait
+
+      status
     end
 end
