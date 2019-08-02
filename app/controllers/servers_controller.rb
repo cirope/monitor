@@ -49,6 +49,12 @@ class ServersController < ApplicationController
     respond_with @server
   end
 
+  def default
+    @server.update default: true
+
+    respond_with @server
+  end
+
   private
     def set_server
       @server = Server.find params[:id]
