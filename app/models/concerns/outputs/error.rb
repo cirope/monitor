@@ -1,10 +1,11 @@
-module Outputs::TextParser
+module Outputs::Error
   extend ActiveSupport::Concern
 
-  def parse_and_find_lines_with_error
+  def lines_with_errors
     return [] if text.blank?
 
     body = trigger.callback
+
     text.split("\n").map do |line|
       n = line.match(/\(eval\):(\d+)/)&.captures&.first&.to_i
 

@@ -75,7 +75,7 @@
 
       jumpToLine(editor, $textarea)
 
-      $textarea.data('observed', true)
+      $textarea.attr('data-observed', true)
     })
   }
 

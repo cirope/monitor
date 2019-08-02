@@ -47,7 +47,7 @@
         <h4 class="text-muted">#<%= index + 1 %> <%= output.rule %></h4>
         <pre><samp><%= output.text %></samp></pre>
 
-        <% output.parse_and_find_lines_with_error.tap do |errors| %>
+        <% output.lines_with_errors.tap do |errors| %>
           <% if errors %>
             <ul>
               <% errors.each do |error| %>
