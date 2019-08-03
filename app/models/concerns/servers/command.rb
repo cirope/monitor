@@ -15,7 +15,7 @@ module Servers::Command
 
     output = []
 
-    status = decide_and_exec run, script_path do |data|
+    status = exec run, script_path do |data|
       output << data
     end
 
@@ -27,12 +27,12 @@ module Servers::Command
   def execution execution
     script_path = execution.script.copy_to self
 
-    decide_and_exec execution, script_path do |line|
+    exec execution, script_path do |line|
       execution.new_line line
     end
   end
 
-  def decide_and_exec executable, script_path
+  def exec executable, script_path
     method = local? ? :local_exec : :remote_exec
     exit_status = send(method, script_path, executable) do |line|
       yield line
@@ -41,8 +41,7 @@ module Servers::Command
     if executable.reload.killed?
       'killed'
     elsif exit_status.zero?
-      # Migra
-      executable.class.statuses[:ok] || 'success'
+      executable.class.success_status
     else
       yield "Exit status: #{exit_status}"
 
