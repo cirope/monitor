@@ -86,15 +86,4 @@ class ServersControllerTest < ActionController::TestCase
 
     assert_redirected_to servers_url
   end
-
-  test 'should change default server' do
-    old_default = @server
-    new_default = servers :gardelito
-
-    patch :default, params: { id: new_default.id }, xhr: true, as: :js
-
-    assert_response :success
-    assert new_default.reload.default
-    refute old_default.reload.default
-  end
 end

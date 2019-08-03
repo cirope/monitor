@@ -13,7 +13,7 @@ module ServersHelper
         data:  { remote: true, method: :patch }
       }
 
-      link_to default_server_path(server.id) ,options do
+      link_to server_default_path(server.id), options do
         icon 'fas', 'toggle-off'
       end
     end

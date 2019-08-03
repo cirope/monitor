@@ -85,7 +85,7 @@ Rails.application.routes.draw do
   end
 
   resources :servers do
-    patch :default, on: :member
+    resource :default, only: :update, controller: 'servers/default'
   end
 
   namespace :users do
