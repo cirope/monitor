@@ -1,3 +1,6 @@
+/* global CodeMirror */
+/* eslint-disable no-alert */
+
 +function () {
   var urlQueryParams = function () {
     var params     = {}
@@ -6,6 +9,7 @@
     for (var i = 0; i < paramsList.length; ++i) {
       // :pray: for the Uganda children
       var param = paramsList[i].split('=', 2)
+
 
       if (param.length == 2)
         params[param[0]] = decodeURIComponent(param[1].replace(/\+/g, ' '))
@@ -18,7 +22,7 @@
     var params = urlQueryParams()
 
     if (params['line']) {
-      line = +params['line'] - 1
+      var line = +params['line'] - 1
 
       if (params['model_id'] && params['model_id'] != $textarea.data('modelId')) {
         return
@@ -33,32 +37,34 @@
   var startEditors = function () {
     $('[data-editor]:not([data-observed])').each(function (i, element) {
       var $textarea = $(element)
-      var $file     = $($textarea.data('fileInput'))
-      var $change   = $($textarea.data('changeInput'))
       var readonly  = $textarea.data('readonly')
-      var options   = {
-        mode:              'ruby',
-        tabSize:           2,
-        autoCloseBrackets: true,
-        matchBrackets:     true,
-        lineNumbers:       true,
-        styleActiveLine:   true,
-        foldGutter:        true,
-        theme:             readonly ? 'solarized dark' :  'solarized light',
-        readOnly:          readonly,
-        gutters:           ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
-        phrases:           $textarea.data('phrases')
-      }
-      var editor = CodeMirror.fromTextArea($textarea.get(0), options)
+      var editor    = CodeMirror.fromTextArea(
+        $textarea.get(0),
+        {
+          mode:              'ruby',
+          tabSize:           2,
+          autoCloseBrackets: true,
+          matchBrackets:     true,
+          lineNumbers:       true,
+          styleActiveLine:   true,
+          foldGutter:        true,
+          theme:             readonly ? 'solarized dark' :  'solarized light',
+          readOnly:          readonly,
+          gutters:           ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
+          phrases:           $textarea.data('phrases')
+        }
+      )
+      var $file   = $($textarea.data('fileInput'))
+      var $change = $($textarea.data('changeInput'))
 
-      editor.on('change', function (_editor) { $textarea.trigger('change') })
+      editor.on('change', function () { $textarea.trigger('change') })
 
       if ($change.length && $file.length) {
         $(document).on('change', $textarea.data('fileInput'), function () {
           editor && editor.setOption('readOnly', $(this).val())
         })
 
-        editor.on('change', function (editor) {
+        editor.on('change', function () {
           var text = editor.getValue()
 
           if (text.trim()) {
@@ -105,7 +111,7 @@
     $('[data-editor]').data('unsavedData', false)
   })
 
-  $(document).on('turbolinks:before-visit', function (){
+  $(document).on('turbolinks:before-visit', function () {
     var editor = $('[data-editor]')
 
     if (editor.data('unsavedData')) return confirm(editor.data('unsavedDataWarning'))
