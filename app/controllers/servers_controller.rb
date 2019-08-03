@@ -5,7 +5,7 @@ class ServersController < ApplicationController
 
   before_action :authorize, :not_guest, :not_author
   before_action :set_title, except: [:destroy]
-  before_action :set_server, only: [:show, :edit, :update, :destroy]
+  before_action :set_server, only: [:show, :edit, :update, :destroy, :default]
   before_action :not_supervisor, except: [:index, :show]
 
   respond_to :html, :json
@@ -50,9 +50,10 @@ class ServersController < ApplicationController
   end
 
   def default
+    @default_server = Server.default.first
     @server.update default: true
 
-    respond_with @server
+    render 'default'
   end
 
   private

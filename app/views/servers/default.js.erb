@@ -1,0 +1,5 @@
++function () {
+  <% [@server, @default_server.reload].each do |server| %>
+    $('[data-id="<%= server.id %>"]').replaceWith('<%= j render('server', server: server) %>')
+  <% end %>
+}()
