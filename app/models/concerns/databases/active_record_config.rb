@@ -17,16 +17,12 @@ module Databases::ActiveRecordConfig
   private
 
     def adapter
-      if driver    =~ /postgres/i
-        'postgresql'
-      elsif driver =~ /mysql/i
-        'mysql2'
-      elsif driver =~ /sqlite/i
-        'sqlite3'
-      elsif driver =~ /freetds/i
-        'sqlserver'
-      elsif driver =~ /oracle/i
-        'oracle_enhanced'
+      case driver
+      when /postgres/i then 'postgresql'
+      when /mysql/i    then 'mysql2'
+      when /sqlite/i   then 'sqlite3'
+      when /freetds/i  then 'sqlserver'
+      when /oracle/i   then 'oracle_enhanced'
       else
         raise "Unsupported adapter for driver #{driver}"
       end
