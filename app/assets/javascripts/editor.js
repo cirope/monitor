@@ -49,9 +49,9 @@
         gutters:           ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
         phrases:           $textarea.data('phrases')
       }
+      var editor = CodeMirror.fromTextArea($textarea.get(0), options)
 
-      editor = CodeMirror.fromTextArea($textarea.get(0), options)
-      editor.on('change', function (editor) { $textarea.trigger('change') })
+      editor.on('change', function (_editor) { $textarea.trigger('change') })
 
       if ($change.length && $file.length) {
         $(document).on('change', $textarea.data('fileInput'), function () {

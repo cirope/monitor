@@ -24,7 +24,7 @@ module Triggers::Run
 
           stdout.string
         rescue => ex
-          error = [stdout.string, ex.message]
+          error  = [stdout.string, ex.message]
           error += app_lines_from_exception ex
 
           error.reject(&:blank?).join "\n"
@@ -32,7 +32,7 @@ module Triggers::Run
       RUBY
     end
 
-    def app_lines_from_exception(ex)
+    def app_lines_from_exception ex
       ex.backtrace.select do |line|
         line.start_with?('(eval):') || line.start_with?(Rails.root.to_s)
       end
