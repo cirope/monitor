@@ -52,7 +52,7 @@
             <ul>
               <% errors.each do |error| %>
                 <li>
-                  <%= link_to_error_line output.rule, error, output.still_valid?, { model_id:  output.trigger_id } %>
+                  <%= link_to_error_line output.rule, error, valid: output.still_valid?, model_id: output.trigger_id %>
                 </li>
               <% end %>
             </ul>

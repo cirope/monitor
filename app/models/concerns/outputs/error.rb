@@ -2,11 +2,9 @@ module Outputs::Error
   extend ActiveSupport::Concern
 
   def lines_with_errors
-    return [] if text.blank?
-
     body = trigger.callback
 
-    text.split("\n").map do |line|
+    text.to_s.split("\n").map do |line|
       n = line.match(/\(eval\):(\d+)/)&.captures&.first&.to_i
 
       if n && n > 4

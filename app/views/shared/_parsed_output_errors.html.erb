@@ -8,7 +8,7 @@
       <ul>
         <% errors.each do |error| %>
           <li>
-            <%= link_to_error_line script, error, exec.still_valid? %>
+            <%= link_to_error_line script, error, valid: exec.still_valid? %>
           </li>
         <% end %>
       </ul>
