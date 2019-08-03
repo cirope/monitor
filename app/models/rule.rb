@@ -3,10 +3,10 @@
 class Rule < ApplicationRecord
   include Auditable
   include Attributes::Strip
+  include Exportable
   include Exporter
   include Filterable
   include SearchableByName
-  include Rules::Export
   include Rules::Import
   include Rules::JSON
   include Rules::Scopes
