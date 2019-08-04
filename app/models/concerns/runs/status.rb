@@ -22,5 +22,9 @@ module Runs::Status
     def by_status status
       where status: status
     end
+
+    def success_status
+      statuses[:ok]
+    end
   end
 end
