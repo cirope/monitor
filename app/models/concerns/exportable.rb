@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Rules::Export
+module Exportable
   extend ActiveSupport::Concern
 
   module ClassMethods
@@ -8,8 +8,8 @@ module Rules::Export
       file = "#{export_path}/#{SecureRandom.uuid}.zip"
 
       ::Zip::File.open file, Zip::File::CREATE do |zipfile|
-        all.each do |rule|
-          unscoped { rule.add_to_zip zipfile }
+        all.each do |exportable|
+          unscoped { exportable.add_to_zip zipfile }
         end
       end
 
@@ -22,6 +22,8 @@ module Rules::Export
 
     unless zipfile.find_entry filename
       zipfile.get_output_stream(filename) { |out| out.write to_json }
+
+      exportables.each { |extra| extra.add_to_zip zipfile } if respond_to?(:exportables)
     end
   end
 end
