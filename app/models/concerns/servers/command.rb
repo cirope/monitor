@@ -33,7 +33,7 @@ module Servers::Command
   end
 
   def exec executable, script_path
-    method = local? ? :local_exec : :remote_exec
+    method      = local? ? :local_exec : :remote_exec
     exit_status = send(method, script_path, executable) do |line|
       yield line
     end
@@ -61,7 +61,7 @@ module Servers::Command
       Open3.popen2e rails, 'runner', script_path do |stdin, stdout, thread|
         executable.update! pid: thread.pid
 
-        stdout.each { |line| yield "#{line.strip}\n" if line }
+        stdout.each { |line| yield "#{line.strip}\n" }
 
         status = thread.value.exitstatus.to_i
       end
