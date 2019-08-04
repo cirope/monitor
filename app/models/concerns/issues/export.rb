@@ -107,12 +107,12 @@ module Issues::Export
       key = sanitize_filename(name) + '.csv'
 
       # Ensure no-collision
-      if @files_content.key?(key)
+      if @files_content.key? key
         @basename_index ||= 0
         key = sanitize_filename(name + " #{@basename_index += 1}") + '.csv'
       end
 
-      @files_content[key] = ::CSV.generate(CSV_OPTIONS) do |csv|
+      @files_content[key] = ::CSV.generate CSV_OPTIONS do |csv|
         yield csv
       end
     end

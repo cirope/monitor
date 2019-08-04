@@ -18,6 +18,6 @@ module ZipUtils
 
     create tmp_filename, files
 
-    File.read(tmp_filename)
+    File.read tmp_filename
   end
 end
