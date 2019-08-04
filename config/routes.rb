@@ -33,7 +33,6 @@ Rails.application.routes.draw do
   resources :descriptors
   resources :ldaps
   resources :rules
-  resources :servers
   resources :password_resets, only: [:new, :create, :edit, :update]
 
   resources :accounts, except: [:destroy] do
@@ -82,6 +81,10 @@ Rails.application.routes.draw do
     scope ':type', type: /execution|run/ do
       resources :measures, only: [:index], controller: 'scripts/measures'
     end
+  end
+
+  resources :servers do
+    resource :default, only: :update, controller: 'servers/default'
   end
 
   namespace :users do
