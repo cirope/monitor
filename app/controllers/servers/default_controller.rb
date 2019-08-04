@@ -11,6 +11,7 @@ class Servers::DefaultController < ApplicationController
   end
 
   private
+
     def set_server
       @server = Server.find params[:server_id]
     end
