@@ -104,7 +104,7 @@ module Issues::Export
       if @files_content.key? key
         @basenames_index ||= {}
         @basenames_index[name] ||= 0
-        key = sanitize_filename(name + ".#{@basenames_index[name] += 1}") + '.csv'
+        key = sanitize_filename(name + "_#{@basenames_index[name] += 1}") + '.csv'
       end
 
       @files_content[key] = ::CSV.generate CSV_OPTIONS do |csv|
