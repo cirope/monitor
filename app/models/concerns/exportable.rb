@@ -15,15 +15,37 @@ module Exportable
 
       file
     end
+
+    private
+
+      def export_path subdir = nil
+        path = [
+          Rails.root,
+          'private',
+          Current.account.tenant_name,
+          'exports',
+          subdir
+        ].compact.reduce :+
+
+        FileUtils.mkdir_p path unless path.directory?
+
+        path
+      end
   end
 
   def add_to_zip zipfile
-    filename = "#{uuid}.json"
+    filename = export_filename
 
     unless zipfile.find_entry filename
-      zipfile.get_output_stream(filename) { |out| out.write to_json }
+      ZipUtils.add_file_content(zipfile, filename, export_data)
 
       exportables.each { |extra| extra.add_to_zip zipfile } if respond_to?(:exportables)
     end
   end
+
+  private
+
+    def export_path subdir = nil
+      self.class.send :export_path, subdir
+    end
 end

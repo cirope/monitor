@@ -160,16 +160,23 @@ class IssueTest < ActiveSupport::TestCase
 
   test 'export issue data' do
     Current.account = send 'public.accounts', :default
-    path            = @issue.export_data
+    file_content    = @issue.export_data
 
-    assert File.exist?(path)
+    assert_not_nil file_content
+  end
 
-    FileUtils.rm path
+  test 'export issue without data' do
+    Current.account = send 'public.accounts', :default
+
+    @issue.data  = {}
+    file_content = @issue.export_data
+
+    assert_nil file_content
   end
 
   test 'export data' do
     Current.account = send 'public.accounts', :default
-    path            = Issue.export_data
+    path            = Issue.export
 
     assert File.exist?(path)
 
