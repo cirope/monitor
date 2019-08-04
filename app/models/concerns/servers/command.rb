@@ -100,12 +100,12 @@ module Servers::Command
         och.exec command do |ch, success|
           # STDOUT
           ch.on_data do |_ch, data|
-            yield data
+            yield data.force_encoding 'UTF-8'
           end
 
           # STDERR
           ch.on_extended_data do |_ch, _type, data|
-            yield data
+            yield data.force_encoding 'UTF-8'
           end
 
           # Command status
