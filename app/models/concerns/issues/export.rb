@@ -42,11 +42,10 @@ module Issues::Export
       end
 
       compound_hash.each do |k, v|
-        if v.kind_of? Hash
-          hash_to_csv  [name, k].join('.'), v
-        else
-          array_to_csv [name, k].join('.'), v
-        end
+        send(
+          v.kind_of?(Hash) ? :hash_to_csv : :array_to_csv,
+          [name, k].join('.'), v
+        )
       end
     end
 
@@ -73,28 +72,23 @@ module Issues::Export
           csv << with_utf_bomb(headers)
 
           simple_hashes_array.each do |hash|
-            row = []
-
-            headers.each { |header| row << hash[header] }
-
-            csv << row
+            csv << headers.map { |header| hash[header] }
           end
         end
       end
 
-      compound_array.each_with_index do |v, i|
-        if v.kind_of? Hash
-          hash_to_csv  [name, i + 1].join('.'), v
-        elsif
-          array_to_csv [name, i + 1].join('.'), v
-        end
+      compound_array.each do |v|
+        send(
+          v.kind_of?(Hash) ? :hash_to_csv : :array_to_csv,
+          name, v
+        )
       end
     end
 
     def sanitize_filename filename
       splited_name = filename[0, 200].split /(?<=.)\.(?=[^.])(?!.*\.[^.])/m
 
-      splited_name.map { |s| s.gsub /[^a-z0-9\-]+/i, '_' }.join '.'
+      splited_name.map { |s| s.gsub /[^a-z0-9\-\_\.]+/i, '_' }.join '.'
     end
 
     def with_utf_bomb array
@@ -108,8 +102,9 @@ module Issues::Export
 
       # Ensure no-collision
       if @files_content.key? key
-        @basename_index ||= 0
-        key = sanitize_filename(name + " #{@basename_index += 1}") + '.csv'
+        @basenames_index ||= {}
+        @basenames_index[name] ||= 0
+        key = sanitize_filename(name + ".#{@basenames_index[name] += 1}") + '.csv'
       end
 
       @files_content[key] = ::CSV.generate CSV_OPTIONS do |csv|
