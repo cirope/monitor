@@ -10,7 +10,7 @@ module Outputs::Error
       if n && n > 4
         # -4 lines of `code` header
         callback_line_number = n.to_i - 4
-        callback_body        = body.split("\n")
+        callback_body        = body.split "\n"
 
         {
           error: callback_body[callback_line_number - 1].strip,
