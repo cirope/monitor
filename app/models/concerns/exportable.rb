@@ -23,9 +23,7 @@ module Exportable
     unless zipfile.find_entry filename
       zipfile.get_output_stream(filename) { |out| out.write to_json }
 
-      if respond_to?(:extra_exports)
-        extra_exports.each { |extra| extra.add_to_zip zipfile }
-      end
+      exportables.each { |extra| extra.add_to_zip zipfile } if respond_to?(:exportables)
     end
   end
 end
