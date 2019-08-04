@@ -12,13 +12,6 @@
     Autocomplete.prototype.init = function () {
       var self = this
 
-      self.element.autocomplete({
-        type:      'get',
-        minLength: self.element.data('autocompleteMinLength'),
-        source:    self._source.bind(self),
-        select:    self._selected.bind(self)
-      })
-
       self._markAsObserved()
       self._listenChanges()
     }
@@ -65,36 +58,8 @@
       response(items)
     }
 
-    Autocomplete.prototype._selected = function (event, ui) {
-      var self     = this
-      var selected = ui.item
-
-      self.targetElement.val(selected.item.id)
-      self.element.val(selected.value)
-      self.element.trigger({
-        type:    'update.autocomplete',
-        element: self.element,
-        item:    selected.item
-      })
-
-      return false
+    Autocomplete.prototype._
     }
-
-    Autocomplete.prototype._source = function (request, response) {
-      var self = this
-
-      jQuery.ajax({
-        url:      self.element.data('autocompleteUrl'),
-        dataType: 'json',
-        data:     { q: request.term },
-        success:  function (data) {
-          self._renderResponse(data, response)
-        }
-      })
-    }
-
-    return Autocomplete
-  })()
 
   jQuery(function ($) {
     var selector = 'input[data-autocomplete-url]:not([data-observed])'
@@ -104,3 +69,62 @@
     })
   })
 }(jQuery)
+
+
+
+
+
++function ($) {
+  $(document).on('change', 'input[data-autocomplete-url]', function() {
+    input = $(this)
+    if (/^\s*$/.test(input.val()))
+      $(input.data('autocompleteTarget')).val('');
+  })
+
+  $(document).on('focus', 'input[data-autocomplete-url]:not([data-observed])', function() {
+    var source = function (request, response) {
+      var input = $(this)
+
+      jQuery.ajax({
+        url:      input.data('autocompleteUrl'),
+        dataType: 'json',
+        data:     { q: request.term },
+        success:  function (data) {
+          self._renderResponse(data, response)
+        }
+      })
+    }
+
+    var select = function (event, ui) {
+      var input    = $(this)
+      var selected = ui.item
+
+      $(input.data('autocompleteTarget')).val(selected.item.id)
+      input.val(selected.value)
+      input.trigger({
+        type:    'update.autocomplete',
+        element: input,
+        item:    selected.item
+      })
+
+      return false
+    }
+
+
+    input = $(this);
+
+    input.autocomplete({
+      type:      'get',
+      minLength: element.data('autocompleteMinLength'),
+      source: source
+    })
+
+    // return input.data('ui-autocomplete')._renderItem = function(ul, item){
+    //   ul.addClass('typeahead dropdown-menu');
+    //   return $('<li></li>').data('item.autocomplete', item).append(
+    //     $('<a></a>').html(item.label)
+    //   ).appendTo(ul);
+    // };
+}).attr('data-observed', true);
+})(jQuery)
+
