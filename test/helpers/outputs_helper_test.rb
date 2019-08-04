@@ -10,6 +10,6 @@ class OutputsHelperTest < ActionView::TestCase
       line:  1
     }
 
-    assert_match script.id.to_s, link_to_error_line(script, error, true)
+    assert_match script.id.to_s, link_to_error_line(script, error, valid: true)
   end
 end

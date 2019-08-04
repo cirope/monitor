@@ -2,12 +2,11 @@
   <div class="row">
     <div class="col-sm-11 tiny-editor">
       <%= f.input :callback, label: false, input_html: {
-        class: 'editor',
         data: {
-          editor: true,
-          readonly: disable_rule_edition?,
-          phrases: editor_phrases.to_json,
-          observe_changes: true,
+          editor:               true,
+          model_id:             f.object.id,
+          phrases:              editor_phrases.to_json,
+          readonly:             disable_rule_edition?,
           unsaved_data_warning: t('editor.edit.unsaved_data_warning')
         }
       } %>
