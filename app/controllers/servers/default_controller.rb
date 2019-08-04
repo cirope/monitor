@@ -1,7 +1,6 @@
 class Servers::DefaultController < ApplicationController
-  before_action :authorize, :not_guest, :not_author
+  before_action :authorize, :only_security
   before_action :set_server
-  before_action :not_supervisor
 
   respond_to :js
 
