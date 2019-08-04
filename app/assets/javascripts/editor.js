@@ -37,25 +37,22 @@
   var startEditors = function () {
     $('[data-editor]:not([data-observed])').each(function (i, element) {
       var $textarea = $(element)
+      var $file     = $($textarea.data('fileInput'))
+      var $change   = $($textarea.data('changeInput'))
       var readonly  = $textarea.data('readonly')
-      var editor    = CodeMirror.fromTextArea(
-        $textarea.get(0),
-        {
-          mode:              'ruby',
-          tabSize:           2,
-          autoCloseBrackets: true,
-          matchBrackets:     true,
-          lineNumbers:       true,
-          styleActiveLine:   true,
-          foldGutter:        true,
-          theme:             readonly ? 'solarized dark' :  'solarized light',
-          readOnly:          readonly,
-          gutters:           ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
-          phrases:           $textarea.data('phrases')
-        }
-      )
-      var $file   = $($textarea.data('fileInput'))
-      var $change = $($textarea.data('changeInput'))
+      var editor    = CodeMirror.fromTextArea($textarea.get(0), {
+        mode:              'ruby',
+        tabSize:           2,
+        autoCloseBrackets: true,
+        matchBrackets:     true,
+        lineNumbers:       true,
+        styleActiveLine:   true,
+        foldGutter:        true,
+        theme:             readonly ? 'solarized dark' :  'solarized light',
+        readOnly:          readonly,
+        gutters:           ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
+        phrases:           $textarea.data('phrases')
+      })
 
       editor.on('change', function () { $textarea.trigger('change') })
 
