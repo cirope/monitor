@@ -1,10 +1,10 @@
 /* global App */
 
 $(document).on('ready turbolinks:load', function () {
+  var body      = document.querySelector('body')
   var outputDiv = $('[data-actioncable-watch="execution"]')
 
-  if (!outputDiv.length)
-    return
+  if (!outputDiv.length) return
 
   var Status = {
     check: function (data) {
@@ -36,7 +36,6 @@ $(document).on('ready turbolinks:load', function () {
     }
   }
 
-  var body   = document.querySelector('body')
   var Output = {
     append: function (data) {
       outputDiv.data('order', data.order)
@@ -70,6 +69,7 @@ $(document).on('ready turbolinks:load', function () {
       }
     }
   }
+
   var execution = {
     newLine: function (data) {
       var lastOrder = outputDiv.data('order') || 0
