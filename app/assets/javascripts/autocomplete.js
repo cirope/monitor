@@ -1,14 +1,14 @@
 +function () {
   $(document).on('change', 'input[data-autocomplete-url]', function () {
-    var input = $(this)
+    var $input = $(this)
 
-    if (!input.val().trim())
-      $(input.data('autocompleteTarget')).val(undefined)
+    if (!$input.val().trim())
+      $($input.data('autocompleteTarget')).val(undefined)
   })
 
   $(document).on('focus', 'input[data-autocomplete-url]:not([data-observed])', function () {
-    var input = $(this)
-    var targetElement = $(input.data('autocompleteTarget'))
+    var $input = $(this)
+    var $targetElement = $($input.data('autocompleteTarget'))
 
     var _renderItem = function (item) {
       item.label  = item.label || item.name
@@ -29,7 +29,7 @@
         })
       } else {
         items.push({
-          label: input.data('emptyResultLabel') || '---',
+          label: $input.data('emptyResultLabel') || '---',
           value: '',
           item:  {}
         })
@@ -41,11 +41,11 @@
     var _selected = function (event, ui) {
       var selected = ui.item
 
-      targetElement.val(selected.item.id)
-      input.val(selected.value)
-      input.trigger({
+      $targetElement.val(selected.item.id)
+      $input.val(selected.value)
+      $input.trigger({
         type:    'update.autocomplete',
-        element: input,
+        element: $input,
         item:    selected.item
       })
 
@@ -54,7 +54,7 @@
 
     var _source = function (request, response) {
       jQuery.ajax({
-        url:      input.data('autocompleteUrl'),
+        url:      $input.data('autocompleteUrl'),
         dataType: 'json',
         data:     { q: request.term },
         success:  function (data) {
@@ -63,13 +63,13 @@
       })
     }
 
-    input.autocomplete({
+    $input.autocomplete({
       type:      'get',
-      minLength: input.data('autocompleteMinLength'),
+      minLength: $input.data('autocompleteMinLength'),
       source:    _source,
       select:    _selected
     })
 
-    input.attr('data-observed', true)
+    $input.attr('data-observed', true)
   })
 }()

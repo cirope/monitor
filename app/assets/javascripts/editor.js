@@ -34,10 +34,10 @@
   }
 
   var extraEditorTriggers = function (editor, $textarea) {
+    if (!$textarea.data('observeOtherFields')) return
+
     var $file   = $($textarea.data('fileInput'))
     var $change = $($textarea.data('changeInput'))
-
-    if (!$change.length || !$file.length) return
 
     $(document).on('change', $textarea.data('fileInput'), function () {
       editor && editor.setOption('readOnly', $(this).val())
