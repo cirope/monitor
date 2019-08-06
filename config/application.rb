@@ -27,8 +27,6 @@ module MonitorApp
     # and deployment instructions.
     config.active_job.queue_adapter = :sidekiq
 
-    config.autoload_paths << Rails.root.join('lib')
-
     # Global web console configuration
     config.web_console.development_only = false
     config.web_console.mount_point      = "/console/#{SecureRandom.uuid}"

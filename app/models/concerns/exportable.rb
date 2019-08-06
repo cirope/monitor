@@ -3,11 +3,15 @@
 module Exportable
   extend ActiveSupport::Concern
 
+  included do
+    include ZipUtils
+  end
+
   module ClassMethods
     def export
       file = "#{export_path}/#{SecureRandom.uuid}.zip"
 
-      ::Zip::File.open file, Zip::File::CREATE do |zipfile|
+      create_zip_with file do |zipfile|
         all.each do |exportable|
           unscoped { exportable.add_to_zip zipfile }
         end
@@ -22,7 +26,7 @@ module Exportable
         path = [
           Rails.root,
           'private',
-          Current.account.tenant_name,
+          tenant_name,
           'exports',
           subdir
         ].compact.reduce :+
@@ -31,13 +35,17 @@ module Exportable
 
         path
       end
+
+      def tenant_name
+        Current.account&.tenant_name || Apartment::Tenant.current
+      end
   end
 
   def add_to_zip zipfile
     filename = export_filename
 
     unless zipfile.find_entry filename
-      ZipUtils.add_file_content(zipfile, filename, export_data)
+      self.class.add_file_content_to_zip zipfile, filename, export_data
 
       exportables.each { |extra| extra.add_to_zip zipfile } if respond_to?(:exportables)
     end
