@@ -4,7 +4,7 @@ module Exportable
   extend ActiveSupport::Concern
 
   included do
-    include ZipUtils
+    include Compressible
   end
 
   module ClassMethods

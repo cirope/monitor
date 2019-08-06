@@ -1,4 +1,4 @@
-module ZipUtils
+module Compressible
   extend ActiveSupport::Concern
 
   module ClassMethods
