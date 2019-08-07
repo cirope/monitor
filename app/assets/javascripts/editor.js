@@ -24,9 +24,8 @@
     if (params['line']) {
       var line = +params['line'] - 1
 
-      if (params['model_id'] && params['model_id'] != $textarea.data('modelId')) {
+      if (params['model_id'] && params['model_id'] != $textarea.data('modelId'))
         return
-      }
 
       editor.scrollIntoView({ line: line, ch: 0 }, 200)
       editor.setCursor({ line: line, ch: 0 })
@@ -34,11 +33,32 @@
     }
   }
 
+  var extraEditorTriggers = function (editor, $textarea) {
+    if (! $textarea.data('observeOtherFields')) return
+
+    var $file   = $($textarea.data('fileInput'))
+    var $change = $($textarea.data('changeInput'))
+
+    $(document).on('change', $textarea.data('fileInput'), function () {
+      editor && editor.setOption('readOnly', $(this).val())
+    })
+
+    editor.on('change', function () {
+      if (editor.getValue().trim()) {
+        $change.prop('disabled', false).val('')
+        $change.closest('.form-group').removeAttr('hidden')
+        $file.prop('disabled', true).attr('hidden', true)
+      } else {
+        $change.prop('disabled', true)
+        $change.closest('.form-group').attr('hidden', true)
+        $file.prop('disabled', false).removeAttr('hidden')
+      }
+    })
+  }
+
   var startEditors = function () {
     $('[data-editor]:not([data-observed])').each(function (i, element) {
       var $textarea = $(element)
-      var $file     = $($textarea.data('fileInput'))
-      var $change   = $($textarea.data('changeInput'))
       var readonly  = $textarea.data('readonly')
       var editor    = CodeMirror.fromTextArea($textarea.get(0), {
         mode:              'ruby',
@@ -56,25 +76,7 @@
 
       editor.on('change', function () { $textarea.trigger('change') })
 
-      if ($change.length && $file.length) {
-        $(document).on('change', $textarea.data('fileInput'), function () {
-          editor && editor.setOption('readOnly', $(this).val())
-        })
-
-        editor.on('change', function () {
-          var text = editor.getValue()
-
-          if (text.trim()) {
-            $change.prop('disabled', false).val('')
-            $change.closest('.form-group').removeAttr('hidden')
-            $file.prop('disabled', true).attr('hidden', true)
-          } else {
-            $change.prop('disabled', true)
-            $change.closest('.form-group').attr('hidden', true)
-            $file.prop('disabled', false).removeAttr('hidden')
-          }
-        })
-      }
+      extraEditorTriggers(editor, $textarea)
 
       jumpToLine(editor, $textarea)
 
