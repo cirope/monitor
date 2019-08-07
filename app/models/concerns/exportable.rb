@@ -3,11 +3,15 @@
 module Exportable
   extend ActiveSupport::Concern
 
+  included do
+    include Compressible
+  end
+
   module ClassMethods
     def export
       file = "#{export_path}/#{SecureRandom.uuid}.zip"
 
-      ::Zip::File.open file, Zip::File::CREATE do |zipfile|
+      create_zip_with file do |zipfile|
         all.each do |exportable|
           unscoped { exportable.add_to_zip zipfile }
         end
@@ -15,15 +19,41 @@ module Exportable
 
       file
     end
+
+    private
+
+      def export_path subdir = nil
+        path = [
+          Rails.root,
+          'private',
+          tenant_name,
+          'exports',
+          subdir
+        ].compact.reduce :+
+
+        FileUtils.mkdir_p path unless path.directory?
+
+        path
+      end
+
+      def tenant_name
+        Current.account&.tenant_name || Apartment::Tenant.current
+      end
   end
 
   def add_to_zip zipfile
-    filename = "#{uuid}.json"
+    filename = export_filename
 
     unless zipfile.find_entry filename
-      zipfile.get_output_stream(filename) { |out| out.write to_json }
+      self.class.add_file_content_to_zip zipfile, filename, export_content
 
       exportables.each { |extra| extra.add_to_zip zipfile } if respond_to?(:exportables)
     end
   end
+
+  private
+
+    def export_path subdir = nil
+      self.class.send :export_path, subdir
+    end
 end

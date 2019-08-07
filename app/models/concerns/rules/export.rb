@@ -1,9 +1,5 @@
-module Scripts::Export
+module Rules::Export
   extend ActiveSupport::Concern
-
-  def exportables
-    requires.map &:script
-  end
 
   def export_filename
     "#{uuid}.json"
