@@ -8,7 +8,7 @@ module Compressible
       end
     end
 
-    def add_file_content_to_zip(zipfile, filename, content)
+    def add_file_content_to_zip zipfile, filename, content
       zipfile.get_output_stream(filename) { |f| f.write content } if content
     end
 
