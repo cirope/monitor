@@ -160,7 +160,7 @@ class IssueTest < ActiveSupport::TestCase
 
   test 'export issue data' do
     Current.account = send 'public.accounts', :default
-    file_content    = @issue.export_data
+    file_content    = @issue.export_content
 
     assert_not_nil file_content
   end
@@ -169,7 +169,7 @@ class IssueTest < ActiveSupport::TestCase
     Current.account = send 'public.accounts', :default
 
     @issue.data  = {}
-    file_content = @issue.export_data
+    file_content = @issue.export_content
 
     assert_nil file_content
   end

@@ -5,7 +5,7 @@ module Rules::Export
     "#{uuid}.json"
   end
 
-  def export_data
+  def export_content
     to_json
   end
 end

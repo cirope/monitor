@@ -5,7 +5,7 @@ module Issues::Export
 
   CSV_OPTIONS = { col_sep: ';' }
 
-  def export_data
+  def export_content
     self.class.tmp_zip_file_content export_to_csvs if data.present?
   end
 

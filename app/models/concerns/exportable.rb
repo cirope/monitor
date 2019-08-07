@@ -45,7 +45,7 @@ module Exportable
     filename = export_filename
 
     unless zipfile.find_entry filename
-      self.class.add_file_content_to_zip zipfile, filename, export_data
+      self.class.add_file_content_to_zip zipfile, filename, export_content
 
       exportables.each { |extra| extra.add_to_zip zipfile } if respond_to?(:exportables)
     end
