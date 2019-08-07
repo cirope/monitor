@@ -2,12 +2,12 @@
   $(document).on('change', 'input[data-autocomplete-url]', function () {
     var $input = $(this)
 
-    if (!$input.val().trim())
+    if (! $input.val().trim())
       $($input.data('autocompleteTarget')).val(undefined)
   })
 
   $(document).on('focus', 'input[data-autocomplete-url]:not([data-observed])', function () {
-    var $input = $(this)
+    var $input         = $(this)
     var $targetElement = $($input.data('autocompleteTarget'))
 
     var _renderItem = function (item) {

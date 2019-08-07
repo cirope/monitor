@@ -34,7 +34,7 @@
   }
 
   var extraEditorTriggers = function (editor, $textarea) {
-    if (!$textarea.data('observeOtherFields')) return
+    if (! $textarea.data('observeOtherFields')) return
 
     var $file   = $($textarea.data('fileInput'))
     var $change = $($textarea.data('changeInput'))
