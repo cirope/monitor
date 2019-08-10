@@ -6,10 +6,16 @@ class FileUploader < CarrierWave::Uploader::Base
   def store_dir
     [
       'private',
-      Current.account.tenant_name,
+      tenant_name,
       model.class.to_s.underscore,
       mounted_as,
       model.id
     ].join '/'
   end
+
+  private
+
+    def tenant_name
+      Current.account&.tenant_name || Apartment::Tenant.current
+    end
 end

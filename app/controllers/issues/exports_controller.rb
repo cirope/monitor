@@ -6,7 +6,7 @@ class Issues::ExportsController < ApplicationController
   before_action :authorize, :set_issues
 
   def create
-    path = @issues.export_data
+    path = @issues.export
     mime = Mime::Type.lookup_by_extension 'zip'
 
     set_file_download_headers path

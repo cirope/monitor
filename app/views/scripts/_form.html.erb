@@ -17,11 +17,13 @@
     <%= f.input :text, label: false, input_html: {
       rows: 5,
       disabled: disable_edition?,
-      class: 'editor',
       data: {
-        readonly: disable_edition?,
-        phrases: editor_phrases.to_json,
-        observe_changes: true,
+        editor:               true,
+        change_input:         '#script_change',
+        file_input:           '#script_file',
+        observe_other_fields: true,
+        phrases:              editor_phrases.to_json,
+        readonly:             disable_edition?,
         unsaved_data_warning: t('editor.edit.unsaved_data_warning')
       }
     } %>

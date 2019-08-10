@@ -3,7 +3,7 @@
 class Script < ApplicationRecord
   include Auditable
   include Attributes::Strip
-  include Exporter
+  include Exportable
   include SearchableByName
   include Scripts::Copy
   include Scripts::Descriptions

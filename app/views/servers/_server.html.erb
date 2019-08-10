@@ -1,0 +1,17 @@
+<tr <%== 'class="table-info"' if server.default %> data-id="<%= server.id %>">
+  <td><%= server.name %></td>
+  <td class="d-none d-sm-table-cell"><%= server.hostname %></td>
+  <td class="d-none d-lg-table-cell"><%= server.user %></td>
+  <td class="d-none d-lg-table-cell">
+    <% if current_user.supervisor? %>
+      <%= t server.default ? 'yes' : 'no' %>
+    <% else %>
+      <%= link_to_server_default server %>
+    <% end %>
+  </td>
+  <td class="text-right"><%= link_to_show server %></td>
+  <% unless current_user.supervisor? %>
+    <td class="text-right"><%= link_to_edit [:edit, server] %></td>
+    <td class="text-right"><%= link_to_destroy server %></td>
+  <% end %>
+</tr>
