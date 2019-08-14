@@ -9,7 +9,7 @@ module Scripts::Copy
 
   def copy_to server
     if server.local?
-      path
+      path server
     else
       remote_copy server, "/tmp/script-#{uuid}#{extension}"
     end
@@ -23,11 +23,12 @@ module Scripts::Copy
     file.present? ? File.extname(file.path) : '.rb'
   end
 
-  def body inclusion = false
+  def body inclusion = false, server = nil
     body = inclusion ? '' : "#!/usr/bin/env ruby\n\n"
 
     unless inclusion
       body += settings
+      body += external_gem_require if server&.local?
       body += cores_code
     end
 
@@ -41,13 +42,13 @@ module Scripts::Copy
 
   private
 
-    def path
+    def path server = nil
       if file.present?
         file.path
       else
         path = "/tmp/script-#{uuid}.rb"
 
-        File.open(path, 'w') { |file| file << body }
+        File.open(path, 'w') { |file| file << body(false, server) }
 
         path
       end
@@ -73,6 +74,50 @@ module Scripts::Copy
       StringIO.new.tap do |buffer|
         buffer << "STDOUT.sync = true\n"
       end.string
+    end
+
+    def external_gem_require
+      StringIO.new.tap do |buffer|
+        buffer << <<-RUBY
+          def require lib
+            begin
+              super lib
+            rescue LoadError => ex
+              gem_command = "gem which \#{lib}"
+              gem_path    = `#{search_gem_path}`.strip
+
+              if gem_path != ''
+                $: << File.dirname(gem_path)
+                super lib
+              else
+                raise ex
+              end
+            end
+          end
+        RUBY
+      end.string
+    end
+
+    def search_gem_path
+      <<-RUBY
+        cd ~/; (
+          (#{bash_search_path}) ||
+          (#{rbenv_search_path}) ||
+          (#{chruby_search_path})
+        ) 2>/dev/null
+      RUBY
+    end
+
+    def bash_search_path
+      '#{gem_command} || bash -c "#{gem_command}" || env -i bash -c "#{gem_command}"'
+    end
+
+    def rbenv_search_path
+      'bash -c \'eval "$(~/.rbenv/bin/rbenv init -)" && #{gem_command}\''
+    end
+
+    def chruby_search_path
+      'bash -c "source /usr/share/chruby/chruby.sh && chruby #{RUBY_VERSION} && #{gem_command}"'
     end
 
     def cores_code
