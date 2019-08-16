@@ -348,7 +348,7 @@ DEPENDENCIES
   request_store-sidekiq
   responders
   roadie-rails
-  rubocop-github (= 0.13.0)
+  rubocop-github
   ruby-ntlm
   ruby-odbc
   rubyzip

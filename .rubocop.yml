@@ -12,6 +12,6 @@ Style/StringLiterals:
 
 # Seattle
 Style/MethodDefParentheses:
-  Description: 'Checks if the method definitions have or don"t have parentheses.'
+  Description: "Checks if the method definitions have or don't have parentheses."
   Enabled: false
   StyleGuide: "https://github.com/bbatsov/ruby-style-guide#method-parens"

@@ -52,7 +52,7 @@ gem 'capistrano-sidekiq'
 group :development do
   gem 'unicorn-rails'
   gem 'listen'
-  gem 'rubocop-github', '0.13.0'
+  gem 'rubocop-github'
 
   # Support for ed25519 ssh keys
   gem 'ed25519'
