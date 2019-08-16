@@ -113,7 +113,7 @@ module Scripts::Copy
     end
 
     def rbenv_search_path
-      'bash -c "~/.rbenv/bin/rbenv init - >> /dev/null && #{gem_command}"'
+      'bash -c \'eval "$(~/.rbenv/bin/rbenv init -)" && #{gem_command}\''
     end
 
     def chruby_search_path
