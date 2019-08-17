@@ -101,8 +101,8 @@ module Scripts::Copy
     def search_gem_path
       <<-RUBY
         cd ~/; (
-          (#{bash_search_path}) ||
-          (#{rbenv_search_path}) ||
+          (#{bash_search_path})   ||
+          (#{rbenv_search_path})  ||
           (#{chruby_search_path})
         ) 2>/dev/null
       RUBY
