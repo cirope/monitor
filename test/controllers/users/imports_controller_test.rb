@@ -3,7 +3,7 @@
 require 'test_helper'
 
 class Users::ImportsControllerTest < ActionController::TestCase
- setup do
+  setup do
     login
   end
 
