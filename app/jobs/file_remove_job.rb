@@ -10,6 +10,10 @@ class FileRemoveJob < ApplicationJob
   private
 
     def rm path
-      Thread.new { sleep 0.01; FileUtils.rm path }
+      Thread.new { sleep wait_time; FileUtils.rm path }
+    end
+
+    def wait_time
+      ENV['TRAVIS'] ? 0.1 : 0.01
     end
 end
