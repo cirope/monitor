@@ -1,3 +1,4 @@
+/* global Chartist */
 +function () {
   var renderChart = function ($chart, type) {
     var chart   = $chart.get(0)

@@ -51,6 +51,7 @@ gem 'capistrano-rails'
 group :development do
   gem 'unicorn-rails'
   gem 'listen'
+  gem 'rubocop-github'
 
   # Support for ed25519 ssh keys
   gem 'ed25519'
