@@ -35,6 +35,8 @@
 //= require moment/moment
 //= require moment/es
 //= require daterangepicker/daterangepicker
+//= require bootstrap-tour/bootstrap-tour-standalone
+//
 //= require ajax
 //= require autocomplete
 //= require date_pickers
@@ -71,6 +73,7 @@
 //= require taggings
 //= require users
 //= require users/imports
+//= require tours
 
 //= require action_cable
 //= require cable
