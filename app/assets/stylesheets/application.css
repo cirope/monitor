@@ -22,6 +22,8 @@
  *= require daterangepicker
  *= require jquery-ui
  *= require jquery-ui.theme
+ *= require bootstrap-tour/bootstrap-tour-standalone
+ *
  *= require main
  *= require icons
  *= require autocomplete
