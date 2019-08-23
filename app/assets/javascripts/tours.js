@@ -11,7 +11,7 @@
       template: $('[data-tour-template]').html()
     }
 
-    if ($link.data('steps').length == 1) {
+    if ($link.data('tour').length === 1) {
       tourDefaults.onShown = function () {
         $('.tour-navigation-buttons').hide()
       }
