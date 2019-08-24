@@ -7,7 +7,7 @@ class Scripts::MeasuresController < ApplicationController
   respond_to :html
 
   def index
-    @measures = measures.reorder(created_at: :desc).page params[:page]
+    @measures = measures.preload(:measurable).reorder(created_at: :desc).page params[:page]
 
     respond_with @measures
   end
