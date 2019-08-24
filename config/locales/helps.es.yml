@@ -1,12 +1,9 @@
 ---
 es:
-  tours:
-    prev: "«"
-    next: "»"
-    finish: "Cerrar"
+  helps:
+    close: "Cerrar"
     users:
       roles:
-        element: "#user_role"
         title: "Roles de usuario"
         content: |-
           <dl>
