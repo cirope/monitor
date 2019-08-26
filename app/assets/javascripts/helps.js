@@ -37,10 +37,9 @@
       $(help.content).text().length <= 300 // $().text() sanitize html tags
     )
 
-    if (usePopover) {
+    if (usePopover)
       showHelpPopover($link, help)
-    } else {
+    else
       showHelpModal(help)
-    }
   })
 }()
