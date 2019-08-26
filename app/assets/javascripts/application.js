@@ -35,7 +35,6 @@
 //= require moment/moment
 //= require moment/es
 //= require daterangepicker/daterangepicker
-//= require bootstrap-tour/bootstrap-tour-standalone
 //
 //= require ajax
 //= require autocomplete
@@ -50,6 +49,7 @@
 //= require descriptors
 //= require editor
 //= require executions
+//= require helps
 //= require issues
 //= require issues/board
 //= require issues/exports
@@ -73,7 +73,6 @@
 //= require taggings
 //= require users
 //= require users/imports
-//= require tours
 
 //= require action_cable
 //= require cable
