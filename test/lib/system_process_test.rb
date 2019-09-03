@@ -5,9 +5,8 @@ require 'test_helper'
 class SystemProcessTest < ActiveSupport::TestCase
 
   test 'should get cpu percent use' do
-    sleep_p = sleep_process interval: 0.4
-
-    cpu_percent = sleep_p.cpu_percent(interval: 0.3)
+    sleep_p     = sleep_process interval: 0.08
+    cpu_percent = sleep_p.cpu_percent interval: 0.05
 
     assert_not_nil cpu_percent
     # assert cpu_percent.positive? # sleep not consume much cpu...
@@ -17,7 +16,6 @@ class SystemProcessTest < ActiveSupport::TestCase
 
   test 'should get virtual memory' do
     sleep_p = sleep_process
-
     vmemory = sleep_p.virtual_memory
 
     assert_not_nil vmemory
@@ -27,8 +25,7 @@ class SystemProcessTest < ActiveSupport::TestCase
   end
 
   test 'should get memory percent use' do
-    sleep_p = sleep_process
-
+    sleep_p   = sleep_process
     m_percent = sleep_p.memory_percent
 
     assert_not_nil m_percent
@@ -41,7 +38,7 @@ class SystemProcessTest < ActiveSupport::TestCase
     sleep_p = sleep_process
 
     assert sleep_p.still_running?
-    sleep 0.2
+    sleep 0.02
     refute sleep_p.still_running?
   end
 
@@ -54,9 +51,9 @@ class SystemProcessTest < ActiveSupport::TestCase
   end
 
   test 'should get process seconds alive' do
-    sleep_p = sleep_process interval: 0.2
+    sleep_p = sleep_process interval: 0.03
 
-    sleep 0.1
+    sleep 0.02
 
     created_at = sleep_p.created_at
 
@@ -100,7 +97,7 @@ class SystemProcessTest < ActiveSupport::TestCase
 
   private
 
-    def sleep_process interval: 0.1
+    def sleep_process interval: 0.01
       detached_process command: "sleep #{interval}"
     end
 

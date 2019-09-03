@@ -13,7 +13,7 @@ class ProcessesControllerTest < ActionController::TestCase
   test 'should finish pid' do
     login
 
-    pid     = spawn 'sleep 0.1'
+    pid     = spawn 'sleep 0.04'
     sleep_p = SystemProcess.new pid
 
     Process.detach pid # not wait for main process finish
@@ -40,7 +40,7 @@ class ProcessesControllerTest < ActionController::TestCase
   test 'should not finish pid without supervisor' do
     login user: users(:eduardo)
 
-    pid     = spawn 'sleep 0.1'
+    pid     = spawn 'sleep 0.04'
     sleep_p = SystemProcess.new pid
 
     Process.detach pid # not wait for main process finish
@@ -53,9 +53,7 @@ class ProcessesControllerTest < ActionController::TestCase
     assert_equal I18n.t('messages.not_authorized'), flash[:alert]
     assert sleep_p.still_running?
 
-    sleep 0.1
-
-    refute sleep_p.still_running?
+    sleep_p.kill
   end
 
   test 'should not get index as guest' do
