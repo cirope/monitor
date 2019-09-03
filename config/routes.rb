@@ -99,5 +99,7 @@ Rails.application.routes.draw do
 
   get 'private/:path', to: 'files#show', constraints: { path: /.+/ }
 
+  resources :processes, only: [:index, :destroy]
+
   root 'sessions#new'
 end

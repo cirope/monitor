@@ -59,6 +59,7 @@
 //= require objects
 //= require permalinks
 //= require password_resets
+//= require processes
 //= require profiles
 //= require rules
 //= require rules/exports
