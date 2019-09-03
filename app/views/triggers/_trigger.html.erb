@@ -4,6 +4,7 @@
       <%= f.input :callback, label: false, input_html: {
         data: {
           editor:               true,
+          language:             'ruby',
           model_id:             f.object.id,
           phrases:              editor_phrases.to_json,
           readonly:             disable_rule_edition?,

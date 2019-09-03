@@ -3,9 +3,11 @@ cd_root:
   name: 'Change directory to /'
   text: '%x{cd /}'
   change: 'Initial script'
+  language: ruby
 
 ls:
   uuid: <%= SecureRandom.uuid %>
   name: Execute one ls
   text: 'puts %x{ls}'
   change: 'Initial script'
+  language: ruby

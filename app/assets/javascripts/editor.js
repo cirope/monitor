@@ -61,7 +61,7 @@
       var $textarea = $(element)
       var readonly  = $textarea.data('readonly')
       var editor    = CodeMirror.fromTextArea($textarea.get(0), {
-        mode:              'ruby',
+        mode:              $textarea.data('language'),
         tabSize:           2,
         autoCloseBrackets: true,
         matchBrackets:     true,
