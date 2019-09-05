@@ -39,6 +39,9 @@ Rails.application.routes.draw do
     resources :issues, only: [:show]
     resources :permalinks, only: [:show]
     resources :password_resets, only: [:edit]
+    resources :scripts, only: [:show] do
+      resources :issues, only: [:index]
+    end
   end
 
   resources :issues, except: [:new, :create] do
