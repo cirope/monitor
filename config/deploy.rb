@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-set :application, 'monitor.mawidabp.com'
+set :application, 'greditsoft.com'
 set :user, 'deployer'
 set :repo_url, 'https://github.com/cirope/monitor.git'
 
