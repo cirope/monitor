@@ -5,14 +5,14 @@ cache:
     - $HOME/bundler
 sudo: false
 rvm:
-  - 2.6.2
+  - 2.6.4
 addons:
   apt:
     packages:
     - slapd
     - ldap-utils
     - unixodbc-dev
-  postgresql: 9.4
+  postgresql: 10
 services:
   - postgresql
 env:
