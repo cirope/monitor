@@ -37,14 +37,14 @@ module Outputs::Parser
       own_script_errors = /#{script.uuid}#{Regexp.escape script.extension}:(\d+):in(.*)/
 
       output.split("\n").map do |line|
-        match, line_number, error = *line.match(own_script_errors)
+        line_number, error = *line.match(own_script_errors)&.captures
 
         [line_number.to_i - 1 , error] if line_number && error
       end.compact
     end
 
     def original_script_from_error_line line_number, error
-      @parsed_body ||= script.body.split "\n"
+      @parsed_body ||= script.body(false, server).split "\n"
 
       n           = line_number
       delta       = 0
@@ -53,7 +53,7 @@ module Outputs::Parser
       until n.zero?
         n = n.pred
 
-        match, script_uuid = *@parsed_body[n].match(/ (#{UUID_REGEX}) /)
+        script_uuid = @parsed_body[n]&.match(/ (#{UUID_REGEX}) /)&.captures&.first
 
         if script_uuid
           delta = n
@@ -64,7 +64,7 @@ module Outputs::Parser
       [
         script_uuid,
         {
-          error: [@parsed_body[line_number].strip, error].join(' =>  '),
+          error: [@parsed_body[line_number]&.strip, error].join(' =>  '),
           line:  (line_number - delta - 1)
         }
       ] if script_uuid.present?
