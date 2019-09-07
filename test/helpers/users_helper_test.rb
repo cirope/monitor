@@ -7,10 +7,6 @@ class UsersHelperTest < ActionView::TestCase
     assert_respond_to roles, :each
   end
 
-  test 'roles label' do
-    assert_match /href/, roles_label
-  end
-
   test 'user taggings' do
     @user = users :franco
 

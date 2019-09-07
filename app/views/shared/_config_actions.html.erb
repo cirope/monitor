@@ -19,7 +19,9 @@
     <% end %>
 
     <% if current_user.supervisor? && ENABLE_WEB_CONSOLE %>
-      <%= link_to t('console.show.title'), console_path, class: "dropdown-item#{ controller_name == 'console' ? ' active' : '' }" %>
+      <%= link_to t('console.show.title'), console_path, class: "dropdown-item#{controller_name == 'console' ? ' active' : ''}" %>
     <% end %>
+
+    <%= link_to t('processes.index.title'), processes_path, class: "dropdown-item#{controller_name == 'processes' ? ' active' : ''}" %>
   </div>
 </li>

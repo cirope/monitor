@@ -407,6 +407,19 @@ es:
       send_instructions: 'Enviar instrucciones'
       back: 'Volver'
 
+  processes:
+    index:
+      title: 'Procesos'
+      command: 'Comando'
+      cpu: 'CPU'
+      memory: 'Memoria'
+      memory_percent: '%'
+      pid: 'PID'
+      time: 'Tiempo'
+    destroy:
+      destroyed: 'Proceso terminado'
+      cannot_be_destroyed: 'No se pudo terminar el proceso'
+
   profiles:
     edit:
       title: 'Mis datos'

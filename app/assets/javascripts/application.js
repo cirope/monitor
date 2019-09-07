@@ -35,6 +35,7 @@
 //= require moment/moment
 //= require moment/es
 //= require daterangepicker/daterangepicker
+//
 //= require ajax
 //= require autocomplete
 //= require date_pickers
@@ -48,6 +49,7 @@
 //= require descriptors
 //= require editor
 //= require executions
+//= require helps
 //= require issues
 //= require issues/board
 //= require issues/exports
@@ -57,6 +59,7 @@
 //= require objects
 //= require permalinks
 //= require password_resets
+//= require processes
 //= require profiles
 //= require rules
 //= require rules/exports

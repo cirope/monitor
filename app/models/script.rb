@@ -12,9 +12,10 @@ class Script < ApplicationRecord
   include Scripts::Import
   include Scripts::Injections
   include Scripts::JSON
+  include Scripts::ModeRuby
   include Scripts::Parameters
-  include Scripts::Permissions
   include Scripts::Pdf
+  include Scripts::Permissions
   include Scripts::Maintainers
   include Scripts::Requires
   include Scripts::Scopes
@@ -26,6 +27,10 @@ class Script < ApplicationRecord
   mount_uploader :file, FileUploader
 
   strip_fields :name
+
+  enum language: {
+    ruby: 'ruby'
+  }
 
   has_many :jobs, dependent: :destroy
   has_many :runs, through: :jobs

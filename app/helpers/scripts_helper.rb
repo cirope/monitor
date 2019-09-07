@@ -56,7 +56,7 @@ module ScriptsHelper
     previous = @script.paper_trail.previous_version
     options  = { include_plus_and_minus_in_html: true }
 
-    raw Diffy::Diff.new(previous&.text, @script.text, options)
+    Diffy::Diff.new(previous&.text, @script.text, options).to_s(:html).html_safe
   end
 
   def link_to_execute &block

@@ -39,6 +39,9 @@ Rails.application.routes.draw do
     resources :issues, only: [:show]
     resources :permalinks, only: [:show]
     resources :password_resets, only: [:edit]
+    resources :scripts, only: [:show] do
+      resources :issues, only: [:index]
+    end
   end
 
   resources :issues, except: [:new, :create] do
@@ -98,6 +101,8 @@ Rails.application.routes.draw do
   end
 
   get 'private/:path', to: 'files#show', constraints: { path: /.+/ }
+
+  resources :processes, only: [:index, :destroy]
 
   root 'sessions#new'
 end
