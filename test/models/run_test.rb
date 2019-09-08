@@ -121,4 +121,42 @@ class RunTest < ActiveSupport::TestCase
   test 'force kill' do
     skip
   end
+
+  test 'parse output errors for script' do
+    run = runs :boom_on_atahualpa
+
+    parsed_errors = run.parse_and_find_lines_with_error
+    script_errors = parsed_errors[run.script]
+
+    assert_not_nil   script_errors
+    assert_not_empty script_errors
+
+    script_errors.each do |error|
+      assert_equal 2, error[:line], error # 2: 4 * nil
+    end
+  end
+
+  test 'parse output errors for script should not raise' do
+    run = runs :boom_on_atahualpa
+
+    run.update_column :output, 'something else'
+
+    parsed_errors = run.parse_and_find_lines_with_error
+
+    assert_empty parsed_errors
+  end
+
+  test 'parse output errors for script with new core' do
+    run = runs :boom_on_atahualpa
+
+    # new core script
+    scripts(:cd_root).update_column :core, true
+
+    # Error will point to prev script now
+    parsed_errors = run.parse_and_find_lines_with_error
+
+    assert_not_empty parsed_errors
+
+    assert_nil parsed_errors[run.script]
+  end
 end
