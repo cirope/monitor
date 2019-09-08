@@ -13,7 +13,7 @@ ls_on_atahualpa:
   frequency: weeks
 
 boom_on_atahualpa:
-  name: 'Chica pumba chica pum'
+  name: 'Scheduled boom'
   start: <%= 1.hour.from_now.to_s :db %>
   end: <%= 1.year.from_now.to_s :db %>
   interval: 1
