@@ -11,3 +11,12 @@ ls:
   text: 'puts %x{ls}'
   change: 'Initial script'
   language: ruby
+
+boom:
+  uuid: fc671557-c493-2431-96bb-70bca0a2cc21
+  name: Boom code
+  text: |-
+    puts 'Are you reeeeaaaadddddyyy?'
+    4 * nil
+  change: 'Initial script'
+  language: ruby
