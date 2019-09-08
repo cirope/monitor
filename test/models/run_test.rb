@@ -123,7 +123,7 @@ class RunTest < ActiveSupport::TestCase
   end
 
   test 'parse output errors for script' do
-    run = runs(:boom_on_atahualpa)
+    run = runs :boom_on_atahualpa
 
     parsed_errors = run.parse_and_find_lines_with_error
     script_errors = parsed_errors[run.script]
@@ -137,9 +137,9 @@ class RunTest < ActiveSupport::TestCase
   end
 
   test 'parse output errors for script should not raise' do
-    run = runs(:boom_on_atahualpa)
+    run = runs :boom_on_atahualpa
 
-    run.update_column(:output, 'something else')
+    run.update_column :output, 'something else'
 
     parsed_errors = run.parse_and_find_lines_with_error
 
@@ -147,7 +147,7 @@ class RunTest < ActiveSupport::TestCase
   end
 
   test 'parse output errors for script with new core' do
-    run = runs(:boom_on_atahualpa)
+    run = runs :boom_on_atahualpa
 
     # new core script
     scripts(:cd_root).update_column :core, true
