@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module IssuesHelper
   def issue_index_path
     if @context == :board
@@ -28,14 +30,14 @@ module IssuesHelper
   def issue_status status
     klass = case status
             when 'pending'
-              'label-default'
+              'badge-secondary'
             when 'taken'
-              'label-warning'
+              'badge-warning'
             else
-              'label-success'
+              'badge-success'
             end
 
-    content_tag :span, t("issues.status.#{status}"), class: "label #{klass}"
+    content_tag :span, t("issues.status.#{status}"), class: "badge #{klass}"
   end
 
   def status
@@ -72,7 +74,7 @@ module IssuesHelper
     }
 
     link_to issues_board_path(filter: { id: issue }), options do
-      content_tag :span, nil, class: 'glyphicon glyphicon-plus-sign'
+      icon 'fas', 'plus-circle'
     end
   end
 
@@ -86,31 +88,31 @@ module IssuesHelper
     }
 
     link_to issues_board_path(filter: { id: issue }), options do
-      content_tag :span, nil, class: 'glyphicon glyphicon-minus-sign'
+      icon 'fas', 'minus-circle'
     end
   end
 
   def link_to_add_all_to_board
     options = {
-      class: 'btn btn-xs btn-default',
+      class: 'btn btn-sm btn-secondary py-0',
       title: t('.add_all'),
       data:  { method: :post }
     }
 
     link_to issues_board_path_with_params, options do
-      content_tag :span, nil, class: 'glyphicon glyphicon-ok-sign'
+      icon 'fas', 'check-circle'
     end
   end
 
   def link_to_remove_all_from_board
     options = {
-      class: 'btn btn-xs btn-default',
+      class: 'btn btn-sm btn-secondary py-0',
       title: t('.remove_all'),
       data:  { method: :delete }
     }
 
     link_to issues_board_path_with_params, options do
-      content_tag :span, nil, class: 'glyphicon glyphicon-remove-sign'
+      icon 'fas', 'times-circle'
     end
   end
 
@@ -125,7 +127,7 @@ module IssuesHelper
     }
 
     link_to issues_exports_path(ids: [@issue.id]), options do
-      content_tag :span, nil, class: 'glyphicon glyphicon-download'
+      icon 'fas', 'arrow-alt-circle-down'
     end
   end
 

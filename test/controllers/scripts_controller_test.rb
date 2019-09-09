@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class ScriptsControllerTest < ActionController::TestCase
@@ -5,6 +7,10 @@ class ScriptsControllerTest < ActionController::TestCase
     @script = scripts :ls
 
     login
+  end
+
+  teardown do
+    Current.account = nil
   end
 
   test 'should get index' do
@@ -90,6 +96,8 @@ class ScriptsControllerTest < ActionController::TestCase
   end
 
   test 'should show script in PDF' do
+    Current.account = send 'public.accounts', :default
+
     get :show, params: { id: @script }, as: :pdf
     assert_response :success
     assert_equal 'application/pdf', response.content_type

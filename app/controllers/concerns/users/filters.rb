@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Users::Filters
   extend ActiveSupport::Concern
 
@@ -7,9 +9,9 @@ module Users::Filters
 
   def users
     users = User.search query: params[:q]
-    users = users.filter filter_params
-    users = users.filter role: params[:role] if params[:role]
-    users = users.limit 10                   if request.xhr?
+    users = users.filter_by filter_params
+    users = users.filter_by role: params[:role] if params[:role]
+    users = users.limit 10                      if request.xhr?
 
     users
   end

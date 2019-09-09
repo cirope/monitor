@@ -1,8 +1,14 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class RuleTest < ActiveSupport::TestCase
   setup do
     @rule = rules :cd_email
+  end
+
+  teardown do
+    Current.account = nil
   end
 
   test 'blank attributes' do
@@ -28,7 +34,8 @@ class RuleTest < ActiveSupport::TestCase
   end
 
   test 'export' do
-    path = Rule.export
+    Current.account = send 'public.accounts', :default
+    path            = Rule.export
 
     assert File.exist?(path)
 
@@ -51,9 +58,10 @@ class RuleTest < ActiveSupport::TestCase
   end
 
   test 'import an existing rule' do
-    uuid    = SecureRandom.uuid
-    trigger = @rule.triggers.create! uuid: uuid, callback: 'puts "to remove and restore"'
-    path    = Rule.where(id: @rule.id).export
+    Current.account = send 'public.accounts', :default
+    uuid            = SecureRandom.uuid
+    trigger         = @rule.triggers.create! uuid: uuid, callback: 'puts "test"'
+    path            = Rule.where(id: @rule.id).export
 
     trigger.destroy!
     @rule.update! name: 'Updated'
@@ -76,7 +84,8 @@ class RuleTest < ActiveSupport::TestCase
     rule.uuid = uuid
     rule.save!
 
-    path = Rule.where(id: rule.id).export
+    Current.account = send 'public.accounts', :default
+    path            = Rule.where(id: rule.id).export
 
     rule.destroy!
 

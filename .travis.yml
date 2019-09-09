@@ -1,21 +1,21 @@
 language: ruby
-cache:
-  directories:
-    - $HOME/bundler
+dist: xenial
+cache: bundler
 sudo: false
 rvm:
-  - 2.3.7
-  - 2.4.4
-  - 2.5.1
+  - 2.6.4
 addons:
   apt:
     packages:
     - slapd
     - ldap-utils
     - unixodbc-dev
-  postgresql: 9.4
-before_install:
-  - 'gem install bundler'
+  postgresql: 10
+services:
+  - postgresql
+env:
+  - ENABLE_WEB_CONSOLE='true'
+  - ENABLE_WEB_CONSOLE='false'
 before_script:
   - 'cp config/application.travis.yml config/application.yml'
   - "psql -c 'create database monitor_test;' -U postgres"
@@ -24,4 +24,4 @@ before_script:
   - 'bundle exec rake ldap:reset'
 install:
   - 'rm ${BUNDLE_GEMFILE}.lock'
-  - 'eval bundle install --jobs=3 --retry=3 --path=${BUNDLE_PATH:-vendor/bundle}'
+  - 'eval bundle install --jobs=3 --retry=3 --path=${BUNDLE_PATH:-$PWD/vendor/bundle}'

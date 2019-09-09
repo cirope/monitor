@@ -1,0 +1,11 @@
+es:
+  editor:
+    all: 'Todos'
+    replace_all: 'Reemplazar todos:'
+    replace_with: 'Reemplazar con:'
+    replace: 'Reemplazar:'
+    replace_confirmation: '¿Reemplazar?'
+    search: 'Buscar:'
+    stop: 'Cancelar'
+    with: 'Con:'
+    regex_hint: 'Use la forma /re/ si quiere utilizar expresiones regulares'

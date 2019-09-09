@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 class Issues::ExportsController < ApplicationController
   include Issues::Filters
 
   before_action :authorize, :set_issues
 
   def create
-    path = @issues.export_data
+    path = @issues.export
     mime = Mime::Type.lookup_by_extension 'zip'
 
     set_file_download_headers path
@@ -16,6 +18,10 @@ class Issues::ExportsController < ApplicationController
   private
 
     def set_issues
-      @issues = issues.where id: params[:ids]
+      @issues = issues.where id: params[:ids] || board_issues
+    end
+
+    def board_issues
+      session[:board_issues] ||= []
     end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Databases::Filters
   extend ActiveSupport::Concern
 
@@ -6,7 +8,7 @@ module Databases::Filters
   end
 
   def databases
-    Database.filter filter_params
+    @account.databases.filter_by filter_params
   end
 
   def filter_params

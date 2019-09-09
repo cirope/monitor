@@ -1,0 +1,17 @@
+_fixture:
+  model_class: Property
+
+trace:
+  key: Trace
+  value: 'No'
+  database: postgresql
+
+postgresql_user:
+  key: User
+  value: admin
+  database: postgresql
+
+postgresql_password:
+  key: Password
+  value: secret
+  database: postgresql

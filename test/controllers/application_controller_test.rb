@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class ApplicationControllerTest < ActionController::TestCase
@@ -69,21 +71,21 @@ class ApplicationControllerTest < ActionController::TestCase
   test 'should check not supervisor role' do
     user = users :franco
 
-    login user
+    login user: user
 
     @controller.send(:not_supervisor)
 
-    assert_redirected_to issues_url
+    assert_redirected_to root_url
   end
 
   test 'should check guest role' do
     user = users :franco
 
-    login user
+    login user: user
 
     @controller.send(:only_guest)
 
-    assert_redirected_to issues_url
+    assert_redirected_to root_url
   end
 
   test 'should store location' do

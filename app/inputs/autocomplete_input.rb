@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AutocompleteInput < SimpleForm::Inputs::Base
   def input wrapper_options
     autocomplete_field(wrapper_options) << hidden_field

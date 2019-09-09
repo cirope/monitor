@@ -1,15 +1,13 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h4 class="panel-title">
-      <%= t '.title' %>
-    </h4>
+<div class="card">
+  <div class="card-header">
+    <%= t '.title' %>
   </div>
 
-  <div class="panel-body">
+  <div class="card-body">
     <%= form_tag scripts_imports_create_path, method: :post, multipart: true do %>
       <div class="form-group">
         <label for="file"><%= t '.file' %></label>
-        <%= file_field_tag 'file', class: 'form-control', accept: 'application/zip' %>
+        <%= file_field_tag 'file', class: 'form-control-file', accept: 'application/zip' %>
       </div>
 
       <div class="form-actions">

@@ -7,27 +7,17 @@
     <thead>
       <tr>
         <th><%= Server.human_attribute_name 'name' %></th>
-        <th><%= Server.human_attribute_name 'hostname' %></th>
-        <th class="visible-lg"><%= Server.human_attribute_name 'user' %></th>
+        <th class="d-none d-sm-table-cell"><%= Server.human_attribute_name 'hostname' %></th>
+        <th class="d-none d-lg-table-cell"><%= Server.human_attribute_name 'user' %></th>
+        <th class="d-none d-lg-table-cell"><%= Server.human_attribute_name 'default' %></th>
         <th colspan="<%= current_user.supervisor? ? 1 : 3 %>">
-          <%= link_to_new new_server_path, class: 'btn btn-default btn-xs pull-right' unless current_user.supervisor? %>
+          <%= link_to_new new_server_path, class: 'btn btn-secondary btn-sm py-0 mr-n2 float-right' unless current_user.supervisor? %>
         </th>
       </tr>
     </thead>
 
     <tbody>
-      <% @servers.each do |server| %>
-        <tr>
-          <td><%= server.name %></td>
-          <td><%= server.hostname %></td>
-          <td class="visible-lg"><%= server.user %></td>
-          <td><%= link_to_show server %></td>
-          <% unless current_user.supervisor? %>
-            <td><%= link_to_edit [:edit, server] %></td>
-            <td><%= link_to_destroy server %></td>
-          <% end %>
-        </tr>
-      <% end %>
+      <%= render partial: 'server', collection: @servers %>
     </tbody>
   </table>
 

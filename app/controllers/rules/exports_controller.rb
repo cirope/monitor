@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Rules::ExportsController < ApplicationController
   before_action :authorize, :not_guest, :not_security
 

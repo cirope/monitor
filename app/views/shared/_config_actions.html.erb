@@ -1,21 +1,27 @@
-<ul class="nav navbar-nav">
-  <li class="dropdown">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-      <span class="glyphicon glyphicon-cog"></span>
-      <span class="caret"></span>
-    </a>
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+    <%= icon 'fas', 'cog' %>
+  </a>
 
-    <ul class="dropdown-menu">
-      <%= menu_item_for User, users_path %>
-      <% unless current_user.author? %>
-        <% unless current_user.security? %>
-          <%= menu_item_for Tag, tags_path(kind: 'script') %>
-          <%= menu_item_for Descriptor, descriptors_path %>
-        <% end %>
-        <%= menu_item_for Server, servers_path %>
-        <%= menu_item_for Database, databases_path %>
-        <%= menu_item_for Ldap, ldaps_path %>
+  <div class="dropdown-menu">
+    <%= dropdown_item_for User, users_path %>
+
+    <% unless current_user.author? %>
+      <% unless current_user.security? %>
+        <%= dropdown_item_for Tag, tags_path(kind: 'script') %>
+        <%= dropdown_item_for Descriptor, descriptors_path %>
       <% end %>
-    </ul>
-  </li>
-</ul>
+
+      <%= dropdown_item_for Account, accounts_path if current_account.default? %>
+      <%= dropdown_item_for Server, servers_path %>
+      <%= dropdown_item_for Database, databases_path %>
+      <%= dropdown_item_for Ldap, ldaps_path %>
+    <% end %>
+
+    <% if current_user.supervisor? && ENABLE_WEB_CONSOLE %>
+      <%= link_to t('console.show.title'), console_path, class: "dropdown-item#{controller_name == 'console' ? ' active' : ''}" %>
+    <% end %>
+
+    <%= link_to t('processes.index.title'), processes_path, class: "dropdown-item#{controller_name == 'processes' ? ' active' : ''}" %>
+  </div>
+</li>
