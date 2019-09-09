@@ -25,7 +25,7 @@ gem 'net-ssh'
 gem 'net-scp'
 gem 'request_store'
 gem 'request_store-sidekiq'
-gem 'sidekiq'
+gem 'sidekiq', '< 6.0'
 gem 'apartment-sidekiq'
 gem 'whenever', require: false
 gem 'paper_trail'
