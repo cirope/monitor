@@ -1,0 +1,64 @@
+<h3>
+  <span class="text-muted"><%= Execution.model_name.human count: 1 %> -</span>
+
+  <%= link_to @script, @script %>
+
+  <span class="float-right" data-status="<%= @execution.status %>"
+                            data-pid="<%= @execution.pid %>"
+                            data-status-refresh-url="<%= script_execution_path @script, @execution %>">
+    <%= execution_status @execution.status %>
+  </span>
+</h3>
+
+<p class="mb-1">
+  <strong><%= Execution.human_attribute_name 'server' %></strong>:
+  <%= @execution.server %>
+</p>
+
+<p class="mb-1">
+  <strong><%= Execution.human_attribute_name 'started_at' %></strong>:
+  <span data-started-at>
+    <%= l @execution.started_at, format: :compact if @execution.started_at %>
+  </span>
+</p>
+<p class="mb-1">
+  <strong><%= Execution.human_attribute_name 'ended_at' %></strong>:
+  <span data-ended-at>
+    <%= l @execution.ended_at, format: :compact if @execution.ended_at %>
+  </span>
+</p>
+
+<div class="card my-3">
+  <div class="card-header">
+    <%= link_to Execution.human_attribute_name('output'), '#execution-output', class: 'text-reset', data: { toggle: 'collapse' } %>
+  </div>
+  <div id="execution-output" class="card-body collapse show">
+    <p class="mb-0">
+      <% if @execution.pending? || @execution.running? %>
+        <pre class="console p-1"><samp
+          data-actioncable-watch="execution"
+          data-actioncable-watch-execution-id="<%= @execution.id %>"></samp></pre>
+      <% else %>
+        <pre class="console p-1"><samp><%= @execution.output %></samp></pre>
+      <% end %>
+    </p>
+  </div>
+</div>
+
+<div data-graphs>
+  <%= render 'scripts/measures/graphs', format: :time if @measures.any? %>
+</div>
+
+<div class="text-right" data-kill-actions>
+  <%= render 'kill_actions' if @execution.can_be_killed? %>
+</div>
+
+<div data-output-error>
+  <% if @execution.output.present? && @execution.error? %>
+    <%= render 'shared/parsed_output_errors', exec: @execution %>
+  <% end %>
+</div>
+
+<p class="my-3">
+  <%= link_to Script.model_name.human(count: 1), @script %>
+</p>

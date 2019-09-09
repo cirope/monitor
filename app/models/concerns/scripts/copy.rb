@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Scripts::Copy
   extend ActiveSupport::Concern
 
@@ -7,10 +9,8 @@ module Scripts::Copy
 
   def copy_to server
     if server.local?
-      path
+      path server
     else
-      extension = file.present? ? File.extname(file.path) : '.rb'
-
       remote_copy server, "/tmp/script-#{uuid}#{extension}"
     end
   rescue => ex
@@ -19,28 +19,46 @@ module Scripts::Copy
     nil
   end
 
-  def body inclusion = false
+  def extension
+    file.present? ? File.extname(file.path) : '.rb'
+  end
+
+  def body inclusion = false, server = nil
     body = inclusion ? '' : "#!/usr/bin/env ruby\n\n"
 
-    body << cores_code unless inclusion
+    body += headers(server).to_s unless inclusion
+    body += dependencies.to_s
+    body += variables.to_s
+    body += commented_text inclusion
 
-    includes.each do |script|
-      body << script.body('local inclusion')
-    end
-
-    body << variables
-    body << commented_text(inclusion || "script #{uuid} body")
+    body
   end
 
   private
 
-    def path
+    def headers server
+      try "#{language}_headers", server
+    end
+
+    def dependencies
+      try "#{language}_dependencies"
+    end
+
+    def variables
+      try "#{language}_variables"
+    end
+
+    def commented_text inclusion = nil
+      send "#{language}_commented_text", inclusion
+    end
+
+    def path server = nil
       if file.present?
         file.path
       else
         path = "/tmp/script-#{uuid}.rb"
 
-        File.open(path, 'w') { |file| file << body }
+        File.open(path, 'w') { |file| file << body(false, server) }
 
         path
       end
@@ -54,36 +72,9 @@ module Scripts::Copy
       target_path
     end
 
-    def commented_text comment
-      [
-        "# Begin #{name} #{comment}",
-        "#{text_with_injections}",
-        "# End #{name} #{comment}\n\n"
-      ].join("\n\n")
-    end
-
-    def cores_code
-      String.new.tap do |buffer|
-        self.class.cores.where.not(id: id).distinct.each do |script|
-          buffer << script.body('core inclusion')
-        end
-      end
-    end
-
-    def variables
-      String.new.tap do |buffer|
-        buffer << as_inner_varialble('parameters', parameters)
-        buffer << as_inner_varialble('attributes', descriptions)
-      end
-    end
-
-    def as_inner_varialble name, collection
-      result = "#{name} ||= {}\n\n"
-
-      collection.each do |object|
-        result << "#{name}[%Q[#{object.name}]] = %Q[#{object.value}]\n"
-      end
-
-      "#{result}\n"
+    def global_settings
+      StringIO.new.tap do |buffer|
+        buffer << "STDOUT.sync = true\n"
+      end.string
     end
 end

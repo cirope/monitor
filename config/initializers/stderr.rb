@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ThreadedErrorStringIO < StringIO
   def write string
     out.write string

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module MailerHelper
   def render_object_for_email object
     if object.is_a? Hash

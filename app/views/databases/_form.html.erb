@@ -6,13 +6,11 @@
     <%= f.input :driver %>
     <%= f.input :description %>
 
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">
-          <%= Property.model_name.human count: 0 %>
-        </h3>
+    <div class="card">
+      <div class="card-header">
+        <%= Property.model_name.human count: 0 %>
       </div>
-      <div id="properties" class="panel-body">
+      <div id="properties" class="card-body">
         <%= f.simple_fields_for :properties, properties do |rf| %>
           <%= render 'properties/property', f: rf %>
         <% end %>

@@ -1,10 +1,15 @@
+# frozen_string_literal: true
+
 class Run < ApplicationRecord
   include Filterable
+  include Killable
+  include Measurable
   include Runs::Execution
   include Runs::Scopes
   include Runs::Status
   include Runs::Validation
   include Runs::Triggers
+  include Outputs::Parser
 
   belongs_to :job
   has_one :script, through: :job

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Rules::Filters
   extend ActiveSupport::Concern
 
@@ -7,7 +9,7 @@ module Rules::Filters
 
   def rules
     rules = Rule.search query: params[:q]
-    rules = rules.filter filter_params
+    rules = rules.filter_by filter_params
     rules = rules.limit 10 if request.xhr?
 
     rules

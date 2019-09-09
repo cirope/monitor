@@ -6,25 +6,27 @@
 </p>
 
 <% if @rule.triggers.any? %>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">
-        <%= Trigger.model_name.human count: @rule.triggers.size %>
-      </h3>
+  <div class="card mb-3">
+    <div class="card-header">
+      <%= Trigger.model_name.human count: @rule.triggers.size %>
     </div>
-    <div id="triggers" class="panel-body">
+    <div id="triggers" class="card-body">
       <% @rule.triggers.each do |trigger| %>
         <div class="tiny-editor">
-          <textarea id="trigger_callback_<%= trigger.id %>" data-editor data-readonly="true"><%= trigger.callback %></textarea>
+          <textarea
+            id="trigger_callback_<%= trigger.id %>"
+            data-editor
+            data-language="ruby"
+            data-phrases="<%= editor_phrases.to_json %>"
+            data-readonly="true"
+            ><%= trigger.callback %></textarea>
         </div>
 
         <% if last_output(trigger).present? %>
           <hr>
 
           <h4><%= t '.last_output' %></h4>
-          <p>
-            <samp><%= last_output trigger %></samp>
-          </p>
+          <pre><samp><%= last_output trigger %></samp></pre>
         <% end %>
       <% end %>
     </div>
@@ -33,6 +35,6 @@
 
 <%= link_to_edit [:edit, @rule] %> |
 <%= link_to rules_exports_create_path(id: @rule), title: t('rules.index.export'), data: { method: :post } do %>
-  <span class="glyphicon glyphicon-floppy-save"></span>
+  <%= icon 'fas', 'save' %>
 <% end %> |
 <%= link_to_index rules_path %>

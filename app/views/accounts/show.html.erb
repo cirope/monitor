@@ -1,0 +1,9 @@
+<h2><%= @account %></h2>
+
+<p>
+  <strong><%= Account.human_attribute_name 'tenant_name' %></strong>:
+  <%= @account.tenant_name %>
+</p>
+
+<%= link_to_edit [:edit, @account] %> |
+<%= link_to_index accounts_path %>

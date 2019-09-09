@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class DatabasesControllerTest < ActionController::TestCase
   setup do
-    @database = databases :postgresql
+    @database = send 'public.databases', :postgresql
 
-    login users(:god)
+    login user: users(:god)
   end
 
   test 'should get index' do

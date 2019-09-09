@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Issues::BoardHelper
   def board_session
     session[:board_issues] ||= []
@@ -9,13 +11,18 @@ module Issues::BoardHelper
 
     if error
       content_tag :abbr, class: 'text-warning', title: error.join(' | ') do
-        content_tag :span, nil, class: 'glyphicon glyphicon-warning-sign'
+        icon 'fas', 'exclamation-triangle'
       end
     end
   end
 
+  def issues_board_status
+    Issue.statuses.map { |k| [t("issues.status.#{k}"), k] }
+  end
+
   def link_to_create_permalink
     options = {
+      class: 'dropdown-item',
       data:  {
         remote: true,
         method: :post,
@@ -23,33 +30,35 @@ module Issues::BoardHelper
       }
     }
 
-    link_to permalinks_path(permalink: { issue_ids: @issue_ids }), options do
+    link_to permalinks_path, options do
       t '.create_permalink'
     end
   end
 
   def link_to_download_issue_data
     options = {
+      class: 'dropdown-item',
       data:  {
         method: :post,
         toggle: :dropdown
       }
     }
 
-    link_to issues_exports_path(ids: @issue_ids), options do
+    link_to issues_exports_path, options do
       t '.download_issue_data'
     end
   end
 
   def link_to_download_pdf
-    link_to issues_board_path(format: :pdf) do
+    link_to issues_board_path(format: :pdf), class: 'dropdown-item' do
       t '.download_pdf'
     end
   end
 
   def link_to_destroy_all_issues
     options = {
-      data: {
+      class: 'dropdown-item',
+      data:  {
         method:  :delete,
         toggle:  :dropdown,
         confirm: t('messages.confirmation')

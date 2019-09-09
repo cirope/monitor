@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Schedules::Dispatchers
   extend ActiveSupport::Concern
 

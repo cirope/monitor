@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class Property < ApplicationRecord
-  include Auditable
   include Properties::Validations
+  include PublicAuditable
 
   belongs_to :database
 

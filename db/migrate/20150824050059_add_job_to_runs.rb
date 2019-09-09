@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddJobToRuns < ActiveRecord::Migration[4.2]
   def change
     change_table :runs do |t|

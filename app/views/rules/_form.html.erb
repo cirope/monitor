@@ -3,25 +3,22 @@
 
   <div class="form-inputs">
     <div class="row">
-      <div class="col-lg-10 col-md-9 col-xs-7">
+      <div class="col-lg-10 col-md-9 col-7">
         <%= f.input :name, input_html: { autofocus: true, disabled: disable_rule_edition? } %>
       </div>
-      <div class="col-lg-2 col-md-3 col-xs-5 bottom text-right">
-        <div class="checkbox">
-          <label>
-            <%= f.check_box :enabled, disabled: disable_rule_edition? %> <%= Rule.human_attribute_name 'enabled' %>
-          </label>
+      <div class="col-lg-2 col-md-3 col-5 pt-4 text-right">
+        <div class="form-group form-check mt-2">
+          <%= f.check_box :enabled, disabled: disable_rule_edition?, class: 'form-check-input' %>
+          <label class="form-check-label" for="rule_enabled"><%= Rule.human_attribute_name 'enabled' %></label>
         </div>
       </div>
     </div>
 
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">
-          <%= Trigger.model_name.human count: 0 %>
-        </h3>
+    <div class="card">
+      <div class="card-header">
+        <%= Trigger.model_name.human count: 0 %>
       </div>
-      <div id="triggers" class="panel-body">
+      <div id="triggers" class="card-body">
         <%= f.simple_fields_for :triggers, triggers do |rf| %>
           <%= render 'triggers/trigger', f: rf %>
         <% end %>

@@ -7,12 +7,12 @@
     <thead>
       <tr>
         <th><%= Schedule.human_attribute_name 'name' %></th>
-        <th class="visible-lg"><%= Schedule.human_attribute_name 'start' %></th>
-        <th class="visible-lg"><%= Schedule.human_attribute_name 'end' %></th>
-        <th class="visible-lg"><%= Schedule.human_attribute_name 'interval' %></th>
-        <th class="visible-lg"><%= Schedule.human_attribute_name 'frequency' %></th>
+        <th class="d-none d-lg-table-cell"><%= Schedule.human_attribute_name 'start' %></th>
+        <th class="d-none d-lg-table-cell"><%= Schedule.human_attribute_name 'end' %></th>
+        <th class="d-none d-lg-table-cell"><%= Schedule.human_attribute_name 'interval' %></th>
+        <th class="d-none d-lg-table-cell"><%= Schedule.human_attribute_name 'frequency' %></th>
         <th colspan="<%= current_user.author? ? 2 : 4 %>">
-          <%= link_to_new new_schedule_path, class: 'btn btn-default btn-xs pull-right' unless current_user.author? %>
+          <%= link_to_new new_schedule_path, class: 'btn btn-secondary btn-sm py-0 mr-n2 float-right' unless current_user.author? %>
         </th>
       </tr>
     </thead>
@@ -21,15 +21,15 @@
       <% @schedules.each do |schedule| %>
         <tr <%== 'class="text-muted text-striked"' if schedule.end&.past? %>>
           <td><%= schedule.name %></td>
-          <td class="visible-lg"><%= l schedule.start, format: :compact %></td>
-          <td class="visible-lg"><%= l schedule.end, format: :compact if schedule.end %></td>
-          <td class="visible-lg"><%= schedule.interval %></td>
-          <td class="visible-lg"><%= t "schedules.frequencies.#{schedule.frequency}" if schedule.frequency %></td>
-          <td><%= link_to_runs schedule %></td>
-          <td><%= link_to_show schedule %></td>
+          <td class="d-none d-lg-table-cell"><%= l schedule.start, format: :compact %></td>
+          <td class="d-none d-lg-table-cell"><%= l schedule.end, format: :compact if schedule.end %></td>
+          <td class="d-none d-lg-table-cell"><%= schedule.interval %></td>
+          <td class="d-none d-lg-table-cell"><%= t "schedules.frequencies.#{schedule.frequency}" if schedule.frequency %></td>
+          <td class="text-right"><%= link_to_runs schedule %></td>
+          <td class="text-right"><%= link_to_show schedule %></td>
           <% unless current_user.author? %>
-            <td><%= link_to_edit [:edit, schedule] %></td>
-            <td><%= link_to_destroy schedule %></td>
+            <td class="text-right"><%= link_to_edit [:edit, schedule] %></td>
+            <td class="text-right"><%= link_to_destroy schedule %></td>
           <% end %>
         </tr>
       <% end %>

@@ -9,7 +9,7 @@
         <th><%= Database.human_attribute_name 'name' %></th>
         <th><%= Database.human_attribute_name 'driver' %></th>
         <th colspan="<%= current_user.supervisor? ? 1 : 3 %>">
-          <%= link_to_new new_database_path, class: 'btn btn-default btn-xs pull-right' unless current_user.supervisor? %>
+          <%= link_to_new new_database_path, class: 'btn btn-secondary btn-sm py-0 mr-n2 float-right' unless current_user.supervisor? %>
         </th>
       </tr>
     </thead>
@@ -19,10 +19,10 @@
         <tr>
           <td><%= database.name %></td>
           <td><%= database.driver %></td>
-          <td><%= link_to_show database %></td>
+          <td class="text-right"><%= link_to_show database %></td>
           <% unless current_user.supervisor? %>
-            <td><%= link_to_edit [:edit, database] %></td>
-            <td><%= link_to_destroy database %></td>
+            <td class="text-right"><%= link_to_edit [:edit, database] %></td>
+            <td class="text-right"><%= link_to_destroy database %></td>
           <% end %>
         </tr>
       <% end %>

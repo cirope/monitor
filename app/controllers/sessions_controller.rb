@@ -1,28 +1,33 @@
+# frozen_string_literal: true
+
 class SessionsController < ApplicationController
   before_action :authorize, only: :destroy
   before_action :set_title, except: [:destroy]
 
   def new
-    redirect_to default_url if current_user
+    redirect_to default_url if current_user&.visible?
   end
 
   def create
-    user = User.visible.by_username_or_email params[:username]
+    switch_to_default_account_for params[:username] do |account|
+      user = User.visible.by_username_or_email params[:username]
 
-    if user && user.auth(params[:password])
-      store_auth_token user
+      if user && account && user.auth(params[:password])
+        store_auth_token      user
+        store_current_account account
 
-      redirect_to default_url, notice: t('.logged_in', scope: :flash)
-    else
-      flash.now.alert = t '.invalid', scope: :flash
+        redirect_to default_url, notice: t('.logged_in', scope: :flash)
+      else
+        flash.now.alert = t '.invalid', scope: :flash
 
-      render 'new'
+        render 'new'
+      end
     end
   end
 
   def destroy
     reset_session
-    cookies.delete :auth_token
+    cookies.delete :token
 
     redirect_to root_url, notice: t('.logged_out', scope: :flash)
   end
@@ -34,10 +39,22 @@ class SessionsController < ApplicationController
     end
 
     def store_auth_token user
-      if params[:remember_me]
-        cookies.permanent.encrypted[:auth_token] = user.auth_token
-      else
-        cookies.encrypted[:auth_token] = user.auth_token
-      end
+      jar = params[:remember_me] ? cookies.permanent : cookies
+
+      jar.encrypted[:token] = {
+        value:    user.auth_token,
+        secure:   Rails.application.config.force_ssl,
+        httponly: true
+      }
+    end
+
+    def store_current_account account
+      session[:tenant_name] = account.tenant_name
+    end
+
+    def switch_to_default_account_for username
+      account = Account.default_by_username_or_email username
+
+      account&.switch { yield account }
     end
 end

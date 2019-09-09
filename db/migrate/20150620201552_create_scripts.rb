@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateScripts < ActiveRecord::Migration[4.2]
   def change
     create_table :scripts do |t|

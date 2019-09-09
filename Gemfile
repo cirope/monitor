@@ -1,10 +1,12 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.1.6.1'
+gem 'rails', '~> 5.2.3'
 
 gem 'pg'
-gem 'sass-rails'
-gem 'bootstrap-sass'
+gem 'apartment'
+gem 'sassc-rails'
+gem 'bootstrap'
+gem 'font-awesome-sass'
 gem 'uglifier'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
@@ -17,13 +19,14 @@ gem 'responders'
 gem 'simple_form'
 gem 'figaro'
 gem 'carrierwave'
-gem 'jc-validates_timeliness'
+gem 'validates_timeliness'
 gem 'kaminari'
 gem 'net-ssh'
 gem 'net-scp'
 gem 'request_store'
 gem 'request_store-sidekiq'
-gem 'sidekiq'
+gem 'sidekiq', '< 6.0'
+gem 'apartment-sidekiq'
 gem 'whenever', require: false
 gem 'paper_trail'
 gem 'roadie-rails'
@@ -34,9 +37,11 @@ gem 'prawn'
 gem 'prawn-table'
 gem 'coderay'
 
+gem 'web-console'
+
 gem 'unicorn'
 
-gem 'newrelic_rpm'
+gem 'newrelic_rpm', '~> 6.2.0'
 
 gem 'capistrano'
 gem 'capistrano-rbenv'
@@ -45,8 +50,8 @@ gem 'capistrano-rails'
 
 group :development do
   gem 'unicorn-rails'
-  gem 'web-console'
   gem 'listen'
+  gem 'rubocop-github'
 
   # Support for ed25519 ssh keys
   gem 'ed25519'

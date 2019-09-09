@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Users::ImportsController < ApplicationController
   before_action :authorize, :not_guest, :set_title
 

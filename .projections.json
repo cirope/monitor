@@ -1,18 +1,29 @@
 {
-  "app/uploaders/*_uploader.rb": {
-    "type": "uploader",
-    "template": [
-      "class {underscore|camelcase}Uploader",
-      "end"
-    ]
-  },
-
   "app/inputs/*_input.rb": {
     "type": "input",
     "template": [
       "class {underscore|camelcase}Input < SimpleForm::Inputs::Base",
       "  def input wrapper_options",
       "  end",
+      "end"
+    ]
+  },
+
+  "app/middleware/*_elevator.rb": {
+    "type": "elevator",
+    "template": [
+      "class {underscore|camelcase}Elevator < Apartment::Elevators::Generic",
+      "  def parse_tenant_name request",
+      "    # return 'tenant_name'",
+      "  end",
+      "end"
+    ]
+  },
+
+  "app/uploaders/*_uploader.rb": {
+    "type": "uploader",
+    "template": [
+      "class {underscore|camelcase}Uploader",
       "end"
     ]
   }

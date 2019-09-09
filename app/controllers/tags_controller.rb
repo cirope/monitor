@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TagsController < ApplicationController
   before_action :authorize
   before_action :not_guest, :not_author, :not_security, except: [:index]

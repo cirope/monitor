@@ -8,7 +8,7 @@
         <th><%= Ldap.human_attribute_name 'port' %></th>
         <th colspan="<%= current_user.supervisor? ? 1 : 3 %>">
           <% if !ldap && !current_user.supervisor? %>
-            <%= link_to_new new_ldap_path, class: 'btn btn-default btn-xs pull-right' %>
+            <%= link_to_new new_ldap_path, class: 'btn btn-secondary btn-sm py-0 mr-n2 float-right' %>
           <% end %>
         </th>
       </tr>
@@ -19,10 +19,10 @@
         <tr>
           <td><%= ldap.hostname %></td>
           <td><%= ldap.port %></td>
-          <td><%= link_to_show ldap %></td>
+          <td class="text-right"><%= link_to_show ldap %></td>
           <% if current_user.security? %>
-            <td><%= link_to_edit [:edit, ldap] %></td>
-            <td><%= link_to_destroy ldap %></td>
+            <td class="text-right"><%= link_to_edit [:edit, ldap] %></td>
+            <td class="text-right"><%= link_to_destroy ldap %></td>
           <% end %>
         </tr>
       <% end %>

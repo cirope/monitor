@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class IssueTest < ActiveSupport::TestCase
@@ -5,6 +7,10 @@ class IssueTest < ActiveSupport::TestCase
 
   setup do
     @issue = issues :ls_on_atahualpa_not_well
+  end
+
+  teardown do
+    Current.account = nil
   end
 
   teardown do
@@ -153,15 +159,24 @@ class IssueTest < ActiveSupport::TestCase
   end
 
   test 'export issue data' do
-    path = @issue.export_data
+    Current.account = send 'public.accounts', :default
+    file_content    = @issue.export_content
 
-    assert File.exist?(path)
+    assert_not_nil file_content
+  end
 
-    FileUtils.rm path
+  test 'export issue without data' do
+    Current.account = send 'public.accounts', :default
+
+    @issue.data  = {}
+    file_content = @issue.export_content
+
+    assert_nil file_content
   end
 
   test 'export data' do
-    path = Issue.export_data
+    Current.account = send 'public.accounts', :default
+    path            = Issue.export
 
     assert File.exist?(path)
 
@@ -173,10 +188,22 @@ class IssueTest < ActiveSupport::TestCase
   end
 
   test 'to pdf' do
-    path = Issue.to_pdf
+    Current.account = send 'public.accounts', :default
+    path            = Issue.to_pdf
 
     assert File.exist?(path)
 
     FileUtils.rm path
+  end
+
+  test 'comment' do
+    user                         = users :franco
+    PaperTrail.request.whodunnit = user.id
+
+    assert user.issues.any?
+
+    assert_enqueued_emails user.issues.count do
+      user.issues.comment text: 'Mass comment test'
+    end
   end
 end

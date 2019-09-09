@@ -5,6 +5,9 @@ es:
 
   activerecord:
     models:
+      account:
+        one: 'Cuenta'
+        other: 'Cuentas'
       comment:
         one: 'Comentario'
         other: 'Comentarios'
@@ -20,6 +23,9 @@ es:
       description:
         one: 'Atributo'
         other: 'Atributos'
+      execution:
+        one: 'Ejecución'
+        other: 'Ejecuciones'
       issue:
         one: 'Caso'
         other: 'Casos'
@@ -32,6 +38,12 @@ es:
       maintainer:
         one: 'Mantenedor'
         other: 'Mantenedores'
+      measure:
+        one: 'Métrica'
+        other: 'Métricas'
+      membership:
+        one: 'Acceso'
+        other: 'Accesos'
       output:
         one: 'Salida regla'
         other: 'Salida reglas'
@@ -76,6 +88,9 @@ es:
         other: 'Usuarios'
 
     attributes:
+      account:
+        name: 'Nombre'
+        tenant_name: 'Contexto'
       comment:
         text: 'Comentario'
         file: 'Adjunto'
@@ -91,6 +106,12 @@ es:
         value: 'Valor'
       descriptor:
         name: 'Nombre'
+      execution:
+        status: 'Estado'
+        started_at: 'Inicio'
+        ended_at: 'Fin'
+        output: 'Salida'
+        server: 'Servidor'
       issue:
         status: 'Estado'
         description: 'Descripción'
@@ -122,6 +143,14 @@ es:
         role_security: 'Grupo seguridad'
       maintainer:
         user: 'Usuario'
+      measure:
+        measurable: 'Métrica de'
+        cpu: 'CPU'
+        memory_in_bytes: 'Memoria RAM'
+      membership:
+        email: 'Correo'
+        default: 'Principal'
+        account: 'Cuenta'
       parameter:
         name: 'Nombre'
         value: 'Valor'
@@ -160,6 +189,7 @@ es:
         user: 'Usuario'
         password: 'Contraseña'
         credential: 'Credencial'
+        default: 'Principal'
       subscription:
         user: 'Usuario'
       tag:
@@ -196,6 +226,12 @@ es:
               user_invalid: 'No tiene permisos para modificar este caso'
             tags:
               invalid: 'finales debe haber una (solamente)'
+        user:
+          attributes:
+            email:
+              globally_taken: 'ya está en uso en otra cuenta'
+            username:
+              globally_taken: 'ya está en uso en otra cuenta'
 
   errors:
     messages:

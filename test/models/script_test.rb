@@ -1,8 +1,14 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class ScriptTest < ActiveSupport::TestCase
   setup do
     @script = scripts :ls
+  end
+
+  teardown do
+    Current.account = nil
   end
 
   test 'blank attributes' do
@@ -144,7 +150,8 @@ class ScriptTest < ActiveSupport::TestCase
   end
 
   test 'to pdf' do
-    path = @script.to_pdf
+    Current.account = send 'public.accounts', :default
+    path            = @script.to_pdf
 
     assert File.exist?(path)
 
@@ -152,7 +159,8 @@ class ScriptTest < ActiveSupport::TestCase
   end
 
   test 'export' do
-    path = Script.export
+    Current.account = send 'public.accounts', :default
+    path            = Script.export
 
     assert File.exist?(path)
 
@@ -175,7 +183,8 @@ class ScriptTest < ActiveSupport::TestCase
   end
 
   test 'import an existing script' do
-    path = Script.where(id: @script.id).export
+    Current.account = send 'public.accounts', :default
+    path            = Script.where(id: @script.id).export
 
     @script.parameters.clear
     @script.requires.clear
@@ -200,7 +209,8 @@ class ScriptTest < ActiveSupport::TestCase
     script.uuid = uuid
     script.save!
 
-    path = Script.where(id: script.id).export
+    Current.account = send 'public.accounts', :default
+    path            = Script.where(id: script.id).export
 
     script.destroy!
 
@@ -214,7 +224,7 @@ class ScriptTest < ActiveSupport::TestCase
   end
 
   test 'text with db injections' do
-    db = databases :postgresql
+    db = send 'public.databases', :postgresql
 
     assert_equal @script.text, @script.text_with_injections
 
@@ -235,7 +245,7 @@ class ScriptTest < ActiveSupport::TestCase
   end
 
   test 'text with ar injections' do
-    db = databases :postgresql
+    db = send 'public.databases', :postgresql
 
     assert_equal @script.text, @script.text_with_injections
 
@@ -247,8 +257,8 @@ class ScriptTest < ActiveSupport::TestCase
   end
 
   test 'text with db properties injections' do
-    database = databases :postgresql
-    property = properties :trace
+    database = send 'public.databases', :postgresql
+    property = send 'public.properties', :trace
 
     assert_equal @script.text, @script.text_with_injections
 
@@ -263,6 +273,55 @@ class ScriptTest < ActiveSupport::TestCase
 
   test 'by name' do
     skip
+  end
+
+  test 'revert to version' do
+    @script.update! change: 'Commit 1', text: 'puts "test"'
+
+    version = @script.versions.last
+
+    @script.update! change: 'Commit 2', text: 'puts "to revert"'
+
+    assert @script.revert_to(version)
+
+    assert_equal(
+      I18n.t('scripts.reverts.reverted_from', title: 'Commit 1'),
+      @script.reload.change
+    )
+    assert_equal 'puts "test"', @script.text
+  end
+
+  test 'cannot revert to version' do
+    @script.paper_trail.save_with_version # generate 1 version
+
+    version = @script.versions.first
+
+    version.object['text'] = nil
+    version.save!
+
+    refute @script.revert_to version
+  end
+
+  test 'versions with text changes' do
+    script = Script.create!(
+      name:   'Hello world',
+      text:   'puts "Hello world"',
+      change: 'Initial'
+    )
+
+    assert_difference 'PaperTrail::Version.count' do
+      assert_no_difference 'script.versions_with_text_changes.count' do
+        script.update! name: 'Super hello world', change: 'change title'
+      end
+    end
+
+    assert_difference 'script.versions_with_text_changes.count' do
+      script.update!(
+        name:   'Triple hello world',
+        text:   '3.times { puts "Hello world" }',
+        change: 'Hello 3'
+      )
+    end
   end
 
   private

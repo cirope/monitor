@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class IssuesController < ApplicationController
   include Issues::Filters
 
@@ -6,6 +8,7 @@ class IssuesController < ApplicationController
   before_action :not_author, only: [:destroy]
   before_action :not_security, except: [:index, :show, :edit, :update]
   before_action :set_title, except: [:destroy]
+  before_action :set_account, only: [:show, :index]
   before_action :set_script, only: [:index]
   before_action :set_permalink, only: [:show]
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
@@ -14,9 +17,8 @@ class IssuesController < ApplicationController
   respond_to :html, :json, :js
 
   def index
-    @issue_ids = issues.pluck 'id'
-    @issues    = issues.order(created_at: :desc).page params[:page]
-    @issues    = @issues.active unless filter_default_status?
+    @issues = issues.order(created_at: :desc).page params[:page]
+    @issues = @issues.active unless filter_default_status?
 
     respond_with @issues
   end
@@ -49,6 +51,16 @@ class IssuesController < ApplicationController
       @issue = issues.find params[:id]
     end
 
+    def set_account
+      if params[:account_id]
+        account = Account.find_by! tenant_name: params[:account_id]
+
+        session[:tenant_name] = account.tenant_name
+
+        redirect_to_action account
+      end
+    end
+
     def set_script
       @script = Script.find params[:script_id] if params[:script_id]
     end
@@ -59,5 +71,17 @@ class IssuesController < ApplicationController
 
     def set_context
       @context = params[:context] == 'board' ? :board : :issues
+    end
+
+    def redirect_to_action account
+      if params[:id]
+        account.switch { set_issue }
+
+        redirect_to issue_url(@issue)
+      elsif params[:script_id]
+        account.switch { set_script }
+
+        redirect_to script_issues_url(@script)
+      end
     end
 end

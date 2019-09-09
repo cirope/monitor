@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title><%= title %></title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="turbolinks-cache-control" content="no-cache">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <%= stylesheet_link_tag    'application', data: { turbolinks_track: 'reload' }, media: 'all' %>
@@ -14,14 +14,18 @@
   <%= csrf_meta_tags %>
   <%= favicon_link_tag 'favicon.ico' %>
 </head>
-<body>
-  <div class="alert alert-warning hidden loading-caption">
-    <strong><%= t 'navigation.loading' %></strong>
+<body class="pt-5 mb-4">
+  <div class="alert alert-warning fixed-top mx-auto text-center border-0 p-3 loading-caption" hidden>
+    <p class="mb-0">
+      <strong><%= t 'navigation.loading' %></strong>
+    </p>
   </div>
-  <div class="container">
+  <div class="container mt-4">
     <%= render 'shared/menu' %>
     <%= render 'shared/flash' if flash_message %>
     <%= yield %>
+
+    <%= render 'shared/help_modal' %>
   </div>
 </body>
 </html>

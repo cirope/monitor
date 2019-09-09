@@ -1,16 +1,16 @@
 <h2>
   <%= @issue %>
-  <small class="pull-right">
+  <small class="float-right">
     <%= issue_status @issue.status %>
   </small>
 </h2>
 
-<p>
+<p class="mb-1">
   <strong><%= Issue.human_attribute_name 'description' %></strong>:
   <%= @issue.description %>
 </p>
 
-<p>
+<p class="mb-1">
   <strong><%= Issue.human_attribute_name 'run' %></strong>:
   <%= link_to_unless current_user.guest? || current_user.security?, @issue.run, @issue.run %>
 </p>
@@ -24,33 +24,29 @@
 <% if @issue.can_be_light_edited_by? current_user %>
   <div data-tagging-new>
     <p>
-      <%= link_to t('taggings.new.title'), new_issue_tagging_path(@issue), class: 'btn btn-default btn-xs', data: { remote: true } %>
+      <%= link_to t('taggings.new.title'), new_issue_tagging_path(@issue), class: 'btn btn-secondary btn-sm', data: { remote: true } %>
     </p>
   </div>
 <% end %>
 
 <% if @issue.data.present? %>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">
-        <%= Issue.human_attribute_name 'data' %>
-        <span class="pull-right"><%= link_to_export_data %></span>
-      </h3>
+  <div class="card mb-3">
+    <div class="card-header">
+      <%= Issue.human_attribute_name 'data' %>
+      <span class="float-right"><%= link_to_export_data %></span>
     </div>
-    <div id="data" class="panel-body">
+    <div id="data" class="card-body">
       <%= render_object @issue, '' %>
     </div>
   </div>
 <% end %>
 
 <% if @issue.subscriptions.any? %>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">
-        <%= User.model_name.human count: @issue.subscriptions.size %>
-      </h3>
+  <div class="card mb-3">
+    <div class="card-header">
+      <%= User.model_name.human count: @issue.subscriptions.size %>
     </div>
-    <div id="subscriptions" class="panel-body">
+    <div id="subscriptions" class="card-body">
       <ul>
         <% @issue.subscriptions.each do |subscription| %>
           <li><%= link_to_unless current_user.guest? || current_user.security?, subscription.user, subscription.user %></li>
@@ -60,13 +56,11 @@
   </div>
 <% end %>
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">
-      <%= Comment.model_name.human count: 0 %>
-    </h3>
+<div class="card mb-3">
+  <div class="card-header">
+    <%= Comment.model_name.human count: 0 %>
   </div>
-  <div id="comments" class="panel-body">
+  <div id="comments" class="card-body">
     <% @issue.comments.reject(&:new_record?).each do |comment| %>
       <%= render 'comments/show', comment: comment %>
     <% end %>

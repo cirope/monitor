@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 class Rule < ApplicationRecord
   include Auditable
   include Attributes::Strip
+  include Exportable
   include Filterable
   include SearchableByName
   include Rules::Export

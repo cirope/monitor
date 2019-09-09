@@ -21,10 +21,10 @@
       <tr>
         <th><%= Run.human_attribute_name 'status' %></th>
         <th><%= Run.human_attribute_name 'scheduled_at' %></th>
-        <th class="hidden-sm hidden-xs"><%= Script.model_name.human count: 1 %></th>
-        <th class="visible-lg"><%= Run.human_attribute_name 'started_at' %></th>
-        <th class="visible-lg"><%= Run.human_attribute_name 'ended_at' %></th>
-        <th class="hidden-xs"><%= t '.run_time' %></th>
+        <th class="d-none d-md-table-cell"><%= Script.model_name.human count: 1 %></th>
+        <th class="d-none d-lg-table-cell"><%= Run.human_attribute_name 'started_at' %></th>
+        <th class="d-none d-lg-table-cell"><%= Run.human_attribute_name 'ended_at' %></th>
+        <th class="d-none d-sm-table-cell"><%= t '.run_time' %></th>
         <th colspan="<%= current_user.author? ? 1 : 2 %>"></th>
       </tr>
     </thead>
@@ -33,13 +33,13 @@
         <tr>
           <td><%= run_status run.status %></td>
           <td><%= l run.scheduled_at, format: :compact %></td>
-          <td class="hidden-sm hidden-xs"><%= truncate run.script.to_s %></td>
-          <td class="visible-lg"><%= l run.started_at, format: :long if run.started_at %></td>
-          <td class="visible-lg"><%= l run.ended_at, format: :long if run.ended_at %></td>
-          <td class="hidden-xs"><%= run_time run %></td>
-          <td><%= link_to_show run %></td>
+          <td class="d-none d-md-table-cell"><%= truncate run.script.to_s %></td>
+          <td class="d-none d-lg-table-cell"><%= l run.started_at, format: :long if run.started_at %></td>
+          <td class="d-none d-lg-table-cell"><%= l run.ended_at, format: :long if run.ended_at %></td>
+          <td class="d-none d-sm-table-cell"><%= run_time run %></td>
+          <td class="text-right"><%= link_to_show run %></td>
           <% unless current_user.author? %>
-            <td><%= link_to_destroy run %></td>
+            <td class="text-right"><%= link_to_destroy run %></td>
           <% end %>
         </tr>
       <% end %>
