@@ -60,26 +60,33 @@ module Scripts::ModeRuby
             begin
               super lib
             rescue LoadError => ex
-              raise ex unless ex.to_s.match? /cannot load such file -- \#{Regexp.escape lib}/
-
-              gem_command = "gem which \#{lib.split('/').first}"
-              gem_path    = `#{search_gem_path}`.strip
-
-              if gem_path != ''
-                gem_dir = File.dirname gem_path
-
-                raise ex if $:.include? gem_dir
-
-                $: << gem_path
-                super lib
-              else
-                raise ex
-              end
+              #{handle_load_error_require}
             end
-          end
+          end\n\n
         RUBY
       end.string
     end
+
+    def handle_load_error_require
+      <<-RUBY
+        raise ex unless ex.to_s.match? /cannot load such file/i
+
+        gem_command = "gem which \#{lib.split('/').first}"
+        gem_path    = `#{search_gem_path}`.strip
+
+        if gem_path != ''
+          gem_dir = File.dirname gem_path
+
+          raise ex if $:.include? gem_dir
+
+          $: << gem_path
+          super lib
+        else
+          raise ex
+        end
+      RUBY
+    end
+
 
     def search_gem_path
       <<-RUBY
