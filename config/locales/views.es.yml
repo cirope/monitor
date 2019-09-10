@@ -416,6 +416,7 @@ es:
       memory_percent: '%'
       pid: 'PID'
       time: 'Tiempo'
+      kill: 'Terminar'
     destroy:
       destroyed: 'Proceso terminado'
       cannot_be_destroyed: 'No se pudo terminar el proceso'
