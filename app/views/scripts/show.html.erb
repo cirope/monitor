@@ -11,10 +11,10 @@
   </small>
 </h2>
 
-<% if @script.file.present? %>
+<% if @script.attachment.attached? %>
   <p class="mb-1">
-    <strong><%= Script.human_attribute_name 'file' %></strong>:
-    <%= link_to t('messages.download'), @script.file.url %>
+    <strong><%= Script.human_attribute_name 'attachment' %></strong>:
+    <%= link_to t('messages.download'), rails_blob_path(@script.attachment, disposition: 'attachment') %>
   </p>
 <% end %>
 

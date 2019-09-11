@@ -11,7 +11,7 @@ set :deploy_to, "/var/www/#{fetch(:application)}"
 set :deploy_via, :remote_cache
 
 set :linked_files, %w{config/application.yml}
-set :linked_dirs, %w{log public/uploads private tmp/pids}
+set :linked_dirs, %w{log public/uploads private storage tmp/pids}
 
 set :rbenv_type, :user
 set :rbenv_ruby, '2.6.4'
@@ -22,6 +22,7 @@ namespace :deploy do
   before :check,      'config:upload'
   before :publishing, :tenant
   before :publishing, :db_updates
+  before :publishing, :storage_migration
   after  :publishing, :restart
   after  :finishing,  :move_files
   after  :finishing,  :cleanup

@@ -94,6 +94,7 @@ es:
       comment:
         text: 'Comentario'
         file: 'Adjunto'
+        attachment: 'Adjunto'
         issue: 'Caso'
       database:
         name: 'Nombre'
@@ -180,6 +181,7 @@ es:
       script:
         name: 'Nombre'
         file: 'Archivo'
+        attachment: 'Archivo'
         text: 'Contenido'
         core: 'Principal'
         change: 'Comentario del último cambio'
@@ -189,6 +191,7 @@ es:
         user: 'Usuario'
         password: 'Contraseña'
         credential: 'Credencial'
+        key: 'Credencial'
         default: 'Principal'
       subscription:
         user: 'Usuario'

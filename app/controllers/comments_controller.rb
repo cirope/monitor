@@ -40,6 +40,6 @@ class CommentsController < ApplicationController
     end
 
     def comment_params
-      params.require(:comment).permit :text, :issue_id, :file, :file_cache
+      params.require(:comment).permit :text, :issue_id, :attachment
     end
 end
