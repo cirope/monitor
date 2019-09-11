@@ -21,7 +21,7 @@
         editor:               true,
         language:             f.object.language,
         change_input:         '#script_change',
-        file_input:           '#script_file',
+        file_input:           '#script_attachment',
         observe_other_fields: true,
         phrases:              editor_phrases.to_json,
         readonly:             disable_edition?,
@@ -29,11 +29,11 @@
       }
     } %>
 
-    <%= f.input :file, label: false, hint: file_identifier, input_html: {
+    <%= f.input :attachment, as: :hidden, input_html: { value: f.object.attachment.signed_id } if f.object.attachment.attached? %>
+    <%= f.input :attachment, label: false, hint: script_file_identifier, input_html: {
       disabled: disable_edition? || @script.text.present?,
       hidden: @script.text.present?
     } %>
-    <%= f.input :file_cache, as: :hidden %>
     <%= f.input :change, wrapper_html: {
       hidden: @script.errors[:change].blank?
     } %>

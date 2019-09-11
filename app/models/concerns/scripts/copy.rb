@@ -20,7 +20,7 @@ module Scripts::Copy
   end
 
   def extension
-    file.present? ? File.extname(file.path) : '.rb'
+    attachment.attached? ? attachment.filename.extension_with_delimiter : '.rb'
   end
 
   def body inclusion = false, server = nil
@@ -53,8 +53,8 @@ module Scripts::Copy
     end
 
     def path server = nil
-      if file.present?
-        file.path
+      if attachment.attached?
+        ActiveStorage::Blob.service.path_for attachment.key
       else
         path = "/tmp/script-#{uuid}.rb"
 

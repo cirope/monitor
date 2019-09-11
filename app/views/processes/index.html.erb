@@ -4,9 +4,9 @@
       <th><%= t '.pid' %></th>
       <th><%= t '.cpu' %></th>
       <th><%= t '.memory' %></th>
-      <th><%= t '.memory_percent' %></th>
-      <th><%= t '.time' %></th>
-      <th><%= t '.command' %></th>
+      <th class="d-none d-md-table-cell"><%= t '.memory_percent' %></th>
+      <th class="d-none d-md-table-cell"><%= t '.time' %></th>
+      <th class="d-none d-lg-table-cell"><%= t '.command' %></th>
       <th></th>
     </tr>
   </thead>
@@ -16,10 +16,10 @@
         <td><%= process.pid %></td>
         <td><%= process.cpu %>%</td>
         <td><%= number_to_human_size process.memory, precision: 0 %></td>
-        <td><%= process.memory_percent %>%</td>
-        <td><%= distance_of_time_in_words process.time %></td>
-        <td><%= process.command %></td>
-        <td><%= link_to_destroy process_path(process.pid) if current_user.supervisor? %></td>
+        <td class="d-none d-md-table-cell"><%= process.memory_percent %>%</td>
+        <td class="d-none d-md-table-cell"><%= distance_of_time_in_words process.time %></td>
+        <td class="d-none d-lg-table-cell"><%= truncate process.command, length: 40, omission: '...' %></td>
+        <td><%= link_to_kill_process process if current_user.supervisor? %></td>
       </tr>
     <% end %>
   </tbody>
