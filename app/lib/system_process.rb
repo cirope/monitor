@@ -30,7 +30,8 @@ class SystemProcess
   end
 
   def proc_stat
-    File.read("/proc/#{pid}/stat").split if still_running?
+    # some processes put names like (Web Content) instead of (Web_Content)
+    File.read("/proc/#{pid}/stat").sub(/\(.*\)/, '_').split if still_running?
   end
 
   def still_running?

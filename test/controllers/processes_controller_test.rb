@@ -13,14 +13,11 @@ class ProcessesControllerTest < ActionController::TestCase
   test 'should finish pid' do
     login
 
-    pid     = spawn 'sleep 0.04'
-    sleep_p = SystemProcess.new pid
-
-    Process.detach pid # not wait for main process finish
+    sleep_p = sleep_process interval: 0.04
 
     assert sleep_p.still_running?
 
-    delete :destroy, params: { id: pid }
+    delete :destroy, params: { id: sleep_p.pid }
 
     assert_redirected_to processes_url
     assert_equal I18n.t('processes.destroy.destroyed'), flash[:notice]
@@ -40,14 +37,11 @@ class ProcessesControllerTest < ActionController::TestCase
   test 'should not finish pid without supervisor' do
     login user: users(:eduardo)
 
-    pid     = spawn 'sleep 0.04'
-    sleep_p = SystemProcess.new pid
-
-    Process.detach pid # not wait for main process finish
+    sleep_p = sleep_process interval: 0.06
 
     assert sleep_p.still_running?
 
-    delete :destroy, params: { id: pid }
+    delete :destroy, params: { id: sleep_p.pid }
 
     assert_redirected_to root_url
     assert_equal I18n.t('messages.not_authorized'), flash[:alert]
@@ -64,4 +58,21 @@ class ProcessesControllerTest < ActionController::TestCase
     assert_redirected_to root_url
     assert_equal I18n.t('messages.not_authorized'), flash[:alert]
   end
+
+  private
+
+    def sleep_process interval: 0.01
+      interval *= 10 if ENV['TRAVIS']
+
+      detached_process command: "sleep #{interval}"
+    end
+
+    def detached_process command: ''
+      pid         = spawn command
+      cmd_process = SystemProcess.new pid
+
+      Process.detach pid # not wait for main process finish
+
+      cmd_process
+    end
 end
