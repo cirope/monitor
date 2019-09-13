@@ -60,14 +60,14 @@ module Scripts::ModeRuby
             begin
               super lib
             rescue LoadError => ex
-              #{handle_load_error_require}
+              #{handle_require_load_error}
             end
           end\n\n
         RUBY
       end.string
     end
 
-    def handle_load_error_require
+    def handle_require_load_error
       <<-RUBY
         raise ex unless ex.to_s.match? /cannot load such file/i
 
