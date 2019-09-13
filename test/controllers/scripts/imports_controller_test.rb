@@ -7,13 +7,18 @@ class Scripts::ImportsControllerTest < ActionController::TestCase
     login
   end
 
+  teardown do
+    Current.account = nil
+  end
+
   test 'should get new' do
     get :new
     assert_response :success
   end
 
   test 'should create' do
-    path = Script.for_export.export
+    Current.account = send 'public.accounts', :default
+    path            = Script.for_export.export
 
     post :create, params: {
       file: Rack::Test::UploadedFile.new(path, 'application/zip')

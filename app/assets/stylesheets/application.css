@@ -22,6 +22,7 @@
  *= require daterangepicker
  *= require jquery-ui
  *= require jquery-ui.theme
+ *
  *= require main
  *= require icons
  *= require autocomplete
@@ -35,6 +36,7 @@
  *= require descriptors
  *= require executions
  *= require home
+ *= require graphs
  *= require issues
  *= require issues/board
  *= require issues/exports
@@ -44,6 +46,7 @@
  *= require panels
  *= require password_resets
  *= require permalinks
+ *= require processes
  *= require profiles
  *= require rules
  *= require rules/exports

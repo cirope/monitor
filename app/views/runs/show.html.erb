@@ -46,6 +46,18 @@
       <% @run.outputs.with_text.each_with_index do |output, index| %>
         <h4 class="text-muted">#<%= index + 1 %> <%= output.rule %></h4>
         <pre><samp><%= output.text %></samp></pre>
+
+        <% output.lines_with_errors.tap do |errors| %>
+          <% if errors %>
+            <ul>
+              <% errors.each do |error| %>
+                <li>
+                  <%= link_to_error_line output.rule, error, valid: output.still_valid?, model_id: output.trigger_id %>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
+        <% end %>
       <% end %>
     </div>
   </div>
@@ -76,6 +88,8 @@
     </div>
   </div>
 <% end %>
+
+<%= render 'scripts/measures/graphs', format: :time if @measures.any? %>
 
 <% if @run.can_be_killed? %>
   <div class="float-right">

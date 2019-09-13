@@ -1,3 +1,5 @@
+/* eslint-disable spaced-comment */
+
 // This is a manifest file that'll be compiled into application.js, which will include all the files
 // listed below.
 //
@@ -33,6 +35,7 @@
 //= require moment/moment
 //= require moment/es
 //= require daterangepicker/daterangepicker
+//
 //= require ajax
 //= require autocomplete
 //= require date_pickers
@@ -44,8 +47,10 @@
 //= require dashboards
 //= require databases
 //= require descriptors
+//= require editor
 //= require executions
 //= require home
+//= require helps
 //= require issues
 //= require issues/board
 //= require issues/exports
@@ -56,6 +61,7 @@
 //= require panels
 //= require password_resets
 //= require permalinks
+//= require processes
 //= require profiles
 //= require rules
 //= require rules/exports

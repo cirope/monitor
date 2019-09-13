@@ -7,6 +7,10 @@ class ScriptTest < ActiveSupport::TestCase
     @script = scripts :ls
   end
 
+  teardown do
+    Current.account = nil
+  end
+
   test 'blank attributes' do
     @script.name = ''
     @script.text = ''
@@ -146,7 +150,8 @@ class ScriptTest < ActiveSupport::TestCase
   end
 
   test 'to pdf' do
-    path = @script.to_pdf
+    Current.account = send 'public.accounts', :default
+    path            = @script.to_pdf
 
     assert File.exist?(path)
 
@@ -154,7 +159,8 @@ class ScriptTest < ActiveSupport::TestCase
   end
 
   test 'export' do
-    path = Script.export
+    Current.account = send 'public.accounts', :default
+    path            = Script.export
 
     assert File.exist?(path)
 
@@ -177,7 +183,8 @@ class ScriptTest < ActiveSupport::TestCase
   end
 
   test 'import an existing script' do
-    path = Script.where(id: @script.id).export
+    Current.account = send 'public.accounts', :default
+    path            = Script.where(id: @script.id).export
 
     @script.parameters.clear
     @script.requires.clear
@@ -202,7 +209,8 @@ class ScriptTest < ActiveSupport::TestCase
     script.uuid = uuid
     script.save!
 
-    path = Script.where(id: script.id).export
+    Current.account = send 'public.accounts', :default
+    path            = Script.where(id: script.id).export
 
     script.destroy!
 
@@ -268,21 +276,19 @@ class ScriptTest < ActiveSupport::TestCase
   end
 
   test 'revert to version' do
-    code   = @script.text
-    commit = @script.change
+    @script.update! change: 'Commit 1', text: 'puts "test"'
 
-    @script.update! change: 'Commit 1', text: 'ls -l'
+    version = @script.versions.last
 
-    assert_equal 'Commit 1', @script.reload.change
-    assert_equal 'ls -l', @script.text
+    @script.update! change: 'Commit 2', text: 'puts "to revert"'
 
-    assert @script.revert_to @script.versions.first
+    assert @script.revert_to(version)
 
     assert_equal(
-      I18n.t('scripts.reverts.reverted_from', title: commit),
+      I18n.t('scripts.reverts.reverted_from', title: 'Commit 1'),
       @script.reload.change
     )
-    assert_equal code, @script.text
+    assert_equal 'puts "test"', @script.text
   end
 
   test 'cannot revert to version' do
@@ -290,7 +296,7 @@ class ScriptTest < ActiveSupport::TestCase
 
     version = @script.versions.first
 
-    version.object['name'] = nil
+    version.object['text'] = nil
     version.save!
 
     refute @script.revert_to version

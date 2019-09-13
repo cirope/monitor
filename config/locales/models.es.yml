@@ -41,6 +41,9 @@ es:
       maintainer:
         one: 'Mantenedor'
         other: 'Mantenedores'
+      measure:
+        one: 'Métrica'
+        other: 'Métricas'
       membership:
         one: 'Acceso'
         other: 'Accesos'
@@ -148,6 +151,10 @@ es:
         role_security: 'Grupo seguridad'
       maintainer:
         user: 'Usuario'
+      measure:
+        measurable: 'Métrica de'
+        cpu: 'CPU'
+        memory_in_bytes: 'Memoria RAM'
       membership:
         email: 'Correo'
         default: 'Principal'
@@ -226,20 +233,12 @@ es:
           attributes:
             issue:
               invalid: 'no pertenece a su usuario'
-        execution:
-          attributes:
-            server:
-              should_be_local: 'debe ser un servidor local'
         issue:
           attributes:
             base:
               user_invalid: 'No tiene permisos para modificar este caso'
             tags:
               invalid: 'finales debe haber una (solamente)'
-        server:
-          attributes:
-            default:
-              invalid: 'solo puede establecerse para servidores locales'
         user:
           attributes:
             email:

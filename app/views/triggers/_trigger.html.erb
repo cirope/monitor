@@ -3,9 +3,12 @@
     <div class="col-sm-11 tiny-editor">
       <%= f.input :callback, label: false, input_html: {
         data: {
-          editor: true,
-          readonly: disable_rule_edition?,
-          phrases: editor_phrases.to_json
+          editor:               true,
+          language:             'ruby',
+          model_id:             f.object.id,
+          phrases:              editor_phrases.to_json,
+          readonly:             disable_rule_edition?,
+          unsaved_data_warning: t('editor.edit.unsaved_data_warning')
         }
       } %>
     </div>

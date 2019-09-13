@@ -32,19 +32,21 @@
   <div class="card-header">
     <%= link_to Execution.human_attribute_name('output'), '#execution-output', class: 'text-reset', data: { toggle: 'collapse' } %>
   </div>
-  <div id="execution-output" class="panel-collapse collapse show">
-    <div class="card-body">
-      <p class="mb-0">
-        <% if @execution.pending? || @execution.running? %>
-          <pre class="console p-1"><samp
-            data-actioncable-watch="execution"
-            data-actioncable-watch-execution-id="<%= @execution.id %>"></samp></pre>
-        <% else %>
-          <pre class="console p-1"><samp><%= @execution.output %></samp></pre>
-        <% end %>
-      </p>
-    </div>
+  <div id="execution-output" class="card-body collapse show">
+    <p class="mb-0">
+      <% if @execution.pending? || @execution.running? %>
+        <pre class="console p-1"><samp
+          data-actioncable-watch="execution"
+          data-actioncable-watch-execution-id="<%= @execution.id %>"></samp></pre>
+      <% else %>
+        <pre class="console p-1"><samp><%= @execution.output %></samp></pre>
+      <% end %>
+    </p>
   </div>
+</div>
+
+<div data-graphs>
+  <%= render 'scripts/measures/graphs', format: :time if @measures.any? %>
 </div>
 
 <div class="text-right" data-kill-actions>
@@ -56,3 +58,7 @@
     <%= render 'shared/parsed_output_errors', exec: @execution %>
   <% end %>
 </div>
+
+<p class="my-3">
+  <%= link_to Script.model_name.human(count: 1), @script %>
+</p>

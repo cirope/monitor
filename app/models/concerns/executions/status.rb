@@ -19,6 +19,12 @@ module Executions::Status
     success? || error? || killed?
   end
 
+  module ClassMethods
+    def success_status
+      statuses[:success]
+    end
+  end
+
   private
 
     def handle_status_change

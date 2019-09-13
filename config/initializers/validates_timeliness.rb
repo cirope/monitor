@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ValidatesTimeliness.setup do |config|
-  # Extend ORM/ODMs for full support (:active_record, :mongoid).
+  # Extend ORM/ODMs for full support (:active_record included).
   config.extend_orms = [ :active_record ]
   #
   # Default timezone
@@ -26,7 +26,7 @@ ValidatesTimeliness.setup do |config|
   # )
   #
   # Use the plugin date/time parser which is stricter and extendable
-  config.use_plugin_parser = false
+  config.use_plugin_parser = true
   #
   # Add one or more formats making them valid. e.g. add_formats(:date, 'd(st|rd|th) of mmm, yyyy')
   # config.parser.add_formats()
@@ -34,7 +34,7 @@ ValidatesTimeliness.setup do |config|
   # Remove one or more formats making them invalid. e.g. remove_formats(:date, 'dd/mm/yyy')
   # config.parser.remove_formats()
   #
-  # Change the amiguous year threshold when parsing a 2 digit year
+  # Change the ambiguous year threshold when parsing a 2 digit year
   # config.parser.ambiguous_year_threshold =  30
   #
   # Treat ambiguous dates, such as 01/02/1950, as a Non-US date.

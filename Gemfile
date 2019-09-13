@@ -41,7 +41,7 @@ gem 'web-console'
 
 gem 'unicorn'
 
-gem 'newrelic_rpm'
+gem 'newrelic_rpm', '~> 6.2.0'
 
 gem 'capistrano'
 gem 'capistrano-rbenv'
@@ -52,6 +52,7 @@ gem 'capistrano-sidekiq'
 group :development do
   gem 'unicorn-rails'
   gem 'listen'
+  gem 'rubocop-github'
 
   # Support for ed25519 ssh keys
   gem 'ed25519'

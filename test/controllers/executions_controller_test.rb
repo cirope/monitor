@@ -16,11 +16,13 @@ class ExecutionsControllerTest < ActionController::TestCase
   end
 
   test 'should create execution' do
+    script = scripts :ls
+
     assert_difference 'Execution.count' do
-      post :create, params: { script_id: @execution.script_id }
+      post :create, params: { script_id: script.id }
     end
 
-    assert_redirected_to script_execution_url(@execution.script, Execution.last)
+    assert_redirected_to script_execution_url(script, Execution.last)
   end
 
   test 'should show execution' do

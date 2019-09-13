@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_24_144500) do
+ActiveRecord::Schema.define(version: 2019_09_01_220932) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -170,6 +170,16 @@ ActiveRecord::Schema.define(version: 2019_04_24_144500) do
     t.index ["user_id"], name: "index_maintainers_on_user_id"
   end
 
+  create_table "measures", force: :cascade do |t|
+    t.string "measurable_type", null: false
+    t.bigint "measurable_id", null: false
+    t.decimal "cpu", precision: 5, scale: 1, null: false
+    t.bigint "memory_in_bytes", null: false
+    t.datetime "created_at", null: false
+    t.index ["created_at"], name: "index_measures_on_created_at"
+    t.index ["measurable_type", "measurable_id"], name: "index_measures_on_measurable_type_and_measurable_id"
+  end
+
   create_table "memberships", force: :cascade do |t|
     t.bigint "account_id", null: false
     t.string "email", null: false
@@ -299,6 +309,7 @@ ActiveRecord::Schema.define(version: 2019_04_24_144500) do
     t.string "change"
     t.uuid "uuid", default: -> { "(md5(((random())::text || (clock_timestamp())::text)))::uuid" }, null: false
     t.datetime "imported_at"
+    t.string "language", default: "ruby"
     t.index ["core"], name: "index_scripts_on_core"
     t.index ["name"], name: "index_scripts_on_name"
     t.index ["uuid"], name: "index_scripts_on_uuid", unique: true
@@ -338,8 +349,8 @@ ActiveRecord::Schema.define(version: 2019_04_24_144500) do
 
   create_table "taggings", id: :serial, force: :cascade do |t|
     t.integer "tag_id", null: false
-    t.string "taggable_type", null: false
     t.integer "taggable_id", null: false
+    t.string "taggable_type", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["tag_id"], name: "index_taggings_on_tag_id"

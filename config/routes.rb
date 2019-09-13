@@ -33,13 +33,15 @@ Rails.application.routes.draw do
   resources :descriptors
   resources :ldaps
   resources :rules
-  resources :servers
   resources :password_resets, only: [:new, :create, :edit, :update]
 
   resources :accounts, except: [:destroy] do
     resources :issues, only: [:show]
     resources :permalinks, only: [:show]
     resources :password_resets, only: [:edit]
+    resources :scripts, only: [:show] do
+      resources :issues, only: [:index]
+    end
   end
 
   resources :dashboards do
@@ -82,6 +84,14 @@ Rails.application.routes.draw do
     resources :versions, only: [:index, :show], controller: 'scripts/versions'
     resources :executions, only: [:index, :create, :update, :show]
     resources :reverts, only: [:create], controller: 'scripts/reverts'
+
+    scope ':type', type: /execution|run/ do
+      resources :measures, only: [:index], controller: 'scripts/measures'
+    end
+  end
+
+  resources :servers do
+    resource :default, only: :update, controller: 'servers/default'
   end
 
   namespace :users do
@@ -95,6 +105,8 @@ Rails.application.routes.draw do
   end
 
   get 'private/:path', to: 'files#show', constraints: { path: /.+/ }
+
+  resources :processes, only: [:index, :destroy]
 
   root 'sessions#new'
 end
