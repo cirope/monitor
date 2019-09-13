@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Servers::DefaultController < ApplicationController
   before_action :authorize, :only_security
   before_action :set_server
