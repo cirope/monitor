@@ -1,0 +1,8 @@
+<%= f.input :database, as: :autocomplete,
+  label: Database.model_name.human(count: 1),
+  url: databases_path,
+  input_html: {
+    disabled: disable_edition?,
+    data: { empty_result_label: t('.empty') }
+  }
+%>

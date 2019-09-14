@@ -20,3 +20,11 @@ boom:
     4 * nil
   change: 'Initial script'
   language: ruby
+
+select_from_users:
+  uuid: <%= SecureRandom.uuid %>
+  name: Select all users
+  text: 'SELECT * FROM users'
+  change: 'Initial script'
+  language: sql
+  database: postgresql

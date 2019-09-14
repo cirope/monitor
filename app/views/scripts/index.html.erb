@@ -6,6 +6,7 @@
   <table class="table table-striped table-hover">
     <thead>
       <tr>
+        <th></th>
         <th><%= Script.human_attribute_name 'name' %></th>
         <th class="d-none d-md-table-cell"><%= Tag.model_name.human count: 0 %></th>
         <th colspan="3">
@@ -17,9 +18,10 @@
     <tbody>
       <% @scripts.each do |script| %>
         <tr>
+          <td><%= lang_icon script.language %></td>
           <td>
             <%= imported_tag script %>
-            <%= script.name %>
+            <%= script %>
           </td>
           <td class="d-none d-md-table-cell"><%= tags script.tags %></td>
           <td class="text-right"><%= link_to_show script %></td>
@@ -44,6 +46,10 @@
   </button>
 
   <div class="dropdown-menu">
+    <%= link_to t('.new_sql'), new_script_path(lang: 'sql'), class: 'dropdown-item' %>
+
+    <div class="dropdown-divider"></div>
+
     <%= link_to t('.export'), scripts_exports_create_path, class: 'dropdown-item', data: { method: :post, toggle: 'dropdown' } %>
     <%= link_to t('.import'), scripts_imports_new_path, class: 'dropdown-item' %>
   </div>

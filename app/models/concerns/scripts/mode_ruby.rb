@@ -16,13 +16,6 @@ module Scripts::ModeRuby
     end.join
   end
 
-  def ruby_variables
-    StringIO.new.tap do |buffer|
-      buffer << as_ruby_inner_varialble('parameters', parameters)
-      buffer << as_ruby_inner_varialble('attributes', descriptions)
-    end.string
-  end
-
   def ruby_commented_text comment = nil
     comment ||= 'script body'
 
@@ -41,16 +34,6 @@ module Scripts::ModeRuby
           buffer << script.body('core inclusion')
         end
       end.string
-    end
-
-    def as_ruby_inner_varialble name, collection
-      result = "#{name} ||= {}\n\n"
-
-      collection.each do |object|
-        result += "#{name}[%Q[#{object.name}]] = %Q[#{object.value}]\n"
-      end
-
-      "#{result}\n"
     end
 
     def external_gem_require
