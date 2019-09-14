@@ -14,6 +14,18 @@ module Databases::ActiveRecordConfig
     }.inspect
   end
 
+  def adapter_gems
+    case driver
+    when /postgres/i then 'pg'
+    when /mysql/i    then 'mysql2'
+    when /sqlite/i   then 'sqlite3'
+    when /freetds/i  then ['tiny_tds', 'activerecord-sqlserver-adapter']
+    when /oracle/i   then ['ruby-oci8', 'activerecord-oracle_enhanced-adapter']
+    else
+      raise "Unsupported adapter for driver #{driver}"
+    end
+  end
+
   private
 
     def adapter

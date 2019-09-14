@@ -41,6 +41,13 @@ module ScriptsHelper
     @script.imported_at.present?
   end
 
+  def lang_icon lang
+    case lang
+    when 'ruby' then icon 'fas', 'gem'
+    when 'sql'  then icon 'fas', 'database'
+    end
+  end
+
   def imported_tag script
     if script.imported_at.present?
       date  = l script.imported_at, format: :compact
