@@ -96,4 +96,9 @@ class ScriptsHelperTest < ActionView::TestCase
 
     assert_match t('.no_server'), link_to_execute
   end
+
+  test 'lang icon' do
+    assert_match 'fas fa-database', lang_icon('sql')
+    assert_match 'fas fa-gem', lang_icon('ruby')
+  end
 end

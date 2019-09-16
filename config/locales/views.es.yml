@@ -291,6 +291,7 @@ es:
       empty_search_html: 'No hay guiones que coincidan con el criterio de búsqueda'
       import: 'Importar'
       export: 'Exportar'
+      new_sql: 'Nuevo guión SQL'
     new:
       title: 'Crear guión'
       maintainer: 'Agregar mantenedor'
@@ -416,6 +417,7 @@ es:
       memory_percent: '%'
       pid: 'PID'
       time: 'Tiempo'
+      kill: 'Terminar'
     destroy:
       destroyed: 'Proceso terminado'
       cannot_be_destroyed: 'No se pudo terminar el proceso'
