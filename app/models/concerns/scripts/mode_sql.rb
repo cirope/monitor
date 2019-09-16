@@ -29,7 +29,7 @@ module Scripts::ModeSql
         begin
           pool = ActiveRecord::Base.establish_connection(#{database.ar_config})
 
-          puts pool.connection.execute(%Q{#{text}}).to_json
+          puts pool.connection.exec_query(%Q{#{text}}).to_a.to_json
         rescue ActiveRecord::StatementInvalid => e
           puts e.message
 
