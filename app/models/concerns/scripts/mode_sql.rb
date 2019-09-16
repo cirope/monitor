@@ -27,7 +27,7 @@ module Scripts::ModeSql
     def text_with_sql_injections
       %{
         begin
-          pool = ActiveRecord::Base.establish_connection #{database.ar_config}
+          pool = ActiveRecord::Base.establish_connection(#{database.ar_config})
 
           puts pool.connection.execute(%Q{#{text}}).to_json
         rescue ActiveRecord::StatementInvalid => e
