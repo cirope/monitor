@@ -7,6 +7,7 @@ class Database < ApplicationRecord
   include Databases::ODBC
   include Databases::Properties
   include Databases::Scopes
+  include Databases::Search
   include Databases::Validations
   include Filterable
   include PublicAuditable

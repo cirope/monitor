@@ -73,6 +73,13 @@ class DatabaseTest < ActiveSupport::TestCase
     assert_equal property.value, @database.property(property.key)
   end
 
+  test 'search' do
+    databases = Database.search query: @database.name
+
+    assert databases.present?
+    assert databases.all? { |s| s.name =~ /#{@database.name}/ }
+  end
+
   test 'current' do
     skip
   end
