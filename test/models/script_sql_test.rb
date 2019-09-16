@@ -29,6 +29,6 @@ class ScriptSqlTest < ActiveSupport::TestCase
     body = @script.body
 
     assert_match 'ActiveRecord::Base.establish_connection', body
-    assert_match /puts pool\.connection\.execute\(.*\)\.to_json/, body
+    assert_match /puts pool\.connection\.exec_query\(.*\)\.to_a.to_json/, body
   end
 end
