@@ -8,7 +8,9 @@ module Databases::Filters
   end
 
   def databases
-    @account.databases.filter_by filter_params
+    databases = @account.databases
+    databases = databases.search query: params[:q]
+    databases = databases.filter_by filter_params
   end
 
   def filter_params

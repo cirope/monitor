@@ -310,6 +310,8 @@ es:
     exports:
       create:
         filename: 'guiones.zip'
+    form_sql:
+      empty: 'No se encontraron bases de datos con ese criterio'
     imports:
       create:
         imported: 'Guiones importados correctamente'
