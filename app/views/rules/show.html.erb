@@ -1,14 +1,23 @@
-<h2><%= @rule %></h2>
+<div class="card">
+  <div class="card-header">
+    <h5><%= @rule %></h5>
+  </div>
 
-<p>
-  <strong><%= Rule.human_attribute_name 'enabled' %></strong>:
-  <%= t @rule.enabled ? 'yes' : 'no' %>
-</p>
+  <div class="card-body">
+    <p>
+      <strong><%= Rule.human_attribute_name 'enabled' %></strong>:
+      <%= t @rule.enabled ? 'yes' : 'no' %>
+    </p>
+  </div>
+</div>
+
 
 <% if @rule.triggers.any? %>
   <div class="card mb-3">
     <div class="card-header">
-      <%= Trigger.model_name.human count: @rule.triggers.size %>
+      <h5>
+        <%= Trigger.model_name.human count: @rule.triggers.size %>
+      </h5>
     </div>
     <div id="triggers" class="card-body">
       <% @rule.triggers.each do |trigger| %>

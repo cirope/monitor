@@ -6,7 +6,7 @@
       <div class="col-lg-10 col-md-9 col-7">
         <%= f.input :name, input_html: { autofocus: true, disabled: disable_rule_edition? } %>
       </div>
-      <div class="col-lg-2 col-md-3 col-5 pt-4 text-right">
+      <div class="col-lg-2 col-md-3 col-5 pt-3 text-right">
         <div class="form-group form-check mt-2">
           <%= f.check_box :enabled, disabled: disable_rule_edition?, class: 'form-check-input' %>
           <label class="form-check-label" for="rule_enabled"><%= Rule.human_attribute_name 'enabled' %></label>
@@ -14,23 +14,22 @@
       </div>
     </div>
 
-    <div class="card">
-      <div class="card-header">
-        <%= Trigger.model_name.human count: 0 %>
-      </div>
-      <div id="triggers" class="card-body">
+        <h5>
+          <%= Trigger.model_name.human count: 0 %>
+        </h5>
+      <div id="triggers">
         <%= f.simple_fields_for :triggers, triggers do |rf| %>
           <%= render 'triggers/trigger', f: rf %>
         <% end %>
 
         <%= link_to_add_fields t('rules.new.trigger'), f, :triggers unless disable_rule_edition? %>
       </div>
-    </div>
 
     <%= f.input :lock_version, as: :hidden %>
   </div>
 
   <div class="form-actions">
+    <hr>
     <%= f.button :submit, class: 'btn-primary' %>
   </div>
 <% end %>

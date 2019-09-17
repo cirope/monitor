@@ -10,41 +10,44 @@
 
   <%= render 'shared/empty_index', message: empty_message %>
 <% else %>
-  <table class="table table-striped table-hover">
-    <caption>
+  <div class="card">
+    <div class="card-header">
       <h5>
         <%= Run.model_name.human count: @runs.count %> |
         <%= link_to @schedule, @schedule %>
       </h5>
-    </caption>
-    <thead>
-      <tr>
-        <th><%= Run.human_attribute_name 'status' %></th>
-        <th><%= Run.human_attribute_name 'scheduled_at' %></th>
-        <th class="d-none d-md-table-cell"><%= Script.model_name.human count: 1 %></th>
-        <th class="d-none d-lg-table-cell"><%= Run.human_attribute_name 'started_at' %></th>
-        <th class="d-none d-lg-table-cell"><%= Run.human_attribute_name 'ended_at' %></th>
-        <th class="d-none d-sm-table-cell"><%= t '.run_time' %></th>
-        <th colspan="<%= current_user.author? ? 1 : 2 %>"></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @runs.each do |run| %>
+    </div>
+
+    <table class="table table-hover">
+      <thead>
         <tr>
-          <td><%= run_status run.status %></td>
-          <td><%= l run.scheduled_at, format: :compact %></td>
-          <td class="d-none d-md-table-cell"><%= truncate run.script.to_s %></td>
-          <td class="d-none d-lg-table-cell"><%= l run.started_at, format: :long if run.started_at %></td>
-          <td class="d-none d-lg-table-cell"><%= l run.ended_at, format: :long if run.ended_at %></td>
-          <td class="d-none d-sm-table-cell"><%= run_time run %></td>
-          <td class="text-right"><%= link_to_show run %></td>
-          <% unless current_user.author? %>
-            <td class="text-right"><%= link_to_destroy run %></td>
-          <% end %>
+          <th><%= Run.human_attribute_name 'status' %></th>
+          <th><%= Run.human_attribute_name 'scheduled_at' %></th>
+          <th class="d-none d-md-table-cell"><%= Script.model_name.human count: 1 %></th>
+          <th class="d-none d-lg-table-cell"><%= Run.human_attribute_name 'started_at' %></th>
+          <th class="d-none d-lg-table-cell"><%= Run.human_attribute_name 'ended_at' %></th>
+          <th class="d-none d-sm-table-cell"><%= t '.run_time' %></th>
+          <th colspan="<%= current_user.author? ? 1 : 2 %>"></th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <% @runs.each do |run| %>
+          <tr>
+            <td><%= run_status run.status %></td>
+            <td><%= l run.scheduled_at, format: :compact %></td>
+            <td class="d-none d-md-table-cell"><%= truncate run.script.to_s %></td>
+            <td class="d-none d-lg-table-cell"><%= l run.started_at, format: :long if run.started_at %></td>
+            <td class="d-none d-lg-table-cell"><%= l run.ended_at, format: :long if run.ended_at %></td>
+            <td class="d-none d-sm-table-cell"><%= run_time run %></td>
+            <td class="text-right"><%= link_to_show run %></td>
+            <% unless current_user.author? %>
+              <td class="text-right"><%= link_to_destroy run %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 
   <%= paginate @runs %>
 <% end %>

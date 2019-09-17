@@ -8,7 +8,9 @@
 
     <div class="card">
       <div class="card-header">
-        <%= Property.model_name.human count: 0 %>
+        <h5>
+          <%= Property.model_name.human count: 0 %>
+        </h5>
       </div>
       <div id="properties" class="card-body">
         <%= f.simple_fields_for :properties, properties do |rf| %>

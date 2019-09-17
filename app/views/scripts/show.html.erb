@@ -1,51 +1,59 @@
-<h2 class="mb-3 clearfix">
-  <%= @script %>
-  <small class="float-right">
-    <% if @script.core %>
-      <%= icon 'fas', 'star', class: 'mr-2', title: Script.human_attribute_name('core') %>
-    <% end %>
-    <%= link_to_execute do %>
-      <%= icon 'fas', 'play' %>
-      <%= t '.execute_now' %>
-    <% end %>
-  </small>
-</h2>
-
-<% if @script.file.present? %>
-  <p class="mb-1">
-    <strong><%= Script.human_attribute_name 'file' %></strong>:
-    <%= link_to t('messages.download'), @script.file.url %>
-  </p>
-<% end %>
-
-<% if @script.text.present? %>
-  <textarea
-    name="script[text]"
-    id="script_text"
-    class="editor"
-    data-editor="true"
-    data-language="<%= @script.language %>"
-    data-phrases="<%= editor_phrases.to_json %>"
-    data-readonly="true"><%= @script.text %></textarea>
-<% end %>
-
-<% if @script.change.present? %>
-  <p class="mb-3">
-    <strong><%= Script.human_attribute_name 'change' %></strong>:
-    <%= link_to @script.change, '#diff', data: { toggle: 'collapse' } %>
-  </p>
-
-  <div id="diff" class="card collapse my-3">
-    <div class="card-body">
-      <%= last_change_diff %>
-    </div>
+<div class="card">
+  <div class="card-header">
+    <h3 class="clearfix">
+      <%= @script %>
+      <small class="float-right">
+        <% if @script.core %>
+          <%= icon 'fas', 'star', class: 'mr-2', title: Script.human_attribute_name('core') %>
+        <% end %>
+        <%= link_to_execute do %>
+          <%= icon 'fas', 'play' %>
+          <%= t '.execute_now' %>
+        <% end %>
+      </small>
+    </h3>
   </div>
-<% end %>
+
+  <div class="card-body">
+    <% if @script.file.present? %>
+        <p class="mb-1">
+          <strong><%= Script.human_attribute_name 'file' %></strong>:
+          <%= link_to t('messages.download'), @script.file.url %>
+        </p>
+    <% end %>
+
+    <% if @script.text.present? %>
+      <textarea
+        name="script[text]"
+        id="script_text"
+        class="editor"
+        data-editor="true"
+        data-language="<%= @script.language %>"
+        data-phrases="<%= editor_phrases.to_json %>"
+        data-readonly="true"><%= @script.text %></textarea>
+    <% end %>
+
+    <% if @script.change.present? %>
+      <p class="mb-3">
+        <strong><%= Script.human_attribute_name 'change' %></strong>:
+        <%= link_to @script.change, '#diff', data: { toggle: 'collapse' } %>
+      </p>
+
+      <div id="diff" class="card collapse my-3">
+        <div class="card-body">
+          <%= last_change_diff %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
 
 <% if @script.maintainers.any? %>
   <div class="card mb-3">
     <div class="card-header">
-      <%= Maintainer.model_name.human count: @script.maintainers.size %>
+      <h5>
+        <%= Maintainer.model_name.human count: @script.maintainers.size %>
+      </h5>
     </div>
     <div id="maintainers" class="card-body">
       <ul>
@@ -60,7 +68,9 @@
 <% if @script.requires.any? %>
   <div class="card mb-3">
     <div class="card-header">
-      <%= Require.model_name.human count: @script.requires.size %>
+      <h5>
+        <%= Require.model_name.human count: @script.requires.size %>
+      </h5>
     </div>
     <div id="requires" class="card-body">
       <ul>
@@ -85,25 +95,29 @@
 <% if @script.parameters.any? %>
   <div class="card mb-3">
     <div class="card-header">
-      <%= Parameter.model_name.human count: @script.parameters.size %>
+      <h5>
+        <%= Parameter.model_name.human count: @script.parameters.size %>
+      </h5>
     </div>
     <div id="parameters" class="card-body">
-      <table class="table table-sm">
-        <thead>
-          <tr>
-            <th><%= Parameter.human_attribute_name 'name' %></th>
-            <th><%= Parameter.human_attribute_name 'value' %></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @script.parameters.each do |parameter| %>
+      <div class="table-responsive">
+        <table class="table table-sm">
+          <thead>
             <tr>
-              <td><%= parameter.name %></td>
-              <td><%= parameter.value %></td>
+              <th><%= Parameter.human_attribute_name 'name' %></th>
+              <th><%= Parameter.human_attribute_name 'value' %></th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            <% @script.parameters.each do |parameter| %>
+              <tr>
+                <td><%= parameter.name %></td>
+                <td><%= parameter.value %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 <% end %>
@@ -111,25 +125,29 @@
 <% if @script.descriptions.any? %>
   <div class="card mb-3">
     <div class="card-header">
-      <%= Description.model_name.human count: @script.descriptions.size %>
+      <h5>
+        <%= Description.model_name.human count: @script.descriptions.size %>
+      </h5>
     </div>
     <div id="descriptions" class="card-body">
-      <table class="table table-sm">
-        <thead>
-          <tr>
-            <th><%= Description.human_attribute_name 'name' %></th>
-            <th><%= Description.human_attribute_name 'value' %></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @script.descriptions.each do |description| %>
+      <div class="table-responsive">
+        <table class="table table-sm">
+          <thead>
             <tr>
-              <td><%= description.name %></td>
-              <td><%= description.value %></td>
+              <th><%= Description.human_attribute_name 'name' %></th>
+              <th><%= Description.human_attribute_name 'value' %></th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            <% @script.descriptions.each do |description| %>
+              <tr>
+                <td><%= description.name %></td>
+                <td><%= description.value %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 <% end %>

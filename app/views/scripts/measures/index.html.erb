@@ -1,4 +1,4 @@
-<ul class="nav nav-tabs mb-3">
+<ul class="nav nav-tabs mb-2">
   <% measure_types.each do |type, name| %>
     <% active = type.to_s == params[:type] %>
 
@@ -11,33 +11,33 @@
 <% if @measures.empty? %>
   <%= render 'shared/empty_index', message: t('.empty_html') %>
 <% else %>
-  <table class="table table-striped table-hover">
-    <caption>
-      <h5>
-        <%= link_to @script, @script %>
-      </h5>
-    </caption>
-    <thead>
-      <tr>
-        <th><%= Measure.human_attribute_name 'measurable' %></th>
-        <th><%= Measure.human_attribute_name 'cpu' %></th>
-        <th class="d-none d-sm-table-cell"><%= Measure.human_attribute_name 'memory_in_bytes' %></th>
-        <th class="d-none d-sm-table-cell"><%= Measure.human_attribute_name 'created_at' %></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @measures.each do |measure| %>
+  <div class="card">
+    <div class="card-header">
+      <h5><%= link_to @script, @script %></h5>
+    </div>
+    <table class="table table-hover">
+      <thead>
         <tr>
-          <td>
-            <%= link_to measurable_name(measure.measurable), measurable_path(measure.measurable) %>
-          </td>
-          <td><%= number_to_percentage measure.cpu, precision: 1 %></td>
-          <td class="d-none d-sm-table-cell"><%= number_to_human_size measure.memory_in_bytes, significant: false %></td>
-          <td class="d-none d-sm-table-cell"><%= l measure.created_at, format: :compact %></td>
+          <th><%= Measure.human_attribute_name 'measurable' %></th>
+          <th><%= Measure.human_attribute_name 'cpu' %></th>
+          <th class="d-none d-sm-table-cell"><%= Measure.human_attribute_name 'memory_in_bytes' %></th>
+          <th class="d-none d-sm-table-cell"><%= Measure.human_attribute_name 'created_at' %></th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <% @measures.each do |measure| %>
+          <tr>
+            <td>
+              <%= link_to measurable_name(measure.measurable), measurable_path(measure.measurable) %>
+            </td>
+            <td><%= number_to_percentage measure.cpu, precision: 1 %></td>
+            <td class="d-none d-sm-table-cell"><%= number_to_human_size measure.memory_in_bytes, significant: false %></td>
+            <td class="d-none d-sm-table-cell"><%= l measure.created_at, format: :compact %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 
   <%= render 'scripts/measures/graphs', format: :full %>
 

@@ -201,6 +201,7 @@ es:
       current: 'Cuenta actual'
     index:
       title: 'Listado de accesos'
+      empty_html: 'No tiene cuentas asociadas'
       empty_search_html: 'No hay cuentas que coincidan con el criterio de búsqueda'
     show:
       title: 'Ver acceso'

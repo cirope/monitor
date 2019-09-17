@@ -3,39 +3,42 @@
 <% if @issues.empty? %>
   <%= render 'shared/empty_index', message: empty_message %>
 <% else %>
-  <table class="table table-striped table-hover">
-    <% if @script %>
-      <caption>
-        <h4>
+  <div class="card">
+    <div class="card-header">
+      <% if @script %>
+        <h5>
           <%= @script %>
           <small class="float-right">
             <%= link_to t('back'), dashboard_path, class: 'small' %>
           </small>
-        </h4>
-      </caption>
-    <% end %>
-    <thead>
-      <tr>
-        <th class="d-none d-md-table-cell"><%= Run.human_attribute_name 'scheduled_at' %></th>
-        <th class="d-none d-sm-table-cell"><%= Issue.human_attribute_name 'created_at' %></th>
-        <th><%= Issue.human_attribute_name 'description' %></th>
-        <th class="d-none d-sm-table-cell"><%= Issue.human_attribute_name 'status' %></th>
-        <th class="d-none d-lg-table-cell"><%= Tag.model_name.human count: 0 %></th>
-        <th class="text-right" colspan="<%= issue_actions_cols %>">
-          <% if @script %>
-            <div class="btn-group mr-n2" role="group">
-              <%= link_to_add_all_to_board %>
-              <%= link_to_remove_all_from_board %>
-            </div>
-          <% end %>
-        </th>
-      </tr>
-    </thead>
+        </h5>
+      <% end %>
+    </div>
 
-    <tbody>
-      <%= render @issues %>
-    </tbody>
-  </table>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th class="d-none d-md-table-cell"><%= Run.human_attribute_name 'scheduled_at' %></th>
+          <th class="d-none d-sm-table-cell"><%= Issue.human_attribute_name 'created_at' %></th>
+          <th><%= Issue.human_attribute_name 'description' %></th>
+          <th class="d-none d-sm-table-cell"><%= Issue.human_attribute_name 'status' %></th>
+          <th class="d-none d-lg-table-cell"><%= Tag.model_name.human count: 0 %></th>
+          <th class="text-right" colspan="<%= issue_actions_cols %>">
+            <% if @script %>
+              <div class="btn-group mr-n2" role="group">
+                <%= link_to_add_all_to_board %>
+                <%= link_to_remove_all_from_board %>
+              </div>
+            <% end %>
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <%= render @issues %>
+      </tbody>
+    </table>
+  </div>
 
   <%= paginate @issues %>
 <% end %>
