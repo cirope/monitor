@@ -1,11 +1,11 @@
-<div class="left-side-menu">
+<div class="left-side-menu pt-2">
   <div class="slimscroll-menu">
     <%= link_to root_url, class: 'logo text-center text-white', title: current_account&.name do %>
       <span class="logo-lg">
-        <%= app_name %>
+        <%= image_tag 'logo.svg', size: '170x52', alt: app_name %>
       </span>
       <span class="logo-sm">
-        <%= app_name %>
+        <%= image_tag 'logo_sm.svg', size: '52x52', alt: app_name %>
       </span>
     <% end %>
 

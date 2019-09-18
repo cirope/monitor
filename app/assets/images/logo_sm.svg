@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   id="Capa_1"
+   x="0px"
+   y="0px"
+   width="52.054291"
+   height="52.065666"
+   viewBox="0 0 52.054291 52.065666"
+   enable-background="new 0 0 215 60"
+   xml:space="preserve"
+   sodipodi:docname="logo_sm.svg"
+   inkscape:export-filename="/home/franco/git/monitor/app/assets/images/gredit-blanco.png"
+   inkscape:export-xdpi="113.93"
+   inkscape:export-ydpi="113.93"
+   inkscape:version="0.92.4 5da689c313, 2019-01-14"><metadata
+   id="metadata37"><rdf:RDF><cc:Work
+       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
+   id="defs35">
+	
+	
+	
+</defs><sodipodi:namedview
+   pagecolor="#ffffff"
+   bordercolor="#666666"
+   borderopacity="1"
+   objecttolerance="10"
+   gridtolerance="10"
+   guidetolerance="10"
+   inkscape:pageopacity="0"
+   inkscape:pageshadow="2"
+   inkscape:window-width="3200"
+   inkscape:window-height="1672"
+   id="namedview33"
+   showgrid="false"
+   fit-margin-top="0"
+   fit-margin-left="0"
+   fit-margin-right="0"
+   fit-margin-bottom="0"
+   inkscape:zoom="7.8666667"
+   inkscape:cx="65.041815"
+   inkscape:cy="29.498764"
+   inkscape:window-x="0"
+   inkscape:window-y="54"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="Capa_1" />
+<g
+   style="fill:#f9f9f9"
+   id="g28"
+   transform="matrix(0.87497968,0,0,0.87497968,-14.617411,-0.21699496)">
+		<path
+   style="fill:#f9f9f9"
+   inkscape:connector-curvature="0"
+   id="path22"
+   d="M 46.458,50.85 C 34.943,50.85 25.61,41.516 25.61,30 c 0,-2.736 0.538,-5.344 1.498,-7.738 -4.348,0.607 -7.528,1.824 -10.049,3.151 -0.231,1.495 -0.353,3.026 -0.353,4.587 0,16.432 13.321,29.753 29.753,29.753 14.621,0 26.771,-10.55 29.272,-24.45 C 72.336,34.532 69.524,33.667 67.116,32.755 65.771,42.965 57.037,50.85 46.458,50.85 Z" />
+		<path
+   style="fill:#f9f9f9"
+   inkscape:connector-curvature="0"
+   id="path24"
+   d="M 44.193,13.339 C 58.588,15.774 67.445,25.881 76.198,29.44 75.898,13.268 62.703,0.248 46.459,0.248 c -11.957,0 -22.26,7.057 -26.988,17.229 7.261,-4.267 16.84,-5.472 24.722,-4.138 z" />
+		<path
+   style="fill:#f9f9f9"
+   inkscape:connector-curvature="0"
+   id="path26"
+   d="m 37.702,22.018 c -1.909,2.094 -3.077,4.875 -3.09,7.931 0.026,6.522 5.318,11.804 11.847,11.804 6.526,0 11.817,-5.276 11.846,-11.796 C 58.303,29.467 58.27,28.979 58.211,28.503 52.757,25.482 48.203,22.77 37.702,22.018 Z m 8.756,13.671 c -3.142,0 -5.689,-2.547 -5.689,-5.689 0,-3.142 2.547,-5.689 5.689,-5.689 3.142,0 5.689,2.547 5.689,5.689 0,3.142 -2.546,5.689 -5.689,5.689 z" />
+	</g>
+</svg>
