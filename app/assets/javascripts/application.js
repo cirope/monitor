@@ -36,6 +36,10 @@
 //= require moment/moment
 //= require moment/es
 //= require daterangepicker/daterangepicker
+//= require hyper/metis_menu
+//= require hyper/select2
+//= require hyper/jquery.slimscroll
+//= require hyper/hyper
 //
 //= require ajax
 //= require autocomplete

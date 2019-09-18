@@ -77,14 +77,10 @@
         position: absolute;
         right: 30px;
         display: inline-block;
-        font-family: 'Material Design Icons';
         text-rendering: auto;
-        line-height: 1.5rem;
+        line-height: 1.5rem !important;
         font-size: 1.1rem;
         transform: translate(0, 0);
-        &:before {
-            content: "\F142";
-        }
     }
 
     .badge{

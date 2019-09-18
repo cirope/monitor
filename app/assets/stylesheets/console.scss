@@ -1,10 +1,14 @@
 @import "bootstrap/functions";
 @import "bootstrap/variables";
+@import "bootstrap/mixins";
 @import "hyper/config/default/variables";
+@import "hyper/config/default/custom-variables";
 
 #console {
-  top: 56px;
-  height: calc(100% - 56px);
+  top: $topbar-height;
+  left: 0;
+  padding: .5em;
+  height: calc(100% - #{$topbar-height});
   z-index: 0;
 
   .close-button {
@@ -18,5 +22,11 @@
 
   .resizer {
     display: none;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  #console {
+    left: $leftbar-width;
   }
 }
