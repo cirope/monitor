@@ -396,6 +396,7 @@ es:
       password: 'Contraseña'
       remember_me: 'Recordarme'
       forgot_password: '¿Olvidaste tu contraseña?'
+      subtitle: 'Ingrese su usuario o correo electrónico para acceder'
 
   shared:
     left_menu:
@@ -409,11 +410,13 @@ es:
     edit:
       title: 'Cambiar contraseña'
       update: 'Actualizar contraseña'
+      subtitle: 'Ingrese su nueva contraseña'
     new:
       title: 'Restablecer contraseña'
       email: 'Correo'
       send_instructions: 'Enviar instrucciones'
       back: 'Volver'
+      subtitle: 'Ingrese su dirección de correo y le enviaremos las instrucciones para recuperar su contraseña'
 
   processes:
     index:

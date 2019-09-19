@@ -1,11 +1,22 @@
-<div class="row justify-content-center mt-5">
+<div class="row justify-content-center mt-md-5">
   <div class="col col-lg-4 col-md-6 col-sm-10">
-    <div class="card bg-light">
-      <div class="card-body">
+    <div class="card">
+      <div class="card-header py-md-4 text-center bg-primary">
+        <%= image_tag 'logo.svg', size: '170x52', alt: app_name %>
+      </div>
+      <div class="card-body p-md-4">
+        <div class="text-center w-75 m-auto">
+          <h4 class="text-dark-50 text-center mt-0 font-weight-bold">
+            <%= @title %>
+          </h4>
+          <p class="text-muted mb-4">
+            <%= t '.subtitle' %>
+          </p>
+        </div>
         <%= form_tag password_resets_path, novalidate: 'novalidate' do %>
           <div class="form-group">
             <%= label_tag :email, t('.email') %>
-            <%= email_field_tag :email, params[:email], class: 'form-control', autofocus: true %>
+            <%= email_field_tag :email, params[:email], placeholder: t('.email'), class: 'form-control', autofocus: true %>
           </div>
 
           <div class="form-actions text-center">

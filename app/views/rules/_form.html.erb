@@ -3,13 +3,13 @@
 
   <div class="form-inputs">
     <div class="row">
-      <div class="col-lg-10 col-md-9 col-7">
+      <div class="col-lg-10 col-md-9 col-8">
         <%= f.input :name, input_html: { autofocus: true, disabled: disable_rule_edition? } %>
       </div>
-      <div class="col-lg-2 col-md-3 col-5 pt-3 text-right">
-        <div class="form-group form-check mt-2">
-          <%= f.check_box :enabled, disabled: disable_rule_edition?, class: 'form-check-input' %>
-          <label class="form-check-label" for="rule_enabled"><%= Rule.human_attribute_name 'enabled' %></label>
+      <div class="col-lg-2 col-md-3 col-4 pt-3 text-right">
+        <div class="custom-control custom-checkbox mt-2">
+          <%= f.check_box :enabled, disabled: disable_rule_edition?, class: 'custom-control-input' %>
+          <label class="custom-control-label" for="rule_enabled"><%= Rule.human_attribute_name 'enabled' %></label>
         </div>
       </div>
     </div>

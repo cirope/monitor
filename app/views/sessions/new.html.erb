@@ -1,21 +1,32 @@
-<div class="row justify-content-center mt-5">
+<div class="row justify-content-center mt-md-5">
   <div class="col col-lg-4 col-md-6 col-sm-10">
-    <div class="card bg-light">
-      <div class="card-body">
+    <div class="card">
+      <div class="card-header py-md-4 text-center bg-primary">
+        <%= image_tag 'logo.svg', size: '170x52', alt: app_name %>
+      </div>
+      <div class="card-body p-md-4">
+        <div class="text-center w-75 m-auto">
+          <h4 class="text-dark-50 text-center mt-0 font-weight-bold">
+            <%= @title %>
+          </h4>
+          <p class="text-muted mb-4">
+            <%= t '.subtitle' %>
+          </p>
+        </div>
         <%= form_tag sessions_path, novalidate: 'novalidate' do %>
           <div class="form-group">
             <%= label_tag :username, t('.username') %>
-            <%= text_field_tag :username, params[:username], class: 'form-control', autofocus: true, autocomplete: 'off' %>
+            <%= text_field_tag :username, params[:username], placeholder: t('.username'), class: 'form-control', autofocus: true, autocomplete: 'off' %>
           </div>
 
           <div class="form-group">
             <%= label_tag :password, t('.password') %>
-            <%= password_field_tag :password, nil, class: 'form-control' %>
+            <%= password_field_tag :password, nil, placeholder: t('.password'), class: 'form-control' %>
           </div>
 
-          <div class="form-group form-check">
-            <%= check_box_tag :remember_me, 1, params[:remember_me], class: 'form-check-input' %>
-            <label class="form-check-label" for="remember_me"><%= t '.remember_me' %></label>
+          <div class="custom-control custom-checkbox">
+            <%= check_box_tag :remember_me, 1, params[:remember_me], class: 'custom-control-input' %>
+            <label class="custom-control-label" for="remember_me"><%= t '.remember_me' %></label>
           </div>
 
           <div class="form-actions text-center">

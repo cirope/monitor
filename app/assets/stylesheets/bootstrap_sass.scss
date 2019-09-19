@@ -38,6 +38,7 @@
 @import "hyper/custom/components/reboot";
 @import "hyper/custom/components/switch";
 @import "hyper/custom/components/tables";
+@import "hyper/custom/components/type";
 @import "hyper/custom/components/utilities";
 
 // Vendors
@@ -47,3 +48,6 @@
 @import "hyper/custom/plugins/daterange";
 @import "hyper/custom/plugins/metis-menu";
 @import "hyper/custom/plugins/slimscroll";
+
+// Pages
+@import "hyper/custom/pages/authentication";

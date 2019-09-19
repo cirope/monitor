@@ -8,9 +8,9 @@
       </div>
       <% if @script.ruby? %>
         <div class="col-lg-2 col-md-3 col-5 pt-3 text-right">
-          <div class="form-group form-check mt-2">
-            <%= f.check_box :core, disabled: disable_edition?, class: 'form-check-input' %>
-            <label class="form-check-label" for="script_core"><%= Script.human_attribute_name 'core' %></label>
+          <div class="custom-control custom-checkbox mt-2">
+            <%= f.check_box :core, disabled: disable_edition?, class: 'custom-control-input' %>
+            <label class="custom-control-label" for="script_core"><%= Script.human_attribute_name 'core' %></label>
           </div>
         </div>
       <% end %>
