@@ -1,4 +1,11 @@
-<%%= render 'form' %>
+<div class="card mb-3">
+  <div class="card-header">
+    <h5><%%= @title %></h5>
+  </div>
+  <div class="card-body">
+    <%%= render 'form' %>
+  </div>
+</div>
 
 <div class="mt-3">
   <%%= link_to_show @<%= singular_table_name %> %> |

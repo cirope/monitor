@@ -2,8 +2,10 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :status, collection: status, prompt: false, input_html: { autofocus: true, disabled: limited_issue_form_edition? } %>
-    <%= f.input :description, input_html: { rows: 4, readonly: limited_issue_form_edition? } %>
+    <%= f.input :status, collection: status, prompt: false, hint: false, input_html: {
+      autofocus: true, disabled: limited_issue_form_edition?
+    } %>
+    <%= f.input :description, hint: false, input_html: { rows: 4, readonly: limited_issue_form_edition? } %>
     <%= f.input :lock_version, as: :hidden %>
 
     <div class="card mb-3">

@@ -1,8 +1,8 @@
-<h2>
-  <%= version_change_for @version %>
-</h2>
-
 <div class="card my-3">
+  <div class="card-header">
+    <h5><%= version_change_for @version %></h5>
+  </div>
+
   <div class="card-body">
     <%= text_diff_for_version %>
   </div>

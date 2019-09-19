@@ -22,7 +22,9 @@
 
     <div class="card mb-3">
       <div class="card-header">
-        <%= Job.model_name.human count: 0 %>
+        <h5>
+          <%= Job.model_name.human count: 0 %>
+        </h5>
       </div>
       <div id="jobs" class="card-body">
         <%= f.simple_fields_for :jobs, jobs do |rf| %>

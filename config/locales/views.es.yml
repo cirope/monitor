@@ -201,6 +201,7 @@ es:
       current: 'Cuenta actual'
     index:
       title: 'Listado de accesos'
+      empty_html: 'No tiene cuentas asociadas'
       empty_search_html: 'No hay cuentas que coincidan con el criterio de búsqueda'
     show:
       title: 'Ver acceso'
@@ -395,6 +396,11 @@ es:
       password: 'Contraseña'
       remember_me: 'Recordarme'
       forgot_password: '¿Olvidaste tu contraseña?'
+      subtitle: 'Ingrese su usuario o correo electrónico para acceder'
+
+  shared:
+    left_menu:
+      config: 'Configuración'
 
   subscriptions:
     subscription:
@@ -404,11 +410,13 @@ es:
     edit:
       title: 'Cambiar contraseña'
       update: 'Actualizar contraseña'
+      subtitle: 'Ingrese su nueva contraseña'
     new:
       title: 'Restablecer contraseña'
       email: 'Correo'
       send_instructions: 'Enviar instrucciones'
       back: 'Volver'
+      subtitle: 'Ingrese su dirección de correo y le enviaremos las instrucciones para recuperar su contraseña'
 
   processes:
     index:

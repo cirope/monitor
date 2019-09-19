@@ -1,63 +1,67 @@
-<h2><%= @ldap %></h2>
+<div class="card">
+  <div class="card-header">
+    <h5><%= @ldap %></h5>
+  </div>
 
-<p class="mb-1">
-  <strong><%= Ldap.human_attribute_name 'hostname' %></strong>:
-  <%= @ldap.hostname %>
-</p>
-<p class="mb-1">
-  <strong><%= Ldap.human_attribute_name 'port' %></strong>:
-  <%= @ldap.port %>
-</p>
-<p class="mb-1">
-  <strong><%= Ldap.human_attribute_name 'basedn' %></strong>:
-  <%= @ldap.basedn %>
-</p>
-<p class="mb-1">
-  <strong><%= Ldap.human_attribute_name 'filter' %></strong>:
-  <%= @ldap.filter %>
-</p>
-<p class="mb-1">
-  <strong><%= Ldap.human_attribute_name 'login_mask' %></strong>:
-  <%= @ldap.login_mask %>
-</p>
-<p class="mb-1">
-  <strong><%= Ldap.human_attribute_name 'username_attribute' %></strong>:
-  <%= @ldap.username_attribute %>
-</p>
-<p class="mb-1">
-  <strong><%= Ldap.human_attribute_name 'name_attribute' %></strong>:
-  <%= @ldap.name_attribute %>
-</p>
-<p class="mb-1">
-  <strong><%= Ldap.human_attribute_name 'lastname_attribute' %></strong>:
-  <%= @ldap.lastname_attribute %>
-</p>
-<p class="mb-1">
-  <strong><%= Ldap.human_attribute_name 'email_attribute' %></strong>:
-  <%= @ldap.email_attribute %>
-</p>
-<p class="mb-1">
-  <strong><%= Ldap.human_attribute_name 'roles_attribute' %></strong>:
-  <%= @ldap.roles_attribute %>
-</p>
-<p class="mb-1">
-  <strong><%= Ldap.human_attribute_name 'role_guest' %></strong>:
-  <%= @ldap.role_guest %>
-</p>
-<p class="mb-1">
-  <strong><%= Ldap.human_attribute_name 'role_author' %></strong>:
-  <%= @ldap.role_author %>
-</p>
-<p class="mb-1">
-  <strong><%= Ldap.human_attribute_name 'role_supervisor' %></strong>:
-  <%= @ldap.role_supervisor %>
-</p>
-<p class="mb-1">
-  <strong><%= Ldap.human_attribute_name 'role_security' %></strong>:
-  <%= @ldap.role_security %>
-</p>
-
-<hr>
+  <div class="card-body">
+    <p class="mb-1">
+      <strong><%= Ldap.human_attribute_name 'hostname' %></strong>:
+      <%= @ldap.hostname %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Ldap.human_attribute_name 'port' %></strong>:
+      <%= @ldap.port %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Ldap.human_attribute_name 'basedn' %></strong>:
+      <%= @ldap.basedn %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Ldap.human_attribute_name 'filter' %></strong>:
+      <%= @ldap.filter %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Ldap.human_attribute_name 'login_mask' %></strong>:
+      <%= @ldap.login_mask %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Ldap.human_attribute_name 'username_attribute' %></strong>:
+      <%= @ldap.username_attribute %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Ldap.human_attribute_name 'name_attribute' %></strong>:
+      <%= @ldap.name_attribute %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Ldap.human_attribute_name 'lastname_attribute' %></strong>:
+      <%= @ldap.lastname_attribute %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Ldap.human_attribute_name 'email_attribute' %></strong>:
+      <%= @ldap.email_attribute %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Ldap.human_attribute_name 'roles_attribute' %></strong>:
+      <%= @ldap.roles_attribute %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Ldap.human_attribute_name 'role_guest' %></strong>:
+      <%= @ldap.role_guest %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Ldap.human_attribute_name 'role_author' %></strong>:
+      <%= @ldap.role_author %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Ldap.human_attribute_name 'role_supervisor' %></strong>:
+      <%= @ldap.role_supervisor %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Ldap.human_attribute_name 'role_security' %></strong>:
+      <%= @ldap.role_security %>
+    </p>
+  </div>
+</div>
 
 <% if current_user.security? %>
   <%= link_to_edit [:edit, @ldap] %> |
