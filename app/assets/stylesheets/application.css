@@ -17,7 +17,8 @@
  *= require codemirror/codemirror
  *= require codemirror/dialog
  *= require codemirror/foldgutter
- *= require codemirror/solarized
+ *= require codemirror/duotone-dark
+ *= require codemirror/duotone-light
  *= require codemirror
  *= require jquery-ui
  *= require jquery-ui.theme
