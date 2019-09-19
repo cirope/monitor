@@ -1004,13 +1004,13 @@ function ($) {
         self._resetLayout();
         
         $.when(
-            $.get(self._partials['VERTICAL_SIDEBAR'], function(content) {
-                self.verticalSidebarPH.append(content);
-            }),
-            // get the topbar
-            $.get(self._partials['VERTICAL_TOPBAR'], function(topContent) {
-                self.verticalTopbarPH.append(topContent);
-            })
+            // $.get(self._partials['VERTICAL_SIDEBAR'], function(content) {
+            //     self.verticalSidebarPH.append(content);
+            // }),
+            // // get the topbar
+            // $.get(self._partials['VERTICAL_TOPBAR'], function(topContent) {
+            //     self.verticalTopbarPH.append(topContent);
+            // })
         ).then(function () {
             // init the menu
             $.LeftSidebar.init();
