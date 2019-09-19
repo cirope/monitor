@@ -174,12 +174,12 @@ function($) {
     */
    AdvanceFormApp.prototype.init = function() {
         var $this = this;
-        this.initSelect2();
-        this.initMask();
-        this.initDateRange();
-        this.initTimePicker();
-        this.initTouchspin();
-        this.initMaxlength();
+        // this.initSelect2();
+        // this.initMask();
+        // this.initDateRange();
+        // this.initTimePicker();
+        // this.initTouchspin();
+        // this.initMaxlength();
     },
 
     $.AdvanceFormApp = new AdvanceFormApp, $.AdvanceFormApp.Constructor = AdvanceFormApp
