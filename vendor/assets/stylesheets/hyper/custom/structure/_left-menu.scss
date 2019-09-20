@@ -18,14 +18,14 @@
 // Wrapper
 .wrapper {
     height: 100%;
-    overflow: hidden;
+    // overflow: hidden;
     width: 100%;
 }
 
 //Content Page
 .content-page {
     margin-left: $leftbar-width;
-    overflow: hidden;
+    // overflow: hidden;
     padding: 5px 20px 65px;
     min-height: 80vh;
 }
@@ -360,7 +360,7 @@ body[data-layout="detached"] {
         margin: 0 auto;
         display: flex;
         padding: 0 15px;
-        overflow: inherit;
+        // overflow: inherit;
 
         .container-fluid {
             max-width: 100%;
@@ -369,7 +369,7 @@ body[data-layout="detached"] {
     }
     .content-page {
         margin-left: 0;
-        overflow: hidden;
+        // overflow: hidden;
         padding: 0 15px 5px 30px;
         position: relative;
         margin-right: -15px;
