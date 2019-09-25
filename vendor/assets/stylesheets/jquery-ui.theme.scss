@@ -1,0 +1,41 @@
+@import "bootstrap/functions";
+@import "bootstrap/variables";
+@import "hyper/config/default/variables";
+
+/* Component containers
+----------------------------------*/
+.ui-widget {
+	font-family: $font-family-base;
+}
+
+.ui-widget.ui-widget-content {
+	border: $border-width solid $border-color;
+}
+
+.ui-widget-content a {
+	color: $body-color;
+}
+
+.ui-widget-header a {
+	color: $body-color;
+}
+
+/* Interaction states
+----------------------------------*/
+
+.ui-state-active,
+.ui-widget-content .ui-state-active,
+.ui-widget-header .ui-state-active,
+a.ui-button:active,
+.ui-button:active,
+.ui-button.ui-state-active:hover {
+	background: $primary;
+	font-weight: normal;
+	color: $white;
+}
+
+.ui-icon-background,
+.ui-state-active .ui-icon-background {
+	border: $primary;
+	background-color: $white;
+}

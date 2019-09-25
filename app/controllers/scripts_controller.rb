@@ -22,7 +22,7 @@ class ScriptsController < ApplicationController
   end
 
   def new
-    @script = Script.new
+    @script = Script.new language: params[:lang]
 
     respond_with @script
   end
@@ -62,7 +62,7 @@ class ScriptsController < ApplicationController
 
     def script_params
       params.require(:script).permit :name, :core, :attachment, :text, :change,
-        :lock_version,
+        :language, :database_id, :lock_version,
         maintainers_attributes: [:id, :user_id, :_destroy],
         descriptions_attributes: [:id, :name, :value, :_destroy],
         parameters_attributes: [:id, :name, :value, :_destroy],

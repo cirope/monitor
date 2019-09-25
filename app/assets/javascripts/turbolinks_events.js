@@ -7,5 +7,8 @@ $(document).on('turbolinks:request-end', function () {
 })
 
 $(document).on('turbolinks:load', function () {
+  var leftSidebar = new $.LeftSidebar.Constructor
+
+  leftSidebar.init()
   $('[autofocus]').focus()
 })

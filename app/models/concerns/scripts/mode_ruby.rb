@@ -16,13 +16,6 @@ module Scripts::ModeRuby
     end.join
   end
 
-  def ruby_variables
-    StringIO.new.tap do |buffer|
-      buffer << as_ruby_inner_varialble('parameters', parameters)
-      buffer << as_ruby_inner_varialble('attributes', descriptions)
-    end.string
-  end
-
   def ruby_commented_text comment = nil
     comment ||= 'script body'
 
@@ -43,16 +36,6 @@ module Scripts::ModeRuby
       end.string
     end
 
-    def as_ruby_inner_varialble name, collection
-      result = "#{name} ||= {}\n\n"
-
-      collection.each do |object|
-        result += "#{name}[%Q[#{object.name}]] = %Q[#{object.value}]\n"
-      end
-
-      "#{result}\n"
-    end
-
     def external_gem_require
       StringIO.new.tap do |buffer|
         buffer << <<-RUBY
@@ -60,20 +43,33 @@ module Scripts::ModeRuby
             begin
               super lib
             rescue LoadError => ex
-              gem_command = "gem which \#{lib}"
-              gem_path    = `#{search_gem_path}`.strip
-
-              if gem_path != ''
-                $: << File.dirname(gem_path)
-                super lib
-              else
-                raise ex
-              end
+              #{handle_require_load_error}
             end
-          end
+          end\n\n
         RUBY
       end.string
     end
+
+    def handle_require_load_error
+      <<-RUBY
+        raise ex unless ex.to_s.match? /cannot load such file/i
+
+        gem_command = "gem which \#{lib.split('/').first}"
+        gem_path    = `#{search_gem_path}`.strip
+
+        if gem_path != ''
+          gem_dir = File.dirname gem_path
+
+          raise ex if $:.include? gem_dir
+
+          $: << gem_path
+          super lib
+        else
+          raise ex
+        end
+      RUBY
+    end
+
 
     def search_gem_path
       <<-RUBY

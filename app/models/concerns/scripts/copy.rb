@@ -28,7 +28,7 @@ module Scripts::Copy
 
     body += headers(server).to_s unless inclusion
     body += dependencies.to_s
-    body += variables.to_s
+    body += variables
     body += commented_text inclusion
 
     body
@@ -45,7 +45,10 @@ module Scripts::Copy
     end
 
     def variables
-      try "#{language}_variables"
+      StringIO.new.tap do |buffer|
+        buffer << as_inner_varialble('parameters', parameters)
+        buffer << as_inner_varialble('attributes', descriptions)
+      end.string
     end
 
     def commented_text inclusion = nil
@@ -76,5 +79,15 @@ module Scripts::Copy
       StringIO.new.tap do |buffer|
         buffer << "STDOUT.sync = true\n"
       end.string
+    end
+
+    def as_inner_varialble name, collection
+      result = "#{name} ||= {}\n\n"
+
+      collection.each do |object|
+        result += "#{name}[%Q[#{object.name}]] = %Q[#{object.value}]\n"
+      end
+
+      "#{result}\n"
     end
 end

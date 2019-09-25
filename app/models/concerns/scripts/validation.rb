@@ -6,7 +6,9 @@ module Scripts::Validation
   included do
     validates :name, presence: true, uniqueness: { case_sensitive: false }
     validates :name, :change, length: { maximum: 255 }
-    validates :text, syntax: true, pdf_encoding: true
+    validates :text, pdf_encoding: true
+    validates :text, syntax: true, if: :ruby?
+    validates :database, presence: true, if: :sql?
     validate :change_on_text_changed?
     validate :text_or_file_present?
     validate :no_text_and_file?

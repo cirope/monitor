@@ -309,7 +309,9 @@ ActiveRecord::Schema.define(version: 2019_09_10_151703) do
     t.uuid "uuid", default: -> { "(md5(((random())::text || (clock_timestamp())::text)))::uuid" }, null: false
     t.datetime "imported_at"
     t.string "language", default: "ruby"
+    t.bigint "database_id"
     t.index ["core"], name: "index_scripts_on_core"
+    t.index ["database_id"], name: "index_scripts_on_database_id"
     t.index ["name"], name: "index_scripts_on_name"
     t.index ["uuid"], name: "index_scripts_on_uuid", unique: true
   end

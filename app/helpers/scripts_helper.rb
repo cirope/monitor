@@ -20,7 +20,7 @@ module ScriptsHelper
   end
 
   def script_file_identifier
-    @script.attachment.filename.basename if @script.attachment.attached?
+    @script.attachment.filename.to_s if @script.attachment.attached?
   end
 
   def parameters
@@ -39,6 +39,17 @@ module ScriptsHelper
 
   def disable_edition?
     @script.imported_at.present?
+  end
+
+  def lang_icon lang
+    icon = case lang
+           when 'ruby' then icon 'fas', 'gem'
+           when 'sql'  then icon 'fas', 'database'
+           end
+
+    content_tag :abbr, title: lang.titleize do
+      icon
+    end
   end
 
   def imported_tag script

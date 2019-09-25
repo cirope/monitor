@@ -185,6 +185,7 @@ es:
         text: 'Contenido'
         core: 'Principal'
         change: 'Comentario del último cambio'
+        language: 'Lenguaje'
       server:
         name: 'Nombre'
         hostname: 'Dirección'

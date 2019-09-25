@@ -9,7 +9,7 @@ class DatabasesController < ApplicationController
   before_action :set_database, only: [:show, :edit, :update, :destroy]
   before_action :not_supervisor, except: [:index, :show]
 
-  respond_to :html
+  respond_to :html, :json
 
   def index
     @databases = databases.ordered.page params[:page]
