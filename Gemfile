@@ -5,7 +5,8 @@ gem 'rails', '~> 5.2.3'
 gem 'pg'
 gem 'apartment'
 gem 'sassc-rails'
-gem 'bootstrap-sass'
+gem 'bootstrap'
+gem 'font-awesome-sass'
 gem 'uglifier'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
@@ -40,7 +41,7 @@ gem 'web-console'
 
 gem 'unicorn'
 
-gem 'newrelic_rpm'
+gem 'newrelic_rpm', '~> 6.2.0'
 
 gem 'capistrano'
 gem 'capistrano-rbenv'
@@ -50,6 +51,7 @@ gem 'capistrano-rails'
 group :development do
   gem 'unicorn-rails'
   gem 'listen'
+  gem 'rubocop-github'
 
   # Support for ed25519 ssh keys
   gem 'ed25519'

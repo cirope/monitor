@@ -1,5 +1,12 @@
-<%= render 'form' %>
+<div class="card">
+  <div class="card-header">
+    <h5><%= @title %></h5>
+  </div>
+  <div class="card-body">
+    <%= render 'form' %>
+  </div>
+</div>
 
-<br />
-
-<%= link_to_index descriptors_path %>
+<div class="mt-3">
+  <%= link_to_index descriptors_path %>
+</div>

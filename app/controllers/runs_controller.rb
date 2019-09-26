@@ -12,12 +12,14 @@ class RunsController < ApplicationController
   respond_to :html, :js
 
   def index
-    @runs = runs.reorder(scheduled_at: :desc).page params[:page]
+    @runs = runs.preload(:script).reorder(scheduled_at: :desc).page params[:page]
 
     respond_with @runs
   end
 
   def show
+    @measures = @run.measures.reorder(created_at: :desc).limit 30
+
     respond_with @run
   end
 

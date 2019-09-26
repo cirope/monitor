@@ -8,7 +8,7 @@ class DescriptorsController < ApplicationController
   respond_to :html, :json
 
   def index
-    @descriptors = Descriptor.all
+    @descriptors = Descriptor.all.page params[:page]
 
     respond_with @descriptors
   end

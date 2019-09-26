@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
   before_action :set_title, except: [:destroy]
 
   def new
-    redirect_to default_url if current_user
+    redirect_to default_url if current_user&.visible?
   end
 
   def create

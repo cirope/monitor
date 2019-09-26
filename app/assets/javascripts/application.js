@@ -1,3 +1,5 @@
+/* eslint-disable spaced-comment */
+
 // This is a manifest file that'll be compiled into application.js, which will include all the files
 // listed below.
 //
@@ -26,12 +28,18 @@
 //= require codemirror/addon/search/searchcursor
 //= require codemirror/addon/selection/active-line
 //= require codemirror/mode/ruby
+//= require codemirror/mode/sql
+//= require popper
 //= require bootstrap
 //= require chartist/chartist
 //= require chartist/chartist-plugin-axistitle
 //= require moment/moment
 //= require moment/es
 //= require daterangepicker/daterangepicker
+//= require hyper/metis_menu
+//= require hyper/jquery.slimscroll
+//= require hyper/hyper
+//
 //= require ajax
 //= require autocomplete
 //= require date_pickers
@@ -43,7 +51,9 @@
 //= require dashboard
 //= require databases
 //= require descriptors
+//= require editor
 //= require executions
+//= require helps
 //= require issues
 //= require issues/board
 //= require issues/exports
@@ -53,6 +63,7 @@
 //= require objects
 //= require permalinks
 //= require password_resets
+//= require processes
 //= require profiles
 //= require rules
 //= require rules/exports

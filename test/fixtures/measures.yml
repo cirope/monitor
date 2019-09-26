@@ -1,0 +1,4 @@
+live_ls_measure:
+  measurable: live_ls (Execution)
+  cpu: 3.1
+  memory_in_bytes: 23000

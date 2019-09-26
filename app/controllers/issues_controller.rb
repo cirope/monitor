@@ -8,9 +8,9 @@ class IssuesController < ApplicationController
   before_action :not_author, only: [:destroy]
   before_action :not_security, except: [:index, :show, :edit, :update]
   before_action :set_title, except: [:destroy]
+  before_action :set_account, only: [:show, :index]
   before_action :set_script, only: [:index]
   before_action :set_permalink, only: [:show]
-  before_action :set_account, only: [:show]
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
   before_action :set_context, only: [:show, :edit, :update]
 
@@ -55,11 +55,9 @@ class IssuesController < ApplicationController
       if params[:account_id]
         account = Account.find_by! tenant_name: params[:account_id]
 
-        account.switch { set_issue }
-
         session[:tenant_name] = account.tenant_name
 
-        redirect_to issue_url(@issue)
+        redirect_to_action account
       end
     end
 
@@ -73,5 +71,17 @@ class IssuesController < ApplicationController
 
     def set_context
       @context = params[:context] == 'board' ? :board : :issues
+    end
+
+    def redirect_to_action account
+      if params[:id]
+        account.switch { set_issue }
+
+        redirect_to issue_url(@issue)
+      elsif params[:script_id]
+        account.switch { set_script }
+
+        redirect_to script_issues_url(@script)
+      end
     end
 end

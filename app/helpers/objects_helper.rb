@@ -17,7 +17,7 @@ module ObjectsHelper
       key = [params[:key], key].compact.join '__/__'
 
       link_to [parent, key: key, container_id: id], data: { remote: true } do
-        content_tag :span, nil, class: 'glyphicon glyphicon-search', title: t('.more')
+        icon 'fas', 'search', title: t('.more')
       end
     else
       object || raw('&nbsp;')
@@ -28,12 +28,14 @@ module ObjectsHelper
     object.values.all? { |v| v.kind_of? Numeric }
   end
 
-  def graph_container object
-    content_tag :div, nil, class: 'ct-chart ct-golden-section', data: {
+  def graph_container object, options = {}
+    container_class = options[:class] || 'ct-chart'
+
+    content_tag :div, nil, class: container_class, data: {
       graph:  object.object_id,
       labels: object.keys,
       series: object.values
-    }
+    }.merge(options)
   end
 
   private

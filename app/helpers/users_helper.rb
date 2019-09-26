@@ -7,8 +7,8 @@ module UsersHelper
 
   def roles_label
     label = User.human_attribute_name 'role'
-    link  = link_to '#users-role-help', data: { toggle: 'modal' } do
-      content_tag :span, nil, class: 'glyphicon glyphicon-question-sign'
+    link  = link_to nil, data: { help: t('helps.users.roles').to_json } do
+      icon 'fas', 'question-circle'
     end
 
     raw [label, link].join(' ')

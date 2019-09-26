@@ -3,8 +3,8 @@
 module MembershipsHelper
   def link_to_default membership
     if membership.default
-      content_tag :span, class: 'text-warning', title: t('.default') do
-        content_tag :span, nil, class: 'glyphicon glyphicon-star'
+      content_tag :span, class: 'text-success', title: t('.default') do
+        icon 'fas', 'toggle-on'
       end
     else
       options = {
@@ -14,7 +14,7 @@ module MembershipsHelper
       }
 
       link_to membership, options do
-        content_tag :span, nil, class: 'glyphicon glyphicon-star-empty'
+        icon 'fas', 'toggle-off'
       end
     end
   end
@@ -24,7 +24,7 @@ module MembershipsHelper
 
     if current
       content_tag :span, nil, title: current && t('.current') do
-        content_tag :span, nil, class: 'glyphicon glyphicon-log-in'
+        icon 'fas', 'sign-in-alt'
       end
     else
       options = {
@@ -36,7 +36,7 @@ module MembershipsHelper
       }
 
       link_to [membership, :switch_index], options do
-        content_tag :span, nil, class: 'glyphicon glyphicon-log-in'
+        icon 'fas', 'sign-in-alt'
       end
     end
   end

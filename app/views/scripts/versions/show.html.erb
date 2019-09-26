@@ -1,9 +1,9 @@
-<h2>
-  <%= version_change_for @version %>
-</h2>
+<div class="card my-3">
+  <div class="card-header">
+    <h5><%= version_change_for @version %></h5>
+  </div>
 
-<div class="panel panel-default">
-  <div class="panel-body">
+  <div class="card-body">
     <%= text_diff_for_version %>
   </div>
 </div>
@@ -11,9 +11,10 @@
 <% if @script.can_be_edited_by? current_user %>
   <%= link_to(
     t('.revert'),
-    script_reverts_path(@script.id, @version.id),
+    script_reverts_path(@script.id, id: @version.id),
     method: :post,
     class: 'btn btn-primary',
     data: { confirm: t('messages.confirmation') }) %> |
 <% end %>
+
 <%= link_to_index script_versions_path(@script) %>

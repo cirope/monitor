@@ -1,14 +1,10 @@
-<hr>
-
-<div class="panel panel-info">
-  <div class="panel-heading">
-    <h4 class="panel-title">
-      <%= Permalink.model_name.human count: 1 %>
-    </h4>
+<div class="card bg-success mt-3">
+  <div class="card-header">
+    <h5><%= Permalink.model_name.human count: 1 %></h5>
   </div>
-  <div class="panel-body">
-    <p>
-      <%= link_to account_permalink_url(current_account, @permalink), [current_account, @permalink] %>
+  <div class="card-body text-white">
+    <p class="mb-1">
+      <%= link_to account_permalink_url(current_account, @permalink), [current_account, @permalink], class: 'text-reset' %>
     </p>
   </div>
 </div>

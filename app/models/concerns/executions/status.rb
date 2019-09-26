@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Executions::Status
   extend ActiveSupport::Concern
 
@@ -15,6 +17,12 @@ module Executions::Status
 
   def finished?
     success? || error? || killed?
+  end
+
+  module ClassMethods
+    def success_status
+      statuses[:success]
+    end
   end
 
   private

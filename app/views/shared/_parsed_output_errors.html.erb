@@ -1,21 +1,23 @@
-<div class="panel panel-danger">
-  <div class="panel-heading">
-    <h4 class="panel-title">
-      <%= link_to t('outputs.show.scripts_with_errors'), '#output-errors',
-        data: { toggle: 'collapse' } %>
-    </h4>
+<div class="card border-danger my-3">
+  <div class="card-header bg-danger text-white">
+    <h5>
+      <%= link_to(
+        t('outputs.show.scripts_with_errors'),
+        '#output-errors',
+        class: 'text-reset',
+        data:  { toggle: 'collapse' }
+      ) %>
+    </h5>
   </div>
-  <div id="output-errors" class="panel-collapse collapse in">
-    <div class="panel-body">
-      <% exec.parse_and_find_lines_with_error.each do |script, errors| %>
-        <ul>
-          <% errors.each do |error| %>
-            <li>
-              <%= link_to_error_line script, error, exec.still_valid? %>
-            </li>
-          <% end %>
-        </ul>
-      <% end %>
-    </div>
+  <div id="output-errors" class="card-body collapse show">
+    <% exec.parse_and_find_lines_with_error.each do |script, errors| %>
+      <ul>
+        <% errors.each do |error| %>
+          <li>
+            <%= link_to_error_line script, error, valid: exec.still_valid? %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
   </div>
 </div>

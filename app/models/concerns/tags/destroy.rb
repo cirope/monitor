@@ -11,9 +11,9 @@ module Tags::Destroy
 
     def allow_destruction?
       if final? && issues.count > 0
-				errors.add :base, 'Tag can not be destroyed'
+        errors.add :base, 'Tag can not be destroyed'
 
-				throw :abort
-			end
+        throw :abort
+      end
     end
 end

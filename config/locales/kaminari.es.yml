@@ -3,8 +3,8 @@ es:
     pagination:
       first: "&laquo;"
       last: "&raquo;"
-      previous: "&lsaquo; Anterior"
-      next: "Siguiente &rsaquo;"
+      previous: '&lsaquo; <span class="d-none d-sm-inline">Anterior</span><span class="d-inline d-sm-none">Ant.</span>'
+      next: '<span class="d-none d-sm-inline">Siguiente</span><span class="d-inline d-sm-none">Sig.</span> &rsaquo;'
       truncate: "&hellip;"
 
   helpers:

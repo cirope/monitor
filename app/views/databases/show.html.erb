@@ -1,41 +1,47 @@
-<h2><%= @database %></h2>
-
-<p>
-  <strong><%= Database.human_attribute_name 'driver' %></strong>:
-  <%= @database.driver %>
-</p>
-<p>
-  <strong><%= Database.human_attribute_name 'description' %></strong>:
-  <%= @database.description %>
-</p>
-
-<% if @database.properties.any? %>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">
-        <%= Property.model_name.human count: @database.properties.size %>
-      </h3>
-    </div>
-    <div id="properties" class="panel-body">
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th><%= Property.human_attribute_name 'key' %></th>
-            <th><%= Property.human_attribute_name 'value' %></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @database.properties.each do |property| %>
-            <tr>
-              <td><%= property.key %></td>
-              <td><%= value_of property %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
+<div class="card">
+  <div class="card-header">
+    <h2><%= @database %></h2>
   </div>
-<% end %>
+
+  <div class="card-body">
+    <p class="mb-1">
+      <strong><%= Database.human_attribute_name 'driver' %></strong>:
+      <%= @database.driver %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Database.human_attribute_name 'description' %></strong>:
+      <%= @database.description %>
+    </p>
+
+    <% if @database.properties.any? %>
+      <div class="card my-3">
+        <div class="card-header">
+          <h5>
+            <%= Property.model_name.human count: @database.properties.size %>
+          </h5>
+        </div>
+        <div id="properties">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th><%= Property.human_attribute_name 'key' %></th>
+                <th><%= Property.human_attribute_name 'value' %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @database.properties.each do |property| %>
+                <tr>
+                  <td><%= property.key %></td>
+                  <td><%= value_of property %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
 
 <% unless current_user.supervisor? %>
   <%= link_to_edit [:edit, @database] %> |

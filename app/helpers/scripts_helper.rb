@@ -41,13 +41,24 @@ module ScriptsHelper
     @script.imported_at.present?
   end
 
+  def lang_icon lang
+    icon = case lang
+           when 'ruby' then icon 'fas', 'gem'
+           when 'sql'  then icon 'fas', 'database'
+           end
+
+    content_tag :abbr, title: lang.titleize do
+      icon
+    end
+  end
+
   def imported_tag script
     if script.imported_at.present?
       date  = l script.imported_at, format: :compact
       title = t 'scripts.imports.default_change', date: date
 
-      content_tag :abbr, title: title do
-        content_tag :span, nil, class: 'glyphicon glyphicon-asterisk'
+      content_tag :abbr, title: title, class: 'text-info initialism mr-2' do
+        icon 'fas', 'asterisk'
       end
     end
   end
@@ -56,7 +67,7 @@ module ScriptsHelper
     previous = @script.paper_trail.previous_version
     options  = { include_plus_and_minus_in_html: true }
 
-    raw Diffy::Diff.new(previous&.text, @script.text, options)
+    Diffy::Diff.new(previous&.text, @script.text, options).to_s(:html).html_safe
   end
 
   def link_to_execute &block
@@ -72,7 +83,7 @@ module ScriptsHelper
     def link_to_create_execution &block
       url     = script_executions_path @script
       options = {
-        class: 'btn btn-sm btn-default',
+        class: 'btn btn-sm btn-secondary',
         title: t('.execute_now'),
         data:  {
           method:  :post,
@@ -88,7 +99,7 @@ module ScriptsHelper
     def disabled_link_to_execute &block
       options = {
         title:    t('.no_server'),
-        class:    'btn btn-sm btn-default',
+        class:    'btn btn-sm btn-secondary',
         disabled: true
       }
 

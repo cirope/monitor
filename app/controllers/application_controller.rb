@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   before_action :set_paper_trail_whodunnit
 
   def authorize
-    unless current_user && current_account
+    unless current_user&.visible? && current_account
       redirect_to login_url, alert: t('messages.not_authorized')
     end
   end

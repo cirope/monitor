@@ -1,21 +1,21 @@
-<ul class="nav navbar-nav navbar-right">
-  <li class="dropdown">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-      <span class="glyphicon glyphicon-user"></span>
-      <span class="caret"></span>
-    </a>
+<li class="dropdown notification-list">
+  <a class="nav-link dropdown-toggle nav-user arrow-none mr-0" href="#" data-toggle="dropdown">
+    <span class="account-user-avatar">
+      <%= icon 'fas', 'user' %>
+    </span>
 
-    <ul class="dropdown-menu">
-      <% unless ldap %>
-        <li>
-          <%= link_to t('profiles.edit.title'), profile_path %>
-        </li>
-      <% end %>
-      <%= menu_item_for Membership, memberships_path %>
-      <li class="divider"></li>
-      <li>
-        <%= link_to t('navigation.logout'), logout_path, data: { method: :delete } %>
-      </li>
-    </ul>
-  </li>
-</ul>
+    <span>
+      <span class="account-user-name"><%= current_user %></span>
+      <span class="account-position"><%= t "users.roles.#{current_user.role}" %></span>
+    </span>
+  </a>
+
+  <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
+    <%= link_to_edit_profile unless ldap %>
+    <%= dropdown_item_for Membership, memberships_path %>
+
+    <div class="dropdown-divider"></div>
+
+    <%= link_to t('navigation.logout'), logout_path, class: 'dropdown-item', data: { method: :delete } %>
+  </div>
+</li>

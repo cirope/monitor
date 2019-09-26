@@ -1,4 +1,8 @@
-<h2><%= @descriptor %></h2>
+<div class="card">
+  <div class="card-header">
+    <h5><%= @descriptor %></h5>
+  </div>
+</div>
 
 <%= link_to_edit [:edit, @descriptor] %> |
 <%= link_to_index descriptors_path %>

@@ -1,28 +1,34 @@
-<h2><%= @server %></h2>
+<div class="card">
+  <div class="card-header">
+    <h3><%= @server %></h3>
+  </div>
 
-<p>
-  <strong><%= Server.human_attribute_name 'hostname' %></strong>:
-  <%= @server.hostname %>
-</p>
+  <div class="card-body">
+    <p class="mb-1">
+      <strong><%= Server.human_attribute_name 'hostname' %></strong>:
+      <%= @server.hostname %>
+    </p>
 
-<% if @server.user.present? %>
-  <p>
-    <strong><%= Server.human_attribute_name 'user' %></strong>:
-    <%= @server.user %>
-  </p>
-<% end %>
+    <% if @server.user.present? %>
+      <p class="mb-1">
+        <strong><%= Server.human_attribute_name 'user' %></strong>:
+        <%= @server.user %>
+      </p>
+    <% end %>
 
-<% if @server.credential.present? %>
-  <p>
-    <strong><%= Server.human_attribute_name 'credential' %></strong>:
-    <%= link_to_unless current_user.supervisor?, t('messages.download'), @server.credential.url %>
-  </p>
-<% end %>
+    <% if @server.credential.present? %>
+      <p class="mb-1">
+        <strong><%= Server.human_attribute_name 'credential' %></strong>:
+        <%= link_to_unless current_user.supervisor?, t('messages.download'), @server.credential.url %>
+      </p>
+    <% end %>
 
-<p>
-  <strong><%= Server.human_attribute_name 'default' %></strong>:
-  <%= t @server.default ? 'yes' : 'no' %>
-</p>
+    <p class="mb-3">
+      <strong><%= Server.human_attribute_name 'default' %></strong>:
+      <%= t @server.default ? 'yes' : 'no' %>
+    </p>
+  </div>
+</div>
 
 <% unless current_user.supervisor? %>
   <%= link_to_edit [:edit, @server] %> |

@@ -1,4 +1,18 @@
-<div class="alert <%= flash_class %> alert-dismissable fade in">
-  <button type="button" class="close" data-dismiss="alert">&times;</button>
-  <strong><%= flash_message %></strong>
-</div>
+<%= content_for :flash do %>
+  <div class="alert <%= flash_class %> alert-dismissible fade show">
+    <strong><%= flash_message %></strong>
+    <button type="button" class="close" data-dismiss="alert">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+<% end %>
+
+<% if current_user&.visible? %>
+  <%= yield :flash %>
+<% else %>
+  <div class="row justify-content-center">
+    <div class="col col-lg-8 col-md-10 col-sm-10">
+      <%= yield :flash %>
+    </div>
+  </div>
+<% end %>

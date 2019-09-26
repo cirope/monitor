@@ -3,28 +3,30 @@
 <% if @accounts.empty? %>
   <%= render 'shared/empty_index', message: empty_message %>
 <% else %>
-  <table class="table table-striped table-hover">
-    <thead>
-      <tr>
-        <th><%= Account.human_attribute_name 'name' %></th>
-        <th class="hidden-xs"><%= Account.human_attribute_name 'tenant_name' %></th>
-        <th colspan="2">
-          <%= link_to_new new_account_path, class: 'btn btn-default btn-xs pull-right' %>
-        </th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @accounts.each do |account| %>
+  <div class="card">
+    <table class="table table-hover">
+      <thead>
         <tr>
-          <td><%= account.name %></td>
-          <td class="hidden-xs"><%= account.tenant_name %></td>
-          <td><%= link_to_show account %></td>
-          <td><%= link_to_edit [:edit, account] %></td>
+          <th><%= Account.human_attribute_name 'name' %></th>
+          <th class="d-none d-sm-table-cell"><%= Account.human_attribute_name 'tenant_name' %></th>
+          <th colspan="2">
+            <%= link_to_new new_account_path, class: 'btn btn-secondary btn-sm py-0 mr-n2 float-right' %>
+          </th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+
+      <tbody>
+        <% @accounts.each do |account| %>
+          <tr>
+            <td><%= account.name %></td>
+            <td class="d-none d-sm-table-cell"><%= account.tenant_name %></td>
+            <td class="text-right"><%= link_to_show account %></td>
+            <td class="text-right"><%= link_to_edit [:edit, account] %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 
   <%= paginate @accounts %>
 <% end %>

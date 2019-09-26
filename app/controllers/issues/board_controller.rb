@@ -27,11 +27,11 @@ class Issues::BoardController < ApplicationController
   end
 
   def update
-    _issues = issues.where id: board_session
+    filtered_issues = issues.where id: board_session
 
     board_session_errors.clear
 
-    update_issues _issues
+    update_issues filtered_issues
 
     if board_session_errors.empty?
       redirect_to issues_board_url, notice: t('.updated')

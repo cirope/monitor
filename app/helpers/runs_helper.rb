@@ -4,18 +4,18 @@ module RunsHelper
   def run_status status
     klass = case status
             when 'ok'
-              'label-success'
+              'badge-success'
             when 'error'
-              'label-danger'
+              'badge-danger'
             when 'canceled'
-              'label-warning'
+              'badge-warning'
             when 'aborted', 'killed'
-              'label-warning'
+              'badge-warning'
             else
-              'label-default'
+              'badge-secondary'
             end
 
-    content_tag :span, t("runs.status.#{status}"), class: "label #{klass}"
+    content_tag :span, t("runs.status.#{status}"), class: "badge #{klass}"
   end
 
   def run_output
@@ -53,7 +53,7 @@ module RunsHelper
 
     link_to @run, options do
       raw [
-        content_tag(:span, nil, class: 'glyphicon glyphicon-fire'),
+        icon('fas', 'skull'),
         t('.kill')
       ].join ' '
     end
@@ -73,7 +73,7 @@ module RunsHelper
 
     link_to @run, options do
       raw [
-        content_tag(:span, nil, class: 'glyphicon glyphicon-screenshot'),
+        icon('fas', 'stop-circle'),
         t('.finish')
       ].join ' '
     end

@@ -66,6 +66,15 @@ class IssuesControllerTest < ActionController::TestCase
     assert_redirected_to issue_url(@issue)
   end
 
+  test 'should show script issues with account' do
+    account = send 'public.accounts', :default
+
+    get :index, params: { script_id: @issue.script.id, account_id: account }
+
+    assert account.tenant_name, session[:tenant_name]
+    assert_redirected_to script_issues_url(@issue.script)
+  end
+
   test 'should get edit' do
     get :edit, params: { id: @issue }
     assert_response :success
