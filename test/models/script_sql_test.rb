@@ -21,6 +21,7 @@ class ScriptSqlTest < ActiveSupport::TestCase
   test 'body dependencies' do
     body = @script.body
 
+    assert_match "require 'json'", body
     assert_match "require 'active_record'", body
     assert_match "require 'pg'", body
   end
@@ -29,6 +30,6 @@ class ScriptSqlTest < ActiveSupport::TestCase
     body = @script.body
 
     assert_match 'ActiveRecord::Base.establish_connection', body
-    assert_match /puts pool\.connection\.exec_query\(.*\)\.to_a.to_json/, body
+    assert_match /results = pool\.connection\.exec_query\(.*\)\.to_a/, body
   end
 end
