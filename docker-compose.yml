@@ -1,0 +1,38 @@
+version: '3.7'
+
+x-monitor-defaults: &monitorDefaults
+  image: monitor
+  volumes:
+    - ./log/monitor:/opt/app/log:rw
+    - ./volumes/monitor_storage:/opt/app/private:rw
+  env_file:
+    - monitor.env
+    - services.env
+  depends_on:
+    - postgres
+    - redis
+
+services:
+  postgres:
+    image: postgres:11-alpine
+    volumes:
+      - ./log/postgres:/var/log/postgresql:rw
+      - ./volumes/postgres:/var/lib/postgresql/data:rw
+    env_file:
+      - database.env
+
+  redis:
+    image: redis:5-alpine
+    volumes:
+      - ./volumes/redis:/data:rw
+
+  monitor:
+    <<: *monitorDefaults
+    build: .
+    ports:
+      - 3000:3000
+
+  sidekiq:
+    <<: *monitorDefaults
+    entrypoint: ''
+    command: sidekiq -C config/sidekiq.yml
