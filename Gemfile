@@ -40,6 +40,7 @@ gem 'coderay'
 gem 'web-console'
 
 gem 'unicorn'
+gem 'unicorn-rails'
 
 gem 'newrelic_rpm', '~> 6.2.0'
 
@@ -49,7 +50,6 @@ gem 'capistrano-bundler'
 gem 'capistrano-rails'
 
 group :development do
-  gem 'unicorn-rails'
   gem 'listen'
   gem 'rubocop-github'
 
