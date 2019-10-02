@@ -30,9 +30,11 @@ RUN wget -q $base_url/$basic_rpm    \
     alien -i --scripts $basic_rpm   \
                        $sqlplus_rpm \
                        $devel_rpm   \
-                       $odbc_rpm
-
-
+                       $odbc_rpm && \
+    rm $basic_rpm                   \
+       $sqlplus_rpm                 \
+       $devel_rpm                   \
+       $odbc_rpm
 
 WORKDIR $APP_HOME
 
@@ -50,6 +52,11 @@ RUN touch /.odbc.ini
 RUN chown -R $USER:$USER $APP_HOME /.odbc.ini
 
 RUN bundle exec rails assets:precompile
+
+RUN apt remove --purge -qq -y build-essential git wget alien ssh && \
+    apt autoremove -y                                            && \
+    apt autoclean -y                                             && \
+    apt clean
 
 USER $USER
 
