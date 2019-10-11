@@ -1,3 +1,4 @@
+deliverable/*
 log/*
 node_modules/
 private/
@@ -7,6 +8,7 @@ puppet/
 tmp/*
 uploads/
 volumes/
+*.env
 *.log
 *.sql
 .byebug_history
@@ -16,3 +18,5 @@ volumes/
 .ruby-gemset
 .ruby-version
 Dockerfile
+Vagrant
+docker-compose.yml

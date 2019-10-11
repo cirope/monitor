@@ -15,3 +15,7 @@ config/application.yml
 private/
 !private/exports/.gitkeep
 storage/
+public/uploads
+
+# Ignore deliverable files
+deliverable/monitor-*
