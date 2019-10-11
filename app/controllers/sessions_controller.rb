@@ -55,6 +55,10 @@ class SessionsController < ApplicationController
     def switch_to_default_account_for username
       account = Account.default_by_username_or_email username
 
-      account&.switch { yield account }
+      if account
+        account.switch { yield account }
+      else
+        yield nil
+      end
     end
 end
