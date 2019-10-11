@@ -13,7 +13,7 @@
         <span class="badge badge-pill badge-light float-right">
           <%= @issue.subscriptions.count %>
         </span>
-        <a class="text-reset d-block" href="#subscriptions" data-toggle="collapse">
+        <a class="text-reset text-decoration-none d-block" href="#subscriptions" data-toggle="collapse">
           <%= User.model_name.human count: 0 %>
         </a>
       </div>
@@ -31,7 +31,7 @@
         <span class="badge badge-pill badge-light float-right">
           <%= @issue.taggings.count %>
         </span>
-        <a class="text-reset d-block" href="#tags" data-toggle="collapse">
+        <a class="text-reset text-decoration-none d-block" href="#tags" data-toggle="collapse">
           <%= Tag.model_name.human count: 0 %>
         </a>
       </div>
