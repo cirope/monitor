@@ -1,6 +1,8 @@
 gem 'composite_primary_keys', require: false
 gem 'ruby-odbc', require: false
 gem 'dbf', require: false
+gem 'roo', require: false
+gem 'roo-xls', require: false
 
 unless ENV['TRAVIS']
   # Oracle ActiveRecord adapter
