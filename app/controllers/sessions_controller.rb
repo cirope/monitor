@@ -18,6 +18,8 @@ class SessionsController < ApplicationController
 
         redirect_to default_url, notice: t('.logged_in', scope: :flash)
       else
+        clear_session
+
         flash.now.alert = t '.invalid', scope: :flash
 
         render 'new'
@@ -26,8 +28,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    reset_session
-    cookies.delete :token
+    clear_session
 
     redirect_to root_url, notice: t('.logged_out', scope: :flash)
   end
@@ -60,5 +61,10 @@ class SessionsController < ApplicationController
       else
         yield nil
       end
+    end
+
+    def clear_session
+      reset_session
+      cookies.delete :token
     end
 end
