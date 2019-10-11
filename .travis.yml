@@ -1,7 +1,6 @@
 language: ruby
 dist: xenial
 cache: bundler
-sudo: false
 rvm:
   - 2.6.4
 addons:
@@ -13,6 +12,9 @@ addons:
   postgresql: 10
 services:
   - postgresql
+stages:
+  - build
+  - test
 env:
   - ENABLE_WEB_CONSOLE='true'
   - ENABLE_WEB_CONSOLE='false'
@@ -25,3 +27,18 @@ before_script:
 install:
   - 'rm ${BUNDLE_GEMFILE}.lock'
   - 'eval bundle install --jobs=3 --retry=3 --path=${BUNDLE_PATH:-$PWD/vendor/bundle}'
+
+jobs:
+  include:
+    - stage: build
+      script: docker build -t gredit/app .
+      install: skip
+      before_script: cp config/application.travis.yml config/application.yml
+      env:
+      rvm:
+      addons:
+        apt:
+          packages:
+            - docker-ce
+      services:
+        - docker
