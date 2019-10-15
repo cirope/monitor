@@ -14,14 +14,14 @@ class FlashHelperTest < ActionView::TestCase
     assert_equal 'test alert', flash_message
   end
 
-  test 'flash class' do
+  test 'flash classes' do
     flash[:notice] = 'test notice'
 
-    assert_equal 'alert-info', flash_class
+    assert_match 'alert-info', flash_classes
 
     flash.clear
     flash[:alert] = 'test alert'
 
-    assert_equal 'alert-danger', flash_class
+    assert_match 'alert-danger', flash_classes
   end
 end
