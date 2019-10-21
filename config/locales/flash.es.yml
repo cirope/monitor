@@ -35,6 +35,16 @@ es:
       create:
         notice: 'Ejecutando...'
 
+    ldaps:
+      create:
+        notice: 'Configuración LDAP creada'
+      update:
+        notice: 'Configuración LDAP actualizada'
+        alert:  ''
+      destroy:
+        notice: 'Configuración LDAP eliminada'
+        alert:  'La configuración LDAP no pudo ser eliminada'
+
     memberships:
       switch:
         create:
