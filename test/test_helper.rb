@@ -47,6 +47,18 @@ class ActiveRecord::FixtureSet
 
     fs_names = %w(public.accounts) | fs_names
 
-    old_create_fixtures f_dir, fs_names, *args
+    apartment_models = Apartment.excluded_models.map &:constantize
+
+    apartment_models.each do |model|
+      ActiveRecord::Base.connection.execute "ALTER TABLE #{model.quoted_table_name} DISABLE TRIGGER ALL"
+    end
+
+    fixtures_result = old_create_fixtures f_dir, fs_names, *args
+
+    apartment_models.each do |model|
+      ActiveRecord::Base.connection.execute "ALTER TABLE #{model.quoted_table_name} ENABLE TRIGGER ALL"
+    end
+
+    fixtures_result
   end
 end
