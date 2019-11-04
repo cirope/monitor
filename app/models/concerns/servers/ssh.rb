@@ -6,8 +6,8 @@ module Servers::Ssh
   def ssh_options
     options = { compression: true }
 
-    if credential.present?
-      options.merge keys: [credential.path]
+    if key.attached?
+      options.merge keys: [ActiveStorage::Blob.service.path_for(key.key)]
     else
       options.merge password: password
     end
