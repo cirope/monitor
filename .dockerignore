@@ -1,3 +1,4 @@
+.git/
 deliverable/*
 log/*
 node_modules/
@@ -13,7 +14,6 @@ volumes/
 *.sql
 .byebug_history
 .dockerignore
-.git/
 .gitignore
 .ruby-gemset
 .ruby-version
