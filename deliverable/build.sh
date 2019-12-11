@@ -84,10 +84,10 @@ if [ ! -f docker-compose.yml ]; then
   sudo systemctl disable sidekiq
 
   echo "Changing nginx app upstream..."
-  echo "Enter the absolute Nginx Monitor/Gredit config file [/etc/nginx/sites-enabled/monitor.cirope.com]:"
+  echo "Enter the absolute Nginx Monitor/Gredit config file [/etc/nginx/sites-available/greditsoft.com]:"
   read site_file
   if [ "\$site_file" == "" ]; then
-    site_file="/etc/nginx/sites-enabled/monitor.cirope.com"
+    site_file="/etc/nginx/sites-available/greditsoft.com"
   fi
 
   sudo sed -i 's/server unix:\/run\/unicorn\/unicorn\.sock/server 127.0.0.7:3000/g' \$site_file
