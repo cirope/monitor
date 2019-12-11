@@ -61,7 +61,7 @@ if [ ! -f docker-compose.yml ]; then
 
   echo "Creating Redis backup..."
   redis-cli save
-  cp \$(redis-cli config get dir | tail -n 1)/dump.rdb volumes/redis/dump.rdb
+  mv \$(redis-cli config get dir | tail -n 1)/dump.rdb volumes/redis/dump.rdb
   chmod 666 volumes/redis/dump.rdb
 
   echo "Converting environment file..."
@@ -84,13 +84,13 @@ if [ ! -f docker-compose.yml ]; then
   sudo systemctl disable sidekiq
 
   echo "Changing nginx app upstream..."
-  echo "Enter the absolute nginx path [/etc/nginx]:"
-  read nginx_path
-  if [ "\$nginx_path" == "" ]; then
-    nginx_path="/etc/nginx"
+  echo "Enter the absolute Nginx Monitor/Gredit config file [/etc/nginx/sites-enabled/monitor.cirope.com]:"
+  read site_file
+  if [ "\$site_file" == "" ]; then
+    site_file="/etc/nginx/sites-enabled/monitor.cirope.com"
   fi
 
-  sudo sed -i 's/server unix:\/run\/unicorn\/unicorn\.sock/server 127.0.0.7:3000/g' \$nginx_path/sites-enabled/monitor.cirope.com
+  sudo sed -i 's/server unix:\/run\/unicorn\/unicorn\.sock/server 127.0.0.7:3000/g' \$site_file
 fi
 SETUP
 
