@@ -62,7 +62,7 @@ class ProcessesControllerTest < ActionController::TestCase
   private
 
     def sleep_process interval: 0.01
-      interval *= 10 if ENV['TRAVIS']
+      interval *= 30 if ENV['TRAVIS']
 
       detached_process command: "sleep #{interval}"
     end
