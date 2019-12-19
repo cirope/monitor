@@ -40,9 +40,10 @@ WORKDIR $APP_HOME
 
 ADD Gemfile* $APP_HOME/
 
-RUN gem update --system               && \
-    gem install bundler --no-document && \
-    bundle install --deployment --jobs 8
+RUN gem update --system                 && \
+    gem install bundler --no-document   && \
+    bundle config set deployment 'true' && \
+    bundle install --jobs 8
 
 ADD . $APP_HOME/
 
