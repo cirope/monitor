@@ -104,7 +104,7 @@ append "docker_compose='$(base64 docker-compose.yml)'"
 echo "Injecting env_files: $env_files"
 for env_file in ${env_files[@]}; do
   env_file_var=$(basename $env_file .env)
-  append "$env_file_var='$(base64 $env_file)'"
+  append "$env_file_var='$(base64 deliverable/$env_file)'"
 done
 new_line
 
@@ -114,10 +114,8 @@ docker save $images | xz -T0 | base64 >> $file # real-time inject
 append "'"
 new_line
 
-append 'echo "Updating files..."'
-new_line
-
 append '# Update docker-compose.yml'
+append 'echo "Updating files..."'
 append 'echo $docker_compose | base64 -di > docker-compose.yml'
 new_line
 
@@ -128,17 +126,13 @@ for env_file in ${env_files[@]}; do
 done
 new_line
 
-append 'echo "Loading docker images"'
-new_line
-
 append '# Load docker images'
+append 'echo "Loading docker images"'
 append 'echo $docker_images | base64 -di | docker load'
 new_line
 
-append 'echo "Recreating docker containers"'
-new_line
-
 append '# Refresh containers'
+append 'echo "Recreating docker containers"'
 append 'docker-compose up -d --force-recreate'
 
 chmod 777 $file
