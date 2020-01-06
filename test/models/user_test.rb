@@ -140,6 +140,16 @@ class UserTest < ActiveSupport::TestCase
     assert @user.password_expired?
   end
 
+  test 'prepare password reset' do
+    old_token = @user.password_reset_token
+
+    @user.update! password_reset_sent_at: 3.days.ago
+    @user.prepare_password_reset
+
+    assert_not_equal old_token, @user.password_reset_token
+    assert_equal Time.zone.today, @user.password_reset_sent_at.to_date
+  end
+
   test 'auth' do
     @user.update! username: 'admin'
 
