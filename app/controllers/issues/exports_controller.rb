@@ -6,7 +6,7 @@ class Issues::ExportsController < ApplicationController
   before_action :authorize, :set_issues
 
   def create
-    path = @issues.export
+    path = export_path
     mime = Mime::Type.lookup_by_extension 'zip'
 
     set_file_download_headers path
@@ -23,5 +23,9 @@ class Issues::ExportsController < ApplicationController
 
     def board_issues
       session[:board_issues] ||= []
+    end
+
+    def export_path
+      params[:grouped] ? @issues.grouped_export : @issues.export
     end
 end
