@@ -20,6 +20,18 @@ module Exportable
       file
     end
 
+    def hash_to_zip hash
+      file = "#{export_path}/#{SecureRandom.uuid}.zip"
+
+      create_zip_with file do |zipfile|
+        hash.each do |filename, content|
+          add_file_content_to_zip zipfile, filename, content
+        end
+      end
+
+      file
+    end
+
     private
 
       def export_path subdir = nil

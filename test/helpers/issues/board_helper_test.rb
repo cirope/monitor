@@ -32,6 +32,12 @@ class Issues::BoardHelperTest < ActionView::TestCase
     assert_match /href=".*"/, link_to_download_issue_data
   end
 
+  test 'link to download grouped issue data' do
+    @virtual_path = ''
+
+    assert_match /href=".*"/, link_to_download_grouped_issue_data
+  end
+
   test 'link to download pdf' do
     @virtual_path = ''
 
