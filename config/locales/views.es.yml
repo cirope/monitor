@@ -124,7 +124,7 @@ es:
         remove_from_board: 'Eliminar del carrito'
         create_permalink: 'Crear enlace permanente'
         download_issue_data: 'Descargar datos'
-        download_grouped_issue_data: 'Descargar datos agrupados por Guión'
+        download_grouped_issue_data: 'Descargar datos agrupados por guión'
         download_pdf: 'Descargar PDF'
         destroy_all: 'Eliminar casos'
         actions: 'Acciones'
