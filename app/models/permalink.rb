@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class Permalink < ApplicationRecord
   include Auditable
-
-  validates :token, presence: true, uniqueness: true, length: { maximum: 255 }
+  include Permalinks::Defaults
+  include Permalinks::Validation
 
   has_and_belongs_to_many :issues
 

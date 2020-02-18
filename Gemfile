@@ -1,10 +1,12 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.1.4'
+gem 'rails', '~> 5.2.4.1'
 
 gem 'pg'
-gem 'sass-rails'
-gem 'bootstrap-sass'
+gem 'apartment'
+gem 'sassc-rails'
+gem 'bootstrap'
+gem 'font-awesome-sass'
 gem 'uglifier'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
@@ -17,12 +19,14 @@ gem 'responders'
 gem 'simple_form'
 gem 'figaro'
 gem 'carrierwave'
-gem 'jc-validates_timeliness'
+gem 'validates_timeliness'
 gem 'kaminari'
 gem 'net-ssh'
 gem 'net-scp'
 gem 'request_store'
+gem 'request_store-sidekiq'
 gem 'sidekiq'
+gem 'apartment-sidekiq'
 gem 'whenever', require: false
 gem 'paper_trail'
 gem 'roadie-rails'
@@ -33,24 +37,24 @@ gem 'prawn'
 gem 'prawn-table'
 gem 'coderay'
 
-gem 'unicorn'
+gem 'web-console'
 
-gem 'newrelic_rpm'
+gem 'unicorn'
+gem 'unicorn-rails'
+
+gem 'newrelic_rpm', '~> 6.2.0'
 
 gem 'capistrano'
 gem 'capistrano-rbenv'
 gem 'capistrano-bundler'
 gem 'capistrano-rails'
-gem 'capistrano-sidekiq'
-
 
 group :development do
-  gem 'unicorn-rails'
-  gem 'web-console'
   gem 'listen'
+  gem 'rubocop-github'
 
   # Support for ed25519 ssh keys
-  gem 'rbnacl', '< 5.0' # TODO: check net-ssh dependency to _unleash_
+  gem 'ed25519'
   gem 'bcrypt_pbkdf'
 end
 
@@ -62,6 +66,7 @@ group :test do
   gem 'timecop'
 end
 
-# Some user script dependencies
-gem 'composite_primary_keys', require: false
-gem 'ruby-odbc', require: false
+# Separate script gem dependencies from application dependencies
+extra_gemfile = File.join File.dirname(__FILE__), 'Gemfile.local'
+
+instance_eval File.read(extra_gemfile) if File.readable? extra_gemfile

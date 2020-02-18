@@ -12,7 +12,9 @@
         <%= f.input :password %>
       </div>
     </div>
+
     <%= f.input :credential, input_html: { disabled: @server.password.present? } %>
+    <%= f.input :default, as: :boolean, input_html: { disabled: @server.persisted? } %>
     <%= f.input :lock_version, as: :hidden %>
   </div>
 

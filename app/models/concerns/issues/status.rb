@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
 module Issues::Status
   extend ActiveSupport::Concern
+
+  STATUSES = %w(pending taken closed)
 
   STATUS_TRANSITIONS = {
     pending: %w(pending taken closed),
@@ -15,15 +19,27 @@ module Issues::Status
     before_validation :set_default_status
   end
 
+  module ClassMethods
+    def statuses
+      STATUSES
+    end
+  end
+
   def next_status
-    user        = User.find PaperTrail.whodunnit if PaperTrail.whodunnit
-    transitions = user&.supervisor? ?
-      SUPERVISOR_STATUS_TRANSITIONS : STATUS_TRANSITIONS
+    if PaperTrail.request.whodunnit
+      user = User.find_by id: PaperTrail.request.whodunnit
+    end
+
+    transitions = if user&.supervisor?
+                    SUPERVISOR_STATUS_TRANSITIONS
+                  else
+                    STATUS_TRANSITIONS
+                  end
 
     transitions[(status_was || status).to_sym] || []
   end
 
-  %w(pending taken closed).each do |status|
+  STATUSES.each do |status|
     define_method "#{status}?" do
       self.status == status
     end

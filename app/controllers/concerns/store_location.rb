@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module StoreLocation
   extend ActiveSupport::Concern
 
@@ -12,7 +14,7 @@ module StoreLocation
   private
 
     def exclude_from_store?
-      !request.get? || request.xhr? || excluded_path?
+      !request.get? || !request.format.html? || request.xhr? || excluded_path?
     end
 
     def excluded_path?
@@ -20,7 +22,8 @@ module StoreLocation
         /^\/$/,
         /^\/login.*$/,
         /^\/password_resets\/new.*$/,
-        /^\/password_resets\/.*\/edit.*$/
+        /^\/password_resets\/.*\/edit.*$/,
+        /^\/accounts\/.*\/password_resets\/.*\/edit.*$/
       ]
 
       excluded_paths.any? { |path| request.fullpath =~ path }

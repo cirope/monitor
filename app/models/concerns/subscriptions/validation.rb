@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Subscriptions::Validation
   extend ActiveSupport::Concern
 

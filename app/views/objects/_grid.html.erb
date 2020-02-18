@@ -1,5 +1,5 @@
-<div class="table-responsive">
-  <table class="table table-condensed table-hover" data-container>
+<div class="table-responsive my-3">
+  <table class="table table-sm table-hover" data-container>
     <thead>
       <tr>
         <% columns.each do |c| %>
@@ -16,7 +16,7 @@
               <%= link_or_show parent, "#{i}/#{c}", item[c], object.object_id %>
             </td>
           <% end %>
-          <td>
+          <td class="text-right">
             <%= link_or_show parent, i, item, object.object_id %>
           </td>
         </tr>

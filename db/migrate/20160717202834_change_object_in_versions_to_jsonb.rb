@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChangeObjectInVersionsToJsonb < ActiveRecord::Migration[5.0]
   def up
     change_column :versions, :object, :jsonb, using: 'object::jsonb'

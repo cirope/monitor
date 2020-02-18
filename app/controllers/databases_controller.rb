@@ -1,12 +1,15 @@
+# frozen_string_literal: true
+
 class DatabasesController < ApplicationController
   include Databases::Filters
 
   before_action :authorize, :not_guest, :not_author
   before_action :set_title, except: [:destroy]
+  before_action :set_account
   before_action :set_database, only: [:show, :edit, :update, :destroy]
   before_action :not_supervisor, except: [:index, :show]
 
-  respond_to :html
+  respond_to :html, :json
 
   def index
     @databases = databases.ordered.page params[:page]
@@ -19,7 +22,7 @@ class DatabasesController < ApplicationController
   end
 
   def new
-    @database = Database.new
+    @database = @account.databases.new
 
     respond_with @database
   end
@@ -29,7 +32,7 @@ class DatabasesController < ApplicationController
   end
 
   def create
-    @database = Database.new database_params
+    @database = @account.databases.new database_params
 
     @database.save
     respond_with @database
@@ -49,8 +52,12 @@ class DatabasesController < ApplicationController
 
   private
 
+    def set_account
+      @account = Current.account
+    end
+
     def set_database
-      @database = Database.find params[:id]
+      @database = @account.databases.find params[:id]
     end
 
     def database_params

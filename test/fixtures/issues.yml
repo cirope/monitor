@@ -3,3 +3,9 @@ ls_on_atahualpa_not_well:
   status: pending
   data: { "test": "data" }
   run: past_ls_on_atahualpa
+
+ls_on_atahualpa_not_well_again:
+  description: Ls on Atahualpa aparently is not working again
+  status: pending
+  data: { "test": "data" }
+  run: past_ls_on_atahualpa

@@ -1,10 +1,10 @@
-<div class="table-responsive">
-  <table class="table table-condensed table-hover" data-container>
+<div class="table-responsive my-3">
+  <table class="table table-sm table-hover" data-container>
     <tbody>
       <% object.each do |k, v| %>
         <tr>
           <td><%= k %></td>
-          <td><%= link_or_show parent, k, v, object.object_id %></td>
+          <td class="text-right"><%= link_or_show parent, k, v, object.object_id %></td>
         </tr>
       <% end %>
     </tbody>
@@ -13,31 +13,24 @@
 
 <% if can_be_graphed? object %>
   <div class="dropdown">
-    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
       <%= t '.graph.type' %>
-      <span class="caret"></span>
     </button>
-    <ul class="dropdown-menu">
-      <li>
-        <a href="#" data-graph-type="line" data-graph-target="<%= object.object_id%>">
-          <%= t '.graph.line' %>
-        </a>
-      </li>
-      <li>
-        <a href="#" data-graph-type="bar" data-graph-target="<%= object.object_id%>">
-          <%= t '.graph.bar' %>
-        </a>
-      </li>
-      <li>
-        <a href="#" data-graph-type="pie" data-graph-target="<%= object.object_id%>">
-          <%= t '.graph.pie' %>
-        </a>
-      </li>
-    </ul>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" href="#" data-graph-type="line" data-graph-target="<%= object.object_id%>">
+        <%= t '.graph.line' %>
+      </a>
+      <a class="dropdown-item" href="#" data-graph-type="bar" data-graph-target="<%= object.object_id%>">
+        <%= t '.graph.bar' %>
+      </a>
+      <a class="dropdown-item" href="#" data-graph-type="pie" data-graph-target="<%= object.object_id%>">
+        <%= t '.graph.pie' %>
+      </a>
+    </div>
   </div>
 
   <div class="row">
-    <div class="col-lg-8 col-lg-offset-2">
+    <div class="col-lg-8 offset-lg-2">
       <%= graph_container object %>
     </div>
   </div>

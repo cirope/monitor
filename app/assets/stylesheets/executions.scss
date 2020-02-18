@@ -1,0 +1,9 @@
+@import "bootstrap/functions";
+@import "bootstrap/variables";
+@import "hyper/config/default/variables";
+
+.console {
+  background: $dark;
+  color: $white;
+  min-height: 10em;
+}

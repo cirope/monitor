@@ -1,0 +1,25 @@
+<%= render 'filters' %>
+
+<% if @memberships.empty? %>
+  <%= render 'shared/empty_index', message: empty_message %>
+<% else %>
+  <div class="card">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th><%= Membership.human_attribute_name 'account' %></th>
+          <th><%= Membership.human_attribute_name 'default' %></th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @memberships.each do |membership| %>
+          <%= render 'membership', membership: membership %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <%= paginate @memberships %>
+<% end %>

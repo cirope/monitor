@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Scripts::Filters
   extend ActiveSupport::Concern
 
@@ -7,7 +9,7 @@ module Scripts::Filters
 
   def scripts
     scripts = Script.search query: params[:q]
-    scripts = scripts.filter filter_params
+    scripts = scripts.filter_by filter_params
     scripts = scripts.limit 10 if request.xhr?
 
     scripts

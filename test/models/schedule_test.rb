@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class ScheduleTest < ActiveSupport::TestCase
@@ -37,17 +39,19 @@ class ScheduleTest < ActiveSupport::TestCase
   end
 
   test 'start must be on or after now' do
+    format          = I18n.t 'validates_timeliness.error_value_formats.datetime'
     @schedule.start = 1.minute.ago
 
     assert @schedule.invalid?
-    assert_error @schedule, :start, :on_or_after, restriction: I18n.l(Time.zone.now, format: :compact)
+    assert_error @schedule, :start, :on_or_after, restriction: I18n.l(Time.zone.now, format: format)
   end
 
   test 'end must be after start' do
+    format        = I18n.t 'validates_timeliness.error_value_formats.datetime'
     @schedule.end = @schedule.start - 1.day
 
     assert @schedule.invalid?
-    assert_error @schedule, :end, :after, restriction: I18n.l(@schedule.start, format: :compact)
+    assert_error @schedule, :end, :after, restriction: I18n.l(@schedule.start, format: format)
   end
 
   test 'numeric attributes' do

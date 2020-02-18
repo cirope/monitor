@@ -15,6 +15,10 @@ $(document).on('focus keydown click', 'input[data-date-picker]', function () {
     timePickerIncrement: 5
   }
 
+  $input.on('cancel.daterangepicker', function () {
+    $input.val('')
+  })
+
   $input
     .daterangepicker(options)
     .removeAttr('data-date-picker')

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Issues::Validation
   extend ActiveSupport::Concern
 
@@ -20,7 +22,9 @@ module Issues::Validation
     end
 
     def user_can_modify
-      user = User.find PaperTrail.whodunnit if PaperTrail.whodunnit
+      if PaperTrail.request.whodunnit
+        user = User.find PaperTrail.request.whodunnit
+      end
 
       if user&.author? && users.exclude?(user)
         errors.add :base, :user_invalid

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class RunTest < ActiveSupport::TestCase
@@ -14,13 +16,6 @@ class RunTest < ActiveSupport::TestCase
     assert_error @run, :status, :blank
     assert_error @run, :scheduled_at, :blank
     assert_error @run, :job, :blank
-  end
-
-  test 'included attributes' do
-    @run.status = 'no_way'
-
-    assert @run.invalid?
-    assert_error @run, :status, :inclusion
   end
 
   test 'date attributes' do
@@ -71,6 +66,10 @@ class RunTest < ActiveSupport::TestCase
     skip
   end
 
+  test 'mark as running' do
+    skip
+  end
+
   test 'by status' do
     skip
   end
@@ -113,5 +112,51 @@ class RunTest < ActiveSupport::TestCase
 
   test 'cancel' do
     skip
+  end
+
+  test 'kill' do
+    skip
+  end
+
+  test 'force kill' do
+    skip
+  end
+
+  test 'parse output errors for script' do
+    run = runs :boom_on_atahualpa
+
+    parsed_errors = run.parse_and_find_lines_with_error
+    script_errors = parsed_errors[run.script]
+
+    assert_not_nil   script_errors
+    assert_not_empty script_errors
+
+    script_errors.each do |error|
+      assert_equal 2, error[:line], error # 2: 4 * nil
+    end
+  end
+
+  test 'parse output errors for script should not raise' do
+    run = runs :boom_on_atahualpa
+
+    run.update_column :output, 'something else'
+
+    parsed_errors = run.parse_and_find_lines_with_error
+
+    assert_empty parsed_errors
+  end
+
+  test 'parse output errors for script with new core' do
+    run = runs :boom_on_atahualpa
+
+    # new core script
+    scripts(:cd_root).update_column :core, true
+
+    # Error will point to prev script now
+    parsed_errors = run.parse_and_find_lines_with_error
+
+    assert_not_empty parsed_errors
+
+    assert_nil parsed_errors[run.script]
   end
 end

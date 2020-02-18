@@ -1,0 +1,22 @@
+_fixture:
+  model_class: Membership
+
+franco_default:
+  email: francocatena@gmail.com
+  username: franco
+  default: true
+  account: default
+
+# John does not has membership on purpose (so we can enroll it on account test)
+
+eduardo_default:
+  email: edu@galeano.com
+  username: eduardo
+  default: true
+  account: default
+
+god_default:
+  email: jesus@heaven.com
+  username: god
+  default: true
+  account: default

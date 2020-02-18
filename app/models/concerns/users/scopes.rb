@@ -1,9 +1,12 @@
+# frozen_string_literal: true
+
 module Users::Scopes
   extend ActiveSupport::Concern
 
   included do
     scope :ordered, -> { order :lastname, :name, :id }
     scope :visible, -> { where hidden: false }
+    scope :hidden,  -> { where hidden: true }
   end
 
   module ClassMethods

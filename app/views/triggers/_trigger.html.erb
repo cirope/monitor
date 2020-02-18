@@ -1,10 +1,19 @@
 <fieldset class="rule_trigger">
   <div class="row">
     <div class="col-sm-11 tiny-editor">
-      <%= f.input :callback, label: false, input_html: { data: { editor: true, readonly: disable_rule_edition? } } %>
+      <%= f.input :callback, label: false, input_html: {
+        data: {
+          editor:               true,
+          language:             'ruby',
+          model_id:             f.object.id,
+          phrases:              editor_phrases.to_json,
+          readonly:             disable_rule_edition?,
+          unsaved_data_warning: t('editor.edit.unsaved_data_warning')
+        }
+      } %>
     </div>
     <div class="col-sm-1">
-      <div class="row-controls">
+      <div class="row-controls text-right mb-3 mb-sm-0 mt-n4 mt-sm-n2">
         <%= f.input :id, as: :hidden %>
         <%= link_to_remove_nested_item f unless disable_rule_edition? %>
       </div>

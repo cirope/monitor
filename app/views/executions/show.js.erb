@@ -1,0 +1,51 @@
++function () {
+  var $status = $('[data-status]')
+
+  $status.
+    html('<%= j execution_status(@execution.status) %>').
+    attr('data-status', '<%= @execution.status %>').
+    data('status', '<%= @execution.status %>').
+    attr('data-pid', '<%= @execution.pid %>').
+    data('pid', '<%= @execution.pid %>')
+
+  <% if @execution.started_at %>
+    $('[data-started-at]').html('<%= l @execution.started_at, format: :compact %>')
+  <% end %>
+
+  <% if @execution.ended_at %>
+    $('[data-ended-at]').html('<%= l @execution.ended_at, format: :compact %>')
+  <% end %>
+
+  <% if @execution.can_be_killed? %>
+    $('[data-kill-actions]').html('<%= j render('kill_actions') %>')
+  <% else %>
+    $('[data-kill-actions]').html('')
+  <% end %>
+
+  <% if @execution.output.present? && @execution.error? %>
+    $('[data-output-error]').html(
+      '<%= j render('shared/parsed_output_errors', exec: @execution) %>'
+    )
+
+    setTimeout(function () {
+      document.querySelector('body').scrollIntoView(false)
+    })
+  <% end %>
+
+  <% if @execution.finished? %>
+    $('.loading-caption').attr('hidden', true)
+    $('.alert.alert-info').alert('close')
+
+    <% if @measures.any? %>
+      $('[data-graphs]').
+        html('<%= j render('scripts/measures/graphs', format: :time) %>').
+        find('.ct-chart').
+        parent().
+        trigger('object.mt.added')
+    <% end %>
+  <% else %>
+    setTimeout(function () {
+      $('.loading-caption').removeAttr('hidden')
+    })
+  <% end %>
+}()

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DescriptorsController < ApplicationController
   before_action :authorize, :not_guest, :not_security, :not_author
   before_action :set_descriptor, only: [:show, :edit, :update, :destroy]
@@ -6,7 +8,7 @@ class DescriptorsController < ApplicationController
   respond_to :html, :json
 
   def index
-    @descriptors = Descriptor.all
+    @descriptors = Descriptor.all.page params[:page]
 
     respond_with @descriptors
   end

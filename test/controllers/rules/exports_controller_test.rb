@@ -1,8 +1,16 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class Rules::ExportsControllerTest < ActionController::TestCase
   setup do
     login
+
+    Current.account = send 'public.accounts', :default
+  end
+
+  teardown do
+    Current.account = nil
   end
 
   test 'should create' do

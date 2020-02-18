@@ -11,6 +11,16 @@ es:
         notice: '%{resource_name} eliminado'
         alert:  '%{resource_name} no pudo ser eliminado'
 
+    accounts:
+      create:
+        notice: 'Cuenta creada'
+      update:
+        notice: 'Cuenta actualizada'
+        alert:  ''
+      destroy:
+        notice: 'Cuenta eliminada'
+        alert:  'La cuenta no pudo ser eliminada'
+
     databases:
       create:
         notice: 'Base de datos creada'
@@ -20,6 +30,25 @@ es:
       destroy:
         notice: 'Base de datos eliminada'
         alert:  'La base de datos no pudo ser eliminada'
+
+    executions:
+      create:
+        notice: 'Ejecutando...'
+
+    ldaps:
+      create:
+        notice: 'Configuración LDAP creada'
+      update:
+        notice: 'Configuración LDAP actualizada'
+        alert:  ''
+      destroy:
+        notice: 'Configuración LDAP eliminada'
+        alert:  'La configuración LDAP no pudo ser eliminada'
+
+    memberships:
+      switch:
+        create:
+          notice: 'Bienvenido a %{account}'
 
     password_resets:
       update:

@@ -1,0 +1,18 @@
+---
+es:
+  helps:
+    close: "Cerrar"
+    users:
+      roles:
+        title: "Roles de usuario"
+        content: |-
+          <dl>
+            <dt>Invitado</dt>
+            <dd>Solo puede ver los casos asociados directamente</dd>
+            <dt>Autor</dt>
+            <dd>Puede ver todos los casos, administrar guiones, trabajos y reglas</dd>
+            <dt>Supervisor</dt>
+            <dd>Idem autor, con permisos adicionales de administración de casos</dd>
+            <dt>Seguridad</dt>
+            <dd>Puede administrar servidores, usuarios y bases de datos</dd>
+          </dl>

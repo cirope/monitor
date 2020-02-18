@@ -1,22 +1,20 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
+<div class="card mb-3">
+  <div class="card-header">
     <% if filters? %>
-      <p class="text-warning pull-right">
-        <span class="glyphicon glyphicon-filter"></span>
+      <p class="text-warning mb-0 float-right">
+        <%= icon 'fas', 'filter' %>
         <%= link_to schedule_runs_path(@schedule), title: t('cancel') do %>
-          <span class="glyphicon glyphicon-remove-circle"></span>
+          <%= icon 'fas', 'times-circle' %>
         <% end %>
       </p>
     <% end %>
-    <h4 class="panel-title">
-      <a href="#filters" data-toggle="collapse">
-        <span class="glyphicon glyphicon-search"></span>
-        <%= t 'filters.title' %>
-        <span class="caret"></span>
-      </a>
-    </h4>
+
+    <a class="dropdown-toggle text-reset text-decoration-none d-block" href="#filters" data-toggle="collapse">
+      <%= icon 'fas', 'search' %>
+      <%= t 'filters.title' %>
+    </a>
   </div>
-  <div id="filters" class="panel-body collapse">
+  <div id="filters" class="card-body collapse">
     <%= simple_form_for :filter, method: :get do |f| %>
       <fieldset>
         <div class="row">
@@ -24,7 +22,8 @@
             <%= f.input :status, required: false,
               collection: filter_run_status, include_blank: '-', selected: filter_params[:status],
               input_html: {
-                class: 'input-sm'
+                autofocus: true,
+                class:     'form-control-sm'
               }
             %>
           </div>
@@ -32,7 +31,7 @@
             <%= f.input :scheduled_at, as: :date_picker, required: false,
               input_html: {
                 value: filter_params[:scheduled_at],
-                class: 'input-sm',
+                class: 'form-control-sm',
                 data:  { date_range: true }
               }
             %>
@@ -42,14 +41,14 @@
               required: false,
               input_html: {
                 value:     filter_params[:script_name],
-                class:     'input-sm'
+                class:     'form-control-sm'
               }
             %>
           </div>
         </div>
 
-        <p class="text-right">
-          <%= f.button :submit, t('filters.submit'), class: 'btn-sm btn-default' %>
+        <p class="text-right mb-0">
+          <%= f.button :submit, t('filters.submit'), class: 'btn-sm btn-secondary' %>
           <%= link_to t('cancel'), schedule_runs_path(@schedule), class: 'small' %>
         </p>
       </fieldset>

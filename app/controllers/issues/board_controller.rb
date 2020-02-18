@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
 class Issues::BoardController < ApplicationController
   include Issues::Filters
 
   before_action :authorize, :not_guest
+  before_action :only_supervisor, only: [:destroy_all]
   before_action :set_title
   before_action :set_issue,  only: [:create, :destroy]
   before_action :set_script, only: [:create, :destroy]
@@ -9,7 +12,6 @@ class Issues::BoardController < ApplicationController
   respond_to :html, :js, :pdf
 
   def index
-    @issue_ids = issues.where(id: board_session).pluck 'id'
     @issues = issues.order(:created_at).where id: board_session
     @issues = @issues.page params[:page] unless request.format == :pdf
 
@@ -25,9 +27,11 @@ class Issues::BoardController < ApplicationController
   end
 
   def update
-    _issues = issues.where id: board_session
+    filtered_issues = issues.where id: board_session
 
-    update_issues _issues
+    board_session_errors.clear
+
+    update_issues filtered_issues
 
     if board_session_errors.empty?
       redirect_to issues_board_url, notice: t('.updated')
@@ -71,10 +75,17 @@ class Issues::BoardController < ApplicationController
     end
 
     def issue_params
-      params.require(:issue).permit :description, :status,
-        comments_attributes:      [:text],
+      permit = [
+        :status,
+        :group_comments_email,
+        comments_attributes:      [:text, :file],
         taggings_attributes:      [:tag_id],
         subscriptions_attributes: [:user_id]
+      ]
+
+      permit = [:description] + permit if current_user.supervisor?
+
+      params.require(:issue).permit *permit
     end
 
     def board_session
@@ -86,20 +97,18 @@ class Issues::BoardController < ApplicationController
     end
 
     def update_issues issues
-      present_issue_params = issue_params.select { |_, value| value.present? }
-      taggings_attributes  = present_issue_params.fetch(:taggings_attributes, {})
-      new_tags             = taggings_attributes.select do |index, tagging|
-        tagging[:tag_id].present?
-      end
-
-      board_session_errors.clear
+      issue_attrs         = issue_params.select { |_, value| value.present? }
+      remove_tags         = remove_tags? issue_attrs
+      comments_attributes = group_comments_attributes issue_attrs
 
       issues.find_each do |issue|
-        update_issue issue, present_issue_params, new_tags.present?
+        update_issue issue, issue_attrs, remove_previous_tags: remove_tags
       end
+
+      issues.comment comments_attributes.values.first if comments_attributes
     end
 
-    def update_issue issue, issue_params, remove_previous_tags
+    def update_issue issue, issue_params, remove_previous_tags:
       Issue.transaction do
         issue.taggings.clear if remove_previous_tags
 
@@ -109,5 +118,22 @@ class Issues::BoardController < ApplicationController
           raise ActiveRecord::Rollback
         end
       end
+    end
+
+    def group_comments_attributes issue_attrs
+      group_comments_email = issue_attrs.delete :group_comments_email
+
+      if group_comments_email == '1' || group_comments_email == true
+        comments_attributes = issue_attrs.delete :comments_attributes
+      end
+    end
+
+    def remove_tags? issue_attrs
+      taggings_attributes  = issue_attrs.fetch :taggings_attributes, {}
+      tags                 = taggings_attributes.select do |index, tagging|
+        tagging[:tag_id].present?
+      end
+
+      tags.present?
     end
 end

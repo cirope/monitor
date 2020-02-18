@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Runs::Filters
   extend ActiveSupport::Concern
 
@@ -6,7 +8,7 @@ module Runs::Filters
   end
 
   def runs
-    @schedule.runs.filter filter_params
+    @schedule.runs.filter_by filter_params
   end
 
   def filter_params
