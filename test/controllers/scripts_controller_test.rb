@@ -53,7 +53,6 @@ class ScriptsControllerTest < ActionController::TestCase
       post :create, params: {
           script: {
           name: 'Test script',
-          file: @script.file,
           text: @script.text,
           change: @script.change,
           maintainers_attributes: [

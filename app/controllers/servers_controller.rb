@@ -59,8 +59,7 @@ class ServersController < ApplicationController
                                      :hostname,
                                      :user,
                                      :password,
-                                     :credential,
-                                     :credential_cache,
+                                     :key,
                                      :default,
                                      :lock_version
     end

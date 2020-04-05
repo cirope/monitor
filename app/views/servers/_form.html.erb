@@ -13,7 +13,8 @@
       </div>
     </div>
 
-    <%= f.input :credential, input_html: { disabled: @server.password.present? } %>
+    <%= f.input :key, as: :hidden, input_html: { value: f.object.key.signed_id } if f.object.key.attached? %>
+    <%= f.input :key, input_html: { disabled: @server.password.present? } %>
     <%= f.input :default, as: :boolean, input_html: { disabled: @server.persisted? } %>
     <%= f.input :lock_version, as: :hidden %>
   </div>

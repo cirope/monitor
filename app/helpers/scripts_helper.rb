@@ -19,8 +19,8 @@ module ScriptsHelper
     @script.taggings
   end
 
-  def file_identifier
-    @script.file.identifier || @script.file_identifier if @script.file?
+  def script_file_identifier
+    @script.attachment.filename.to_s if @script.attachment.attached?
   end
 
   def parameters

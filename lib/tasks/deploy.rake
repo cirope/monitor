@@ -1,7 +1,7 @@
 namespace :deploy do
   desc 'Runs upgrade tasks before publishing'
   task :before_publishing do
-    %w(tenant:default db:update).each do |task|
+    %w(tenant:default db:update storage:migrate).each do |task|
       Rake::Task[task].invoke
     end
   end
