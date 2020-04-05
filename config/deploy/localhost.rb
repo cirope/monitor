@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 set :rails_env, 'production'
-set :branch, 'bsj'
+set :branch, 'c-bsj'
 
 role :web, %w{deployer@127.0.0.1}
 role :app, %w{deployer@127.0.0.1}
