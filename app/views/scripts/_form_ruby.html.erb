@@ -1,0 +1,20 @@
+<%= f.input :file, label: false, hint: file_identifier, input_html: {
+  disabled: disable_edition? || @script.text.present?,
+  hidden: @script.text.present?
+} %>
+<%= f.input :file_cache, as: :hidden %>
+
+<div class="card mb-3">
+  <div class="card-header">
+    <a class="text-reset text-decoration-none d-block" href="#requires" data-toggle="collapse">
+      <%= Require.model_name.human count: 0 %>
+    </a>
+  </div>
+  <div id="requires" class="collapse card-body">
+    <%= f.simple_fields_for :requires, requires do |rf| %>
+      <%= render 'requires/require', f: rf %>
+    <% end %>
+
+    <%= link_to_add_fields t('scripts.new.require'), f, :requires unless disable_edition? %>
+  </div>
+</div>

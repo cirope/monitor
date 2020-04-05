@@ -1,9 +1,13 @@
+# frozen_string_literal: true
+
 class PermalinksController < ApplicationController
   respond_to :html, :json, :js
 
   before_action :authorize
   before_action :not_guest, :not_security, only: [:create]
+  before_action :set_account, only: [:show]
   before_action :set_permalink, only: [:show]
+  before_action :set_default_params, only: [:create]
   before_action :set_title
 
   # GET /permalinks/token
@@ -13,10 +17,8 @@ class PermalinksController < ApplicationController
 
   # POST /permalinks
   def create
-    token      = SecureRandom.urlsafe_base64 32
-    @permalink = Permalink.new permalink_params.merge(token: token)
+    @permalink = Permalink.create permalink_params
 
-    @permalink.save
     respond_with @permalink
   end
 
@@ -26,7 +28,27 @@ class PermalinksController < ApplicationController
       @permalink = Permalink.find_by! token: params[:id]
     end
 
+    def set_account
+      if params[:account_id]
+        account = Account.find_by! tenant_name: params[:account_id]
+
+        account.switch { set_permalink }
+
+        session[:tenant_name] = account.tenant_name
+
+        redirect_to permalink_url(@permalink)
+      end
+    end
+
     def permalink_params
-      params.require(:permalink).permit :token, issue_ids: []
+      params.require(:permalink).permit issue_ids: []
+    end
+
+    def set_default_params
+      params[:permalink] ||= { issue_ids: board_issues }
+    end
+
+    def board_issues
+      session[:board_issues] ||= []
     end
 end

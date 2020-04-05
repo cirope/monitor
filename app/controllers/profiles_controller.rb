@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProfilesController < ApplicationController
   respond_to :html, :json
 
@@ -20,6 +22,6 @@ class ProfilesController < ApplicationController
     end
 
     def user_params
-      params.require(:user).permit :name, :lastname, :email, :password, :password_confirmation, :lock_version
+      params.require(:user).permit :name, :lastname, :email, :username, :password, :password_confirmation, :lock_version
     end
 end

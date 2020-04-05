@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Notifier < ApplicationMailer
   def notify message
     message = message.with_indifferent_access
@@ -24,5 +26,12 @@ class Notifier < ApplicationMailer
     @issue   = comment.issue
 
     mail to: users.map(&:email)
+  end
+
+  def mass_comment user:, comment:, permalink:
+    @comment   = comment
+    @permalink = permalink
+
+    mail to: user.email
   end
 end

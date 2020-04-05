@@ -1,9 +1,15 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   def app_name
-    ENV['APP_NAME'].present? ? ENV['APP_NAME'] : I18n.t('app_name')
+    I18n.t 'app_name'
   end
 
   def title
-    [app_name, @title].compact.join(' | ')
+    [app_name, current_account&.name, @title].compact.join ' | '
+  end
+
+  def logo_title
+    [current_account&.name, MonitorApp::Application::VERSION].compact.join ' | '
   end
 end

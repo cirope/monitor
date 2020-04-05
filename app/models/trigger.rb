@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Trigger < ApplicationRecord
   include Auditable
   include Triggers::Run

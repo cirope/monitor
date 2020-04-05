@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   include ActionTitle
   include CacheControl
+  include CurrentAccount
   include CurrentUser
   include LdapConfig
   include Responder
@@ -13,7 +16,9 @@ class ApplicationController < ActionController::Base
   before_action :set_paper_trail_whodunnit
 
   def authorize
-    redirect_to login_url, alert: t('messages.not_authorized') unless current_user
+    unless current_user&.visible? && current_account
+      redirect_to login_url, alert: t('messages.not_authorized')
+    end
   end
 
   def user_for_paper_trail

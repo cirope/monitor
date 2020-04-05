@@ -3,33 +3,25 @@
 <% if @servers.empty? %>
   <%= render 'shared/empty_index', message: empty_message %>
 <% else %>
-  <table class="table table-striped table-hover">
-    <thead>
-      <tr>
-        <th><%= Server.human_attribute_name 'name' %></th>
-        <th><%= Server.human_attribute_name 'hostname' %></th>
-        <th class="visible-lg"><%= Server.human_attribute_name 'user' %></th>
-        <th colspan="<%= current_user.supervisor? ? 1 : 3 %>">
-          <%= link_to_new new_server_path, class: 'btn btn-default btn-xs pull-right' unless current_user.supervisor? %>
-        </th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @servers.each do |server| %>
+  <div class="card">
+    <table class="table table-hover">
+      <thead>
         <tr>
-          <td><%= server.name %></td>
-          <td><%= server.hostname %></td>
-          <td class="visible-lg"><%= server.user %></td>
-          <td><%= link_to_show server %></td>
-          <% unless current_user.supervisor? %>
-            <td><%= link_to_edit [:edit, server] %></td>
-            <td><%= link_to_destroy server %></td>
-          <% end %>
+          <th><%= Server.human_attribute_name 'name' %></th>
+          <th class="d-none d-sm-table-cell"><%= Server.human_attribute_name 'hostname' %></th>
+          <th class="d-none d-lg-table-cell"><%= Server.human_attribute_name 'user' %></th>
+          <th class="d-none d-lg-table-cell"><%= Server.human_attribute_name 'default' %></th>
+          <th colspan="<%= current_user.supervisor? ? 1 : 3 %>">
+            <%= link_to_new new_server_path, class: 'btn btn-secondary btn-sm py-0 mr-n2 float-right' unless current_user.supervisor? %>
+          </th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+
+      <tbody>
+        <%= render partial: 'server', collection: @servers %>
+      </tbody>
+    </table>
+  </div>
 
   <%= paginate @servers %>
 <% end %>

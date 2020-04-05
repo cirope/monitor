@@ -1,0 +1,35 @@
+<div class="left-side-menu pt-2">
+  <div class="slimscroll-menu">
+    <%= link_to root_url, class: 'logo text-center text-white', title: logo_title do %>
+      <span class="logo-lg">
+        <%= image_tag 'logo.svg', size: '170x52', alt: app_name %>
+      </span>
+      <span class="logo-sm">
+        <%= image_tag 'logo_sm.svg', size: '52x52', alt: app_name %>
+      </span>
+    <% end %>
+
+    <ul class="metismenu side-nav my-3">
+      <%= menu_item_for Issue, dashboard_path, active: controller_name == 'dashboard', icon: 'chart-line' %>
+
+      <% if current_user.author? || current_user.supervisor? %>
+        <%= menu_item_for Script, scripts_path, icon: 'code' %>
+        <%= menu_item_for Schedule, schedules_path, active: controller_name == 'runs', icon: 'calendar' %>
+        <%= menu_item_for Rule, rules_path, icon: 'code-branch' unless current_user.author? %>
+      <% end %>
+
+      <% unless current_user.guest? %>
+        <li class="side-nav-item<%= ' mm-active' if is_config_action? %>">
+          <%= link_to 'javascript: void(0);', class: 'side-nav-link' do %>
+            <%= icon 'fas', 'cog' %>
+            <span><%= t('.config') %></span>
+            <%= icon 'fas', 'angle-right', class: 'menu-arrow' %>
+          <% end %>
+          <%= render 'shared/config_actions' %>
+        </li>
+      <% end %>
+    </ul>
+
+    <div class="clearfix"></div>
+  </div>
+</div>

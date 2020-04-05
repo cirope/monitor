@@ -1,4 +1,0 @@
-postgresql:
-  name: PostgreSQL
-  driver: PostgreSQL
-  description: PostgreSQL test database

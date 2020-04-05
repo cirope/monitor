@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SlimInput < SimpleForm::Inputs::Base
   def input wrapper_options
     @builder.text_field attribute_name, input_options(wrapper_options)

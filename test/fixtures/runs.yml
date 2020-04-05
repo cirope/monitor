@@ -5,6 +5,7 @@ past_ls_on_atahualpa:
   ended_at: <%= 58.minutes.ago.to_s :db %>
   output: "/home\n/root"
   job: ls_on_atahualpa
+  pid:
 
 clean_ls_on_atahualpa:
   status: ok
@@ -13,6 +14,7 @@ clean_ls_on_atahualpa:
   ended_at: <%= 58.minutes.ago.to_s :db %>
   output: "/home\n/root"
   job: ls_on_atahualpa
+  pid:
 
 ls_on_atahualpa:
   status: pending
@@ -21,3 +23,17 @@ ls_on_atahualpa:
   ended_at:
   output:
   job: ls_on_atahualpa
+  pid:
+
+boom_on_atahualpa:
+  status: error
+  scheduled_at: <%= 1.minute.ago.to_s :db %>
+  started_at: <%= 1.minute.ago.to_s :db %>
+  ended_at: <%= 30.seconds.ago.to_s :db %>
+  output: |-
+    Are you reeeeaaaadddddyyy?
+    /tmp/script-fc671557-c493-2431-96bb-70bca0a2cc21.rb:42:in `*': nil can't be coerced into Integer (TypeError)
+    from /tmp/script-fc671557-c493-2431-96bb-70bca0a2cc21.rb:42:in `'
+    Exit status: 1
+  job: boom_on_atahualpa
+  pid:

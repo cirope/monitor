@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class ServersControllerTest < ActionController::TestCase
   setup do
     @server = servers :atahualpa
 
-    login users(:god)
+    login user: users(:god)
   end
 
   test 'should get index' do
@@ -13,7 +15,7 @@ class ServersControllerTest < ActionController::TestCase
   end
 
   test 'should get filtered index for autocomplete' do
-    get :index, params: { q: @server.name, format: :json }
+    get :index, params: { q: @server.name }, as: :json
     assert_response :success
 
     servers = JSON.parse @response.body

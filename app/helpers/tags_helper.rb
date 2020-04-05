@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module TagsHelper
   def tag_kinds
     {
@@ -8,7 +10,7 @@ module TagsHelper
   end
 
   def styles
-    styles = %w(default primary success info warning danger)
+    styles = %w(secondary primary success info warning danger)
 
     styles.map { |k| [t("tags.styles.#{k}"), k] }
   end
@@ -17,7 +19,7 @@ module TagsHelper
     ActiveSupport::SafeBuffer.new.tap do |buffer|
       tags.each do |tag|
         buffer << content_tag(:span, class: "text-#{tag.style}") do
-          content_tag :span, nil, class: 'glyphicon glyphicon-tag', title: tag.name
+          icon 'fas', 'tag', title: tag.name
         end
       end
     end

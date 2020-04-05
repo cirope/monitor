@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class SchedulesControllerTest < ActionController::TestCase
@@ -13,7 +15,7 @@ class SchedulesControllerTest < ActionController::TestCase
   end
 
   test 'should get filtered index for autocomplete' do
-    get :index, params: { q: @schedule.name, format: :json }
+    get :index, params: { q: @schedule.name }, as: :json
     assert_response :success
 
     schedules = JSON.parse @response.body

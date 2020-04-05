@@ -1,38 +1,44 @@
-<h2>
-  <%= @schedule %>
-  <div class="pull-right">
-    <%= link_to_run do %>
-      <span class="glyphicon glyphicon-play"></span>
-      <%= t '.run' %>
-    <% end %>
+<div class="card">
+  <div class="card-header">
+    <h3 class="clearfix">
+      <%= @schedule %>
+      <div class="float-right">
+        <%= link_to_run do %>
+          <%= icon 'fas', 'play' %>
+          <%= t '.run' %>
+        <% end %>
+      </div>
+    </h3>
   </div>
-</h2>
 
-<p>
-  <strong><%= Schedule.human_attribute_name 'start' %></strong>:
-  <%= l @schedule.start, format: :short %>
-</p>
-<p>
-  <strong><%= Schedule.human_attribute_name 'end' %></strong>:
-  <%= l @schedule.end, format: :short if @schedule.end %>
-</p>
-<p>
-  <strong><%= Schedule.human_attribute_name 'interval' %></strong>:
-  <%= @schedule.interval %>
-</p>
-<p>
-  <strong><%= Schedule.human_attribute_name 'frequency' %></strong>:
-  <%= t "schedules.frequencies.#{@schedule.frequency}" if @schedule.frequency %>
-</p>
+  <div class="card-body">
+    <p class="mb-1">
+      <strong><%= Schedule.human_attribute_name 'start' %></strong>:
+      <%= l @schedule.start, format: :compact %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Schedule.human_attribute_name 'end' %></strong>:
+      <%= l @schedule.end, format: :compact if @schedule.end %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Schedule.human_attribute_name 'interval' %></strong>:
+      <%= @schedule.interval %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Schedule.human_attribute_name 'frequency' %></strong>:
+      <%= t "schedules.frequencies.#{@schedule.frequency}" if @schedule.frequency %>
+    </p>
+  </div>
+</div>
 
 <% if @schedule.jobs.any? %>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">
+  <div class="card my-3">
+    <div class="card-header">
+      <h5>
         <%= Job.model_name.human count: @schedule.jobs.size %>
-      </h3>
+      </h5>
     </div>
-    <div id="jobs" class="panel-body">
+    <div id="jobs">
       <table class="table table-hover">
         <thead>
           <tr>
@@ -54,13 +60,13 @@
 <% end %>
 
 <% if @schedule.dependencies.any? %>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">
+  <div class="card my-3">
+    <div class="card-header">
+      <h5>
         <%= Dependency.model_name.human count: @schedule.dependencies.size %>
-      </h3>
+      </h5>
     </div>
-    <div id="dependencies" class="panel-body">
+    <div id="dependencies" class="card-body">
       <ul>
         <% @schedule.dependencies.each do |dependency| %>
           <li><%= link_to dependency.schedule, dependency.schedule %></li>
@@ -71,13 +77,13 @@
 <% end %>
 
 <% if @schedule.dispatchers.any? %>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">
+  <div class="card my-3">
+    <div class="card-header">
+      <h5>
         <%= Rule.model_name.human count: @schedule.dispatchers.size %>
-      </h3>
+      </h5>
     </div>
-    <div id="dispatchers" class="panel-body">
+    <div id="dispatchers" class="card-body">
       <ul>
         <% @schedule.dispatchers.each do |dispatcher| %>
           <li>
@@ -89,15 +95,8 @@
   </div>
 <% end %>
 
-<% if @schedule.runs.any? %>
-  <p>
-    <%= link_to Run.model_name.human(count: @schedule.runs.count), schedule_runs_path(@schedule) %>
-  </p>
-<% else %>
-  <p class="text-muted"><%= t '.empty_runs' %></p>
-<% end %>
-
 <% unless current_user.author? %>
+  <%= link_to_runs @schedule %> |
   <%= link_to_edit [:edit, @schedule] %> |
   <%= link_to_cleanup @schedule %> |
 <% end %>

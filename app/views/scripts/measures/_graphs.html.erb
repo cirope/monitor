@@ -1,0 +1,32 @@
+<div class="card my-3">
+  <div class="card-header">
+    <h5>
+      <%= link_to(
+        Measure.human_attribute_name('cpu'),
+        '#cpu-measures',
+        class: 'text-reset text-decoration-none d-block',
+        data:  { toggle: 'collapse' }
+      ) %>
+    </h5>
+  </div>
+
+  <div id="cpu-measures" class="card-body collapse show">
+    <%= measures_graph_for @measures, :cpu, format: (format = format) %>
+  </div>
+</div>
+<div class="card my-3">
+  <div class="card-header">
+    <h5>
+      <%= link_to(
+        Measure.human_attribute_name('memory_in_bytes'),
+        '#memory-measures',
+        class: 'text-reset text-decoration-none d-block',
+        data:  { toggle: 'collapse' }
+      ) %>
+    </h5>
+  </div>
+
+  <div id="memory-measures" class="card-body collapse show">
+    <%= measures_graph_for @measures, :memory_in_megabytes, format: (format = format) %>
+  </div>
+</div>

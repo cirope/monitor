@@ -9,32 +9,42 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require fonts
  *= require bootstrap_sass
+ *= require hyper
+ *= require font_awesome
  *= require ie
  *= require chartist/chartist
  *= require codemirror/codemirror
+ *= require codemirror/dialog
  *= require codemirror/foldgutter
- *= require codemirror/solarized
+ *= require codemirror/duotone-dark
+ *= require codemirror/duotone-light
  *= require codemirror
- *= require daterangepicker
  *= require jquery-ui
  *= require jquery-ui.theme
+ *
  *= require main
  *= require icons
  *= require autocomplete
  *= require forms
  *= require row_controls
+ *= require accounts
  *= require comments
+ *= require console
  *= require dashboard
  *= require databases
  *= require descriptors
+ *= require executions
+ *= require graphs
  *= require issues
  *= require issues/board
  *= require issues/exports
  *= require ldaps
+ *= require memberships
+ *= require memberships/switch
  *= require permalinks
  *= require password_resets
+ *= require processes
  *= require profiles
  *= require rules
  *= require rules/exports

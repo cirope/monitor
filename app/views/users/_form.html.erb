@@ -14,15 +14,13 @@
       <%= f.input :role, collection: roles, prompt: true, label: roles_label, input_html: { disabled: ldap } %>
       <%= f.input :lock_version, as: :hidden %>
 
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">
-            <a href="#tags" data-toggle="collapse">
-              <%= Tag.model_name.human count: 0 %>
-            </a>
-          </h3>
+      <div class="card">
+        <div class="card-header">
+          <a class="text-reset text-decoration-none d-block" href="#tags" data-toggle="collapse">
+            <%= Tag.model_name.human count: 0 %>
+          </a>
         </div>
-        <div id="tags" class="collapse panel-body">
+        <div id="tags" class="collapse card-body">
           <%= f.simple_fields_for :taggings, user_taggings do |tf| %>
             <%= render 'taggings/tagging', f: tf, kind: 'user' %>
           <% end %>
@@ -37,5 +35,3 @@
     </div>
   </fieldset>
 <% end %>
-
-<%= render 'role_help' %>

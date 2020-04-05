@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class TagsControllerTest < ActionController::TestCase
@@ -13,7 +15,7 @@ class TagsControllerTest < ActionController::TestCase
   end
 
   test 'should get filtered index' do
-    get :index, params: { kind: @tag.kind, q: @tag.name, format: :json }
+    get :index, params: { kind: @tag.kind, q: @tag.name }, as: :json
     assert_response :success
 
     tags = JSON.parse @response.body
@@ -35,7 +37,7 @@ class TagsControllerTest < ActionController::TestCase
         kind: kind,
         tag: {
           name: 'Test tag',
-          style: 'default'
+          style: 'secondary'
         }
       }
     end

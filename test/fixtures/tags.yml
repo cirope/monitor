@@ -1,31 +1,31 @@
 starters:
   name: Starters
   kind: script
-  style: default
+  style: secondary
   options: { "export": true }
 
 libs:
   name: Libraries
   kind: script
-  style: default
+  style: secondary
 
 important:
   name: Important
   kind: issue
-  style: default
+  style: secondary
 
 final:
   name: Final
   kind: issue
-  style: default
+  style: secondary
   options: { "final": true }
 
 admins:
   name: Admins
   kind: user
-  style: default
+  style: secondary
 
 guest:
   name: Guest role
   kind: user
-  style: default
+  style: secondary

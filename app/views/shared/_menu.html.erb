@@ -1,36 +1,9 @@
-<header class="navbar navbar-default navbar-fixed-top">
-  <div class="container">
-    <div class="navbar-header">
-      <% if current_user %>
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-      <% end %>
-
-      <%= link_to app_name, root_url, class: 'navbar-brand' %>
-    </div>
-
-    <% if current_user %>
-      <nav class="collapse navbar-collapse">
-        <% unless current_user.guest? %>
-          <%= render 'shared/config_actions' %>
-        <% end %>
-
-        <ul class="nav navbar-nav">
-          <%= menu_item_for Issue, dashboard_path, controller_name == 'dashboard' %>
-
-          <% if current_user.author? || current_user.supervisor? %>
-            <%= menu_item_for Script, scripts_path %>
-            <%= menu_item_for Schedule, schedules_path %>
-            <%= menu_item_for Rule, rules_path unless current_user.author? %>
-          <% end %>
-        </ul>
-
-        <%= render 'shared/user_actions' %>
-        <%= render 'shared/board_actions' %>
-      </nav>
-    <% end %>
-  </div>
-</header>
+<div class="navbar-custom">
+  <ul class="list-unstyled topbar-right-menu float-right mb-0">
+    <%= render 'shared/board_actions' %>
+    <%= render 'shared/user_actions' %>
+  </ul>
+  <button class="button-menu-mobile open-left disable-btn text-muted">
+    <%= icon 'fas', 'bars' %>
+  </button>
+</div>

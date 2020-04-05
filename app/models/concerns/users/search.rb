@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Users::Search
   extend ActiveSupport::Concern
 

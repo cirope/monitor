@@ -3,126 +3,60 @@
 
   <div class="form-inputs">
     <div class="row">
-      <div class="col-lg-10 col-md-9 col-xs-7">
+      <div class="<%= @script.ruby? ? 'col-lg-10 col-md-9 col-8' : 'col-12' %>">
         <%= f.input :name, input_html: { autofocus: true, disabled: disable_edition? } %>
       </div>
-      <div class="col-lg-2 col-md-3 col-xs-5 bottom text-right">
-        <div class="checkbox">
-          <label>
-            <%= f.check_box :core, disabled: disable_edition? %> <%= Script.human_attribute_name 'core' %>
-          </label>
+      <% if @script.ruby? %>
+        <div class="col-lg-2 col-md-3 col-4 pt-3 text-right">
+          <div class="custom-control custom-checkbox mt-2">
+            <%= f.check_box :core, disabled: disable_edition?, class: 'custom-control-input' %>
+            <label class="custom-control-label" for="script_core"><%= Script.human_attribute_name 'core' %></label>
+          </div>
         </div>
-      </div>
+      <% end %>
     </div>
 
     <%= f.input :text, label: false, input_html: {
       rows: 5,
       disabled: disable_edition?,
-      class: 'editor',
-      data: { readonly: disable_edition? }
+      data: {
+        editor:               true,
+        language:             @script.language,
+        change_input:         '#script_change',
+        file_input:           '#script_file',
+        observe_other_fields: true,
+        phrases:              editor_phrases.to_json,
+        readonly:             disable_edition?,
+        unsaved_data_warning: t('editor.edit.unsaved_data_warning')
+      }
     } %>
 
-    <%= f.input :file, label: false, hint: file_identifier, input_html: {
-      disabled: disable_edition? || @script.text.present?,
-      class: @script.text.present? && 'hidden'
-    } %>
-    <%= f.input :file_cache, as: :hidden %>
     <%= f.input :change, wrapper_html: {
-      class: @script.errors[:change].blank? && 'hidden'
+      hidden: @script.errors[:change].blank?
     } %>
-    <%= f.input :lock_version, as: :hidden %>
 
-    <% unless disable_edition? %>
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">
-            <a href="#maintainers" data-toggle="collapse">
-              <%= Maintainer.model_name.human count: 0 %>
-            </a>
-          </h3>
-        </div>
-        <div id="maintainers" class="collapse panel-body">
-          <%= f.simple_fields_for :maintainers, maintainers do |rf| %>
-            <%= render 'maintainers/maintainer', f: rf %>
-          <% end %>
+    <%= render "form_#{@script.language}", f: f %>
 
-          <%= link_to_add_fields t('scripts.new.maintainer'), f, :maintainers %>
-        </div>
-      </div>
-    <% end %>
+    <%= render 'form_sensitive_fields', f: f unless disable_edition? %>
 
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">
-          <a href="#requires" data-toggle="collapse">
-            <%= Require.model_name.human count: 0 %>
-          </a>
-        </h3>
-      </div>
-      <div id="requires" class="collapse panel-body">
-        <%= f.simple_fields_for :requires, requires do |rf| %>
-          <%= render 'requires/require', f: rf %>
-        <% end %>
-
-        <%= link_to_add_fields t('scripts.new.require'), f, :requires unless disable_edition? %>
-      </div>
-    </div>
-
-    <% unless disable_edition? %>
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">
-            <a href="#tags" data-toggle="collapse">
-              <%= Tag.model_name.human count: 0 %>
-            </a>
-          </h3>
-        </div>
-        <div id="tags" class="collapse panel-body">
-          <%= f.simple_fields_for :taggings, script_taggings do |tf| %>
-            <%= render 'taggings/tagging', f: tf, kind: 'script' %>
-          <% end %>
-
-          <%= link_to_add_fields t('scripts.new.tagging'), f, :taggings, kind: 'script' %>
-        </div>
-      </div>
-    <% end %>
-  </div>
-
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">
-        <a href="#parameters" data-toggle="collapse">
+    <div class="card mb-3">
+      <div class="card-header">
+        <a class="text-reset text-decoration-none d-block" href="#parameters" data-toggle="collapse">
           <%= Parameter.model_name.human count: 0 %>
         </a>
-      </h3>
-    </div>
-    <div id="parameters" class="collapse panel-body">
-      <%= f.simple_fields_for :parameters, parameters do |df| %>
-        <%= render 'parameters/parameter', f: df %>
-      <% end %>
-
-      <%= link_to_add_fields t('scripts.new.parameter'), f, :parameters unless disable_edition? %>
-    </div>
-  </div>
-
-  <% unless disable_edition? %>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">
-          <a href="#descriptions" data-toggle="collapse">
-            <%= Description.model_name.human count: 0 %>
-          </a>
-        </h3>
       </div>
-      <div id="descriptions" class="collapse panel-body">
-        <%= f.simple_fields_for :descriptions, descriptions do |df| %>
-          <%= render 'descriptions/description', f: df %>
+      <div id="parameters" class="collapse card-body">
+        <%= f.simple_fields_for :parameters, parameters do |df| %>
+          <%= render 'parameters/parameter', f: df %>
         <% end %>
 
-        <%= link_to_add_fields t('scripts.new.description'), f, :descriptions %>
+        <%= link_to_add_fields t('scripts.new.parameter'), f, :parameters unless disable_edition? %>
       </div>
     </div>
-  <% end %>
+
+    <%= f.input :lock_version, as: :hidden %>
+    <%= f.input :language, as: :hidden %>
+  </div>
 
   <div class="form-actions">
     <%= f.button :submit, class: 'btn-primary' %>

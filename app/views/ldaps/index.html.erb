@@ -1,33 +1,35 @@
 <% if @ldaps.empty? %>
   <%= render 'shared/empty_index', message: t('.empty_html') %>
 <% else %>
-  <table class="table table-striped table-hover">
-    <thead>
-      <tr>
-        <th><%= Ldap.human_attribute_name 'hostname' %></th>
-        <th><%= Ldap.human_attribute_name 'port' %></th>
-        <th colspan="<%= current_user.supervisor? ? 1 : 3 %>">
-          <% if !ldap && !current_user.supervisor? %>
-            <%= link_to_new new_ldap_path, class: 'btn btn-default btn-xs pull-right' %>
-          <% end %>
-        </th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @ldaps.each do |ldap| %>
+  <div class="card">
+    <table class="table table-hover">
+      <thead>
         <tr>
-          <td><%= ldap.hostname %></td>
-          <td><%= ldap.port %></td>
-          <td><%= link_to_show ldap %></td>
-          <% if current_user.security? %>
-            <td><%= link_to_edit [:edit, ldap] %></td>
-            <td><%= link_to_destroy ldap %></td>
-          <% end %>
+          <th><%= Ldap.human_attribute_name 'hostname' %></th>
+          <th><%= Ldap.human_attribute_name 'port' %></th>
+          <th colspan="<%= current_user.supervisor? ? 1 : 3 %>">
+            <% if !ldap && !current_user.supervisor? %>
+              <%= link_to_new new_ldap_path, class: 'btn btn-secondary btn-sm py-0 mr-n2 float-right' %>
+            <% end %>
+          </th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+
+      <tbody>
+        <% @ldaps.each do |ldap| %>
+          <tr>
+            <td><%= ldap.hostname %></td>
+            <td><%= ldap.port %></td>
+            <td class="text-right"><%= link_to_show ldap %></td>
+            <% if current_user.security? %>
+              <td class="text-right"><%= link_to_edit [:edit, ldap] %></td>
+              <td class="text-right"><%= link_to_destroy ldap %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 
   <%= paginate @ldaps %>
 <% end %>

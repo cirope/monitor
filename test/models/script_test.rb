@@ -1,8 +1,14 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class ScriptTest < ActiveSupport::TestCase
   setup do
     @script = scripts :ls
+  end
+
+  teardown do
+    Current.account = nil
   end
 
   test 'blank attributes' do
@@ -29,14 +35,6 @@ class ScriptTest < ActiveSupport::TestCase
     assert @script.invalid?
     assert_error @script, :name, :too_long, count: 255
     assert_error @script, :change, :too_long, count: 255
-  end
-
-  test 'validates attributes syntax' do
-    @script.text = 'def x; true; en'
-    error = syntax_errors_for @script.text
-
-    assert @script.invalid?
-    assert_error @script, :text, :syntax, errors: error
   end
 
   test 'validates attributes encoding' do
@@ -81,20 +79,6 @@ class ScriptTest < ActiveSupport::TestCase
 
   test 'body' do
     assert_match @script.text, @script.body
-  end
-
-  test 'body inclusions' do
-    script = scripts :cd_root
-    body   = @script.body
-
-    assert_match script.text, body
-    assert_match @script.text, body
-  end
-
-  test 'body includes defaults' do
-    Script.create! name: 'Core test', core: true, text: 'puts "Core script"', change: 'Initial'
-
-    assert_match /Core script/, @script.body
   end
 
   test 'copy to' do
@@ -144,7 +128,8 @@ class ScriptTest < ActiveSupport::TestCase
   end
 
   test 'to pdf' do
-    path = @script.to_pdf
+    Current.account = send 'public.accounts', :default
+    path            = @script.to_pdf
 
     assert File.exist?(path)
 
@@ -152,7 +137,8 @@ class ScriptTest < ActiveSupport::TestCase
   end
 
   test 'export' do
-    path = Script.export
+    Current.account = send 'public.accounts', :default
+    path            = Script.export
 
     assert File.exist?(path)
 
@@ -175,7 +161,8 @@ class ScriptTest < ActiveSupport::TestCase
   end
 
   test 'import an existing script' do
-    path = Script.where(id: @script.id).export
+    Current.account = send 'public.accounts', :default
+    path            = Script.where(id: @script.id).export
 
     @script.parameters.clear
     @script.requires.clear
@@ -200,7 +187,8 @@ class ScriptTest < ActiveSupport::TestCase
     script.uuid = uuid
     script.save!
 
-    path = Script.where(id: script.id).export
+    Current.account = send 'public.accounts', :default
+    path            = Script.where(id: script.id).export
 
     script.destroy!
 
@@ -214,7 +202,7 @@ class ScriptTest < ActiveSupport::TestCase
   end
 
   test 'text with db injections' do
-    db = databases :postgresql
+    db = send 'public.databases', :postgresql
 
     assert_equal @script.text, @script.text_with_injections
 
@@ -223,7 +211,7 @@ class ScriptTest < ActiveSupport::TestCase
     # Driver no FreeTDS
     assert_equal @script.text, @script.text_with_injections
 
-    expected = "ODBC.connect('#{db.name}', '#{db.user}', '#{db.password}')"
+    expected = "ODBC.connect('#{db.name}', '#{db.user}', '#{db.password}')\r\n"
 
     db.update! driver: 'FreeTDS'
 
@@ -234,9 +222,21 @@ class ScriptTest < ActiveSupport::TestCase
     assert_equal @script.text, @script.text_with_injections
   end
 
+  test 'text with ar injections' do
+    db = send 'public.databases', :postgresql
+
+    assert_equal @script.text, @script.text_with_injections
+
+    @script.text = "@@ar_connection['#{db.name}']"
+    config       = db.ar_config
+    expected     = "ActiveRecord::Base.establish_connection(#{config})"
+
+    assert_equal expected, @script.text_with_injections
+  end
+
   test 'text with db properties injections' do
-    database = databases :postgresql
-    property = properties :trace
+    database = send 'public.databases', :postgresql
+    property = send 'public.properties', :trace
 
     assert_equal @script.text, @script.text_with_injections
 
@@ -253,17 +253,52 @@ class ScriptTest < ActiveSupport::TestCase
     skip
   end
 
-  private
+  test 'revert to version' do
+    @script.update! change: 'Commit 1', text: 'puts "test"'
 
-    def syntax_errors_for code
-      RequestStore.store[:stderr] = stderr = StringIO.new
+    version = @script.versions.last
 
-      RubyVM::InstructionSequence.compile code
+    @script.update! change: 'Commit 2', text: 'puts "to revert"'
 
-      false
-    rescue SyntaxError => ex
-      ex.message.lines.concat([stderr.string]).join("\n")
-    ensure
-      RequestStore.store[:stderr] = STDERR
+    assert @script.revert_to(version)
+
+    assert_equal(
+      I18n.t('scripts.reverts.reverted_from', title: 'Commit 1'),
+      @script.reload.change
+    )
+    assert_equal 'puts "test"', @script.text
+  end
+
+  test 'cannot revert to version' do
+    @script.paper_trail.save_with_version # generate 1 version
+
+    version = @script.versions.first
+
+    version.object['text'] = nil
+    version.save!
+
+    refute @script.revert_to version
+  end
+
+  test 'versions with text changes' do
+    script = Script.create!(
+      name:   'Hello world',
+      text:   'puts "Hello world"',
+      change: 'Initial'
+    )
+
+    assert_difference 'PaperTrail::Version.count' do
+      assert_no_difference 'script.versions_with_text_changes.count' do
+        script.update! name: 'Super hello world', change: 'change title'
+      end
     end
+
+    assert_difference 'script.versions_with_text_changes.count' do
+      script.update!(
+        name:   'Triple hello world',
+        text:   '3.times { puts "Hello world" }',
+        change: 'Hello 3'
+      )
+    end
+  end
 end

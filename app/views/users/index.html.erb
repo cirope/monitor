@@ -3,35 +3,41 @@
 <% if @users.empty? %>
   <%= render 'shared/empty_index', message: empty_message %>
 <% else %>
-  <table class="table table-striped table-hover">
-    <thead>
-      <tr>
-        <th><%= User.human_attribute_name 'name' %></th>
-        <th><%= User.human_attribute_name 'lastname' %></th>
-        <th><%= User.human_attribute_name 'email' %></th>
-        <th class="hidden-sm"><%= Tag.model_name.human count: 0 %></th>
-        <th colspan="<%= user_actions_columns %>"></th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @users.each do |user| %>
+  <div class="card">
+    <table class="table table-hover">
+      <thead>
         <tr>
-          <td><%= user.name %></td>
-          <td><%= user.lastname %></td>
-          <td><%= mail_to user.email %></td>
-          <td class="hidden-sm"><%= tags user.tags %></td>
-          <td><%= link_to_show user %></td>
-          <% unless current_user.author? %>
-            <td><%= link_to_edit [:edit, user] %></td>
-            <% unless ldap %>
-              <td><%= link_to_destroy user %></td>
+          <th><%= User.human_attribute_name 'name' %></th>
+          <th><%= User.human_attribute_name 'lastname' %></th>
+          <th class="d-none d-md-table-cell"><%= User.human_attribute_name 'email' %></th>
+          <th class="d-none d-lg-table-cell"><%= Tag.model_name.human count: 0 %></th>
+          <th colspan="<%= user_actions_columns %>">
+            <% if !ldap && !current_user.author? %>
+              <%= link_to_new new_user_path, class: 'btn btn-secondary btn-sm py-0 mr-n2 float-right' %>
             <% end %>
-          <% end %>
+          </th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= user.name %></td>
+            <td><%= user.lastname %></td>
+            <td class="d-none d-md-table-cell"><%= mail_to user.email %></td>
+            <td class="d-none d-lg-table-cell"><%= tags user.tags %></td>
+            <td class="text-right"><%= link_to_show user %></td>
+            <% unless current_user.author? %>
+              <td class="text-right"><%= link_to_edit [:edit, user] %></td>
+              <% unless ldap %>
+                <td class="text-right"><%= link_to_destroy user %></td>
+              <% end %>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 
   <%= paginate @users %>
 <% end %>

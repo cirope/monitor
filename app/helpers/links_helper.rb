@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module LinksHelper
   def link_to_destroy(*args)
     options = args.extract_options!
@@ -6,11 +8,11 @@ module LinksHelper
     options[:data][:method]  ||= :delete
     options[:data][:confirm] ||= t('messages.confirmation')
 
-    link_with_icon({ action: 'destroy', icon: 'glyphicon-trash' }, *(args << options))
+    link_with_icon({ action: 'destroy', icon: 'trash' }, *(args << options))
   end
 
   def link_to_edit *args
-    link_with_icon({ action: 'edit', icon: 'glyphicon-pencil' }, *args)
+    link_with_icon({ action: 'edit', icon: 'pen' }, *args)
   end
 
   def link_to_index *args
@@ -22,19 +24,19 @@ module LinksHelper
   end
 
   def link_to_show *args
-    link_with_icon({ action: 'show', icon: 'glyphicon-search' }, *args)
+    link_with_icon({ action: 'show', icon: 'search' }, *args)
   end
 
   private
 
     def link_with_icon(options = {}, *args)
       arg_options = args.extract_options!
-      title = options.fetch(:title) { t("navigation.#{options.fetch(:action)}") }
+      title = options.fetch(:title) { t("navigation.#{options.fetch :action}") }
 
       arg_options.reverse_merge! title: title, class: 'icon'
 
       link_to *args, arg_options do
-        content_tag :span, nil, class: "glyphicon #{options.fetch(:icon)}"
+        icon 'fas', options.fetch(:icon)
       end
     end
 end
