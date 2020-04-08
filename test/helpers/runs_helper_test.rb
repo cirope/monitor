@@ -24,14 +24,14 @@ class RunsHelperTest < ActionView::TestCase
   end
 
   test 'link to force kill' do
-    @virtual_path = ''
+    @virtual_path = 'runs.show'
     @run          = runs :ls_on_atahualpa
 
     assert_match 'skull', link_to_force_kill_run
   end
 
   test 'link to kill' do
-    @virtual_path = ''
+    @virtual_path = 'runs.show'
     @run          = runs :ls_on_atahualpa
 
     assert_match 'stop-circle', link_to_kill_run

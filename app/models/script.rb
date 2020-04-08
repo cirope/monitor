@@ -12,7 +12,7 @@ class Script < ApplicationRecord
   include Scripts::Export
   include Scripts::Import
   include Scripts::Injections
-  include Scripts::JSON
+  include Scripts::Json
   include Scripts::Maintainers
   include Scripts::ModeRuby
   include Scripts::ModeSql

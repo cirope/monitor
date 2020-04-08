@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Databases::ODBC
+module Databases::Odbc
   extend ActiveSupport::Concern
 
   included do

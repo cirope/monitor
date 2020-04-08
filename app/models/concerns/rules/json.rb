@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Rules::JSON
+module Rules::Json
   extend ActiveSupport::Concern
 
   JSON_EXCLUDED_ATTRIBUTES   = [:id, :lock_version, :imported_at]

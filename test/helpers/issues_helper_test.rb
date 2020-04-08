@@ -78,35 +78,35 @@ class IssuesHelperTest < ActionView::TestCase
 
   test 'link add to board' do
     issue         = issues :ls_on_atahualpa_not_well
-    @virtual_path = ''
+    @virtual_path = 'issues.issue'
 
     assert_match 'data-method="post"', link_to_add_to_board(issue)
   end
 
   test 'link remove from board' do
     issue         = issues :ls_on_atahualpa_not_well
-    @virtual_path = ''
+    @virtual_path = 'issues.issue'
 
     assert_match 'data-method="delete"', link_to_remove_from_board(issue)
   end
 
   test 'link add all to board' do
     @script       = scripts :ls
-    @virtual_path = ''
+    @virtual_path = 'issues.index'
 
     assert_match 'data-method="post"', link_to_add_all_to_board
   end
 
   test 'link remove all from board' do
     @script       = scripts :ls
-    @virtual_path = ''
+    @virtual_path = 'issues.index'
 
     assert_match 'data-method="delete"', link_to_remove_all_from_board
   end
 
   test 'link to export data' do
     @issue        = issues :ls_on_atahualpa_not_well
-    @virtual_path = ''
+    @virtual_path = 'issues.show'
 
     assert_match /href=".*"/, link_to_export_data
   end

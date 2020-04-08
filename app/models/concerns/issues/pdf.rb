@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Issues::PDF
+module Issues::Pdf
   extend ActiveSupport::Concern
 
   module ClassMethods

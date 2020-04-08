@@ -71,6 +71,9 @@ es:
       script:
         one: 'Guión'
         other: 'Guiones'
+      serie:
+        one: 'Serie'
+        other: 'Series'
       server:
         one: 'Servidor'
         other: 'Servidores'
@@ -184,6 +187,13 @@ es:
         core: 'Principal'
         change: 'Comentario del último cambio'
         language: 'Lenguaje'
+      serie:
+        name: 'Nombre'
+        date: 'Fecha'
+        identifier: 'Identificador'
+        count: 'Cantidad'
+        amount: 'Monto'
+        data: 'Datos'
       server:
         name: 'Nombre'
         hostname: 'Dirección'
