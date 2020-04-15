@@ -1,9 +1,16 @@
-<li class="nav-item dropdown">
-  <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
-    <%= icon 'fas', 'user' %>
+<li class="dropdown notification-list">
+  <a class="nav-link dropdown-toggle nav-user arrow-none mr-0" href="#" data-toggle="dropdown">
+    <span class="account-user-avatar">
+      <%= icon 'fas', 'user' %>
+    </span>
+
+    <span>
+      <span class="account-user-name"><%= current_user %></span>
+      <span class="account-position"><%= t "users.roles.#{current_user.role}" %></span>
+    </span>
   </a>
 
-  <div class="dropdown-menu">
+  <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
     <%= link_to_edit_profile unless ldap %>
 
     <%= dropdown_item_for Dashboard, dashboards_path %>

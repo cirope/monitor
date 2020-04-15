@@ -2,15 +2,15 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# Note that this schema.rb definition is the authoritative source for your
-# database schema. If you need to create the application database on another
-# system, you should be using db:schema:load, not running all the migrations
-# from scratch. The latter is a flawed and unsustainable approach (the more migrations
-# you'll amass, the slower it'll run and the greater likelihood for issues).
+# This file is the source Rails uses to define your schema when running `rails
+# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# be faster and is potentially less error prone than running all of your
+# migrations from scratch. Old migrations may fail to apply correctly if those
+# migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_01_220932) do
+ActiveRecord::Schema.define(version: 2020_01_06_235917) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,41 @@ ActiveRecord::Schema.define(version: 2019_09_01_220932) do
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_accounts_on_name"
     t.index ["tenant_name"], name: "index_accounts_on_tenant_name", unique: true
+  end
+
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "clientes", id: false, force: :cascade do |t|
+    t.integer "id"
+    t.integer "numdoc"
+    t.string "nombre", limit: 60
+    t.datetime "fecha_nac"
+    t.string "sexo", limit: 1
+    t.string "direccion", limit: 80
+    t.string "localidad", limit: 60
+    t.string "codpost", limit: 4
+    t.string "provincia", limit: 20
+    t.string "telefono", limit: 30
+    t.string "mail", limit: 80
   end
 
   create_table "comments", id: :serial, force: :cascade do |t|
@@ -125,8 +160,8 @@ ActiveRecord::Schema.define(version: 2019_09_01_220932) do
   end
 
   create_table "issues_permalinks", id: false, force: :cascade do |t|
-    t.bigint "issue_id", null: false
-    t.bigint "permalink_id", null: false
+    t.integer "issue_id", null: false
+    t.integer "permalink_id", null: false
     t.index ["issue_id"], name: "index_issues_permalinks_on_issue_id"
     t.index ["permalink_id"], name: "index_issues_permalinks_on_permalink_id"
   end
@@ -193,6 +228,12 @@ ActiveRecord::Schema.define(version: 2019_09_01_220932) do
     t.index ["username"], name: "index_memberships_on_username"
   end
 
+  create_table "mo_clientes", primary_key: "cuit", id: :string, limit: 20, force: :cascade do |t|
+    t.string "nombre", limit: 50
+    t.text "comentarios", null: false
+    t.float "montopresunto"
+  end
+
   create_table "outputs", id: :serial, force: :cascade do |t|
     t.text "text"
     t.integer "trigger_id", null: false
@@ -232,6 +273,29 @@ ActiveRecord::Schema.define(version: 2019_09_01_220932) do
     t.index ["token"], name: "index_permalinks_on_token", unique: true
   end
 
+  create_table "pla_operaciones", id: false, force: :cascade do |t|
+    t.integer "id"
+    t.datetime "fecha"
+    t.integer "id_tipo_operacion"
+    t.decimal "importe", precision: 20, scale: 2
+    t.integer "id_persona_titular"
+    t.integer "id_persona_operacion"
+    t.integer "efectivo"
+    t.integer "debcre"
+  end
+
+  create_table "pla_personas", id: false, force: :cascade do |t|
+    t.integer "id_persona"
+    t.string "nombre", limit: 60
+    t.string "fisica_juridica", limit: 1
+    t.decimal "monto_presunto", precision: 20, scale: 2, default: "0.0"
+  end
+
+  create_table "pla_tipos_operacion", id: false, force: :cascade do |t|
+    t.integer "id"
+    t.string "descripcion", limit: 200
+  end
+
   create_table "properties", id: :serial, force: :cascade do |t|
     t.string "key", null: false
     t.string "value", null: false
@@ -239,6 +303,12 @@ ActiveRecord::Schema.define(version: 2019_09_01_220932) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["database_id"], name: "index_properties_on_database_id"
+  end
+
+  create_table "registro_e_s", id: false, force: :cascade do |t|
+    t.integer "id_empleado"
+    t.string "entrada_salida", limit: 1
+    t.datetime "fecha_hora"
   end
 
   create_table "requires", id: :serial, force: :cascade do |t|
@@ -307,10 +377,12 @@ ActiveRecord::Schema.define(version: 2019_09_01_220932) do
     t.datetime "updated_at", null: false
     t.boolean "core"
     t.string "change"
-    t.uuid "uuid", default: -> { "(md5(((random())::text || (clock_timestamp())::text)))::uuid" }, null: false
+    t.uuid "uuid", default: -> { "(md5(((random())::text || (clock_timestamp())::text)))::uuid" }
     t.datetime "imported_at"
     t.string "language", default: "ruby"
+    t.bigint "database_id"
     t.index ["core"], name: "index_scripts_on_core"
+    t.index ["database_id"], name: "index_scripts_on_database_id"
     t.index ["name"], name: "index_scripts_on_name"
     t.index ["uuid"], name: "index_scripts_on_uuid", unique: true
   end
@@ -345,6 +417,14 @@ ActiveRecord::Schema.define(version: 2019_09_01_220932) do
     t.datetime "updated_at", null: false
     t.index ["issue_id"], name: "index_subscriptions_on_issue_id"
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
+  end
+
+  create_table "sucursales", id: false, force: :cascade do |t|
+    t.integer "id"
+    t.string "nombre", limit: 60
+    t.string "direccion", limit: 60
+    t.string "localidad", limit: 60
+    t.string "provincia", limit: 60
   end
 
   create_table "taggings", id: :serial, force: :cascade do |t|
@@ -403,6 +483,21 @@ ActiveRecord::Schema.define(version: 2019_09_01_220932) do
     t.index ["username"], name: "index_users_on_username"
   end
 
+  create_table "vendedores", id: false, force: :cascade do |t|
+    t.integer "id"
+    t.integer "numdoc"
+    t.string "nombre", limit: 60
+    t.datetime "fecha_nac"
+    t.string "sexo", limit: 1
+    t.string "direccion", limit: 80
+    t.string "localidad", limit: 60
+    t.string "codpost", limit: 4
+    t.string "provincia", limit: 20
+    t.string "telefono", limit: 30
+    t.string "mail", limit: 80
+    t.integer "sucursal_id"
+  end
+
   create_table "versions", id: :serial, force: :cascade do |t|
     t.string "item_type", null: false
     t.integer "item_id", null: false
@@ -415,6 +510,7 @@ ActiveRecord::Schema.define(version: 2019_09_01_220932) do
     t.index ["whodunnit"], name: "index_versions_on_whodunnit"
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "issues", on_update: :restrict, on_delete: :restrict
   add_foreign_key "comments", "users", on_update: :restrict, on_delete: :restrict
   add_foreign_key "dashboards", "users", on_update: :restrict, on_delete: :restrict

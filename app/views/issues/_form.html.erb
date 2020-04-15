@@ -2,8 +2,10 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :status, collection: status, prompt: false, input_html: { autofocus: true, disabled: limited_issue_form_edition? } %>
-    <%= f.input :description, input_html: { rows: 4, readonly: limited_issue_form_edition? } %>
+    <%= f.input :status, collection: status, prompt: false, hint: false, input_html: {
+      autofocus: true, disabled: limited_issue_form_edition?
+    } %>
+    <%= f.input :description, hint: false, input_html: { rows: 4, readonly: limited_issue_form_edition? } %>
     <%= f.input :lock_version, as: :hidden %>
 
     <div class="card mb-3">
@@ -11,7 +13,7 @@
         <span class="badge badge-pill badge-light float-right">
           <%= @issue.subscriptions.count %>
         </span>
-        <a class="text-reset d-block" href="#subscriptions" data-toggle="collapse">
+        <a class="text-reset text-decoration-none d-block" href="#subscriptions" data-toggle="collapse">
           <%= User.model_name.human count: 0 %>
         </a>
       </div>
@@ -29,7 +31,7 @@
         <span class="badge badge-pill badge-light float-right">
           <%= @issue.taggings.count %>
         </span>
-        <a class="text-reset d-block" href="#tags" data-toggle="collapse">
+        <a class="text-reset text-decoration-none d-block" href="#tags" data-toggle="collapse">
           <%= Tag.model_name.human count: 0 %>
         </a>
       </div>

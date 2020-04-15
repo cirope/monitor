@@ -1,9 +1,9 @@
-<div class="card text-white bg-info mt-3">
+<div class="card bg-success mt-3">
   <div class="card-header">
-    <%= Permalink.model_name.human count: 1 %>
+    <h5><%= Permalink.model_name.human count: 1 %></h5>
   </div>
-  <div class="card-body">
-    <p>
+  <div class="card-body text-white">
+    <p class="mb-1">
       <%= link_to account_permalink_url(current_account, @permalink), [current_account, @permalink], class: 'text-reset' %>
     </p>
   </div>

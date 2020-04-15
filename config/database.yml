@@ -1,24 +1,38 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  host: localhost
+  host: <%= ENV['DB_HOST'] || 'localhost' %>
   port: 5432
   pool: 5
   username: <%= ENV['TRAVIS'] ? 'postgres' : 'monitor' %>
   password: <%= ENV['TRAVIS'] ? '' : ENV['APP_DB_PASSWORD'] || 'monitor' %>
+  database: <%= "monitor_#{Rails.env}" %>
+
+metrics_default: &metrics_default
+  <<: *default
+  database: <%= "metrics_#{Rails.env}" %>
+  migrations_paths: db/metrics_migrate
 
 development:
-  <<: *default
-  database: monitor_development
+  primary:
+    <<: *default
+  metrics:
+    <<: *metrics_default
 
 test:
-  <<: *default
-  database: monitor_test
+  primary:
+    <<: *default
+  metrics:
+    <<: *metrics_default
 
 production:
-  <<: *default
-  database: monitor_production
+  primary:
+    <<: *default
+  metrics:
+    <<: *metrics_default
 
 sandbox:
-  <<: *default
-  database: monitor_production
+  primary:
+    <<: *default
+  metrics:
+    <<: *metrics_default

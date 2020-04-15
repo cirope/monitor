@@ -1,0 +1,9 @@
+_fixture:
+  model_class: Serie
+first_transaction:
+  name: Transfers to others
+  date: <%= Time.zone.today.to_s :db %>
+  identifier: transaction_001
+  count: 3
+  amount: 3000.5
+  data: { "some": "data" }

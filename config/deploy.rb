@@ -20,9 +20,8 @@ set :keep_releases, 5
 
 namespace :deploy do
   before :check,      'config:upload'
-  before :publishing, :tenant
-  before :publishing, :db_updates
+  before :publishing, :before_publishing
   after  :publishing, :restart
-  after  :finishing,  :move_files
+  after  :finishing,  :after_finishing
   after  :finishing,  :cleanup
 end

@@ -1,4 +1,4 @@
-<tr <%== 'class="table-info"' if current_user.current_membership == membership %> data-id="<%= membership.id %>">
+<tr <%== 'class="table-success"' if current_user.current_membership == membership %> data-id="<%= membership.id %>">
   <td><%= membership.account %></td>
   <td><%= link_to_default membership %></td>
   <td class="text-right"><%= link_to_switch membership %></td>

@@ -34,7 +34,7 @@ module SchedulesHelper
   def link_to_run &block
     url     = run_schedule_path @schedule
     options = {
-      class: 'btn btn-secondary',
+      class: 'btn btn-sm btn-secondary',
       data:  {
         method:  :post,
         confirm: t('messages.confirmation')

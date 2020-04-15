@@ -1,6 +1,6 @@
 <div class="card my-3">
   <div class="card-header">
-    <a class="dropdown-toggle text-reset d-block" href="#issue-board-form" data-toggle="collapse">
+    <a class="dropdown-toggle text-reset text-decoration-none d-block" href="#issue-board-form" data-toggle="collapse">
       <%= icon 'fas', 'pen' %>
       <%= t '.title' %>
     </a>
@@ -49,9 +49,9 @@
               <%= cf.input :file, label: false %>
             </div>
             <div class="col-sm-3 text-right">
-              <div class="form-group form-check">
-                <%= check_box_tag 'issue[group_comments_email]', 1, params[:issue]&[:group_comments_email], class: 'form-check-input' %>
-                <label class="form-check-label" for="issue_group_comments_email"><%= t '.group_comments_email' %></label>
+              <div class="custom-control custom-checkbox">
+                <%= check_box_tag 'issue[group_comments_email]', 1, params[:issue]&[:group_comments_email], class: 'custom-control-input' %>
+                <label class="custom-control-label" for="issue_group_comments_email"><%= t '.group_comments_email' %></label>
               </div>
             </div>
           <% end %>

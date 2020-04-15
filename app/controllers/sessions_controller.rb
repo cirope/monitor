@@ -18,6 +18,8 @@ class SessionsController < ApplicationController
 
         redirect_to default_url, notice: t('.logged_in', scope: :flash)
       else
+        clear_session
+
         flash.now.alert = t '.invalid', scope: :flash
 
         render 'new'
@@ -26,8 +28,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    reset_session
-    cookies.delete :token
+    clear_session
 
     redirect_to root_url, notice: t('.logged_out', scope: :flash)
   end
@@ -55,6 +56,15 @@ class SessionsController < ApplicationController
     def switch_to_default_account_for username
       account = Account.default_by_username_or_email username
 
-      account&.switch { yield account }
+      if account
+        account.switch { yield account }
+      else
+        yield nil
+      end
+    end
+
+    def clear_session
+      reset_session
+      cookies.delete :token
     end
 end

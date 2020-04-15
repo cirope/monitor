@@ -1,9 +1,15 @@
-<h2><%= @account %></h2>
+<div class="card">
+  <div class="card-header">
+    <h2><%= @account %></h2>
+  </div>
 
-<p>
-  <strong><%= Account.human_attribute_name 'tenant_name' %></strong>:
-  <%= @account.tenant_name %>
-</p>
+  <div class="card-body">
+    <p>
+      <strong><%= Account.human_attribute_name 'tenant_name' %></strong>:
+      <%= @account.tenant_name %>
+    </p>
+  </div>
+</div>
 
 <%= link_to_edit [:edit, @account] %> |
 <%= link_to_index accounts_path %>

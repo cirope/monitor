@@ -28,6 +28,7 @@
 //= require codemirror/addon/search/searchcursor
 //= require codemirror/addon/selection/active-line
 //= require codemirror/mode/ruby
+//= require codemirror/mode/sql
 //= require popper
 //= require bootstrap
 //= require chartist/chartist
@@ -35,6 +36,9 @@
 //= require moment/moment
 //= require moment/es
 //= require daterangepicker/daterangepicker
+//= require hyper/metis_menu
+//= require hyper/jquery.slimscroll
+//= require hyper/hyper
 //
 //= require ajax
 //= require autocomplete

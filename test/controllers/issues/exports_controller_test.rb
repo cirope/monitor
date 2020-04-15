@@ -18,4 +18,10 @@ class Issues::ExportsControllerTest < ActionController::TestCase
     assert_response :success
     assert_equal 'application/zip', response.content_type
   end
+
+  test 'should create grouped zip' do
+    post :create, params: { ids: Issue.pluck('id'), grouped: true }
+    assert_response :success
+    assert_equal 'application/zip', response.content_type
+  end
 end

@@ -1,0 +1,44 @@
+<div class="card mb-3">
+  <div class="card-header">
+    <a class="text-reset text-decoration-none d-block" href="#maintainers" data-toggle="collapse">
+      <%= Maintainer.model_name.human count: 0 %>
+    </a>
+  </div>
+  <div id="maintainers" class="collapse card-body">
+    <%= f.simple_fields_for :maintainers, maintainers do |rf| %>
+      <%= render 'maintainers/maintainer', f: rf %>
+    <% end %>
+
+    <%= link_to_add_fields t('scripts.new.maintainer'), f, :maintainers %>
+  </div>
+</div>
+
+<div class="card mb-3">
+  <div class="card-header">
+    <a class="text-reset text-decoration-none d-block" href="#tags" data-toggle="collapse">
+      <%= Tag.model_name.human count: 0 %>
+    </a>
+  </div>
+  <div id="tags" class="collapse card-body">
+    <%= f.simple_fields_for :taggings, script_taggings do |tf| %>
+      <%= render 'taggings/tagging', f: tf, kind: 'script' %>
+    <% end %>
+
+    <%= link_to_add_fields t('scripts.new.tagging'), f, :taggings, kind: 'script' %>
+  </div>
+</div>
+
+<div class="card mb-3">
+  <div class="card-header">
+    <a class="text-reset text-decoration-none d-block" href="#descriptions" data-toggle="collapse">
+      <%= Description.model_name.human count: 0 %>
+    </a>
+  </div>
+  <div id="descriptions" class="collapse card-body">
+    <%= f.simple_fields_for :descriptions, descriptions do |df| %>
+      <%= render 'descriptions/description', f: df %>
+    <% end %>
+
+    <%= link_to_add_fields t('scripts.new.description'), f, :descriptions %>
+  </div>
+</div>

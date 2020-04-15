@@ -1,16 +1,21 @@
-<h2><%= @dashboard %></h2>
+<div class="card">
+  <div class="card-header">
+    <h3><%= @dashboard %></h3>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <% @dashboard.panels.order(:title).each do |panel| %>
+        <%= render 'panels/panel', panel: panel %>
+      <% end %>
+    </div>
 
-<div class="row" id="panels">
-  <% @dashboard.panels.order(:title).each do |panel| %>
-    <%= render 'panels/panel', panel: panel %>
-  <% end %>
+    <div id="new-panel"></div>
+
+    <p data-new-panel-btn>
+      <%= link_to t('.add_panel'), new_dashboard_panel_path(@dashboard), class: 'btn btn-sm btn-secondary', data: { remote: true } %>
+    </p>
+  </div>
 </div>
-
-<div id="new-panel" class="my-3"></div>
-
-<p class="my-3" data-new-panel-btn>
-  <%= link_to t('.add_panel'), new_dashboard_panel_path(@dashboard), class: 'btn btn-sm btn-secondary', data: { remote: true } %>
-</p>
 
 <%= link_to_edit [:edit, @dashboard] %> |
 <%= link_to_index dashboards_path %>

@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.2.3'
+gem 'rails', '~> 6.0.2'
 
 gem 'pg'
-gem 'apartment'
+gem 'apartment', github: 'influitive/apartment', branch: 'development'
 gem 'sassc-rails'
 gem 'bootstrap'
 gem 'font-awesome-sass'
@@ -29,7 +29,7 @@ gem 'sidekiq'
 gem 'apartment-sidekiq'
 gem 'whenever', require: false
 gem 'paper_trail'
-gem 'roadie-rails'
+gem 'premailer-rails'
 gem 'ruby-ntlm'
 gem 'rubyzip', require: 'zip'
 gem 'diffy'
@@ -40,6 +40,7 @@ gem 'coderay'
 gem 'web-console'
 
 gem 'unicorn'
+gem 'unicorn-rails'
 
 gem 'newrelic_rpm', '~> 6.2.0'
 
@@ -50,9 +51,11 @@ gem 'capistrano-rails'
 gem 'capistrano-sidekiq'
 
 group :development do
-  gem 'unicorn-rails'
   gem 'listen'
+  # gem 'rubocop', '< 0.68'
   gem 'rubocop-github'
+  gem "rubocop-performance", require: false
+  gem "rubocop-rails", require: false
 
   # Support for ed25519 ssh keys
   gem 'ed25519'

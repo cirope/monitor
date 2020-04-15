@@ -1,36 +1,45 @@
-<h3>
-  <span class="text-muted"><%= Execution.model_name.human count: 1 %> -</span>
+<div class="card">
+  <div class="card-header">
+    <h5>
+      <span class="text-muted"><%= Execution.model_name.human count: 1 %> -</span>
 
-  <%= link_to @script, @script %>
+      <%= link_to @script, @script %>
 
-  <span class="float-right" data-status="<%= @execution.status %>"
-                            data-pid="<%= @execution.pid %>"
-                            data-status-refresh-url="<%= script_execution_path @script, @execution %>">
-    <%= execution_status @execution.status %>
-  </span>
-</h3>
+      <span class="float-right" data-status="<%= @execution.status %>"
+                                data-pid="<%= @execution.pid %>"
+                                data-status-refresh-url="<%= script_execution_path @script, @execution %>">
+        <%= execution_status @execution.status %>
+      </span>
+    </h5>
+  </div>
 
-<p class="mb-1">
-  <strong><%= Execution.human_attribute_name 'server' %></strong>:
-  <%= @execution.server %>
-</p>
+  <div class="card-body">
+    <p class="mb-1">
+      <strong><%= Execution.human_attribute_name 'server' %></strong>:
+      <%= @execution.server %>
+    </p>
 
-<p class="mb-1">
-  <strong><%= Execution.human_attribute_name 'started_at' %></strong>:
-  <span data-started-at>
-    <%= l @execution.started_at, format: :compact if @execution.started_at %>
-  </span>
-</p>
-<p class="mb-1">
-  <strong><%= Execution.human_attribute_name 'ended_at' %></strong>:
-  <span data-ended-at>
-    <%= l @execution.ended_at, format: :compact if @execution.ended_at %>
-  </span>
-</p>
+    <p class="mb-1">
+      <strong><%= Execution.human_attribute_name 'started_at' %></strong>:
+      <span data-started-at>
+        <%= l @execution.started_at, format: :compact if @execution.started_at %>
+      </span>
+    </p>
+    <p class="mb-1">
+      <strong><%= Execution.human_attribute_name 'ended_at' %></strong>:
+      <span data-ended-at>
+        <%= l @execution.ended_at, format: :compact if @execution.ended_at %>
+      </span>
+    </p>
+  </div>
+</div>
 
 <div class="card my-3">
   <div class="card-header">
-    <%= link_to Execution.human_attribute_name('output'), '#execution-output', class: 'text-reset', data: { toggle: 'collapse' } %>
+    <h5>
+      <%= link_to Execution.human_attribute_name('output'), '#execution-output',
+        class: 'text-reset text-decoration-none', data: { toggle: 'collapse' } %>
+    </h5>
   </div>
   <div id="execution-output" class="card-body collapse show">
     <p class="mb-0">

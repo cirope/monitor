@@ -5,8 +5,9 @@ class Issue < ApplicationRecord
   include Exportable
   include Issues::Comments
   include Issues::Export
+  include Issues::GroupedExport
   include Issues::Notifications
-  include Issues::PDF
+  include Issues::Pdf
   include Issues::Permissions
   include Issues::Scopes
   include Issues::Status

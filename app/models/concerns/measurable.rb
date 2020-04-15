@@ -5,7 +5,7 @@ module Measurable
 
   included do
     # TODO: if some day we test this, remove the condition =)
-    before_save :schedule_measure, on: :update
+    before_update :schedule_measure
 
     has_many :measures, as: :measurable, dependent: :destroy
   end

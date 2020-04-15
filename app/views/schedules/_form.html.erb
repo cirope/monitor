@@ -22,7 +22,9 @@
 
     <div class="card mb-3">
       <div class="card-header">
-        <%= Job.model_name.human count: 0 %>
+        <h5>
+          <%= Job.model_name.human count: 0 %>
+        </h5>
       </div>
       <div id="jobs" class="card-body">
         <%= f.simple_fields_for :jobs, jobs do |rf| %>
@@ -35,7 +37,7 @@
 
     <div class="card mb-3">
       <div class="card-header">
-        <a class="text-reset d-block" href="#dependencies" data-toggle="collapse">
+        <a class="text-reset text-decoration-none d-block" href="#dependencies" data-toggle="collapse">
           <%= Dependency.model_name.human count: 0 %>
         </a>
       </div>
@@ -50,7 +52,7 @@
 
     <div class="card mb-3">
       <div class="card-header">
-        <a class="text-reset d-block" href="#dispatchers" data-toggle="collapse">
+        <a class="text-reset text-decoration-none d-block" href="#dispatchers" data-toggle="collapse">
           <%= Rule.model_name.human count: 0 %>
         </a>
       </div>

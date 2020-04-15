@@ -1,39 +1,42 @@
-<h1><%= t '.title' %></h1>
-
-<% if @imports.empty? %>
-  <div class="alert alert-warning">
-    <strong><%= t '.empty' %></strong>
+<div class="card">
+  <div class="card-header">
+    <h3><%= t '.title' %></h3>
   </div>
-<% else %>
-  <ul>
-    <% @imports.each do |import| %>
-      <% user = import[:user] %>
-      <li>
-        <strong><%= link_to_if user.persisted?, user, user %></strong>
-        <% if user.errors.present? %>
-          <span class="badge badge-danger"><%= t '.error' %></span> |
-          <%= user.errors.full_messages.to_sentence %>
-        <% else %>
-          <span class="badge badge-success">
-            <%= t import[:new] ? '.created' : '.updated' %>
-          </span>
+  <div class="card-body">
+    <% if @imports.empty? %>
+      <div class="alert alert-warning">
+        <strong><%= t '.empty' %></strong>
+      </div>
+    <% else %>
+      <ul>
+        <% @imports.each do |import| %>
+          <% user = import[:user] %>
+          <li>
+            <strong><%= link_to_if user.persisted?, user, user %></strong>
+            <% if user.errors.present? %>
+              <span class="badge badge-danger"><%= t '.error' %></span> |
+              <%= user.errors.full_messages.to_sentence %>
+            <% else %>
+              <span class="badge badge-success">
+                <%= t import[:new] ? '.created' : '.updated' %>
+              </span>
+            <% end %>
+          </li>
         <% end %>
-      </li>
+      </ul>
     <% end %>
-  </ul>
-<% end %>
 
-<% if @deprecated_users.present? %>
-  <h2><%= t '.deprecated_users' %></h2>
+    <% if @deprecated_users.present? %>
+      <h4><%= t '.deprecated_users' %></h4>
 
-  <ul>
-    <% @deprecated_users.each do |user| %>
-      <li><%= link_to user, user %></li>
+      <ul>
+        <% @deprecated_users.each do |user| %>
+          <li><%= link_to user, user %></li>
+        <% end %>
+      </ul>
     <% end %>
-  </ul>
-<% end %>
-
-<hr>
+  </div>
+</div>
 
 <p class="mb-3">
   <%= link_to User.model_name.human(count: 0), users_path %>

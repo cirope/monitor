@@ -1,7 +1,13 @@
 <div class="card border-danger my-3">
   <div class="card-header bg-danger text-white">
-    <%= link_to t('outputs.show.scripts_with_errors'), '#output-errors',
-      class: 'text-reset', data: { toggle: 'collapse' } %>
+    <h5>
+      <%= link_to(
+        t('outputs.show.scripts_with_errors'),
+        '#output-errors',
+        class: 'text-reset text-decoration-none',
+        data:  { toggle: 'collapse' }
+      ) %>
+    </h5>
   </div>
   <div id="output-errors" class="card-body collapse show">
     <% exec.parse_and_find_lines_with_error.each do |script, errors| %>

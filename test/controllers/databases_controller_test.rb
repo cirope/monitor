@@ -20,6 +20,16 @@ class DatabasesControllerTest < ActionController::TestCase
     assert_select '.alert', text: I18n.t('databases.index.empty_search_html')
   end
 
+  test 'should get filtered index for autocomplete' do
+    get :index, params: { q: @database.name }, as: :json
+    assert_response :success
+
+    databases = JSON.parse @response.body
+
+    assert_equal 1, databases.size
+    assert_equal @database.id, databases.first['id']
+  end
+
   test 'should get new' do
     get :new
     assert_response :success

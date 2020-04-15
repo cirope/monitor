@@ -1,37 +1,9 @@
-<header class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-  <div class="container">
-    <%= link_to app_name, root_url, class: 'navbar-brand', title: current_account&.name %>
-
-    <% if current_user&.visible? %>
-      <div class="ml-auto order-1 order-lg-2">
-        <%= render 'shared/board_actions' %>
-      </div>
-
-      <div class="order-2">
-        <button type="button" class="navbar-toggler ml-2" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      </div>
-
-      <nav class="collapse navbar-collapse order-3 order-lg-1">
-        <ul class="navbar-nav mr-auto">
-          <% unless current_user.guest? %>
-            <%= render 'shared/config_actions' %>
-          <% end %>
-
-          <%= menu_item_for Issue, home_path, active: controller_name == 'home' %>
-
-          <% if current_user.author? || current_user.supervisor? %>
-            <%= menu_item_for Script, scripts_path %>
-            <%= menu_item_for Schedule, schedules_path, active: controller_name == 'runs' %>
-            <%= menu_item_for Rule, rules_path unless current_user.author? %>
-          <% end %>
-        </ul>
-
-        <ul class="navbar-nav">
-          <%= render 'shared/user_actions' %>
-        </ul>
-      </nav>
-    <% end %>
-  </div>
-</header>
+<div class="navbar-custom">
+  <ul class="list-unstyled topbar-right-menu float-right mb-0">
+    <%= render 'shared/board_actions' %>
+    <%= render 'shared/user_actions' %>
+  </ul>
+  <button class="button-menu-mobile open-left disable-btn text-muted">
+    <%= icon 'fas', 'bars' %>
+  </button>
+</div>

@@ -68,7 +68,7 @@
         lineNumbers:       true,
         styleActiveLine:   true,
         foldGutter:        true,
-        theme:             readonly ? 'solarized dark' : 'solarized light',
+        theme:             readonly ? 'duotone-dark' : 'duotone-light',
         readOnly:          readonly,
         gutters:           ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
         phrases:           $textarea.data('phrases')

@@ -1,11 +1,13 @@
 <div class="card my-3">
   <div class="card-header">
-    <%= link_to(
-      Measure.human_attribute_name('cpu'),
-      '#cpu-measures',
-      class: 'text-reset d-block',
-      data:  { toggle: 'collapse' }
-    ) %>
+    <h5>
+      <%= link_to(
+        Measure.human_attribute_name('cpu'),
+        '#cpu-measures',
+        class: 'text-reset text-decoration-none d-block',
+        data:  { toggle: 'collapse' }
+      ) %>
+    </h5>
   </div>
 
   <div id="cpu-measures" class="card-body collapse show">
@@ -14,12 +16,14 @@
 </div>
 <div class="card my-3">
   <div class="card-header">
-    <%= link_to(
-      Measure.human_attribute_name('memory_in_bytes'),
-      '#memory-measures',
-      class: 'text-reset d-block',
-      data:  { toggle: 'collapse' }
-    ) %>
+    <h5>
+      <%= link_to(
+        Measure.human_attribute_name('memory_in_bytes'),
+        '#memory-measures',
+        class: 'text-reset text-decoration-none d-block',
+        data:  { toggle: 'collapse' }
+      ) %>
+    </h5>
   </div>
 
   <div id="memory-measures" class="card-body collapse show">

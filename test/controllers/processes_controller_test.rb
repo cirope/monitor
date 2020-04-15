@@ -22,6 +22,8 @@ class ProcessesControllerTest < ActionController::TestCase
     assert_redirected_to processes_url
     assert_equal I18n.t('processes.destroy.destroyed'), flash[:notice]
 
+    sleep 0.25 if ENV['TRAVIS']
+
     refute sleep_p.still_running?
   end
 
@@ -62,7 +64,7 @@ class ProcessesControllerTest < ActionController::TestCase
   private
 
     def sleep_process interval: 0.01
-      interval *= 10 if ENV['TRAVIS']
+      interval *= 100 if ENV['TRAVIS']
 
       detached_process command: "sleep #{interval}"
     end
