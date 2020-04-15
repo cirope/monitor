@@ -22,7 +22,9 @@ class PanelsControllerTest < ActionController::TestCase
       post :create, params: {
         dashboard_id: @dashboard,
         panel:        {
-          title: 'New panel'
+          title: 'New panel',
+          function: 'count',
+          output_type: 'pie'
         }
       }, xhr: true, as: :js
     end

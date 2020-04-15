@@ -166,7 +166,8 @@ es:
         title: 'Título'
         height: 'Alto'
         width: 'Ancho'
-        order: 'Orden'
+        function: 'Función'
+        output_type: 'Tipo de salida'
       parameter:
         name: 'Nombre'
         value: 'Valor'

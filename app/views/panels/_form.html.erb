@@ -2,8 +2,22 @@
   <%= f.error_notification unless request.xhr? %>
 
   <div class="form-inputs">
-    <%= f.input :title, input_html: { autofocus: true } %>
-    <%= f.input :width %>
+    <div class="row">
+      <div class="col">
+        <%= f.input :title, input_html: { autofocus: true } %>
+      </div>
+      <div class="col">
+        <%= f.input :width %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <%= f.input :function, collection: panel_functions, prompt: true %>
+      </div>
+      <div class="col">
+        <%= f.input :output_type, collection: panel_output_types, prompt: true %>
+      </div>
+    </div>
     <%= f.input :lock_version, as: :hidden %>
   </div>
 

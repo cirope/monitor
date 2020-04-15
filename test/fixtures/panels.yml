@@ -2,4 +2,6 @@ servers_overloaded:
   title: Servers overloaded
   height: 1
   width: 1
+  function: count
+  output_type: pie
   dashboard: franco_default

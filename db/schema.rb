@@ -249,6 +249,8 @@ ActiveRecord::Schema.define(version: 2020_01_06_235917) do
     t.string "title", null: false
     t.integer "height", default: 1, null: false
     t.integer "width", default: 1, null: false
+    t.string "function", null: false
+    t.string "output_type", null: false
     t.bigint "dashboard_id"
     t.integer "lock_version", default: 0, null: false
     t.datetime "created_at", null: false

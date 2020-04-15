@@ -237,6 +237,17 @@ es:
     show:
       scripts_with_errors: 'Guiones con errores'
 
+  panels:
+    functions:
+      count: 'TOTAL'
+      min: 'MÍNIMO'
+      max: 'MÁXIMO'
+      sum: 'SUMA'
+      avg: 'PROMEDIO'
+    output_types:
+      pie: 'Gráfico de torta'
+      line: 'Gráfico de línea'
+
   requires:
     require:
       empty: 'No se encontraron guiones con ese criterio'

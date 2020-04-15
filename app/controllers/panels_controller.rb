@@ -58,6 +58,7 @@ class PanelsController < ApplicationController
     end
 
     def panel_params
-      params.require(:panel).permit :title, :height, :width, :lock_version
+      params.require(:panel).permit :title, :height, :width, :function,
+        :output_type, :lock_version
     end
 end

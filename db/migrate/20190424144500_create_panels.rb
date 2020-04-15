@@ -6,6 +6,8 @@ class CreatePanels < ActiveRecord::Migration[5.2]
       t.string :title, null: false
       t.integer :height, null: false, default: 1
       t.integer :width, null: false, default: 1
+      t.string :function, null: false
+      t.string :output_type, null: false
       t.references :dashboard, index: true, foreign_key: {
         on_delete: :restrict, on_update: :restrict
       }
