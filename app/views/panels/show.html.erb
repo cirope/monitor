@@ -8,10 +8,6 @@
         <%= render 'panels/panel', panel: panel %>
       <% end %>
     </div>
-
-    <%= link_to t('.add_panel'), new_dashboard_panel_path(@dashboard), class: 'btn btn-primary' %>
+    <%= render 'form' %>
   </div>
 </div>
-
-<%= link_to_edit [:edit, @dashboard] %> |
-<%= link_to_index dashboards_path %>

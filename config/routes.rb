@@ -45,7 +45,7 @@ Rails.application.routes.draw do
   end
 
   resources :dashboards do
-    resources :panels, shallow: true, except: [:index]
+    resources :panels, except: [:index, :show]
   end
 
   resources :issues, except: [:new, :create] do

@@ -12,7 +12,7 @@ class PanelsControllerTest < ActionController::TestCase
   end
 
   test 'should get new' do
-    get :new, params: { dashboard_id: @dashboard }, xhr: true, as: :js
+    get :new, params: { dashboard_id: @dashboard }
 
     assert_response :success
   end
@@ -21,49 +21,34 @@ class PanelsControllerTest < ActionController::TestCase
     assert_difference 'Panel.count' do
       post :create, params: {
         dashboard_id: @dashboard,
-        panel:        {
+        panel: {
           title: 'New panel',
           function: 'count',
           output_type: 'pie'
         }
-      }, xhr: true, as: :js
+      }
     end
 
-    assert_response :success
-  end
-
-  test 'should show panel' do
-    get :show, params: { id: @panel }, xhr: true, as: :js
-
-    assert_response :success
-  end
-
-  test 'should show panel for nil param' do
-    get :show, params: { id: 'nil' }, xhr: true, as: :js
-
-    assert_response :success
+    assert_redirected_to @dashboard
   end
 
   test 'should get edit' do
-    get :edit, params: { id: @panel }, xhr: true, as: :js
+    get :edit, params: { dashboard_id: @dashboard, id: @panel }
 
     assert_response :success
   end
 
   test 'should update panel' do
-    patch :update, params: {
-      id:    @panel,
-      panel: { attr: 'value' }
-    }, xhr: true, as: :js
+    patch :update, params: { dashboard_id: @dashboard, id: @panel, panel: { attr: 'value' } }
 
-    assert_response :success
+    assert_redirected_to @dashboard
   end
 
   test 'should destroy panel' do
     assert_difference 'Panel.count', -1 do
-      delete :destroy, params: { id: @panel }, xhr: true, as: :js
+      delete :destroy, params: { dashboard_id: @dashboard, id: @panel }
     end
 
-    assert_response :success
+    assert_redirected_to @dashboard
   end
 end

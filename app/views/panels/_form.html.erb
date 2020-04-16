@@ -1,5 +1,5 @@
-<%= simple_form_for [@dashboard, @panel].compact, html: { data: { remote: request.xhr? } } do |f| %>
-  <%= f.error_notification unless request.xhr? %>
+<%= simple_form_for [@dashboard, @panel] do |f| %>
+  <%= f.error_notification %>
 
   <div class="form-inputs">
     <div class="row">
@@ -23,8 +23,8 @@
 
   <div class="form-actions">
     <p class="mb-0">
-      <%= f.button :submit, class: 'btn-sm btn-primary' %>
-      <%= link_to t('cancel'), panel_path(@panel.id || 'nil'), class: 'small', data: { remote: request.xhr? } %>
+      <%= f.button :submit, class: 'btn-primary' %>
+      <%= link_to t('cancel'), @dashboard, class: 'small' %>
     </p>
   </div>
 <% end %>
