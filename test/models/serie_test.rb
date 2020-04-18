@@ -19,7 +19,6 @@ class SerieTest < ActiveSupport::TestCase
     assert_error @serie, :date, :blank
     assert_error @serie, :identifier, :blank
     assert_error @serie, :amount, :blank
-    assert_error @serie, :count, :blank
   end
 
   test 'numeric attributes' do
@@ -55,7 +54,7 @@ class SerieTest < ActiveSupport::TestCase
 
     assert_equal 'test', serie.name
     assert_equal 'user_1', serie.identifier
-    assert_equal 3.days.ago.to_date, serie.date
+    assert_equal 3.days.ago.to_date, serie.date.to_date
     assert_equal 3.54, serie.amount
     assert_equal 1, serie.count
 

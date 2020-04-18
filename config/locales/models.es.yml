@@ -166,8 +166,12 @@ es:
         title: 'Título'
         height: 'Alto'
         width: 'Ancho'
+        period: 'Período'
+        filters: 'Filtros'
         function: 'Función'
+        frequency: 'Frecuencia'
         output_type: 'Tipo de salida'
+        range: 'Personalizar Rango'
       parameter:
         name: 'Nombre'
         value: 'Valor'

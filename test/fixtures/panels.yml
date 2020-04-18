@@ -4,4 +4,5 @@ servers_overloaded:
   width: 1
   function: count
   output_type: pie
+  period: total
   dashboard: franco_default

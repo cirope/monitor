@@ -24,7 +24,8 @@ class PanelsControllerTest < ActionController::TestCase
         panel: {
           title: 'New panel',
           function: 'count',
-          output_type: 'pie'
+          output_type: 'pie',
+          period: 'total'
         }
       }
     end

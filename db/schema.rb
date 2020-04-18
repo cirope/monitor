@@ -251,6 +251,14 @@ ActiveRecord::Schema.define(version: 2020_01_06_235917) do
     t.integer "width", default: 1, null: false
     t.string "function", null: false
     t.string "output_type", null: false
+    t.string "filters", default: [], array: true
+    t.boolean "range", default: false, null: false
+    t.string "period"
+    t.string "frequency"
+    t.integer "start_count"
+    t.integer "finish_count"
+    t.string "from_period"
+    t.string "to_period"
     t.bigint "dashboard_id"
     t.integer "lock_version", default: 0, null: false
     t.datetime "created_at", null: false

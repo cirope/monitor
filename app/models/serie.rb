@@ -14,7 +14,7 @@ class Serie < ApplicationRecord
     name       = extract_translated_attr_from :name, attributes
     identifier = extract_translated_attr_from :identifier, attributes
     amount     = extract_translated_attr_from :amount, attributes
-    date       = Time.at(attributes.delete :ts).to_date
+    date       = Time.at(attributes.delete :ts)
 
     s = find_or_initialize_by(
       name:       name,
