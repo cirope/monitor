@@ -9,7 +9,8 @@ module Panels::Validation
   OUTPUT_TYPES = %w(bar pie line)
 
   included do
-    validates :title, :height, :width, :function, :output_type, presence: true
+    validates :title, :height, :width, :function, :output_type, :period,
+      presence: true
     validates :title,
       length:     { maximum: 255 },
       uniqueness: { case_sensitive: false, scope: :dashboard_id }

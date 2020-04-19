@@ -6,7 +6,7 @@ module PanelsHelper
   end
 
   def panel_height panel
-    "style='height: #{panel.height * 100}px;'"
+    "col-mh-#{panel.height * 4}"
   end
 
   def panel_frequencies

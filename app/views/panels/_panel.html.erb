@@ -1,5 +1,5 @@
 <div class="<%= panel_col_class panel %>">
-  <div class="card controls-container <%= panel_highlight panel %>" <%== panel_height panel %>>
+  <div class="card controls-container <%= panel_highlight panel %> <%= panel_height panel %>">
     <div class="card-header">
       <span class="row-controls float-right">
         <%= link_to_edit [:edit, @dashboard, panel] %> |
@@ -10,7 +10,7 @@
     </div>
 
     <div class="card-body">
-      <%= graph_container panel.generate_data, type: panel.output_type, class: 'ct-chart h-100' %>
+      <%= graph_container panel.generate_data.sort.to_h, type: panel.output_type, class: 'ct-chart h-100' %>
     </div>
   </div>
 </div>

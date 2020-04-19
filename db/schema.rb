@@ -251,9 +251,9 @@ ActiveRecord::Schema.define(version: 2020_01_06_235917) do
     t.integer "width", default: 1, null: false
     t.string "function", null: false
     t.string "output_type", null: false
+    t.string "period", null: false
     t.string "filters", default: [], array: true
     t.boolean "range", default: false, null: false
-    t.string "period"
     t.string "frequency"
     t.integer "start_count"
     t.integer "finish_count"

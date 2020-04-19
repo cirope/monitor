@@ -171,7 +171,7 @@ es:
         function: 'Función'
         frequency: 'Frecuencia'
         output_type: 'Tipo de salida'
-        range: 'Personalizar Rango'
+        range: 'Personalizar Período'
       parameter:
         name: 'Nombre'
         value: 'Valor'
