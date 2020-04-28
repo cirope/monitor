@@ -246,6 +246,13 @@ es:
       empty_html: 'No hay paneles, puede crear uno con el botón <span class="badge badge-primary">Nuevo panel</span>'
     new:
       title: 'Crear panel'
+      query: 'Agregar consulta'
+    outputs:
+      bar: 'Gráfico de barras'
+      pie: 'Gráfico de torta'
+      line: 'Gráfico de línea'
+
+  queries:
     periods:
       total: 'Total'
       day: 'Día corriente'
@@ -264,10 +271,6 @@ es:
       maximum: 'Máximo'
       sum: 'Suma'
       average: 'Promedio'
-    output_types:
-      bar: 'Gráfico de barras'
-      pie: 'Gráfico de torta'
-      line: 'Gráfico de línea'
 
   requires:
     require:

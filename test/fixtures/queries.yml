@@ -1,0 +1,31 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  function: MyString
+  output: MyString
+  period: MyString
+  filters: MyString
+  frequency: MyString
+  from_count: 1
+  to_count: 1
+  from_period: MyString
+  to_period: MyString
+  from_at: 2020-04-26 10:04:38
+  to_at: 2020-04-26 10:04:38
+  range: false
+  panel: one
+
+two:
+  function: MyString
+  output: MyString
+  period: MyString
+  filters: MyString
+  frequency: MyString
+  from_count: 1
+  to_count: 1
+  from_period: MyString
+  to_period: MyString
+  from_at: 2020-04-26 10:04:38
+  to_at: 2020-04-26 10:04:38
+  range: false
+  panel: two

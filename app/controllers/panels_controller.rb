@@ -58,8 +58,10 @@ class PanelsController < ApplicationController
     end
 
     def panel_params
-      params.require(:panel).permit :title, :height, :width, :function, :output_type,
-        :frequency, :period, :range, { filters: [] }, :start_count, :finish_count,
-        :from_period, :to_period, :lock_version
+      params.require(:panel).permit :title, :height, :width, :output, :lock_version,
+        queries_attributes: [
+          :id, :function, :period, { filters: [] }, :frequency, :from_count,
+          :to_count, :from_period, :to_period, :range, :_destroy
+        ]
     end
 end

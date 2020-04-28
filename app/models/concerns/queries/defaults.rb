@@ -1,4 +1,6 @@
-module Panels::Defaults
+# frozen_string_literal: true
+
+module Queries::Defaults
   extend ActiveSupport::Concern
 
   included do

@@ -23,9 +23,7 @@ class PanelsControllerTest < ActionController::TestCase
         dashboard_id: @dashboard,
         panel: {
           title: 'New panel',
-          function: 'count',
-          output_type: 'pie',
-          period: 'total'
+          output: 'pie',
         }
       }
     end

@@ -1,12 +1,6 @@
 module Panels::Scopes
   extend ActiveSupport::Concern
 
-  module ClassMethods
-    def get_filters
-      Serie.distinct.pluck :name
-    end
-  end
-
   def generate_data
     conditions = {}
     conditions[:name] = filters if filters.present?

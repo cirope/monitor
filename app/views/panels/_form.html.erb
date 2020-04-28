@@ -12,36 +12,23 @@
       <div class="col">
         <%= f.input :height %>
       </div>
-    </div>
-    <div class="row">
       <div class="col">
-        <%= f.input :output_type, collection: panel_output_types, prompt: true %>
-      </div>
-      <div class="col">
-        <%= f.input :function, collection: panel_functions, prompt: true %>
-      </div>
-      <div class="col">
-        <div class="row">
-          <div class="col">
-            <%= f.input :period, collection: panel_periods, prompt: true %>
-          </div>
-          <div class="col">
-            <div class="mt-3">
-              <%= f.input :range %>
-            </div>
-          </div>
-        </div>
+        <%= f.input :output, collection: outputs, prompt: true %>
       </div>
     </div>
-    <div class="row">
-      <div class="col">
-        <%= f.input :filters, as: :check_boxes, collection: Panel.get_filters,
-          checked: f.object.filters %>
+
+    <div class="card">
+      <div class="card-header">
+        <h5>
+          <%= Query.model_name.human count: 0 %>
+        </h5>
       </div>
-      <div class="col">
-        <%= f.input :frequency, collection: panel_frequencies, prompt: true %>
-      </div>
-      <div class="col">
+      <div id="queries" class="card-body">
+        <%= f.simple_fields_for :queries, queries do |rf| %>
+          <%= render 'queries/query', f: rf %>
+        <% end %>
+
+        <%= link_to_add_fields t('panels.new.query'), f, :queries %>
       </div>
     </div>
     <%= f.input :lock_version, as: :hidden %>

@@ -1,0 +1,33 @@
+<fieldset>
+  <div class="row">
+    <div class="col">
+      <%= f.input :function, collection: functions, prompt: true %>
+    </div>
+    <div class="col">
+      <div class="row">
+        <div class="col">
+          <%= f.input :period, collection: periods, prompt: true %>
+        </div>
+        <div class="col">
+          <div class="mt-3">
+            <%= f.input :range %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <%= f.input :filters, as: :check_boxes, collection: Query.filters,
+          checked: f.object.filters %>
+      </div>
+      <div class="col">
+        <%= f.input :frequency, collection: frequencies, prompt: true %>
+      </div>
+      <div class="col">
+      </div>
+    </div>
+    <div class="col-sm-1">
+      <%= link_to_remove_nested_item f %>
+    </div>
+  </div>
+</fieldset>

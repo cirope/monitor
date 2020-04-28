@@ -9,29 +9,31 @@ module PanelsHelper
     "col-mh-#{panel.height * 4}"
   end
 
-  def panel_frequencies
-    Panel::FREQUENCIES.map { |f| [t("panels.frequencies.#{f}"), f] }
-  end
-
-  def panel_functions
-    Panel::FUNCTIONS.map { |f| [t("panels.functions.#{f}"), f] }
-  end
-
-  def panel_output_types
-    Panel::OUTPUT_TYPES.map { |o| [t("panels.output_types.#{o}"), o] }
-  end
-
-  def panel_periods
-    Panel::PERIODS.map { |c| [t("panels.periods.#{c}"), c] }
-  end
-
-  def panel_graph_for
-
-  end
-
   def panel_highlight panel
     if panel == @panel && (action_name == 'edit' || action_name == 'update')
       "panel-highlight"
     end
+  end
+
+  def queries
+    @panel.queries.new if @panel.queries.empty?
+
+    @panel.queries
+  end
+
+  def outputs
+    Panel::OUTPUTS.map { |o| [t("panels.outputs.#{o}"), o] }
+  end
+
+  def frequencies
+    Query::FREQUENCIES.map { |f| [t("queries.frequencies.#{f}"), f] }
+  end
+
+  def functions
+    Query::FUNCTIONS.map { |f| [t("queries.functions.#{f}"), f] }
+  end
+
+  def periods
+    Query::PERIODS.map { |c| [t("queries.periods.#{c}"), c] }
   end
 end

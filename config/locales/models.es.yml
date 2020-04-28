@@ -62,6 +62,9 @@ es:
       property:
         one: 'Propiedad'
         other: 'Propiedades'
+      query:
+        one: 'Consulta'
+        other: 'Consultas'
       require:
         one: 'Inclusión'
         other: 'Inclusiones'
@@ -166,12 +169,7 @@ es:
         title: 'Título'
         height: 'Alto'
         width: 'Ancho'
-        period: 'Período'
-        filters: 'Filtros'
-        function: 'Función'
-        frequency: 'Frecuencia'
-        output_type: 'Tipo de salida'
-        range: 'Personalizar Período'
+        output: 'Tipo de salida'
       parameter:
         name: 'Nombre'
         value: 'Valor'
@@ -180,6 +178,12 @@ es:
       property:
         key: 'Atributo'
         value: 'Valor'
+      query:
+        period: 'Período'
+        filters: 'Filtros'
+        function: 'Función'
+        frequency: 'Frecuencia'
+        range: 'Personalizar Período'
       require:
         script: 'Guión'
       rule:

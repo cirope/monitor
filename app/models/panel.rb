@@ -3,13 +3,11 @@
 class Panel < ApplicationRecord
   include Auditable
   include Attributes::Strip
-  include Panels::Defaults
+  include Panels::Queries
   include Panels::Scopes
   include Panels::Validation
 
   strip_fields :title
-
-  belongs_to :dashboard
 
   def to_s
     title

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_06_235917) do
+ActiveRecord::Schema.define(version: 2020_04_26_130438) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -249,16 +249,7 @@ ActiveRecord::Schema.define(version: 2020_01_06_235917) do
     t.string "title", null: false
     t.integer "height", default: 1, null: false
     t.integer "width", default: 1, null: false
-    t.string "function", null: false
-    t.string "output_type", null: false
-    t.string "period", null: false
-    t.string "filters", default: [], array: true
-    t.boolean "range", default: false, null: false
-    t.string "frequency"
-    t.integer "start_count"
-    t.integer "finish_count"
-    t.string "from_period"
-    t.string "to_period"
+    t.string "output", null: false
     t.bigint "dashboard_id"
     t.integer "lock_version", default: 0, null: false
     t.datetime "created_at", null: false
@@ -313,6 +304,24 @@ ActiveRecord::Schema.define(version: 2020_01_06_235917) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["database_id"], name: "index_properties_on_database_id"
+  end
+
+  create_table "queries", force: :cascade do |t|
+    t.string "function", null: false
+    t.string "period"
+    t.string "filters", default: [], null: false, array: true
+    t.string "frequency"
+    t.integer "from_count"
+    t.integer "to_count"
+    t.string "from_period"
+    t.string "to_period"
+    t.datetime "from_at", null: false
+    t.datetime "to_at", null: false
+    t.boolean "range", default: false, null: false
+    t.bigint "panel_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["panel_id"], name: "index_queries_on_panel_id"
   end
 
   create_table "registro_e_s", id: false, force: :cascade do |t|
@@ -544,6 +553,7 @@ ActiveRecord::Schema.define(version: 2020_01_06_235917) do
   add_foreign_key "panels", "dashboards", on_update: :restrict, on_delete: :restrict
   add_foreign_key "parameters", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "properties", "databases", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "queries", "panels", on_update: :restrict, on_delete: :restrict
   add_foreign_key "requires", "scripts", column: "caller_id", on_update: :restrict, on_delete: :restrict
   add_foreign_key "requires", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "runs", "jobs", on_update: :restrict, on_delete: :restrict
