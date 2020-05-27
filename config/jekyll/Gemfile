@@ -1,15 +1,11 @@
-source 'https://rubygems.org'
+source "https://rubygems.org"
 
-gem 'jekyll', '~> 4.0.1'
+gem "jekyll", "~> 4.0.1"
 
-gem 'sass'
-gem 'coffee-script'
-gem 'uglifier'
-gem 'kramdown'
-gem 'bootstrap-sass'
-gem 'autoprefixer-rails'
+gem "minima", "~> 2.5"
 
 group :jekyll_plugins do
-  gem 'jekyll-assets'
+  gem "jekyll-feed", "~> 0.12"
+  gem "jekyll-assets"
   gem 'jekyll-multiple-languages-plugin'
 end

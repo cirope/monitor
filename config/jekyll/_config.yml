@@ -1,19 +1,10 @@
+sass:
+  sass_dir: assets/stylesheets
+
 encoding: utf-8
 markdown: kramdown
 permalink: pretty
 baseurl: "/help"
-plugins:
-  - jekyll-assets
-  - jekyll-multiple-languages-plugin
-assets:
-  compression: true
-  sources:
-    - _assets/images
-    - _assets/javascripts
-    - _assets/stylesheets
-    - _vendor/assets/stylesheets
-    - _vendor/assets/javascripts
-    - _vendor/assets/fonts
 exclude:
   - Gemfile
   - Gemfile.lock
