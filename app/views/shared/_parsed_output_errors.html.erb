@@ -11,13 +11,15 @@
   </div>
   <div id="output-errors" class="card-body collapse show">
     <% exec.parse_and_find_lines_with_error.each do |script, errors| %>
-      <ul>
-        <% errors.each do |error| %>
-          <li>
-            <%= link_to_error_line script, error, valid: exec.still_valid? %>
-          </li>
-        <% end %>
-      </ul>
+      <% if errors.present? %>
+        <ul>
+          <% errors.each do |error| %>
+            <li>
+              <%= link_to_error_line script, error, valid: exec.still_valid? %>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
     <% end %>
   </div>
 </div>
