@@ -43,7 +43,11 @@ module Outputs::Parser
 
       errors_with_lines = db_errors.map { |e| { error: e, line: line } }
 
-      { script =>  lined_errors } if errors_with_lines.any?
+      if errors_with_lines.any?
+        { script => lined_errors }
+      else
+        {}
+      end
     end
 
     def parse_and_find_lines_with_error_in_ruby
