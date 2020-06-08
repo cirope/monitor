@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Scripts::Destroy
   extend ActiveSupport::Concern
 
@@ -9,9 +11,9 @@ module Scripts::Destroy
 
     def allow_destruction?
       if issues.count > 0
-				errors.add :base, 'Script can not be destroyed'
+        errors.add :base, 'Script can not be destroyed'
 
-				throw :abort
-			end
+        throw :abort
+      end
     end
 end

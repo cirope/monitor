@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class IssuesControllerTest < ActionController::TestCase
@@ -37,7 +39,7 @@ class IssuesControllerTest < ActionController::TestCase
   test 'should get index as guest' do
     user = users :john
 
-    login user
+    login user: user
 
     get :index
     assert_response :success
@@ -53,6 +55,24 @@ class IssuesControllerTest < ActionController::TestCase
 
     get :show, params: { id: permalink.issues.take, permalink_id: permalink }
     assert_response :success
+  end
+
+  test 'should show issue with account' do
+    account = send 'public.accounts', :default
+
+    get :show, params: { id: @issue, account_id: account }
+
+    assert account.tenant_name, session[:tenant_name]
+    assert_redirected_to issue_url(@issue)
+  end
+
+  test 'should show script issues with account' do
+    account = send 'public.accounts', :default
+
+    get :index, params: { script_id: @issue.script.id, account_id: account }
+
+    assert account.tenant_name, session[:tenant_name]
+    assert_redirected_to script_issues_url(@issue.script)
   end
 
   test 'should get edit' do

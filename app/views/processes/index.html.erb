@@ -1,0 +1,28 @@
+<div class="card">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th><%= t '.pid' %></th>
+        <th><%= t '.cpu' %></th>
+        <th><%= t '.memory' %></th>
+        <th class="d-none d-md-table-cell"><%= t '.memory_percent' %></th>
+        <th class="d-none d-md-table-cell"><%= t '.time' %></th>
+        <th class="d-none d-lg-table-cell"><%= t '.command' %></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @processes.sort_by(&:memory_percent).reverse.each do |process| %>
+        <tr>
+          <td><%= process.pid %></td>
+          <td><%= process.cpu %>%</td>
+          <td><%= number_to_human_size process.memory, precision: 0 %></td>
+          <td class="d-none d-md-table-cell"><%= process.memory_percent %>%</td>
+          <td class="d-none d-md-table-cell"><%= distance_of_time_in_words process.time %></td>
+          <td class="d-none d-lg-table-cell"><%= truncate process.command, length: 40, omission: '...' %></td>
+          <td><%= link_to_kill_process process if current_user.supervisor? %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

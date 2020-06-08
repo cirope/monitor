@@ -1,10 +1,15 @@
+# frozen_string_literal: true
+
 class Run < ApplicationRecord
   include Filterable
+  include Killable
+  include Measurable
   include Runs::Execution
   include Runs::Scopes
   include Runs::Status
   include Runs::Validation
   include Runs::Triggers
+  include Outputs::Parser
 
   belongs_to :job
   has_one :script, through: :job
@@ -16,5 +21,9 @@ class Run < ApplicationRecord
 
   def to_s
     "#{schedule} (#{I18n.l scheduled_at, format: :short})"
+  end
+
+  def language
+    'ruby'
   end
 end

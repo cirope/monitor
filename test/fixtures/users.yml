@@ -2,7 +2,7 @@ franco:
   name: Franco
   lastname: Catena
   email: francocatena@gmail.com
-  username: admin
+  username: franco
   role: supervisor
   password_digest: <%= BCrypt::Password.create('123', cost: BCrypt::Engine::MIN_COST) %>
   auth_token: <%= SecureRandom.urlsafe_base64 %>

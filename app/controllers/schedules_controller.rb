@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SchedulesController < ApplicationController
   include Schedules::Filters
 

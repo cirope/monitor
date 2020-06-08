@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Issues::PDF
   extend ActiveSupport::Concern
 
@@ -7,22 +9,25 @@ module Issues::PDF
     end
 
     def to_pdf
-      file = "#{EXPORTS_PATH}/#{SecureRandom.uuid}.pdf"
-      pdf  = Prawn::Document.new
+      file = "#{export_path}/#{SecureRandom.uuid}.pdf"
 
-      pdf.fill_color = '222222'
+      Prawn::Document.generate(file) do |pdf|
+        pdf.fill_color = '222222'
 
-      pdf.text I18n.t('issues.pdf.title'), size: 16
-      pdf.move_down 6
+        pdf.text I18n.t('issues.pdf.title'), size: 16
+        pdf.move_down 6
 
-      put_names_on             pdf
-      put_users_on             pdf
-      put_issues_by_month_on   pdf
-      put_summary_by_script_on pdf
-      put_issue_details_on     pdf
-      put_footer_on            pdf
+        @scoped = all.includes(:script).ordered_by_script_name.order(:created_at).preload(
+          :tags, last_comment: :user, script: :descriptions
+        )
 
-      pdf.render_file file
+        put_names_on             pdf
+        put_users_on             pdf
+        put_issues_by_month_on   pdf
+        put_summary_by_script_on pdf
+        put_issue_details_on     pdf
+        put_footer_on            pdf
+      end
 
       file
     end
@@ -35,7 +40,7 @@ module Issues::PDF
         grouped_issues.each do |script_data, count|
           script_id, script_name = *script_data
 
-          script            = Script.find script_id
+          script            = @scoped.find { |i| i.script.id == script_id }.script
           issue_count_label = I18n.t('issues.pdf.issue', count: count)
 
           pdf.text "#{script} (#{issue_count_label})", style: :bold
@@ -47,7 +52,7 @@ module Issues::PDF
       end
 
       def put_users_on pdf
-        if users.any?
+        if (users = users.to_a).any?
           pdf.text User.model_name.human(count: 0), size: 16
           pdf.move_down 6
 
@@ -60,16 +65,15 @@ module Issues::PDF
       end
 
       def put_issues_by_month_on pdf
-        data           = [issues_by_month_headers]
-        grouped_issues = includes(:script).group_by do |issue|
-          issue.created_at.beginning_of_month
+        grouped_issues = @scoped.group_by do |issue|
+          issue.created_at.to_date.beginning_of_month
         end
 
         pdf.text I18n.t('issues.pdf.by_month'), size: 16
         pdf.move_down 6
 
         grouped_issues.each do |month, issues|
-          issues_data = data.clone
+          issues_data = [issues_by_month_headers]
 
           issues.group_by(&:script).each do |script, issues|
             issues_data << [script.to_s, issues.size, issue_tag_list(issues)]
@@ -95,7 +99,7 @@ module Issues::PDF
 
         counts.each do |script_data, count|
           script_id, script_name, status = *script_data
-          issues = joins(:script).where(status: status, scripts: { id: script_id })
+          issues = @scoped.select { |i| i.status == status && i.script&.id == script_id }
 
           data << [
             script_name,
@@ -110,26 +114,28 @@ module Issues::PDF
       end
 
       def put_issue_details_on pdf
-        issues = includes :script, :tags
         data   = [issues_details_headers]
 
         pdf.text I18n.t('issues.pdf.details'), size: 16
         pdf.move_down 6
 
-        issues.ordered_by_script_name.order(:created_at).each do |issue|
+        statuses = I18n.t 'issues.status'
+
+        @scoped.each do |issue|
           last_comment = issue.last_comment
 
           data << [
             issue.script.to_s,
             I18n.l(issue.created_at, format: :compact),
             issue.description,
-            I18n.t("issues.status.#{issue.status}"),
+            statuses[issue.status],
             to_list(issue.tags),
             [last_comment&.user.to_s, last_comment&.text].compact.join(': ')
           ]
         end
 
         put_table_on pdf, data, column_widths: { 3 => 50, 4 => 60 }
+
         pdf.move_down 6
       end
 
@@ -194,14 +200,13 @@ module Issues::PDF
       end
 
       def users
-        User.by_issues(all).by_role(%w(author supervisor)).reorder :lastname
+        User.by_issues(@scoped).by_role(%w(author supervisor)).reorder :lastname
       end
 
       def issue_tag_list issues
-        issues_relation  = convert_to_relation issues
-        not_tagged_count = issues_relation.not_tagged.count
+        not_tagged_count = issues.count { |i| i.tags.empty? }
 
-        tag_names_as_list tag_names_for(issues_relation), not_tagged_count
+        tag_names_as_list tag_names_for(convert_to_relation issues), not_tagged_count
       end
 
       def tag_names_for issues

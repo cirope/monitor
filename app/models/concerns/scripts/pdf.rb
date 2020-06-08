@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module Scripts::Pdf
   extend ActiveSupport::Concern
 
   def to_pdf
-    file = "#{EXPORTS_PATH}/#{SecureRandom.uuid}.pdf"
+    file = "#{export_path}/#{SecureRandom.uuid}.pdf"
     pdf  = Prawn::Document.new
 
     pdf.fill_color = '222222'

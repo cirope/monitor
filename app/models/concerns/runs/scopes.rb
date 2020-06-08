@@ -1,13 +1,9 @@
+# frozen_string_literal: true
+
 module Runs::Scopes
   extend ActiveSupport::Concern
 
   included do
-    scope :aborted,          -> { by_status 'aborted' }
-    scope :canceled,         -> { by_status 'canceled' }
-    scope :pending,          -> { by_status 'pending' }
-    scope :scheduled,        -> { by_status 'scheduled' }
-    scope :running,          -> { by_status 'running' }
-    scope :executed,         -> { by_status %w(ok error) }
     scope :overdue,          -> { overdue_by 1, 'days' }
     scope :next_to_schedule, -> {
       pending.where "#{table_name}.scheduled_at <= ?", 10.minutes.from_now
@@ -15,10 +11,6 @@ module Runs::Scopes
   end
 
   module ClassMethods
-    def by_status status
-      where status: status
-    end
-
     def by_scheduled_at range_as_string
       dates = range_as_string.split(/\s*-\s*/).map do |d|
         Timeliness.parse d rescue nil

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Job < ApplicationRecord
   include Auditable
   include Jobs::Cleanup

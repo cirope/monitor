@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class IssueTest < ActiveSupport::TestCase
@@ -5,6 +7,10 @@ class IssueTest < ActiveSupport::TestCase
 
   setup do
     @issue = issues :ls_on_atahualpa_not_well
+  end
+
+  teardown do
+    Current.account = nil
   end
 
   teardown do
@@ -153,19 +159,60 @@ class IssueTest < ActiveSupport::TestCase
   end
 
   test 'export issue data' do
-    path = @issue.export_data
+    Current.account = send 'public.accounts', :default
+    file_content    = @issue.export_content
+
+    assert_not_nil file_content
+  end
+
+  test 'export issue without data' do
+    Current.account = send 'public.accounts', :default
+
+    @issue.data  = {}
+    file_content = @issue.export_content
+
+    assert_nil file_content
+  end
+
+  test 'export data' do
+    Current.account = send 'public.accounts', :default
+    path            = Issue.export
 
     assert File.exist?(path)
 
     FileUtils.rm path
   end
 
-  test 'export data' do
-    path = Issue.export_data
+  test 'export grouped data' do
+    Current.account = send 'public.accounts', :default
+    path            = Issue.grouped_export
 
-    assert File.exist?(path)
+    assert File.exist? path
 
-    FileUtils.rm path
+    grouped_zip = Zip::File.open path, Zip::File::CREATE
+
+    assert_equal 1, grouped_zip.entries.size
+    assert_equal 'Execute_one_ls.zip', grouped_zip.entries.first.name
+
+    raw_issues = grouped_zip.read 'Execute_one_ls.zip'
+
+    tmp_file = Tempfile.open do |temp|
+      temp.binmode
+      temp << raw_issues
+      temp.path
+    end
+
+    issues = Zip::File.open tmp_file, Zip::File::CREATE
+
+    assert_equal 1, issues.entries.size
+
+    csv_report = issues.read 'Execute_one_ls.csv'
+
+    csv = CSV.parse csv_report[3..-1], col_sep: ';', force_quotes: true, headers: true
+
+    assert_equal csv.size, Issue.all.count
+
+    FileUtils.rm_f path
   end
 
   test 'add to zip' do
@@ -173,7 +220,8 @@ class IssueTest < ActiveSupport::TestCase
   end
 
   test 'to pdf' do
-    path = Issue.to_pdf
+    Current.account = send 'public.accounts', :default
+    path            = Issue.to_pdf
 
     assert File.exist?(path)
 
@@ -181,13 +229,13 @@ class IssueTest < ActiveSupport::TestCase
   end
 
   test 'comment' do
-    user       = users :franco
-    user_count = User.joins(:issues).count
+    user                         = users :franco
+    PaperTrail.request.whodunnit = user.id
 
-    assert user_count > 1
+    assert user.issues.any?
 
-    assert_enqueued_emails user_count.pred do
-      Issue.comment text: 'Mass comment test', user_id: user.id
+    assert_enqueued_emails user.issues.count do
+      user.issues.comment text: 'Mass comment test'
     end
   end
 end

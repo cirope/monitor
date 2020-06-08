@@ -3,31 +3,33 @@
 <% if @databases.empty? %>
   <%= render 'shared/empty_index', message: empty_message %>
 <% else %>
-  <table class="table table-striped table-hover">
-    <thead>
-      <tr>
-        <th><%= Database.human_attribute_name 'name' %></th>
-        <th><%= Database.human_attribute_name 'driver' %></th>
-        <th colspan="<%= current_user.supervisor? ? 1 : 3 %>">
-          <%= link_to_new new_database_path, class: 'btn btn-default btn-xs pull-right' unless current_user.supervisor? %>
-        </th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @databases.each do |database| %>
+  <div class="card">
+    <table class="table table-hover">
+      <thead>
         <tr>
-          <td><%= database.name %></td>
-          <td><%= database.driver %></td>
-          <td><%= link_to_show database %></td>
-          <% unless current_user.supervisor? %>
-            <td><%= link_to_edit [:edit, database] %></td>
-            <td><%= link_to_destroy database %></td>
-          <% end %>
+          <th><%= Database.human_attribute_name 'name' %></th>
+          <th><%= Database.human_attribute_name 'driver' %></th>
+          <th colspan="<%= current_user.supervisor? ? 1 : 3 %>">
+            <%= link_to_new new_database_path, class: 'btn btn-secondary btn-sm py-0 mr-n2 float-right' unless current_user.supervisor? %>
+          </th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+
+      <tbody>
+        <% @databases.each do |database| %>
+          <tr>
+            <td><%= database.name %></td>
+            <td><%= database.driver %></td>
+            <td class="text-right"><%= link_to_show database %></td>
+            <% unless current_user.supervisor? %>
+              <td class="text-right"><%= link_to_edit [:edit, database] %></td>
+              <td class="text-right"><%= link_to_destroy database %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 
   <%= paginate @databases %>
 <% end %>

@@ -1,22 +1,20 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
+<div class="card mb-3 mb-3">
+  <div class="card-header">
     <% if filters? %>
-      <p class="text-warning pull-right">
-        <span class="glyphicon glyphicon-filter"></span>
+      <p class="text-warning mb-0 float-right">
+        <%= icon 'fas', 'filter' %>
         <%= link_to scripts_path, title: t('cancel') do %>
-          <span class="glyphicon glyphicon-remove-circle"></span>
+          <%= icon 'fas', 'times-circle' %>
         <% end %>
       </p>
     <% end %>
-    <h4 class="panel-title">
-      <a href="#filters" data-toggle="collapse">
-        <span class="glyphicon glyphicon-search"></span>
-        <%= t 'filters.title' %>
-        <span class="caret"></span>
-      </a>
-    </h4>
+
+    <a class="dropdown-toggle text-reset text-decoration-none d-block" href="#filters" data-toggle="collapse">
+      <%= icon 'fas', 'search' %>
+      <%= t 'filters.title' %>
+    </a>
   </div>
-  <div id="filters" class="panel-body collapse">
+  <div id="filters" class="card-body collapse">
     <%= simple_form_for :filter, method: :get do |f| %>
       <fieldset>
         <div class="row">
@@ -25,7 +23,7 @@
               required: false,
               input_html: {
                 value:     filter_params[:name],
-                class:     'input-sm',
+                class:     'form-control-sm',
                 autofocus: true
               }
             %>
@@ -35,15 +33,15 @@
               required: false, as: :autocomplete, url: tags_path(kind: 'script'),
               input_html: {
                 value: filter_params[:tags],
-                class: 'input-sm',
+                class: 'form-control-sm',
                 data:  { empty_result_label: t('filters.tags.empty') }
               }
             %>
           </div>
-          <div class="col-lg-4 bottom">
-            <p class="text-right">
-              <%= f.button :submit, t('filters.submit'), class: 'btn-sm btn-default' %>
-              <%= link_to t('cancel'), issue_index_path, class: 'small' %>
+          <div class="col-lg-4 pt-4">
+            <p class="text-right mb-0">
+              <%= f.button :submit, t('filters.submit'), class: 'btn-sm btn-secondary' %>
+              <%= link_to t('cancel'), scripts_path, class: 'small' %>
             </p>
           </div>
         </div>

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Issues::Status
   extend ActiveSupport::Concern
 
@@ -25,7 +27,7 @@ module Issues::Status
 
   def next_status
     if PaperTrail.request.whodunnit
-      user = User.find PaperTrail.request.whodunnit
+      user = User.find_by id: PaperTrail.request.whodunnit
     end
 
     transitions = if user&.supervisor?

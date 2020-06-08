@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class FileRemoveJobTest < ActiveJob::TestCase
@@ -10,7 +12,7 @@ class FileRemoveJobTest < ActiveJob::TestCase
 
     FileRemoveJob.perform_now path
 
-    sleep 0.02
+    sleep ENV['TRAVIS'] ? 0.12 : 0.02
 
     assert !path.exist?
   end

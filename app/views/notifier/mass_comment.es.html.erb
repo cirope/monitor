@@ -8,5 +8,5 @@
 
 <p>
   Se hizo el siguiente comentario en
-  <%= link_to t('.issues', count: @permalink.issues.count), permalink_url(@permalink) %>
+  <%= link_to t('.issues', count: @permalink.issues.count), account_permalink_url(current_account, @permalink) %>
 </p>

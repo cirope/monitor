@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class ConsoleControllerTest < ActionController::TestCase
@@ -11,10 +13,10 @@ class ConsoleControllerTest < ActionController::TestCase
   end
 
   test 'should be redirected if not supervisor' do
-    login users(:eduardo)
+    login user: users(:eduardo)
 
     get :show
-    assert_redirected_to issues_url
+    assert_redirected_to root_url
   end
 
   test 'should be redirected if disabled' do

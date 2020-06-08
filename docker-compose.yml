@@ -1,0 +1,46 @@
+version: '3.7'
+
+x-services-defaults: &services_defaults
+  network_mode: host
+  restart: unless-stopped
+
+x-monitor-defaults: &monitor_defaults
+  image: monitor:latest
+  volumes:
+    - ./log/monitor:/opt/app/log:rw
+    - ./volumes/monitor_storage:/opt/app/private:rw
+    - ./volumes/monitor_customer_data:/data:rw
+  env_file:
+    - monitor.env
+    - services.env
+  depends_on:
+    - postgres
+    - redis
+
+services:
+  postgres:
+    <<: *services_defaults
+    image: postgres:11-alpine
+    volumes:
+      - ./log/postgres:/var/log/postgresql:rw
+      - ./volumes/postgres:/var/lib/postgresql/data:rw
+      - ./volumes/postgres_restore:/docker-entrypoint-initdb.d:rw
+    env_file:
+      - database.env
+
+  redis:
+    <<: *services_defaults
+    image: redis:5-alpine
+    volumes:
+      - ./volumes/redis:/data:rw
+
+  monitor:
+    <<: *monitor_defaults
+    <<: *services_defaults
+    build: .
+
+  sidekiq:
+    <<: *monitor_defaults
+    <<: *services_defaults
+    entrypoint: ''
+    command: sidekiq -C config/sidekiq.yml

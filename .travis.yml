@@ -1,26 +1,44 @@
 language: ruby
+dist: bionic
 cache: bundler
-sudo: false
 rvm:
-  - 2.3.0
+  - 2.6.6
 addons:
   apt:
     packages:
     - slapd
     - ldap-utils
     - unixodbc-dev
-  postgresql: 9.4
+  postgresql: 11
+services:
+  - postgresql
+stages:
+  - build
+  - test
 env:
   - ENABLE_WEB_CONSOLE='true'
   - ENABLE_WEB_CONSOLE='false'
-before_install:
-  - 'gem install bundler'
 before_script:
   - 'cp config/application.travis.yml config/application.yml'
   - "psql -c 'create database monitor_test;' -U postgres"
-  - 'bundle exec rake db:migrate'
+  - 'bundle exec rails db:migrate'
   - 'slapd -f test/fixtures/ldap/slapd.conf -h ldap://localhost:3389'
   - 'bundle exec rake ldap:reset'
 install:
   - 'rm ${BUNDLE_GEMFILE}.lock'
-  - 'eval bundle install --jobs=3 --retry=3 --path=${BUNDLE_PATH:-vendor/bundle}'
+  - 'eval bundle install --jobs=3 --retry=3 --path=${BUNDLE_PATH:-$PWD/vendor/bundle}'
+
+jobs:
+  include:
+    - stage: build
+      script: docker build -t gredit/app .
+      install: skip
+      before_script: cp config/application.travis.yml config/application.yml
+      env:
+      rvm:
+      addons:
+        apt:
+          packages:
+            - docker-ce
+      services:
+        - docker

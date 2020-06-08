@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class SessionsControllerTest < ActionController::TestCase
@@ -31,6 +33,8 @@ class SessionsControllerTest < ActionController::TestCase
   end
 
   test 'should create a new session via LDAP' do
+    @user.update! username: 'admin'
+
     post :create, params: { username: @user.username, password: 'admin123' }
 
     assert_redirected_to dashboard_url
@@ -47,7 +51,7 @@ class SessionsControllerTest < ActionController::TestCase
   end
 
   test 'should get destroy' do
-    @controller.send(:cookies).encrypted[:auth_token] = @user.auth_token
+    @controller.send(:cookies).encrypted[:token] = @user.auth_token
 
     assert_not_nil current_user
 

@@ -1,0 +1,5 @@
+_fixture:
+  model_class: Account
+default:
+  name: Default account
+  tenant_name: default

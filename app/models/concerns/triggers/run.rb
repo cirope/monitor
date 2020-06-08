@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Triggers::Run
   extend ActiveSupport::Concern
 
@@ -22,8 +24,17 @@ module Triggers::Run
 
           stdout.string
         rescue => ex
-          [stdout.string, ex.inspect].reject(&:blank?).join("\n")
+          error  = [stdout.string, ex.message]
+          error += app_lines_from_exception ex
+
+          error.reject(&:blank?).join "\n"
         end
       RUBY
+    end
+
+    def app_lines_from_exception ex
+      ex.backtrace.select do |line|
+        line.start_with?('(eval):') || line.start_with?(Rails.root.to_s)
+      end
     end
 end

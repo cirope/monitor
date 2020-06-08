@@ -1,41 +1,49 @@
-<div class="row">
-  <div class="col-md-4 col-md-offset-4">
-    <div class="well">
-      <%= form_tag sessions_path, novalidate: 'novalidate' do %>
-        <div class="form-inputs">
-          <div class="form-group">
-            <%= label_tag :username, t('.username'), class: 'control-label' %>
-            <div class="controls">
-              <%= text_field_tag :username, params[:username], class: 'form-control', autofocus: true, autocomplete: 'off' %>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <%= label_tag :password, t('.password'), class: 'control-label' %>
-            <div class="controls">
-              <%= password_field_tag :password, nil, class: 'form-control' %>
-            </div>
-          </div>
-
-          <div class="checkbox">
-            <label>
-              <%= check_box_tag :remember_me, 1, params[:remember_me] %> <%= t('.remember_me') %>
-            </label>
-          </div>
+<div class="row justify-content-center mt-md-5">
+  <div class="col col-lg-4 col-md-6 col-sm-10">
+    <div class="card">
+      <div class="card-header py-md-4 text-center bg-primary">
+        <%= image_tag 'logo.svg', size: '170x52', alt: app_name %>
+      </div>
+      <div class="card-body p-md-4">
+        <div class="text-center w-75 m-auto">
+          <h4 class="text-dark-50 text-center mt-0 font-weight-bold">
+            <%= @title %>
+          </h4>
+          <p class="text-muted mb-4">
+            <%= t '.subtitle' %>
+          </p>
         </div>
+        <%= form_tag sessions_path, novalidate: 'novalidate' do %>
+          <div class="form-group">
+            <%= label_tag :username, t('.username') %>
+            <%= text_field_tag :username, params[:username], placeholder: t('.username'), class: 'form-control', autofocus: true, autocomplete: 'off' %>
+          </div>
 
-        <div class="form-actions">
-          <%= submit_tag t('.log_in'), class: 'btn btn-default' %>
-        </div>
-      <% end %>
+          <div class="form-group">
+            <%= label_tag :password, t('.password') %>
+            <%= password_field_tag :password, nil, placeholder: t('.password'), class: 'form-control' %>
+          </div>
+
+          <div class="custom-control custom-checkbox">
+            <%= check_box_tag :remember_me, 1, params[:remember_me], class: 'custom-control-input' %>
+            <label class="custom-control-label" for="remember_me"><%= t '.remember_me' %></label>
+          </div>
+
+          <div class="form-actions text-center">
+            <%= submit_tag t('.log_in'), class: 'btn btn-primary px-4' %>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
 
 <% unless ldap %>
-  <div class="row">
-    <div class="col-md-4 col-md-offset-4">
-      <p><%= link_to t('.forgot_password'), new_password_reset_path %></p>
+  <div class="row justify-content-center">
+    <div class="col col-lg-4 col-md-6 col-sm-10 text-center">
+      <p class="mt-3">
+        <%= link_to t('.forgot_password'), new_password_reset_path %>
+      </p>
     </div>
   </div>
 <% end %>

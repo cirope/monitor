@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class PasswordResetsControllerTest < ActionController::TestCase
@@ -23,6 +25,15 @@ class PasswordResetsControllerTest < ActionController::TestCase
   test 'should get edit' do
     get :edit, params: { id: @user.password_reset_token }
     assert_response :success
+  end
+
+  test 'should get edit with account' do
+    account = send 'public.accounts', :default
+
+    get :edit, params: { id: @user.password_reset_token, account_id: account }
+
+    assert account.tenant_name, session[:tenant_name]
+    assert_redirected_to edit_password_reset_url(@user.password_reset_token)
   end
 
   test 'should update user password' do

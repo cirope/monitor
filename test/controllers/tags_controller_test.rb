@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class TagsControllerTest < ActionController::TestCase
@@ -35,7 +37,7 @@ class TagsControllerTest < ActionController::TestCase
         kind: kind,
         tag: {
           name: 'Test tag',
-          style: 'default'
+          style: 'secondary'
         }
       }
     end

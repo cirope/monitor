@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DatabasesHelper
   def properties
     @database.properties.new if @database.properties.empty?

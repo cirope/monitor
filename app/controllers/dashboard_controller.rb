@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DashboardController < ApplicationController
 
   include Issues::Filters
@@ -36,9 +38,9 @@ class DashboardController < ApplicationController
 
     def issues
       if issue_filter[:status].present?
-        scoped_issues.filter(issue_filter)
+        scoped_issues.filter_by issue_filter
       else
-        scoped_issues.filter(issue_filter).active
+        scoped_issues.filter_by(issue_filter).active
       end
     end
 

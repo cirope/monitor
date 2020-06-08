@@ -1,8 +1,14 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class Rules::ImportsControllerTest < ActionController::TestCase
   setup do
     login
+  end
+
+  teardown do
+    Current.account = nil
   end
 
   test 'should get new' do
@@ -11,7 +17,8 @@ class Rules::ImportsControllerTest < ActionController::TestCase
   end
 
   test 'should create' do
-    path = Rule.all.export
+    Current.account = send 'public.accounts', :default
+    path            = Rule.all.export
 
     post :create, params: {
       file: Rack::Test::UploadedFile.new(path, 'application/zip')

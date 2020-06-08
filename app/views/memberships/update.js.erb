@@ -1,0 +1,7 @@
++function () {
+  <% [@membership, @default_membership.reload].each do |membership| %>
+    $('[data-id="<%= membership.id %>"]').replaceWith(
+      '<%= j render('membership', membership: membership) %>'
+    )
+  <% end %>
+}()

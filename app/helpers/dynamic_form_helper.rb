@@ -1,17 +1,18 @@
+# frozen_string_literal: true
+
 module DynamicFormHelper
   def link_to_add_fields name, form, association, options = {}
     link_to(
       name, '#',
-      class: 'btn btn-default btn-sm',
+      class: 'btn btn-secondary btn-sm',
       title: name,
       data: add_field_data(form, association, options)
     )
   end
 
   def link_to_remove_nested_item form
-    out = destroy_field(form) || ''
-
-    out << link_to(
+    out  = destroy_field(form) || ''
+    out += link_to(
       remove_icon, '#',
       title: t('navigation.destroy'),
       data: remove_field_data(form),
@@ -49,7 +50,7 @@ module DynamicFormHelper
     end
 
     def remove_icon
-      content_tag :span, nil, class: 'glyphicon glyphicon-remove-circle'
+      icon 'fas', 'times-circle'
     end
 
     def destroy_field form

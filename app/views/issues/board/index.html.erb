@@ -3,64 +3,67 @@
 <% else %>
   <%= render 'form' %>
 
-  <table class="table table-striped table-hover">
-    <thead>
-      <tr>
-        <th></th>
-        <th class="hidden-sm hidden-xs"><%= Run.human_attribute_name 'scheduled_at' %></th>
-        <th class="hidden-sm hidden-xs"><%= Issue.human_attribute_name 'created_at' %></th>
-        <th class="hidden-sm hidden-xs"><%= Script.model_name.human %></th>
-        <th><%= Issue.human_attribute_name 'description' %></th>
-        <th class="hidden-xs"><%= Issue.human_attribute_name 'status' %></th>
-        <th class="hidden-sm hidden-xs"><%= Tag.model_name.human count: 0 %></th>
-        <th class="text-right" colspan="<%= current_user.author? || current_user.supervisor? ? 3 : 2 %>">
-          <%= link_to empty_issues_board_path, class: 'btn btn-xs btn-default', data: { method: :delete } do %>
-            <%= t '.clear' %>
-            <span class="glyphicon glyphicon-send"></span>
-          <% end %>
-        </th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @issues.each do |issue| %>
+  <div class="card">
+    <table class="table table-hover">
+      <thead>
         <tr>
-          <th><%= issue_validation_errors issue %></th>
-          <td class="hidden-sm hidden-xs"><%= l issue.run.scheduled_at, format: :compact %></td>
-          <td class="hidden-sm hidden-xs"><%= l issue.created_at, format: :compact %></td>
-          <td class="hidden-sm hidden-xs"><%= issue.script %></td>
-          <td><%= truncate issue.description, length: 50 %></td>
-          <td class="hidden-xs"><%= issue_status issue.status %></td>
-          <td class="hidden-sm hidden-xs"><%= tags issue.tags %></td>
-          <td><%= link_to_show [issue, context: :board] %></td>
-          <% if current_user.author? || current_user.supervisor? %>
-            <td><%= link_to_edit [:edit, issue, context: :board] %></td>
-          <% end %>
-          <td><%= link_to_remove_from_board issue, remote: false %></td>
+          <th></th>
+          <th class="d-none d-md-table-cell"><%= Run.human_attribute_name 'scheduled_at' %></th>
+          <th class="d-none d-md-table-cell"><%= Issue.human_attribute_name 'created_at' %></th>
+          <th class="d-none d-md-table-cell"><%= Script.model_name.human %></th>
+          <th><%= Issue.human_attribute_name 'description' %></th>
+          <th class="d-none d-sm-table-cell"><%= Issue.human_attribute_name 'status' %></th>
+          <th class="d-none d-md-table-cell"><%= Tag.model_name.human count: 0 %></th>
+          <th class="text-right" colspan="<%= current_user.author? || current_user.supervisor? ? 3 : 2 %>">
+            <%= link_to empty_issues_board_path, class: 'btn btn-sm py-0 mr-n2 btn-secondary', data: { method: :delete } do %>
+              <%= t '.clear' %>
+              <%= icon 'fas', 'paper-plane' %>
+            <% end %>
+          </th>
         </tr>
+      </thead>
+
+      <tbody>
+        <% @issues.each do |issue| %>
+          <tr>
+            <th><%= issue_validation_errors issue %></th>
+            <td class="d-none d-md-table-cell"><%= l issue.run.scheduled_at, format: :compact %></td>
+            <td class="d-none d-md-table-cell"><%= l issue.created_at, format: :compact %></td>
+            <td class="d-none d-md-table-cell"><%= issue.script %></td>
+            <td><%= truncate issue.description, length: 50 %></td>
+            <td class="d-none d-sm-table-cell"><%= issue_status issue.status %></td>
+            <td class="d-none d-md-table-cell"><%= tags issue.tags %></td>
+            <td class="text-right"><%= link_to_show [issue, context: :board] %></td>
+            <% if current_user.author? || current_user.supervisor? %>
+              <td class="text-right"><%= link_to_edit [:edit, issue, context: :board] %></td>
+            <% end %>
+            <td class="text-right"><%= link_to_remove_from_board issue, remote: false %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="dropdown float-left">
+    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+      <%= t '.actions' %>
+    </button>
+
+    <div class="dropdown-menu">
+      <%= link_to_create_permalink %>
+      <%= link_to_download_issue_data %>
+      <%= link_to_download_grouped_issue_data %>
+      <%= link_to_download_pdf %>
+
+      <% if current_user.supervisor? %>
+        <div class="dropdown-divider"></div>
+        <%= link_to_destroy_all_issues %>
       <% end %>
-    </tbody>
-  </table>
+    </div>
+  </div>
 
   <div class="clearfix">
     <%= paginate @issues %>
-  </div>
-
-  <div class="btn-group">
-    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-      <%= t '.actions' %> <span class="caret"></span>
-    </button>
-
-    <ul class="dropdown-menu">
-      <li><%= link_to_create_permalink %></li>
-      <li><%= link_to_download_issue_data %></li>
-      <li><%= link_to_download_pdf %></li>
-
-      <% if current_user.supervisor? %>
-        <li class="divider"></li>
-        <li><%= link_to_destroy_all_issues %></li>
-      <% end %>
-    </ul>
   </div>
 
   <div data-target="permalink"></div>
