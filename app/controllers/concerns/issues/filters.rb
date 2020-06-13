@@ -73,14 +73,14 @@ module Issues::Filters
       [
         :status, :description,
           subscriptions_attributes: [:id, :user_id, :_destroy],
-          comments_attributes: [:id, :text, :file, :file_cache],
+          comments_attributes: [:id, :text, :attachment],
           taggings_attributes: [:id, :tag_id, :_destroy]
       ]
     end
 
     def guest_params
       [
-        comments_attributes: [:id, :text, :file, :file_cache]
+        comments_attributes: [:id, :text, :attachment]
       ]
     end
 end

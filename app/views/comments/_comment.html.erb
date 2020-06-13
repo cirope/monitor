@@ -6,8 +6,8 @@
     </div>
     <% unless request.xhr? %>
       <div class="col-lg-2 col-md-3">
-        <%= f.input :file, label: false, hint: comment_file_identifier(f) %>
-        <%= f.input :file_cache, as: :hidden %>
+        <%= f.input :attachment, as: :hidden, input_html: { value: f.object.attachment.signed_id } if f.object.attachment.attached? %>
+        <%= f.input :attachment, label: false, hint: comment_file_identifier(f) %>
       </div>
     <% end %>
   </div>

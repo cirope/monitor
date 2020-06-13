@@ -7,6 +7,7 @@ class Comment < ApplicationRecord
   include Comments::Validation
 
   mount_uploader :file, FileUploader
+  has_one_attached :attachment
 
   belongs_to :issue
   has_many :users, through: :issue

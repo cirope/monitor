@@ -13,6 +13,7 @@ class Server < ApplicationRecord
   include Servers::Validation
 
   mount_uploader :credential, FileUploader
+  has_one_attached :key
 
   scope :ordered, -> { order :name }
 

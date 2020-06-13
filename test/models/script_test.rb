@@ -14,7 +14,7 @@ class ScriptTest < ActiveSupport::TestCase
   test 'blank attributes' do
     @script.name = ''
     @script.text = ''
-    @script.file = nil
+    @script.attachment = nil
 
     assert @script.invalid?
     assert_error @script, :name, :blank
@@ -45,12 +45,12 @@ class ScriptTest < ActiveSupport::TestCase
   end
 
   test 'not text and file validation' do
-    @script.file = Rack::Test::UploadedFile.new(
+    @script.attachment = Rack::Test::UploadedFile.new(
       "#{Rails.root}/test/fixtures/files/test.sh", 'text/plain', false
     )
 
     assert @script.invalid?
-    assert_error @script, :file, :invalid
+    assert_error @script, :attachment, :invalid
   end
 
   test 'text modification should ask change' do
