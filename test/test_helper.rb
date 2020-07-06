@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../config/environment'
+
 require 'rails/test_help'
 require 'sidekiq/testing'
 
@@ -11,6 +12,10 @@ Apartment::Tenant.create  'default'
 Apartment::Tenant.switch! 'default'
 
 class ActiveSupport::TestCase
+  # Run tests in parallel with specified workers
+  # Commented out until further _polishment_
+  parallelize(workers: 1)
+
   set_fixture_class versions: PaperTrail::Version
 
   fixtures :all
@@ -19,6 +24,24 @@ class ActiveSupport::TestCase
     error = model.errors.generate_message attribute, type, options
 
     assert_includes model.errors[attribute], error
+  end
+
+  def stub_any_instance(klass, method, value)
+    klass.class_eval do
+      alias_method :"old_#{method}", method
+
+      define_method method do |*args|
+        value
+      end
+    end
+
+    yield
+  ensure
+    klass.class_eval do
+      undef_method method
+      alias_method method, :"old_#{method}"
+      undef_method :"old_#{method}"
+    end
   end
 end
 

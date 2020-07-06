@@ -1,7 +1,7 @@
 inherit_gem:
   rubocop-github:
-    - config/default.yml
-    - config/rails.yml
+    - config/default_edge.yml
+    - config/rails_edge.yml
 
 # why rails, why?
 Style/StringLiterals:
@@ -15,3 +15,14 @@ Style/MethodDefParentheses:
   Description: "Checks if the method definitions have or don't have parentheses."
   Enabled: false
   StyleGuide: "https://github.com/bbatsov/ruby-style-guide#method-parens"
+
+Style/Documentation:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Layout/HashAlignment:
+  Enabled: true
+  EnforcedHashRocketStyle: table
+  EnforcedColonStyle: table
