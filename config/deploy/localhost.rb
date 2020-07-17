@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 set :rails_env, 'production'
+set :branch, 'c-bica'
 
 set :default_env, {
-  'http_proxy': 'http://172.28.16.125:3128',
-  'https_proxy': 'http://172.28.16.125:3128'
+  'http_proxy': 'http://172.20.208.12:8080',
+  'https_proxy': 'http://172.20.208.12:8080'
 }
 
 role :web, %w{deployer@127.0.0.1}
