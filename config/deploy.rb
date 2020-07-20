@@ -5,7 +5,7 @@ set :user, 'deployer'
 set :repo_url, 'https://github.com/cirope/monitor.git'
 
 set :format, :pretty
-set :log_level, :info
+set :log_level, :error
 
 set :deploy_to, "/var/www/#{fetch(:application)}"
 set :deploy_via, :remote_cache
