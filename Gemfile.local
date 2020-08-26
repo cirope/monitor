@@ -1,3 +1,5 @@
+gem 'ruby-odbc', require: false
+
 unless ENV['TRAVIS']
   # SQL Server ActiveRecord adapter
   gem 'tiny_tds'
