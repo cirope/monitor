@@ -1,0 +1,29 @@
+<%= render 'filters' %>
+
+<% if @script_counts.empty? %>
+  <%= render 'shared/empty_index', message: empty_message %>
+<% else %>
+  <div class="card">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th><%= Script.human_attribute_name 'name' %></th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @script_counts.each do |script_data, count| %>
+          <tr>
+            <td><%= script_data.last %></td>
+            <td class="text-right">
+              <%= link_to count, script_issues_path(script_data.first, filter: filter_query_hash) %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <%= paginate @script_counts %>
+<% end %>

@@ -23,16 +23,14 @@ module MembershipsHelper
     current = membership.account == current_account
 
     if current
-      content_tag :span, nil, title: current && t('.current') do
+      content_tag :span, nil, title: t('.current') do
         icon 'fas', 'sign-in-alt'
       end
     else
       options = {
         title: t('navigation.switch'),
         class: 'icon',
-        data:  {
-          method: :post
-        }
+        data:  { method: :post }
       }
 
       link_to [membership, :switch_index], options do

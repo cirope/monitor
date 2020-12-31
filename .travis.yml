@@ -2,16 +2,16 @@ language: ruby
 dist: bionic
 cache: bundler
 rvm:
-  - 2.5.7
-  - 2.6.5
-  - 2.7.0
+  - 2.5.8
+  - 2.6.6
+  - 2.7.1
 addons:
   apt:
     packages:
     - slapd
     - ldap-utils
     - unixodbc-dev
-  postgresql: 10
+  postgresql: 11
 services:
   - postgresql
 stages:
@@ -22,7 +22,8 @@ env:
   - ENABLE_WEB_CONSOLE='false'
 before_script:
   - 'cp config/application.travis.yml config/application.yml'
-  - 'bundle exec rails db:create db:migrate'
+  - "psql -c 'create database monitor_test;' -U postgres"
+  - 'bundle exec rails db:migrate'
   - 'slapd -f test/fixtures/ldap/slapd.conf -h ldap://localhost:3389'
   - 'bundle exec rails ldap:reset'
 install:

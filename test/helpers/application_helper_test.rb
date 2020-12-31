@@ -19,6 +19,14 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal [app_name, current_account.name].join(' | '), title
   end
 
+  test 'logo title' do
+    set_account
+
+    expected = [current_account.name, MonitorApp::Application::VERSION].join ' | '
+
+    assert_equal expected, logo_title
+  end
+
   private
 
     def current_account
