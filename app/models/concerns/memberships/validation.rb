@@ -5,8 +5,10 @@ module Memberships::Validation
 
   included do
     validates :email, :account, presence: true
-    validates :email, uniqueness: { case_sensitive: false, scope: :account }
-    validate :username_with_unique_email
+    validates :email, :username, uniqueness: {
+      case_sensitive: false, scope: :account
+    }
+    validate :username_with_unique_email, if: :new_record?
   end
 
   private
@@ -14,7 +16,7 @@ module Memberships::Validation
     def username_with_unique_email
       membership_with_different_email = Membership.
         where(username: username).
-        where.not(email: email_was || email)
+        where.not email: email
 
       if username.present? && membership_with_different_email.exists?
         errors.add :username, :taken

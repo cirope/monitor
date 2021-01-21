@@ -6,6 +6,10 @@ module ApplicationHelper
   end
 
   def title
-    [app_name, current_account&.name, @title].compact.join(' | ')
+    [app_name, current_account&.name, @title].compact.join ' | '
+  end
+
+  def logo_title
+    [current_account&.name, MonitorApp::Application::VERSION].compact.join ' | '
   end
 end

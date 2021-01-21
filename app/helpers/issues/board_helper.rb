@@ -35,6 +35,20 @@ module Issues::BoardHelper
     end
   end
 
+  def link_to_download_grouped_issue_data
+    options = {
+      class: 'dropdown-item',
+      data:  {
+        method: :post,
+        toggle: :dropdown
+      }
+    }
+
+    link_to issues_exports_path(grouped: true), options do
+      t '.download_grouped_issue_data'
+    end
+  end
+
   def link_to_download_issue_data
     options = {
       class: 'dropdown-item',

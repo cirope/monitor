@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.2.3'
+gem 'rails', '~> 5.2.4.2'
 
 gem 'pg'
 gem 'apartment'
@@ -42,7 +42,7 @@ gem 'web-console'
 gem 'unicorn'
 gem 'unicorn-rails'
 
-gem 'newrelic_rpm', '~> 6.2.0'
+gem 'newrelic_rpm'
 
 gem 'capistrano'
 gem 'capistrano-rbenv'

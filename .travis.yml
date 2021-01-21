@@ -9,7 +9,7 @@ addons:
     - slapd
     - ldap-utils
     - unixodbc-dev
-  postgresql: 10
+  postgresql: 11
 services:
   - postgresql
 stages:
