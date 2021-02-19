@@ -169,7 +169,6 @@ es:
         title: 'Título'
         height: 'Alto'
         width: 'Ancho'
-        output: 'Tipo de salida'
       parameter:
         name: 'Nombre'
         value: 'Valor'
@@ -184,6 +183,7 @@ es:
         function: 'Función'
         frequency: 'Frecuencia'
         range: 'Personalizar Período'
+        output: 'Tipo de salida'
       require:
         script: 'Guión'
       rule:

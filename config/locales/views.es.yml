@@ -247,18 +247,8 @@ es:
     new:
       title: 'Crear panel'
       query: 'Agregar consulta'
-    outputs:
-      bar: 'Gráfico de barras'
-      pie: 'Gráfico de torta'
-      line: 'Gráfico de línea'
 
   queries:
-    periods:
-      total: 'Total'
-      day: 'Día corriente'
-      week: 'Semana corriente'
-      month: 'Mes corriente'
-      year: 'Año corriente'
     frequencies:
       hourly: 'Cada Hora'
       daily: 'Diaria'
@@ -271,6 +261,18 @@ es:
       maximum: 'Máximo'
       sum: 'Suma'
       average: 'Promedio'
+    outputs:
+      area: 'Gráfico de área'
+      column: 'Gráfico de barras'
+      donut: 'Gráfico de dona'
+      line: 'Gráfico de línea'
+      pie: 'Gráfico de torta'
+    periods:
+      total: 'Total'
+      day: 'Día corriente'
+      week: 'Semana corriente'
+      month: 'Mes corriente'
+      year: 'Año corriente'
 
   requires:
     require:

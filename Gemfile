@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 6.0.2'
+gem 'rails'
 
 gem 'pg'
 gem 'apartment', github: 'influitive/apartment', branch: 'development'
@@ -36,6 +36,8 @@ gem 'diffy'
 gem 'prawn'
 gem 'prawn-table'
 gem 'coderay'
+gem 'apexcharts'
+gem 'groupdate'
 
 gem 'web-console'
 

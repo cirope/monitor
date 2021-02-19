@@ -31,14 +31,13 @@
 //= require codemirror/mode/sql
 //= require popper
 //= require bootstrap
-//= require chartist/chartist
-//= require chartist/chartist-plugin-axistitle
 //= require moment/moment
 //= require moment/es
 //= require daterangepicker/daterangepicker
 //= require hyper/metis_menu
 //= require hyper/jquery.slimscroll
 //= require hyper/hyper
+//= require apexcharts
 //
 //= require ajax
 //= require autocomplete

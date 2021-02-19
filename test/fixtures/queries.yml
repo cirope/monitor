@@ -2,7 +2,6 @@
 
 one:
   function: MyString
-  output: MyString
   period: MyString
   filters: MyString
   frequency: MyString
@@ -17,7 +16,6 @@ one:
 
 two:
   function: MyString
-  output: MyString
   period: MyString
   filters: MyString
   frequency: MyString

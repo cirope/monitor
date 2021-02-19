@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_07_163559) do
+ActiveRecord::Schema.define(version: 2020_04_26_130438) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -249,7 +249,6 @@ ActiveRecord::Schema.define(version: 2019_09_07_163559) do
     t.string "title", null: false
     t.integer "height", default: 1, null: false
     t.integer "width", default: 1, null: false
-    t.string "output", null: false
     t.bigint "dashboard_id"
     t.integer "lock_version", default: 0, null: false
     t.datetime "created_at", null: false
@@ -307,6 +306,7 @@ ActiveRecord::Schema.define(version: 2019_09_07_163559) do
   end
 
   create_table "queries", force: :cascade do |t|
+    t.string "output", null: false
     t.string "function", null: false
     t.string "period"
     t.string "filters", default: [], null: false, array: true
@@ -315,8 +315,8 @@ ActiveRecord::Schema.define(version: 2019_09_07_163559) do
     t.integer "to_count"
     t.string "from_period"
     t.string "to_period"
-    t.datetime "from_at", null: false
-    t.datetime "to_at", null: false
+    t.datetime "from_at"
+    t.datetime "to_at"
     t.boolean "range", default: false, null: false
     t.bigint "panel_id", null: false
     t.datetime "created_at", precision: 6, null: false

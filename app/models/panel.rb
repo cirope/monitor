@@ -4,7 +4,6 @@ class Panel < ApplicationRecord
   include Auditable
   include Attributes::Strip
   include Panels::Queries
-  include Panels::Scopes
   include Panels::Validation
 
   strip_fields :title

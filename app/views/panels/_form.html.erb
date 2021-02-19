@@ -12,25 +12,13 @@
       <div class="col">
         <%= f.input :height %>
       </div>
-      <div class="col">
-        <%= f.input :output, collection: outputs, prompt: true %>
-      </div>
     </div>
 
-    <div class="card">
-      <div class="card-header">
-        <h5>
-          <%= Query.model_name.human count: 0 %>
-        </h5>
-      </div>
-      <div id="queries" class="card-body">
-        <%= f.simple_fields_for :queries, queries do |rf| %>
-          <%= render 'queries/query', f: rf %>
-        <% end %>
+    <%= f.simple_fields_for :queries, queries do |rf| %>
+      <%= render 'queries/query', f: rf %>
+    <% end %>
 
-        <%= link_to_add_fields t('panels.new.query'), f, :queries %>
-      </div>
-    </div>
+    <%= link_to_add_fields t('panels.new.query'), f, :queries %>
     <%= f.input :lock_version, as: :hidden %>
   </div>
 

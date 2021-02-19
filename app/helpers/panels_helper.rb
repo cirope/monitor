@@ -6,7 +6,7 @@ module PanelsHelper
   end
 
   def panel_height panel
-    "col-mh-#{panel.height * 4}"
+    "col-mh-#{panel.height * 5}"
   end
 
   def panel_highlight panel
@@ -22,7 +22,7 @@ module PanelsHelper
   end
 
   def outputs
-    Panel::OUTPUTS.map { |o| [t("panels.outputs.#{o}"), o] }
+    Query::OUTPUTS.map { |o| [t("queries.outputs.#{o}"), o] }
   end
 
   def frequencies
@@ -36,4 +36,22 @@ module PanelsHelper
   def periods
     Query::PERIODS.map { |c| [t("queries.periods.#{c}"), c] }
   end
+
+  def draw_graph panel
+    if panel.queries.count == 1
+      draw_query panel.queries.first
+    else
+      mixed_charts do
+        panel.queries.each do |q|
+          send "#{q.output}_chart", q.generate_data
+        end
+      end
+    end
+  end
+
+  private
+
+    def draw_query q
+      send "#{q.output}_chart", q.generate_data
+    end
 end

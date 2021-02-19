@@ -13,7 +13,6 @@
  *= require hyper
  *= require font_awesome
  *= require ie
- *= require chartist/chartist
  *= require codemirror/codemirror
  *= require codemirror/dialog
  *= require codemirror/foldgutter
@@ -36,7 +35,6 @@
  *= require descriptors
  *= require executions
  *= require home
- *= require graphs
  *= require issues
  *= require issues/board
  *= require issues/exports
