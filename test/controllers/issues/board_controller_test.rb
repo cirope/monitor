@@ -62,7 +62,7 @@ class Issues::BoardControllerTest < ActionController::TestCase
               comments_attributes: {
                 '0' => {
                   text: 'New comment',
-                  file: fixture_file_upload('files/test.sh', 'text/plain', false)
+                  attachment: fixture_file_upload('files/test.sh', 'text/plain', false)
                 }
               }
             }
@@ -72,7 +72,7 @@ class Issues::BoardControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to issues_board_url
-    assert @issue.last_comment.file?
+    assert @issue.last_comment.attachment.attached?
   end
 
   test 'should add grouped comment to issues' do
@@ -87,7 +87,7 @@ class Issues::BoardControllerTest < ActionController::TestCase
               comments_attributes: {
                 '0' => {
                   text: 'New comment',
-                  file: fixture_file_upload('files/test.sh', 'text/plain', false)
+                  attachment: fixture_file_upload('files/test.sh', 'text/plain', false)
                 }
               }
             }
@@ -97,7 +97,7 @@ class Issues::BoardControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to issues_board_url
-    assert @issue.last_comment.file?
+    assert @issue.last_comment.attachment.attached?
   end
 
   test 'should replace tags from issues' do

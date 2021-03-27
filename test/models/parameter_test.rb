@@ -31,4 +31,11 @@ class ParameterTest < ActiveSupport::TestCase
     assert_error @parameter, :name, :invalid
     assert_error @parameter, :value, :invalid
   end
+
+  test 'unique attributes' do
+    parameter = @parameter.dup
+
+    assert parameter.invalid?
+    assert_error parameter, :name, :taken
+  end
 end

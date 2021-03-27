@@ -78,7 +78,7 @@ class Issues::BoardController < ApplicationController
       permit = [
         :status,
         :group_comments_email,
-        comments_attributes:      [:text, :file],
+        comments_attributes:      [:text, :attachment],
         taggings_attributes:      [:tag_id],
         subscriptions_attributes: [:user_id]
       ]

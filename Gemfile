@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails'
+gem 'rails', '~> 6.0.3.6'
 
 gem 'pg'
 gem 'apartment', github: 'influitive/apartment', branch: 'development'
@@ -50,7 +50,6 @@ gem 'capistrano'
 gem 'capistrano-rbenv'
 gem 'capistrano-bundler'
 gem 'capistrano-rails'
-gem 'capistrano-sidekiq'
 
 group :development do
   gem 'listen'

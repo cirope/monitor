@@ -17,9 +17,9 @@ ActiveRecord::Schema.define(version: 2019_02_20_234259) do
 
   create_table "series", force: :cascade do |t|
     t.string "name", null: false
-    t.datetime "date", null: false
+    t.date "date", null: false
     t.string "identifier", null: false
-    t.bigint "count"
+    t.bigint "count", null: false
     t.decimal "amount", precision: 15, scale: 3, null: false
     t.jsonb "data"
     t.index ["data"], name: "index_series_on_data", using: :gin

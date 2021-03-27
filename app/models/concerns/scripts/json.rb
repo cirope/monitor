@@ -3,6 +3,7 @@
 module Scripts::Json
   extend ActiveSupport::Concern
 
+  # TODO: remove :file after migration to ActiveStorage
   JSON_EXCLUDED_ATTRIBUTES   = [:id, :file, :lock_version, :imported_at]
   JSON_INCLUDED_ASSOCIATIONS = {
     requires: {
