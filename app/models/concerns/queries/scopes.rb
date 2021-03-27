@@ -15,7 +15,13 @@ module Queries::Scopes
     conditions[:name] = filters
     conditions[:date] = from_at..to_at if period != 'total'
 
-    Serie.where(conditions).group(:name).send(function, :amount).sort.map { |k,v| [ k, v.round] }
+    relation = if period == 'total'
+      Serie.where(conditions).group(:name).send(function, :amount)
+    else
+      Serie.where(conditions).send("group_by_#{period}", :date).send(function, :amount)
+    end
+
+    relation.sort.map { |k,v| [ k, v.round] }
   end
 
   def series_data

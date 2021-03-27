@@ -10,34 +10,20 @@
     </div>
     <div class="card-body">
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
           <%= f.input :function, collection: functions, prompt: true %>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
           <%= f.input :output, collection: outputs, prompt: true %>
-        </div>
-        <div class="col-md-4">
-          <div class="row">
-            <div class="col-md-6">
-              <%= f.input :period, collection: periods, prompt: true %>
-            </div>
-            <div class="col-md-6">
-              <div class="mt-3">
-                <%= f.input :range %>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
+          <%= f.input :period, collection: periods, prompt: true %>
+        </div>
+        <div class="col-md-6">
           <%= f.input :filters, as: :check_boxes, collection: Query.filters,
             checked: f.object.filters %>
-        </div>
-        <div class="col-md-4">
-          <%= f.input :frequency, collection: frequencies, prompt: true %>
-        </div>
-        <div class="col-md-4">
         </div>
       </div>
     </div>
