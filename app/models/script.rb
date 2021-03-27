@@ -26,7 +26,6 @@ class Script < ApplicationRecord
   include SearchableByName
   include Taggable
 
-  mount_uploader :file, FileUploader
   has_one_attached :attachment
 
   strip_fields :name
