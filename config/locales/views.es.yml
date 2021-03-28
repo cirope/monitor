@@ -4,7 +4,6 @@ es:
   messages:
     confirmation: '¿Está seguro?'
     download: 'Descargar'
-    file_not_found: 'No se encontró el archivo'
     ldap_error: 'El servidor de autenticación no está disponible, intente nuevamente más tarde'
     not_allowed: 'No está autorizado para realizar la operación'
     not_authorized: 'No está autorizado para ver el contenido'

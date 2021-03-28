@@ -22,8 +22,7 @@ env:
   - ENABLE_WEB_CONSOLE='false'
 before_script:
   - 'cp config/application.travis.yml config/application.yml'
-  - "psql -c 'create database monitor_test;' -U postgres"
-  - 'bundle exec rails db:migrate'
+  - 'bundle exec rails db:create db:migrate'
   - 'slapd -f test/fixtures/ldap/slapd.conf -h ldap://localhost:3389'
   - 'bundle exec rails ldap:reset'
 install:

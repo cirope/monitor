@@ -6,6 +6,8 @@ ActiveRecord::Base.transaction do
   )
 
   account.switch do
+    return if User.exists? email: 'admin@monitor.com'
+
     User.create!(
       name:                  'Admin',
       lastname:              'Admin',

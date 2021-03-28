@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
-gem 'rails'
+gem 'rails', '~> 6.0.3.6'
 
 gem 'pg'
-gem 'apartment', github: 'influitive/apartment', branch: 'development'
+gem 'ros-apartment', require: 'apartment'
 gem 'sassc-rails'
 gem 'bootstrap'
 gem 'font-awesome-sass'
@@ -18,7 +18,6 @@ gem 'bcrypt'
 gem 'responders'
 gem 'simple_form'
 gem 'figaro'
-gem 'carrierwave'
 gem 'validates_timeliness'
 gem 'kaminari'
 gem 'net-ssh'
@@ -26,7 +25,7 @@ gem 'net-scp'
 gem 'request_store'
 gem 'request_store-sidekiq'
 gem 'sidekiq'
-gem 'apartment-sidekiq'
+gem 'ros-apartment-sidekiq', require: 'apartment-sidekiq'
 gem 'whenever', require: false
 gem 'paper_trail'
 gem 'premailer-rails'
@@ -40,7 +39,9 @@ gem 'apexcharts'
 gem 'groupdate'
 gem 'mimemagic', '< 0.4'
 
-gem 'web-console'
+group :development, :production do
+  gem 'web-console'
+end
 
 gem 'unicorn'
 gem 'unicorn-rails'
@@ -51,7 +52,6 @@ gem 'capistrano'
 gem 'capistrano-rbenv'
 gem 'capistrano-bundler'
 gem 'capistrano-rails'
-gem 'capistrano-sidekiq'
 
 group :development do
   gem 'listen'

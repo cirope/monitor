@@ -13,12 +13,12 @@ module Queries::Scopes
   def common_data
     conditions = {}
     conditions[:name] = filters
-    conditions[:date] = from_at..to_at if period != 'total'
+    conditions[:timestamp] = from_at..to_at if period != 'total'
 
     if period == 'total'
       Serie.where(conditions).group(:name).send(function, :amount).sort.map { |k,v| [ k, v.round] }
     else
-      Serie.where(conditions).send("group_by_#{get_group_by(period)}", :date).send(function, :amount).map do |k, v|
+      Serie.where(conditions).send("group_by_#{get_group_by(period)}", :timestamp).send(function, :amount).map do |k, v|
         [I18n.l(k, format: get_format_by(period)), v.round]
       end
     end

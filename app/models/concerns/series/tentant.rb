@@ -29,11 +29,11 @@ module Series::Tentant
     end
 
     def run_migrations tenant_name
-      switch! tenant_name
+      switch tenant_name do
+        MetricsSchemaMigration.create_table
 
-      MetricsSchemaMigration.create_table
-
-      connection.migration_context.migrate
+        connection.migration_context.migrate
+      end
     end
 
     def drop_tenant tenant_name

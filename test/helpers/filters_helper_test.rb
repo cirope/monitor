@@ -15,8 +15,8 @@ class FiltersHelperTest < ActionView::TestCase
     assert filters?
   end
 
-  test 'home empty message' do
-    @virtual_path = 'home.index'
+  test 'dashboard empty message' do
+    @virtual_path = 'dashboards.index'
 
     assert_kind_of String, empty_message
   end

@@ -106,6 +106,7 @@ es:
       comment:
         text: 'Comentario'
         file: 'Adjunto'
+        attachment: 'Adjunto'
         issue: 'Caso'
       dashboard:
         name: 'Nombre'
@@ -205,15 +206,15 @@ es:
       script:
         name: 'Nombre'
         file: 'Archivo'
+        attachment: 'Archivo'
         text: 'Contenido'
         core: 'Principal'
         change: 'Comentario del último cambio'
         language: 'Lenguaje'
       serie:
         name: 'Nombre'
-        date: 'Fecha'
+        timestamp: 'Fecha'
         identifier: 'Identificador'
-        count: 'Cantidad'
         amount: 'Monto'
         data: 'Datos'
       server:
@@ -222,6 +223,7 @@ es:
         user: 'Usuario'
         password: 'Contraseña'
         credential: 'Credencial'
+        key: 'Credencial'
         default: 'Principal'
       subscription:
         user: 'Usuario'

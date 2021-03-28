@@ -13,6 +13,7 @@ module Servers::Validation
   private
 
     def user_or_credential?
-      errors.add :user, :blank if user.blank? && credential.blank?
+      # TODO: change to key.blank? on Rails 6 (on 5.2 it does not work)
+      errors.add :user, :blank if user.blank? && !key.attached?
     end
 end

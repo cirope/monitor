@@ -36,7 +36,7 @@ class ServerTest < ActiveSupport::TestCase
     assert_error @server, :password, :too_long, count: 255
   end
 
-  test 'user or credential' do
+  test 'user or key' do
     @server.user = ''
 
     assert @server.invalid?

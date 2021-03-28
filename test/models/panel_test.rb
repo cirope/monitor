@@ -11,13 +11,11 @@ class PanelTest < ActiveSupport::TestCase
     @panel.title = ''
     @panel.height = nil
     @panel.width = nil
-    @panel.output = ''
 
     assert @panel.invalid?
     assert_error @panel, :title, :blank
     assert_error @panel, :height, :blank
     assert_error @panel, :width, :blank
-    assert_error @panel, :output, :blank
   end
 
   test 'unique attributes' do

@@ -7,26 +7,24 @@ class Serie < ApplicationRecord
   include Series::Tentant
 
   def self.add rows = []
-    rows.each { |r| increment r }
+    rows.map { |r| create_sample r.symbolize_keys }.all?
   end
 
-  def self.increment attributes = {}
+  def self.create_sample attributes = {}
     name       = extract_translated_attr_from :name, attributes
     identifier = extract_translated_attr_from :identifier, attributes
     amount     = extract_translated_attr_from :amount, attributes
-    date       = Time.at(attributes.delete :ts)
+    timestamp  = attributes.delete :timestamp
 
-    s = find_or_initialize_by(
+    serie = new(
       name:       name,
-      date:       date,
-      identifier: identifier
+      identifier: identifier,
+      amount:     amount,
+      timestamp:  timestamp,
+      data:       attributes
     )
 
-    s.count  = s.count.to_i + 1
-    s.amount = s.amount.to_f + amount
-    s.data   = Hash(s.data).merge attributes
-
-    s.save!
+    serie.save
   end
 
   def self.extract_translated_attr_from attr, attributes
