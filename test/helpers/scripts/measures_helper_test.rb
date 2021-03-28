@@ -4,6 +4,7 @@ require 'test_helper'
 
 class Scripts::MeasuresHelperTest < ActionView::TestCase
   include ObjectsHelper
+  include ApexCharts::Helper
 
   test 'measure types' do
     assert_respond_to measure_types, :each

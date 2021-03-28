@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '~> 6.0.3.6'
 
 gem 'pg'
-gem 'apartment', github: 'influitive/apartment', branch: 'development'
+gem 'ros-apartment', require: 'apartment'
 gem 'sassc-rails'
 gem 'bootstrap'
 gem 'font-awesome-sass'
@@ -25,7 +25,7 @@ gem 'net-scp'
 gem 'request_store'
 gem 'request_store-sidekiq'
 gem 'sidekiq'
-gem 'apartment-sidekiq'
+gem 'ros-apartment-sidekiq', require: 'apartment-sidekiq'
 gem 'whenever', require: false
 gem 'paper_trail'
 gem 'premailer-rails'
@@ -38,7 +38,9 @@ gem 'coderay'
 gem 'apexcharts'
 gem 'groupdate'
 
-gem 'web-console'
+group :development, :production do
+  gem 'web-console'
+end
 
 gem 'unicorn'
 gem 'unicorn-rails'

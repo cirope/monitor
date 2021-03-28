@@ -213,9 +213,8 @@ es:
         language: 'Lenguaje'
       serie:
         name: 'Nombre'
-        date: 'Fecha'
+        timestamp: 'Fecha'
         identifier: 'Identificador'
-        count: 'Cantidad'
         amount: 'Monto'
         data: 'Datos'
       server:

@@ -1,29 +1,14 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  function: MyString
-  period: MyString
-  filters: MyString
-  frequency: MyString
+count_to_be_used:
+  function: count
+  period: total
+  filters: ['one']
+  frequency: hourly
   from_count: 1
   to_count: 1
-  from_period: MyString
-  to_period: MyString
-  from_at: 2020-04-26 10:04:38
-  to_at: 2020-04-26 10:04:38
+  from_period: day
+  to_period: month
+  output: pie
+  from_at: <%= 1.day.ago.to_s :db %>
+  to_at: <%= 1.day.from_now.to_s :db %>
   range: false
-  panel: one
-
-two:
-  function: MyString
-  period: MyString
-  filters: MyString
-  frequency: MyString
-  from_count: 1
-  to_count: 1
-  from_period: MyString
-  to_period: MyString
-  from_at: 2020-04-26 10:04:38
-  to_at: 2020-04-26 10:04:38
-  range: false
-  panel: two
+  panel: servers_overloaded

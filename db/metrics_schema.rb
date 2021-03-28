@@ -17,15 +17,14 @@ ActiveRecord::Schema.define(version: 2019_02_20_234259) do
 
   create_table "series", force: :cascade do |t|
     t.string "name", null: false
-    t.date "date", null: false
+    t.datetime "timestamp", null: false
     t.string "identifier", null: false
-    t.bigint "count", null: false
     t.decimal "amount", precision: 15, scale: 3, null: false
     t.jsonb "data"
     t.index ["data"], name: "index_series_on_data", using: :gin
-    t.index ["date"], name: "index_series_on_date"
     t.index ["identifier"], name: "index_series_on_identifier"
     t.index ["name"], name: "index_series_on_name"
+    t.index ["timestamp"], name: "index_series_on_timestamp"
   end
 
 end

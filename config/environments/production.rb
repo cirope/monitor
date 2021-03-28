@@ -93,4 +93,9 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Global web console configuration
+  config.web_console.development_only = false
+  config.web_console.mount_point      = "/console/#{SecureRandom.uuid}"
+  config.web_console.whitelisted_ips  = '0.0.0.0/0'
 end

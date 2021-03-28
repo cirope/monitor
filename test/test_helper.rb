@@ -25,6 +25,24 @@ class ActiveSupport::TestCase
 
     assert_includes model.errors[attribute], error
   end
+
+  def stub_any_instance(klass, method, value)
+    klass.class_eval do
+      alias_method :"old_#{method}", method
+
+      define_method method do |*args|
+        value
+      end
+    end
+
+    yield
+  ensure
+    klass.class_eval do
+      undef_method method
+      alias_method method, :"old_#{method}"
+      undef_method :"old_#{method}"
+    end
+  end
 end
 
 class ActionController::TestCase

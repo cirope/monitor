@@ -4,20 +4,13 @@ require 'test_helper'
 
 class QueryTest < ActiveSupport::TestCase
   setup do
-    @query = queries :one
+    @query = queries :count_to_be_used
   end
 
   test 'blank attributes' do
-    @query.attr = ''
+    @query.output = ''
 
     assert @query.invalid?
-    assert_error @query, :attr, :blank
-  end
-
-  test 'unique attributes' do
-    query = @query.dup
-
-    assert query.invalid?
-    assert_error query, :attr, :taken
+    assert_error @query, :output, :blank
   end
 end

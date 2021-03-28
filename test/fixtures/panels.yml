@@ -2,5 +2,4 @@ servers_overloaded:
   title: Servers overloaded
   height: 1
   width: 1
-  output: pie
   dashboard: franco_default
