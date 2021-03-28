@@ -43,7 +43,7 @@ module PanelsHelper
     else
       mixed_charts do
         panel.queries.each do |q|
-          send "#{q.output}_chart", q.generate_data
+          send "#{q.output}_chart", [q.generate_data]
         end
       end
     end
@@ -52,6 +52,6 @@ module PanelsHelper
   private
 
     def draw_query q
-      send "#{q.output}_chart", q.generate_data
+      send "#{q.output}_chart", [q.generate_data]
     end
 end

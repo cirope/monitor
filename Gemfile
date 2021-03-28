@@ -38,6 +38,7 @@ gem 'prawn-table'
 gem 'coderay'
 gem 'apexcharts'
 gem 'groupdate'
+gem 'mimemagic', '< 0.4'
 
 gem 'web-console'
 
