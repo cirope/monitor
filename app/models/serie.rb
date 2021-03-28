@@ -31,4 +31,8 @@ class Serie < ApplicationRecord
     attributes.delete(human_attribute_name(attr).downcase.to_sym) ||
       attributes.delete(attr)
   end
+
+  def to_s
+    name
+  end
 end

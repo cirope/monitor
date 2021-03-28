@@ -9,6 +9,7 @@ es:
     not_authorized: 'No está autorizado para ver el contenido'
 
   navigation:
+    back: 'Volver'
     destroy: 'Eliminar'
     edit: 'Editar'
     index: 'Listado'
@@ -486,6 +487,13 @@ es:
     edit:
       title: 'Mis datos'
       submit: 'Actualizar mis datos'
+
+  series:
+    index:
+      title: 'Listado de series'
+      empty_html: 'No se han encontrado datos'
+    show:
+      title: 'Ver serie'
 
   tags:
     edit:

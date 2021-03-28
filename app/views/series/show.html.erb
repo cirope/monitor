@@ -1,0 +1,27 @@
+<div class="card">
+  <div class="card-header">
+    <h3><%= @serie %></h3>
+  </div>
+  <div class="card-body">
+    <p class="mb-1">
+      <strong><%= Serie.human_attribute_name 'timestamp' %></strong>:
+      <%= l @serie.timestamp, format: :short %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Serie.human_attribute_name 'identifier' %></strong>:
+      <%= @serie.identifier %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Serie.human_attribute_name 'amount' %></strong>:
+      <%= @serie.amount %>
+    </p>
+    <% if @serie.data.present? %>
+      <p class="mb-1">
+        <strong><%= Serie.human_attribute_name 'data' %></strong>:
+        <%= render_object @serie, '' %>
+      </p>
+    <% end %>
+  </div>
+</div>
+
+<%= link_to t('navigation.back'), :back %>

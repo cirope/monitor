@@ -44,6 +44,8 @@ Rails.application.routes.draw do
     end
   end
 
+  # Dashboards
+  resources :series, only: [:index, :show]
   resources :dashboards do
     resources :panels, except: [:index, :show]
   end
