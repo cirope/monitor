@@ -15,11 +15,13 @@ module Queries::Scopes
     conditions[:name] = filters
     conditions[:timestamp] = from_at..to_at if period != 'total'
 
-    if period == 'total'
-      Serie.where(conditions).group(:name).send(function, :amount).sort.map { |k,v| [ k, v.round] }
-    else
-      Serie.where(conditions).send("group_by_#{get_group_by(period)}", :timestamp).send(function, :amount).map do |k, v|
-        [I18n.l(k, format: get_format_by(period)), v.round]
+    Serie.switch(Current.account.tenant_name) do
+      if period == 'total'
+        Serie.where(conditions).group(:name).send(function, :amount).sort.map { |k,v| [ k, v.round] }
+      else
+        Serie.where(conditions).send("group_by_#{get_group_by(period)}", :timestamp).send(function, :amount).map do |k, v|
+          [I18n.l(k, format: get_format_by(period)), v.round]
+        end
       end
     end
   end
@@ -66,7 +68,9 @@ module Queries::Scopes
 
   module ClassMethods
     def filters
-      Serie.distinct.pluck :name
+      Serie.switch(Current.account.tenant_name) do
+        Serie.distinct.pluck :name
+      end
     end
   end
 
