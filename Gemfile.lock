@@ -153,6 +153,7 @@ GEM
       nokogiri (~> 1)
       rake
     mini_mime (1.0.3)
+    mini_portile2 (2.5.0)
     minitest (5.14.4)
     multi_json (1.15.0)
     mysql2 (0.4.10)
@@ -162,7 +163,8 @@ GEM
     net-ssh (6.1.0)
     newrelic_rpm (6.15.0)
     nio4r (2.5.7)
-    nokogiri (1.11.2-x86_64-linux)
+    nokogiri (1.11.2)
+      mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
     paper_trail (11.1.0)
       activerecord (>= 5.2)
@@ -326,7 +328,7 @@ GEM
     zeitwerk (2.4.2)
 
 PLATFORMS
-  x86_64-linux
+  ruby
 
 DEPENDENCIES
   activerecord-session_store
@@ -387,4 +389,4 @@ DEPENDENCIES
   whenever
 
 BUNDLED WITH
-   2.2.6
+   2.1.4
