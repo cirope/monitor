@@ -28,14 +28,18 @@ module ObjectsHelper
     object.values.all? { |v| v.kind_of? Numeric }
   end
 
-  def graph_container object, options = {}
-    container_class = options[:class] || 'ct-chart'
+  def graph_container object
+    options = {
+      id:    "chart-#{object.object_id}",
+      class: 'graph-container',
+      data:  {
+        graph:  object.object_id,
+        labels: object.keys,
+        series: object.values
+      }
+    }
 
-    content_tag :div, nil, class: container_class, data: {
-      graph:  object.object_id,
-      labels: object.keys,
-      series: object.values
-    }.merge(options)
+    content_tag :div, nil, options
   end
 
   private

@@ -1,28 +1,36 @@
 /* global Chartist */
 +function () {
   var renderChart = function ($chart, type) {
-    var chart   = $chart.get(0)
-    var options = $chart.data('options')
-    var data    = {
-      labels: $chart.data('labels'),
-      series: type === 'pie' ? $chart.data('series') : [$chart.data('series')]
+    var type      = type || 'pie'
+    var container = document.querySelector('#' + $chart.attr('id'))
+    var options   = {
+      chart: {
+        id:   $chart.attr('id'),
+        type: type,
+      }
     }
 
-    if (type === 'line') {
-      new Chartist.Line(chart, data, options)
-    } else if (type === 'bar') {
-      new Chartist.Bar(chart, data, options)
+    if (type == 'pie') {
+      options.labels = $chart.data('labels')
+      options.series = $chart.data('series')
     } else {
-      new Chartist.Pie(chart, data, options)
+      options.xaxis  = { categories: $chart.data('labels') }
+      options.series = [{ name: 'X', data: $chart.data('series') }]
     }
+
+    if (container.firstChild) {
+      ApexCharts.exec($chart.attr('id'), 'destroy')
+    }
+
+    new ApexCharts(container, options).render()
   }
 
   $(document).on('turbolinks:load', function () {
-    $('.ct-chart').parent().trigger('object.mt.added')
+    $('.graph-container').parent().trigger('object.mt.added')
   })
 
   $(document).on('object.mt.added', function (event) {
-    var $charts = $(event.currentTarget).find('.ct-chart')
+    var $charts = $(event.currentTarget).find('.graph-container')
 
     $charts.each(function (i, chart) {
       var $chart = $(chart)
@@ -40,6 +48,6 @@
     event.preventDefault()
 
     if ($chart.length)
-      renderChart($chart.get(0), type)
+      renderChart($chart, type)
   })
 }()
