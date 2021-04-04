@@ -10,7 +10,7 @@
     <% end %>
 
     <ul class="metismenu side-nav my-3">
-      <%= menu_item_for Issue, home_path, active: controller_name == 'home' %>
+      <%= menu_item_for Issue, home_path, icon: 'clipboard-list', active: controller_name == 'home' %>
 
       <% if current_user.author? || current_user.supervisor? %>
         <%= menu_item_for Script, scripts_path, icon: 'code' %>
