@@ -158,7 +158,7 @@ GEM
     mimemagic (0.3.10)
       nokogiri (~> 1)
       rake
-    mini_mime (1.0.3)
+    mini_mime (1.1.0)
     mini_portile2 (2.5.0)
     minitest (5.14.4)
     multi_json (1.15.0)
@@ -176,7 +176,7 @@ GEM
       activerecord (>= 5.2)
       request_store (~> 1.1)
     parallel (1.20.1)
-    parser (3.0.0.0)
+    parser (3.0.1.0)
       ast (~> 2.4.1)
     pdf-core (0.9.0)
     pg (1.2.3)
@@ -240,7 +240,7 @@ GEM
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
-    rexml (3.2.4)
+    rexml (3.2.5)
     roo (2.8.3)
       nokogiri (~> 1)
       rubyzip (>= 1.3.0, < 3.0.0)
@@ -286,6 +286,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    sequel (5.43.0)
     sidekiq (6.2.0)
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
@@ -301,6 +302,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    sqlite3 (1.4.2)
     sshkit (1.21.2)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
@@ -326,7 +328,7 @@ GEM
     unicorn-rails (2.2.1)
       rack
       unicorn
-    validates_timeliness (4.1.1)
+    validates_timeliness (5.0.0)
       timeliness (>= 0.3.10, < 1)
     web-console (4.1.0)
       actionview (>= 6.0.0)
@@ -394,8 +396,10 @@ DEPENDENCIES
   ruby-odbc
   rubyzip
   sassc-rails
+  sequel
   sidekiq
   simple_form
+  sqlite3
   timecop
   tiny_tds (< 2.0.0)
   turbolinks

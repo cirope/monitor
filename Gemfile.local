@@ -15,6 +15,12 @@ unless ENV['TRAVIS']
   # MySQL driver
   gem 'mysql2', '~> 0.4.10'
 
+  # SQLite
+  gem 'sqlite3'
+
+  # Sequel
+  gem 'sequel'
+
   # Excel parser
   gem 'roo'
 end
