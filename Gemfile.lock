@@ -371,6 +371,7 @@ DEPENDENCIES
   roadie-rails
   rubocop-github
   ruby-ntlm
+  ruby-oci8
   ruby-odbc
   rubyzip
   sassc-rails
