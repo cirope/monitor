@@ -167,7 +167,7 @@ GEM
     net-ssh (6.1.0)
     newrelic_rpm (7.0.0)
     nio4r (2.5.7)
-    nokogiri (1.11.3-arm64-darwin)
+    nokogiri (1.11.3)
       racc (~> 1.4)
     paper_trail (12.0.0)
       activerecord (>= 5.2)
