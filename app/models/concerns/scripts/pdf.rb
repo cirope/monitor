@@ -65,7 +65,7 @@ module Scripts::Pdf
     end
 
     def put_footer_on pdf
-      footer  = "#{I18n.l Time.zone.now, format: :compact} # <page> / <total>"
+      footer  = '# <page> / <total>'
       options = { at: [pdf.bounds.right - 150, 0], align: :right, size: 9 }
 
       pdf.number_pages footer, options
