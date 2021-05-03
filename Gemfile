@@ -49,6 +49,8 @@ gem 'capistrano-rbenv'
 gem 'capistrano-bundler'
 gem 'capistrano-rails'
 
+gem 'autoprefixer-rails', '< 10'
+
 group :development do
   gem 'listen'
   gem 'rubocop-github'
