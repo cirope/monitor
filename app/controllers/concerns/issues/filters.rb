@@ -13,11 +13,13 @@ module Issues::Filters
     :tags,
     :data,
     :comment,
+    :key,
     :created_at
   ]
 
   included do
     helper_method :filter_params
+    helper_method :issue_filter
   end
 
   def issues
@@ -27,7 +29,11 @@ module Issues::Filters
   def issue_params
     args = @issue.can_be_edited_by?(current_user) ? editors_params : guest_params
 
-    params.require(:issue).permit(*args)
+    params.require(:issue).permit *args
+  end
+
+  def issue_filter
+    filter_params.slice :status, :tags, :description, :user_id, :comment
   end
 
   def filter_params

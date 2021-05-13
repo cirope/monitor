@@ -1,0 +1,74 @@
+<% unless filter_query_hash[:status].present? %>
+  <div class="card card-body table-responsive p-1">
+    <table class="table table-hover table-sm small mb-0">
+      <thead>
+        <tr>
+          <th class="border-top-0"></th>
+          <% Issue.statuses.each do |status| %>
+            <th class="border-top-0 text-right"><%= t "issues.status.#{status}" %></th>
+          <% end %>
+          <td class="border-top-0 text-right"><%= t '.total' %></td>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% grouped_issue_stats(stats).each do |key, counts| %>
+          <tr>
+            <td><%= key %></td>
+            <% Issue.statuses.each do |status| %>
+              <td class="text-right">
+                <%= link_to counts[status] || 0, issue_index_path(filter: filter_query_hash.merge(status: status, key: key)) %>
+              </td>
+            <% end %>
+            <td class="text-right">
+              <%= link_to counts.values.sum, issue_index_path(filter: filter_query_hash.merge(key: key)) %>
+            </td>
+          </tr>
+        <% end %>
+
+        <tr>
+          <td></td>
+          <% issue_stats_totals(stats).each do |status, total| %>
+            <td class="text-right">
+              <%= link_to total, issue_index_path(filter: filter_query_hash.merge(status: status)) %>
+            </td>
+          <% end %>
+          <td class="text-right">
+            <%= issue_stats_totals(stats).map(&:last).sum %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+
+<div class="card card-body table-responsive p-1">
+  <table class="table table-hover table-sm mb-0">
+    <% convert_issues(issues).each_with_index do |(issue, data), i| %>
+      <% if i == 0 %>
+        <thead>
+          <tr class="border-top-0">
+            <% data.keys.each do |header| %>
+              <th class="border-top-0"><%= header %></th>
+            <% end %>
+            <th class="border-top-0" colspan="<%= issue_actions_cols %>"></th>
+          </tr>
+        </thead>
+      <% end %>
+
+      <% if i == 0 %>
+        <tbody>
+      <% end %>
+
+      <%= render 'issue_alt', issue: issue, data: data %>
+
+      <% if i == 0 %>
+        </tbody>
+      <% end %>
+    <% end %>
+  </table>
+</div>
+
+<hr>
+
+<%= paginate issues %>

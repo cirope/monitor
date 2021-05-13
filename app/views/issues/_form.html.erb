@@ -1,4 +1,4 @@
-<%= simple_form_for @issue do |f| %>
+<%= simple_form_for @issue, url: [@issue, filter: filter_params.to_h] do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">

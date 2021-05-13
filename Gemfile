@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 6.0.3.6'
+gem 'rails', '~> 6.0.3.7'
 
 gem 'pg'
 gem 'ros-apartment', require: 'apartment'
 gem 'sassc-rails'
-gem 'bootstrap'
+gem 'bootstrap', '< 5'
 gem 'font-awesome-sass'
 gem 'uglifier'
 gem 'jquery-rails'
@@ -27,7 +27,7 @@ gem 'request_store-sidekiq'
 gem 'sidekiq'
 gem 'ros-apartment-sidekiq', require: 'apartment-sidekiq'
 gem 'whenever', require: false
-gem 'paper_trail'
+gem 'paper_trail', '< 12' # https://github.com/paper-trail-gem/paper_trail/issues/1305
 gem 'premailer-rails'
 gem 'ruby-ntlm'
 gem 'rubyzip', require: 'zip'
@@ -37,7 +37,7 @@ gem 'prawn-table'
 gem 'coderay'
 gem 'apexcharts'
 gem 'groupdate'
-gem 'mimemagic', '< 0.4'
+gem 'mimemagic'
 
 group :development, :production do
   gem 'web-console'

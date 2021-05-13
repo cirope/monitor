@@ -82,6 +82,7 @@
 </div>
 
 <% if @permalink.blank? && (current_user.author? || current_user.supervisor?) %>
-  <%= link_to_edit [:edit, @issue, context: @context] %> |
+  <%= link_to_edit [:edit, @issue, context: @context, filter: filter_query_hash] %> |
 <% end %>
-<%= link_to_index issue_index_path %>
+
+<%= link_to_index issue_index_path(filter: filter_query_hash) %>

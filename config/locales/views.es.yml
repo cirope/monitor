@@ -160,7 +160,12 @@ es:
       remove_all: 'Eliminar todos del carrito'
       empty_html: 'No tiene casos'
       empty_search_html: 'No hay casos que coincidan con el criterio de búsqueda'
+    index_alt:
+      total: 'Total'
     issue:
+      add_to_board: 'Agregar al carrito'
+      remove_from_board: 'Eliminar del carrito'
+    issue_alt:
       add_to_board: 'Agregar al carrito'
       remove_from_board: 'Eliminar del carrito'
     new:

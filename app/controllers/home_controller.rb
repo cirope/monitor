@@ -1,16 +1,12 @@
 # frozen_string_literal: true
 
 class HomeController < ApplicationController
-
   include Issues::Filters
+
+  respond_to :html
 
   before_action :authorize
   before_action :set_title
-
-  helper_method :filter_params
-  helper_method :issue_filter
-
-  respond_to :html
 
   PERMITED_FILTER_PARAMS = [
     :name, :status, :show, :tags, :user_id, :user, :description, :comment
@@ -23,18 +19,6 @@ class HomeController < ApplicationController
   end
 
   private
-
-    def filter_params
-      if params[:filter].present?
-        params.require(:filter).permit *PERMITED_FILTER_PARAMS
-      else
-        {}
-      end
-    end
-
-    def issue_filter
-      filter_params.slice :status, :tags, :description, :user_id, :comment
-    end
 
     def issues
       if issue_filter[:status].present?

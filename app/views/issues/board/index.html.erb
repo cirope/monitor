@@ -37,7 +37,7 @@
             <% if current_user.author? || current_user.supervisor? %>
               <td class="text-right"><%= link_to_edit [:edit, issue, context: :board] %></td>
             <% end %>
-            <td class="text-right"><%= link_to_remove_from_board issue, remote: false %></td>
+            <td class="text-right"><%= link_to_remove_from_board issue, options: { remote: false } %></td>
           </tr>
         <% end %>
       </tbody>

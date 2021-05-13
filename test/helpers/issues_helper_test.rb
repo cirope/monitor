@@ -15,6 +15,18 @@ class IssuesHelperTest < ActionView::TestCase
     assert_kind_of Integer, issue_actions_cols
   end
 
+  test 'convert issues' do
+    skip
+  end
+
+  test 'grouped issue stats' do
+    skip
+  end
+
+  test 'issue stats totals' do
+    skip
+  end
+
   test 'status with current user' do
     PaperTrail.request.whodunnit = users(:franco).id
 

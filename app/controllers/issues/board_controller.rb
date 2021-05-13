@@ -3,13 +3,13 @@
 class Issues::BoardController < ApplicationController
   include Issues::Filters
 
+  respond_to :html, :js, :pdf
+
   before_action :authorize, :not_guest
   before_action :only_supervisor, only: [:destroy_all]
   before_action :set_title
   before_action :set_issue,  only: [:create, :destroy]
   before_action :set_script, only: [:create, :destroy]
-
-  respond_to :html, :js, :pdf
 
   def index
     @issues = issues.order(:created_at).where id: board_session
@@ -19,7 +19,8 @@ class Issues::BoardController < ApplicationController
   end
 
   def create
-    @issues = filter_default_status? || @issue ? issues : issues.active
+    @issues   = filter_default_status? || @issue ? issues : issues.active
+    @template = params[:partial] == 'alt' ? 'issue_alt' : 'issue'
 
     board_session.concat(@issues.pluck('id')).uniq!
 
@@ -41,7 +42,8 @@ class Issues::BoardController < ApplicationController
   end
 
   def destroy
-    @issues = filter_default_status? || @issue ? issues : issues.active
+    @issues   = filter_default_status? || @issue ? issues : issues.active
+    @template = params[:partial] == 'alt' ? 'issue_alt' : 'issue'
 
     @issues.each { |issue| board_session.delete issue.id }
 

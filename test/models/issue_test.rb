@@ -109,6 +109,24 @@ class IssueTest < ActiveSupport::TestCase
     assert  @issue.reload.can_be_light_edited_by?(users(:john))
   end
 
+  test 'data type' do
+    @issue.update! data: nil
+
+    assert @issue.empty_data_type?
+
+    @issue.update! data: { some: 'data' }
+
+    assert @issue.object_data_type?
+
+    @issue.update! data: [['Header'], ['Value']]
+
+    assert @issue.single_row_data_type?
+
+    @issue.update! data: [{ header: 'value' }]
+
+    assert @issue.single_row_data_type?
+  end
+
   test 'tagged with' do
     tag    = tags :important
     issues = Issue.tagged_with tag.name

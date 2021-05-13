@@ -14,6 +14,17 @@ class IssuesControllerTest < ActionController::TestCase
   test 'should get index' do
     get :index, params: { script_id: @issue.script.id }
     assert_response :success
+    assert_select 'a[href*=?]', 'partial=alt', count: 0
+  end
+
+  test 'should get alt index' do
+    @issue.script.issues.each do |issue|
+      issue.update! data: [['Header one', 'Header two'], ['Value 1', 'Value 2']]
+    end
+
+    get :index, params: { script_id: @issue.script.id }
+    assert_response :success
+    assert_select 'a[href*=?]', 'partial=alt', count: 1
   end
 
   test 'should get filtered index' do

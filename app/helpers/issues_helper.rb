@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
 module IssuesHelper
-  def issue_index_path
+  def issue_index_path *args
     if @context == :board
-      issues_board_path
+      issues_board_path *args
     elsif current_user.guest?
-      issues_path
+      issues_path *args
     elsif @permalink
       permalink_path @permalink
     elsif @script || @issue
-      script_issues_path(@script || @issue.script)
+      script_issues_path(@script || @issue.script, *args)
     else
-      issues_path
+      issues_path *args
     end
   end
 
@@ -24,6 +24,41 @@ module IssuesHelper
       1
     else
       4
+    end
+  end
+
+  def convert_issues issues
+    sample = issues.first.data
+
+    if sample.all? { |item| item.kind_of? Array }
+      issues.map do |issue|
+        data    = issue.data
+        headers = data.shift
+
+        [issue, Hash[headers.zip data.first]]
+      end
+    else
+      issues.map { |issue| [issue, issue.data.first] }
+    end
+  end
+
+  def grouped_issue_stats stats
+    stats.inject({}) do |acc, ((key, status), count)|
+      single_stats = acc[key] || {}
+
+      single_stats[status] = count
+
+      acc.merge key => single_stats
+    end
+  end
+
+  def issue_stats_totals stats
+    Issue.statuses.map do |status|
+      total = stats.sum do |(_key, stat_status), count|
+        stat_status == status ? count : 0
+      end
+
+      [status, total]
     end
   end
 
@@ -64,8 +99,9 @@ module IssuesHelper
     board_session.include? issue.id
   end
 
-  def link_to_add_to_board issue
-    options = {
+  def link_to_add_to_board issue, url_params: {}
+    url_params = url_params.merge filter: { id: issue }
+    options    = {
       title: t('.add_to_board'),
       data:  {
         remote: true,
@@ -73,13 +109,14 @@ module IssuesHelper
       }
     }
 
-    link_to issues_board_path(filter: { id: issue }), options do
+    link_to issues_board_path(url_params), options do
       icon 'fas', 'plus-circle'
     end
   end
 
-  def link_to_remove_from_board issue, options = { remote: true }
-    options = {
+  def link_to_remove_from_board issue, options: { remote: true }, url_params: {}
+    url_params = url_params.merge filter: { id: issue }
+    options    = {
       title: t('.remove_from_board'),
       data:  {
         remote: options[:remote],
@@ -87,7 +124,7 @@ module IssuesHelper
       }
     }
 
-    link_to issues_board_path(filter: { id: issue }), options do
+    link_to issues_board_path(url_params), options do
       icon 'fas', 'minus-circle'
     end
   end

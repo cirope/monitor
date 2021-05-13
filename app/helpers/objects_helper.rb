@@ -11,7 +11,7 @@ module ObjectsHelper
       container = object if i == path.size - 2
     end
 
-    _render parent, container, object
+    object_render parent, container, object
   end
 
   def link_or_show parent, key, object, id
@@ -46,11 +46,11 @@ module ObjectsHelper
 
   private
 
-    def _render parent, container, object
-      object, offset = maybe_convert container, object
+    def object_render parent, container, object
+      object, offset = object_maybe_convert container, object
       partial        = if object.is_a? Hash
                          'objects/table'
-                       elsif columns = columns_for(object)
+                       elsif columns = object_columns_for(object)
                          'objects/grid'
                        else
                          'objects/ul'
@@ -62,7 +62,7 @@ module ObjectsHelper
                       offset:  offset || 0
     end
 
-    def maybe_convert container, object
+    def object_maybe_convert container, object
       is_array           = object.kind_of? Array
       is_two_dimensional = is_array && object.all? { |item| item.is_a? Array }
       uniq_item_sizes    = is_two_dimensional && object.map(&:size).uniq
@@ -78,7 +78,7 @@ module ObjectsHelper
       end
     end
 
-    def columns_for object
+    def object_columns_for object
       if object.all? { |item| item.is_a? Hash }
         object.map { |item| item.keys }.compact.flatten.uniq[0..5]
       end

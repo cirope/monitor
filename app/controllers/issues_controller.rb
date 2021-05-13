@@ -3,6 +3,8 @@
 class IssuesController < ApplicationController
   include Issues::Filters
 
+  respond_to :html, :json, :js
+
   before_action :authorize
   before_action :not_guest, except: [:index, :show]
   before_action :not_author, only: [:destroy]
@@ -14,11 +16,11 @@ class IssuesController < ApplicationController
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
   before_action :set_context, only: [:show, :edit, :update]
 
-  respond_to :html, :json, :js
-
   def index
-    @issues = issues.order(created_at: :desc).page params[:page]
-    @issues = @issues.active unless filter_default_status?
+    @issues      = issues.order(created_at: :desc).page params[:page]
+    @issues      = @issues.active unless filter_default_status?
+    @alt_partial = alt_index?
+    @stats       = stats if @alt_partial
 
     respond_with @issues
   end
@@ -36,7 +38,7 @@ class IssuesController < ApplicationController
   def update
     @issue.update issue_params
 
-    respond_with @issue, location: issue_url(@issue, context: @context)
+    respond_with @issue, location: issue_url(@issue, context: @context, filter: params[:filter]&.to_unsafe_h)
   end
 
   def destroy
@@ -77,11 +79,35 @@ class IssuesController < ApplicationController
       if params[:id]
         account.switch { set_issue }
 
-        redirect_to issue_url(@issue)
+        redirect_to issue_url(@issue, filter: params[:filter]&.to_unsafe_h)
       elsif params[:script_id]
         account.switch { set_script }
 
-        redirect_to script_issues_url(@script)
+        redirect_to script_issues_url(@script, filter: params[:filter]&.to_unsafe_h)
+      end
+    end
+
+    def stats
+      issues.group("(#{Issue.table_name}.data ->>1)::json->>-1", :status).count
+    end
+
+    def alt_index?
+      @issues.any?                            &&
+        @issues.all?(&:single_row_data_type?) &&
+        issues_can_share_headers?
+    end
+
+    def issues_can_share_headers?
+      header_rows = @issues.map(&:data).map &:first
+
+      if header_rows.all? { |row| row.kind_of?(Hash) }
+        sample = header_rows.first.keys.sort
+
+        header_rows.all? { |row| row.keys.sort == sample }
+      else
+        sample = header_rows.first.sort
+
+        header_rows.all? { |row| row.sort == sample }
       end
     end
 end

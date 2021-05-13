@@ -14,10 +14,10 @@
 
       <tbody>
         <% @script_counts.each do |script_data, count| %>
-          <tr>
+          <tr class="position-relative">
             <td><%= script_data.last %></td>
             <td class="text-right">
-              <%= link_to count, script_issues_path(script_data.first, filter: filter_query_hash) %>
+              <%= link_to count, script_issues_path(script_data.first, filter: filter_query_hash), class: 'stretched-link' %>
             </td>
           </tr>
         <% end %>

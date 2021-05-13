@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_26_130438) do
+ActiveRecord::Schema.define(version: 2021_05_11_154122) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,20 +44,6 @@ ActiveRecord::Schema.define(version: 2020_04_26_130438) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
-  end
-
-  create_table "clientes", id: false, force: :cascade do |t|
-    t.integer "id"
-    t.integer "numdoc"
-    t.string "nombre", limit: 60
-    t.datetime "fecha_nac"
-    t.string "sexo", limit: 1
-    t.string "direccion", limit: 80
-    t.string "localidad", limit: 60
-    t.string "codpost", limit: 4
-    t.string "provincia", limit: 20
-    t.string "telefono", limit: 30
-    t.string "mail", limit: 80
   end
 
   create_table "comments", id: :serial, force: :cascade do |t|
@@ -152,6 +138,7 @@ ActiveRecord::Schema.define(version: 2020_04_26_130438) do
     t.integer "lock_version", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "data_type"
     t.index ["created_at"], name: "index_issues_on_created_at"
     t.index ["data"], name: "index_issues_on_data", using: :gin
     t.index ["description"], name: "index_issues_on_description"
@@ -228,12 +215,6 @@ ActiveRecord::Schema.define(version: 2020_04_26_130438) do
     t.index ["username"], name: "index_memberships_on_username"
   end
 
-  create_table "mo_clientes", primary_key: "cuit", id: :string, limit: 20, force: :cascade do |t|
-    t.string "nombre", limit: 50
-    t.text "comentarios", null: false
-    t.float "montopresunto"
-  end
-
   create_table "outputs", id: :serial, force: :cascade do |t|
     t.text "text"
     t.integer "trigger_id", null: false
@@ -273,29 +254,6 @@ ActiveRecord::Schema.define(version: 2020_04_26_130438) do
     t.index ["token"], name: "index_permalinks_on_token", unique: true
   end
 
-  create_table "pla_operaciones", id: false, force: :cascade do |t|
-    t.integer "id"
-    t.datetime "fecha"
-    t.integer "id_tipo_operacion"
-    t.decimal "importe", precision: 20, scale: 2
-    t.integer "id_persona_titular"
-    t.integer "id_persona_operacion"
-    t.integer "efectivo"
-    t.integer "debcre"
-  end
-
-  create_table "pla_personas", id: false, force: :cascade do |t|
-    t.integer "id_persona"
-    t.string "nombre", limit: 60
-    t.string "fisica_juridica", limit: 1
-    t.decimal "monto_presunto", precision: 20, scale: 2, default: "0.0"
-  end
-
-  create_table "pla_tipos_operacion", id: false, force: :cascade do |t|
-    t.integer "id"
-    t.string "descripcion", limit: 200
-  end
-
   create_table "properties", id: :serial, force: :cascade do |t|
     t.string "key", null: false
     t.string "value", null: false
@@ -322,12 +280,6 @@ ActiveRecord::Schema.define(version: 2020_04_26_130438) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["panel_id"], name: "index_queries_on_panel_id"
-  end
-
-  create_table "registro_e_s", id: false, force: :cascade do |t|
-    t.integer "id_empleado"
-    t.string "entrada_salida", limit: 1
-    t.datetime "fecha_hora"
   end
 
   create_table "requires", id: :serial, force: :cascade do |t|
@@ -438,14 +390,6 @@ ActiveRecord::Schema.define(version: 2020_04_26_130438) do
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
 
-  create_table "sucursales", id: false, force: :cascade do |t|
-    t.integer "id"
-    t.string "nombre", limit: 60
-    t.string "direccion", limit: 60
-    t.string "localidad", limit: 60
-    t.string "provincia", limit: 60
-  end
-
   create_table "taggings", id: :serial, force: :cascade do |t|
     t.integer "tag_id", null: false
     t.integer "taggable_id", null: false
@@ -500,21 +444,6 @@ ActiveRecord::Schema.define(version: 2020_04_26_130438) do
     t.index ["password_reset_token"], name: "index_users_on_password_reset_token", unique: true
     t.index ["role"], name: "index_users_on_role"
     t.index ["username"], name: "index_users_on_username"
-  end
-
-  create_table "vendedores", id: false, force: :cascade do |t|
-    t.integer "id"
-    t.integer "numdoc"
-    t.string "nombre", limit: 60
-    t.datetime "fecha_nac"
-    t.string "sexo", limit: 1
-    t.string "direccion", limit: 80
-    t.string "localidad", limit: 60
-    t.string "codpost", limit: 4
-    t.string "provincia", limit: 20
-    t.string "telefono", limit: 30
-    t.string "mail", limit: 80
-    t.integer "sucursal_id"
   end
 
   create_table "versions", id: :serial, force: :cascade do |t|
