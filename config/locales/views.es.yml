@@ -189,6 +189,7 @@ es:
       all: 'Todos'
       pending: 'Pendiente'
       taken: 'En proceso'
+      revision: 'En revisión'
       closed: 'Cerrado'
     subscriptions:
       subscription:

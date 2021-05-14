@@ -3,16 +3,17 @@
 module Issues::Status
   extend ActiveSupport::Concern
 
-  STATUSES = %w(pending taken closed)
+  STATUSES = %w(pending taken revision closed)
 
   STATUS_TRANSITIONS = {
-    pending: %w(pending taken closed),
-    taken:   %w(taken closed),
-    closed:  %w(closed)
+    pending:  %w(pending taken revision closed),
+    taken:    %w(taken revision closed),
+    revision: %w(revision closed),
+    closed:   %w(closed)
   }.freeze
 
   SUPERVISOR_STATUS_TRANSITIONS = STATUS_TRANSITIONS.merge(
-    closed: %w(taken closed)
+    closed: %w(taken revision closed)
   ).freeze
 
   included do

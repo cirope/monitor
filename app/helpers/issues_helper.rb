@@ -68,6 +68,8 @@ module IssuesHelper
               'badge-secondary'
             when 'taken'
               'badge-warning'
+            when 'revision'
+              'badge-info'
             else
               'badge-success'
             end
