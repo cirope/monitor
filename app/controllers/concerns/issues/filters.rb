@@ -49,7 +49,7 @@ module Issues::Filters
   end
 
   def show_mine?
-    mine_by_user_role = current_user.guest? || current_user.security?
+    mine_by_user_role = !current_user.can_use_mine_filter?
     show_all          = filter_params[:show] == 'all'
     on_board          = controller_name == 'board'
     filter_id         = filter_params[:id]

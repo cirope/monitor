@@ -5,10 +5,10 @@
   <td class="d-none d-sm-table-cell"><%= issue_status issue.status %></td>
   <td class="d-none d-lg-table-cell"><%= tags issue.tags %></td>
   <td class="text-right"><%= link_to_show [issue, filter: filter_params.to_h] %></td>
-  <% if current_user.author? || current_user.supervisor? %>
+  <% if current_user.can_edit_issues? %>
     <td class="text-right"><%= link_to_edit [:edit, issue, filter: filter_params.to_h] %></td>
     <td class="text-right"><%= is_in_board?(issue) ? link_to_remove_from_board(issue) : link_to_add_to_board(issue) %></td>
-    <% unless current_user.author? %>
+    <% if current_user.supervisor? %>
       <td class="text-right"><%= link_to_destroy [issue, filter: filter_params.to_h] %></td>
     <% end %>
   <% end %>

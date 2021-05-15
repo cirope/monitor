@@ -46,10 +46,12 @@ class IssueTest < ActiveSupport::TestCase
   end
 
   test 'user can modify' do
-    PaperTrail.request.whodunnit = users(:eduardo).id
+    Current.user = users :eduardo
 
     assert @issue.invalid?
     assert_error @issue, :base, :user_invalid
+  ensure
+    Current.user = nil
   end
 
   test 'more than one final tag validation' do
@@ -65,7 +67,7 @@ class IssueTest < ActiveSupport::TestCase
   end
 
   test 'next status' do
-    PaperTrail.request.whodunnit = nil
+    Current.user = nil
 
     @issue.taggings.create! tag_id: tags(:final).id
 
@@ -80,7 +82,7 @@ class IssueTest < ActiveSupport::TestCase
     @issue.update! status: 'closed'
     assert_equal %w(closed), @issue.next_status
 
-    PaperTrail.request.whodunnit = users(:franco).id
+    Current.user = users :franco
 
     assert_equal %w(taken revision closed), @issue.next_status
   end
@@ -250,13 +252,14 @@ class IssueTest < ActiveSupport::TestCase
   end
 
   test 'comment' do
-    user                         = users :franco
-    PaperTrail.request.whodunnit = user.id
+    Current.user = user = users :franco
 
     assert user.issues.any?
 
     assert_enqueued_emails user.issues.count do
       user.issues.comment text: 'Mass comment test'
     end
+  ensure
+    Current.user = nil
   end
 end

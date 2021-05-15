@@ -11,6 +11,8 @@ ldap_server:
   roles_attribute: description
   options:
     guest: 'Guest role'
+    owner: 'Owner role'
+    manager: 'Manager role'
     author: 'Author role'
     supervisor: 'Supervisor role'
     security: 'Security role'

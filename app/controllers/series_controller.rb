@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class SeriesController < ApplicationController
-
   before_action :authorize
   before_action :set_title
   before_action :set_serie, only: [:show]

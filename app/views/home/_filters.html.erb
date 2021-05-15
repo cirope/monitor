@@ -87,7 +87,7 @@
 
           <div class="row">
             <div class="col-lg-4">
-              <% if current_user.author? || current_user.supervisor? %>
+              <% if current_user.can_use_mine_filter? %>
                 <%= f.input :show,
                   required:      false,
                   include_blank: false,

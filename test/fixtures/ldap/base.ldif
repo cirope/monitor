@@ -29,9 +29,23 @@ objectClass: person
 objectClass: top
 sn: Catena
 givenname: Juan
-title: Another administrator
+title: Guest
 description: cn=Guest role,ou=people,dc=test,dc=com
 uid: juan@test.com
 mail: juan@administrators.com
 cn: juan
+userPassword: {SSHA}jZeYUeNAd/8acSrOfPNWxWbxKyaQgxRP
+
+dn: cn=joe,ou=people,dc=test,dc=com
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+sn: Catena
+givenname: Joe
+title: Guest
+description: cn=Owner role,ou=people,dc=test,dc=com
+uid: joe@test.com
+mail: joe@administrators.com
+cn: joe
 userPassword: {SSHA}jZeYUeNAd/8acSrOfPNWxWbxKyaQgxRP

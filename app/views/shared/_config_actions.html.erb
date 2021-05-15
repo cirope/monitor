@@ -1,7 +1,7 @@
 <ul class="side-nav-second-level" aria-expanded="false">
   <%= left_menu_item_for User, users_path %>
 
-  <% unless current_user.author? %>
+  <% unless current_user.author? || current_user.manager? %>
     <% unless current_user.security? %>
       <%= left_menu_item_for Tag, tags_path(kind: 'script') %>
       <%= left_menu_item_for Descriptor, descriptors_path %>
@@ -17,5 +17,7 @@
     <%= left_menu_item_for console_helper_model, console_path %>
   <% end %>
 
-  <%= left_menu_item_for processes_helper_model, processes_path %>
+  <% unless current_user.manager? %>
+    <%= left_menu_item_for processes_helper_model, processes_path %>
+  <% end %>
 </ul>

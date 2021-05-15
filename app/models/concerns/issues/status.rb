@@ -27,11 +27,7 @@ module Issues::Status
   end
 
   def next_status
-    if PaperTrail.request.whodunnit
-      user = User.find_by id: PaperTrail.request.whodunnit
-    end
-
-    transitions = if user&.supervisor?
+    transitions = if Current.user&.supervisor?
                     SUPERVISOR_STATUS_TRANSITIONS
                   else
                     STATUS_TRANSITIONS

@@ -6,8 +6,8 @@ class IssuesController < ApplicationController
   respond_to :html, :json, :js
 
   before_action :authorize
-  before_action :not_guest, except: [:index, :show]
-  before_action :not_author, only: [:destroy]
+  before_action :not_guest, :not_owner, except: [:index, :show]
+  before_action :not_author, :not_manager, only: [:destroy]
   before_action :not_security, except: [:index, :show, :edit, :update]
   before_action :set_title, except: [:destroy]
   before_action :set_account, only: [:show, :index]

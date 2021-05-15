@@ -9,6 +9,10 @@ es:
           <dl>
             <dt>Invitado</dt>
             <dd>Solo puede ver los casos asociados directamente</dd>
+            <dt>Propietario</dt>
+            <dd>Solo puede ver los casos asociados directamente y modificar su estado (excepto cerrar)</dd>
+            <dt>Gerente</dt>
+            <dd>Puede administrar casos y usuarios</dd>
             <dt>Autor</dt>
             <dd>Puede ver todos los casos, administrar guiones, trabajos y reglas</dd>
             <dt>Supervisor</dt>

@@ -16,7 +16,7 @@
 
     <p class="mb-1">
       <strong><%= Issue.human_attribute_name 'run' %></strong>:
-      <%= link_to_unless current_user.guest? || current_user.security?, @issue.run, @issue.run %>
+      <%= link_to_if current_user.author? || current_user.supervisor?, @issue.run, @issue.run %>
     </p>
 
     <ul class="list-inline" data-tagging-list>
@@ -59,7 +59,7 @@
     <div id="subscriptions" class="card-body">
       <ul>
         <% @issue.subscriptions.each do |subscription| %>
-          <li><%= link_to_unless current_user.guest? || current_user.security?, subscription.user, subscription.user %></li>
+          <li><%= link_to_if current_user.can_read_users?, subscription.user, subscription.user %></li>
         <% end %>
       </ul>
     </div>
@@ -81,7 +81,7 @@
   </div>
 </div>
 
-<% if @permalink.blank? && (current_user.author? || current_user.supervisor?) %>
+<% if @permalink.blank? && current_user.can_edit_issues? %>
   <%= link_to_edit [:edit, @issue, context: @context, filter: filter_query_hash] %> |
 <% end %>
 

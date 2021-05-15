@@ -150,6 +150,48 @@ class UserTest < ActiveSupport::TestCase
     assert_equal Time.zone.today, @user.password_reset_sent_at.to_date
   end
 
+  test 'permissions' do
+    can_use_mine_filter = %w(manager author supervisor)
+    can_read_users      = %w(manager author supervisor)
+    can_edit_issues     = %w(manager author supervisor)
+
+    can_use_mine_filter.each do |role|
+      @user.role = role
+
+      assert @user.can_use_mine_filter?
+    end
+
+    (User::ROLES - can_use_mine_filter).each do |role|
+      @user.role = role
+
+      refute @user.can_use_mine_filter?
+    end
+
+    can_read_users.each do |role|
+      @user.role = role
+
+      assert @user.can_read_users?
+    end
+
+    (User::ROLES - can_read_users).each do |role|
+      @user.role = role
+
+      refute @user.can_read_users?
+    end
+
+    can_edit_issues.each do |role|
+      @user.role = role
+
+      assert @user.can_edit_issues?
+    end
+
+    (User::ROLES - can_edit_issues).each do |role|
+      @user.role = role
+
+      refute @user.can_edit_issues?
+    end
+  end
+
   test 'auth' do
     @user.update! username: 'admin'
 

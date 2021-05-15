@@ -18,11 +18,11 @@
         <%= menu_item_for Rule, rules_path, icon: 'code-branch' unless current_user.author? %>
       <% end %>
 
-      <% unless current_user.guest? %>
+      <% unless current_user.guest? || current_user.owner? %>
         <li class="side-nav-item<%= ' mm-active' if is_config_action? %>">
           <%= link_to 'javascript: void(0);', class: 'side-nav-link' do %>
             <%= icon 'fas', 'cog' %>
-            <span><%= t('.config') %></span>
+            <span class="ml-n1"><%= t('.config') %></span>
             <%= icon 'fas', 'angle-right', class: 'menu-arrow' %>
           <% end %>
           <%= render 'shared/config_actions' %>

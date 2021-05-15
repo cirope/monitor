@@ -547,6 +547,8 @@ es:
       security: 'Seguridad'
       supervisor: 'Supervisor'
       author: 'Autor'
+      manager: 'Gerente'
+      owner: 'Propietario'
       guest: 'Invitado'
     imports:
       new:

@@ -153,6 +153,8 @@ es:
         test_user: 'Usuario'
         test_password: 'Contraseña'
         role_guest: 'Grupo invitado'
+        role_owner: 'Grupo propietario'
+        role_manager: 'Grupo gerente'
         role_author: 'Grupo autor'
         role_supervisor: 'Grupo supervisor'
         role_security: 'Grupo seguridad'

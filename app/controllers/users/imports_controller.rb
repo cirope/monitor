@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Users::ImportsController < ApplicationController
-  before_action :authorize, :not_guest, :set_title
+  before_action :authorize, :not_guest, :not_owner, :not_manager, :set_title
 
   # GET /users/import/new
   def new

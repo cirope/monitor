@@ -4,7 +4,7 @@ module IssuesHelper
   def issue_index_path *args
     if @context == :board
       issues_board_path *args
-    elsif current_user.guest?
+    elsif current_user.guest? || current_user.owner? || current_user.security?
       issues_path *args
     elsif @permalink
       permalink_path @permalink
@@ -16,9 +16,9 @@ module IssuesHelper
   end
 
   def issue_actions_cols
-    if current_user.guest? || current_user.security?
+    if current_user.guest? || current_user.owner? || current_user.security?
       1
-    elsif current_user.author?
+    elsif current_user.author? || current_user.manager?
       3
     elsif params[:ids]
       1

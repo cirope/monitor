@@ -6,7 +6,7 @@
     <td><%= value %></td>
   <% end %>
   <td class="text-right"><%= link_to_show [issue, filter: filter_params.to_h] %></td>
-  <% if current_user.author? || current_user.supervisor? %>
+  <% if current_user.can_edit_issues? %>
     <td class="text-right"><%= link_to_edit [:edit, issue, filter: filter_params.to_h] %></td>
     <td class="text-right">
       <%=
@@ -17,7 +17,7 @@
         end
       %>
     </td>
-    <% unless current_user.author? %>
+    <% if current_user.supervisor? %>
       <td class="text-right"><%= link_to_destroy [issue, filter: filter_params.to_h] %></td>
     <% end %>
   <% end %>

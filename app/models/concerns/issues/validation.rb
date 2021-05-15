@@ -22,9 +22,7 @@ module Issues::Validation
     end
 
     def user_can_modify
-      if PaperTrail.request.whodunnit
-        user = User.find PaperTrail.request.whodunnit
-      end
+      user = Current.user
 
       if user&.author? && users.exclude?(user)
         errors.add :base, :user_invalid
