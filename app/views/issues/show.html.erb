@@ -2,9 +2,9 @@
   <div class="card-header">
     <h5>
       <%= @issue %>
-      <small class="float-right">
-        <%= issue_status @issue.status %>
-      </small>
+      <span class="float-right" data-status>
+        <%= render 'status' %>
+      </span>
     </h5>
   </div>
 

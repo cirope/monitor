@@ -27,6 +27,9 @@ Rails.application.routes.draw do
   # Issues data export
   post   'issues/exports',           to: 'issues/exports#create'
 
+  # Issues status
+  patch  'issues/status/:id',        to: 'issues/status#update', as: 'issues_status'
+
   # Resources
   resources :comments, except: [:index, :new]
   resources :databases

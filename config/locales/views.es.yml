@@ -191,6 +191,7 @@ es:
       taken: 'En proceso'
       revision: 'En revisión'
       closed: 'Cerrado'
+      change_status_html: 'Cambiar a <span class="badge badge-%{style} ml-1 px-2">%{status}</span>'
     subscriptions:
       subscription:
         empty: 'No se encontraron usuarios con ese criterio'

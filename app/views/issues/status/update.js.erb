@@ -1,0 +1,7 @@
++function () {
+  <% if @issue.errors.empty? %>
+    var $container = $('[data-status]')
+
+    $container.html('<%= j render('issues/status') %>')
+  <% end %>
+}()

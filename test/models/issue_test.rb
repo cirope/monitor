@@ -85,6 +85,18 @@ class IssueTest < ActiveSupport::TestCase
     Current.user = users :franco
 
     assert_equal %w(taken revision closed), @issue.next_status
+
+    @issue.update! status: 'taken'
+
+    Current.user      = users :john
+    Current.user.role = 'owner'
+
+    assert_equal %w(taken revision), @issue.next_status
+
+    @issue.update! status: 'revision'
+    assert_equal %w(revision), @issue.next_status
+  ensure
+    Current.user = nil
   end
 
   test 'notify to' do

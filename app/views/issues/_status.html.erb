@@ -1,0 +1,15 @@
+<% if current_user.owner? && @issue.next_status.size > 1 && !@issue.closed? %>
+  <span class="dropdown">
+    <%= link_to '#', class: "btn btn-sm btn-#{issue_style @issue.status} dropdown-toggle mt-n1", data: { toggle: 'dropdown' } do %>
+      <%= t "issues.status.#{@issue.status}" %>
+    <% end %>
+
+    <span class="dropdown-menu dropdown-menu-right">
+      <% (@issue.next_status - [@issue.status]).each do |status| %>
+        <%= link_to_change_issue_status @issue, status %>
+      <% end %>
+    </span>
+  </span>
+<% else %>
+  <%= issue_status @issue.status %>
+<% end %>

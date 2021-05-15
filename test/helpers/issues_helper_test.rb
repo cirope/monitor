@@ -41,6 +41,12 @@ class IssuesHelperTest < ActionView::TestCase
     assert_respond_to status, :each
   end
 
+  test 'issue style' do
+    assert_match /secondary/, issue_style('pending')
+    assert_match /warning/, issue_style('taken')
+    assert_match /success/, issue_style('closed')
+  end
+
   test 'issue status' do
     assert_match /badge-secondary/, issue_status('pending')
     assert_match /badge-warning/, issue_status('taken')
@@ -86,6 +92,14 @@ class IssuesHelperTest < ActionView::TestCase
     assert is_in_board?(issue)
 
     session[:board_issues] = nil
+  end
+
+  test 'link to change issue status' do
+    issue         = issues :ls_on_atahualpa_not_well
+    @virtual_path = 'issues.status'
+    link          = link_to_change_issue_status issue, issue.next_status.first
+
+    assert_match 'data-method="patch"', link
   end
 
   test 'link add to board' do

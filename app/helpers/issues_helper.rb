@@ -62,19 +62,23 @@ module IssuesHelper
     end
   end
 
-  def issue_status status
-    klass = case status
-            when 'pending'
-              'badge-secondary'
-            when 'taken'
-              'badge-warning'
-            when 'revision'
-              'badge-info'
-            else
-              'badge-success'
-            end
+  def issue_style status
+    case status
+    when 'pending'
+      'secondary'
+    when 'taken'
+      'warning'
+    when 'revision'
+      'info'
+    else
+      'success'
+    end
+  end
 
-    content_tag :span, t("issues.status.#{status}"), class: "badge #{klass}"
+  def issue_status status
+    style = issue_style status
+
+    content_tag :span, t("issues.status.#{status}"), class: "badge badge-#{style} p-1"
   end
 
   def status
@@ -99,6 +103,22 @@ module IssuesHelper
 
   def is_in_board? issue
     board_session.include? issue.id
+  end
+
+  def link_to_change_issue_status issue, status
+    status_text = t "issues.status.#{status}"
+    link_text   = t '.change_status_html', status: status_text, style: issue_style(status)
+    path        = issues_status_path issue, issue: { status: status }
+    options     = {
+      class: 'dropdown-item',
+      data:  {
+        method:  :patch,
+        remote:  true,
+        confirm: t('messages.confirmation')
+      }
+    }
+
+    link_to link_text, path, options
   end
 
   def link_to_add_to_board issue, url_params: {}

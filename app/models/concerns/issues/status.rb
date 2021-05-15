@@ -12,6 +12,12 @@ module Issues::Status
     closed:   %w(closed)
   }.freeze
 
+  OWNER_STATUS_TRANSITIONS = {
+    pending:  %w(pending taken revision),
+    taken:    %w(taken revision),
+    revision: %w(revision)
+  }.freeze
+
   SUPERVISOR_STATUS_TRANSITIONS = STATUS_TRANSITIONS.merge(
     closed: %w(taken revision closed)
   ).freeze
@@ -29,6 +35,8 @@ module Issues::Status
   def next_status
     transitions = if Current.user&.supervisor?
                     SUPERVISOR_STATUS_TRANSITIONS
+                  elsif Current.user&.owner?
+                    OWNER_STATUS_TRANSITIONS
                   else
                     STATUS_TRANSITIONS
                   end
