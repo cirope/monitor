@@ -49,6 +49,7 @@
 //= require console
 //= require dashboards
 //= require databases
+//= require data_links
 //= require descriptors
 //= require editor
 //= require executions
