@@ -7,7 +7,7 @@
           <% Issue.statuses.each do |status| %>
             <th class="border-top-0 text-right"><%= t "issues.status.#{status}" %></th>
           <% end %>
-          <td class="border-top-0 text-right"><%= t '.total' %></td>
+          <th class="border-top-0 text-right"><%= t '.total' %></th>
         </tr>
       </thead>
 
@@ -20,20 +20,22 @@
                 <%= link_to counts[status] || 0, issue_index_path(filter: filter_query_hash.merge(status: status, key: key)) %>
               </td>
             <% end %>
-            <td class="text-right">
+            <td class="text-right font-weight-bold">
               <%= link_to counts.values.sum, issue_index_path(filter: filter_query_hash.merge(key: key)) %>
             </td>
           </tr>
         <% end %>
 
         <tr>
-          <td></td>
+          <td>
+            <strong><%= t '.total' %></strong>
+          </td>
           <% issue_stats_totals(stats).each do |status, total| %>
-            <td class="text-right">
+            <td class="text-right font-weight-bold">
               <%= link_to total, issue_index_path(filter: filter_query_hash.merge(status: status)) %>
             </td>
           <% end %>
-          <td class="text-right">
+          <td class="text-right font-weight-bold">
             <%= issue_stats_totals(stats).map(&:last).sum %>
           </td>
         </tr>
