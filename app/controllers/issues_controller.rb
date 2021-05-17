@@ -50,7 +50,7 @@ class IssuesController < ApplicationController
   private
 
     def set_issue
-      @issue = issues.find params[:id]
+      @issue = scoped_issues.find params[:id]
     end
 
     def set_account
