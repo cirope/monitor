@@ -94,14 +94,6 @@ class IssuesHelperTest < ActionView::TestCase
     session[:board_issues] = nil
   end
 
-  test 'link to change issue status' do
-    issue         = issues :ls_on_atahualpa_not_well
-    @virtual_path = 'issues.status'
-    link          = link_to_change_issue_status issue, issue.next_status.first
-
-    assert_match 'data-method="patch"', link
-  end
-
   test 'link add to board' do
     issue         = issues :ls_on_atahualpa_not_well
     @virtual_path = 'issues.issue'

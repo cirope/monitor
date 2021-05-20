@@ -1,6 +1,10 @@
 <ul class="side-nav-second-level" aria-expanded="false">
   <%= left_menu_item_for User, users_path %>
 
+  <% if current_user.manager? %>
+    <%= left_menu_item_for Tag, tags_path(kind: 'issue') %>
+  <% end %>
+
   <% unless current_user.author? || current_user.manager? %>
     <% unless current_user.security? %>
       <%= left_menu_item_for Tag, tags_path(kind: 'script') %>

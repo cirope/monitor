@@ -5,7 +5,6 @@ class TagsController < ApplicationController
 
   before_action :not_guest,
                 :not_owner,
-                :not_manager,
                 :not_author,
                 :not_security, except: [:index]
 
@@ -64,6 +63,8 @@ class TagsController < ApplicationController
     end
 
     def scope
-      Tag.where(kind: params[:kind])
+      kind = current_user.manager? ? 'issue' : params[:kind]
+
+      Tag.where kind: kind
     end
 end
