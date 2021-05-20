@@ -27,7 +27,13 @@ module Issues::Filters
   end
 
   def issue_params
-    args = @issue.can_be_edited_by?(current_user) ? editors_params : guest_params
+    args = if @issue.can_be_edited_by? current_user
+             editors_params
+           elsif current_user.owner?
+             owner_params
+           else
+             guest_params
+           end
 
     params.require(:issue).permit *args
   end
@@ -81,6 +87,12 @@ module Issues::Filters
           subscriptions_attributes: [:id, :user_id, :_destroy],
           comments_attributes: [:id, :text, :attachment],
           taggings_attributes: [:id, :tag_id, :_destroy]
+      ]
+    end
+
+    def owner_params
+      [
+        :status, comments_attributes: [:id, :text, :attachment]
       ]
     end
 

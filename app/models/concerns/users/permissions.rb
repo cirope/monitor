@@ -10,6 +10,6 @@ module Users::Permissions
   end
 
   def can_edit_issues?
-    manager? || author? || supervisor?
+    owner? || manager? || author? || supervisor?
   end
 end

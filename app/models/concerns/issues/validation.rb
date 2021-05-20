@@ -6,11 +6,20 @@ module Issues::Validation
   included do
     validates :status, presence: true, inclusion: { in: :next_status }
     validates :description, pdf_encoding: true
+    validate :requires_comment, if: :status_changed?
     validate :has_final_tag
     validate :user_can_modify
   end
 
   private
+
+    def requires_comment
+      user = Current.user
+
+      if user&.owner? && comments.detect(&:new_record?).blank?
+        errors.add :comments, :blank
+      end
+    end
 
     def has_final_tag
       if closed?

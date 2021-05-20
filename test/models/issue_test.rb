@@ -45,6 +45,19 @@ class IssueTest < ActiveSupport::TestCase
     assert_error @issue, :tags, :invalid
   end
 
+  test 'requires comment' do
+    Current.user = users :eduardo
+
+    Current.user.update! role: 'owner'
+
+    @issue.status = 'taken'
+
+    assert @issue.invalid?
+    assert_error @issue, :comments, :blank
+  ensure
+    Current.user = nil
+  end
+
   test 'user can modify' do
     Current.user = users :eduardo
 
@@ -93,7 +106,7 @@ class IssueTest < ActiveSupport::TestCase
 
     assert_equal %w(taken revision), @issue.next_status
 
-    @issue.update! status: 'revision'
+    @issue.update! status: 'revision', comments_attributes: [{ text: 'Test' }]
     assert_equal %w(revision), @issue.next_status
   ensure
     Current.user = nil

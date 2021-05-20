@@ -3,7 +3,7 @@
     <h5>
       <%= @issue %>
       <span class="float-right" data-status>
-        <%= render 'status' %>
+        <%= issue_status @issue.status %>
       </span>
     </h5>
   </div>

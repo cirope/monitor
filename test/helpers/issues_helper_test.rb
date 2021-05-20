@@ -147,6 +147,20 @@ class IssuesHelperTest < ActionView::TestCase
     assert limited_issue_form_edition?
   end
 
+  test 'can edit status' do
+    @issue = issues :ls_on_atahualpa_not_well
+
+    assert can_edit_status?
+
+    @current_user = users :god
+
+    refute can_edit_status?
+
+    @current_user.update! role: 'owner'
+
+    assert can_edit_status?
+  end
+
   private
 
     def board_session

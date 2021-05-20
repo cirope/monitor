@@ -18,6 +18,8 @@ module IssuesHelper
   def issue_actions_cols
     if current_user.guest? || current_user.owner? || current_user.security?
       1
+    elsif current_user.owner?
+      2
     elsif current_user.author? || current_user.manager?
       3
     elsif params[:ids]
@@ -177,6 +179,10 @@ module IssuesHelper
 
   def limited_issue_form_edition?
     !@issue.can_be_edited_by? current_user
+  end
+
+  def can_edit_status?
+    !limited_issue_form_edition? || current_user.owner?
   end
 
   def link_to_export_data

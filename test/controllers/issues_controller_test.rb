@@ -91,6 +91,17 @@ class IssuesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test 'should get edit as owner' do
+    user = users :john
+
+    user.update! role: 'owner'
+
+    login user: user
+
+    get :edit, params: { id: @issue }
+    assert_response :success
+  end
+
   test 'should update issue' do
     assert_enqueued_emails 1 do
       assert_difference ['Subscription.count', 'Comment.count', 'Tagging.count'] do
@@ -118,6 +129,45 @@ class IssuesControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to issue_url(@issue, context: 'issues')
+  end
+
+  test 'should update issue as owner' do
+    user = users :john
+
+    user.update! role: 'owner'
+
+    login user: user
+
+    assert_enqueued_emails 1 do
+      assert_no_difference ['Subscription.count', 'Tagging.count'] do
+        assert_difference 'Comment.count' do
+          patch :update, params: {
+            id: @issue,
+            issue: {
+              status: 'taken',
+              description: 'This text should not be used',
+              subscriptions_attributes: [
+                { user_id: users(:eduardo).id.to_s }
+              ],
+              taggings_attributes: [
+                {
+                  tag_id: tags(:final).id.to_s
+                }
+              ],
+              comments_attributes: [
+                {
+                  text: 'test comment',
+                  file: fixture_file_upload('files/test.sh', 'text/plain', false)
+                }
+              ]
+            }
+          }
+        end
+      end
+    end
+
+    assert_redirected_to issue_url(@issue, context: 'issues')
+    assert_not_equal 'This text should not be used', @issue.reload.description
   end
 
   test 'should destroy issue' do

@@ -132,6 +132,7 @@ es:
         description: 'Descripción'
         run: 'Corrida'
         data: 'Datos'
+        comments: 'Comentarios'
         tags: 'Etiquetas'
         created_at: 'Fecha de caso'
       issue/taggings:
@@ -261,6 +262,8 @@ es:
           attributes:
             base:
               user_invalid: 'No tiene permisos para modificar este caso'
+            comments:
+              blank: 'debe tener al menos uno asociado al cambio'
             tags:
               invalid: 'finales debe haber una (solamente)'
         user:

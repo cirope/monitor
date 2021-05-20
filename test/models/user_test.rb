@@ -153,7 +153,7 @@ class UserTest < ActiveSupport::TestCase
   test 'permissions' do
     can_use_mine_filter = %w(manager author supervisor)
     can_read_users      = %w(manager author supervisor)
-    can_edit_issues     = %w(manager author supervisor)
+    can_edit_issues     = %w(owner manager author supervisor)
 
     can_use_mine_filter.each do |role|
       @user.role = role
