@@ -22,6 +22,23 @@
       <% end %>
     <% end %>
 
+    <% if @tag.use_effects? %>
+      <div class="card my-3">
+        <div class="card-header">
+          <a class="text-reset text-decoration-none d-block" href="#effects" data-toggle="collapse">
+            <%= Effect.model_name.human count: 0 %>
+          </a>
+        </div>
+        <div id="effects" class="collapse card-body">
+          <%= f.simple_fields_for :effects, effects do |ef| %>
+            <%= render 'effects/effect', f: ef, tag: @tag %>
+          <% end %>
+
+          <%= link_to_add_fields t('tags.new.effect'), f, :effects, tag: @tag %>
+        </div>
+      </div>
+    <% end %>
+
     <%= f.input :lock_version, as: :hidden %>
   </div>
 

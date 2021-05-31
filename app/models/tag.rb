@@ -5,6 +5,7 @@ class Tag < ApplicationRecord
   include Attributes::Strip
   include SearchableByName
   include Tags::Destroy
+  include Tags::Effects
   include Tags::Options
   include Tags::Scopes
   include Tags::Validation

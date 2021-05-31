@@ -512,6 +512,7 @@ es:
       empty_html: 'No hay etiquetas, puede crear una con el botón <span class="badge badge-primary">Nueva etiqueta</span>'
     new:
       title: 'Crear etiqueta'
+      effect: 'Agregar implícita'
     show:
       title: 'Ver etiqueta'
     styles:

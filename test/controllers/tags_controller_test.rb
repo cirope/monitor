@@ -45,6 +45,27 @@ class TagsControllerTest < ActionController::TestCase
     assert_redirected_to tag_url(Tag.last, kind: kind)
   end
 
+  test 'should create tag with effects' do
+    kind = 'issue'
+
+    assert_difference ['Tag.where(kind: kind).count', 'Effect.count'] do
+      post :create, params: {
+        kind: kind,
+        tag: {
+          name: 'Test tag',
+          style: 'secondary',
+          effects_attributes: [
+            {
+              implied_id: tags(:final).id.to_s
+            }
+          ]
+        }
+      }
+    end
+
+    assert_redirected_to tag_url(Tag.last, kind: kind)
+  end
+
   test 'should show tag' do
     get :show, params: { kind: @tag.kind, id: @tag }
     assert_response :success

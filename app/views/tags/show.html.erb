@@ -18,6 +18,22 @@
         <% end %>
       </p>
     <% end %>
+
+    <% if @tag.effects.any? %>
+      <h3 class="h5">
+        <%= Effect.model_name.human count: @tag.effects.size %>
+      </h3>
+
+      <ul>
+        <% @tag.effects.each do |effect| %>
+          <li>
+            <span class="badge badge-<%= effect.implied.style %>">
+              <%= effect.implied %>
+            </span>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
   </div>
 </div>
 

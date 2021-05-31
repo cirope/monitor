@@ -15,7 +15,7 @@ module TagsHelper
     styles.map { |k| [t("tags.styles.#{k}"), k] }
   end
 
-  def tags tags
+  def tag_icons tags
     ActiveSupport::SafeBuffer.new.tap do |buffer|
       tags.each do |tag|
         buffer << content_tag(:span, class: "text-#{tag.style}") do
@@ -27,5 +27,11 @@ module TagsHelper
 
   def unlimited_tag_form_edition_for? kind
     kind != 'issue' || !limited_issue_form_edition?
+  end
+
+  def effects
+    @tag.effects.new if @tag.effects.empty?
+
+    @tag.effects
   end
 end

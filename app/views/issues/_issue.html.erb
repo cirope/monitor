@@ -3,7 +3,7 @@
   <td class="d-none d-sm-table-cell"><%= l issue.created_at, format: :compact %></td>
   <td><%= truncate issue.description, length: 50 %></td>
   <td class="d-none d-sm-table-cell"><%= issue_status issue.status %></td>
-  <td class="d-none d-lg-table-cell"><%= tags issue.tags %></td>
+  <td class="d-none d-lg-table-cell"><%= tag_icons issue.tags %></td>
   <td class="text-right"><%= link_to_show [issue, filter: filter_params.to_h] %></td>
   <% if current_user.can_edit_issues? %>
     <td class="text-right"><%= link_to_edit [:edit, issue, filter: filter_params.to_h] %></td>

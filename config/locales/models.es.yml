@@ -26,6 +26,9 @@ es:
       description:
         one: 'Atributo'
         other: 'Atributos'
+      effect:
+        one: 'Implícita'
+        other: 'Implícitas'
       execution:
         one: 'Ejecución'
         other: 'Ejecuciones'
@@ -121,6 +124,9 @@ es:
         value: 'Valor'
       descriptor:
         name: 'Nombre'
+      effect:
+        tag: 'Etiqueta'
+        implied: 'Etiqueta'
       execution:
         status: 'Estado'
         started_at: 'Inicio'

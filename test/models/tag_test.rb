@@ -56,6 +56,14 @@ class TagTest < ActiveSupport::TestCase
     end
   end
 
+  test 'use effects' do
+    refute @tag.use_effects?
+
+    @tag.kind = 'issue'
+
+    assert @tag.use_effects?
+  end
+
   test 'search' do
     tags = Tag.search query: @tag.name
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_11_154122) do
+ActiveRecord::Schema.define(version: 2021_05_31_162116) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,6 +111,15 @@ ActiveRecord::Schema.define(version: 2021_05_11_154122) do
     t.datetime "updated_at", null: false
     t.index ["rule_id"], name: "index_dispatchers_on_rule_id"
     t.index ["schedule_id"], name: "index_dispatchers_on_schedule_id"
+  end
+
+  create_table "effects", force: :cascade do |t|
+    t.bigint "tag_id", null: false
+    t.bigint "implied_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["implied_id"], name: "index_effects_on_implied_id"
+    t.index ["tag_id"], name: "index_effects_on_tag_id"
   end
 
   create_table "executions", force: :cascade do |t|
@@ -468,6 +477,8 @@ ActiveRecord::Schema.define(version: 2021_05_11_154122) do
   add_foreign_key "descriptions", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "dispatchers", "rules", on_update: :restrict, on_delete: :restrict
   add_foreign_key "dispatchers", "schedules", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "effects", "tags", column: "implied_id", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "effects", "tags", on_update: :restrict, on_delete: :restrict
   add_foreign_key "issues", "runs", on_update: :restrict, on_delete: :restrict
   add_foreign_key "issues_permalinks", "issues", on_update: :restrict, on_delete: :restrict
   add_foreign_key "issues_permalinks", "permalinks", on_update: :restrict, on_delete: :restrict
