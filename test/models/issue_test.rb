@@ -175,6 +175,35 @@ class IssueTest < ActiveSupport::TestCase
     assert issues.all? { |issue| issue.tags.empty? }
   end
 
+  test 'tag with implied' do
+    tag = tags :important
+
+    @issue.tags.clear
+
+    assert_difference '@issue.tags.count', 2 do
+      @issue.taggings.create! tag: tag
+    end
+
+    assert_equal tags(:important, :final).map(&:id).sort,
+                 @issue.reload.tags.ids.sort
+  end
+
+  test 'tag with implied on new issue' do
+    tag   = tags :important
+    issue = @issue.dup
+
+    issue.taggings.build tag: tag
+
+    assert_difference 'Issue.count' do
+      assert_difference 'Tagging.count', 2 do
+        issue.save!
+      end
+    end
+
+    assert_equal tags(:important, :final).map(&:id).sort,
+                 issue.reload.tags.ids.sort
+  end
+
   test 'by created at' do
     skip
   end
