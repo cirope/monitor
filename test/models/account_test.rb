@@ -133,7 +133,7 @@ class AccountTest < ActiveSupport::TestCase
 
     assert_includes metrics_db_schemas, tenant
 
-    assert_equal %w[schema_migrations series], metrics_tables_in_schema(tenant)
+    assert_equal %w[schema_migrations series], metrics_tables_in_schema(tenant).sort
   end
 
   test 'drop metrics tenant on destroy' do
