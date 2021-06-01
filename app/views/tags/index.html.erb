@@ -26,12 +26,12 @@
 
       <tbody>
         <% @tags.each do |tag| %>
-          <tr>
+          <%= content_tag :tr, class: tag.group && 'table-info' do %>
             <td><%= tag.name %></td>
             <td class="text-right"><%= link_to_show [tag, kind: tag.kind] %></td>
             <td class="text-right"><%= link_to_edit [:edit, tag, kind: tag.kind] %></td>
             <td class="text-right"><%= link_to_destroy [tag, kind: tag.kind] %></td>
-          </tr>
+          <% end %>
         <% end %>
       </tbody>
     </table>

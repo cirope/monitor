@@ -515,6 +515,7 @@ es:
       effect: 'Agregar implícita'
     show:
       title: 'Ver etiqueta'
+      children: 'Sub-etiquetas'
     styles:
       secondary: 'Por defecto'
       primary: 'Importante'
@@ -522,6 +523,8 @@ es:
       info: 'Informativa'
       warning: 'Advertencia'
       danger: 'Peligro'
+    form:
+      empty: 'No se encontraron etiquetas con ese criterio'
 
   taggings:
     new:

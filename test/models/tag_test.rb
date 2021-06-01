@@ -64,6 +64,14 @@ class TagTest < ActiveSupport::TestCase
     assert @tag.use_effects?
   end
 
+  test 'use parent' do
+    refute @tag.use_parent?
+
+    @tag.kind = 'issue'
+
+    assert @tag.use_parent?
+  end
+
   test 'search' do
     tags = Tag.search query: @tag.name
 
@@ -76,6 +84,13 @@ class TagTest < ActiveSupport::TestCase
 
     assert tags.any?
     assert tags.all?(&:export?)
+  end
+
+  test 'group option' do
+    tags = Tag.group_option true
+
+    assert tags.any?
+    assert tags.all?(&:group?)
   end
 
   test 'by issues' do

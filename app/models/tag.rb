@@ -7,6 +7,7 @@ class Tag < ApplicationRecord
   include Tags::Destroy
   include Tags::Effects
   include Tags::Options
+  include Tags::Parent
   include Tags::Scopes
   include Tags::Validation
 

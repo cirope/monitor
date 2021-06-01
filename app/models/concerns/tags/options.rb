@@ -5,7 +5,7 @@ module Tags::Options
 
   def kind_options
     options = {
-      issue:  { final: :boolean },
+      issue:  { final: :boolean, group: :boolean },
       script: { export: :boolean },
       user:   {}
     }
@@ -20,6 +20,15 @@ module Tags::Options
 
   def final= final
     assign_option 'final', final == true || final == '1'
+  end
+
+  def group
+    options&.fetch 'group', nil
+  end
+  alias_method :group?, :group
+
+  def group= group
+    assign_option 'group', group == true || group == '1'
   end
 
   def export

@@ -18,6 +18,12 @@ class TagsHelperTest < ActionView::TestCase
     assert_match tags.first.name, result
   end
 
+  test 'parent tag path' do
+    tag = tags :important
+
+    assert_match tag.id.to_s, parent_tags_path(tag)
+  end
+
   test 'limited tag form edition for' do
     assert unlimited_tag_form_edition_for?('user')
 

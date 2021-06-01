@@ -5,11 +5,11 @@ class CreateEffects < ActiveRecord::Migration[6.0]
         on_update: :restrict,
         on_delete: :restrict
       }
-      t.references :implied, index: true, null: false
+      t.references :implied, index: true, null: false, foreign_key: {
+        to_table: :tags, on_update: :restrict, on_delete: :restrict
+      }
 
       t.timestamps null: false
     end
-
-    add_foreign_key :effects, :tags, column: :implied_id, on_update: :restrict, on_delete: :restrict
   end
 end

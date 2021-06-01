@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_31_162116) do
+ActiveRecord::Schema.define(version: 2021_06_01_145923) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -417,9 +417,11 @@ ActiveRecord::Schema.define(version: 2021_05_31_162116) do
     t.string "kind", default: "script", null: false
     t.string "style", default: "secondary", null: false
     t.jsonb "options"
+    t.bigint "parent_id"
     t.index ["kind"], name: "index_tags_on_kind"
     t.index ["name"], name: "index_tags_on_name"
     t.index ["options"], name: "index_tags_on_options", using: :gin
+    t.index ["parent_id"], name: "index_tags_on_parent_id"
   end
 
   create_table "triggers", id: :serial, force: :cascade do |t|
@@ -500,5 +502,6 @@ ActiveRecord::Schema.define(version: 2021_05_31_162116) do
   add_foreign_key "subscriptions", "issues", on_update: :restrict, on_delete: :restrict
   add_foreign_key "subscriptions", "users", on_update: :restrict, on_delete: :restrict
   add_foreign_key "taggings", "tags", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "tags", "tags", column: "parent_id", on_update: :restrict, on_delete: :restrict
   add_foreign_key "triggers", "rules", on_update: :restrict, on_delete: :restrict
 end

@@ -1,7 +1,7 @@
 <fieldset class="tag_effect">
   <div class="row">
     <div class="col-sm-11">
-      <%= f.input :implied, as: :autocomplete, label: false, url: tags_path(kind: tag.kind, exclude_id: tag.id), input_html: {
+      <%= f.input :implied, as: :autocomplete, label: false, url: tags_path(kind: tag.kind, exclude: tag.id), input_html: {
         data: { empty_result_label: t('.empty') }
       } %>
     </div>

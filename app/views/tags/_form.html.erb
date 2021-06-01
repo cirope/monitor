@@ -11,6 +11,12 @@
       </div>
     </div>
 
+    <% if @tag.use_parent? %>
+      <%= f.input :parent, as: :autocomplete, url: parent_tags_path(@tag), input_html: {
+        data: { empty_result_label: t('.empty') }
+      } %>
+    <% end %>
+
     <% @tag.kind_options.each do |option, type| %>
       <% if type == :boolean %>
         <div class="custom-control custom-checkbox">

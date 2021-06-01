@@ -3,29 +3,36 @@ starters:
   kind: script
   style: secondary
   options: { "export": true }
+  parent:
 
 libs:
   name: Libraries
   kind: script
   style: secondary
+  parent:
 
 important:
   name: Important
   kind: issue
   style: secondary
+  options: { "group": true }
+  parent:
 
 final:
   name: Final
   kind: issue
   style: secondary
   options: { "final": true }
+  parent:
 
 admins:
   name: Admins
   kind: user
   style: secondary
+  parent:
 
 guest:
   name: Guest role
   kind: user
   style: secondary
+  parent:

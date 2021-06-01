@@ -240,7 +240,9 @@ es:
         name: 'Nombre'
         style: 'Estilo'
         final: 'Final'
+        group: 'Grupo'
         export: 'Exportar'
+        parent: 'Grupo'
       tagging:
         tag: 'Etiqueta'
         tag_id: 'Etiqueta'

@@ -59,18 +59,17 @@ class TagsController < ApplicationController
     end
 
     def tag_params
-      params.require(:tag).permit :name, :style, :final, :export, :lock_version,
+      params.require(:tag).permit :name, :style, :final, :group, :export,
+        :parent_id, :lock_version,
         effects_attributes: [:id, :implied_id, :_destroy]
     end
 
     def scope
-      kind        = current_user.manager? ? 'issue' : params[:kind]
-      kind_scoped = Tag.where kind: kind
+      kind  = current_user.manager? ? 'issue' : params[:kind]
+      scope = Tag.where kind: kind
+      scope = scope.group_option true              if params[:group].present?
+      scope = scope.where.not id: params[:exclude] if params[:exclude].present?
 
-      if params[:exclude_id].blank?
-        kind_scoped
-      else
-        kind_scoped.where.not id: params[:exclude_id]
-      end
+      scope
     end
 end
