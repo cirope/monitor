@@ -94,6 +94,12 @@ class IssuesHelperTest < ActionView::TestCase
     session[:board_issues] = nil
   end
 
+  test 'issue tagging options' do
+    issue = issues :ls_on_atahualpa_not_well
+
+    assert_kind_of Hash, issue_tagging_options(issue)
+  end
+
   test 'link add to board' do
     issue         = issues :ls_on_atahualpa_not_well
     @virtual_path = 'issues.issue'

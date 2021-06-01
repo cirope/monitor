@@ -1,10 +1,15 @@
+<% collection = collection %>
 <fieldset class="tag"<%= ' hidden' if f.object.marked_for_destruction? %>>
   <div class="row">
     <div class="col-sm-11">
-      <%= f.input :tag, as: :autocomplete, label: false, url: tags_path(kind: kind), input_html: {
-        readonly: !unlimited_tag_form_edition_for?(kind),
-        data: { empty_result_label: t('.empty') }
-      } %>
+      <% if collection %>
+        <%= f.association :tag, collection: tagging_tags(collection), label: false, prompt: true %>
+      <% else %>
+        <%= f.input :tag, as: :autocomplete, label: false, url: tags_path(kind: kind), input_html: {
+          readonly: !unlimited_tag_form_edition_for?(kind),
+          data: { empty_result_label: t('.empty') }
+        } %>
+      <% end %>
     </div>
     <div class="col-sm-1">
       <div class="row-controls text-right mb-3 mb-sm-0 mt-n4 mt-sm-n2">

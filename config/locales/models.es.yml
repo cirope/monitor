@@ -240,7 +240,7 @@ es:
         name: 'Nombre'
         style: 'Estilo'
         final: 'Final'
-        group: 'Grupo'
+        group: 'Es grupo'
         export: 'Exportar'
         parent: 'Grupo'
       tagging:

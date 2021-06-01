@@ -3,6 +3,7 @@ ls_on_atahualpa_not_well:
   status: pending
   data: { "test": "data" }
   data_type: object
+  options:
   run: past_ls_on_atahualpa
 
 ls_on_atahualpa_not_well_again:
@@ -10,4 +11,5 @@ ls_on_atahualpa_not_well_again:
   status: pending
   data: { "test": "data" }
   data_type: object
+  options:
   run: past_ls_on_atahualpa

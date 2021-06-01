@@ -17,17 +17,6 @@
       } %>
     <% end %>
 
-    <% @tag.kind_options.each do |option, type| %>
-      <% if type == :boolean %>
-        <div class="custom-control custom-checkbox">
-          <%= f.check_box option, class: 'custom-control-input' %>
-          <label class="custom-control-label" for="tag_<%= option %>"><%= Tag.human_attribute_name option %></label>
-        </div>
-      <% else %>
-        <%= f.input option, as: type %>
-      <% end %>
-    <% end %>
-
     <% if @tag.use_effects? %>
       <div class="card my-3">
         <div class="card-header">
@@ -43,6 +32,17 @@
           <%= link_to_add_fields t('tags.new.effect'), f, :effects, tag: @tag %>
         </div>
       </div>
+    <% end %>
+
+    <% @tag.kind_options.each do |option, type| %>
+      <% if type == :boolean %>
+        <div class="custom-control custom-checkbox">
+          <%= f.check_box option, class: 'custom-control-input' %>
+          <label class="custom-control-label" for="tag_<%= option %>"><%= Tag.human_attribute_name option %></label>
+        </div>
+      <% else %>
+        <%= f.input option, as: type %>
+      <% end %>
     <% end %>
 
     <%= f.input :lock_version, as: :hidden %>

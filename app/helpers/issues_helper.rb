@@ -107,6 +107,13 @@ module IssuesHelper
     board_session.include? issue.id
   end
 
+  def issue_tagging_options issue
+    {
+      kind:       'issue',
+      collection: issue.options&.fetch('tag_group', nil)
+    }
+  end
+
   def link_to_add_to_board issue, url_params: {}
     url_params = url_params.merge filter: { id: issue }
     options    = {
