@@ -64,21 +64,9 @@ module IssuesHelper
     end
   end
 
-  def issue_style status
-    case status
-    when 'pending'
-      'secondary'
-    when 'taken'
-      'warning'
-    when 'revision'
-      'info'
-    else
-      'success'
-    end
-  end
-
-  def issue_status status
-    style = issue_style status
+  def issue_status issue
+    status = issue.status
+    style  = issue_style issue
 
     content_tag :span, t("issues.status.#{status}"), class: "badge badge-#{style} p-1"
   end
@@ -191,5 +179,22 @@ module IssuesHelper
 
     def issues_board_path_with_params
       issues_board_path filter: filter_params.to_h, script_id: @script.id
+    end
+
+    def issue_final_tag_style issue
+      issue.tags.detect(&:final?)&.style
+    end
+
+    def issue_style issue
+      case issue.status
+      when 'pending'
+        'secondary'
+      when 'taken'
+        'warning'
+      when 'revision'
+        'info'
+      else
+        issue_final_tag_style(issue) || 'success'
+      end
     end
 end

@@ -41,16 +41,22 @@ class IssuesHelperTest < ActionView::TestCase
     assert_respond_to status, :each
   end
 
-  test 'issue style' do
-    assert_match /secondary/, issue_style('pending')
-    assert_match /warning/, issue_style('taken')
-    assert_match /success/, issue_style('closed')
-  end
-
   test 'issue status' do
-    assert_match /badge-secondary/, issue_status('pending')
-    assert_match /badge-warning/, issue_status('taken')
-    assert_match /badge-success/, issue_status('closed')
+    issue = Issue.new status: 'pending'
+
+    assert_match /badge-secondary/, issue_status(issue)
+
+    issue.status = 'taken'
+
+    assert_match /badge-warning/, issue_status(issue)
+
+    issue.status = 'closed'
+
+    assert_match /badge-success/, issue_status(issue)
+
+    issue.tags << Tag.new(name: 'test', style: 'danger', final: true)
+
+    assert_match /badge-danger/, issue_status(issue)
   end
 
   test 'subscriptions' do

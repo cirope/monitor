@@ -164,6 +164,8 @@ es:
       total: 'Total'
       add_all: 'Agregar todos al carrito'
       remove_all: 'Eliminar todos del carrito'
+      tags: 'Cuasa'
+      final_tags: 'Resultado'
     issue:
       add_to_board: 'Agregar al carrito'
       remove_from_board: 'Eliminar del carrito'

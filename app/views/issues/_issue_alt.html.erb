@@ -2,9 +2,17 @@
 <% data = data ? data : convert_issues([issue]).first.last %>
 
 <tr data-issue="<%= issue.id %>">
-  <% data.each do |_header, value| %>
+
+  <% data.to_a[0...-1].each do |_header, value| %>
     <td><%= value %></td>
   <% end %>
+
+  <td class="d-none d-sm-table-cell"><%= issue_status issue %></td>
+  <td class="d-none d-lg-table-cell"><%= tag_icons issue.tags.reject(&:final?) %></td>
+  <td class="d-none d-lg-table-cell"><%= tag_icons issue.tags.select(&:final?) %></td>
+
+  <td><%= data.to_a.last.last %></td>
+
   <td class="text-right"><%= link_to_show [issue, filter: filter_params.to_h] %></td>
   <% if current_user.can_edit_issues? %>
     <td class="text-right"><%= link_to_edit [:edit, issue, filter: filter_params.to_h] %></td>

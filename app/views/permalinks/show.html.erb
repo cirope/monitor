@@ -26,7 +26,7 @@
         <td class="d-none d-md-table-cell"><%= l issue.run.scheduled_at, format: :compact %></td>
         <td class="d-none d-sm-table-cell"><%= l issue.created_at, format: :compact %></td>
         <td><%= truncate issue.description, length: 50 %></td>
-        <td class="d-none d-sm-table-cell"><%= issue_status issue.status %></td>
+        <td class="d-none d-sm-table-cell"><%= issue_status issue %></td>
         <td class="d-none d-lg-table-cell"><%= tag_icons issue.tags %></td>
         <td class="text-right"><%= link_to_show permalink_issue_path(@permalink, issue) %></td>
       </tr>

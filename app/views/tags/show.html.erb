@@ -36,9 +36,11 @@
       <ul>
         <% @tag.effects.each do |effect| %>
           <li>
-            <span class="badge badge-<%= effect.implied.style %>">
-              <%= effect.implied %>
-            </span>
+            <%= link_to [effect.implied, kind: effect.implied.kind] do %>
+              <span class="badge badge-<%= effect.implied.style %>">
+                <%= effect.implied %>
+              </span>
+            <% end %>
           </li>
         <% end %>
       </ul>
@@ -52,9 +54,11 @@
       <ul>
         <% @tag.children.each do |child| %>
           <li>
-            <span class="badge badge-<%= child.style %>">
-              <%= child %>
-            </span>
+            <%= link_to [child, kind: child.kind] do %>
+              <span class="badge badge-<%= child.style %>">
+                <%= child %>
+              </span>
+            <% end %>
           </li>
         <% end %>
       </ul>

@@ -26,7 +26,7 @@
       </div>
     </div>
 
-    <div class="card mb-3<%= ' border-danger' if @issue.errors[:tags].present? %>">
+    <div class="card mb-3<%= ' border border-danger' if @issue.errors[:tags].present? %>">
       <div class="card-header">
         <span class="badge badge-pill badge-light float-right">
           <%= @issue.taggings.count %>
