@@ -17,6 +17,7 @@ module Issues::Export
 
     def export_to_csvs
       @files_content = {}
+      data           = converted_data
 
       if data.kind_of? Hash
         hash_to_csv  description, data
@@ -42,6 +43,8 @@ module Issues::Export
       end
 
       compound_hash.each do |k, v|
+        v = maybe_convert_to_array_of_hashes v
+
         send(
           v.kind_of?(Hash) ? :hash_to_csv : :array_to_csv,
           [name, k].join('.'), v

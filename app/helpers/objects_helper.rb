@@ -2,16 +2,18 @@
 
 module ObjectsHelper
   def render_object parent, key
-    path      = key.split '__/__'
-    object    = parent.data
-    container = nil
+    path   = key.split '__/__'
+    object = if parent.respond_to? :converted_data
+               parent.converted_data
+             else
+               parent.data
+             end
 
-    path.each_with_index do |index, i|
-      object    = object[object.is_a?(Hash) ? index : index.to_i]
-      container = object if i == path.size - 2
+    path.each do |index|
+      object = object[object.is_a?(Hash) ? index : index.to_i]
     end
 
-    object_render parent, container, object
+    _render parent, object
   end
 
   def link_or_show parent, key, object, id
@@ -46,41 +48,19 @@ module ObjectsHelper
 
   private
 
-    def object_render parent, container, object
-      object, offset = object_maybe_convert container, object
-      partial        = if object.is_a? Hash
-                         'objects/table'
-                       elsif columns = object_columns_for(object)
-                         'objects/grid'
-                       else
-                         'objects/ul'
-                       end
-
-      render partial, parent:  parent,
-                      object:  object,
-                      columns: columns,
-                      offset:  offset || 0
-    end
-
-    def object_maybe_convert container, object
-      is_array           = object.kind_of? Array
-      is_two_dimensional = is_array && object.all? { |item| item.is_a? Array }
-      uniq_item_sizes    = is_two_dimensional && object.map(&:size).uniq
-
-      if is_two_dimensional && uniq_item_sizes.size == 1
-        headers = object.shift
-
-        [object.map { |row| Hash[headers.zip row] }, 1]
-      elsif is_array && (headers = container.kind_of?(Array) && container.first)
-        headers.size == object.size ? Hash[headers.zip object] : object
+    def _render parent, object
+      if object.is_a? Hash
+        render 'objects/table', parent: parent, object: object
+      elsif columns = columns_for(object)
+        render 'objects/grid', parent: parent, object: object, columns: columns
       else
-        object
+        render 'objects/ul', parent: parent, object: object
       end
     end
 
-    def object_columns_for object
-      if object.all? { |item| item.is_a? Hash }
-        object.map { |item| item.keys }.compact.flatten.uniq[0..5]
-      end
+    def columns_for object
+      return unless object.all? { |item| item.is_a? Hash }
+
+      object.map { |item| item.keys }.compact.flatten.uniq[0..5]
     end
 end

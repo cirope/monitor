@@ -88,6 +88,8 @@ module Issues::GroupedExport
   end
 
   def grouped_export name = description, group = {}
+    data = converted_data
+
     if data.kind_of? Hash
       group_hash_to_csv  name, data, group
     elsif data.kind_of? Array

@@ -139,6 +139,50 @@ class IssueTest < ActiveSupport::TestCase
     assert  @issue.reload.can_be_light_edited_by?(users(:john))
   end
 
+  test 'converted data' do
+    @issue.data = { key1: 1, key2: [[:h1, :h2], ['v1', 'v2'], ['v3', 'v4']] }
+    expected    = {
+      'key1' => 1,
+      'key2' => [{ 'h1' => 'v1', 'h2' => 'v2' }, { 'h1' => 'v3', 'h2' => 'v4' }]
+    }
+
+    assert_equal expected, @issue.converted_data
+
+    @issue.data = [
+      'single',
+      [[:h1, :h2], ['v1', 'v2'], ['v3', 'v4']],
+      { key1: 1, key2: [[:h1, :h2], ['v1', 'v2']] }
+    ]
+    expected    = [
+      'single',
+      [{ 'h1' => 'v1', 'h2' => 'v2' }, { 'h1' => 'v3', 'h2' => 'v4' }],
+      { 'key1' => 1, 'key2' => [{ 'h1' => 'v1', 'h2' => 'v2' }]}
+    ]
+
+    assert_equal expected, @issue.converted_data
+
+    @issue.data = [[:h1, :h2], ['v1', 'v2'], ['v3', 'v4']]
+    expected    = [
+      { 'h1' => 'v1', 'h2' => 'v2' },
+      { 'h1' => 'v3', 'h2' => 'v4' }
+    ]
+
+    assert_equal expected, @issue.converted_data
+
+    @issue.data = { h1: 'v1', h2: 'v2' }
+    expected    = { 'h1' => 'v1', 'h2' => 'v2' }
+
+    assert_equal expected, @issue.converted_data
+
+    @issue.data = 1
+
+    assert_equal 1, @issue.converted_data
+
+    @issue.data = nil
+
+    assert_nil @issue.converted_data
+  end
+
   test 'data type' do
     @issue.update! data: nil
 

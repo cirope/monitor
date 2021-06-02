@@ -2,6 +2,7 @@
 
 class Issue < ApplicationRecord
   include Auditable
+  include DataCasting
   include Exportable
   include Issues::Comments
   include Issues::DataType
