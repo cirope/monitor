@@ -96,6 +96,10 @@ es:
     edit:
       unsaved_data_warning: 'Ha modificado el contenido, si abandona la página perderá todos los cambios'
 
+  effects:
+    effect:
+      empty: 'No se encontraron etiquetas con ese criterio'
+
   executions:
     index:
       empty_html: 'No hay ejecuciones'

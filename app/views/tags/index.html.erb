@@ -12,7 +12,9 @@
 
 <div class="card">
   <% if @tags.empty? %>
-    <%= render 'shared/empty_index', message: t('.empty_html') %>
+    <div class="card-body">
+      <%= render 'shared/empty_index', message: t('.empty_html') %>
+    </div>
   <% else %>
     <table class="table table-hover">
       <thead>
