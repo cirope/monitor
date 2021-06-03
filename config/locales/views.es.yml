@@ -174,7 +174,7 @@ es:
       total: 'Total'
       add_all: 'Agregar todos al carrito'
       remove_all: 'Eliminar todos del carrito'
-      tags: 'Cuasa'
+      tags: 'Causa'
       final_tags: 'Resultado'
     issue:
       add_to_board: 'Agregar al carrito'
