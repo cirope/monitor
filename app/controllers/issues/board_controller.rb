@@ -3,7 +3,7 @@
 class Issues::BoardController < ApplicationController
   include Issues::Filters
 
-  respond_to :html, :js, :pdf
+  respond_to :html, :js, :csv, :pdf
 
   before_action :authorize, :not_guest, :not_owner
   before_action :only_supervisor, only: [:destroy_all]
@@ -13,7 +13,7 @@ class Issues::BoardController < ApplicationController
 
   def index
     @issues = issues.order(:created_at).where id: board_session
-    @issues = @issues.page params[:page] unless request.format == :pdf
+    @issues = @issues.page params[:page] unless skip_page?
 
     respond_with @issues
   end
@@ -137,5 +137,9 @@ class Issues::BoardController < ApplicationController
       end
 
       tags.present?
+    end
+
+    def skip_page?
+      %i(csv pdf).include? request.format.symbol
     end
 end

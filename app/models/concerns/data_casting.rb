@@ -27,9 +27,10 @@ module DataCasting
       uniq_item_sizes    = is_two_dimensional && object.map(&:size).uniq
 
       if is_two_dimensional && uniq_item_sizes.size == 1
-        headers = object.shift
+        dup     = object.dup
+        headers = dup.shift
 
-        object.map { |row| Hash[headers.zip row] }
+        dup.map { |row| Hash[headers.zip row] }
       else
         object
       end

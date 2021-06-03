@@ -31,6 +31,12 @@ class Issues::BoardControllerTest < ActionController::TestCase
     assert_equal 'application/pdf', response.content_type
   end
 
+  test 'should get index on CSV' do
+    get :index, session: { board_issues: [@issue.id] }, as: :csv
+    assert_response :success
+    assert_equal 'text/csv', response.content_type
+  end
+
   test 'should add issue to the board via xhr' do
     post :create, params: { filter: { id: @issue.id } }, xhr: true, as: :js
     assert_response :success

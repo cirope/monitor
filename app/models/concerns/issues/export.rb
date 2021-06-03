@@ -43,8 +43,6 @@ module Issues::Export
       end
 
       compound_hash.each do |k, v|
-        v = maybe_convert_to_array_of_hashes v
-
         send(
           v.kind_of?(Hash) ? :hash_to_csv : :array_to_csv,
           [name, k].join('.'), v

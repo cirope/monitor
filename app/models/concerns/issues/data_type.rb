@@ -28,15 +28,10 @@ module Issues::DataType
     end
 
     def has_single_row_data?
+      data = converted_data
+
       data.kind_of?(Array) && (
-        (
-          data.size == 1 &&
-          data.first.kind_of?(Hash)
-        ) || (
-          data.size == 2                      &&
-          data.all? { |i| i.kind_of?(Array) } &&
-          data.map(&:size).uniq.size == 1
-        )
+        data.size == 1 && data.first.kind_of?(Hash)
       )
     end
 end

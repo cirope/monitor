@@ -139,6 +139,7 @@ es:
         download_issue_data: 'Descargar datos'
         download_grouped_issue_data: 'Descargar datos agrupados por guión'
         download_pdf: 'Descargar PDF'
+        download_csv: 'Descargar CSV'
         destroy_all: 'Eliminar casos'
         actions: 'Acciones'
       update:

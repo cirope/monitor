@@ -340,11 +340,33 @@ class IssueTest < ActiveSupport::TestCase
     skip
   end
 
+  test 'can collapse data' do
+    skip
+  end
+
   test 'to pdf' do
     Current.account = send 'public.accounts', :default
     path            = Issue.to_pdf
 
     assert File.exist?(path)
+
+    FileUtils.rm path
+  end
+
+  test 'to csv' do
+    Current.account = send 'public.accounts', :default
+    path            = Issue.to_csv
+
+    assert File.exist?(path)
+
+    old_size = File.size(path)
+
+    FileUtils.rm path
+
+    path = Issue.where(data_type: 'single_row').to_csv
+
+    assert File.exist?(path)
+    assert_not_equal old_size, File.size(path)
 
     FileUtils.rm path
   end

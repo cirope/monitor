@@ -44,6 +44,12 @@ class Issues::BoardHelperTest < ActionView::TestCase
     assert_match /href=".*"/, link_to_download_pdf
   end
 
+  test 'link to download csv' do
+    @virtual_path = 'issues.board.index'
+
+    assert_match /href=".*"/, link_to_download_csv
+  end
+
   test 'link to destroy all issues' do
     @virtual_path = 'issues.board.index'
 

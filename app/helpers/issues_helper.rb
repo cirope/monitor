@@ -30,18 +30,7 @@ module IssuesHelper
   end
 
   def convert_issues issues
-    sample = issues.first.data
-
-    if sample.all? { |item| item.kind_of? Array }
-      issues.map do |issue|
-        data    = issue.data
-        headers = data.shift
-
-        [issue, Hash[headers.zip data.first]]
-      end
-    else
-      issues.map { |issue| [issue, issue.data.first] }
-    end
+    issues.map { |issue| [issue, issue.converted_data.first] }
   end
 
   def grouped_issue_stats stats

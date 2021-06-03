@@ -19,7 +19,7 @@ class IssuesController < ApplicationController
   def index
     @issues      = issues.order(created_at: :desc).page params[:page]
     @issues      = @issues.active unless filter_default_status?
-    @alt_partial = alt_index?
+    @alt_partial = @issues.can_collapse_data?
     @stats       = stats if @alt_partial
 
     respond_with @issues
@@ -89,25 +89,5 @@ class IssuesController < ApplicationController
 
     def stats
       issues.group("(#{Issue.table_name}.data ->>1)::json->>-1", :status).count
-    end
-
-    def alt_index?
-      @issues.any?                            &&
-        @issues.all?(&:single_row_data_type?) &&
-        issues_can_share_headers?
-    end
-
-    def issues_can_share_headers?
-      header_rows = @issues.map(&:data).map &:first
-
-      if header_rows.all? { |row| row.kind_of?(Hash) }
-        sample = header_rows.first.keys.sort
-
-        header_rows.all? { |row| row.keys.sort == sample }
-      else
-        sample = header_rows.first.sort
-
-        header_rows.all? { |row| row.sort == sample }
-      end
     end
 end
