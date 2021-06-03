@@ -47,6 +47,9 @@
 
     event.preventDefault()
 
+    $('[data-graph-type]').removeClass('active')
+    $link.addClass('active')
+
     if ($chart.length)
       renderChart($chart, type)
   })

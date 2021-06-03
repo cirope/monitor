@@ -56,6 +56,18 @@ class IssuesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test 'should get index graph variants' do
+    @issue.script.issues.each do |issue|
+      issue.update! data: [['Header one', 'Header two'], ['Value 1', 'Value 2']]
+    end
+
+    %w(status tags final_tags other).each do |graph|
+      get :index, params: { script_id: @issue.script.id, graph: graph }
+      assert_response :success
+      assert_equal [:graph], @request.variant
+    end
+  end
+
   test 'should show issue' do
     get :show, params: { id: @issue }
     assert_response :success

@@ -86,6 +86,13 @@ class TagTest < ActiveSupport::TestCase
     assert tags.all?(&:export?)
   end
 
+  test 'final' do
+    tags = Tag.final true
+
+    assert tags.any?
+    assert tags.all?(&:final?)
+  end
+
   test 'group option' do
     tags = Tag.group_option true
 

@@ -54,11 +54,23 @@
               <th class="border-top-0"><%= header %></th>
             <% end %>
 
-            <th class="border-top-0 d-none d-sm-table-cell"><%= Issue.human_attribute_name 'status' %></th>
-            <th class="border-top-0 d-none d-lg-table-cell"><%= t '.tags' %></th>
-            <th class="border-top-0 d-none d-lg-table-cell"><%= t '.final_tags' %></th>
+            <th class="border-top-0 d-none d-sm-table-cell text-nowrap">
+              <%= Issue.human_attribute_name 'status' %>
+              <%= link_to icon('fas', 'chart-pie'), issue_index_path(filter: filter_query_hash, graph: 'status') %>
+            </th>
+            <th class="border-top-0 d-none d-lg-table-cell text-nowrap">
+              <%= t '.tags' %>
+              <%= link_to icon('fas', 'chart-pie'), issue_index_path(filter: filter_query_hash, graph: 'tags') %>
+            </th>
+            <th class="border-top-0 d-none d-lg-table-cell text-nowrap">
+              <%= t '.final_tags' %>
+              <%= link_to icon('fas', 'chart-pie'), issue_index_path(filter: filter_query_hash, graph: 'final_tags') %>
+            </th>
 
-            <th class="border-top-0"><%= data.keys.last %></th>
+            <th class="border-top-0 text-nowrap">
+              <%= data.keys.last %>
+              <%= link_to icon('fas', 'chart-pie'), issue_index_path(filter: filter_query_hash, graph: data.keys.last) %>
+            </th>
 
             <th class="border-top-0 text-right" colspan="<%= issue_actions_cols %>">
               <% if script && current_user.can_edit_issues? && !current_user.owner? %>

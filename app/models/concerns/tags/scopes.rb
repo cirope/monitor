@@ -12,6 +12,10 @@ module Tags::Scopes
       where "#{table_name}.options @> ?", { export: export }.to_json
     end
 
+    def final final
+      where "#{table_name}.options @> ?", { final: final }.to_json
+    end
+
     def group_option group
       where "#{table_name}.options @> ?", { group: group }.to_json
     end

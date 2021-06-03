@@ -15,12 +15,13 @@ class IssuesController < ApplicationController
   before_action :set_permalink, only: [:show]
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
   before_action :set_context, only: [:show, :edit, :update]
+  before_action -> { request.variant = :graph if params[:graph].present? }
 
   def index
     @issues      = issues.order(created_at: :desc).page params[:page]
-    @issues      = @issues.active unless filter_default_status?
     @alt_partial = @issues.can_collapse_data?
-    @stats       = stats if @alt_partial
+    @issues      = @issues.active if !@alt_partial && !filter_default_status?
+    @stats       = params[:graph].present? ? graph_stats : stats if @alt_partial
 
     respond_with @issues
   end
@@ -89,5 +90,26 @@ class IssuesController < ApplicationController
 
     def stats
       issues.group("(#{Issue.table_name}.data ->>1)::json->>-1", :status).count
+    end
+
+    def graph_stats
+      case params[:graph]
+      when 'status'
+        issues.group(:status).count.inject({}) do |counts, (status, count)|
+          counts.merge t("issues.status.#{status}") => count
+        end
+      when 'tags'
+        issues_by_tags(false).group("#{Tag.table_name}.name").count
+      when 'final_tags'
+        issues_by_tags(true).group("#{Tag.table_name}.name").count
+      else
+        issues.group("(#{Issue.table_name}.data ->>1)::json->>-1").count
+      end
+    end
+
+    def issues_by_tags final
+      issues.left_joins(:tags).merge(Tag.final final).or(
+        issues.left_joins(:tags).where tags: { id: nil }
+      )
     end
 end

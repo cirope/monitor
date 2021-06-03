@@ -161,6 +161,11 @@ es:
       remove_all: 'Eliminar todos del carrito'
       empty_html: 'No tiene casos'
       empty_search_html: 'No hay casos que coincidan con el criterio de búsqueda'
+      undefined: 'Sin definir'
+      graph:
+        line: 'Línea'
+        bar: 'Barra'
+        pie: 'Torta'
     index_alt:
       total: 'Total'
       add_all: 'Agregar todos al carrito'

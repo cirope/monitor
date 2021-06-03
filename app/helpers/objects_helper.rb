@@ -38,7 +38,7 @@ module ObjectsHelper
       class: 'graph-container',
       data:  {
         graph:  object.object_id,
-        labels: object.keys,
+        labels: object.keys.map { |k| k || t('.undefined') },
         series: object.values
       }
     }
