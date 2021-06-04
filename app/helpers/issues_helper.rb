@@ -121,26 +121,26 @@ module IssuesHelper
     end
   end
 
-  def link_to_add_all_to_board
+  def link_to_add_all_to_board params = {}
     options = {
       class: 'btn btn-sm btn-secondary py-0',
       title: t('.add_all'),
       data:  { method: :post }
     }
 
-    link_to issues_board_path_with_params, options do
+    link_to issues_board_path_with_params(params), options do
       icon 'fas', 'check-circle'
     end
   end
 
-  def link_to_remove_all_from_board
+  def link_to_remove_all_from_board params = {}
     options = {
       class: 'btn btn-sm btn-secondary py-0',
       title: t('.remove_all'),
       data:  { method: :delete }
     }
 
-    link_to issues_board_path_with_params, options do
+    link_to issues_board_path_with_params(params), options do
       icon 'fas', 'times-circle'
     end
   end
@@ -166,8 +166,10 @@ module IssuesHelper
 
   private
 
-    def issues_board_path_with_params
-      issues_board_path filter: filter_params.to_h, script_id: @script.id
+    def issues_board_path_with_params custom_params
+      default_params = { filter: filter_params.to_h, script_id: @script.id }
+
+      issues_board_path default_params.merge(custom_params)
     end
 
     def issue_final_tag_style issue
