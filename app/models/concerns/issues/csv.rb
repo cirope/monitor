@@ -46,6 +46,7 @@ module Issues::Csv
           headers = first.converted_data.first.keys
 
           [
+            Issue.human_attribute_name('description'),
             headers[0...-1],
             Issue.human_attribute_name('status'),
             I18n.t('issues.index_alt.tags'),
@@ -71,6 +72,7 @@ module Issues::Csv
             data = issue.converted_data.first.values
 
             [
+              issue.description,
               data[0...-1],
               I18n.t("issues.status.#{issue.status}"),
               issue.tags.reject(&:final?).to_sentence,
