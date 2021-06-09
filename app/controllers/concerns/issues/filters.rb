@@ -5,6 +5,7 @@ module Issues::Filters
 
   PERMITED_FILTER_PARAMS = [
     :id,
+    :name,
     :description,
     :status,
     :user,
@@ -23,7 +24,7 @@ module Issues::Filters
   end
 
   def issues
-    scoped_issues.filter_by filter_params.except(:show, :user)
+    scoped_issues.filter_by filter_params.except(:name, :show, :user)
   end
 
   def issue_params

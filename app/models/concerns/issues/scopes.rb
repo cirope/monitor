@@ -6,6 +6,7 @@ module Issues::Scopes
   included do
     scope :active, -> { where.not status: 'closed' }
     scope :ordered_by_script_name, -> { reorder "#{Script.table_name}.name" }
+    scope :ordered_by_schedule_name, -> { reorder "#{Schedule.table_name}.name" }
   end
 
   module ClassMethods
@@ -55,8 +56,18 @@ module Issues::Scopes
       where "(#{Issue.table_name}.data ->>1)::json->>-1 = ?", key
     end
 
-    def grouped_by_script
-      joins(:script).group "#{Script.table_name}.id", "#{Script.table_name}.name"
+    def grouped_by_script schedule_id = nil
+      scoped = if schedule_id
+                 joins(:schedule).where schedules: { id: schedule_id }
+               else
+                 all
+               end
+
+      scoped.joins(:script).group "#{Script.table_name}.id", "#{Script.table_name}.name"
+    end
+
+    def grouped_by_schedule
+      joins(:schedule).group "#{Schedule.table_name}.id", "#{Schedule.table_name}.name"
     end
   end
 end

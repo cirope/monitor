@@ -14,10 +14,10 @@
 
       <tbody>
         <% @script_counts.each do |script_data, count| %>
-          <tr class="cursor-pointer" data-href="<%= script_issues_path script_data.first, filter: filter_query_hash %>">
+          <tr class="cursor-pointer" data-href="<%= grouped_issues_path script_data.first, filter: filter_query_hash %>">
             <td><%= script_data.last %></td>
             <td class="text-right">
-              <%= link_to count, script_issues_path(script_data.first, filter: filter_query_hash) %>
+              <%= link_to count, grouped_issues_path(script_data.first, filter: filter_query_hash) %>
             </td>
           </tr>
         <% end %>

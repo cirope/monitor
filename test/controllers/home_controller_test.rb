@@ -8,8 +8,26 @@ class HomeControllerTest < ActionController::TestCase
   end
 
   test 'should get index' do
+    schedule = schedules :ls_on_atahualpa
+    script   = scripts :ls
+
     get :index
     assert_response :success
+    assert_select 'td', text: script.name
+    assert_select 'td', text: schedule.name, count: 0
+  end
+
+  test 'should get index grouped by schedule' do
+    schedule = schedules :ls_on_atahualpa
+    script   = scripts :ls
+    account  = send 'public.accounts', :default
+
+    account.update! group_issues_by_schedule: true
+
+    get :index
+    assert_response :success
+    assert_select 'td', text: schedule.name
+    assert_select 'td', text: script.name, count: 0
   end
 
   test 'should get filtered index' do

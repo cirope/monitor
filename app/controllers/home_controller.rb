@@ -13,7 +13,8 @@ class HomeController < ApplicationController
   ]
 
   def index
-    @script_counts = Kaminari.paginate_array(issue_count_by_script.to_a).page params[:page]
+    @grouped_by_schedule = group_by_schedule?
+    @script_counts       = Kaminari.paginate_array(grouped_issues.to_a).page params[:page]
 
     respond_with @script_counts
   end
@@ -21,15 +22,27 @@ class HomeController < ApplicationController
   private
 
     def issues
-      if issue_filter[:status].present?
-        scoped_issues.filter_by issue_filter
+      if issue_filter[:status].present? || current_account.group_issues_by_schedule?
+        scoped_issues.filter_by issue_filter.except(:name)
       else
-        scoped_issues.filter_by(issue_filter).active
+        scoped_issues.filter_by(issue_filter.except(:name)).active
       end
     end
 
-    def issue_count_by_script
-      issues.grouped_by_script.ordered_by_script_name.count
+    def grouped_issues
+      if @grouped_by_schedule
+        issue_count_by_schedule
+      else
+        issue_count_by_script params[:schedule_id]
+      end
+    end
+
+    def issue_count_by_script schedule_id
+      issues.grouped_by_script(schedule_id).ordered_by_script_name.count
+    end
+
+    def issue_count_by_schedule
+      issues.grouped_by_schedule.ordered_by_schedule_name.count
     end
 
     def scoped_issues
@@ -37,5 +50,9 @@ class HomeController < ApplicationController
       issues = issues.by_script_name filter_params[:name] if filter_params[:name].present?
 
       issues
+    end
+
+    def group_by_schedule?
+      params[:schedule_id].blank? && current_account.group_issues_by_schedule?
     end
 end
