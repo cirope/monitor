@@ -51,8 +51,8 @@ module Issues::Filters
     end
   end
 
-  def filter_default_status?
-    filter_params[:status].present?
+  def skip_default_status?
+    filter_params[:status].present? || current_account.group_issues_by_schedule?
   end
 
   def show_mine?

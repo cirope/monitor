@@ -20,7 +20,7 @@ class IssuesController < ApplicationController
   def index
     @issues      = issues.order(created_at: :desc).page params[:page]
     @alt_partial = @issues.can_collapse_data?
-    @issues      = @issues.active if !@alt_partial && !filter_default_status?
+    @issues      = @issues.active unless skip_default_status?
     @stats       = params[:graph].present? ? graph_stats : stats if @alt_partial
 
     respond_with @issues

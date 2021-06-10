@@ -19,7 +19,7 @@ class Issues::BoardController < ApplicationController
   end
 
   def create
-    @issues   = filter_default_status? || @issue ? issues : issues.active
+    @issues   = skip_default_status? || @issue ? issues : issues.active
     @template = params[:partial] == 'alt' ? 'issue_alt' : 'issue'
 
     board_session.concat(@issues.pluck('id')).uniq!
@@ -42,7 +42,7 @@ class Issues::BoardController < ApplicationController
   end
 
   def destroy
-    @issues   = filter_default_status? || @issue ? issues : issues.active
+    @issues   = skip_default_status? || @issue ? issues : issues.active
     @template = params[:partial] == 'alt' ? 'issue_alt' : 'issue'
 
     @issues.each { |issue| board_session.delete issue.id }
