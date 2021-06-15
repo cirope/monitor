@@ -22,3 +22,6 @@ deliverable/monitor-*
 
 # Ignore byebugHistory
 .byebug_history
+
+# Ignore Gemfile.local
+Gemfile.local
