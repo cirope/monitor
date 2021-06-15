@@ -12,7 +12,7 @@ class Scripts::ImportsController < ApplicationController
 
     if file.present?
       Script.import file.tempfile.path
-
+      
       redirect_to scripts_url, notice: t('.imported')
     else
       redirect_to scripts_imports_new_url, alert: t('.no_file')
@@ -20,6 +20,6 @@ class Scripts::ImportsController < ApplicationController
   rescue => ex
     logger.error ex
 
-    redirect_to scripts_url, alert: t('.fail')
+    redirect_to scripts_url, alert: ex.message
   end
 end

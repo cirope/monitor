@@ -388,7 +388,7 @@ es:
       create:
         imported: 'Guiones importados correctamente'
         no_file: 'Debe proporcionar un archivo'
-        fail: 'Se produjo un error importando los guiones'
+        fail: 'Se produjo un error importando los guiones, revise los siguientes:'
       new:
         title: 'Importar guiones'
         file: 'Archivo'

@@ -5,14 +5,24 @@ module Scripts::Import
 
   module ClassMethods
     def import zip_path
-      transaction { import_zip zip_path }
+      transaction do
+        exceptions = {}
+        import_zip zip_path, exceptions
+        raise ActiveRecord::ActiveRecordError, (list_of_exceptions exceptions) if exceptions.present?
+      end
     end
 
     private
 
-      def import_zip zip_path
-        scripts_data = {}
+      def list_of_exceptions exceptions
+        ret = 'Se produjo un error importando los guiones, revise los siguientes:<ul>'
+        exceptions.each {|key, value| ret = ret + ("<li>#{key}: #{value}</li>")  }
+        (ret + "</ul>").html_safe
+      end
 
+      def import_zip zip_path, exceptions
+        scripts_data = {}
+        
         Zip::File.open zip_path do |zipfile|
           zipfile.each do |entry|
             script_data = ActiveSupport::JSON.decode entry.get_input_stream.read
@@ -21,14 +31,18 @@ module Scripts::Import
           end
         end
 
-        import_scripts scripts_data
+        import_scripts scripts_data, exceptions
       end
 
 
-      def import_scripts scripts_data
+      def import_scripts scripts_data, exceptions
         scripts_data.each do |uuid, script_data|
-          import_script script_data, scripts_data
-        end
+          begin
+            import_script script_data, scripts_data  
+          rescue => exception
+            exceptions[uuid] = exception.message
+          end
+        end  
       end
 
       def import_script data, scripts_data
