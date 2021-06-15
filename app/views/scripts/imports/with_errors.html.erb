@@ -1,0 +1,20 @@
+<div class="card">
+  <div class="card-header">
+    <h5><%= t '.title' %></h5>
+  </div>
+
+  <%= scripts_with_errors %>
+
+  <div class="card-body">
+    <%= form_tag scripts_imports_create_path, method: :post, multipart: true do %>
+      <div class="form-group">
+        <label for="file"><%= t '.file' %></label>
+        <%= file_field_tag 'file', class: 'form-control-file', accept: 'application/zip' %>
+      </div>
+
+      <div class="form-actions">
+        <%= submit_tag t('.submit'), class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+  </div>
+</div>

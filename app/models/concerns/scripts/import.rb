@@ -5,11 +5,14 @@ module Scripts::Import
 
   module ClassMethods
     def import zip_path
+      scripts_with_errors = []
+
       transaction do
-        exceptions = {}
-        import_zip zip_path, exceptions
-        raise ActiveRecord::ActiveRecordError, (list_of_exceptions exceptions) if exceptions.present?
+        scripts_with_errors = import_zip zip_path
+        raise ActiveRecord::Rollback if scripts_with_errors.present?
       end
+
+      scripts_with_errors
     end
 
     private
@@ -20,7 +23,7 @@ module Scripts::Import
         (ret + "</ul>").html_safe
       end
 
-      def import_zip zip_path, exceptions
+      def import_zip zip_path
         scripts_data = {}
         
         Zip::File.open zip_path do |zipfile|
@@ -31,18 +34,14 @@ module Scripts::Import
           end
         end
 
-        import_scripts scripts_data, exceptions
+        import_scripts scripts_data
       end
 
 
-      def import_scripts scripts_data, exceptions
-        scripts_data.each do |uuid, script_data|
-          begin
-            import_script script_data, scripts_data  
-          rescue => exception
-            exceptions[uuid] = exception.message
-          end
-        end  
+      def import_scripts scripts_data
+        scripts_data.map do |uuid, script_data|
+          import_script(script_data, scripts_data)
+        end.reject { |script| script.valid? }
       end
 
       def import_script data, scripts_data
@@ -54,12 +53,13 @@ module Scripts::Import
         import_requires data['requires'], scripts_data
 
         if script
-          script.update_from_data data
+          script = script.update_from_data data
         else
-          create_from_data data
+          script = create_from_data data
         end
 
-        scripts_data[uuid] = :imported
+        scripts_data[uuid] = :imported if script.valid?
+        script
       end
 
       def import_requires requires, scripts_data
@@ -79,7 +79,7 @@ module Scripts::Import
           data['change'] = I18n.t 'scripts.imports.default_change', date: date
         end
 
-        create! data.merge({
+        create data.merge({
           imported_at:           Time.zone.now,
           parameters_attributes: parameters,
           requires_attributes:   requires
@@ -99,7 +99,7 @@ module Scripts::Import
 
     data['imported_at'] = Time.zone.now if imported_at
 
-    update! data
+    update data
   end
 
   private

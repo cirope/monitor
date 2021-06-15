@@ -77,6 +77,7 @@ Rails.application.routes.draw do
 
   namespace :scripts do
     get 'imports/new'
+    post 'imports/with_errors'
     post 'imports/create'
     post 'exports/create'
   end

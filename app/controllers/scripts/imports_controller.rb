@@ -11,8 +11,9 @@ class Scripts::ImportsController < ApplicationController
     file = params[:file]
 
     if file.present?
-      Script.import file.tempfile.path
-      
+      scripts_with_errors = Script.import file.tempfile.path
+      byebug
+      redirect_to scripts_imports_new_url, scripts_with_errors && return if scripts_with_errors.present?
       redirect_to scripts_url, notice: t('.imported')
     else
       redirect_to scripts_imports_new_url, alert: t('.no_file')
@@ -20,6 +21,6 @@ class Scripts::ImportsController < ApplicationController
   rescue => ex
     logger.error ex
 
-    redirect_to scripts_url, alert: ex.message
+    redirect_to scripts_url, alert: t('.fail')
   end
 end
