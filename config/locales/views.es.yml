@@ -386,13 +386,16 @@ es:
       empty: 'No se encontraron bases de datos con ese criterio'
     imports:
       create:
+        title: 'Importar guiones'
         imported: 'Guiones importados correctamente'
         no_file: 'Debe proporcionar un archivo'
         fail: 'Se produjo un error importando los guiones'
+        error_import: 'No se importaron los guiones, debido a que se produjeron los siguientes errores:'
       new:
         title: 'Importar guiones'
-        file: 'Archivo'
+      form:
         submit: 'Importar'
+        file: 'Archivo'
       default_change: 'Importado el %{date}'
     measures:
       index:
