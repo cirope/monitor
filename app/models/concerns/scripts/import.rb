@@ -17,12 +17,6 @@ module Scripts::Import
 
     private
 
-      def list_of_exceptions exceptions
-        ret = 'Se produjo un error importando los guiones, revise los siguientes:<ul>'
-        exceptions.each {|key, value| ret = ret + ("<li>#{key}: #{value}</li>")  }
-        (ret + "</ul>").html_safe
-      end
-
       def import_zip zip_path
         scripts_data = {}
         
@@ -40,8 +34,8 @@ module Scripts::Import
 
       def import_scripts scripts_data
         scripts_data.map do |uuid, script_data|
-          import_script(script_data, scripts_data)
-        end.reject { |script| script.valid? }
+          import_script script_data, scripts_data
+        end.reject &:valid?
       end
 
       def import_script data, scripts_data
@@ -53,7 +47,7 @@ module Scripts::Import
         import_requires data['requires'], scripts_data
 
         if script
-          script = script.update_from_data data
+          script.update_from_data data
         else
           script = create_from_data data
         end
