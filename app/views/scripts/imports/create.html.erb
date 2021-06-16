@@ -9,21 +9,12 @@
         No se importaron los guiones, debido a que se produjeron los siguientes errores:
         <ul>
           <% @scripts_with_errors.each do |script| %>
-            <li><%= script.uuid %>: <%= script.errors.full_messages %></li>
+            <li><%= script.name.blank? ? script.uuid : script.name %>: <%= script.errors.full_messages.to_sentence %></li>
           <% end %>
         </ul>
       </div>
     <% end %>
 
-    <%= form_tag scripts_imports_create_path, method: :post, multipart: true do %>
-      <div class="form-group">
-        <label for="file"><%= t '.file' %></label>
-        <%= file_field_tag 'file', class: 'form-control-file', accept: 'application/zip' %>
-      </div>
-
-      <div class="form-actions">
-        <%= submit_tag t('.submit'), class: 'btn btn-primary' %>
-      </div>
-    <% end %>
+    <%= render 'form' %>
   </div>
 </div>

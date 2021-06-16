@@ -53,6 +53,7 @@ module Scripts::Import
         end
 
         scripts_data[uuid] = :imported if script.valid?
+
         script
       end
 
