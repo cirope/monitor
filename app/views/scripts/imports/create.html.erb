@@ -3,9 +3,18 @@
     <h5><%= t '.title' %></h5>
   </div>
 
-  <%= scripts_with_errors %>
-
   <div class="card-body">
+    <% if @scripts_with_errors && @scripts_with_errors.count > 0 %>
+      <div class="alert alert-danger" role="alert">
+        No se importaron los guiones, debido a que se produjeron los siguientes errores:
+        <ul>
+          <% @scripts_with_errors.each do |script| %>
+            <li><%= script.uuid %>: <%= script.errors.full_messages %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
     <%= form_tag scripts_imports_create_path, method: :post, multipart: true do %>
       <div class="form-group">
         <label for="file"><%= t '.file' %></label>

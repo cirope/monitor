@@ -11,14 +11,9 @@ class Scripts::ImportsController < ApplicationController
     file = params[:file]
 
     if file.present?
-      scripts_with_errors = Script.import file.tempfile.path
+      @scripts_with_errors = Script.import file.tempfile.path
 
-      if scripts_with_errors.blank?
-        redirect_to scripts_url, notice: t('.imported')
-      else
-        redirect_to scripts_imports_with_errors_url, scripts_with_errors
-      end
-      
+      redirect_to scripts_url, notice: t('.imported') if @scripts_with_errors.blank?
     else
       redirect_to scripts_imports_new_url, alert: t('.no_file')
     end
