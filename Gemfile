@@ -55,10 +55,6 @@ gem 'capistrano-rails'
 
 group :development do
   gem 'listen'
-  # gem 'rubocop', '< 0.68'
-  gem 'rubocop-github'
-  gem "rubocop-performance", require: false
-  gem "rubocop-rails", require: false
 
   # Support for ed25519 ssh keys
   gem 'ed25519'

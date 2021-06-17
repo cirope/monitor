@@ -10,7 +10,7 @@ module Scripts::Import
       transaction do
         scripts = import_zip zip_path
 
-        raise ActiveRecord::Rollback if scripts.any?(&:invalid?)
+        raise ActiveRecord::Rollback if scripts.any? &:invalid?
       end
 
       scripts
@@ -33,7 +33,7 @@ module Scripts::Import
       end
 
       def import_scripts scripts_data
-        scripts_data.map do |uuid, script_data|
+        scripts_data.map do |_uuid, script_data|
           import_script script_data, scripts_data
         end
       end
