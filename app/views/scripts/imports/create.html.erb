@@ -12,7 +12,7 @@
       <ul>
         <% @scripts.each do |script| %>
           <li>
-            <strong><%= @import_finished ? link_to script, script : (script.name.presence || script.uuid) %></strong>
+            <strong><%= @import_finished ? link_to(script, script) : (script.name.presence || script.uuid) %></strong>
             <% if script.errors.blank? %>
               <span class="badge badge-success">
                 <%= t '.script_imported' %>

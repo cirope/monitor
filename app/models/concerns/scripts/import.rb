@@ -35,7 +35,7 @@ module Scripts::Import
       def import_scripts scripts_data
         scripts_data.map do |_uuid, script_data|
           import_script script_data, scripts_data
-        end
+        end.compact
       end
 
       def import_script data, scripts_data
