@@ -11,15 +11,24 @@ class Scripts::ImportsController < ApplicationController
     file = params[:file]
 
     if file.present?
-      @scripts_with_errors = Script.import file.tempfile.path
+      @scripts = Script.import file.tempfile.path
 
-      redirect_to scripts_url, notice: t('.imported') if @scripts_with_errors.blank?
+      if @scripts.blank?(&:valid?)
+        @import_finished = false
+        flash.now.alert = t('.no_scripts')
+
+      elsif @scripts.all?(&:valid?)
+        @import_finished = true
+        flash.now.notice = t('.scripts_imported')
+
+      else
+        @import_finished = false
+        flash.now.alert = t('.fail')
+
+      end
+
     else
-      redirect_to scripts_imports_new_url, alert: t('.no_file')
+      flash.now.alert = t('.no_file')
     end
-  rescue => ex
-    logger.error ex
-
-    redirect_to scripts_url, alert: t('.fail')
   end
 end

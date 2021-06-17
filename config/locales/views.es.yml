@@ -387,10 +387,11 @@ es:
     imports:
       create:
         title: 'Importar guiones'
-        imported: 'Guiones importados correctamente'
+        scripts_imported: 'Guiones importados correctamente'
+        script_imported: 'Importado'
         no_file: 'Debe proporcionar un archivo'
-        fail: 'Se produjo un error importando los guiones'
-        error_import: 'No se importaron los guiones, debido a que se produjeron los siguientes errores:'
+        fail: 'No se importaron los guiones, revise los siguientes.'
+        no_scripts: 'El archivo no contenia scripts'
       new:
         title: 'Importar guiones'
       form:

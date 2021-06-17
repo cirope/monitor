@@ -5,21 +5,22 @@ module Scripts::Import
 
   module ClassMethods
     def import zip_path
-      scripts_with_errors = []
+      scripts = []
 
       transaction do
-        scripts_with_errors = import_zip zip_path
-        raise ActiveRecord::Rollback if scripts_with_errors.present?
+        scripts = import_zip zip_path
+
+        raise ActiveRecord::Rollback if scripts.any?(&:invalid?)
       end
 
-      scripts_with_errors
+      scripts
     end
 
     private
 
       def import_zip zip_path
         scripts_data = {}
-        
+
         Zip::File.open zip_path do |zipfile|
           zipfile.each do |entry|
             script_data = ActiveSupport::JSON.decode entry.get_input_stream.read
@@ -31,11 +32,10 @@ module Scripts::Import
         import_scripts scripts_data
       end
 
-
       def import_scripts scripts_data
         scripts_data.map do |uuid, script_data|
           import_script script_data, scripts_data
-        end.reject &:valid?
+        end
       end
 
       def import_script data, scripts_data

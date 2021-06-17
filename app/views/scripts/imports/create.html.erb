@@ -4,16 +4,22 @@
   </div>
 
   <div class="card-body">
-    <% if @scripts_with_errors && @scripts_with_errors.count > 0 %>
-      <div class="alert alert-danger" role="alert">
-        <%= t '.error_import' %></h5>
-        <ul>
-          <% @scripts_with_errors.each do |script| %>
-            <li><%= script.name.blank? ? script.uuid : script.name %>: <%= script.errors.full_messages.to_sentence %></li>
+    <ul>
+      <% @scripts.each do |script| %>
+        <li>
+          <% if @import_finished %>
+            <strong><%= link_to script, script %></strong>
+            <span class="badge badge-success">
+              <%= t '.script_imported' %>
+            </span>
+          <% else %>
+            <strong><%= (script.name.presence || script.uuid) %></strong>
+            <span class="badge badge-danger"><%= t '.error' %></span> |
+            <%= script.errors.full_messages.to_sentence %>
           <% end %>
-        </ul>
-      </div>
-    <% end %>
+        </li>
+      <% end %>
+    </ul>
 
     <%= render 'form' %>
   </div>
