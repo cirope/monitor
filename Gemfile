@@ -55,6 +55,7 @@ gem 'capistrano-rails'
 
 group :development do
   gem 'listen'
+  gem 'minitest-reporters'
 
   # Support for ed25519 ssh keys
   gem 'ed25519'
