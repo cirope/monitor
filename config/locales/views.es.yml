@@ -392,6 +392,9 @@ es:
         no_file: 'Debe proporcionar un archivo'
         fail: 'No se importaron los guiones, revise los siguientes.'
         no_scripts: 'El archivo no contenia scripts'
+        file_invalid_extension: 'El archivo debe tener la extension zip'
+        files_in_zip_invalids: 'Revise por favor los json dentro del zip'
+        error: 'Con errores'
       new:
         title: 'Importar guiones'
       form:

@@ -10,7 +10,13 @@ class Scripts::ImportsController < ApplicationController
   def create
     file = params[:file]
 
-    if file.present?
+    return redirect_to scripts_imports_new_url, alert: t('.no_file') if file.blank?
+
+    unless Script.file_valid_extension? file
+      return redirect_to scripts_imports_new_url, alert: t('.file_invalid_extension')
+    end
+
+    begin
       @scripts         = Script.import file.tempfile.path
       @import_finished = @scripts.all? &:valid?
 
@@ -19,8 +25,8 @@ class Scripts::ImportsController < ApplicationController
       else
         flash.now.alert = t('.fail')
       end
-    else
-      redirect_to scripts_imports_new_url, alert: t('.no_file')
+    rescue JSON::ParserError
+      redirect_to scripts_imports_new_url, alert: t('.files_in_zip_invalids')
     end
   end
 end
