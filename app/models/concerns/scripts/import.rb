@@ -16,8 +16,8 @@ module Scripts::Import
       scripts
     end
 
-    def file_valid_extension? file
-      extension = file.original_filename.split('.').last.downcase
+    def file_valid_extension? file_path
+      extension = file_path.split('.').last.downcase
 
       extension.present? && extension == 'zip'
     end

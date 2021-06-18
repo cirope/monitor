@@ -12,7 +12,7 @@ class Scripts::ImportsController < ApplicationController
 
     return redirect_to scripts_imports_new_url, alert: t('.no_file') if file.blank?
 
-    unless Script.file_valid_extension? file
+    unless Script.file_valid_extension? file.tempfile.path
       return redirect_to scripts_imports_new_url, alert: t('.file_invalid_extension')
     end
 
