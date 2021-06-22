@@ -45,13 +45,14 @@ class Scripts::ImportsControllerTest < ActionController::TestCase
 
     assert_response :success
     assert_equal I18n.t('scripts.imports.create.fail'), flash.alert
+    assert_equal old_name, scripts.first.reload.name
 
     FileUtils.rm path
-    scripts.first.update_attribute('name', old_name)
   end
 
   test 'should not import if no file' do
     post :create
+
     assert_redirected_to scripts_imports_new_url
     assert_equal I18n.t('scripts.imports.create.no_file'), flash.alert
   end
@@ -68,7 +69,7 @@ class Scripts::ImportsControllerTest < ActionController::TestCase
 
   test 'should not import if the zip has invalid json' do
     post :create, params: {
-      file: fixture_file_upload('files/invalid_json.zip', 'zip', false)
+      file: fixture_file_upload('files/invalid_json.zip', 'application/zip', false)
     }
 
     assert_redirected_to scripts_imports_new_url
