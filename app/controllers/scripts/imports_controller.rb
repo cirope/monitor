@@ -10,13 +10,18 @@ class Scripts::ImportsController < ApplicationController
   def create
     file = params[:file]
 
-    return redirect_to scripts_imports_new_url, alert: t('.no_file') if file.blank?
-
-    unless Script.file_valid_extension? file.tempfile.path
-      return redirect_to scripts_imports_new_url, alert: t('.file_invalid_extension')
+    if file.blank?
+      redirect_to scripts_imports_new_url, alert: t('.no_file')
+    elsif Script.file_invalid_extension? file.tempfile.path
+      redirect_to scripts_imports_new_url, alert: t('.file_invalid_extension')
+    else
+      import_scripts file
     end
+  end
 
-    begin
+  private
+
+    def import_scripts file
       @scripts         = Script.import file.tempfile.path
       @import_finished = @scripts.all? &:valid?
 
@@ -28,5 +33,4 @@ class Scripts::ImportsController < ApplicationController
     rescue JSON::ParserError
       redirect_to scripts_imports_new_url, alert: t('.files_in_zip_invalids')
     end
-  end
 end

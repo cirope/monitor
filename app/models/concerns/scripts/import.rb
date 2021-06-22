@@ -16,10 +16,10 @@ module Scripts::Import
       scripts
     end
 
-    def file_valid_extension? file_path
+    def file_invalid_extension? file_path
       extension = file_path.split('.').last.downcase
 
-      extension.present? && extension == 'zip'
+      extension.blank? || extension != 'zip'
     end
 
     private

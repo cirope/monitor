@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-require "minitest/reporters"
-Minitest::Reporters.use!
-
 require_relative '../config/environment'
 
 require 'rails/test_help'
 require 'sidekiq/testing'
 
 Sidekiq::Testing.inline!
+
+require 'minitest/reporters'
+Minitest::Reporters.use!
 
 Apartment::Tenant.drop    'default' rescue nil
 Apartment::Tenant.create  'default'
