@@ -226,6 +226,7 @@ class ScriptTest < ActiveSupport::TestCase
 
     script.name = 'Should be imported as new'
     script.uuid = uuid
+
     script.save!
 
     path = Script.where(id: [@script.id, script.id]).export
@@ -255,12 +256,13 @@ class ScriptTest < ActiveSupport::TestCase
     uuid    = SecureRandom.uuid
     scripts = []
 
-    invalid_script = @script.dup
+    invalid_script      = @script.dup
     invalid_script.name = 'valid name'
     invalid_script.uuid = uuid
+
     invalid_script.save!
 
-    invalid_script.update_attribute('name', '')
+    invalid_script.update_attribute 'name', ''
 
     path = Script.where(id: invalid_script.id).export
 

@@ -32,10 +32,10 @@ class Scripts::ImportsControllerTest < ActionController::TestCase
 
   test 'should not import if invalid script' do
     Current.account = send 'public.accounts', :default
-    scripts = Script.for_export
-    old_name = scripts.first.name
+    scripts         = Script.for_export
+    old_name        = scripts.first.name
 
-    scripts.first.update_attribute('name', '')
+    scripts.first.update_attribute 'name', ''
 
     path = scripts.export
 
@@ -69,11 +69,12 @@ class Scripts::ImportsControllerTest < ActionController::TestCase
 
   test 'should not import if the zip has invalid json' do
     post :create, params: {
-      file: fixture_file_upload('files/invalid_json.zip', 'application/zip', false)
+      file: fixture_file_upload('files/invalid_json.zip', 'application/zip',
+                                false)
     }
 
     assert_redirected_to scripts_imports_new_url
-    assert_equal I18n.t('scripts.imports.create.files_in_zip_invalids'),
+    assert_equal I18n.t('scripts.imports.create.internal_format_invalid'),
                  flash.alert
   end
 end

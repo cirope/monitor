@@ -31,6 +31,6 @@ class Scripts::ImportsController < ApplicationController
         flash.now.alert = t '.fail'
       end
     rescue JSON::ParserError
-      redirect_to scripts_imports_new_url, alert: t('.files_in_zip_invalids')
+      redirect_to scripts_imports_new_url, alert: t('.internal_format_invalid')
     end
 end
