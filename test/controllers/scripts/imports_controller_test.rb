@@ -39,6 +39,8 @@ class Scripts::ImportsControllerTest < ActionController::TestCase
 
     path = scripts.export
 
+    scripts.first.update_attribute 'name', old_name
+
     post :create, params: {
       file: Rack::Test::UploadedFile.new(path, 'application/zip')
     }
