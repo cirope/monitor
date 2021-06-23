@@ -64,7 +64,8 @@ class AccountsController < ApplicationController
     end
 
     def account_params
-      params.require(:account).permit :name, :tenant_name, :lock_version
+      params.require(:account).permit :name, :tenant_name,
+        :group_issues_by_schedule, :lock_version
     end
 
     def from_default_account

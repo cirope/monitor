@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_01_164010) do
+ActiveRecord::Schema.define(version: 2021_06_15_121956) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 2021_06_01_164010) do
     t.integer "lock_version", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.jsonb "options"
     t.index ["name"], name: "index_accounts_on_name"
     t.index ["tenant_name"], name: "index_accounts_on_tenant_name", unique: true
   end
@@ -191,6 +192,15 @@ ActiveRecord::Schema.define(version: 2021_06_01_164010) do
     t.datetime "updated_at", null: false
     t.jsonb "options"
     t.string "roles_attribute", null: false
+  end
+
+  create_table "logins", force: :cascade do |t|
+    t.jsonb "data"
+    t.datetime "closed_at"
+    t.datetime "created_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["created_at"], name: "index_logins_on_created_at"
+    t.index ["user_id"], name: "index_logins_on_user_id"
   end
 
   create_table "maintainers", id: :serial, force: :cascade do |t|
@@ -488,6 +498,7 @@ ActiveRecord::Schema.define(version: 2021_06_01_164010) do
   add_foreign_key "jobs", "schedules", on_update: :restrict, on_delete: :restrict
   add_foreign_key "jobs", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "jobs", "servers", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "logins", "users", on_update: :restrict, on_delete: :restrict
   add_foreign_key "maintainers", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "maintainers", "users", on_update: :restrict, on_delete: :restrict
   add_foreign_key "memberships", "accounts", on_update: :restrict, on_delete: :restrict

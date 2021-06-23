@@ -13,4 +13,12 @@ module HomeHelper
     issue_filter.to_h.merge show: filter_params[:show],
                             user: filter_params[:user]
   end
+
+  def grouped_issues_path id, options = {}
+    if @grouped_by_schedule
+      home_path **options.merge(schedule_id: id)
+    else
+      script_issues_path id, **options
+    end
+  end
 end

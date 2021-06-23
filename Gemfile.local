@@ -13,7 +13,7 @@ unless ENV['TRAVIS']
   gem 'activerecord-sqlserver-adapter', require: false
 
   # MySQL driver
-  gem 'mysql2', '~> 0.4.10'
+  gem 'mysql2'
 
   # SQLite
   gem 'sqlite3'

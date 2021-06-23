@@ -5,6 +5,7 @@ module Issues::Filters
 
   PERMITED_FILTER_PARAMS = [
     :id,
+    :name,
     :description,
     :status,
     :user,
@@ -23,7 +24,7 @@ module Issues::Filters
   end
 
   def issues
-    scoped_issues.filter_by filter_params.except(:show, :user)
+    scoped_issues.filter_by filter_params.except(:name, :show, :user)
   end
 
   def issue_params
@@ -50,8 +51,8 @@ module Issues::Filters
     end
   end
 
-  def filter_default_status?
-    filter_params[:status].present?
+  def skip_default_status?
+    filter_params[:status].present? || current_account.group_issues_by_schedule?
   end
 
   def show_mine?

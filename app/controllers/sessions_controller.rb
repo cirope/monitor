@@ -13,6 +13,7 @@ class SessionsController < ApplicationController
       user = User.visible.by_username_or_email params[:username]
 
       if user && account && user.auth(params[:password])
+        create_login_record   user
         store_auth_token      user
         store_current_account account
 
@@ -28,6 +29,10 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    login = Login.find_by id: session[:login_id]
+
+    login&.update! closed_at: Time.zone.now
+
     clear_session
 
     redirect_to root_url, notice: t('.logged_out', scope: :flash)
@@ -37,6 +42,12 @@ class SessionsController < ApplicationController
 
     def default_url
       session.delete(:previous_url) || home_url
+    end
+
+    def create_login_record user
+      login = user.logins.create! request: request
+
+      session[:login_id] = login.id
     end
 
     def store_auth_token user
