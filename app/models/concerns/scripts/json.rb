@@ -24,6 +24,7 @@ module Scripts::Json
   }
 
   def as_json options = {}
-    super JSON_DEFAULT_OPTIONS.merge(options)
+    (super JSON_DEFAULT_OPTIONS.merge(options))
+      .merge(version: MonitorApp::Application::VERSION)
   end
 end

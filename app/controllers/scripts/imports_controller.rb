@@ -24,6 +24,7 @@ class Scripts::ImportsController < ApplicationController
     def import_scripts file
       @scripts         = Script.import file.tempfile.path
       @import_finished = @scripts.all? &:valid?
+      byebug
 
       if @import_finished
         flash.now.notice = t '.scripts_imported'

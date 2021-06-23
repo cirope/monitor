@@ -58,6 +58,8 @@ module Scripts::Import
           script = create_from_data data
         end
 
+        script.imported_version = data['version']
+
         scripts_data[uuid] = :imported if script.valid?
 
         script
