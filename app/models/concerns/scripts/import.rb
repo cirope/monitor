@@ -5,7 +5,21 @@ module Scripts::Import
 
   module ClassMethods
     def import zip_path
-      transaction { import_zip zip_path }
+      scripts = []
+
+      transaction do
+        scripts = import_zip zip_path
+
+        raise ActiveRecord::Rollback if scripts.any? &:invalid?
+      end
+
+      scripts
+    end
+
+    def file_invalid? file_path
+      extension = file_path.split('.').last.downcase
+
+      extension.blank? || extension != 'zip'
     end
 
     private
@@ -24,11 +38,10 @@ module Scripts::Import
         import_scripts scripts_data
       end
 
-
       def import_scripts scripts_data
-        scripts_data.each do |uuid, script_data|
+        scripts_data.map do |_uuid, script_data|
           import_script script_data, scripts_data
-        end
+        end.compact
       end
 
       def import_script data, scripts_data
@@ -42,10 +55,12 @@ module Scripts::Import
         if script
           script.update_from_data data
         else
-          create_from_data data
+          script = create_from_data data
         end
 
-        scripts_data[uuid] = :imported
+        scripts_data[uuid] = :imported if script.valid?
+
+        script
       end
 
       def import_requires requires, scripts_data
@@ -65,7 +80,7 @@ module Scripts::Import
           data['change'] = I18n.t 'scripts.imports.default_change', date: date
         end
 
-        create! data.merge({
+        create data.merge({
           imported_at:           Time.zone.now,
           parameters_attributes: parameters,
           requires_attributes:   requires
@@ -85,7 +100,7 @@ module Scripts::Import
 
     data['imported_at'] = Time.zone.now if imported_at
 
-    update! data
+    update data
   end
 
   private

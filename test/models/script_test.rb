@@ -160,18 +160,33 @@ class ScriptTest < ActiveSupport::TestCase
     FileUtils.rm zipfile_path
   end
 
+  test 'valid extension for import' do
+    path = Script.for_export.export
+
+    refute Script.file_invalid? path
+
+    FileUtils.rm path
+  end
+
+  test 'invalid extension for import' do
+    assert Script.file_invalid? 'test.json'
+  end
+
   test 'import an existing script' do
     Current.account = send 'public.accounts', :default
     path            = Script.where(id: @script.id).export
+    scripts         = []
 
     @script.parameters.clear
     @script.requires.clear
     @script.update! name: 'Updated'
 
     assert_no_difference 'Script.count' do
-      Script.import path
+      scripts = Script.import path
     end
 
+    assert_equal 1, scripts.count
+    assert scripts.all? &:valid?
     assert_not_equal 'Updated', @script.reload.name
     assert @script.parameters.any?
     assert @script.requires.any?
@@ -180,8 +195,9 @@ class ScriptTest < ActiveSupport::TestCase
   end
 
   test 'import a new script' do
-    uuid   = SecureRandom.uuid
-    script = @script.dup
+    uuid    = SecureRandom.uuid
+    script  = @script.dup
+    scripts = []
 
     script.name = 'Should be imported as new'
     script.uuid = uuid
@@ -193,10 +209,71 @@ class ScriptTest < ActiveSupport::TestCase
     script.destroy!
 
     assert_difference 'Script.count' do
-      Script.import path
+      scripts = Script.import path
     end
 
+    assert_equal 1, scripts.count
+    assert scripts.all? &:valid?
     assert Script.find_by uuid: uuid
+
+    FileUtils.rm path
+  end
+
+  test 'import a new script and existing script' do
+    uuid    = SecureRandom.uuid
+    script  = @script.dup
+    scripts = []
+
+    script.name = 'Should be imported as new'
+    script.uuid = uuid
+
+    script.save!
+
+    path = Script.where(id: [@script.id, script.id]).export
+
+    script.destroy!
+
+    @script.parameters.clear
+    @script.requires.clear
+    @script.update! name: 'Updated'
+
+    assert_difference 'Script.count' do
+      scripts = Script.import path
+    end
+
+    assert_equal 2, scripts.count
+    assert scripts.all? &:valid?
+    assert Script.find_by uuid: uuid
+
+    assert_not_equal 'Updated', @script.reload.name
+    assert @script.parameters.any?
+    assert @script.requires.any?
+
+    FileUtils.rm path
+  end
+
+  test 'should not import an invalid script' do
+    uuid    = SecureRandom.uuid
+    scripts = []
+
+    invalid_script      = @script.dup
+    invalid_script.name = 'valid name'
+    invalid_script.uuid = uuid
+
+    invalid_script.save!
+
+    invalid_script.update_attribute 'name', ''
+
+    path = Script.where(id: invalid_script.id).export
+
+    invalid_script.destroy!
+
+    assert_no_difference 'Script.count' do
+      scripts = Script.import path
+    end
+
+    assert_equal 1, scripts.count
+    refute scripts.all? &:valid?
 
     FileUtils.rm path
   end

@@ -368,7 +368,7 @@ ActiveRecord::Schema.define(version: 2021_06_15_121956) do
     t.datetime "updated_at", null: false
     t.boolean "core"
     t.string "change"
-    t.uuid "uuid", default: -> { "(md5(((random())::text || (clock_timestamp())::text)))::uuid" }
+    t.uuid "uuid", default: -> { "(md5(((random())::text || (clock_timestamp())::text)))::uuid" }, null: false
     t.datetime "imported_at"
     t.string "language", default: "ruby"
     t.bigint "database_id"
@@ -412,8 +412,8 @@ ActiveRecord::Schema.define(version: 2021_06_15_121956) do
 
   create_table "taggings", id: :serial, force: :cascade do |t|
     t.integer "tag_id", null: false
-    t.integer "taggable_id", null: false
     t.string "taggable_type", null: false
+    t.integer "taggable_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["tag_id"], name: "index_taggings_on_tag_id"

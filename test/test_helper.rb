@@ -4,8 +4,11 @@ require_relative '../config/environment'
 
 require 'rails/test_help'
 require 'sidekiq/testing'
+require 'minitest/reporters'
 
 Sidekiq::Testing.inline!
+
+Minitest::Reporters.use!
 
 Apartment::Tenant.drop    'default' rescue nil
 Apartment::Tenant.create  'default'

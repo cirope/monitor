@@ -386,13 +386,20 @@ es:
       empty: 'No se encontraron bases de datos con ese criterio'
     imports:
       create:
-        imported: 'Guiones importados correctamente'
+        title: 'Importar guiones'
+        scripts_imported: 'Guiones importados correctamente'
+        script_imported: 'Importado'
         no_file: 'Debe proporcionar un archivo'
-        fail: 'Se produjo un error importando los guiones'
+        fail: 'No se importaron los guiones, revise los errores.'
+        no_scripts: 'El archivo no tiene un formato compatible.'
+        file_invalid_extension: 'La extensión del archivo no es correcta.'
+        internal_format_invalid: 'El archivo no tiene un formato compatible.'
+        error: 'Con errores'
       new:
         title: 'Importar guiones'
-        file: 'Archivo'
+      form:
         submit: 'Importar'
+        file: 'Archivo'
       default_change: 'Importado el %{date}'
     measures:
       index:
