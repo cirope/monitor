@@ -65,12 +65,7 @@ class ScriptTest < ActiveSupport::TestCase
   end
 
   test 'invalid script with imported_version' do
-    version_split = MonitorApp::Application::VERSION.split '.'
-    minor         = version_split.pop
-
-    version_split.push (minor.to_i + 1).to_s
-
-    @script.imported_version = version_split.join '.'
+    @script.imported_version = MonitorApp::Application::VERSION.next
 
     refute @script.valid?
   end
@@ -141,8 +136,10 @@ class ScriptTest < ActiveSupport::TestCase
   end
 
   test 'to json' do
-    assert_equal @script.name, ActiveSupport::JSON.decode(@script.to_json)['name']
-    assert_equal MonitorApp::Application::VERSION, ActiveSupport::JSON.decode(@script.to_json)['current_version']
+    json = ActiveSupport::JSON.decode(@script.to_json)
+
+    assert_equal @script.name, json['name']
+    assert_equal MonitorApp::Application::VERSION, json(@script.to_json)['current_version']
   end
 
   test 'to pdf' do
@@ -309,21 +306,21 @@ class ScriptTest < ActiveSupport::TestCase
 
     invalid_script.save!
 
-    old_version        = MonitorApp::Application::VERSION
-    old_version_split  = old_version.split '.'
-    minor              = old_version_split.pop
+    def invalid_script.current_version
+      MonitorApp::Application::VERSION.next
+    end
 
-    old_version_split.push (minor.to_i + 1).to_s
+    # old_version = MonitorApp::Application::VERSION
 
-    new_version = old_version_split.join '.'
+    # new_version = old_version.next
 
-    MonitorApp::Application::VERSION = new_version
+    # MonitorApp::Application::VERSION = new_version
 
     path = Script.where(id: invalid_script.id).export
 
     invalid_script.destroy!
 
-    MonitorApp::Application::VERSION = old_version
+    # MonitorApp::Application::VERSION = old_version
 
     assert_no_difference 'Script.count' do
       scripts = Script.import path
@@ -331,9 +328,11 @@ class ScriptTest < ActiveSupport::TestCase
 
     assert_equal 1, scripts.count
     refute scripts.all? &:valid?
-    assert (scripts.all? { |script| script.imported_version == new_version })
+    assert (scripts.all? { |script| script.imported_version == MonitorApp::Application::VERSION.next })
 
     FileUtils.rm path
+
+    
   end
 
   test 'text with db injections' do
