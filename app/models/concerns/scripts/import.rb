@@ -49,7 +49,7 @@ module Scripts::Import
 
         uuid    = data['uuid']
         script  = find_by uuid: uuid
-        version = data.delete('current_version')
+        version = data.delete 'current_version'
 
         import_requires data['requires'], scripts_data
 
