@@ -64,6 +64,23 @@ class ScriptTest < ActiveSupport::TestCase
     assert_error @script, :change, :blank
   end
 
+  test 'invalid script with imported_version' do
+    version_split = MonitorApp::Application::VERSION.split '.'
+    minor         = version_split.pop
+
+    version_split.push (minor.to_i + 1).to_s
+
+    @script.imported_version = version_split.join '.'
+
+    refute @script.valid?
+  end
+
+  test 'valid script with imported_version' do
+    @script.imported_version = MonitorApp::Application::VERSION
+
+    assert @script.valid?
+  end
+
   test 'can not destroy when issues' do
     assert_no_difference 'Script.count' do
       @script.destroy
@@ -125,6 +142,7 @@ class ScriptTest < ActiveSupport::TestCase
 
   test 'to json' do
     assert_equal @script.name, ActiveSupport::JSON.decode(@script.to_json)['name']
+    assert_equal MonitorApp::Application::VERSION, ActiveSupport::JSON.decode(@script.to_json)['current_version']
   end
 
   test 'to pdf' do
@@ -188,6 +206,7 @@ class ScriptTest < ActiveSupport::TestCase
     assert_equal 1, scripts.count
     assert scripts.all? &:valid?
     assert_not_equal 'Updated', @script.reload.name
+    assert (scripts.all? { |script| script.imported_version == MonitorApp::Application::VERSION })
     assert @script.parameters.any?
     assert @script.requires.any?
 
@@ -214,6 +233,7 @@ class ScriptTest < ActiveSupport::TestCase
 
     assert_equal 1, scripts.count
     assert scripts.all? &:valid?
+    assert (scripts.all? { |script| script.imported_version == MonitorApp::Application::VERSION })
     assert Script.find_by uuid: uuid
 
     FileUtils.rm path
@@ -243,6 +263,7 @@ class ScriptTest < ActiveSupport::TestCase
 
     assert_equal 2, scripts.count
     assert scripts.all? &:valid?
+    assert (scripts.all? { |script| script.imported_version == MonitorApp::Application::VERSION })
     assert Script.find_by uuid: uuid
 
     assert_not_equal 'Updated', @script.reload.name
@@ -274,6 +295,43 @@ class ScriptTest < ActiveSupport::TestCase
 
     assert_equal 1, scripts.count
     refute scripts.all? &:valid?
+
+    FileUtils.rm path
+  end
+
+  test 'should not import a script with a different version' do
+    uuid    = SecureRandom.uuid
+    scripts = []
+
+    invalid_script      = @script.dup
+    invalid_script.name = 'new version script'
+    invalid_script.uuid = uuid
+
+    invalid_script.save!
+
+    old_version        = MonitorApp::Application::VERSION
+    old_version_split  = old_version.split '.'
+    minor              = old_version_split.pop
+
+    old_version_split.push (minor.to_i + 1).to_s
+
+    new_version = old_version_split.join '.'
+
+    MonitorApp::Application::VERSION = new_version
+
+    path = Script.where(id: invalid_script.id).export
+
+    invalid_script.destroy!
+
+    MonitorApp::Application::VERSION = old_version
+
+    assert_no_difference 'Script.count' do
+      scripts = Script.import path
+    end
+
+    assert_equal 1, scripts.count
+    refute scripts.all? &:valid?
+    assert (scripts.all? { |script| script.imported_version == new_version })
 
     FileUtils.rm path
   end
@@ -377,5 +435,13 @@ class ScriptTest < ActiveSupport::TestCase
         change: 'Hello 3'
       )
     end
+  end
+
+  test 'correct default version' do
+    assert_equal '1.0.0', @script.default_version
+  end
+
+  test 'correct current version' do
+    assert_equal MonitorApp::Application::VERSION, @script.current_version
   end
 end
