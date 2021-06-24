@@ -12,7 +12,7 @@ module Scripts::Validation
     validate :change_on_text_changed?
     validate :text_or_file_present?
     validate :no_text_and_file?
-    validate :compatible_version?
+    validate :compatible_version?, if: -> { imported_version.present? }
   end
 
   private
