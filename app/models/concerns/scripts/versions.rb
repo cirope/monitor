@@ -19,4 +19,12 @@ module Scripts::Versions
       "(#{versions.table_name}.object_changes ->> 'text') IS NOT NULL"
     )
   end
+
+  def default_version
+    '1.0.0'
+  end
+
+  def current_version
+    MonitorApp::Application::VERSION
+  end
 end

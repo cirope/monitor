@@ -33,6 +33,6 @@ module Scripts::Validation
     end
 
     def compatible_version?
-      errors.add :imported_version, :invalid if imported_version != MonitorApp::Application::VERSION
+      errors.add :imported_version, :invalid if imported_version != current_version
     end
 end
