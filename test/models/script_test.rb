@@ -305,6 +305,7 @@ class ScriptTest < ActiveSupport::TestCase
   test 'should not import a script with a different version' do
     begin
       ENV['TEST_VERSION'] = MonitorApp::Application::VERSION.next
+
       uuid    = SecureRandom.uuid
       scripts = []
 
