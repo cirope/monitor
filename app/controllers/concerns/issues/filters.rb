@@ -40,7 +40,7 @@ module Issues::Filters
   end
 
   def issue_filter
-    filter_params.slice :status, :tags, :description, :user_id, :comment
+    filter_params.slice :status, :tags, :description, :key, :user_id, :comment
   end
 
   def filter_params
