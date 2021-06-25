@@ -102,7 +102,7 @@
 <div class="row">
   <% if filter_query_hash[:status].present? %>
     <div class="col">
-      <%= link_to t('back'), script_issues_path(@script, filter: filter_query_hash.except(:status)) %>
+      <%= link_to t('back'), script_issues_path(@script, filter: filter_query_hash.except(:status, :key)) %>
     </div>
   <% end %>
   <div class="col">
