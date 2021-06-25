@@ -316,6 +316,12 @@ class ScriptTest < ActiveSupport::TestCase
 
     # MonitorApp::Application::VERSION = new_version
 
+    class Script
+      def current_version
+        MonitorApp::Application::VERSION.next
+      end
+    end
+
     path = Script.where(id: invalid_script.id).export
 
     invalid_script.destroy!
@@ -331,8 +337,6 @@ class ScriptTest < ActiveSupport::TestCase
     assert (scripts.all? { |script| script.imported_version == MonitorApp::Application::VERSION.next })
 
     FileUtils.rm path
-
-    
   end
 
   test 'text with db injections' do
@@ -443,4 +447,22 @@ class ScriptTest < ActiveSupport::TestCase
   test 'correct current version' do
     assert_equal MonitorApp::Application::VERSION, @script.current_version
   end
+
+  private
+
+    # def redefine_script_current_version
+    #   class Script
+    #     def current_version
+    #       MonitorApp::Application::VERSION.next
+    #     end
+    #   end
+    # end
+
+    # def restore_script_current_version
+    #   class Script
+    #     def current_version
+    #       MonitorApp::Application::VERSION
+    #     end
+    #   end
+    # end
 end
