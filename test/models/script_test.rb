@@ -2,6 +2,12 @@
 
 require 'test_helper'
 
+class Script
+  def current_version
+    ENV['TEST_VERSION'] || MonitorApp::Application::VERSION
+  end
+end
+
 class ScriptTest < ActiveSupport::TestCase
   setup do
     @script = scripts :ls
@@ -139,7 +145,7 @@ class ScriptTest < ActiveSupport::TestCase
     json = ActiveSupport::JSON.decode(@script.to_json)
 
     assert_equal @script.name, json['name']
-    assert_equal MonitorApp::Application::VERSION, json(@script.to_json)['current_version']
+    assert_equal MonitorApp::Application::VERSION, json['current_version']
   end
 
   test 'to pdf' do
@@ -297,46 +303,39 @@ class ScriptTest < ActiveSupport::TestCase
   end
 
   test 'should not import a script with a different version' do
-    uuid    = SecureRandom.uuid
-    scripts = []
+    begin
+      ENV['TEST_VERSION'] = MonitorApp::Application::VERSION.next
+      uuid    = SecureRandom.uuid
+      scripts = []
 
-    invalid_script      = @script.dup
-    invalid_script.name = 'new version script'
-    invalid_script.uuid = uuid
+      invalid_script      = @script.dup
+      invalid_script.name = 'new version script'
+      invalid_script.uuid = uuid
 
-    invalid_script.save!
+      invalid_script.save!
 
-    def invalid_script.current_version
-      MonitorApp::Application::VERSION.next
-    end
-
-    # old_version = MonitorApp::Application::VERSION
-
-    # new_version = old_version.next
-
-    # MonitorApp::Application::VERSION = new_version
-
-    class Script
-      def current_version
+      def invalid_script.current_version
         MonitorApp::Application::VERSION.next
       end
+
+      path = Script.where(id: invalid_script.id).export
+
+      invalid_script.destroy!
+
+      ENV.delete 'TEST_VERSION'
+
+      assert_no_difference 'Script.count' do
+        scripts = Script.import path
+      end
+
+      assert_equal 1, scripts.count
+      refute scripts.all? &:valid?
+      assert (scripts.all? { |script| script.imported_version == MonitorApp::Application::VERSION.next })
+
+      FileUtils.rm path
+    ensure
+      ENV.delete 'TEST_VERSION'
     end
-
-    path = Script.where(id: invalid_script.id).export
-
-    invalid_script.destroy!
-
-    # MonitorApp::Application::VERSION = old_version
-
-    assert_no_difference 'Script.count' do
-      scripts = Script.import path
-    end
-
-    assert_equal 1, scripts.count
-    refute scripts.all? &:valid?
-    assert (scripts.all? { |script| script.imported_version == MonitorApp::Application::VERSION.next })
-
-    FileUtils.rm path
   end
 
   test 'text with db injections' do
@@ -447,22 +446,4 @@ class ScriptTest < ActiveSupport::TestCase
   test 'correct current version' do
     assert_equal MonitorApp::Application::VERSION, @script.current_version
   end
-
-  private
-
-    # def redefine_script_current_version
-    #   class Script
-    #     def current_version
-    #       MonitorApp::Application::VERSION.next
-    #     end
-    #   end
-    # end
-
-    # def restore_script_current_version
-    #   class Script
-    #     def current_version
-    #       MonitorApp::Application::VERSION
-    #     end
-    #   end
-    # end
 end
