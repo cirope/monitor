@@ -20,7 +20,8 @@ module Scripts::Json
   }
   JSON_DEFAULT_OPTIONS = {
     except:  JSON_EXCLUDED_ATTRIBUTES,
-    include: JSON_INCLUDED_ASSOCIATIONS
+    include: JSON_INCLUDED_ASSOCIATIONS,
+    methods: :current_version
   }
 
   def as_json options = {}

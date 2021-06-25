@@ -47,8 +47,9 @@ module Scripts::Import
       def import_script data, scripts_data
         return if data == :imported
 
-        uuid   = data['uuid']
-        script = find_by uuid: uuid
+        uuid    = data['uuid']
+        script  = find_by uuid: uuid
+        version = data.delete 'current_version'
 
         import_requires data['requires'], scripts_data
 
@@ -57,6 +58,8 @@ module Scripts::Import
         else
           script = create_from_data data
         end
+
+        script.imported_version = version || script.default_version
 
         scripts_data[uuid] = :imported if script.valid?
 

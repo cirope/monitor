@@ -43,6 +43,8 @@ class Script < ApplicationRecord
   has_many :run_measures, through: :runs, class_name: 'Measure', source: :measures
   belongs_to :database, optional: true
 
+  attribute :imported_version, :string
+
   def to_s
     name
   end
