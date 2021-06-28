@@ -19,7 +19,10 @@ module Issues::Status
   }.freeze
 
   SUPERVISOR_STATUS_TRANSITIONS = STATUS_TRANSITIONS.merge(
-    closed: %w(taken revision closed)
+    pending:  %w(pending taken),
+    taken:    %w(taken),
+    revision: %w(revision),
+    closed:   %w(taken revision closed)
   ).freeze
 
   included do
