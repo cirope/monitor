@@ -12,6 +12,10 @@ module Issues::Status
     closed:   %w(closed)
   }.freeze
 
+  MANAGER_STATUS_TRANSITIONS = STATUS_TRANSITIONS.merge(
+    pending: %w(pending taken)
+  ).freeze
+
   OWNER_STATUS_TRANSITIONS = {
     pending:  %w(pending taken revision),
     taken:    %w(taken revision),
@@ -19,10 +23,7 @@ module Issues::Status
   }.freeze
 
   SUPERVISOR_STATUS_TRANSITIONS = STATUS_TRANSITIONS.merge(
-    pending:  %w(pending taken),
-    taken:    %w(taken),
-    revision: %w(revision),
-    closed:   %w(taken revision closed)
+    closed: %w(taken revision closed)
   ).freeze
 
   included do
@@ -40,6 +41,8 @@ module Issues::Status
                     SUPERVISOR_STATUS_TRANSITIONS
                   elsif Current.user&.owner?
                     OWNER_STATUS_TRANSITIONS
+                  elsif Current.user&.manager?
+                    MANAGER_STATUS_TRANSITIONS
                   else
                     STATUS_TRANSITIONS
                   end
