@@ -4,4 +4,6 @@ class Failure < ApplicationRecord
   include Failures::Request
 
   belongs_to :user, optional: true
+
+  validates :data, presence: true
 end

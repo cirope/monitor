@@ -4,20 +4,17 @@ require 'test_helper'
 
 class FailureTest < ActiveSupport::TestCase
   setup do
-    @failure = failures :one
+    @failure = failures :failure_default
   end
 
-  test 'blank attributes' do
-    @failure.attr = ''
+  test 'Invalid failure without data' do
+    @failure.data = ''
 
     assert @failure.invalid?
-    assert_error @failure, :attr, :blank
+    assert_error @failure, :data, :blank
   end
 
-  test 'unique attributes' do
-    failure = @failure.dup
-
-    assert failure.invalid?
-    assert_error failure, :attr, :taken
+  test 'valid failure with data' do
+    assert @failure.valid?
   end
 end

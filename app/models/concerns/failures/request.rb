@@ -7,7 +7,7 @@ module Failures::Request
     attribute :user_name, :string
     attr_accessor :request
 
-    before_save :convert_request_into_data
+    before_validation :convert_request_into_data
   end
 
   private
