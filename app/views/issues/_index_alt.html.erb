@@ -17,11 +17,11 @@
             <td><%= key %></td>
             <% Issue.statuses.each do |status| %>
               <td class="text-right">
-                <%= link_to counts[status] || 0, issue_index_path(filter: filter_query_hash.merge(status: status, key: key)) %>
+                <%= link_to counts[status] || 0, script_issues_path(@script, filter: filter_query_hash.merge(status: status, key: key)) %>
               </td>
             <% end %>
             <td class="text-right font-weight-bold">
-              <%= link_to counts.values.sum, issue_index_path(filter: filter_query_hash.merge(key: key)) %>
+              <%= link_to counts.values.sum, script_issues_path(@script, filter: filter_query_hash.merge(key: key)) %>
             </td>
           </tr>
         <% end %>
@@ -32,7 +32,7 @@
           </td>
           <% issue_stats_totals(stats).each do |status, total| %>
             <td class="text-right font-weight-bold">
-              <%= link_to total, issue_index_path(filter: filter_query_hash.merge(status: status)) %>
+              <%= link_to total, script_issues_path(@script, filter: filter_query_hash.merge(status: status)) %>
             </td>
           <% end %>
           <td class="text-right font-weight-bold">
@@ -56,20 +56,20 @@
 
             <th class="border-top-0 d-none d-sm-table-cell text-nowrap">
               <%= Issue.human_attribute_name 'status' %>
-              <%= link_to icon('fas', 'chart-pie'), issue_index_path(filter: filter_query_hash, graph: 'status') %>
+              <%= link_to icon('fas', 'chart-pie'), script_issues_path(@script, filter: filter_query_hash, graph: 'status') %>
             </th>
             <th class="border-top-0 d-none d-lg-table-cell text-nowrap">
               <%= t '.tags' %>
-              <%= link_to icon('fas', 'chart-pie'), issue_index_path(filter: filter_query_hash, graph: 'tags') %>
+              <%= link_to icon('fas', 'chart-pie'), script_issues_path(@script, filter: filter_query_hash, graph: 'tags') %>
             </th>
             <th class="border-top-0 d-none d-lg-table-cell text-nowrap">
               <%= t '.final_tags' %>
-              <%= link_to icon('fas', 'chart-pie'), issue_index_path(filter: filter_query_hash, graph: 'final_tags') %>
+              <%= link_to icon('fas', 'chart-pie'), script_issues_path(@script, filter: filter_query_hash, graph: 'final_tags') %>
             </th>
 
             <th class="border-top-0 text-nowrap">
               <%= data.keys.last %>
-              <%= link_to icon('fas', 'chart-pie'), issue_index_path(filter: filter_query_hash, graph: data.keys.last) %>
+              <%= link_to icon('fas', 'chart-pie'), script_issues_path(@script, filter: filter_query_hash, graph: data.keys.last) %>
             </th>
 
             <th class="border-top-0 text-right" colspan="<%= issue_actions_cols %>">
@@ -100,7 +100,7 @@
 <hr>
 
 <div class="row">
-  <% if filter_query_hash[:status].present? && @script %>
+  <% if filter_query_hash[:status].present? %>
     <div class="col">
       <%= link_to t('back'), script_issues_path(@script, filter: filter_query_hash.except(:status, :key)) %>
     </div>
