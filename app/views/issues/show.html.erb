@@ -85,4 +85,8 @@
   <%= link_to_edit [:edit, @issue, context: @context, filter: filter_query_hash] %> |
 <% end %>
 
-<%= link_to_index issue_index_path(filter: filter_query_hash) %>
+<% if current_user.owner? %>
+  <%= link_to_index script_issues_path(@issue.script, filter: filter_query_hash) %>
+<% else %>
+  <%= link_to_index issue_index_path(filter: filter_query_hash) %>
+<% end %>
