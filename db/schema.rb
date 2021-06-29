@@ -140,12 +140,12 @@ ActiveRecord::Schema.define(version: 2021_06_28_150336) do
     t.index ["user_id"], name: "index_executions_on_user_id"
   end
 
-  create_table "failures", force: :cascade do |t|
+  create_table "fails", force: :cascade do |t|
     t.jsonb "data"
     t.datetime "created_at", null: false
     t.bigint "user_id"
-    t.index ["created_at"], name: "index_failures_on_created_at"
-    t.index ["user_id"], name: "index_failures_on_user_id"
+    t.index ["created_at"], name: "index_fails_on_created_at"
+    t.index ["user_id"], name: "index_fails_on_user_id"
   end
 
   create_table "issues", id: :serial, force: :cascade do |t|
@@ -500,7 +500,7 @@ ActiveRecord::Schema.define(version: 2021_06_28_150336) do
   add_foreign_key "dispatchers", "schedules", on_update: :restrict, on_delete: :restrict
   add_foreign_key "effects", "tags", column: "implied_id", on_update: :restrict, on_delete: :restrict
   add_foreign_key "effects", "tags", on_update: :restrict, on_delete: :restrict
-  add_foreign_key "failures", "users", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "fails", "users", on_update: :restrict, on_delete: :restrict
   add_foreign_key "issues", "runs", on_update: :restrict, on_delete: :restrict
   add_foreign_key "issues_permalinks", "issues", on_update: :restrict, on_delete: :restrict
   add_foreign_key "issues_permalinks", "permalinks", on_update: :restrict, on_delete: :restrict

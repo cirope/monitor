@@ -1,6 +1,6 @@
-class CreateFailures < ActiveRecord::Migration[6.0]
+class CreateFails < ActiveRecord::Migration[6.0]
   def change
-    create_table :failures do |t|
+    create_table :fails do |t|
       t.jsonb :data
       t.datetime :created_at, null: false, index: true
       t.references :user, index: true, foreign_key: {

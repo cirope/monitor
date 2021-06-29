@@ -52,7 +52,7 @@ class SessionsController < ApplicationController
     end
 
     def create_failure_record user, user_name
-      Failure.create! user: user, user_name: user_name, request: request
+      Fail.create! user: user, user_name: user_name, request: request
     end
 
     def store_auth_token user

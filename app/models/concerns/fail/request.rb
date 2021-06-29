@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Failures::Request
+module Fail::Request
   extend ActiveSupport::Concern
 
   included do

@@ -49,31 +49,29 @@ class SessionsControllerTest < ActionController::TestCase
   test 'should not create a new session with correct user_name' do
     Ldap.default.destroy!
 
-    old_count_failures = Failure.all.count
-
     assert_no_difference '@user.logins.count' do
-      post :create, params: { username: @user.email, password: 'wrong' }
+      assert_difference 'Fail.all.count' do
+        post :create, params: { username: @user.email, password: 'wrong' }
+      end
     end
 
     assert_response :success
     assert_nil current_user
-    assert_equal old_count_failures + 1, Failure.all.count
-    assert_equal 1, Failure.where(user_id: @user.id)
+    assert_equal 1, Fail.where(user_id: @user.id).count
   end
 
   test 'should not create a new session with incorrect user_name' do
     Ldap.default.destroy!
 
-    old_count_failures = Failure.all.count
-
     assert_no_difference '@user.logins.count' do
-      post :create, params: { username: 'not_exist', password: 'wrong' }
+      assert_difference 'Fail.all.count' do
+        post :create, params: { username: 'not_exist', password: 'wrong' }
+      end
     end
 
     assert_response :success
     assert_nil current_user
-    assert_equal old_count_failures + 1, Failure.all.count
-    assert Failure.all.all? { |failure| failure.user.blank? }
+    assert Fail.all.all? { |fail| fail.user.blank? }
   end
 
   test 'should get destroy' do
