@@ -3,7 +3,7 @@
 class Fail < ApplicationRecord
   include Fail::Request
 
-  belongs_to :user, optional: true
-
   validates :data, presence: true
+
+  belongs_to :user, optional: true
 end
