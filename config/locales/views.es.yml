@@ -510,6 +510,10 @@ es:
       destroyed: 'Proceso terminado'
       cannot_be_destroyed: 'No se pudo terminar el proceso'
 
+  records:
+    index:
+      title: 'Registros de ingreso'
+
   profiles:
     edit:
       title: 'Mis datos'
@@ -589,3 +593,8 @@ es:
         updated: 'Actualizado'
         error: 'Con errores'
         deprecated_users: 'Usuarios ausentes en el servidor LDAP'
+
+  records:
+    index:
+      title: 'Registros de Ingreso'
+      ip: 'IP'

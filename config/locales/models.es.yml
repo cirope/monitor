@@ -134,6 +134,10 @@ es:
         ended_at: 'Fin'
         output: 'Salida'
         server: 'Servidor'
+      fail:
+        user: 'Usuario'
+        created_at: 'Fecha'
+        data: 'Data'
       issue:
         status: 'Estado'
         description: 'Descripción'
@@ -147,6 +151,10 @@ es:
       job:
         script: 'Guión'
         server: 'Servidor'
+      login:
+        user: 'Usuario'
+        created_at: 'Fecha'
+        data: 'Data'
       ldap:
         hostname: 'Dirección del servidor'
         port: 'Puerto'

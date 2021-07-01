@@ -100,6 +100,17 @@ module MenuHelper
     model
   end
 
+  def records_helper_model
+    model_name = OpenStruct.new route_key: 'records'
+    model      = OpenStruct.new model_name: model_name
+
+    def model_name.human  options
+      I18n.t 'records.index.title'
+    end
+
+    model
+  end
+
   private
 
     def left_menu_link_for model, path

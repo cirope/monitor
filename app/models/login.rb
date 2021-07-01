@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class Login < ApplicationRecord
+  include Filterable
   include Logins::Request
+  include Logins::Scopes
 
   belongs_to :user
 
