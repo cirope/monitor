@@ -4,27 +4,85 @@ require 'test_helper'
 
 class RecordsControllerTest < ActionController::TestCase
   setup do
-    @run = runs :ls_on_atahualpa
+    @login = logins :franco
+    @fail  = fails :fail_default
 
     login
   end
 
-  test 'should get index' do
-    get :index, params: { schedule_id: @run.schedule.id }
+  test 'should get the login index' do
+    get :index, params: { kind: 'login' }
     assert_response :success
   end
 
-  test 'should get filtered index' do
+  test 'should get the fail index' do
+    get :index, params: { kind: 'fail' }
+    assert_response :success
+  end
+
+  test 'should get an login index filtered by date' do
     get :index, params: {
-      schedule_id: @run.schedule.id,
-      filter: { status: 'undefined' }
+      kind: 'login',
+      date: '02/07/2021 0:00 - 02/07/2021 23:55'
     }
     assert_response :success
-    assert_select '.alert', text: I18n.t('runs.index.empty_search_html')
   end
 
-  test 'should show run' do
-    get :show, params: { id: @run }
+  test 'should get an login index filtered by user' do
+    get :index, params: {
+      kind: 'login',
+      user: 'fra'
+    }
+    assert_response :success
+  end
+
+  test 'should get an fail index filtered by date' do
+    get :index, params: {
+      kind: 'fail',
+      date: '02/07/2021 0:00 - 02/07/2021 23:55'
+    }
+    assert_response :success
+  end
+
+  test 'should get an fail index filtered by user' do
+    get :index, params: {
+      kind: 'fail',
+      user: 'fra'
+    }
+    assert_response :success
+  end
+
+  test 'should get an login index filtered by date and user' do
+    get :index, params: {
+      kind: 'login',
+      date: '02/07/2021 0:00 - 02/07/2021 23:55',
+      user: 'fra'
+    }
+    assert_response :success
+  end
+
+  test 'should get an fail index filtered by date and user' do
+    get :index, params: {
+      kind: 'fail',
+      date: '02/07/2021 0:00 - 02/07/2021 23:55',
+      user: 'fra'
+    }
+    assert_response :success
+  end
+
+  test 'should show login' do
+    get :show, params: {
+      kind: 'login',
+      id: @login
+    }
+    assert_response :success
+  end
+
+  test 'should show fail' do
+    get :show, params: {
+      kind: 'fail',
+      id: @fail
+    }
     assert_response :success
   end
 end

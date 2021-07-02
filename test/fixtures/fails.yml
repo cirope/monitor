@@ -1,3 +1,11 @@
 fail_default:
   user:
   data: '{}'
+
+fail_franco_user:
+  user: franco
+  data: '{}'
+
+fail_unknown_user:
+  user: 
+  data: {"user_name": "unknown"}
