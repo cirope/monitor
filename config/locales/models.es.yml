@@ -137,7 +137,7 @@ es:
       fail:
         user: 'Usuario'
         created_at: 'Fecha'
-        data: 'Data'
+        data: 'Datos'
       issue:
         status: 'Estado'
         description: 'Descripción'
@@ -154,7 +154,7 @@ es:
       login:
         user: 'Usuario'
         created_at: 'Fecha'
-        data: 'Data'
+        data: 'Datos'
       ldap:
         hostname: 'Dirección del servidor'
         port: 'Puerto'

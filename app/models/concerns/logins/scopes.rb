@@ -14,9 +14,9 @@ module Logins::Scopes
       start && finish ? where(created_at: start..finish) : all
     end
 
-    def by_user user_name
+    def by_user username
       left_outer_joins(:user)
-        .where("#{Login.table_name}.username ILIKE #{user_name}")
+        .where("#{User.table_name}.username ILIKE #{user_name}")
     end
   end
 end

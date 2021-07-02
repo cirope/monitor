@@ -14,7 +14,7 @@ class RecordsController < ApplicationController
   # GET /records
   def index
     @records       = records.order(created_at: :desc).page params[:page]
-    @class_records = @records.first.class
+    @records_class = @records.first.class
 
     respond_with @records
   end
