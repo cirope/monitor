@@ -9,6 +9,6 @@ module RecordsHelper
   end
 
   def record_user_name record
-    record.user.present? ? record.user.name : record.data['user_name']
+    record.user.present? ? record.user.username : record.data['user_name']
   end
 end
