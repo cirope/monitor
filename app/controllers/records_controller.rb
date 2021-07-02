@@ -3,13 +3,18 @@
 class RecordsController < ApplicationController
   include Records::Filters
 
-  before_action :authorize, :not_guest, :not_author, :not_owner, :not_manager
+  before_action :authorize,
+                :not_guest,
+                :not_author,
+                :not_owner,
+                :not_manager
 
-  respond_to :html, :json
+  respond_to :html
 
   # GET /records
   def index
-    @records = records.limit(request.xhr? && 10).order(created_at: :desc).page params[:page]
+    @records       = records.order(created_at: :desc).page params[:page]
+    @class_records = @records.first.class
 
     respond_with @records
   end

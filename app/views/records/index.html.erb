@@ -19,9 +19,8 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <% class_records = @records.first.class %>
-          <th><%= class_records.human_attribute_name 'created_at' %></th>
-          <th><%= class_records.human_attribute_name 'user' %></th>
+          <th><%= @class_records.human_attribute_name 'created_at' %></th>
+          <th><%= @class_records.human_attribute_name 'user' %></th>
           <th><%= t '.ip' %></th>
           <th></th>
         </tr>
@@ -31,9 +30,11 @@
         <% @records.each do |record| %>
           <tr>
             <td><%= record.created_at %></td>
-            <td><%= user_name_of_record record %></td>
+            <td><%= record_user_name record %></td>
             <td><%= record.data['remote_ip'] %></td>
-            <td class="text-right"><%= link_to_show record_path(record, kind: params[:kind]) %></td> 
+            <td class="text-right">
+              <%= link_to_show record_path(record, kind: params[:kind]) %>
+            </td> 
           </tr>
         <% end %>
       </tbody>
@@ -44,5 +45,3 @@
     </div>
   <% end %>
 </div>
-
-
