@@ -7,7 +7,7 @@ class ScopeTest < ActiveSupport::TestCase
     @fail = fails :fail_franco_user
   end
 
-  test 'should return a record within the date range' do
+  test 'should return a fail within the date range' do
     @fail.update_attribute 'created_at', (Time.now - 1.year)
 
     start_range_at  = (Time.now - 1.year - 2.hours).strftime '%d/%m/%Y %H:%M'
@@ -17,7 +17,7 @@ class ScopeTest < ActiveSupport::TestCase
     assert_equal 1, Fail.by_date(range_as_string).count
   end
 
-  test 'should not return a record within the date range' do
+  test 'should not return a fail within the date range' do
     @fail.update_attribute 'created_at', (Time.now - 1.year)
 
     start_range_at  = (Time.now - 1.year + 2.hours).strftime '%d/%m/%Y %H:%M'
@@ -27,13 +27,13 @@ class ScopeTest < ActiveSupport::TestCase
     assert_equal 0, Fail.by_date(range_as_string).count
   end
 
-  test 'should return a record with like username' do
+  test 'should return a fail with like username' do
     username_to_upper = @fail.user.username.upcase
 
     assert_equal 1, Fail.by_user(username_to_upper[0..2]).count
   end
 
-  test 'should not return a record with like username' do
+  test 'should not return a fail with like username' do
     assert_equal 0, Fail.by_user('UKN').count
   end
 end

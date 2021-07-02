@@ -7,7 +7,7 @@ class ScopeTest < ActiveSupport::TestCase
     @login = logins :franco
   end
 
-  test 'should return a record within the date range' do
+  test 'should return a login within the date range' do
     @login.update_attribute 'created_at', Time.now
 
     start_range_at  = (Time.now - 2.hours).strftime '%d/%m/%Y %H:%M'
@@ -17,7 +17,7 @@ class ScopeTest < ActiveSupport::TestCase
     assert_equal 1, Login.by_date(range_as_string).count
   end
 
-  test 'should not return a record within the date range' do
+  test 'should not return a login within the date range' do
     @login.update_attribute 'created_at', Time.now
 
     start_range_at  = (Time.now + 2.hours).strftime '%d/%m/%Y %H:%M'
@@ -27,13 +27,13 @@ class ScopeTest < ActiveSupport::TestCase
     assert_equal 0, Login.by_date(range_as_string).count
   end
 
-  test 'should return a record with like username' do
+  test 'should return a login with like username' do
     username_to_upper = @login.user.username.upcase
 
     assert_equal 1, Login.by_user(username_to_upper[0..2]).count
   end
 
-  test 'should not return a record with like username' do
+  test 'should not return a login with like username' do
     assert_equal 0, Login.by_user('UKN').count
   end
 end
