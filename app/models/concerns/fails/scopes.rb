@@ -16,8 +16,7 @@ module Fails::Scopes
 
     def by_user user_name
       left_outer_joins(:user)
-        .where('user_id is not null and lower(users.name) like :user_name',
-               user_name: "%#{user_name.downcase}%")
+        .where('users.name ILIKE :user_name', user_name: "%#{user_name}%")
     end
   end
 end
