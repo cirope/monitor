@@ -8,20 +8,20 @@ class ScopeTest < ActiveSupport::TestCase
   end
 
   test 'should return a login within the date range' do
-    @login.update_attribute 'created_at', Time.now
+    @login.update_attribute 'created_at', 1.year.ago
 
-    start_range_at  = (Time.now - 2.hours).strftime '%d/%m/%Y %H:%M'
-    end_range_at    = (Time.now + 2.hours).strftime '%d/%m/%Y %H:%M'
+    start_range_at  = I18n.l 1.year.ago - 2.hours, format: :compact
+    end_range_at    = I18n.l 1.year.ago + 2.hours, format: :compact
     range_as_string = "#{start_range_at} - #{end_range_at}"
 
     assert_equal 1, Login.by_date(range_as_string).count
   end
 
   test 'should not return a login within the date range' do
-    @login.update_attribute 'created_at', Time.now
+    @login.update_attribute 'created_at', 1.year.ago
 
-    start_range_at  = (Time.now + 2.hours).strftime '%d/%m/%Y %H:%M'
-    end_range_at    = (Time.now + 4.hours).strftime '%d/%m/%Y %H:%M'
+    start_range_at  = I18n.l 1.year.ago + 2.hours, format: :compact
+    end_range_at    = I18n.l 1.year.ago + 4.hours, format: :compact
     range_as_string = "#{start_range_at} - #{end_range_at}"
 
     assert_equal 0, Login.by_date(range_as_string).count

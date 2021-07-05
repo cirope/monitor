@@ -21,5 +21,6 @@ class RecordsController < ApplicationController
 
   def show
     @record = scope.find params[:id]
+    @record_class = @record.class
   end
 end

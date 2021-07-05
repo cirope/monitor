@@ -16,7 +16,7 @@ module Fails::Scopes
 
     def by_user username
       left_outer_joins(:user)
-        .where("#{User.table_name}.username ILIKE '%#{username}%'")
+        .where("#{User.table_name}.username ILIKE ?", "%#{username}%")
     end
   end
 end

@@ -8,4 +8,9 @@ fail_franco_user:
 
 fail_unknown_user:
   user: 
-  data: {"user_name": "unknown"}
+  data: {
+          "ip": "127.0.0.1",
+          "remote_ip": "127.0.0.1",
+          "user_name": "unknown",
+          "user_agent": "Browser"
+        }

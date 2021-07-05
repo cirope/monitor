@@ -29,6 +29,9 @@ es:
       effect:
         one: 'Implícita'
         other: 'Implícitas'
+      fail:
+        one: 'Login fallido'
+        other: 'Logins fallidos'
       execution:
         one: 'Ejecución'
         other: 'Ejecuciones'
@@ -41,6 +44,9 @@ es:
       ldap:
         one: 'Configuración LDAP'
         other: 'LDAP'
+      login:
+        one: 'Login'
+        other: 'Logins'
       maintainer:
         one: 'Mantenedor'
         other: 'Mantenedores'
@@ -138,6 +144,10 @@ es:
         user: 'Usuario'
         created_at: 'Fecha'
         data: 'Datos'
+        ip: 'IP'
+        remote_ip: 'IP Remoto'
+        user_name: 'Nombre de Usuario'
+        user_agent: 'Browser de Usuario'
       issue:
         status: 'Estado'
         description: 'Descripción'
@@ -155,6 +165,9 @@ es:
         user: 'Usuario'
         created_at: 'Fecha'
         data: 'Datos'
+        ip: 'IP'
+        remote_ip: 'IP Remoto'
+        user_agent: 'Browser de Usuario'
       ldap:
         hostname: 'Dirección del servidor'
         port: 'Puerto'

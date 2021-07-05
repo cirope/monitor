@@ -4,8 +4,10 @@ require 'test_helper'
 
 class RecordsControllerTest < ActionController::TestCase
   setup do
-    @login = logins :franco
-    @fail  = fails :fail_default
+    @login      = logins :franco
+    @fail       = fails :fail_default
+    @start_date = I18n.l 2.hours.ago, format: :compact
+    @end_date   = I18n.l 2.hours.from_now, format: :compact
 
     login
   end
@@ -20,42 +22,10 @@ class RecordsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test 'should get an login index filtered by date' do
-    get :index, params: {
-      kind: 'login',
-      date: '02/07/2021 0:00 - 02/07/2021 23:55'
-    }
-    assert_response :success
-  end
-
-  test 'should get an login index filtered by user' do
-    get :index, params: {
-      kind: 'login',
-      user: 'fra'
-    }
-    assert_response :success
-  end
-
-  test 'should get an fail index filtered by date' do
-    get :index, params: {
-      kind: 'fail',
-      date: '02/07/2021 0:00 - 02/07/2021 23:55'
-    }
-    assert_response :success
-  end
-
-  test 'should get an fail index filtered by user' do
-    get :index, params: {
-      kind: 'fail',
-      user: 'fra'
-    }
-    assert_response :success
-  end
-
   test 'should get an login index filtered by date and user' do
     get :index, params: {
       kind: 'login',
-      date: '02/07/2021 0:00 - 02/07/2021 23:55',
+      date: "#{@start_date} - #{@end_date}",
       user: 'fra'
     }
     assert_response :success
@@ -64,7 +34,7 @@ class RecordsControllerTest < ActionController::TestCase
   test 'should get an fail index filtered by date and user' do
     get :index, params: {
       kind: 'fail',
-      date: '02/07/2021 0:00 - 02/07/2021 23:55',
+      date: "#{@start_date} - #{@end_date}",
       user: 'fra'
     }
     assert_response :success

@@ -1,7 +1,7 @@
 <div class="card">
   <div class="card-header">
     <h3 class="clearfix">
-      <%= params[:kind] == 'login' ? 'Login' : 'Login fallido' %>
+      <%= @record_class.model_name.human %>
     </h3>
   </div>
 
@@ -16,7 +16,7 @@
     </p>
     <p class="mb-1">
       <strong><%= @record.class.human_attribute_name 'data' %></strong>:
-      <pre><%= JSON.pretty_generate(@record.data).html_safe %></pre>
+      <pre><%= JSON.pretty_generate(data_translate @record) %></pre>
     </p>
   </div>
 </div>
