@@ -510,10 +510,6 @@ es:
       destroyed: 'Proceso terminado'
       cannot_be_destroyed: 'No se pudo terminar el proceso'
 
-  records:
-    index:
-      title: 'Registros de ingreso'
-
   profiles:
     edit:
       title: 'Mis datos'
@@ -596,5 +592,8 @@ es:
 
   records:
     index:
-      title: 'Registros de Ingreso'
+      title: 'Registros de ingreso'
       ip: 'IP'
+    show:
+      key: 'Dato'
+      value: 'Valor'

@@ -32,7 +32,7 @@ class RecordsHelperTest < ActionView::TestCase
     keys_expected << Login.human_attribute_name('remote_ip')
     keys_expected << Login.human_attribute_name('user_agent')
 
-    data_translate(@login).each_key { |key| assert keys_expected.include? key }
+    record_human_data_names(@login).each_key { |key| assert keys_expected.include? key }
   end
 
   test 'should return the fail data translated' do
@@ -43,6 +43,6 @@ class RecordsHelperTest < ActionView::TestCase
     keys_expected << Fail.human_attribute_name('user_name')
     keys_expected << Fail.human_attribute_name('user_agent')
 
-    data_translate(@fail_unknown_user).each_key { |key| assert keys_expected.include? key }
+    record_human_data_names(@fail_unknown_user).each_key { |key| assert keys_expected.include? key }
   end
 end

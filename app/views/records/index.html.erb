@@ -29,7 +29,7 @@
       <tbody>
         <% @records.each do |record| %>
           <tr>
-            <td><%= record.created_at %></td>
+            <td><%= l record.created_at, format: :compact %></td>
             <td><%= record_user_name record %></td>
             <td><%= record.data['remote_ip'] %></td>
             <td class="text-right">

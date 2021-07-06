@@ -46,7 +46,7 @@ class SessionsControllerTest < ActionController::TestCase
     assert_equal @user.id, current_user.id
   end
 
-  test 'should not create a new session with correct user_name' do
+  test 'should not create a new session with correct username' do
     Ldap.default.destroy!
 
     assert_no_difference '@user.logins.count' do
@@ -59,7 +59,7 @@ class SessionsControllerTest < ActionController::TestCase
     assert_nil current_user
   end
 
-  test 'should not create a new session with incorrect user_name' do
+  test 'should not create a new session with incorrect username' do
     Ldap.default.destroy!
 
     assert_no_difference '@user.logins.count' do

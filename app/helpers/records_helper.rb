@@ -12,10 +12,9 @@ module RecordsHelper
     record.user.present? ? record.user.username : record.data['user_name']
   end
 
-  def data_translate record
-    json = {}
-    record.data.each_with_object(json) do |(key, value), json_hash|
-      json_hash[record.class.human_attribute_name key.to_s] = value
+  def record_human_data_names record
+    record.data.each_with_object({}) do |(key, value), json_hash|
+      json_hash[record.class.human_attribute_name key] = value
     end
   end
 end

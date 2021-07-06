@@ -19,6 +19,7 @@ class RecordsController < ApplicationController
     respond_with @records
   end
 
+  # GET /records/1
   def show
     @record = scope.find params[:id]
     @record_class = @record.class

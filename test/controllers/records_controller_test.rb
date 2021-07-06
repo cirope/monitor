@@ -22,7 +22,7 @@ class RecordsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test 'should get an login index filtered by date and user' do
+  test 'should get login index filtered by date and user' do
     get :index, params: {
       kind: 'login',
       date: "#{@start_date} - #{@end_date}",
@@ -31,7 +31,7 @@ class RecordsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test 'should get an fail index filtered by date and user' do
+  test 'should get fail index filtered by date and user' do
     get :index, params: {
       kind: 'fail',
       date: "#{@start_date} - #{@end_date}",

@@ -15,7 +15,7 @@ module Logins::Scopes
     end
 
     def by_user username
-      left_outer_joins(:user)
+      left_joins(:user)
         .where("#{User.table_name}.username ILIKE ?", "%#{username}%")
     end
   end

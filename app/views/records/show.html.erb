@@ -15,8 +15,23 @@
       <%= record_user_name @record %>
     </p>
     <p class="mb-1">
-      <strong><%= @record.class.human_attribute_name 'data' %></strong>:
-      <pre><%= JSON.pretty_generate(data_translate @record) %></pre>
+      <br>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col"><%= t '.key' %></th>
+            <th scope="col"><%= t '.value' %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% (record_human_data_names @record).each do |key, value| %>
+            <tr>
+              <td><%= key %></td>
+              <td><%= value %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     </p>
   </div>
 </div>
