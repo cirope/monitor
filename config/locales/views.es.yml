@@ -589,3 +589,10 @@ es:
         updated: 'Actualizado'
         error: 'Con errores'
         deprecated_users: 'Usuarios ausentes en el servidor LDAP'
+
+  records:
+    index:
+      title: 'Registros de ingreso'
+    show:
+      key: 'Dato'
+      value: 'Valor'

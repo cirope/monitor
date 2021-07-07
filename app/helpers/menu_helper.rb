@@ -82,7 +82,7 @@ module MenuHelper
     model_name = OpenStruct.new route_key: 'console'
     model      = OpenStruct.new model_name: model_name
 
-    def model_name.human _options
+    def model_name.human options
       I18n.t 'console.show.title'
     end
 
@@ -93,8 +93,19 @@ module MenuHelper
     model_name = OpenStruct.new route_key: 'processes'
     model      = OpenStruct.new model_name: model_name
 
-    def model_name.human _options
+    def model_name.human options
       I18n.t 'processes.index.title'
+    end
+
+    model
+  end
+
+  def records_helper_model
+    model_name = OpenStruct.new route_key: 'records'
+    model      = OpenStruct.new model_name: model_name
+
+    def model_name.human options
+      I18n.t 'records.index.title'
     end
 
     model

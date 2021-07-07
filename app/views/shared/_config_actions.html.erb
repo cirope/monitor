@@ -1,6 +1,10 @@
 <ul class="side-nav-second-level" aria-expanded="false">
   <%= left_menu_item_for User, users_path %>
 
+  <% if current_user.supervisor? || current_user.security? %>
+    <%= left_menu_item_for records_helper_model, records_path(kind: 'login') %>
+  <% end %>
+
   <% if current_user.manager? %>
     <%= left_menu_item_for Tag, tags_path(kind: 'issue') %>
   <% end %>

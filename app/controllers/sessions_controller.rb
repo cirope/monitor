@@ -19,6 +19,7 @@ class SessionsController < ApplicationController
 
         redirect_to default_url, notice: t('.logged_in', scope: :flash)
       else
+        create_fail_record user, params[:username]
         clear_session
 
         flash.now.alert = t '.invalid', scope: :flash
@@ -48,6 +49,10 @@ class SessionsController < ApplicationController
       login = user.logins.create! request: request
 
       session[:login_id] = login.id
+    end
+
+    def create_fail_record user, user_name
+      Fail.create! user: user, user_name: user_name, request: request
     end
 
     def store_auth_token user

@@ -1,4 +1,8 @@
 franco:
-  data: {}
   closed_at:
   user: franco
+  data: {
+          "ip": "127.0.0.1",
+          "remote_ip": "127.0.0.1",
+          "user_agent": "Browser"
+        }

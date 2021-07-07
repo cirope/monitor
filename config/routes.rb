@@ -108,5 +108,9 @@ Rails.application.routes.draw do
 
   resources :processes, only: [:index, :destroy]
 
+  scope ':kind', kind: /login|fail/ do
+    resources :records, only: [:index, :show]
+  end
+
   root 'sessions#new'
 end

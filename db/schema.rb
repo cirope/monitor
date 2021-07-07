@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_15_121956) do
+ActiveRecord::Schema.define(version: 2021_06_28_150336) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -138,6 +138,14 @@ ActiveRecord::Schema.define(version: 2021_06_15_121956) do
     t.index ["server_id"], name: "index_executions_on_server_id"
     t.index ["started_at"], name: "index_executions_on_started_at"
     t.index ["user_id"], name: "index_executions_on_user_id"
+  end
+
+  create_table "fails", force: :cascade do |t|
+    t.jsonb "data"
+    t.datetime "created_at", null: false
+    t.bigint "user_id"
+    t.index ["created_at"], name: "index_fails_on_created_at"
+    t.index ["user_id"], name: "index_fails_on_user_id"
   end
 
   create_table "issues", id: :serial, force: :cascade do |t|
@@ -492,6 +500,7 @@ ActiveRecord::Schema.define(version: 2021_06_15_121956) do
   add_foreign_key "dispatchers", "schedules", on_update: :restrict, on_delete: :restrict
   add_foreign_key "effects", "tags", column: "implied_id", on_update: :restrict, on_delete: :restrict
   add_foreign_key "effects", "tags", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "fails", "users", on_update: :restrict, on_delete: :restrict
   add_foreign_key "issues", "runs", on_update: :restrict, on_delete: :restrict
   add_foreign_key "issues_permalinks", "issues", on_update: :restrict, on_delete: :restrict
   add_foreign_key "issues_permalinks", "permalinks", on_update: :restrict, on_delete: :restrict
