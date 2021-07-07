@@ -15,16 +15,15 @@
       <%= record_user_name @record %>
     </p>
     <p class="mb-1">
-      <br>
-      <table class="table table-striped">
+      <table class="table table-striped mt-3">
         <thead>
           <tr>
-            <th scope="col"><%= t '.key' %></th>
-            <th scope="col"><%= t '.value' %></th>
+            <th><%= t '.key' %></th>
+            <th><%= t '.value' %></th>
           </tr>
         </thead>
         <tbody>
-          <% (record_human_data_names @record).each do |key, value| %>
+          <% record_human_data_names(@record).each do |key, value| %>
             <tr>
               <td><%= key %></td>
               <td><%= value %></td>

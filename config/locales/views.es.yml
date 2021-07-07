@@ -593,7 +593,6 @@ es:
   records:
     index:
       title: 'Registros de ingreso'
-      ip: 'IP'
     show:
       key: 'Dato'
       value: 'Valor'

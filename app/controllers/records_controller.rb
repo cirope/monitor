@@ -3,13 +3,13 @@
 class RecordsController < ApplicationController
   include Records::Filters
 
+  respond_to :html
+
   before_action :authorize,
                 :not_guest,
                 :not_author,
                 :not_owner,
                 :not_manager
-
-  respond_to :html
 
   # GET /records
   def index
@@ -21,7 +21,7 @@ class RecordsController < ApplicationController
 
   # GET /records/1
   def show
-    @record = scope.find params[:id]
+    @record       = scope.find params[:id]
     @record_class = @record.class
   end
 end

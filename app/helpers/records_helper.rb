@@ -13,8 +13,8 @@ module RecordsHelper
   end
 
   def record_human_data_names record
-    record.data.each_with_object({}) do |(key, value), json_hash|
-      json_hash[record.class.human_attribute_name key] = value
+    record.data.each_with_object({}) do |(key, value), result|
+      result[record.class.human_attribute_name key] = value
     end
   end
 end
