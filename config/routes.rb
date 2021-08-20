@@ -112,5 +112,11 @@ Rails.application.routes.draw do
     resources :records, only: [:index, :show]
   end
 
+  namespace :api do
+    namespace :v1 do
+      resources :issues, only: [:index]
+    end
+  end
+
   root 'sessions#new'
 end
