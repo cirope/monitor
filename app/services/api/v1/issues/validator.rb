@@ -1,15 +1,30 @@
 # frozen_string_literal: true
 
 class Api::V1::Issues::Validator < Api::V1::BaseValidator
-  SCRIPT_REQUIRED = 'El id del script es obligatorio'
+  ACCOUNT_NOT_EXIST = 'El nombre de la cuenta no existe'
   SCRIPT_INCORRECT = 'El id del script debe ser numerico'
+  SCRIPT_NOT_EXIST = 'El id del script no existe'
 
   private
 
   def validate
     @errors = []
-    @errors << SCRIPT_REQUIRED unless @params['script_id']
+    @errors << ACCOUNT_NOT_EXIST unless exist_account? @params['account_id']
     @errors << SCRIPT_INCORRECT unless numeric? @params['script_id']
+    @errors << SCRIPT_NOT_EXIST unless exist_script? @params['script_id']
     @errors
+  end
+
+  def exist_account? account_name
+    @account = Account.find_by tenant_name: account_name
+    @account.present?
+  end
+
+  def exist_script? script_id
+    if @account.present? && numeric?(script_id)
+      @account.switch { Script.exists? script_id }
+    else
+      true
+    end
   end
 end

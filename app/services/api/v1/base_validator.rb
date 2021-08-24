@@ -15,7 +15,7 @@ class Api::V1::BaseValidator
     return nil if @errors.empty?
 
     {
-      notifications: @errors,
+      data: @errors,
       code: 404
     }
   end

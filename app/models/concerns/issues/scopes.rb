@@ -14,6 +14,10 @@ module Issues::Scopes
       joins(:script).where scripts: { id: script.id }
     end
 
+    def script_id_scoped script_id
+      joins(:script).where scripts: { id: script_id }
+    end
+
     def by_id id
       where id: id
     end

@@ -10,7 +10,7 @@ class Api::V1::Issues::Filter < Api::V1::StandardFilter
     end
 
     def script_id(script_id)
-      @query.script_scoped(Script.find script_id)
+      @query.script_id_scoped script_id
     end
 
     def filter_params
