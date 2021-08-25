@@ -22,7 +22,7 @@ class Api::V1::BaseValidator
 
   private
 
-    def numeric?(num)
+    def integer?(num)
       Integer(num) if num.present?
       true
     rescue

@@ -596,3 +596,10 @@ es:
     show:
       key: 'Dato'
       value: 'Valor'
+
+  api:
+    v1:
+      issues:
+        account_not_exist: 'El nombre de la cuenta no existe'
+        script_incorrect: 'El id del script debe ser numerico'
+        script_not_exist: 'El id del script no existe'
