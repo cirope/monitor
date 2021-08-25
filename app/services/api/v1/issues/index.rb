@@ -4,7 +4,7 @@ class Api::V1::Issues::Index
   def call(params)
     issues_validator = Api::V1::Issues::Validator.new(params)
     if issues_validator.valid?
-      account = Account.find_by tenant_name: params[:account_id]
+      account = Account.find_by! tenant_name: params[:account_id]
       account.switch!
 
       query = Issue.all
