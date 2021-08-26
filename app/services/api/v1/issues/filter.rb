@@ -5,11 +5,11 @@ class Api::V1::Issues::Filter < Api::V1::StandardFilter
 
   private
 
-    def default(_value)
+    def default _value
       @query
     end
 
-    def script_id(script_id)
+    def script_id script_id
       @query.script_id_scoped script_id
     end
 
