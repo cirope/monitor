@@ -20,6 +20,6 @@ class Api::V1::Issues::Validator < Api::V1::BaseValidator
   end
 
   def script_exist? script_id
-    @account.switch { Script.exists? script_id }
+    @account&.switch { Script.exists? script_id }
   end
 end
