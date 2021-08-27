@@ -3,6 +3,7 @@
 class Api::V1::Issues::Index
   def call(params)
     issues_validator = Api::V1::Issues::Validator.new params
+
     if issues_validator.valid?
       Current.account = Account.find_by! tenant_name: params[:account_id]
 
