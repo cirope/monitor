@@ -114,10 +114,8 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :accounts, except: [:index, :show, :new, :create, :edit, :update, :destroy] do
-        resources :scripts, except: [:index, :show, :new, :create, :edit, :update, :destroy] do
-          resources :issues, only: [:index]
-        end
+      resources :scripts, except: [:index, :show, :new, :create, :edit, :update, :destroy] do
+        resources :issues, only: [:index]
       end
     end
   end
