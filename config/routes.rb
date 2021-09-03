@@ -27,6 +27,9 @@ Rails.application.routes.draw do
   # Issues data export
   post   'issues/exports',           to: 'issues/exports#create'
 
+  # Get Api script/issues
+  post   'script/api_issues',        to: 'issues#api_issues'
+
   # Resources
   resources :comments, except: [:index, :new]
   resources :databases

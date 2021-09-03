@@ -1,0 +1,42 @@
+<div class="card bg-success mt-3">
+  <div class="card-header">
+    <h5><%= t '.link' %></h5>
+  </div>
+  <div class="card-body text-white">
+    <p class="mb-1">
+      <%= t '.url' %>:
+      <div id="url"><%= @url %></div>
+    </p>
+    <p class="mb-1">
+      <%= t '.token' %>:
+      <div id="token"><%= @token %></div>
+    </p>
+    <button id="copy-url" type="button" class="btn btn-secondary mt-1" ><%= t '.copy_url' %></button>
+    <button id="copy-token" type="button" class="btn btn-secondary mt-1 ml-1"><%= t '.copy_token' %></button>
+  </div>
+</div>
+
+<script>
+function copyUrl() {
+  var copyUrl = document.querySelector("#url");
+  copyElement(copyUrl);
+}
+
+function copyToken() {
+  var copyUrl = document.querySelector("#token");
+  copyElement(copyUrl);
+}
+
+function copyElement(element) {
+  var el = document.createElement('textarea');
+  el.value = element.innerHTML;
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand('copy');
+  document.body.removeChild(el);
+}
+
+document.querySelector("#copy-url").addEventListener("click", copyUrl);
+
+document.querySelector("#copy-token").addEventListener("click", copyToken);
+</script>

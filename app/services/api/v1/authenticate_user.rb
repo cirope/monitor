@@ -3,24 +3,17 @@
 class Api::V1::AuthenticateUser
   prepend SimpleCommand
 
-  def initialize(email, password)
-    @email = email
-    @password = password
+  def initialize(user, account)
+    @user    = user
+    @account = account
   end
 
   def call
-    JsonWebToken.encode(username: user.username) if user
-  end
-
-  private
-
-    attr_accessor :email, :password
-  
-    def user
-      user = User.find_by_email(email)
-      return user if user && user.authenticate(password)
-    
-      errors.add :user_authentication, 'invalid credentials'
+    if @user && @account
+      JsonWebToken.encode({ user_id: @user.id, account_id: @account.id })
+    else
+      errors.add :token, 'No se puede generar el token'
       nil
     end
+  end
 end

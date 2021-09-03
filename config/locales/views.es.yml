@@ -129,6 +129,12 @@ es:
       title: 'Importar usuarios desde LDAP'
 
   issues:
+    api_issues:
+      link: 'Enlace'
+      url: 'Url'
+      token: 'Token'
+      copy_url: 'Copiar URL'
+      copy_token: 'Copiar Token'
     board:
       form:
         group_comments_email: 'Agrupar correo'
@@ -176,6 +182,8 @@ es:
       remove_all: 'Eliminar todos del carrito'
       tags: 'Causa'
       final_tags: 'Resultado'
+      actions: 'Acciones'
+      api_issues: 'Enlace para obtener datos'
     issue:
       add_to_board: 'Agregar al carrito'
       remove_from_board: 'Eliminar del carrito'
