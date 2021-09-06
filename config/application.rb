@@ -17,7 +17,6 @@ module MonitorApp
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
-    config.autoload_paths << Rails.root.join('lib')
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake time:zones:all" for a time zone names list. Default is UTC.

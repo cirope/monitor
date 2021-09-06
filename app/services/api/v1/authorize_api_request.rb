@@ -3,7 +3,7 @@
 class Api::V1::AuthorizeApiRequest
   prepend SimpleCommand
 
-  def initialize(headers = {})
+  def initialize headers = {}
     @headers = headers
   end
 
@@ -24,19 +24,20 @@ class Api::V1::AuthorizeApiRequest
         return User.find decoded_auth_token[:user_id] if User.exists? decoded_auth_token[:user_id]
       end
 
-      errors.add(:token, 'Invalid token') && nil
+      errors.add(:token, I18n.t('api.v1.authorize_api_request.errors.invalid_token')) && nil
     end
 
     def decoded_auth_token
-      @decoded_auth_token ||= JsonWebToken.decode(http_auth_header)
+      @decoded_auth_token ||= JsonWebToken.decode http_auth_header
     end
 
     def http_auth_header
       if headers['Authorization'].present?
-        return headers['Authorization'].split(' ').last
+        return headers['Authorization'].split.last
       else
-        errors.add(:token, 'Missing token')
+        errors.add(:token, I18n.t('api.v1.authorize_api_request.errors.missing_token'))
       end
+
       nil
     end
 end

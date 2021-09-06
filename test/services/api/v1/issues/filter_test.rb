@@ -4,7 +4,7 @@ require 'test_helper'
 
 class Api::V1::Issues::FilterTest < ActiveSupport::TestCase
   setup do
-    Current.account = Account.first
+    Current.account = send 'public.accounts', :default
 
     Current.account.switch!
   end

@@ -131,7 +131,7 @@ es:
   issues:
     api_issues:
       link: 'Enlace'
-      url: 'Url'
+      url: 'URL'
       token: 'Token'
       copy_url: 'Copiar URL'
       copy_token: 'Copiar Token'
@@ -607,7 +607,14 @@ es:
 
   api:
     v1:
+      authenticate_user:
+        not_generate_token: 'No se puede generar el token'
+      authorize_api_request:
+        errors:
+          invalid_token: 'Token invalido'
+          missing_token: 'Token ausente'
       issues:
-        account_not_exist: 'El nombre de la cuenta no existe'
-        script_incorrect: 'El id del script debe ser numerico'
-        script_not_exist: 'El id del script no existe'
+        script_incorrect: 'El ID del guión debe ser numérico'
+        script_not_exist: 'El ID del guión no existe'
+      
+    

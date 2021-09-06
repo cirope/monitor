@@ -8,7 +8,7 @@ class Api::V1::StandardFilter
 
     params.each do |filter_name, value|
       if respond_to?(filter_name, true)
-        @query = send(filter_name, value)
+        @query = send filter_name, value
       else
         raise ArgumentError, "Unknown filter #{filter_name}."
       end
