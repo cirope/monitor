@@ -165,6 +165,13 @@ class IssuesHelperTest < ActionView::TestCase
     assert can_edit_status?
   end
 
+  test 'link to api issues' do
+    script = scripts :ls
+    button = link_to_api_issues script.id
+
+    assert_match script_api_issues_path(script_id: script.id), button
+  end
+
   private
 
     def board_session

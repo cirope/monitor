@@ -175,7 +175,7 @@ module IssuesHelper
     }
 
     link_to script_api_issues_path(script_id: script_id), options do
-      t '.api_issues'
+      t 'issues.index_alt.api_issues'
     end
   end
 

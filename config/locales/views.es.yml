@@ -608,7 +608,7 @@ es:
   api:
     v1:
       authenticate_user:
-        not_generate_token: 'No se puede generar el token'
+        not_generate_token: 'No se puede generar'
       authorize_api_request:
         errors:
           invalid_token: 'Token invalido'

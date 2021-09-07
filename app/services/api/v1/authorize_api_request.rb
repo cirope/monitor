@@ -24,7 +24,7 @@ class Api::V1::AuthorizeApiRequest
         return User.find decoded_auth_token[:user_id] if User.exists? decoded_auth_token[:user_id]
       end
 
-      errors.add(:token, I18n.t('api.v1.authorize_api_request.errors.invalid_token')) && nil
+      (errors.add :token, I18n.t('api.v1.authorize_api_request.errors.invalid_token')) && nil
     end
 
     def decoded_auth_token
