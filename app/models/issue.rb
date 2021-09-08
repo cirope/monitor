@@ -16,6 +16,7 @@ class Issue < ApplicationRecord
   include Issues::Status
   include Issues::Subscriptions
   include Issues::Validation
+  include Issues::Url
   include Filterable
   include Taggable
 

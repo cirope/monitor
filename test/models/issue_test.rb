@@ -382,4 +382,28 @@ class IssueTest < ActiveSupport::TestCase
   ensure
     Current.user = nil
   end
+
+  test 'return issues with script scoped' do
+    script = @issue.script
+
+    assert_equal script.issues.order(:id), Issue.script_scoped(script).order(:id)
+  end
+
+  test 'return issues with script_id scoped' do
+    script = @issue.script
+
+    assert_equal script.issues.order(:id), Issue.script_id_scoped(script.id).order(:id)
+  end
+
+  test 'url' do
+    account         = Account.first
+    Current.account = account
+
+    url = Rails.application
+               .routes
+               .url_helpers
+               .account_issue_url(account, @issue, host: ENV['APP_HOST'], protocol: ENV['APP_PROTOCOL'])
+
+    assert_equal url, @issue.url
+  end
 end

@@ -164,6 +164,21 @@ module IssuesHelper
     end
   end
 
+  def link_to_api_issues script_id
+    options = {
+      class: 'dropdown-item',
+      data:  {
+        remote: true,
+        method: :post,
+        toggle: :dropdown
+      }
+    }
+
+    link_to script_api_issues_path(script_id: script_id), options do
+      t 'issues.index_alt.api_issues'
+    end
+  end
+
   private
 
     def issues_board_path_with_params custom_params

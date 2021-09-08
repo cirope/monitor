@@ -11,7 +11,11 @@ module Issues::Scopes
 
   module ClassMethods
     def script_scoped script
-      joins(:script).where scripts: { id: script.id }
+      script_id_scoped script.id
+    end
+
+    def script_id_scoped script_id
+      joins(:script).where scripts: { id: script_id }
     end
 
     def by_id id

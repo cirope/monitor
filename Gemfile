@@ -38,6 +38,8 @@ gem 'coderay'
 gem 'apexcharts'
 gem 'groupdate'
 gem 'mimemagic'
+gem 'jwt'
+gem 'simple_command'
 
 group :development, :production do
   gem 'web-console'

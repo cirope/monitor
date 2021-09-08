@@ -189,4 +189,16 @@ class IssuesControllerTest < ActionController::TestCase
 
     assert_redirected_to script_issues_url(@issue.script)
   end
+
+  test 'should respond api issues' do
+    script = scripts :ls
+
+    post :api_issues, params: { script_id: script.id }, as: :js
+
+    url = api_v1_script_issues_url script.id,
+                                   host: ENV['APP_HOST'],
+                                   protocol: ENV['APP_PROTOCOL']
+
+    assert_match url, response.body
+  end
 end

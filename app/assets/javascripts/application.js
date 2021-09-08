@@ -41,6 +41,7 @@
 //
 //= require ajax
 //= require autocomplete
+//= require clipboard
 //= require date_pickers
 //= require dynamic_form
 //= require filters

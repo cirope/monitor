@@ -1,0 +1,17 @@
+<div class="card bg-success mt-3">
+  <div class="card-header">
+    <h5><%= t '.link' %></h5>
+  </div>
+  <div class="card-body text-white">
+    <p class="mb-1">
+      <%= t '.url' %>:
+      <div data-api-url><%= @url %></div>
+    </p>
+    <p class="mb-1">
+      <%= t '.token' %>:
+      <div data-api-token><%= @token %></div>
+    </p>
+    <button type="button" class="btn btn-secondary mt-1" data-copy-target="[data-api-url]" disabled><%= t '.copy_url' %></button>
+    <button type="button" class="btn btn-secondary mt-1 ml-1" data-copy-target="[data-api-token]" disabled><%= t '.copy_token' %></button>
+  </div>
+</div>
