@@ -132,8 +132,10 @@ es:
     api_issues:
       link: 'Enlace'
       url: 'URL'
+      header: 'Encabezado'
       token: 'Token'
       copy_url: 'Copiar URL'
+      copy_header: 'Copiar encabezado'
       copy_token: 'Copiar Token'
     board:
       form:
@@ -601,6 +603,7 @@ es:
   records:
     index:
       title: 'Registros de ingreso'
+      empty_html: 'No hay registros'
     show:
       key: 'Dato'
       value: 'Valor'
