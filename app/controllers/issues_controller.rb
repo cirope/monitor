@@ -3,7 +3,7 @@
 class IssuesController < ApplicationController
   include Issues::Filters
 
-  respond_to :html, :json, :js
+  respond_to :html, :json, :js, :csv
 
   before_action :authorize
   before_action :not_guest, except: [:index, :show]
