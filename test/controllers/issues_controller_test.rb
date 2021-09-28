@@ -17,6 +17,12 @@ class IssuesControllerTest < ActionController::TestCase
     assert_select 'a[href*=?]', 'partial=alt', count: 0
   end
 
+  test 'should get index csv' do
+    assert_nothing_raised do
+      get :index, params: { script_id: @issue.script.id }, format: :csv
+    end
+  end
+
   test 'should get alt index' do
     @issue.script.issues.each do |issue|
       issue.update! data: [['Header one', 'Header two'], ['Value 1', 'Value 2']]
