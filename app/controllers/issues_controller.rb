@@ -62,7 +62,6 @@ class IssuesController < ApplicationController
 
   private
     def paginate_issues
-      byebug
       @issues             = @issues.page params[:page] unless request.format.symbol == :csv
       skip_default_status = skip_default_status?
       @issues             = @issues.per(6) if skip_default_status && request.format.symbol != :csv
