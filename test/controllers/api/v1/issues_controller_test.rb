@@ -12,16 +12,21 @@ class Api::V1::IssuesControllerTest < ActionController::TestCase
     @user_view_filter_issues = users :john
     @user_without_issues     = users :god
 
+    exp = 1.month.from_now
+
     @token_with_user_view_all_issues    = Api::V1::AuthenticateUser.new(@user_view_all_issues,
-                                                                        @account)
+                                                                        @account,
+                                                                        exp)
                                                                    .call
                                                                    .result
     @token_with_user_view_filter_issues = Api::V1::AuthenticateUser.new(@user_view_filter_issues,
-                                                                        @account)
+                                                                        @account,
+                                                                        exp)
                                                                    .call
                                                                    .result
     @token_with_user_without_issues     = Api::V1::AuthenticateUser.new(@user_without_issues,
-                                                                        @account)
+                                                                        @account,
+                                                                        exp)
                                                                    .call
                                                                    .result
   end
@@ -75,7 +80,14 @@ class Api::V1::IssuesControllerTest < ActionController::TestCase
 
     json_expected = @user_view_filter_issues.issues
                                             .script_id_scoped(@script.id)
-                                            .map { |issue| issue.converted_data.first.merge status: issue.status, url: issue.url }
+                                            .map do |issue|
+                                              issue.converted_data
+                                                   .first
+                                                   .merge Issue.human_attribute_name('status') => I18n.t("issues.status.#{issue.status}"), 
+                                                          url: issue.url,
+                                                          I18n.t('api.v1.issues.keys.tags') => issue.tags.reject(&:final?).collect(&:name).join(', '),
+                                                          I18n.t('api.v1.issues.keys.final_tags') => issue.tags.select(&:final?).collect(&:name).join(', ')
+                                            end
                                             .to_json
 
     assert_match json_expected, response.body
@@ -112,7 +124,14 @@ class Api::V1::IssuesControllerTest < ActionController::TestCase
     assert_response :success
 
     json_expected = @script.issues
-                           .map { |issue| issue.converted_data.first.merge status: issue.status, url: issue.url }
+                           .map do |issue|
+                             issue.converted_data
+                                  .first
+                                  .merge Issue.human_attribute_name('status') => I18n.t("issues.status.#{issue.status}"), 
+                                         url: issue.url,
+                                         I18n.t('api.v1.issues.keys.tags') => issue.tags.reject(&:final?).collect(&:name).join(', '),
+                                         I18n.t('api.v1.issues.keys.final_tags') => issue.tags.select(&:final?).collect(&:name).join(', ')
+                           end
                            .to_json
 
     assert_match json_expected, response.body

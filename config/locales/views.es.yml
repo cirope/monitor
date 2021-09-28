@@ -619,5 +619,9 @@ es:
       issues:
         script_incorrect: 'El ID del guión debe ser numérico'
         script_not_exist: 'El ID del guión no existe'
+        keys:
+          tags: 'Causa'
+          final_tags: 'Resultado'
+      
       
     
