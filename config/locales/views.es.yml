@@ -186,6 +186,7 @@ es:
       final_tags: 'Resultado'
       actions: 'Acciones'
       api_issues: 'Enlace para obtener datos'
+      download_csv: 'Descargar CSV'
     issue:
       add_to_board: 'Agregar al carrito'
       remove_from_board: 'Eliminar del carrito'
