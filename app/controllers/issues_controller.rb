@@ -63,9 +63,9 @@ class IssuesController < ApplicationController
   private
 
     def maybe_paginate_issues
-      @issues             = @issues.page params[:page] unless request.format.symbol == :csv
-      @issues             = @issues.per(6) if skip_default_status? && request.format.symbol != :csv
-      @issues             = @issues.active unless skip_default_status?
+      @issues = @issues.page params[:page] unless request.format.symbol == :csv
+      @issues = @issues.per(6) if skip_default_status? && request.format.symbol != :csv
+      @issues = @issues.active unless skip_default_status?
     end
 
     def set_issue
