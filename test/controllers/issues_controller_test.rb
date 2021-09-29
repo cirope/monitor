@@ -21,6 +21,9 @@ class IssuesControllerTest < ActionController::TestCase
     assert_nothing_raised do
       get :index, params: { script_id: @issue.script.id }, format: :csv
     end
+
+    assert_response :success
+    assert_equal 'text/csv', response.content_type
   end
 
   test 'should get alt index' do

@@ -180,8 +180,10 @@ module IssuesHelper
   end
 
   def link_to_download_issues_csv
-    url_options = { filter: filter_query_hash.except(:status, :key),
-                    format: :csv }
+    url_options = {
+      filter: filter_query_hash.except(:status, :key),
+      format: :csv
+    }
 
     options = {
       class: 'dropdown-item'

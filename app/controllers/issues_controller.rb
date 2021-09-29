@@ -18,9 +18,9 @@ class IssuesController < ApplicationController
   before_action -> { request.variant = :graph if params[:graph].present? }
 
   def index
-    @issues = issues.order(created_at: :desc)
+    @issues = issues.order created_at: :desc
 
-    paginate_issues
+    maybe_paginate_issues
 
     @alt_partial = @issues.can_collapse_data?
     @stats       = params[:graph].present? ? graph_stats : stats if @alt_partial
@@ -61,11 +61,11 @@ class IssuesController < ApplicationController
   end
 
   private
-    def paginate_issues
+
+    def maybe_paginate_issues
       @issues             = @issues.page params[:page] unless request.format.symbol == :csv
-      skip_default_status = skip_default_status?
-      @issues             = @issues.per(6) if skip_default_status && request.format.symbol != :csv
-      @issues             = @issues.active unless skip_default_status
+      @issues             = @issues.per(6) if skip_default_status? && request.format.symbol != :csv
+      @issues             = @issues.active unless skip_default_status?
     end
 
     def set_issue
