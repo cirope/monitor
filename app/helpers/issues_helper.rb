@@ -179,6 +179,21 @@ module IssuesHelper
     end
   end
 
+  def link_to_download_issues_csv
+    url_options = {
+      filter: filter_query_hash.except(:status, :key),
+      format: :csv
+    }
+
+    options = {
+      class: 'dropdown-item'
+    }
+
+    link_to script_issues_path(@script, url_options), options do
+      t 'issues.index_alt.download_csv'
+    end
+  end
+
   private
 
     def issues_board_path_with_params custom_params

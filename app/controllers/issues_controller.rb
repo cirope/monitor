@@ -3,7 +3,7 @@
 class IssuesController < ApplicationController
   include Issues::Filters
 
-  respond_to :html, :json, :js
+  respond_to :html, :json, :js, :csv
 
   before_action :authorize
   before_action :not_guest, except: [:index, :show]
@@ -18,8 +18,10 @@ class IssuesController < ApplicationController
   before_action -> { request.variant = :graph if params[:graph].present? }
 
   def index
-    @issues      = issues.order(created_at: :desc).page params[:page]
-    @issues      = skip_default_status? ? @issues.per(6) : @issues.active
+    @issues = issues.order created_at: :desc
+
+    maybe_paginate_issues
+
     @alt_partial = @issues.can_collapse_data?
     @stats       = params[:graph].present? ? graph_stats : stats if @alt_partial
 
@@ -59,6 +61,12 @@ class IssuesController < ApplicationController
   end
 
   private
+
+    def maybe_paginate_issues
+      @issues = @issues.page params[:page] unless request.format.symbol == :csv
+      @issues = @issues.per(6) if skip_default_status? && request.format.symbol != :csv
+      @issues = @issues.active unless skip_default_status?
+    end
 
     def set_issue
       @issue = scoped_issues.find params[:id]
