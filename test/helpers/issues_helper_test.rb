@@ -177,7 +177,7 @@ class IssuesHelperTest < ActionView::TestCase
 
   test 'link to download issues csv' do
     @script = scripts :ls
-    button = link_to_download_issues_csv
+    button  = link_to_download_issues_csv
 
     assert_match script_issues_path(@script), button
   end
