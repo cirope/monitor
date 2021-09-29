@@ -3,6 +3,9 @@
 require 'test_helper'
 
 class IssuesHelperTest < ActionView::TestCase
+  include HomeHelper
+  include Issues::Filters
+
   teardown do
     PaperTrail.request.whodunnit = nil
   end
@@ -170,6 +173,13 @@ class IssuesHelperTest < ActionView::TestCase
     button = link_to_api_issues script.id
 
     assert_match script_api_issues_path(script_id: script.id), button
+  end
+
+  test 'link to download issues csv' do
+    @script = scripts :ls
+    button  = link_to_download_issues_csv
+
+    assert_match script_issues_path(@script), button
   end
 
   private
