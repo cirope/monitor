@@ -155,8 +155,7 @@ es:
         data: 'Datos'
         comments: 'Comentarios'
         tags: 'Etiquetas'
-        created_at: 'Creación'
-        updated_at: 'Actualización'
+        created_at: 'Fecha de caso'
       issue/taggings:
         tag_id: 'Etiqueta'
       job:
