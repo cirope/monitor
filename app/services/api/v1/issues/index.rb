@@ -19,17 +19,24 @@ class Api::V1::Issues::Index
 
     def construct issues
       if issues.can_collapse_data?
-        data = issues.map do |issue|
-          issue.converted_data.first.merge Issue.human_attribute_name('status') => I18n.t("issues.status.#{issue.status}"), 
-                                           url: issue.url,
-                                           I18n.t('api.v1.issues.keys.tags') => title_tags(issue.tags.reject(&:final?)),
-                                           I18n.t('api.v1.issues.keys.final_tags') => title_tags(issue.tags.select(&:final?))
-        end
+        data = contruct_collapse_data issues
       else
         data = issues.to_json methods: :url, except: %i[data options run_id]
       end
 
       Api::V1::StandardResponse.new.call data: data, code: 200
+    end
+
+    def contruct_collapse_data issues
+      issues.map do |issue|
+        issue.converted_data.first.merge Issue.human_attribute_name('status') => I18n.t("issues.status.#{issue.status}"), 
+                                         url: issue.url,
+                                         I18n.t('api.v1.issues.keys.tags') => title_tags(issue.tags.reject(&:final?)),
+                                         I18n.t('api.v1.issues.keys.final_tags') => title_tags(issue.tags.select(&:final?)),
+                                         Issue.human_attribute_name('description') => issue.description,
+                                         Issue.human_attribute_name('created_at') => I18n.l(issue.created_at, format: :compact),
+                                         Issue.human_attribute_name('updated_at') => I18n.l(issue.updated_at, format: :compact)
+      end
     end
 
     def title_tags tags

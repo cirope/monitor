@@ -86,7 +86,10 @@ class Api::V1::IssuesControllerTest < ActionController::TestCase
                                                    .merge Issue.human_attribute_name('status') => I18n.t("issues.status.#{issue.status}"), 
                                                           url: issue.url,
                                                           I18n.t('api.v1.issues.keys.tags') => issue.tags.reject(&:final?).collect(&:name).join(', '),
-                                                          I18n.t('api.v1.issues.keys.final_tags') => issue.tags.select(&:final?).collect(&:name).join(', ')
+                                                          I18n.t('api.v1.issues.keys.final_tags') => issue.tags.select(&:final?).collect(&:name).join(', '),
+                                                          Issue.human_attribute_name('description') => issue.description,
+                                                          Issue.human_attribute_name('created_at') => I18n.l(issue.created_at, format: :compact),
+                                                          Issue.human_attribute_name('updated_at') => I18n.l(issue.updated_at, format: :compact)
                                             end
                                             .to_json
 
@@ -130,7 +133,10 @@ class Api::V1::IssuesControllerTest < ActionController::TestCase
                                   .merge Issue.human_attribute_name('status') => I18n.t("issues.status.#{issue.status}"), 
                                          url: issue.url,
                                          I18n.t('api.v1.issues.keys.tags') => issue.tags.reject(&:final?).collect(&:name).join(', '),
-                                         I18n.t('api.v1.issues.keys.final_tags') => issue.tags.select(&:final?).collect(&:name).join(', ')
+                                         I18n.t('api.v1.issues.keys.final_tags') => issue.tags.select(&:final?).collect(&:name).join(', '),
+                                         Issue.human_attribute_name('description') => issue.description,
+                                         Issue.human_attribute_name('created_at') => I18n.l(issue.created_at, format: :compact),
+                                         Issue.human_attribute_name('updated_at') => I18n.l(issue.updated_at, format: :compact)
                            end
                            .to_json
 
