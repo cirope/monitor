@@ -3,8 +3,7 @@
 require 'test_helper'
 
 class IssuesHelperTest < ActionView::TestCase
-  # include HomeHelper
-  # include Issues::Filters
+  include HomeHelper
 
   teardown do
     PaperTrail.request.whodunnit = nil
@@ -176,11 +175,10 @@ class IssuesHelperTest < ActionView::TestCase
   end
 
   test 'link to download issues csv' do
-    # @script = scripts :ls
-    # button  = link_to_download_issues_csv
+    @script = scripts :ls
+    button  = link_to_download_issues_csv
 
-    # assert_match script_issues_path(@script), button
-    skip
+    assert_match script_issues_path(@script), button
   end
 
   private
@@ -195,5 +193,9 @@ class IssuesHelperTest < ActionView::TestCase
 
     def current_user
       @current_user ||= users :franco
+    end
+
+    def issue_filter
+      {}
     end
 end
