@@ -623,6 +623,5 @@ es:
         keys:
           tags: 'Causa'
           final_tags: 'Resultado'
-      
-      
-    
+          user_role: 'Rol'
+          user_name: 'Nombre y Apellido'
