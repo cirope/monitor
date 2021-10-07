@@ -28,16 +28,16 @@ class Api::V1::Issues::Index
     end
 
     def contruct_collapse_data issues
-      issues.map do |issue|
-        issue.converted_data.first.merge Issue.human_attribute_name('status') => I18n.t("issues.status.#{issue.status}"), 
+      issues.includes(:users).map do |issue|
+        issue.converted_data.first.merge Issue.human_attribute_name('status') => I18n.t("issues.status.#{issue.status}"),
                                          url: issue.url,
                                          I18n.t('api.v1.issues.keys.tags') => title_tags(issue.tags.reject(&:final?)),
                                          I18n.t('api.v1.issues.keys.final_tags') => title_tags(issue.tags.select(&:final?)),
                                          Issue.human_attribute_name('description') => issue.description,
                                          Issue.human_attribute_name('created_at') => I18n.l(issue.created_at, format: :compact),
                                          Issue.human_attribute_name('updated_at') => I18n.l(issue.updated_at, format: :compact),
-                                         I18n.t('api.v1.issues.keys.user_role') => issue.users.first&.role,
-                                         I18n.t('api.v1.issues.keys.user_name') => issue.users.first.present? ? "#{issue.users.first.name} #{issue.users.first.lastname}" : nil 
+                                         I18n.t('api.v1.issues.keys.auditor') => issue.users.detect(&:manager?),
+                                         I18n.t('api.v1.issues.keys.audited') => issue.users.detect(&:owner?)
       end
     end
 

@@ -90,8 +90,8 @@ class Api::V1::IssuesControllerTest < ActionController::TestCase
                                                           Issue.human_attribute_name('description') => issue.description,
                                                           Issue.human_attribute_name('created_at') => I18n.l(issue.created_at, format: :compact),
                                                           Issue.human_attribute_name('updated_at') => I18n.l(issue.updated_at, format: :compact),
-                                                          I18n.t('api.v1.issues.keys.user_role') => issue.users.first&.role,
-                                                          I18n.t('api.v1.issues.keys.user_name') => issue.users.first.present? ? "#{issue.users.first.name} #{issue.users.first.lastname}" : nil 
+                                                          I18n.t('api.v1.issues.keys.auditor') => issue.users.detect(&:manager?),
+                                                          I18n.t('api.v1.issues.keys.audited') => issue.users.detect(&:owner?)
                                             end
                                             .to_json
 
@@ -139,8 +139,8 @@ class Api::V1::IssuesControllerTest < ActionController::TestCase
                                          Issue.human_attribute_name('description') => issue.description,
                                          Issue.human_attribute_name('created_at') => I18n.l(issue.created_at, format: :compact),
                                          Issue.human_attribute_name('updated_at') => I18n.l(issue.updated_at, format: :compact),
-                                         I18n.t('api.v1.issues.keys.user_role') => issue.users.first&.role,
-                                         I18n.t('api.v1.issues.keys.user_name') => issue.users.first.present? ? "#{issue.users.first.name} #{issue.users.first.lastname}" : nil 
+                                         I18n.t('api.v1.issues.keys.auditor') => issue.users.detect(&:manager?),
+                                         I18n.t('api.v1.issues.keys.audited') => issue.users.detect(&:owner?)
                            end
                            .to_json
 
