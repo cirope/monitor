@@ -36,8 +36,8 @@ class Api::V1::Issues::Index
                                          Issue.human_attribute_name('description') => issue.description,
                                          Issue.human_attribute_name('created_at') => I18n.l(issue.created_at, format: :compact),
                                          Issue.human_attribute_name('updated_at') => I18n.l(issue.updated_at, format: :compact),
-                                         I18n.t('api.v1.issues.keys.auditor') => issue.users.detect(&:manager?),
-                                         I18n.t('api.v1.issues.keys.audited') => issue.users.detect(&:owner?)
+                                         I18n.t('api.v1.issues.keys.auditor') => issue.users.detect(&:manager?).to_s,
+                                         I18n.t('api.v1.issues.keys.audited') => issue.users.detect(&:owner?).to_s
       end
     end
 
