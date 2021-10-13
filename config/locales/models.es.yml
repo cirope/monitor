@@ -265,6 +265,7 @@ es:
         group: 'Es grupo'
         export: 'Exportar'
         parent: 'Grupo'
+        category: 'Es categoría'
       tagging:
         tag: 'Etiqueta'
         tag_id: 'Etiqueta'

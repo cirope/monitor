@@ -33,6 +33,7 @@ class Api::V1::Issues::Index
                                          url: issue.url,
                                          I18n.t('api.v1.issues.keys.tags') => title_tags(issue.tags.reject(&:final?)),
                                          I18n.t('api.v1.issues.keys.final_tags') => title_tags(issue.tags.select(&:final?)),
+                                         I18n.t('api.v1.issues.keys.category_tags') => title_tags(issue.tags.select(&:category?)),
                                          Issue.human_attribute_name('description') => issue.description,
                                          Issue.human_attribute_name('created_at') => I18n.l(issue.created_at, format: :compact),
                                          Issue.human_attribute_name('updated_at') => I18n.l(issue.updated_at, format: :compact),
