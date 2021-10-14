@@ -623,5 +623,6 @@ es:
         keys:
           tags: 'Causa'
           final_tags: 'Resultado'
+          category_tags: 'Categoria'
           auditor: 'Auditor'
           audited: 'Auditado'

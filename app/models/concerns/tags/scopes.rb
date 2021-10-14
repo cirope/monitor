@@ -20,6 +20,10 @@ module Tags::Scopes
       where "#{table_name}.options @> ?", { group: group }.to_json
     end
 
+    def category category
+      where "#{table_name}.options @> ?", { category: category }.to_json
+    end
+
     def by_issues issues
       joins(:issues).merge(issues).distinct
     end
