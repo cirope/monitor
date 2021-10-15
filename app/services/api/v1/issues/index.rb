@@ -28,7 +28,7 @@ class Api::V1::Issues::Index
     end
 
     def contruct_collapse_data issues
-      issues.includes(:users).map do |issue|
+      issues.includes(:users, :tags).map do |issue|
         issue.converted_data.first.merge Issue.human_attribute_name('status') => I18n.t("issues.status.#{issue.status}"),
                                          url: issue.url,
                                          I18n.t('api.v1.issues.keys.tags') => title_tags(issue.tags.reject(&:final?)),
