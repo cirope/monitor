@@ -583,7 +583,7 @@ es:
       security: 'Seguridad'
       supervisor: 'Supervisor'
       author: 'Autor'
-      manager: 'Gerente'
+      manager: 'Analista'
       owner: 'Propietario'
       guest: 'Invitado'
     imports:
