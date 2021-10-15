@@ -31,7 +31,7 @@ class Api::V1::Issues::Index
       issues.includes(:users, :tags).map do |issue|
         issue.converted_data.first.merge Issue.human_attribute_name('status') => I18n.t("issues.status.#{issue.status}"),
                                          url: issue.url,
-                                         I18n.t('api.v1.issues.keys.tags') => title_tags(issue.tags.reject(&:final?)),
+                                         I18n.t('api.v1.issues.keys.tags') => title_tags(issue.tags.reject { |i| i.final? || i.category }),
                                          I18n.t('api.v1.issues.keys.final_tags') => title_tags(issue.tags.select(&:final?)),
                                          I18n.t('api.v1.issues.keys.category_tags') => title_tags(issue.tags.select(&:category?)),
                                          Issue.human_attribute_name('description') => issue.description,
