@@ -16,7 +16,7 @@ class Rule < ApplicationRecord
 
   scope :ordered, -> { order :name }
 
-  has_many :dispatchers, dependent: :destroy
+  has_many :dispatchers, dependent: :nullify
 
   strip_fields :name
 
