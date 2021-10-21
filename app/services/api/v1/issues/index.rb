@@ -21,7 +21,7 @@ class Api::V1::Issues::Index
       if issues.can_collapse_data?
         data = contruct_collapse_data issues
       else
-        data = issues.to_json methods: :url, except: %i[data options run_id]
+        data = issues.to_json methods: :url, except: %i[options run_id]
       end
 
       Api::V1::StandardResponse.new.call data: data, code: 200

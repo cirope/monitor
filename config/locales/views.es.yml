@@ -167,6 +167,7 @@ es:
       create:
         filename: 'datos.zip'
     index:
+      actions: 'Acciones'
       new: 'Nuevo caso'
       title: 'Listado de casos'
       add_all: 'Agregar todos al carrito'
