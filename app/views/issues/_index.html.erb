@@ -35,4 +35,23 @@
   </table>
 </div>
 
-<%= paginate issues %>
+<hr>
+
+<div class="row ml-0">
+  <div class="dropdown float-left">
+    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+      <%= t '.actions' %>
+    </button>
+
+    <div class="dropdown-menu">
+      <%= link_to_api_issues params[:script_id] %>
+    </div>
+  </div>
+  <div class="col">
+    <%= paginate issues %>
+  </div>
+</div>
+
+<div data-target="api-issues"></div>
+
+

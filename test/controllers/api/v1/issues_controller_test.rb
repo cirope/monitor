@@ -64,7 +64,7 @@ class Api::V1::IssuesControllerTest < ActionController::TestCase
 
     json_expected = @user_view_filter_issues.issues
                                             .script_id_scoped(@script.id)
-                                            .to_json(methods: :url, except: %i[data options run_id])
+                                            .to_json(methods: :url, except: %i[options run_id])
     assert_match json_expected, response.body
   end
 
@@ -115,7 +115,7 @@ class Api::V1::IssuesControllerTest < ActionController::TestCase
 
     assert_response :success
 
-    json_expected = @script.issues.to_json(methods: :url, except: %i[data options run_id])
+    json_expected = @script.issues.to_json(methods: :url, except: %i[options run_id])
     assert_match json_expected, response.body
   end
 
