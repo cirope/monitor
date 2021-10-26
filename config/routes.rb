@@ -120,6 +120,10 @@ Rails.application.routes.draw do
       resources :scripts, except: [:index, :show, :new, :create, :edit, :update, :destroy] do
         resources :issues, only: [:index]
       end
+
+      namespace :scripts do
+        get 'issues_by_status', to: 'issues_by_status#index'
+      end
     end
   end
 
