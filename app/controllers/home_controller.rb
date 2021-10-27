@@ -3,7 +3,7 @@
 class HomeController < ApplicationController
   include Issues::Filters
 
-  respond_to :html
+  respond_to :html, :js
 
   before_action :authorize
   before_action :set_title
@@ -17,6 +17,15 @@ class HomeController < ApplicationController
     @script_counts       = Kaminari.paginate_array(grouped_issues.to_a).page params[:page]
 
     respond_with @script_counts
+  end
+
+  def api_issues_by_status
+    command_token = Api::V1::AuthenticateUser.call Current.user, Current.account, 1.month.from_now
+
+    @token = command_token.success? ? command_token.result : command_token.errors
+
+    @url = api_v1_scripts_issues_by_status_url host: ENV['APP_HOST'],
+                                               protocol: ENV['APP_PROTOCOL']
   end
 
   private

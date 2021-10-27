@@ -119,10 +119,20 @@ es:
       title: 'Listado de casos'
       empty_html: 'No hay casos activos'
       empty_search_html: 'No hay casos que coincidan con el criterio de búsqueda'
+      actions: 'Acciones'
+      api_issues_by_status: 'Enlace para obtener datos'
     filters:
       show:
         mine: 'Míos'
         all: 'Todos'
+    api_issues_by_status:
+      link: 'Enlace'
+      url: 'URL'
+      header: 'Encabezado'
+      token: 'Token'
+      copy_url: 'Copiar URL'
+      copy_header: 'Copiar encabezado'
+      copy_token: 'Copiar Token'
 
   imports:
     new:

@@ -21,4 +21,19 @@ module HomeHelper
       script_issues_path id, **options
     end
   end
+
+  def link_to_api_issues_by_status
+    options = {
+      class: 'dropdown-item',
+      data:  {
+        remote: true,
+        method: :get,
+        toggle: :dropdown
+      }
+    }
+
+    link_to home_api_issues_by_status_path, options do
+      t 'home.index.api_issues_by_status'
+    end
+  end
 end

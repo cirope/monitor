@@ -2,7 +2,8 @@
 
 Rails.application.routes.draw do
   # Home
-  get 'home', to: 'home#index', as: 'home'
+  get 'home',                      to: 'home#index', as: 'home'
+  get 'home/api_issues_by_status', to: 'home#api_issues_by_status'
 
   # Web console
   get 'console', to: 'console#show', as: 'console'

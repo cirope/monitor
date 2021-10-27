@@ -15,6 +15,12 @@ class HomeHelperTest < ActionView::TestCase
     assert_kind_of Hash, filter_query_hash
   end
 
+  test 'link to api issues by status' do
+    button = link_to_api_issues_by_status
+
+    assert_match home_api_issues_by_status_path, button
+  end
+
   private
 
 
