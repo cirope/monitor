@@ -51,4 +51,13 @@ class HomeControllerTest < ActionController::TestCase
     assert_response :success
     assert_select 'table tbody'
   end
+
+  test 'should respond api issues by status' do
+    get :api_issues_by_status, xhr: true
+
+    url = api_v1_scripts_issues_by_status_url host: ENV['APP_HOST'],
+                                              protocol: ENV['APP_PROTOCOL']
+
+    assert_match url, response.body
+  end
 end

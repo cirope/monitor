@@ -25,5 +25,20 @@
     </table>
   </div>
 
-  <%= paginate @script_counts %>
+  <div class="row ml-0">
+    <div class="dropdown float-left">
+      <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+        <%= t '.actions' %>
+      </button>
+  
+      <div class="dropdown-menu">
+        <%= link_to_api_issues_by_status %>
+      </div>
+    </div>
+    <div class="col">
+      <%= paginate @script_counts %>
+    </div>
+  </div>
+  
+  <div data-target="api-issues-by-status"></div>
 <% end %>
