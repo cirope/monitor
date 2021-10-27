@@ -11,7 +11,7 @@ class Api::V1::Scripts::IssuesByStatus::Index
 
     def construct scripts
       data = scripts.each_with_object({}) do |script, hsh|
-        hsh[script.name] = status_of_issues(script.issues)
+        hsh[script.name] = status_of_issues script.issues
       end
 
       Api::V1::StandardResponse.new.call data: data, code: 200
