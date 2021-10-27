@@ -71,7 +71,7 @@ class Api::V1::Scripts::IssuesByStatusControllerTest < ActionController::TestCas
     def status_of_issues issues
       hash_of_status = initialize_hash_of_status.merge issues.group(:status).count
 
-      hash_of_status.deep_transform_keys { |key| I18n.t("issues.status.#{key}") }
+      hash_of_status.deep_transform_keys { |key| I18n.t "issues.status.#{key}" }
     end
 
     def initialize_hash_of_status
