@@ -156,7 +156,7 @@ es:
         comments: 'Comentarios'
         tags: 'Etiquetas'
         created_at: 'Fecha de caso'
-        transitions: 'Transiciones de estados'
+        state_transitions: 'Transiciones de estados'
       issue/taggings:
         tag_id: 'Etiqueta'
       job:

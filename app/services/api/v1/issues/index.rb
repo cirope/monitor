@@ -39,16 +39,14 @@ class Api::V1::Issues::Index
                                          Issue.human_attribute_name('updated_at') => I18n.l(issue.updated_at, format: :compact),
                                          I18n.t('api.v1.issues.keys.auditor') => issue.users.detect(&:manager?).to_s,
                                          I18n.t('api.v1.issues.keys.audited') => issue.users.detect(&:owner?).to_s,
-                                         Issue.human_attribute_name('transitions') => convert_transtions(issue.transitions)
+                                         Issue.human_attribute_name('state_transitions') => convert_state_transtions(issue.state_transitions)
       end
     end
 
-    def convert_transtions transitions
-      hash_sorted = transitions.sort_by { |k, _| DateTime.parse k }.to_h
+    def convert_state_transtions state_transitions
+      state_transitions.each { |k, v| state_transitions[k] = I18n.l(DateTime.parse(v), format: :compact) }
 
-      hash_sorted.each { |k, v| hash_sorted[k] = I18n.t("issues.status.#{v}") }
-
-      hash_sorted
+      state_transitions.deep_transform_keys { |key| I18n.t "issues.status.#{key}" }
     end
 
     def title_tags tags

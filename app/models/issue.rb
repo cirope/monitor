@@ -15,7 +15,7 @@ class Issue < ApplicationRecord
   include Issues::Scopes
   include Issues::Status
   include Issues::Subscriptions
-  include Issues::Transitions
+  include Issues::StateTransitions
   include Issues::Validation
   include Issues::Url
   include Filterable
