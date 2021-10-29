@@ -60,33 +60,25 @@ private
 
   def generate_state_transitions
     unless state_transitions_were_generated?
-      ActiveRecord::Base.transaction do
-        Account.all.each do |account|
-          account.switch!
+      Account.on_each do
+        Issue.find_each do |issue|
+          state_transitions_hash = {}
 
-          Issue.all.each do |issue|
-            state_transitions_hash = {}
+          issue.versions.each do |version|
+            if version.object_changes.key? 'status'
+              date_time_state_transition = DateTime.parse(version.object_changes['updated_at'][1]).to_s :db
+              new_status                 = version.object_changes['status'][1]
 
-            issue.versions.each do |version|
-              if version.object_changes.key? 'status'
-                date_time_state_transition = DateTime.parse(version.object_changes['updated_at'][1]).to_s :db
-                new_status                 = version.object_changes['status'][1]
-
-                unless state_transitions_hash.key?(new_status) && date_time_state_transition < DateTime.parse(state_transitions_hash[new_status])
-                  state_transitions_hash[new_status] = date_time_state_transition
-                end
+              unless state_transitions_hash.key?(new_status) && date_time_state_transition < DateTime.parse(state_transitions_hash[new_status])
+                state_transitions_hash[new_status] = date_time_state_transition
               end
             end
-
-            issue.update! state_transitions: state_transitions_hash
-
-            puts "transitions of issue id: #{issue.id} with #{state_transitions_hash} saved!"
           end
+
+          issue.update! state_transitions: state_transitions_hash
         end
       end
     end
-  rescue ActiveRecord::RecordInvalid => e
-    puts e
   end
 
   def state_transitions_were_generated?
