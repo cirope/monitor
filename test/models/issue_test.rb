@@ -410,6 +410,6 @@ class IssueTest < ActiveSupport::TestCase
   test 'should store state transition' do
     @issue.update! status: 'taken'
 
-    assert @issue.state_transitions['taken'].present?
+    assert @issue.reload.state_transitions['taken'].present?
   end
 end
