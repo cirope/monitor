@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class Api::V1::IssuesControllerTest < ActionController::TestCase
+class Api::V1::Scripts::IssuesControllerTest < ActionController::TestCase
   setup do
     @script  = scripts :ls
 

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Api::V1::Issues::Filter < Api::V1::StandardFilter
+class Api::V1::Scripts::Issues::Filter < Api::V1::StandardFilter
   PARAMS = [:script_id, :default].freeze
 
   private

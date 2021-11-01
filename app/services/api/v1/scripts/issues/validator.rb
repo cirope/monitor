@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Api::V1::Issues::Validator < Api::V1::BaseValidator
+class Api::V1::Scripts::Issues::Validator < Api::V1::BaseValidator
   private
 
     def validate
