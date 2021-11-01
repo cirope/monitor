@@ -153,9 +153,9 @@ class Api::V1::IssuesControllerTest < ActionController::TestCase
 
   private
 
-  def convert_state_transtions state_transitions
-    state_transitions.each { |k, v| state_transitions[k] = I18n.l(DateTime.parse(v), format: :compact) }
-
-    state_transitions.deep_transform_keys { |key| I18n.t "issues.status.#{key}" }
-  end
+    def convert_state_transtions state_transitions
+      state_transitions.each { |k, v| state_transitions[k] = I18n.l(DateTime.parse(v), format: :compact) }
+  
+      state_transitions.deep_transform_keys { |key| I18n.t "issues.status.#{key}" }
+    end
 end
