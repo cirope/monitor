@@ -6,7 +6,7 @@
 
     <span>
       <span class="account-user-name"><%= current_user %></span>
-      <span class="account-position"><%= t "users.roles.#{current_user.role}" %></span>
+      <span class="account-position badge <%= current_user.role_badge %>"><%= t "users.roles.#{current_user.role}" %></span>
     </span>
   </a>
 
