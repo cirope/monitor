@@ -293,8 +293,4 @@ class UserTest < ActiveSupport::TestCase
   test 'by issues' do
     skip
   end
-
-  test 'should return rule badge of user' do
-    assert_equal @user.role_badge, User::ROLES_BADGES[@user.role]
-  end
 end
