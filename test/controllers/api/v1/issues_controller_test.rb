@@ -92,7 +92,8 @@ class Api::V1::IssuesControllerTest < ActionController::TestCase
                                                           Issue.human_attribute_name('created_at') => I18n.l(issue.created_at, format: :compact),
                                                           Issue.human_attribute_name('updated_at') => I18n.l(issue.updated_at, format: :compact),
                                                           I18n.t('api.v1.issues.keys.auditor') => issue.users.detect(&:manager?).to_s,
-                                                          I18n.t('api.v1.issues.keys.audited') => issue.users.detect(&:owner?).to_s
+                                                          I18n.t('api.v1.issues.keys.audited') => issue.users.detect(&:owner?).to_s,
+                                                          Issue.human_attribute_name('state_transitions') => convert_state_transtions(issue.state_transitions)
                                             end
                                             .to_json
 
@@ -142,10 +143,19 @@ class Api::V1::IssuesControllerTest < ActionController::TestCase
                                          Issue.human_attribute_name('created_at') => I18n.l(issue.created_at, format: :compact),
                                          Issue.human_attribute_name('updated_at') => I18n.l(issue.updated_at, format: :compact),
                                          I18n.t('api.v1.issues.keys.auditor') => issue.users.detect(&:manager?).to_s,
-                                         I18n.t('api.v1.issues.keys.audited') => issue.users.detect(&:owner?).to_s
+                                         I18n.t('api.v1.issues.keys.audited') => issue.users.detect(&:owner?).to_s,
+                                         Issue.human_attribute_name('state_transitions') => convert_state_transtions(issue.state_transitions)
                            end
                            .to_json
 
     assert_match json_expected, response.body
   end
+
+  private
+
+    def convert_state_transtions state_transitions
+      state_transitions.each { |k, v| state_transitions[k] = I18n.l(DateTime.parse(v), format: :compact) }
+  
+      state_transitions.deep_transform_keys { |key| I18n.t "issues.status.#{key}" }
+    end
 end

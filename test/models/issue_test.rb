@@ -406,4 +406,10 @@ class IssueTest < ActiveSupport::TestCase
 
     assert_equal url, @issue.url
   end
+
+  test 'should store state transition' do
+    @issue.update! status: 'taken'
+
+    assert @issue.reload.state_transitions['taken'].present?
+  end
 end
