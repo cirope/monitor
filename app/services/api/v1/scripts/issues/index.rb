@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-class Api::V1::Issues::Index
+class Api::V1::Scripts::Issues::Index
   def call params, current_user
-    issues_validator = Api::V1::Issues::Validator.new params
+    issues_validator = Api::V1::Scripts::Issues::Validator.new params
 
     if issues_validator.valid?
       issues = current_user.can_use_mine_filter? ? Issue.all : current_user.issues
 
-      query = Api::V1::Issues::Filter.new.call(query: issues, params: params)
+      query = Api::V1::Scripts::Issues::Filter.new.call(query: issues, params: params)
 
       construct query
     else

@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class Api::V1::Issues::ValidatorTest < ActiveSupport::TestCase
+class Api::V1::Scripts::Issues::ValidatorTest < ActiveSupport::TestCase
   setup do
     @account = Account.first
     @script  = Script.last
@@ -10,7 +10,7 @@ class Api::V1::Issues::ValidatorTest < ActiveSupport::TestCase
 
   test 'invalid with invalid script_id' do
     params    = ActionController::Parameters.new(script_id: 'a')
-    validator = Api::V1::Issues::Validator.new(params)
+    validator = Api::V1::Scripts::Issues::Validator.new(params)
 
     refute validator.valid?
     assert_equal 404, validator.errors[:code]
@@ -23,7 +23,7 @@ class Api::V1::Issues::ValidatorTest < ActiveSupport::TestCase
 
   test 'invalid with non-existent script' do
     params    = ActionController::Parameters.new(script_id: @script.id + 1)
-    validator = Api::V1::Issues::Validator.new(params)
+    validator = Api::V1::Scripts::Issues::Validator.new(params)
 
     refute validator.valid?
     assert_equal 404, validator.errors[:code]
@@ -35,7 +35,7 @@ class Api::V1::Issues::ValidatorTest < ActiveSupport::TestCase
 
   test 'valid' do
     params    = ActionController::Parameters.new(script_id: @script.id)
-    validator = Api::V1::Issues::Validator.new(params)
+    validator = Api::V1::Scripts::Issues::Validator.new(params)
 
     assert validator.valid?
   end
