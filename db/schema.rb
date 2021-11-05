@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_29_152208) do
+ActiveRecord::Schema.define(version: 2021_11_04_145557) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,19 @@ ActiveRecord::Schema.define(version: 2021_10_29_152208) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "answers", force: :cascade do |t|
+    t.string "response_text"
+    t.bigint "drop_down_option_id"
+    t.bigint "survey_answer_id"
+    t.bigint "question_id"
+    t.string "type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["drop_down_option_id"], name: "index_answers_on_drop_down_option_id"
+    t.index ["question_id"], name: "index_answers_on_question_id"
+    t.index ["survey_answer_id"], name: "index_answers_on_survey_answer_id"
   end
 
   create_table "comments", id: :serial, force: :cascade do |t|
@@ -112,6 +125,14 @@ ActiveRecord::Schema.define(version: 2021_10_29_152208) do
     t.datetime "updated_at", null: false
     t.index ["rule_id"], name: "index_dispatchers_on_rule_id"
     t.index ["schedule_id"], name: "index_dispatchers_on_schedule_id"
+  end
+
+  create_table "drop_down_options", force: :cascade do |t|
+    t.string "value"
+    t.bigint "question_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["question_id"], name: "index_drop_down_options_on_question_id"
   end
 
   create_table "effects", force: :cascade do |t|
@@ -311,6 +332,15 @@ ActiveRecord::Schema.define(version: 2021_10_29_152208) do
     t.index ["panel_id"], name: "index_queries_on_panel_id"
   end
 
+  create_table "questions", force: :cascade do |t|
+    t.string "title"
+    t.bigint "survey_id"
+    t.string "type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["survey_id"], name: "index_questions_on_survey_id"
+  end
+
   create_table "requires", id: :serial, force: :cascade do |t|
     t.integer "caller_id", null: false
     t.integer "script_id", null: false
@@ -417,6 +447,18 @@ ActiveRecord::Schema.define(version: 2021_10_29_152208) do
     t.datetime "updated_at", null: false
     t.index ["issue_id"], name: "index_subscriptions_on_issue_id"
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
+  end
+
+  create_table "survey_answers", force: :cascade do |t|
+    t.bigint "survey_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["survey_id"], name: "index_survey_answers_on_survey_id"
+  end
+
+  create_table "surveys", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "taggings", id: :serial, force: :cascade do |t|
