@@ -3,6 +3,7 @@
 class Survey < ApplicationRecord
   has_many :survey_answers
   has_many :questions
+  belongs_to :issue
 
   def create_survey_answer
     survey_answer        = SurveyAnswer.new

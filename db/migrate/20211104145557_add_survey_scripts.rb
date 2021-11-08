@@ -1,6 +1,7 @@
 class AddSurveyScripts < ActiveRecord::Migration[6.0]
   def change
     create_table :surveys do |t|
+      t.belongs_to :issue
       t.timestamps
     end
 
@@ -19,6 +20,7 @@ class AddSurveyScripts < ActiveRecord::Migration[6.0]
 
     create_table :survey_answers do |t|
       t.belongs_to :survey
+      t.belongs_to :user
       t.timestamps
     end
 

@@ -451,14 +451,18 @@ ActiveRecord::Schema.define(version: 2021_11_04_145557) do
 
   create_table "survey_answers", force: :cascade do |t|
     t.bigint "survey_id"
+    t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["survey_id"], name: "index_survey_answers_on_survey_id"
+    t.index ["user_id"], name: "index_survey_answers_on_user_id"
   end
 
   create_table "surveys", force: :cascade do |t|
+    t.bigint "issue_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["issue_id"], name: "index_surveys_on_issue_id"
   end
 
   create_table "taggings", id: :serial, force: :cascade do |t|

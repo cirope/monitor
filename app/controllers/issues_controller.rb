@@ -60,6 +60,17 @@ class IssuesController < ApplicationController
                                     protocol: ENV['APP_PROTOCOL']
   end
 
+  def survey_answer
+    @survey_answer = Survey.find_by!(issue_id: params[:issue_id]).create_survey_answer
+  end
+
+  def create_survey_answer
+    @survey_answer          = SurveyAnswer.new survey_answer_params
+    @survey_answer.user     = current_user
+
+    @survey_answer.save!
+  end
+
   private
 
     def maybe_paginate_issues
@@ -129,5 +140,12 @@ class IssuesController < ApplicationController
       issues.left_joins(:tags).merge(Tag.final final).or(
         issues.left_joins(:tags).where tags: { id: nil }
       )
+    end
+
+    def survey_answer_params
+      params.require(:survey_answer).permit :survey_id,
+                                            answers_attributes: [:id, :type, 
+                                                                 :response_text, :drop_down_option_id,
+                                                                 :question_id]
     end
 end

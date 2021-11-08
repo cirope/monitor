@@ -56,6 +56,9 @@ Rails.application.routes.draw do
 
   resources :issues, except: [:new, :create] do
     resources :taggings, only: [:new, :create, :destroy]
+
+    get 'survey_answer'
+    post 'create_survey_answer'
   end
 
   resources :memberships, only: [:index, :update] do
