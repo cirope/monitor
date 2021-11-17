@@ -12,9 +12,8 @@ module Users::Licenses
   private
 
     def check_licensed_user_limit
-      if licensed_user.count >= licensed_user_limit
-        Rails.logger.info I18n.t('errors.messages.logger_licensed_user_limit'),
-                          limit: licensed_user_limit
+      if self.class.licensed_user.count >= licensed_user_limit
+        Rails.logger.info "Licensed user limit reached (#{licensed_user_limit})"
         errors.add :base, :licensed_user_limit
 
         throw :abort

@@ -293,4 +293,40 @@ class UserTest < ActiveSupport::TestCase
   test 'by issues' do
     skip
   end
+
+  test 'Licensed user limit' do
+    max_licensed_user = Rails.application.credentials.max_licensed_users_count[:global]
+    licensed_user     = (users :eduardo)
+
+    (max_licensed_user - User.licensed_user.count).times do |i|
+      new_licensed_user                 = User.new
+      new_licensed_user.email           = i.to_s + licensed_user.email
+      new_licensed_user.username        = i.to_s + licensed_user.username
+      new_licensed_user.name            = i.to_s + licensed_user.name
+      new_licensed_user.lastname        = i.to_s + licensed_user.lastname
+      new_licensed_user.role            = licensed_user.role
+      new_licensed_user.password_digest = BCrypt::Password.create('123', cost: BCrypt::Engine::MIN_COST)
+
+      new_licensed_user.save!
+    end
+
+    new_licensed_user                 = User.new
+    new_licensed_user.email           = 'test' + licensed_user.email
+    new_licensed_user.username        = 'test' + licensed_user.username
+    new_licensed_user.name            = 'test' + licensed_user.name
+    new_licensed_user.lastname        = 'test' + licensed_user.lastname
+    new_licensed_user.role            = licensed_user.role
+    new_licensed_user.password_digest = BCrypt::Password.create('123', cost: BCrypt::Engine::MIN_COST)
+
+    assert_raise { new_licensed_user.save! }
+
+    assert_error new_licensed_user, :base, :licensed_user_limit
+
+    not_licensed_user = users :god
+    not_licensed_user.role = 'supervisor'
+
+    assert_raise { not_licensed_user.save! }
+
+    assert_error not_licensed_user, :base, :licensed_user_limit
+  end
 end

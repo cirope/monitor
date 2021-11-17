@@ -311,4 +311,3 @@ es:
     messages:
       pdf_encoding: 'tiene símbolos no válidos'
       syntax: 'tiene errores de sintaxis: %{errors}'
-      logger_licensed_user_limit: 'Licensed user limit reached (%{limit})'
