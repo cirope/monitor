@@ -304,6 +304,8 @@ es:
               globally_taken: 'ya está en uso en otra cuenta'
             username:
               globally_taken: 'ya está en uso en otra cuenta'
+            base:
+              licensed_user_limit: 'Limite de usuarios alcanzado, por favor actualice su licencia.'
 
   errors:
     messages:
