@@ -305,7 +305,7 @@ class UserTest < ActiveSupport::TestCase
       new_licensed_user.name            = i.to_s + licensed_user.name
       new_licensed_user.lastname        = i.to_s + licensed_user.lastname
       new_licensed_user.role            = licensed_user.role
-      new_licensed_user.password_digest = BCrypt::Password.create('123', cost: BCrypt::Engine::MIN_COST)
+      new_licensed_user.password        = '123456'
 
       new_licensed_user.save!
     end
@@ -316,7 +316,7 @@ class UserTest < ActiveSupport::TestCase
     new_licensed_user.name            = 'test' + licensed_user.name
     new_licensed_user.lastname        = 'test' + licensed_user.lastname
     new_licensed_user.role            = licensed_user.role
-    new_licensed_user.password_digest = BCrypt::Password.create('123', cost: BCrypt::Engine::MIN_COST)
+    new_licensed_user.password        = '123456'
 
     assert_raise { new_licensed_user.save! }
 
