@@ -3,7 +3,7 @@
     <% if filters? %>
       <p class="text-warning mb-0 float-right">
         <%= icon 'fas', 'filter' %>
-        <%= link_to issue_index_path, title: t('cancel') do %>
+        <%= link_to issue_index_path(filter_original_query_hash), title: t('cancel') do %>
           <%= icon 'fas', 'times-circle' %>
         <% end %>
       </p>
@@ -95,6 +95,15 @@
             %>
           </div>
           <div class="col-lg-4">
+            <%= f.input :scheduled_at, as: :date_picker, required: false,
+              input_html: {
+                value: filter_params[:scheduled_at],
+                class: 'form-control-sm',
+                data:  { date_range: true }
+              }
+            %>
+          </div>
+          <div class="col-lg-4">
             <% if current_user.can_use_mine_filter? %>
               <%= f.input :show,
                 required: false,
@@ -107,11 +116,18 @@
               %>
             <% end %>
           </div>
-          <div class="col-lg-4 pt-3">
+        </div>
+        <%= f.input :original_filter, as: :hidden,
+              input_html: {
+                value: params[:original_filter] || filter_query_hash.to_json
+              }
+            %>
+        <div class="row">
+          <div class="col-lg-4 offset-lg-8">
             <div class="form-actions">
               <p class="text-right mb-0">
                 <%= f.button :submit, t('filters.submit'), class: 'btn-sm btn-secondary' %>
-                <%= link_to t('cancel'), issue_index_path, class: 'small' %>
+                <%= link_to t('cancel'), issue_index_path(filter_original_query_hash), class: 'small' %>
               </p>
             </div>
           </div>

@@ -181,6 +181,15 @@ class IssuesHelperTest < ActionView::TestCase
     assert_match script_issues_path(@script), button
   end
 
+  test 'return orginal_filter params in filter_original_query_hash' do
+    # def params
+    #   ActionController::Parameters.new({ original_filter: { descrip: 'descrip' } })
+    # end
+
+    filter_original_query_hash
+    byebug
+  end
+
   private
 
     def board_session

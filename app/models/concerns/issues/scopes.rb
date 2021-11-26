@@ -60,6 +60,10 @@ module Issues::Scopes
       where "(#{Issue.table_name}.data ->>1)::json->>-1 = ?", key
     end
 
+    def by_scheduled_at range_as_string
+      joins(schedule: :runs).merge(Run.by_scheduled_at(range_as_string))
+    end
+
     def grouped_by_script schedule_id = nil
       scoped = if schedule_id
                  joins(:schedule).where schedules: { id: schedule_id }

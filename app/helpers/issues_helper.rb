@@ -194,6 +194,11 @@ module IssuesHelper
     end
   end
 
+  def filter_original_query_hash
+    byebug
+    params[:original_filter]&.from_json || filter_query_hash
+  end
+
   private
 
     def issues_board_path_with_params custom_params
