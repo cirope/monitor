@@ -3,7 +3,7 @@
     <% if filters? %>
       <p class="text-warning mb-0 float-right">
         <%= icon 'fas', 'filter' %>
-        <%= link_to issue_index_path(filter_original_query_hash), title: t('cancel') do %>
+        <%= link_to issue_index_path(filter: filter_original_query_hash), title: t('cancel') do %>
           <%= icon 'fas', 'times-circle' %>
         <% end %>
       </p>
@@ -119,7 +119,7 @@
         </div>
         <%= f.input :original_filter, as: :hidden,
               input_html: {
-                value: params[:original_filter] || filter_query_hash.to_json
+                value: params[:filter][:original_filter] || filter_query_hash
               }
             %>
         <div class="row">
@@ -127,7 +127,7 @@
             <div class="form-actions">
               <p class="text-right mb-0">
                 <%= f.button :submit, t('filters.submit'), class: 'btn-sm btn-secondary' %>
-                <%= link_to t('cancel'), issue_index_path(filter_original_query_hash), class: 'small' %>
+                <%= link_to t('cancel'), issue_index_path(filter: filter_original_query_hash), class: 'small' %>
               </p>
             </div>
           </div>

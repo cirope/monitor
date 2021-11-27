@@ -195,8 +195,11 @@ module IssuesHelper
   end
 
   def filter_original_query_hash
-    byebug
-    params[:original_filter]&.from_json || filter_query_hash
+    if params[:filter][:original_filter].present?
+      JSON.parse params[:filter][:original_filter].gsub('=>', ':')
+    else
+      filter_query_hash
+    end
   end
 
   private
