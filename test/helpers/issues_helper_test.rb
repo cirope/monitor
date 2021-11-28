@@ -181,13 +181,26 @@ class IssuesHelperTest < ActionView::TestCase
     assert_match script_issues_path(@script), button
   end
 
-  test 'return orginal_filter params in filter_original_query_hash' do
-    # def params
-    #   ActionController::Parameters.new({ original_filter: { descrip: 'descrip' } })
-    # end
+  test 'return orginal filter params' do
+    def params
+      ActionController::Parameters.new(
+        { 'filter' => { 'original_filter' => '{\"status\"=>\"\", \"tags\"=>\"\", \"description\"=>\"\",\"user_id\"=>\"\", \"comment\"=>\"\", \"show\"=>\"all\", \"user\"=>\"\"}' } })
+    end
 
-    filter_original_query_hash
-    byebug
+    original_filter_json = '{\"status\"=>\"\", \"tags\"=>\"\", \"description\"=>\"\",\"user_id\"=>\"\", \"comment\"=>\"\", \"show\"=>\"all\", \"user\"=>\"\"}'
+
+    assert_equal JSON.parse(original_filter_json.gsub('=>', ':')), filter_original_query_hash
+  end
+
+  test 'return filter query hash' do
+    def params
+      ActionController::Parameters.new(
+        { 'filter' => ActionController::Parameters.new })
+    end
+
+    expected_hash = { show: nil, user: nil }
+
+    assert_equal expected_hash, filter_original_query_hash
   end
 
   private
