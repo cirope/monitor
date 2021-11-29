@@ -29,4 +29,8 @@ class DropDownQuestion < Question
   def initialize_hash_with_options
     drop_down_options.each_with_object({}) { |drop_down_option, hsh| hsh[drop_down_option.value] = 0 }
   end
+
+  def results_partial
+    'drop_down_question'
+  end
 end

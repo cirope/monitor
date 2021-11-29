@@ -17,4 +17,8 @@ class TextQuestion < Question
   def results
     answers.map { |text_answer| text_answer.response_text }
   end
+
+  def results_partial
+    'text_question'
+  end
 end

@@ -69,6 +69,12 @@ class IssuesController < ApplicationController
     @survey_answer.user     = current_user
 
     @survey_answer.save!
+
+    redirect_to issue_path(@survey_answer.survey.issue)
+  end
+
+  def results_survey
+    @survey = Survey.find_by!(issue_id: params[:issue_id])
   end
 
   private

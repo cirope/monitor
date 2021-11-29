@@ -1,0 +1,12 @@
+<div class="card">
+  <div class="card-body">
+    <h6>
+      <%= question.title %>
+    </h6>
+    <ul>
+      <% question.results.each do |text_response| %>
+        <li><%= text_response %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>

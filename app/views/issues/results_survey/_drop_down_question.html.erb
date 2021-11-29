@@ -1,0 +1,12 @@
+<div class="card">
+  <div class="card-body">
+    <h6>
+      <%= question.title %>
+    </h6>
+    <ul>
+      <% question.results.each do |key, value| %>
+        <li><%= "#{key} = #{value}" %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
