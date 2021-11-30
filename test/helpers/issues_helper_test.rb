@@ -184,12 +184,12 @@ class IssuesHelperTest < ActionView::TestCase
   test 'return orginal filter params' do
     def params
       ActionController::Parameters.new(
-        { 'filter' => { 'original_filter' => '{\"status\"=>\"\", \"tags\"=>\"\", \"description\"=>\"\",\"user_id\"=>\"\", \"comment\"=>\"\", \"show\"=>\"all\", \"user\"=>\"\"}' } })
+        { 'filter' => { 'original_filter' => "{\"status\":\"\",\"tags\":\"\",\"description\":\"\",\"user_id\":\"\",\"comment\":\"\",\"show\":\"all\",\"user\":\"\"}" } })
     end
 
-    original_filter_json = '{\"status\"=>\"\", \"tags\"=>\"\", \"description\"=>\"\",\"user_id\"=>\"\", \"comment\"=>\"\", \"show\"=>\"all\", \"user\"=>\"\"}'
+    original_filter_json = "{\"status\":\"\",\"tags\":\"\",\"description\":\"\",\"user_id\":\"\",\"comment\":\"\",\"show\":\"all\",\"user\":\"\"}"
 
-    assert_equal JSON.parse(original_filter_json.gsub('=>', ':')), filter_original_query_hash
+    assert_equal JSON.parse(original_filter_json), filter_original_query_hash
   end
 
   test 'return filter query hash' do

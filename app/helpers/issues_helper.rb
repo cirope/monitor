@@ -195,8 +195,8 @@ module IssuesHelper
   end
 
   def filter_original_query_hash
-    if params[:filter][:original_filter].present?
-      JSON.parse params[:filter][:original_filter].gsub('=>', ':')
+    if params[:filter].present? && params[:filter][:original_filter].present?
+      JSON.parse params[:filter][:original_filter]
     else
       filter_query_hash
     end

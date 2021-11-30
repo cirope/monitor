@@ -61,7 +61,7 @@ module Issues::Scopes
     end
 
     def by_scheduled_at range_as_string
-      where(run_id: Run.by_scheduled_at(range_as_string).pluck(:id))
+      includes(:run).references(:run).merge(Run.by_scheduled_at(range_as_string))
     end
 
     def grouped_by_script schedule_id = nil

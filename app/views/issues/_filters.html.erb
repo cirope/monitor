@@ -119,7 +119,7 @@
         </div>
         <%= f.input :original_filter, as: :hidden,
               input_html: {
-                value: params[:filter][:original_filter] || filter_query_hash
+                value: (params[:filter] && params[:filter][:original_filter]) || filter_query_hash.to_json
               }
             %>
         <div class="row">
