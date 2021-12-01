@@ -184,18 +184,20 @@ class IssuesHelperTest < ActionView::TestCase
   test 'return orginal filter params' do
     def params
       ActionController::Parameters.new(
-        { 'filter' => { 'original_filter' => "{\"status\":\"\",\"tags\":\"\",\"description\":\"\",\"user_id\":\"\",\"comment\":\"\",\"show\":\"all\",\"user\":\"\"}" } })
+        { filter:
+          { original_filter:
+            { status: '', tags: '', description: '', user_id: '', comment: '', show: 'all', user: ''}.to_json } }
+      )
     end
 
-    original_filter_json = "{\"status\":\"\",\"tags\":\"\",\"description\":\"\",\"user_id\":\"\",\"comment\":\"\",\"show\":\"all\",\"user\":\"\"}"
+    original_filter_json = { status: '', tags: '', description: '', user_id: '', comment: '', show: 'all', user: ''}.to_json
 
     assert_equal JSON.parse(original_filter_json), filter_original_query_hash
   end
 
   test 'return filter query hash' do
     def params
-      ActionController::Parameters.new(
-        { 'filter' => ActionController::Parameters.new })
+      ActionController::Parameters.new({ filter: ActionController::Parameters.new })
     end
 
     expected_hash = { show: nil, user: nil }

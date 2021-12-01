@@ -272,13 +272,15 @@ class IssueTest < ActiveSupport::TestCase
   end
 
   test 'by scheduled_at' do
-    run_to_add_issue = runs :boom_on_atahualpa
-
-    run_to_add_issue.issues << Issue.new(status: 'pending')
+    (runs :boom_on_atahualpa).issues << Issue.new(status: 'pending')
 
     run_to_query = runs :past_ls_on_atahualpa
 
-    issues = Issue.by_scheduled_at("#{(run_to_query.scheduled_at - 1.minutes).strftime('%d/%m/%Y%k:%M')} - #{(run_to_query.scheduled_at + 1.minutes).strftime('%d/%m/%Y%k:%M')}")
+    from_date = (run_to_query.scheduled_at - 1.minutes).strftime('%d/%m/%Y%k:%M')
+
+    to_date   = (run_to_query.scheduled_at + 1.minutes).strftime('%d/%m/%Y%k:%M')
+
+    issues = Issue.by_scheduled_at("#{from_date} - #{to_date}")
 
     assert_equal run_to_query.issues.count, issues.count
   end
