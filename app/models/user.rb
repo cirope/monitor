@@ -8,6 +8,7 @@ class User < ApplicationRecord
   include Attributes::Downcase
   include Users::Authentication
   include Users::Dashboards
+  include Users::Licenses
   include Users::Memberships
   include Users::Overrides
   include Users::PasswordReset
