@@ -15,7 +15,8 @@ module Issues::Filters
     :data,
     :comment,
     :key,
-    :created_at
+    :created_at,
+    :scheduled_at
   ]
 
   included do

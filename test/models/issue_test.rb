@@ -271,6 +271,20 @@ class IssueTest < ActiveSupport::TestCase
     assert issues.all? { |issue| issue.comments.any? { |c| c.text =~ /wat/i } }
   end
 
+  test 'by scheduled_at' do
+    (runs :boom_on_atahualpa).issues << Issue.new(status: 'pending')
+
+    run_to_query = runs :past_ls_on_atahualpa
+
+    from_date = (run_to_query.scheduled_at - 1.minutes).strftime('%d/%m/%Y%k:%M')
+
+    to_date   = (run_to_query.scheduled_at + 1.minutes).strftime('%d/%m/%Y%k:%M')
+
+    issues = Issue.by_scheduled_at("#{from_date} - #{to_date}")
+
+    assert_equal run_to_query.issues.count, issues.count
+  end
+
   test 'pending?' do
     assert @issue.pending?
 

@@ -194,6 +194,14 @@ module IssuesHelper
     end
   end
 
+  def filter_original_query_hash
+    if params[:filter].present? && params[:filter][:original_filter].present?
+      JSON.parse params[:filter][:original_filter]
+    else
+      filter_query_hash
+    end
+  end
+
   private
 
     def issues_board_path_with_params custom_params
