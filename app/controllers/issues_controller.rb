@@ -56,7 +56,7 @@ class IssuesController < ApplicationController
     @token = command_token.success? ? command_token.result : command_token.errors
 
     @url = api_v1_script_issues_url params[:script_id],
-                                    host: ENV['APP_HOST'], 
+                                    host: ENV['APP_HOST'],
                                     protocol: ENV['APP_PROTOCOL']
   end
 
@@ -65,8 +65,8 @@ class IssuesController < ApplicationController
   end
 
   def create_survey_answer
-    @survey_answer          = SurveyAnswer.new survey_answer_params
-    @survey_answer.user     = current_user
+    @survey_answer      = SurveyAnswer.new survey_answer_params
+    @survey_answer.user = current_user
 
     @survey_answer.save!
 
@@ -150,8 +150,6 @@ class IssuesController < ApplicationController
 
     def survey_answer_params
       params.require(:survey_answer).permit :survey_id,
-                                            answers_attributes: [:id, :type, 
-                                                                 :response_text, :drop_down_option_id,
-                                                                 :question_id]
+        answers_attributes: [:id, :type, :response_text, :drop_down_option_id, :question_id]
     end
 end
