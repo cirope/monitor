@@ -145,6 +145,14 @@ class ScriptTest < ActiveSupport::TestCase
     json = ActiveSupport::JSON.decode(@script.to_json)
 
     assert_equal @script.name, json['name']
+
+    if @script.descriptions.present?
+      json_descriptions_expected = @script.descriptions
+                                          .map { |d| d.attributes.slice('name', 'value') }
+
+      assert_equal json_descriptions_expected, json['descriptions']
+    end
+
     assert_equal MonitorApp::Application::VERSION, json['current_version']
   end
 
