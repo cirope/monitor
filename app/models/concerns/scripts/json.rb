@@ -16,6 +16,9 @@ module Scripts::Json
     },
     parameters: {
       only: [:name, :value]
+    },
+    descriptions: {
+      only: [:name, :value]
     }
   }
   JSON_DEFAULT_OPTIONS = {
