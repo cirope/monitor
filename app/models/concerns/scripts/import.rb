@@ -118,7 +118,7 @@ module Scripts::Import
         name      = parameter_data['name']
         parameter = parameters.detect { |p| p.name == name }
 
-        if parameter.present?
+        if parameter.present? && (parameter.value != parameter_data['value'])
           parameter.update_attributes! parameter_data
         else
           parameters.create! parameter_data
@@ -137,7 +137,7 @@ module Scripts::Import
         name        = description_data['name']
         description = descriptions.detect { |d| d.name == name }
 
-        if description.present?
+        if description.present? && (description.value != description_data['value'])
           description.update_attributes! description_data
         else
           descriptions.create! description_data
