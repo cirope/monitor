@@ -1,0 +1,5 @@
++function () {
+  var $container = $('[data-view-id="<%= @view.comment_id %>"]')
+
+  $container.replaceWith('<%= j render('view', view: @view) %>')
+}()

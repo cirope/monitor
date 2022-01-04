@@ -5,6 +5,7 @@ class Comment < ApplicationRecord
   include Comments::Notify
   include Comments::Owner
   include Comments::Validation
+  include Comments::Views
 
   has_one_attached :attachment
 

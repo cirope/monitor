@@ -9,6 +9,7 @@
       <% end %>
 
       <%= simple_format comment.text, class: 'mb-0' %>
+      <%= render 'views/view', comment: comment %>
       <footer class="blockquote-footer"><%= comment.user %></footer>
     </blockquote>
   </div>

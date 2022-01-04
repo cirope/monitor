@@ -18,6 +18,9 @@ class CommentsController < ApplicationController
     @comment = current_user.comments.new comment_params
 
     @comment.save
+
+    @comment.views << View.new(user: current_user)
+
     respond_with @comment, location: issue_url(@comment.issue)
   end
 
