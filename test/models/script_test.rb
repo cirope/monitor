@@ -145,6 +145,14 @@ class ScriptTest < ActiveSupport::TestCase
     json = ActiveSupport::JSON.decode(@script.to_json)
 
     assert_equal @script.name, json['name']
+
+    if @script.descriptions.present?
+      json_descriptions_expected = @script.descriptions
+                                          .map { |d| d.attributes.slice('name', 'value') }
+
+      assert_equal json_descriptions_expected, json['descriptions']
+    end
+
     assert_equal MonitorApp::Application::VERSION, json['current_version']
   end
 
@@ -198,7 +206,11 @@ class ScriptTest < ActiveSupport::TestCase
     path            = Script.where(id: @script.id).export
     scripts         = []
 
+    parameters   = @script.parameters.map { |p| p.attributes.slice('name', 'value') }
+    descriptions = @script.descriptions.map { |d| d.attributes.slice('name', 'value') }
+
     @script.parameters.clear
+    @script.descriptions.clear
     @script.requires.clear
     @script.update! name: 'Updated'
 
@@ -210,7 +222,10 @@ class ScriptTest < ActiveSupport::TestCase
     assert scripts.all? &:valid?
     assert_not_equal 'Updated', @script.reload.name
     assert (scripts.all? { |script| script.imported_version == MonitorApp::Application::VERSION })
-    assert @script.parameters.any?
+    assert_equal @script.parameters.map { |p| p.attributes.slice('name', 'value') }, 
+                 parameters
+    assert_equal @script.descriptions.map { |d| d.attributes.slice('name', 'value') }, 
+                 descriptions
     assert @script.requires.any?
 
     FileUtils.rm path
@@ -220,6 +235,12 @@ class ScriptTest < ActiveSupport::TestCase
     uuid    = SecureRandom.uuid
     script  = @script.dup
     scripts = []
+
+    @script.parameters.each { |p| script.parameters << p.dup }
+    @script.descriptions.each { |d| script.descriptions << d.dup }
+
+    parameters   = script.parameters.map { |p| p.attributes.slice('name', 'value') }
+    descriptions = script.descriptions.map { |d| d.attributes.slice('name', 'value') }
 
     script.name = 'Should be imported as new'
     script.uuid = uuid
@@ -237,6 +258,10 @@ class ScriptTest < ActiveSupport::TestCase
     assert_equal 1, scripts.count
     assert scripts.all? &:valid?
     assert (scripts.all? { |script| script.imported_version == MonitorApp::Application::VERSION })
+    assert_equal scripts.first.parameters.map { |p| p.attributes.slice('name', 'value') }, 
+                 parameters
+    assert_equal scripts.first.descriptions.map { |d| d.attributes.slice('name', 'value') }, 
+                 descriptions
     assert Script.find_by uuid: uuid
 
     FileUtils.rm path
@@ -246,6 +271,12 @@ class ScriptTest < ActiveSupport::TestCase
     uuid    = SecureRandom.uuid
     script  = @script.dup
     scripts = []
+
+    @script.parameters.each { |p| script.parameters << p.dup }
+    @script.descriptions.each { |d| script.descriptions << d.dup }
+
+    parameters   = @script.parameters.map { |p| p.attributes.slice('name', 'value') }
+    descriptions = @script.descriptions.map { |d| d.attributes.slice('name', 'value') }
 
     script.name = 'Should be imported as new'
     script.uuid = uuid
@@ -257,6 +288,7 @@ class ScriptTest < ActiveSupport::TestCase
     script.destroy!
 
     @script.parameters.clear
+    @script.descriptions.clear
     @script.requires.clear
     @script.update! name: 'Updated'
 
@@ -268,6 +300,13 @@ class ScriptTest < ActiveSupport::TestCase
     assert scripts.all? &:valid?
     assert (scripts.all? { |script| script.imported_version == MonitorApp::Application::VERSION })
     assert Script.find_by uuid: uuid
+
+    scripts.each do |scripts|
+      assert_equal scripts.parameters.map { |p| p.attributes.slice('name', 'value') }, 
+                   parameters
+      assert_equal scripts.descriptions.map { |d| d.attributes.slice('name', 'value') }, 
+                   descriptions
+    end
 
     assert_not_equal 'Updated', @script.reload.name
     assert @script.parameters.any?
