@@ -75,8 +75,8 @@ module Scripts::Import
       end
 
       def create_from_data data
-        parameters   = data.delete('parameters')
         descriptions = data.delete('descriptions')
+        parameters   = data.delete('parameters')
         requires     = require_attributes data.delete('requires')
 
         if data['change'].blank?
@@ -85,10 +85,10 @@ module Scripts::Import
         end
 
         create data.merge({
-          imported_at:           Time.zone.now,
-          parameters_attributes: parameters,
+          imported_at:             Time.zone.now,
           descriptions_attributes: descriptions,
-          requires_attributes:   requires
+          parameters_attributes:   parameters,
+          requires_attributes:     requires
         })
       end
 
@@ -100,8 +100,8 @@ module Scripts::Import
   end
 
   def update_from_data data
-    update_parameters   data.delete('parameters')
     update_descriptions data.delete('descriptions')
+    update_parameters   data.delete('parameters')
     update_requires     data.delete('requires')
 
     data['imported_at'] = Time.zone.now if imported_at
@@ -118,11 +118,7 @@ module Scripts::Import
         name      = parameter_data['name']
         parameter = parameters.detect { |p| p.name == name }
 
-        if parameter.present? && (parameter.value != parameter_data['value'])
-          parameter.update_attributes! parameter_data
-        else
-          parameters.create! parameter_data
-        end
+        parameters.create! parameter_data unless parameter
 
         names << name
       end
@@ -137,11 +133,7 @@ module Scripts::Import
         name        = description_data['name']
         description = descriptions.detect { |d| d.name == name }
 
-        if description.present? && (description.value != description_data['value'])
-          description.update_attributes! description_data
-        else
-          descriptions.create! description_data
-        end
+        descriptions.create! description_data unless description
 
         names << name
       end
