@@ -77,5 +77,28 @@ module Issues::Scopes
     def grouped_by_schedule
       joins(:schedule).group "#{Schedule.table_name}.id", "#{Schedule.table_name}.name"
     end
+
+    def grouped_by_script_with_count_views schedule_id = nil, current_user_id
+      scoped = if schedule_id
+                 joins(:schedule).where schedules: { id: schedule_id }
+               else
+                 all
+               end
+
+      ar = ["LEFT JOIN #{View.table_name} ON #{View.table_name}.issue_id = #{Issue.table_name}.id AND #{View.table_name}.user_id = %s", current_user_id]
+      sanitized_left_join = sanitize_sql_array(ar)
+
+      scoped.joins(:script)
+            .joins(sanitized_left_join)
+            .group "#{Script.table_name}.id", "#{Script.table_name}.name"
+    end
+
+    def grouped_by_schedule_with_count_views current_user_id
+      ar = ["LEFT JOIN #{View.table_name} ON #{View.table_name}.issue_id = #{Issue.table_name}.id AND #{View.table_name}.user_id = %s", current_user_id]
+      sanitized_left_join = sanitize_sql_array(ar)
+
+      joins(:schedule).joins(sanitized_left_join)
+                      .group "#{Schedule.table_name}.id", "#{Schedule.table_name}.name"
+    end
   end
 end

@@ -121,6 +121,7 @@ es:
       empty_search_html: 'No hay casos que coincidan con el criterio de búsqueda'
       actions: 'Acciones'
       api_issues_by_status: 'Enlace para obtener datos'
+      not_views: 'No vistos'
     filters:
       show:
         mine: 'Míos'

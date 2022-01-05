@@ -1,10 +1,10 @@
-<% view ||= comment.view_by current_user %>
+<% view ||= issue.view_by current_user %>
 
 <% if view %>
   <%= icon 'fas', 'check', title: t('.view_on', on: l(view.created_at, format: :long)) %>
 <% else %>
-  <div data-view-id="<%= comment.id %>">
-    <%= link_to views_path(comment_id: comment.id), title: t('.mark_as_view'), data: { remote: true, method: :post } do %>
+  <div data-view-id="<%= issue.id %>" class='d-inline'>
+    <%= link_to views_path(issue_id: issue.id), title: t('.mark_as_view'), data: { remote: true, method: :post } do %>
       <%= icon 'fas', 'envelope' %>
     <% end %>
   </div>

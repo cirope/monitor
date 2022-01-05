@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Comments::Views
+module Issues::Views
   extend ActiveSupport::Concern
 
   included do

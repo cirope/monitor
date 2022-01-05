@@ -490,11 +490,11 @@ ActiveRecord::Schema.define(version: 2022_01_04_131550) do
   end
 
   create_table "views", force: :cascade do |t|
-    t.bigint "comment_id", null: false
+    t.bigint "issue_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["comment_id"], name: "index_views_on_comment_id"
+    t.index ["issue_id"], name: "index_views_on_issue_id"
     t.index ["user_id"], name: "index_views_on_user_id"
   end
 
@@ -535,6 +535,6 @@ ActiveRecord::Schema.define(version: 2022_01_04_131550) do
   add_foreign_key "taggings", "tags", on_update: :restrict, on_delete: :restrict
   add_foreign_key "tags", "tags", column: "parent_id", on_update: :restrict, on_delete: :restrict
   add_foreign_key "triggers", "rules", on_update: :restrict, on_delete: :restrict
-  add_foreign_key "views", "comments", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "views", "issues", on_update: :restrict, on_delete: :restrict
   add_foreign_key "views", "users", on_update: :restrict, on_delete: :restrict
 end

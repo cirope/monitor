@@ -18,6 +18,7 @@ class Issue < ApplicationRecord
   include Issues::StateTransitions
   include Issues::Validation
   include Issues::Url
+  include Issues::Views
   include Filterable
   include Taggable
 

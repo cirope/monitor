@@ -58,7 +58,6 @@
         <% @issue.comments.reject(&:new_record?).each do |comment| %>
           <blockquote class="blockquote ml-3">
             <%= simple_format comment.text, class: 'mb-0' %>
-            <%= render 'views/view', comment: comment %>
             <footer class="blockquote-footer"><%= comment.user %></footer>
           </blockquote>
         <% end %>

@@ -7,9 +7,6 @@ class ViewsController < ApplicationController
 
   # * POST /views
   def create
-    @view = View.create!(
-      user: current_user,
-      comment_id: params[:comment_id]
-    )
+    @view = current_user.views.create! issue_id: params[:issue_id]
   end
 end
