@@ -40,24 +40,22 @@ class HomeController < ApplicationController
 
     def grouped_issues
       if @grouped_by_schedule
-        issue_count_by_schedule
+        convert_grouped_issues_to_a(issue_count_by_schedule)
       else
-        issue_count_by_script params[:schedule_id]
+        convert_grouped_issues_to_a(issue_count_by_script params[:schedule_id])
       end
     end
 
     def issue_count_by_script schedule_id
-      issues.grouped_by_script_with_count_views(schedule_id, @current_user.id)
+      issues.grouped_by_script_joins_views(schedule_id, @current_user)
             .ordered_by_script_name
-            .select("#{Script.table_name}.id as script_id, #{Script.table_name}.name as script_name, COUNT(*) as count_all, COUNT(#{View.table_name}.id) as count_views")
-            .map { |group| [[group.script_id, group.script_name], group.count_all, group.count_views] }
+            .count
     end
 
     def issue_count_by_schedule
-      issues.grouped_by_schedule_with_count_views(@current_user.id)
+      issues.grouped_by_schedule_joins_views(@current_user)
             .ordered_by_schedule_name
-            .select("#{Schedule.table_name}.id as schedule_id, #{Schedule.table_name}.name as schedule_name, COUNT(*) as count_all, COUNT(#{View.table_name}.id) as count_views")
-            .map { |group| [[group.schedule_id, group.schedule_name], group.count_all, group.count_views] }
+            .count
     end
 
     def scoped_issues
@@ -69,5 +67,11 @@ class HomeController < ApplicationController
 
     def group_by_schedule?
       params[:schedule_id].blank? && current_account.group_issues_by_schedule?
+    end
+
+    def convert_grouped_issues_to_a results
+      results.group_by { |k, _v| [k.first, k.second] }
+             .map { |k, v| [k].concat(v.map(&:last)) }
+             .map { |e| [e.first].concat((e.count == 3 ? [e.second + e.last, e.second]  : [e.last, e.last]))}
     end
 end

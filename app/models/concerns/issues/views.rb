@@ -8,6 +8,6 @@ module Issues::Views
   end
 
   def view_by user
-    views.where('views.user_id = ?', user.id).take
+    views.find_by(user_id: user.id)
   end
 end
