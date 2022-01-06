@@ -12,6 +12,7 @@ class Issue < ApplicationRecord
   include Issues::Notifications
   include Issues::Pdf
   include Issues::Permissions
+  include Issues::Reminders
   include Issues::Scopes
   include Issues::Status
   include Issues::Subscriptions
