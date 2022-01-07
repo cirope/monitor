@@ -47,13 +47,13 @@ class HomeController < ApplicationController
     end
 
     def issue_count_by_script schedule_id
-      issues.grouped_by_script_joins_views(schedule_id, @current_user)
+      issues.grouped_by_script_and_views(schedule_id, @current_user)
             .ordered_by_script_name
             .count
     end
 
     def issue_count_by_schedule
-      issues.grouped_by_schedule_joins_views(@current_user)
+      issues.grouped_by_schedule_and_views(@current_user)
             .ordered_by_schedule_name
             .count
     end

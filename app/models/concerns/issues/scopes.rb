@@ -74,20 +74,21 @@ module Issues::Scopes
       scoped.joins(:script).group "#{Script.table_name}.id", "#{Script.table_name}.name"
     end
 
-    def grouped_by_script_joins_views schedule_id, current_user
-      grouped_by_script(schedule_id).left_joins(:views)
-                                    .group('views.user_id')
-                                    .merge(View.viewed_by(current_user).or(View.where(user_id: nil)))
+    def grouped_by_script_and_views schedule_id, current_user
+      grouped_by_script(schedule_id).grouped_by_views(current_user)
     end
 
     def grouped_by_schedule
       joins(:schedule).group "#{Schedule.table_name}.id", "#{Schedule.table_name}.name"
     end
 
-    def grouped_by_schedule_joins_views current_user
-      grouped_by_schedule.left_joins(:views)
-                         .group('views.user_id')
-                         .merge(View.viewed_by(current_user).or(View.where(user_id: nil)))
+    def grouped_by_schedule_and_views current_user
+      grouped_by_schedule.grouped_by_views(current_user)
+    end
+
+    def grouped_by_views current_user
+      left_joins(:views).group("#{View.table_name}.user_id")
+                        .merge(View.viewed_by(current_user).or(View.where(user_id: nil)))
     end
   end
 end
