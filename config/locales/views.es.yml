@@ -121,7 +121,7 @@ es:
       empty_search_html: 'No hay casos que coincidan con el criterio de búsqueda'
       actions: 'Acciones'
       api_issues_by_status: 'Enlace para obtener datos'
-      not_views: 'No vistos'
+      not_viewed: 'No vistos'
     filters:
       show:
         mine: 'Míos'
@@ -615,8 +615,8 @@ es:
   
   views:
     view:
-      mark_as_view: 'Marcar como visto'
-      view_on: 'Marcado como visto el %{on}'
+      mark_as_viewed: 'Marcar como visto'
+      viewed_at: 'Marcado como visto el %{on}'
 
   records:
     index:

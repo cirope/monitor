@@ -5,6 +5,6 @@ class View < ApplicationRecord
   belongs_to :user
 
   def self.viewed_by user
-    where(user_id: user.id)
+    where user_id: user.id
   end
 end
