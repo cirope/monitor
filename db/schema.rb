@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 2021_11_04_145557) do
   create_table "answers", force: :cascade do |t|
     t.string "response_text"
     t.bigint "drop_down_option_id"
-    t.bigint "survey_answer_id"
+    t.bigint "survey_answer_id", null: false
     t.bigint "question_id"
     t.string "type"
     t.datetime "created_at", precision: 6, null: false
@@ -129,7 +129,7 @@ ActiveRecord::Schema.define(version: 2021_11_04_145557) do
 
   create_table "drop_down_options", force: :cascade do |t|
     t.string "value"
-    t.bigint "question_id"
+    t.bigint "question_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["question_id"], name: "index_drop_down_options_on_question_id"
@@ -333,9 +333,9 @@ ActiveRecord::Schema.define(version: 2021_11_04_145557) do
   end
 
   create_table "questions", force: :cascade do |t|
-    t.string "title"
-    t.bigint "survey_id"
-    t.string "type"
+    t.string "title", null: false
+    t.bigint "survey_id", null: false
+    t.string "type", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["survey_id"], name: "index_questions_on_survey_id"
@@ -450,8 +450,8 @@ ActiveRecord::Schema.define(version: 2021_11_04_145557) do
   end
 
   create_table "survey_answers", force: :cascade do |t|
-    t.bigint "survey_id"
-    t.bigint "user_id"
+    t.bigint "survey_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["survey_id"], name: "index_survey_answers_on_survey_id"
@@ -459,7 +459,7 @@ ActiveRecord::Schema.define(version: 2021_11_04_145557) do
   end
 
   create_table "surveys", force: :cascade do |t|
-    t.bigint "issue_id"
+    t.bigint "issue_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["issue_id"], name: "index_surveys_on_issue_id"
@@ -536,6 +536,9 @@ ActiveRecord::Schema.define(version: 2021_11_04_145557) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "answers", "drop_down_options", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "answers", "questions", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "answers", "survey_answers", on_update: :restrict, on_delete: :restrict
   add_foreign_key "comments", "issues", on_update: :restrict, on_delete: :restrict
   add_foreign_key "comments", "users", on_update: :restrict, on_delete: :restrict
   add_foreign_key "dashboards", "users", on_update: :restrict, on_delete: :restrict
@@ -545,6 +548,7 @@ ActiveRecord::Schema.define(version: 2021_11_04_145557) do
   add_foreign_key "descriptions", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "dispatchers", "rules", on_update: :restrict, on_delete: :restrict
   add_foreign_key "dispatchers", "schedules", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "drop_down_options", "questions", on_update: :restrict, on_delete: :restrict
   add_foreign_key "effects", "tags", column: "implied_id", on_update: :restrict, on_delete: :restrict
   add_foreign_key "effects", "tags", on_update: :restrict, on_delete: :restrict
   add_foreign_key "fails", "users", on_update: :restrict, on_delete: :restrict
@@ -564,11 +568,15 @@ ActiveRecord::Schema.define(version: 2021_11_04_145557) do
   add_foreign_key "parameters", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "properties", "databases", on_update: :restrict, on_delete: :restrict
   add_foreign_key "queries", "panels", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "questions", "surveys", on_update: :restrict, on_delete: :restrict
   add_foreign_key "requires", "scripts", column: "caller_id", on_update: :restrict, on_delete: :restrict
   add_foreign_key "requires", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "runs", "jobs", on_update: :restrict, on_delete: :restrict
   add_foreign_key "subscriptions", "issues", on_update: :restrict, on_delete: :restrict
   add_foreign_key "subscriptions", "users", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "survey_answers", "surveys", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "survey_answers", "users", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "surveys", "issues", on_update: :restrict, on_delete: :restrict
   add_foreign_key "taggings", "tags", on_update: :restrict, on_delete: :restrict
   add_foreign_key "tags", "tags", column: "parent_id", on_update: :restrict, on_delete: :restrict
   add_foreign_key "triggers", "rules", on_update: :restrict, on_delete: :restrict

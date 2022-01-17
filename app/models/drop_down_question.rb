@@ -21,9 +21,10 @@ class DropDownQuestion < Question
   end
 
   def collect_results
-    answers.joins('LEFT JOIN drop_down_options ON answers.drop_down_option_id = drop_down_options.id')
-           .group('drop_down_options.value')
-           .count
+    DropDownAnswer.left_joins(:drop_down_option)
+                  .where(question_id: id)
+                  .group("#{DropDownOption.table_name}.value")
+                  .count
   end
 
   def initialize_hash_with_options
