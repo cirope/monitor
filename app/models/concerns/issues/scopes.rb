@@ -75,7 +75,7 @@ module Issues::Scopes
     end
 
     def grouped_by_script_and_views schedule_id, current_user
-      grouped_by_script(schedule_id).grouped_by_views(current_user)
+      grouped_by_script(schedule_id).grouped_by_views current_user
     end
 
     def grouped_by_schedule
@@ -83,7 +83,7 @@ module Issues::Scopes
     end
 
     def grouped_by_schedule_and_views current_user
-      grouped_by_schedule.grouped_by_views(current_user)
+      grouped_by_schedule.grouped_by_views current_user
     end
 
     def grouped_by_views current_user

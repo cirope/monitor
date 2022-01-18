@@ -72,6 +72,6 @@ class HomeController < ApplicationController
     def convert_grouped_issues_to_a results
       results.group_by { |k, _v| [k.first, k.second] }
              .map { |k, v| [k].concat(v.map(&:last)) }
-             .map { |e| [e.first].concat((e.count == 3 ? [e.second + e.last, e.second]  : [e.last, e.last]))}
+             .map { |e| [e.first].concat((e.count == 3 ? [e.second + e.last, e.last]  : [e.last, e.last]))}
     end
 end
