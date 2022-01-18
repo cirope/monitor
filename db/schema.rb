@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 2021_11_04_145557) do
     t.bigint "drop_down_option_id"
     t.bigint "survey_answer_id", null: false
     t.bigint "question_id"
-    t.string "type"
+    t.string "type", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["drop_down_option_id"], name: "index_answers_on_drop_down_option_id"

@@ -13,7 +13,7 @@ class AddSurveyScripts < ActiveRecord::Migration[6.0]
         on_delete: :restrict, on_update: :restrict
       }
       t.string :type, null: false
-      t.timestamps
+      t.timestamps null: false
     end
 
     create_table :drop_down_options do |t|
@@ -21,7 +21,7 @@ class AddSurveyScripts < ActiveRecord::Migration[6.0]
       t.references :question, null: false, index: true, foreign_key: {
         on_delete: :restrict, on_update: :restrict
       }
-      t.timestamps
+      t.timestamps null: false
     end
 
     create_table :survey_answers do |t|
@@ -31,7 +31,7 @@ class AddSurveyScripts < ActiveRecord::Migration[6.0]
       t.references :user, null: false, index: true, foreign_key: {
         on_delete: :restrict, on_update: :restrict
       }
-      t.timestamps
+      t.timestamps null: false
     end
 
     create_table :answers do |t|
@@ -45,8 +45,8 @@ class AddSurveyScripts < ActiveRecord::Migration[6.0]
       t.references :question, index: true, foreign_key: {
         on_delete: :restrict, on_update: :restrict
       }
-      t.string :type
-      t.timestamps
+      t.string :type, null: false
+      t.timestamps null: false
     end
   end
 end

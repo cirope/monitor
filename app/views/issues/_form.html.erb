@@ -39,11 +39,11 @@
         <% @issue.errors.full_messages_for(:tags).each do |error| %>
           <p class="text-danger"><%= error %></p>
         <% end %>
-  
+
         <%= f.simple_fields_for :taggings, issue_taggings do |tf| %>
           <%= render 'taggings/tagging', f: tf, **issue_tagging_options(@issue) %>
         <% end %>
-  
+
         <% unless limited_issue_form_edition? %>
           <%= link_to_add_fields t('issues.new.tagging'), f, :taggings, **issue_tagging_options(@issue) %>
         <% end %>
@@ -68,11 +68,11 @@
             <footer class="blockquote-footer"><%= comment.user %></footer>
           </blockquote>
         <% end %>
-  
+
         <% @issue.errors.full_messages_for(:comments).each do |error| %>
           <p class="text-danger"><%= error %></p>
         <% end %>
-  
+
         <%= f.simple_fields_for :comments, comments do |cf| %>
           <%= render 'comments/comment', f: cf %>
         <% end %>
