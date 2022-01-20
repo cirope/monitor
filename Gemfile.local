@@ -5,4 +5,5 @@ gem 'ruby-odbc', require: false
 unless ENV['TRAVIS']
   # Excel parser
   gem 'roo'
+  gem 'pdf-reader'
 end
