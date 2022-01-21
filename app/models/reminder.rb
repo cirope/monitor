@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Reminder < ApplicationRecord
+  include Reminders::IssueStatusChanged
   include Reminders::States
   include Reminders::Validation
 
