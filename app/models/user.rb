@@ -18,6 +18,7 @@ class User < ApplicationRecord
   include Users::Search
   include Users::Validation
   include Users::Visibility
+  include Users::Views
 
   strip_fields :name, :lastname, :email, :username
   downcase_fields :email, :username

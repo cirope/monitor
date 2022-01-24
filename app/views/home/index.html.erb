@@ -13,11 +13,11 @@
       </thead>
 
       <tbody>
-        <% @script_counts.each do |script_data, count| %>
+        <% @script_counts.each do |script_data, count, not_viewed| %>
           <tr class="cursor-pointer" data-href="<%= grouped_issues_path script_data.first, filter: filter_query_hash %>">
             <td><%= script_data.last %></td>
             <td class="text-right">
-              <%= link_to count, grouped_issues_path(script_data.first, filter: filter_query_hash) %>
+              <%= link_to count, grouped_issues_path(script_data.first, filter: filter_query_hash) %>/<%= content_tag :abbr, not_viewed, title: t('.not_viewed') %>
             </td>
           </tr>
         <% end %>

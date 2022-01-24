@@ -121,6 +121,7 @@ es:
       empty_search_html: 'No hay casos que coincidan con el criterio de búsqueda'
       actions: 'Acciones'
       api_issues_by_status: 'Enlace para obtener datos'
+      not_viewed: 'No vistos'
     filters:
       show:
         mine: 'Míos'
@@ -611,6 +612,11 @@ es:
         updated: 'Actualizado'
         error: 'Con errores'
         deprecated_users: 'Usuarios ausentes en el servidor LDAP'
+  
+  views:
+    view:
+      mark_as_viewed: 'Marcar como visto'
+      viewed_at: 'Marcado como visto el %{on}'
 
   records:
     index:
