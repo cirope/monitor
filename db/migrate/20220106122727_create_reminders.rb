@@ -3,7 +3,10 @@ class CreateReminders < ActiveRecord::Migration[6.0]
     create_table :reminders do |t|
       t.datetime :due_at, null: false
       t.string :state_class_type, null: false
-      t.jsonb :issue_status_changed
+      t.jsonb :transition_rules
+      t.references :issue, null: false, index: true, foreign_key: {
+        on_delete: :restrict, on_update: :restrict
+      }
     end
   end
 end

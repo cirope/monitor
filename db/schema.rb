@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_29_152208) do
+ActiveRecord::Schema.define(version: 2022_01_06_122727) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -311,6 +311,14 @@ ActiveRecord::Schema.define(version: 2021_10_29_152208) do
     t.index ["panel_id"], name: "index_queries_on_panel_id"
   end
 
+  create_table "reminders", force: :cascade do |t|
+    t.datetime "due_at", null: false
+    t.string "state_class_type", null: false
+    t.jsonb "transition_rules"
+    t.bigint "issue_id", null: false
+    t.index ["issue_id"], name: "index_reminders_on_issue_id"
+  end
+
   create_table "requires", id: :serial, force: :cascade do |t|
     t.integer "caller_id", null: false
     t.integer "script_id", null: false
@@ -518,6 +526,7 @@ ActiveRecord::Schema.define(version: 2021_10_29_152208) do
   add_foreign_key "parameters", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "properties", "databases", on_update: :restrict, on_delete: :restrict
   add_foreign_key "queries", "panels", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "reminders", "issues", on_update: :restrict, on_delete: :restrict
   add_foreign_key "requires", "scripts", column: "caller_id", on_update: :restrict, on_delete: :restrict
   add_foreign_key "requires", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "runs", "jobs", on_update: :restrict, on_delete: :restrict

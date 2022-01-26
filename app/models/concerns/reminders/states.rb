@@ -10,14 +10,10 @@ module Reminders::States
   end
 
   def state
-    "Reminders::States::#{state_class_type}".constantize.new
+    "Reminders::States::#{state_class_type.capitalize}".constantize.new
   end
 
   private
-
-    def states
-      STATUSES
-    end
 
     def set_default_state_class_type
       self.state_class_type ||= 'Pending'
