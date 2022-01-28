@@ -10,7 +10,7 @@ module Issues::Reminders
   end
 
   def notify_reminders
-    reminders.each(&:notify)
+    reminders.each &:notify
   end
 
   private
