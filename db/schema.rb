@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_29_152208) do
+ActiveRecord::Schema.define(version: 2022_01_28_144148) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -159,6 +159,7 @@ ActiveRecord::Schema.define(version: 2021_10_29_152208) do
     t.string "data_type"
     t.jsonb "options"
     t.jsonb "state_transitions", default: {}
+    t.jsonb "converted_data_hash"
     t.index ["created_at"], name: "index_issues_on_created_at"
     t.index ["data"], name: "index_issues_on_data", using: :gin
     t.index ["description"], name: "index_issues_on_description"

@@ -22,8 +22,11 @@ class IssuesController < ApplicationController
 
     maybe_paginate_issues
 
-    @alt_partial = @issues.can_collapse_data?
-    @stats       = params[:graph].present? ? graph_stats : stats if @alt_partial
+    if @issues.can_collapse_data?
+      @alt_partial = true
+      @stats       = params[:graph].present? ? graph_stats : stats
+      @data_keys   = @issues.first.converted_data_hash.keys
+    end
 
     respond_with @issues
   end

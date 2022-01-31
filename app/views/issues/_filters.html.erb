@@ -122,6 +122,27 @@
                 value: (params[:filter] && params[:filter][:original_filter]) || filter_query_hash.to_json
               }
             %>
+        <%= f.simple_fields_for :data_query_keys do |p| %>
+          <% @data_keys.each_with_index do |key, index| %>
+            <% if start_row_in_data_filter(index) %>
+              <div class="row">
+            <% end %>
+                <div class="col-lg-4">
+                  <%= p.input key.to_sym,
+                        required: false,
+                        input_html: {
+                          value:     (filter_params[:data_query_keys].present? ? filter_params[:data_query_keys][key.to_sym] : nil),
+                          class:     'form-control-sm',
+                          autofocus: true
+                        }
+                  %>
+                </div>
+            <% if end_row_in_data_filter(index) %>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
+        
         <div class="row">
           <div class="col-lg-4 offset-lg-8">
             <div class="form-actions">
