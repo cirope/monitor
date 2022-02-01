@@ -78,9 +78,9 @@ module Issues::Scopes
       joins(:schedule).group "#{Schedule.table_name}.id", "#{Schedule.table_name}.name"
     end
 
-    def by_data_query_keys data_keys
+    def by_canonical_data data_keys
       query = data_keys.to_h
-                       .map { |k, v| "(converted_data_hash ->> '#{k}' like '%#{v}%')" if v.present? }
+                       .map { |k, v| "(canonical_data ->> '#{k}' like '%#{v}%')" if v.present? }
                        .compact
                        .join(' AND ')
 

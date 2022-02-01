@@ -17,7 +17,7 @@ module Issues::Filters
     :key,
     :created_at,
     :scheduled_at,
-    { data_query_keys: {} }
+    { canonical_data: {} }
   ]
 
   included do
