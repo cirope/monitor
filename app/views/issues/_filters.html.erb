@@ -122,23 +122,25 @@
                 value: (params[:filter] && params[:filter][:original_filter]) || filter_query_hash.to_json
               }
             %>
-        <%= f.simple_fields_for :canonical_data do |p| %>
-          <% @data_keys.each_with_index do |key, index| %>
-            <% if start_row_in_data_filter(index) %>
-              <div class="row">
-            <% end %>
-                <div class="col-lg-4">
-                  <%= p.input key.to_sym,
-                        required: false,
-                        input_html: {
-                          value:     (filter_params[:canonical_data].present? ? filter_params[:canonical_data][key.to_sym] : nil),
-                          class:     'form-control-sm',
-                          autofocus: true
-                        }
-                  %>
+        <% if @data_keys.present? %>
+          <%= f.simple_fields_for :canonical_data do |p| %>
+            <% @data_keys.each_with_index do |key, index| %>
+              <% if start_row_in_data_filter(index) %>
+                <div class="row">
+              <% end %>
+                  <div class="col-lg-4">
+                    <%= p.input key.to_sym,
+                          required: false,
+                          input_html: {
+                            value:     (filter_params[:canonical_data].present? ? filter_params[:canonical_data][key.to_sym] : nil),
+                            class:     'form-control-sm',
+                            autofocus: true
+                          }
+                    %>
+                  </div>
+              <% if end_row_in_data_filter(index) %>
                 </div>
-            <% if end_row_in_data_filter(index) %>
-              </div>
+              <% end %>
             <% end %>
           <% end %>
         <% end %>

@@ -426,4 +426,47 @@ class IssueTest < ActiveSupport::TestCase
 
     assert @issue.reload.state_transitions['taken'].present?
   end
+
+  test 'should update canonical data' do
+    @issue.data = [[:h1, :h2], ['v1', 'v2']]
+    expected    = { 'h1' => 'v1', 'h2' => 'v2' }
+
+    @issue.save!
+
+    assert_equal expected, @issue.reload.canonical_data
+
+    @issue.data = { key1: 1, key2: [[:h1, :h2], ['v1', 'v2'], ['v3', 'v4']] }
+    expected    = {}
+
+    @issue.save!
+
+    assert_equal expected, @issue.reload.canonical_data
+
+    @issue.data = [{ h1: 'v1', h2: 'v2' }]
+    expected    = { 'h1' => 'v1', 'h2' => 'v2' }
+
+    @issue.save!
+
+    assert_equal expected, @issue.reload.canonical_data
+
+    @issue.data = nil
+    expected    = {}
+
+    @issue.save!
+
+    assert_equal expected, @issue.reload.canonical_data
+  end
+
+  test 'should return a issue with like canonical data' do
+    @issue.data = [[:k1, :k2], ['value1', 'value2']]
+
+    @issue.save!
+
+    data_keys = { 'k1': 'lue1' }
+
+    issues = Issue.by_canonical_data(data_keys)
+
+    assert_equal 1, issues.count
+    assert_equal @issue.id, issues.first.id
+  end
 end
