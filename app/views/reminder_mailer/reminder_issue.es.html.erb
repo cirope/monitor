@@ -1,0 +1,12 @@
+<h2>Hola</h2>
+
+<p>Te enviamos recordatorio por el siguiente caso:</p>
+
+<p>Caso: <%= @reminder.issue.description %></p>
+
+<p>
+  <%= link_to(
+    'Ir al caso',
+    issue_path(@reminder.issue)
+  ) %>
+</p>

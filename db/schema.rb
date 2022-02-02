@@ -316,7 +316,9 @@ ActiveRecord::Schema.define(version: 2022_01_06_122727) do
     t.string "state_class_type", null: false
     t.jsonb "transition_rules"
     t.bigint "issue_id", null: false
+    t.index ["due_at"], name: "index_reminders_on_due_at"
     t.index ["issue_id"], name: "index_reminders_on_issue_id"
+    t.index ["state_class_type"], name: "index_reminders_on_state_class_type"
   end
 
   create_table "requires", id: :serial, force: :cascade do |t|

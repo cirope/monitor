@@ -3,7 +3,7 @@
 module Reminders::States
   extend ActiveSupport::Concern
 
-  STATUSES = %w(Pending Canceled Done)
+  STATUSES = %w(Pending Scheduled Canceled Done)
 
   included do
     before_validation :set_default_state_class_type
@@ -11,6 +11,10 @@ module Reminders::States
 
   def state
     "Reminders::States::#{state_class_type.capitalize}".constantize.new
+  end
+
+  def scheduled
+    self.update state_class_type: 'Scheduled'
   end
 
   private
