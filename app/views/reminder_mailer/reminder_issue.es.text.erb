@@ -1,10 +1,7 @@
-Hola
+Hola <%= @user.name %>,
 ================================================================================
-Te enviamos recordatorio por el siguiente caso:
+Tienes un recordatorio por el siguiente caso:
 
 Caso: <%= @reminder.issue.description %>
 
-<%= link_to(
-'Ir al caso',
-issue_path(@reminder.issue)
-) %>
+Url del caso: <%= issue_url(@reminder.issue) %>

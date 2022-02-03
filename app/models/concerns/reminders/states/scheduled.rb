@@ -4,7 +4,9 @@ class Reminders::States::Scheduled < Reminders::States::State
   def initialize; end;
 
   def notify reminder
-    ReminderMailer.reminder_issue(reminder).deliver_later
+    reminder.issue.users.each do |user|
+      ReminderMailer.reminder_issue(reminder, user).deliver_later
+    end
 
     reminder.update state_class_type: 'Done'
   end

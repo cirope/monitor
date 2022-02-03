@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class ReminderMailer < ApplicationMailer
-  def reminder_issue reminder
+  def reminder_issue reminder, user
     @reminder = reminder
-    emails    = reminder.issue.users.by_role('manager').collect(&:email).join(',')
+    @user     = user
 
-    mail to: emails
+    mail to: user.email
   end
 end
