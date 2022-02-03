@@ -462,7 +462,7 @@ class IssueTest < ActiveSupport::TestCase
 
     @issue.save!
 
-    data_keys = { 'k1': 'lue1' }
+    data_keys = { 'k1': 'lue1', 'k2': 'alue' }
 
     issues = Issue.by_canonical_data(data_keys)
 

@@ -39,10 +39,6 @@ class FiltersHelperTest < ActionView::TestCase
     @data_keys = ['key 1', 'key 2', 'key 3', 'key 4']
 
     assert end_row_in_data_filter(2)
-  end
-
-  test 'should return is end row in data filter when end of keys' do
-    @data_keys = ['key 1', 'key 2', 'key 3', 'key 4']
 
     assert end_row_in_data_filter(3)
   end
