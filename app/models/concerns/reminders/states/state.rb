@@ -2,7 +2,7 @@
 
 class Reminders::States::State
   def initialize
-    raise "Cannot initialize an abstract State class"
+    raise 'Cannot initialize an abstract State class'
   end
 
   def notify reminder
