@@ -427,7 +427,7 @@ class IssueTest < ActiveSupport::TestCase
     assert @issue.reload.state_transitions['taken'].present?
   end
 
-  test 'check status changed and send to reminders' do
+  test 'check status changed and update states reminders' do
     reminder = reminders :reminder_of_ls_on_atahualpa_not_well
 
     reminder.update! transition_rules: { 'status_changed': { 'taken': 'done' } }
@@ -435,5 +435,15 @@ class IssueTest < ActiveSupport::TestCase
     @issue.update! status: 'taken'
 
     assert_equal 'done', reminder.reload.state_class_type
+  end
+
+  test 'check status changed and not update states reminders' do
+    reminder = reminders :reminder_of_ls_on_atahualpa_not_well
+
+    reminder.update! transition_rules: { 'status_changed': { 'taken': 'test' } }
+
+    @issue.update! status: 'taken'
+
+    assert_equal 'pending', reminder.reload.state_class_type
   end
 end
