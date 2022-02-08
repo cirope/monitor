@@ -4,6 +4,7 @@ require 'test_helper'
 
 class ReminderTest < ActiveSupport::TestCase
   include ActiveJob::TestHelper
+  include ActionMailer::TestHelper
 
   setup do
     @reminder = reminders :reminder_of_ls_on_atahualpa_not_well
@@ -110,7 +111,7 @@ class ReminderTest < ActiveSupport::TestCase
     @reminder.notify
 
     assert_equal 'pending', @reminder.state_class_type
-    assert ActionMailer::Base.deliveries.count.zero?
+    assert_enqueued_emails 0
   end
 
   test 'send email and change to done when scheduled state' do
@@ -119,9 +120,7 @@ class ReminderTest < ActiveSupport::TestCase
     @reminder.notify
 
     assert_equal 'done', @reminder.reload.state_class_type
-    assert_equal @reminder.issue.users.count, ActionMailer::Base.deliveries.count
-
-    ActionMailer::Base.deliveries.clear
+    assert_enqueued_emails 2
   end
 
   test 'do nothing when done state' do
@@ -130,7 +129,7 @@ class ReminderTest < ActiveSupport::TestCase
     @reminder.notify
 
     assert_equal 'done', @reminder.state_class_type
-    assert ActionMailer::Base.deliveries.count.zero?
+    assert_enqueued_emails 0
   end
 
   test 'do nothing when canceled state' do
@@ -139,7 +138,7 @@ class ReminderTest < ActiveSupport::TestCase
     @reminder.notify
 
     assert_equal 'canceled', @reminder.state_class_type
-    assert ActionMailer::Base.deliveries.count.zero?
+    assert_enqueued_emails 0
   end
 
   test 'schedule reminders' do

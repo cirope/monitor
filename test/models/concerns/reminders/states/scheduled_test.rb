@@ -3,6 +3,8 @@
 require 'test_helper'
 
 class Reminders::States::ScheduledTest < ActiveSupport::TestCase
+  include ActionMailer::TestHelper
+
   test 'notify do nothing' do
     reminder = reminders :reminder_of_ls_on_atahualpa_not_well
     state    = Reminders::States::Scheduled.new
@@ -10,8 +12,6 @@ class Reminders::States::ScheduledTest < ActiveSupport::TestCase
     state.notify reminder
 
     assert_equal 'done', reminder.reload.state_class_type
-    assert_equal reminder.issue.users.count, ActionMailer::Base.deliveries.count
-
-    ActionMailer::Base.deliveries.clear
+    assert_enqueued_emails 2
   end
 end
