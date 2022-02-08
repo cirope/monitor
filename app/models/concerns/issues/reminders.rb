@@ -6,18 +6,17 @@ module Issues::Reminders
   included do
     has_many :reminders, dependent: :destroy
 
-    after_update :check_status_changed_reminders
-  end
-
-  def notify_reminders
-    reminders.each &:notify
+    before_save :check_status_changed_reminders
   end
 
   private
 
     def check_status_changed_reminders
       if status_changed?
-        reminders.each { |r| r.new_issue_status status }
+        reminders.each do |r|
+          r.new_issue_status status
+          r.save
+        end
       end
     end
 end

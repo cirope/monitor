@@ -5,5 +5,6 @@ module Reminders::Validation
 
   included do
     validates :state_class_type, presence: true, inclusion: { in: Reminders::States::STATUSES }
+    validates :due_at, presence: true
   end
 end
