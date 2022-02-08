@@ -116,6 +116,8 @@ Rails.application.routes.draw do
     resources :records, only: [:index, :show]
   end
 
+  resources :views, only: [:create]
+
   namespace :api do
     namespace :v1 do
       resources :scripts, except: [:index, :show, :new, :create, :edit, :update, :destroy] do
