@@ -11,7 +11,7 @@ class ReminderJobTest < ActiveJob::TestCase
 
     ReminderJob.perform_now reminder
 
-    assert_enqueued_emails 2
+    assert_enqueued_emails reminder.issue.users.count
     assert_equal 'done', reminder.reload.state_class_type
   end
 end

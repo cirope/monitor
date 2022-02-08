@@ -12,6 +12,6 @@ class Reminders::States::ScheduledTest < ActiveSupport::TestCase
     state.notify reminder
 
     assert_equal 'done', reminder.reload.state_class_type
-    assert_enqueued_emails 2
+    assert_enqueued_emails reminder.issue.users.count
   end
 end
