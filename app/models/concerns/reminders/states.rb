@@ -14,7 +14,7 @@ module Reminders::States
   end
 
   def scheduled
-    self.update state_class_type: 'scheduled'
+    update! state_class_type: 'scheduled'
   end
 
   private

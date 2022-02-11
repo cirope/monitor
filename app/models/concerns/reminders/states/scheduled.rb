@@ -8,6 +8,6 @@ class Reminders::States::Scheduled < Reminders::States::State
       ReminderMailer.reminder_issue(reminder, user).deliver_later
     end
 
-    reminder.update state_class_type: 'done'
+    reminder.update! state_class_type: 'done'
   end
 end

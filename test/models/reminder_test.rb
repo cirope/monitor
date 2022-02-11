@@ -17,6 +17,13 @@ class ReminderTest < ActiveSupport::TestCase
     assert_error @reminder, :due_at, :blank
   end
 
+  test 'invalid with due_at 4 minutes from now' do
+    @reminder.due_at = Time.now + 4.minutes
+
+    assert @reminder.invalid?
+    assert_error @reminder, :due_at, :invalid
+  end
+
   test 'invalid with blank or diferent state' do
     @reminder.state_class_type = ''
 
