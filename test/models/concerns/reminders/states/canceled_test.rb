@@ -12,6 +12,6 @@ class Reminders::States::CanceledTest < ActiveSupport::TestCase
     state.notify reminder
 
     refute reminder.state_class_type_change
-    assert_enqueued_emails 0
+    assert_no_enqueued_emails
   end
 end

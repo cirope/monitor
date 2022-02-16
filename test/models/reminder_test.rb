@@ -17,6 +17,13 @@ class ReminderTest < ActiveSupport::TestCase
     assert_error @reminder, :due_at, :blank
   end
 
+  test 'invalid with type date in due_at' do
+    @reminder.due_at = Date.today
+
+    assert @reminder.invalid?
+    assert_error @reminder, :due_at, :invalid
+  end
+
   test 'invalid with due_at 4 minutes from now' do
     @reminder.due_at = Time.now + 4.minutes
 
@@ -118,7 +125,7 @@ class ReminderTest < ActiveSupport::TestCase
     @reminder.notify
 
     assert_equal 'pending', @reminder.state_class_type
-    assert_enqueued_emails 0
+    assert_no_enqueued_emails
   end
 
   test 'send email and change to done when scheduled state' do
@@ -136,7 +143,7 @@ class ReminderTest < ActiveSupport::TestCase
     @reminder.notify
 
     assert_equal 'done', @reminder.state_class_type
-    assert_enqueued_emails 0
+    assert_no_enqueued_emails
   end
 
   test 'do nothing when canceled state' do
@@ -145,7 +152,7 @@ class ReminderTest < ActiveSupport::TestCase
     @reminder.notify
 
     assert_equal 'canceled', @reminder.state_class_type
-    assert_enqueued_emails 0
+    assert_no_enqueued_emails
   end
 
   test 'schedule reminders' do

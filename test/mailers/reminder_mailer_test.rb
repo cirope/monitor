@@ -4,9 +4,9 @@ require 'test_helper'
 
 class ReminderMailerTest < ActionMailer::TestCase
   test 'reminder_issue' do
-    reminder   = reminders(:reminder_of_ls_on_atahualpa_not_well)
+    reminder   = reminders :reminder_of_ls_on_atahualpa_not_well
     issue_user = reminder.issue.users.first
-    mail       = ReminderMailer.reminder_issue(reminder, issue_user)
+    mail       = ReminderMailer.reminder_issue reminder, issue_user
     url        = Rails.application
                       .routes
                       .url_helpers
