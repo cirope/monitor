@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_04_131550) do
+ActiveRecord::Schema.define(version: 2022_02_14_144912) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -381,6 +381,7 @@ ActiveRecord::Schema.define(version: 2022_01_04_131550) do
     t.datetime "imported_at"
     t.string "language", default: "ruby"
     t.bigint "database_id"
+    t.string "import_type"
     t.index ["core"], name: "index_scripts_on_core"
     t.index ["database_id"], name: "index_scripts_on_database_id"
     t.index ["name"], name: "index_scripts_on_name"

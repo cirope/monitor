@@ -4,7 +4,7 @@ module Scripts::Json
   extend ActiveSupport::Concern
 
   # TODO: remove :file after migration to ActiveStorage
-  JSON_EXCLUDED_ATTRIBUTES   = [:id, :file, :lock_version, :imported_at]
+  JSON_EXCLUDED_ATTRIBUTES   = [:id, :file, :lock_version, :imported_at, :import_type]
   JSON_INCLUDED_ASSOCIATIONS = {
     requires: {
       only: [],
@@ -24,8 +24,16 @@ module Scripts::Json
   JSON_DEFAULT_OPTIONS = {
     except:  JSON_EXCLUDED_ATTRIBUTES,
     include: JSON_INCLUDED_ASSOCIATIONS,
-    methods: :current_version
+    methods: [:current_version, :option_import]
   }
+
+  def option_import
+    sss = tags.select do |aa|
+      aa['options']['export_edit'] ==  true
+    end
+
+    sss.size > 0 ?  'edit' : 'read'
+  end
 
   def as_json options = {}
     super JSON_DEFAULT_OPTIONS.merge(options)

@@ -78,6 +78,7 @@ module Scripts::Import
         descriptions = data.delete('descriptions')
         parameters   = data.delete('parameters')
         requires     = require_attributes data.delete('requires')
+        import_type  = data.delete('option_import')
 
         if data['change'].blank?
           date           = I18n.l Time.zone.now, format: :compact
@@ -86,6 +87,7 @@ module Scripts::Import
 
         create data.merge({
           imported_at:             Time.zone.now,
+          import_type:             import_type,
           descriptions_attributes: descriptions,
           parameters_attributes:   parameters,
           requires_attributes:     requires
