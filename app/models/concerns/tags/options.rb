@@ -3,6 +3,11 @@
 module Tags::Options
   extend ActiveSupport::Concern
 
+  EXPORT_OPTIONS = {
+    edit: 'edit',
+    read: 'read'
+  }
+
   def kind_options
     options = {
       issue:  { final: :boolean, group: :boolean, category: :boolean },

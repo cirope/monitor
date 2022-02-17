@@ -24,15 +24,15 @@ module Scripts::Json
   JSON_DEFAULT_OPTIONS = {
     except:  JSON_EXCLUDED_ATTRIBUTES,
     include: JSON_INCLUDED_ASSOCIATIONS,
-    methods: [:current_version, :option_import]
+    methods: [:current_version, :select_import_type]
   }
 
-  def option_import
-    sss = tags.select do |aa|
-      aa['options']['export_edit'] ==  true
+  def select_import_type
+    tags_selected = tags.select do |tag|
+      tag['options']['export_edit'] ==  true
     end
 
-    sss.size > 0 ?  'edit' : 'read'
+    tags_selected.size > 0 ? Tag::EXPORT_OPTIONS[:edit] : Tag::EXPORT_OPTIONS[:read]
   end
 
   def as_json options = {}
