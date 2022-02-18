@@ -80,7 +80,7 @@ module Issues::Scopes
 
     def by_canonical_data data_keys
       query = data_keys.to_h
-                       .map { |k, v| ActiveRecord::Base.sanitize_sql_array(['canonical_data ->> ? like ?', k, "%#{v}%"]) if v.present? }
+                       .map { |k, v| ActiveRecord::Base.sanitize_sql_array(['canonical_data like ?', "%\"#{k}\"=>\"%#{v}%\"%"]) if v.present? }
                        .compact
                        .join(' AND ')
 

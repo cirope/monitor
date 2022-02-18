@@ -25,7 +25,7 @@ class IssuesController < ApplicationController
     if @issues.can_collapse_data?
       @alt_partial = true
       @stats       = params[:graph].present? ? graph_stats : stats
-      @data_keys   = @issues.first.canonical_data.keys
+      @data_keys   = (JSON.parse @issues.first.canonical_data.gsub('=>', ':')).keys
     end
 
     respond_with @issues
