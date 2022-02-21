@@ -8,8 +8,8 @@ module Scripts::Scopes
     scope :for_export, -> { joins(:tags).merge Tag.export(true) }
   end
 
-  def editable?
-    imported_at.present? && imported_as != Script::export_options[:edit]
+  def is_editable?
+    imported_at.present? && editable?
   end
 
   module ClassMethods

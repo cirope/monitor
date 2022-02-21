@@ -2,10 +2,11 @@
 
 module Scripts::Json
   extend ActiveSupport::Concern
+
   included do
-    enum export_options: {
-      edit: 'edit',
-      read: 'read'
+    enum imported_as: {
+      editable:  'editable',
+      read_only: 'read_only'
     }
   end
 
@@ -36,7 +37,7 @@ module Scripts::Json
   def exported_as
     export_as_editable = tags.detect &:editable?
 
-    export_as_editable.present? ? Script::export_options[:edit] : Script::export_options[:read]
+    export_as_editable.present? ? Script.imported_as[:editable] : Script.imported_as[:read_only]
   end
 
   def as_json options = {}
