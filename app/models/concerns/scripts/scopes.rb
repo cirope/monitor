@@ -9,7 +9,7 @@ module Scripts::Scopes
   end
 
   def editable?
-    imported_at.present? && imported_as != Script::EXPORT_OPTIONS[:edit]
+    imported_at.present? && imported_as != Script::export_options[:edit]
   end
 
   module ClassMethods

@@ -76,7 +76,7 @@ module Scripts::Import
 
       def create_from_data data
         descriptions = data.delete('descriptions')
-        imported_as  = data.delete('select_imported_as')
+        imported_as  = data.delete('exported_as')
         parameters   = data.delete('parameters')
         requires     = require_attributes data.delete('requires')
 
@@ -106,6 +106,7 @@ module Scripts::Import
     update_parameters   data.delete('parameters')
     update_requires     data.delete('requires')
 
+    data['imported_as'] = data.delete('exported_as')
     data['imported_at'] = Time.zone.now if imported_at
 
     update data
