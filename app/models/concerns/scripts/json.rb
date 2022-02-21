@@ -32,9 +32,7 @@ module Scripts::Json
   }
 
   def select_imported_as
-    tags_selected = tags.detect do |tag|
-      tag.editable? == true
-    end
+    tags_selected = tags.detect(&:editable)
 
     tags_selected.present? ? EXPORT_OPTIONS[:edit] : EXPORT_OPTIONS[:read]
   end
