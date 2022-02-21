@@ -3,8 +3,12 @@
 module Scripts::Json
   extend ActiveSupport::Concern
 
+  EXPORT_OPTIONS = {
+    edit: 'edit',
+    read: 'read'
+  }
   # TODO: remove :file after migration to ActiveStorage
-  JSON_EXCLUDED_ATTRIBUTES   = [:id, :file, :lock_version, :imported_at, :import_type]
+  JSON_EXCLUDED_ATTRIBUTES   = [:id, :file, :lock_version, :imported_at, :imported_as]
   JSON_INCLUDED_ASSOCIATIONS = {
     requires: {
       only: [],
@@ -24,15 +28,15 @@ module Scripts::Json
   JSON_DEFAULT_OPTIONS = {
     except:  JSON_EXCLUDED_ATTRIBUTES,
     include: JSON_INCLUDED_ASSOCIATIONS,
-    methods: [:current_version, :select_import_type]
+    methods: [:current_version, :select_imported_as]
   }
 
-  def select_import_type
-    tags_selected = tags.select do |tag|
-      tag['options']['export_edit'] ==  true
+  def select_imported_as
+    tags_selected = tags.detect do |tag|
+      tag.editable? == true
     end
 
-    tags_selected.size > 0 ? Tag::EXPORT_OPTIONS[:edit] : Tag::EXPORT_OPTIONS[:read]
+    tags_selected.present? ? EXPORT_OPTIONS[:edit] : EXPORT_OPTIONS[:read]
   end
 
   def as_json options = {}

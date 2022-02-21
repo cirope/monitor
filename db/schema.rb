@@ -381,7 +381,7 @@ ActiveRecord::Schema.define(version: 2022_02_14_144912) do
     t.datetime "imported_at"
     t.string "language", default: "ruby"
     t.bigint "database_id"
-    t.string "import_type"
+    t.string "imported_as"
     t.index ["core"], name: "index_scripts_on_core"
     t.index ["database_id"], name: "index_scripts_on_database_id"
     t.index ["name"], name: "index_scripts_on_name"

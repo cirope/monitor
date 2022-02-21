@@ -3,15 +3,10 @@
 module Tags::Options
   extend ActiveSupport::Concern
 
-  EXPORT_OPTIONS = {
-    edit: 'edit',
-    read: 'read'
-  }
-
   def kind_options
     options = {
       issue:  { final: :boolean, group: :boolean, category: :boolean },
-      script: { export: :boolean, export_edit: :boolean },
+      script: { export: :boolean, editable: :boolean },
       user:   {}
     }
 
@@ -54,13 +49,13 @@ module Tags::Options
     assign_option 'export', export == true || export == '1'
   end
 
-  def export_edit
-    options&.fetch 'export_edit', nil
+  def editable
+    options&.fetch 'editable', nil
   end
-  alias_method :export_edit?, :export_edit
+  alias_method :editable?, :editable
 
-  def export_edit= export_edit
-    assign_option 'export_edit', export_edit == true || export_edit == '1'
+  def editable= editable
+    assign_option 'editable', editable == true || editable == '1'
   end
 
   private

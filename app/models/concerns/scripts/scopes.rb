@@ -8,6 +8,10 @@ module Scripts::Scopes
     scope :for_export, -> { joins(:tags).merge Tag.export(true) }
   end
 
+  def editable?
+    imported_at.present? && imported_as != Script::EXPORT_OPTIONS[:edit]
+  end
+
   module ClassMethods
     def by_name name
       where "#{table_name}.name ILIKE ?", "%#{name}%"

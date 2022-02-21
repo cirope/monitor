@@ -38,7 +38,7 @@ module ScriptsHelper
   end
 
   def disable_edition?
-    @script.imported_at.present? && @script.import_type != Tag::EXPORT_OPTIONS[:edit]
+    @script.editable?
   end
 
   def lang_icon lang

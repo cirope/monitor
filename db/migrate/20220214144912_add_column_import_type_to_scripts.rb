@@ -1,5 +1,7 @@
 class AddColumnImportTypeToScripts < ActiveRecord::Migration[6.0]
   def change
-    add_column :scripts, :import_type, :string
+    change_table :scripts do |t|
+      t.string :imported_as
+    end
   end
 end

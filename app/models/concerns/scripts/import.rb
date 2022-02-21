@@ -76,9 +76,9 @@ module Scripts::Import
 
       def create_from_data data
         descriptions = data.delete('descriptions')
+        imported_as  = data.delete('select_imported_as')
         parameters   = data.delete('parameters')
         requires     = require_attributes data.delete('requires')
-        import_type  = data.delete('select_import_type')
 
         if data['change'].blank?
           date           = I18n.l Time.zone.now, format: :compact
@@ -86,9 +86,9 @@ module Scripts::Import
         end
 
         create data.merge({
-          imported_at:             Time.zone.now,
-          import_type:             import_type,
           descriptions_attributes: descriptions,
+          imported_as:             imported_as,
+          imported_at:             Time.zone.now,
           parameters_attributes:   parameters,
           requires_attributes:     requires
         })
