@@ -238,6 +238,8 @@ class IssuesControllerTest < ActionController::TestCase
   end
 
   test 'return filter params' do
+    @issue.update_attributes! data: [{ "test": 'data' }]
+
     params_hash = { id: @issue.id,
                     name: 'test',
                     description: @issue.description,
@@ -251,7 +253,7 @@ class IssuesControllerTest < ActionController::TestCase
                     key: @issue.data.first.first,
                     created_at: @issue.created_at,
                     scheduled_at: @issue.schedule.scheduled_at,
-                    canonical_data: ActionController::Parameters.new(@issue.canonical_data),
+                    canonical_data: ActionController::Parameters.new(JSON.parse(@issue.reload.canonical_data.gsub('=>', ':'))),
                     no_return: 'no return' }
 
     @controller.params = ActionController::Parameters.new({ filter: params_hash })

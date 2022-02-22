@@ -9,31 +9,18 @@ default: &default
   database: <%= "monitor_#{Rails.env}" %>
   schema_search_path: 'public,shared_extensions'
 
-metrics_default: &metrics_default
-  <<: *default
-  database: <%= "metrics_#{Rails.env}" %>
-  migrations_paths: db/metrics_migrate
-
 development:
   primary:
     <<: *default
-  metrics:
-    <<: *metrics_default
 
 test:
   primary:
     <<: *default
-  metrics:
-    <<: *metrics_default
 
 production:
   primary:
     <<: *default
-  metrics:
-    <<: *metrics_default
 
 sandbox:
   primary:
     <<: *default
-  metrics:
-    <<: *metrics_default

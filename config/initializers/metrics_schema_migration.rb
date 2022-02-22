@@ -1,5 +1,5 @@
 class MetricsSchemaMigration < ActiveRecord::SchemaMigration
   def connection
-    Serie.connection
+    # Serie.connection
   end
 end

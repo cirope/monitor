@@ -428,41 +428,52 @@ class IssueTest < ActiveSupport::TestCase
   end
 
   test 'should update canonical data' do
-    @issue.data = [[:h1, :h2], ['v1', 'v2']]
+    @issue.update! data: [[:h1, :h2], ['v1', 'v2']]
+    # @issue.data = [[:h1, :h2], ['v1', 'v2']]
     expected    = { 'h1' => 'v1', 'h2' => 'v2' }
 
-    @issue.save!
+    # @issue.save!
 
-    assert_equal expected, @issue.reload.canonical_data
+    assert_equal expected, JSON.parse(@issue.reload.canonical_data.gsub('=>', ':'))
 
-    @issue.data = { key1: 1, key2: [[:h1, :h2], ['v1', 'v2'], ['v3', 'v4']] }
-    expected    = {}
+    # @issue.data = { key1: 1, key2: [[:h1, :h2], ['v1', 'v2'], ['v3', 'v4']] }
 
-    @issue.save!
+    # @issue.save!
 
-    assert_equal expected, @issue.reload.canonical_data
+    @issue.update! data: { key1: 1, key2: [[:h1, :h2], ['v1', 'v2'], ['v3', 'v4']] }
 
-    @issue.data = [{ h1: 'v1', h2: 'v2' }]
+    assert_nil @issue.reload.canonical_data
+
+    @issue.update! data: [{ h1: 'v1', h2: 'v2' }]
+    # @issue.data = [{ h1: 'v1', h2: 'v2' }]
     expected    = { 'h1' => 'v1', 'h2' => 'v2' }
 
-    @issue.save!
+    # @issue.save!
 
-    assert_equal expected, @issue.reload.canonical_data
+    assert_equal expected, JSON.parse(@issue.reload.canonical_data.gsub('=>', ':'))
 
-    @issue.data = nil
-    expected    = {}
+    @issue.update! data: nil
+    # @issue.data = nil
 
-    @issue.save!
+    # @issue.save!
 
-    assert_equal expected, @issue.reload.canonical_data
+    assert_nil @issue.reload.canonical_data
   end
 
   test 'should return a issue with like canonical data' do
-    @issue.data = [[:k1, :k2], ['value1', 'value2']]
+    @issue.update! data: [[:k1, :k2, :k3], ['value1', 'value2', 'value1']]
+    # @issue.data = [[:k1, :k2, :k3], ['value1', 'value2', 'value1']]
 
-    @issue.save!
+    # @issue.save!
 
-    data_keys = { 'k1': 'lue1', 'k2': 'alue' }
+    another_issue = issues :ls_on_atahualpa_not_well_again
+
+    another_issue.update! data: [[:k1, :k2, :k3], ['another1', 'value1', 'another3']]
+    # another_issue.data = [[:k1, :k2, :k3], ['another1', 'value1', 'another3']]
+
+    # another_issue.save!
+
+    data_keys = { 'k1': 'lue1', 'k2': nil, 'k3': nil }
 
     issues = Issue.by_canonical_data(data_keys)
 
