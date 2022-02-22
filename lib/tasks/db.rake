@@ -2,10 +2,10 @@ namespace :db do
   desc 'Put records, remove and update the database using current app values'
   task update: :environment do
     ActiveRecord::Base.transaction do
-      # set_default_server         # 2019-02-28
-      # change_tags_style          # 2019-04-15
-      # set_issue_data_type        # 2021-05-11
-      # generate_state_transitions # 2021-10-29
+      set_default_server         # 2019-02-28
+      change_tags_style          # 2019-04-15
+      set_issue_data_type        # 2021-05-11
+      generate_state_transitions # 2021-10-29
       set_issue_canonical_data   # 2022-02-01
     end
   end
