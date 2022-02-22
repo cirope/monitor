@@ -429,49 +429,32 @@ class IssueTest < ActiveSupport::TestCase
 
   test 'should update canonical data' do
     @issue.update! data: [[:h1, :h2], ['v1', 'v2']]
-    # @issue.data = [[:h1, :h2], ['v1', 'v2']]
-    expected    = { 'h1' => 'v1', 'h2' => 'v2' }
 
-    # @issue.save!
+    expected = { 'h1' => 'v1', 'h2' => 'v2' }
 
     assert_equal expected, JSON.parse(@issue.reload.canonical_data.gsub('=>', ':'))
-
-    # @issue.data = { key1: 1, key2: [[:h1, :h2], ['v1', 'v2'], ['v3', 'v4']] }
-
-    # @issue.save!
 
     @issue.update! data: { key1: 1, key2: [[:h1, :h2], ['v1', 'v2'], ['v3', 'v4']] }
 
     assert_nil @issue.reload.canonical_data
 
     @issue.update! data: [{ h1: 'v1', h2: 'v2' }]
-    # @issue.data = [{ h1: 'v1', h2: 'v2' }]
-    expected    = { 'h1' => 'v1', 'h2' => 'v2' }
 
-    # @issue.save!
+    expected = { 'h1' => 'v1', 'h2' => 'v2' }
 
     assert_equal expected, JSON.parse(@issue.reload.canonical_data.gsub('=>', ':'))
 
     @issue.update! data: nil
-    # @issue.data = nil
-
-    # @issue.save!
 
     assert_nil @issue.reload.canonical_data
   end
 
   test 'should return a issue with like canonical data' do
     @issue.update! data: [[:k1, :k2, :k3], ['value1', 'value2', 'value1']]
-    # @issue.data = [[:k1, :k2, :k3], ['value1', 'value2', 'value1']]
-
-    # @issue.save!
 
     another_issue = issues :ls_on_atahualpa_not_well_again
 
     another_issue.update! data: [[:k1, :k2, :k3], ['another1', 'value1', 'another3']]
-    # another_issue.data = [[:k1, :k2, :k3], ['another1', 'value1', 'another3']]
-
-    # another_issue.save!
 
     data_keys = { 'k1': 'lue1', 'k2': nil, 'k3': nil }
 

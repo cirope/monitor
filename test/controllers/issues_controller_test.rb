@@ -238,7 +238,7 @@ class IssuesControllerTest < ActionController::TestCase
   end
 
   test 'return filter params' do
-    @issue.update_attributes! data: [{ "test": 'data' }]
+    @issue.update! data: [{ "test": 'data' }]
 
     params_hash = { id: @issue.id,
                     name: 'test',
