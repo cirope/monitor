@@ -432,7 +432,7 @@ class IssueTest < ActiveSupport::TestCase
 
     expected = { 'h1' => 'v1', 'h2' => 'v2' }
 
-    assert_equal expected, JSON.parse(@issue.reload.canonical_data.gsub('=>', ':'))
+    assert_equal expected, JSON.parse(@issue.reload.canonical_data)
 
     @issue.update! data: { key1: 1, key2: [[:h1, :h2], ['v1', 'v2'], ['v3', 'v4']] }
 
@@ -442,7 +442,7 @@ class IssueTest < ActiveSupport::TestCase
 
     expected = { 'h1' => 'v1', 'h2' => 'v2' }
 
-    assert_equal expected, JSON.parse(@issue.reload.canonical_data.gsub('=>', ':'))
+    assert_equal expected, JSON.parse(@issue.reload.canonical_data)
 
     @issue.update! data: nil
 
@@ -454,13 +454,22 @@ class IssueTest < ActiveSupport::TestCase
 
     another_issue = issues :ls_on_atahualpa_not_well_again
 
-    another_issue.update! data: [[:k1, :k2, :k3], ['another1', 'value1', 'another3']]
+    another_issue.update! data: [[:k1, :k2, :k3], ['value2', 'value1', 'value2']]
 
-    data_keys = { 'k1': 'lue1', 'k2': nil, 'k3': nil }
+    keys_orderd_json = ['k1', 'k2', 'k3'].to_json
+
+    data_keys = { 'k3' => nil, 'k2' => nil, 'k1' => 'lue1', keys_ordered: keys_orderd_json }
 
     issues = Issue.by_canonical_data(data_keys)
 
     assert_equal 1, issues.count
     assert_equal @issue.id, issues.first.id
+
+    data_keys = { 'k3' => nil, 'k2' => nil, 'k1' => 'lue2', keys_ordered: keys_orderd_json }
+
+    issues = Issue.by_canonical_data(data_keys)
+
+    assert_equal 1, issues.count
+    assert_equal another_issue.id, issues.first.id
   end
 end

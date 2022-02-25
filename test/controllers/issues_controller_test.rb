@@ -43,7 +43,12 @@ class IssuesControllerTest < ActionController::TestCase
 
     get :index, params: {
       script_id: @issue.script.id,
-      filter: { canonical_data: { 'Header one': 'lue' } }
+      filter: {
+        canonical_data: {
+          'Header one': 'lue',
+          keys_ordered: (JSON.parse @issue.reload.canonical_data).keys.to_json
+        }
+      }
     }
     assert_response :success
     assert_select 'a[href*=?]', 'partial=alt', count: 1
@@ -56,7 +61,12 @@ class IssuesControllerTest < ActionController::TestCase
 
     get :index, params: {
       script_id: @issue.script.id,
-      filter: { canonical_data: { 'Header one': 'test' } }
+      filter: {
+        canonical_data: {
+          'Header one': 'test',
+          keys_ordered: (JSON.parse @issue.reload.canonical_data).keys.to_json
+        }
+      }
     }
     assert_response :success
     assert_select '.alert', text: I18n.t('issues.index.empty_search_html')
@@ -240,21 +250,26 @@ class IssuesControllerTest < ActionController::TestCase
   test 'return filter params' do
     @issue.update! data: [{ "test": 'data' }]
 
-    params_hash = { id: @issue.id,
-                    name: 'test',
-                    description: @issue.description,
-                    status: @issue.status,
-                    user: 'test',
-                    user_id: @issue.users.first.id,
-                    show: 'test',
-                    tags: @issue.tags.to_s,
-                    data: @issue.data.to_s,
-                    comment: @issue.comments.first.text,
-                    key: @issue.data.first.first,
-                    created_at: @issue.created_at,
-                    scheduled_at: @issue.schedule.scheduled_at,
-                    canonical_data: ActionController::Parameters.new(JSON.parse(@issue.reload.canonical_data.gsub('=>', ':'))),
-                    no_return: 'no return' }
+    keys_ordered = (JSON.parse issues.first.canonical_data).keys
+
+    params_hash = {
+      id: @issue.id,
+      name: 'test',
+      description: @issue.description,
+      status: @issue.status,
+      user: 'test',
+      user_id: @issue.users.first.id,
+      show: 'test',
+      tags: @issue.tags.to_s,
+      data: @issue.data.to_s,
+      comment: @issue.comments.first.text,
+      key: @issue.data.first.first,
+      created_at: @issue.created_at,
+      scheduled_at: @issue.schedule.scheduled_at,
+      canonical_data: ActionController::Parameters.new(JSON.parse(@issue.reload.canonical_data)
+                                                            .merge(keys_ordered: keys_ordered)),
+      no_return: 'no return'
+    }
 
     @controller.params = ActionController::Parameters.new({ filter: params_hash })
 

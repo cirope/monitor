@@ -124,6 +124,7 @@
             %>
         <% if @data_keys.present? %>
           <%= f.simple_fields_for :canonical_data do |p| %>
+            <%= p.input :keys_ordered, as: :hidden, input_html: { :value => @data_keys.to_json } %>
             <% @data_keys.each_with_index do |key, index| %>
               <% if start_row_in_data_filter(index) %>
                 <div class="row">

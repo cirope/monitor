@@ -80,8 +80,9 @@ module Issues::Scopes
 
     def by_canonical_data data_keys
       query = data_keys.to_h
-                       .map { |k, v| like_for_key(data_keys, k, v) if v.present? }
-                       .compact
+                       .except(:keys_ordered)
+                       .select { |_k, v| v.present?}
+                       .map { |k, v| like_for_key(data_keys, k, v) }
                        .join(' AND ')
 
       where(query)
@@ -90,11 +91,13 @@ module Issues::Scopes
     private
 
       def like_for_key data_keys, key, value
-        like_value = if data_keys.to_h.keys.last == key
-                       "%\"#{key}\"=>\"%#{value}%\"%"
+        keys_ordered = JSON[data_keys[:keys_ordered]]
+
+        like_value = if keys_ordered.last == key
+                       "%\"#{key}\":\"%#{value}%\"%"
                      else
-                       next_key = data_keys.keys[data_keys.keys.index(key).next]
-                       "%\"#{key}\"=>\"%#{value}%\", \"#{next_key}\"%"
+                       next_key = keys_ordered[keys_ordered.index(key).next]
+                       "%\"#{key}\":\"%#{value}%\",\"#{next_key}\":%"
                      end
 
         ActiveRecord::Base.sanitize_sql_array(['canonical_data like ?', like_value])

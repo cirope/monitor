@@ -25,9 +25,7 @@ class IssuesController < ApplicationController
     if @issues.can_collapse_data?
       @alt_partial = true
       @stats       = params[:graph].present? ? graph_stats : stats
-      @data_keys   = if @issues.first.canonical_data.present?
-                       (JSON.parse @issues.first.canonical_data.gsub('=>', ':')).keys
-                     end
+      @data_keys   = return_data_keys params, @issues
     end
 
     respond_with @issues
@@ -66,6 +64,15 @@ class IssuesController < ApplicationController
   end
 
   private
+
+    def return_data_keys params, issues
+      if issues.first.canonical_data.present? &&
+         params.dig(:filter, :canonical_data, :keys_ordered).blank?
+        (JSON.parse issues.first.canonical_data).keys
+      elsif params.dig(:filter, :canonical_data, :keys_ordered).present?
+        JSON[params[:filter][:canonical_data][:keys_ordered]]
+      end
+    end
 
     def maybe_paginate_issues
       @issues = @issues.page params[:page] unless request.format.symbol == :csv

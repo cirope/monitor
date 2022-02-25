@@ -10,17 +10,13 @@ default: &default
   schema_search_path: 'public,shared_extensions'
 
 development:
-  primary:
-    <<: *default
+  <<: *default
 
 test:
-  primary:
-    <<: *default
+  <<: *default
 
 production:
-  primary:
-    <<: *default
+  <<: *default
 
 sandbox:
-  primary:
-    <<: *default
+  <<: *default
