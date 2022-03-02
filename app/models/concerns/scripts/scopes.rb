@@ -9,7 +9,7 @@ module Scripts::Scopes
   end
 
   def is_editable?
-    imported_at.present? && editable?
+    imported_at.blank? || (imported_at.present? && editable?)
   end
 
   module ClassMethods

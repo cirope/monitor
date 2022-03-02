@@ -72,6 +72,17 @@ class ScriptsHelperTest < ActionView::TestCase
     assert disable_edition?
   end
 
+  test 'enable edition when is imported' do
+    @script = scripts :ls
+
+    assert !disable_edition?
+
+    @script.imported_at = Time.zone.now
+    @script.imported_as = 'editable'
+
+    assert !disable_edition?
+  end
+
   test 'imported tag' do
     skip
   end
