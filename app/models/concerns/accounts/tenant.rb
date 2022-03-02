@@ -13,7 +13,6 @@ module Accounts::Tenant
     account = self
 
     Apartment::Tenant.switch tenant_name do
-      
       Current.account = account
 
       yield

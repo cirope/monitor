@@ -68,7 +68,7 @@ class IssuesController < ApplicationController
     def return_data_keys params, issues
       if issues.first.canonical_data.present? &&
          params.dig(:filter, :canonical_data, :keys_ordered).blank?
-        (JSON.parse issues.first.canonical_data).keys
+        issues.first.canonical_data.keys
       elsif params.dig(:filter, :canonical_data, :keys_ordered).present?
         JSON[params[:filter][:canonical_data][:keys_ordered]]
       end

@@ -46,7 +46,7 @@ class IssuesControllerTest < ActionController::TestCase
       filter: {
         canonical_data: {
           'Header one': 'lue',
-          keys_ordered: (JSON.parse @issue.reload.canonical_data).keys.to_json
+          keys_ordered: @issue.reload.canonical_data.keys.to_json
         }
       }
     }
@@ -64,7 +64,7 @@ class IssuesControllerTest < ActionController::TestCase
       filter: {
         canonical_data: {
           'Header one': 'test',
-          keys_ordered: (JSON.parse @issue.reload.canonical_data).keys.to_json
+          keys_ordered: @issue.reload.canonical_data.keys.to_json
         }
       }
     }
@@ -250,7 +250,7 @@ class IssuesControllerTest < ActionController::TestCase
   test 'return filter params' do
     @issue.update! data: [{ "test": 'data' }]
 
-    keys_ordered = (JSON.parse issues.first.canonical_data).keys
+    keys_ordered = issues.first.canonical_data.keys
 
     params_hash = {
       id: @issue.id,
@@ -266,8 +266,9 @@ class IssuesControllerTest < ActionController::TestCase
       key: @issue.data.first.first,
       created_at: @issue.created_at,
       scheduled_at: @issue.schedule.scheduled_at,
-      canonical_data: ActionController::Parameters.new(JSON.parse(@issue.reload.canonical_data)
-                                                            .merge(keys_ordered: keys_ordered)),
+      canonical_data: ActionController::Parameters.new(@issue.reload
+                                                             .canonical_data
+                                                             .merge(keys_ordered: keys_ordered)),
       no_return: 'no return'
     }
 

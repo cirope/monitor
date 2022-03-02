@@ -432,7 +432,7 @@ class IssueTest < ActiveSupport::TestCase
 
     expected = { 'h1' => 'v1', 'h2' => 'v2' }
 
-    assert_equal expected, JSON.parse(@issue.reload.canonical_data)
+    assert_equal expected, @issue.reload.canonical_data
 
     @issue.update! data: { key1: 1, key2: [[:h1, :h2], ['v1', 'v2'], ['v3', 'v4']] }
 
@@ -442,7 +442,7 @@ class IssueTest < ActiveSupport::TestCase
 
     expected = { 'h1' => 'v1', 'h2' => 'v2' }
 
-    assert_equal expected, JSON.parse(@issue.reload.canonical_data)
+    assert_equal expected, @issue.reload.canonical_data
 
     @issue.update! data: nil
 

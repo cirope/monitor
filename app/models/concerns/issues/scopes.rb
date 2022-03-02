@@ -107,13 +107,13 @@ module Issues::Scopes
         keys_ordered = JSON[data_keys[:keys_ordered]]
 
         like_value = if keys_ordered.last == key
-                       "%\"#{key}\":\"%#{value}%\"%"
+                       %Q(%"#{key}":"%#{value}%"%)
                      else
                        next_key = keys_ordered[keys_ordered.index(key).next]
-                       "%\"#{key}\":\"%#{value}%\",\"#{next_key}\":%"
+                       %Q(%"#{key}":"%#{value}%","#{next_key}":%)
                      end
 
-        ActiveRecord::Base.sanitize_sql_array(['canonical_data like ?', like_value])
+        ActiveRecord::Base.sanitize_sql_array(["#{Issue.table_name}.canonical_data like ?", like_value])
       end
   end
 end
