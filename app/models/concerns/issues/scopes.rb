@@ -110,6 +110,7 @@ module Issues::Scopes
                        %Q(%"#{key}":"%#{value}%"%)
                      else
                        next_key = keys_ordered[keys_ordered.index(key).next]
+
                        %Q(%"#{key}":"%#{value}%","#{next_key}":%)
                      end
 
