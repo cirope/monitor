@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_06_122727) do
+ActiveRecord::Schema.define(version: 2022_01_28_144148) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_trgm"
   enable_extension "plpgsql"
 
   create_table "accounts", force: :cascade do |t|
@@ -159,6 +160,8 @@ ActiveRecord::Schema.define(version: 2022_01_06_122727) do
     t.string "data_type"
     t.jsonb "options"
     t.jsonb "state_transitions", default: {}
+    t.text "canonical_data"
+    t.index ["canonical_data"], name: "index_issues_on_canonical_data", opclass: :gin_trgm_ops, using: :gin
     t.index ["created_at"], name: "index_issues_on_created_at"
     t.index ["data"], name: "index_issues_on_data", using: :gin
     t.index ["description"], name: "index_issues_on_description"
@@ -395,6 +398,18 @@ ActiveRecord::Schema.define(version: 2022_01_06_122727) do
     t.index ["database_id"], name: "index_scripts_on_database_id"
     t.index ["name"], name: "index_scripts_on_name"
     t.index ["uuid"], name: "index_scripts_on_uuid", unique: true
+  end
+
+  create_table "series", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "timestamp", null: false
+    t.string "identifier", null: false
+    t.decimal "amount", precision: 15, scale: 3, null: false
+    t.jsonb "data"
+    t.index ["data"], name: "index_series_on_data", using: :gin
+    t.index ["identifier"], name: "index_series_on_identifier"
+    t.index ["name"], name: "index_series_on_name"
+    t.index ["timestamp"], name: "index_series_on_timestamp"
   end
 
   create_table "servers", id: :serial, force: :cascade do |t|

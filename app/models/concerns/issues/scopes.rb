@@ -90,5 +90,31 @@ module Issues::Scopes
       left_joins(:views).group("#{View.table_name}.user_id")
                         .merge(View.viewed_by(current_user).or(View.where(user_id: nil)))
     end
+
+    def by_canonical_data data_keys
+      query = data_keys.to_h
+                       .except(:keys_ordered)
+                       .select { |_k, v| v.present?}
+                       .map { |k, v| like_for_key(data_keys, k, v) }
+                       .join(' AND ')
+
+      where(query)
+    end
+
+    private
+
+      def like_for_key data_keys, key, value
+        keys_ordered = JSON[data_keys[:keys_ordered]]
+
+        like_value = if keys_ordered.last == key
+                       %Q(%"#{key}":"%#{value}%"%)
+                     else
+                       next_key = keys_ordered[keys_ordered.index(key).next]
+
+                       %Q(%"#{key}":"%#{value}%","#{next_key}":%)
+                     end
+
+        ActiveRecord::Base.sanitize_sql_array(["#{Issue.table_name}.canonical_data like ?", like_value])
+      end
   end
 end

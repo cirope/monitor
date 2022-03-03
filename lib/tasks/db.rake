@@ -6,6 +6,7 @@ namespace :db do
       change_tags_style          # 2019-04-15
       set_issue_data_type        # 2021-05-11
       generate_state_transitions # 2021-10-29
+      set_issue_canonical_data   # 2022-02-01
     end
   end
 end
@@ -83,4 +84,24 @@ private
 
   def state_transitions_were_generated?
     Issue.where.not(state_transitions: {}).any?
+  end
+
+  def set_issue_canonical_data
+    PaperTrail.enabled = false
+
+    Account.on_each do
+      if set_issue_canonical_data?
+        Issue.find_each do |issue|
+          issue.data_will_change!
+
+          issue.save!
+        end
+      end
+    end
+  ensure
+    PaperTrail.enabled = true
+  end
+
+  def set_issue_canonical_data?
+    Issue.where.not(canonical_data: nil).empty?
   end
