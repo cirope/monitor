@@ -7,32 +7,16 @@ default: &default
   username: <%= ENV['TRAVIS'] ? 'postgres' : 'monitor' %>
   password: <%= ENV['TRAVIS'] ? '' : ENV['APP_DB_PASSWORD'] || 'monitor' %>
   database: <%= "monitor_#{Rails.env}" %>
-
-metrics_default: &metrics_default
-  <<: *default
-  database: <%= "metrics_#{Rails.env}" %>
-  migrations_paths: db/metrics_migrate
+  schema_search_path: 'public,shared_extensions'
 
 development:
-  primary:
-    <<: *default
-  metrics:
-    <<: *metrics_default
+  <<: *default
 
 test:
-  primary:
-    <<: *default
-  metrics:
-    <<: *metrics_default
+  <<: *default
 
 production:
-  primary:
-    <<: *default
-  metrics:
-    <<: *metrics_default
+  <<: *default
 
 sandbox:
-  primary:
-    <<: *default
-  metrics:
-    <<: *metrics_default
+  <<: *default

@@ -16,7 +16,8 @@ module Issues::Filters
     :comment,
     :key,
     :created_at,
-    :scheduled_at
+    :scheduled_at,
+    { canonical_data: {} }
   ]
 
   included do

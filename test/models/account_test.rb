@@ -123,44 +123,4 @@ class AccountTest < ActiveSupport::TestCase
   test 'by tenant name' do
     skip
   end
-
-  test 'create metrics tenant on create' do
-    tenant = 'test'
-
-    assert_not_includes metrics_db_schemas, tenant
-
-    Account.create! name: 'Test', tenant_name: tenant
-
-    assert_includes metrics_db_schemas, tenant
-
-    assert_equal %w[schema_migrations series], metrics_tables_in_schema(tenant).sort
-  end
-
-  test 'drop metrics tenant on destroy' do
-    tenant = 'test'
-
-    assert_not_includes metrics_db_schemas, tenant
-
-    account = Account.create! name: 'Test', tenant_name: tenant
-
-    assert_includes metrics_db_schemas, tenant
-
-    account.send :destroy_tenant # simulate destroy
-
-    assert_not_includes metrics_db_schemas, tenant
-  end
-
-  private
-
-    def metrics_db_schemas
-      Serie.connection.execute(
-        'SELECT nspname FROM pg_catalog.pg_namespace;'
-      ).values.flatten
-    end
-
-    def metrics_tables_in_schema tenant
-      Serie.connection.execute(
-        "SELECT tablename from pg_catalog.pg_tables WHERE schemaname = '#{tenant}';"
-      ).values.flatten
-    end
 end

@@ -426,4 +426,50 @@ class IssueTest < ActiveSupport::TestCase
 
     assert @issue.reload.state_transitions['taken'].present?
   end
+
+  test 'should update canonical data' do
+    @issue.update! data: [[:h1, :h2], ['v1', 'v2']]
+
+    expected = { 'h1' => 'v1', 'h2' => 'v2' }
+
+    assert_equal expected, @issue.reload.canonical_data
+
+    @issue.update! data: { key1: 1, key2: [[:h1, :h2], ['v1', 'v2'], ['v3', 'v4']] }
+
+    assert_nil @issue.reload.canonical_data
+
+    @issue.update! data: [{ h1: 'v1', h2: 'v2' }]
+
+    expected = { 'h1' => 'v1', 'h2' => 'v2' }
+
+    assert_equal expected, @issue.reload.canonical_data
+
+    @issue.update! data: nil
+
+    assert_nil @issue.reload.canonical_data
+  end
+
+  test 'should return a issue with like canonical data' do
+    @issue.update! data: [[:k1, :k2, :k3], ['value1', 'value2', 'value1']]
+
+    another_issue = issues :ls_on_atahualpa_not_well_again
+
+    another_issue.update! data: [[:k1, :k2, :k3], ['value2', 'value1', 'value2']]
+
+    keys_orderd_json = ['k1', 'k2', 'k3'].to_json
+
+    data_keys = { 'k3' => nil, 'k2' => nil, 'k1' => 'lue1', keys_ordered: keys_orderd_json }
+
+    issues = Issue.by_canonical_data(data_keys)
+
+    assert_equal 1, issues.count
+    assert_equal @issue.id, issues.first.id
+
+    data_keys = { 'k3' => nil, 'k2' => nil, 'k1' => 'lue2', keys_ordered: keys_orderd_json }
+
+    issues = Issue.by_canonical_data(data_keys)
+
+    assert_equal 1, issues.count
+    assert_equal another_issue.id, issues.first.id
+  end
 end
