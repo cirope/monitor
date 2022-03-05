@@ -37,7 +37,7 @@ module Scripts::Json
   def exported_as
     export_as_editable = tags.detect &:editable?
 
-    export_as_editable.present? ? Script.imported_as[:editable] : Script.imported_as[:read_only]
+    export_as_editable ? Script.imported_as[:editable] : Script.imported_as[:read_only]
   end
 
   def as_json options = {}
