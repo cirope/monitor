@@ -76,7 +76,7 @@ module Scripts::Import
 
       def create_from_data data
         descriptions = data.delete('descriptions') || []
-        imported_as  = data.delete('exported_as') || Script.imported_as[:read_only]
+        imported_as  = data.delete('exported_as') || default_imported_as
         parameters   = data.delete('parameters')
         requires     = require_attributes data.delete('requires')
 
@@ -106,13 +106,17 @@ module Scripts::Import
     update_parameters   data.delete('parameters')
     update_requires     data.delete('requires')
 
-    data['imported_as'] = data.delete('exported_as') || Script.imported_as[:read_only]
+    data['imported_as'] = data.delete('exported_as') || default_imported_as
     data['imported_at'] = Time.zone.now if imported_at
 
     update data
   end
 
   private
+
+    def default_imported_as
+      Script.imported_as[:read_only]
+    end
 
     def update_parameters parameters_data
       names = []

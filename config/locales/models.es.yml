@@ -265,7 +265,7 @@ es:
         final: 'Final'
         group: 'Es grupo'
         export: 'Exportar'
-        export_edit: 'Exportar con editar'
+        export_edit: 'Exportar con edición'
         parent: 'Grupo'
         category: 'Es categoría'
       tagging:
