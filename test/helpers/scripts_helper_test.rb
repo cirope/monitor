@@ -83,7 +83,7 @@ class ScriptsHelperTest < ActionView::TestCase
     @script.imported_at = Time.zone.now
     @script.imported_as = 'editable'
 
-    assert !disable_edition?
+    refute disable_edition?
   end
 
   test 'imported tag' do
