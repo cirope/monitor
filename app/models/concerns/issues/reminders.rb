@@ -15,7 +15,7 @@ module Issues::Reminders
       if status_changed?
         reminders.each do |r|
           r.new_issue_status status
-          r.save
+          r.save!
         end
       end
     end
