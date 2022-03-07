@@ -314,6 +314,16 @@ ActiveRecord::Schema.define(version: 2022_02_14_144912) do
     t.index ["panel_id"], name: "index_queries_on_panel_id"
   end
 
+  create_table "reminders", force: :cascade do |t|
+    t.datetime "due_at", null: false
+    t.string "state_class_type", null: false
+    t.jsonb "transition_rules"
+    t.bigint "issue_id", null: false
+    t.index ["due_at"], name: "index_reminders_on_due_at"
+    t.index ["issue_id"], name: "index_reminders_on_issue_id"
+    t.index ["state_class_type"], name: "index_reminders_on_state_class_type"
+  end
+
   create_table "requires", id: :serial, force: :cascade do |t|
     t.integer "caller_id", null: false
     t.integer "script_id", null: false
@@ -543,6 +553,7 @@ ActiveRecord::Schema.define(version: 2022_02_14_144912) do
   add_foreign_key "parameters", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "properties", "databases", on_update: :restrict, on_delete: :restrict
   add_foreign_key "queries", "panels", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "reminders", "issues", on_update: :restrict, on_delete: :restrict
   add_foreign_key "requires", "scripts", column: "caller_id", on_update: :restrict, on_delete: :restrict
   add_foreign_key "requires", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "runs", "jobs", on_update: :restrict, on_delete: :restrict
