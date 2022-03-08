@@ -65,7 +65,7 @@ private
         Issue.find_each do |issue|
           state_transitions_hash = {}
 
-          issue.versions.each do |version|
+          issue.versions.find_each do |version|
             if version.object_changes.key? 'status'
               date_time_state_transition = DateTime.parse(version.object_changes['updated_at'][1]).to_s :db
               new_status                 = version.object_changes['status'][1]
@@ -76,7 +76,7 @@ private
             end
           end
 
-          issue.update! state_transitions: state_transitions_hash
+          issue.update_attribute('state_transitions', state_transitions_hash)
         end
       end
     end
@@ -91,7 +91,7 @@ private
 
     Account.on_each do
       if set_issue_canonical_data?
-        Issue.find_each do |issue|
+        Issue.single_row_data_type.find_each do |issue|
           issue.data_will_change!
 
           issue.save!
