@@ -91,7 +91,7 @@ private
 
     Account.on_each do
       if set_issue_canonical_data?
-        Issue.where(data_type: 'single_row').find_each do |issue|
+        Issue.single_row_data_type.find_each do |issue|
           issue.data_will_change!
 
           issue.save!
