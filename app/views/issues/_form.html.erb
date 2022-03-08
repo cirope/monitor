@@ -1,9 +1,9 @@
-<%= simple_form_for @issue do |f| %>
+<%= simple_form_for @issue, url: [@issue, filter: filter_params.to_h] do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
     <%= f.input :status, collection: status, prompt: false, hint: false, input_html: {
-      autofocus: true, disabled: limited_issue_form_edition?
+      autofocus: true, disabled: !can_edit_status?
     } %>
     <%= f.input :description, hint: false, input_html: { rows: 4, readonly: limited_issue_form_edition? } %>
     <%= f.input :lock_version, as: :hidden %>
@@ -26,7 +26,7 @@
       </div>
     </div>
 
-    <div class="card mb-3<%= ' border-danger' if @issue.errors[:tags].present? %>">
+    <div class="card mb-3<%= ' border border-danger' if @issue.errors[:tags].present? %>">
       <div class="card-header">
         <span class="badge badge-pill badge-light float-right">
           <%= @issue.taggings.count %>
@@ -41,10 +41,12 @@
         <% end %>
 
         <%= f.simple_fields_for :taggings, issue_taggings do |tf| %>
-          <%= render 'taggings/tagging', f: tf, kind: 'issue' %>
+          <%= render 'taggings/tagging', f: tf, **issue_tagging_options(@issue) %>
         <% end %>
 
-        <%= link_to_add_fields t('issues.new.tagging'), f, :taggings, kind: 'issue' unless limited_issue_form_edition? %>
+        <% unless limited_issue_form_edition? %>
+          <%= link_to_add_fields t('issues.new.tagging'), f, :taggings, **issue_tagging_options(@issue) %>
+        <% end %>
       </div>
     </div>
 
@@ -58,6 +60,10 @@
             <%= simple_format comment.text, class: 'mb-0' %>
             <footer class="blockquote-footer"><%= comment.user %></footer>
           </blockquote>
+        <% end %>
+
+        <% @issue.errors.full_messages_for(:comments).each do |error| %>
+          <p class="text-danger"><%= error %></p>
         <% end %>
 
         <%= f.simple_fields_for :comments, comments do |cf| %>

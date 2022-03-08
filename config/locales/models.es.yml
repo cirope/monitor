@@ -11,6 +11,9 @@ es:
       comment:
         one: 'Comentario'
         other: 'Comentarios'
+      dashboard:
+        one: 'Tablero'
+        other: 'Tableros'
       database:
         one: 'Base de datos'
         other: 'Bases de datos'
@@ -23,6 +26,12 @@ es:
       description:
         one: 'Atributo'
         other: 'Atributos'
+      effect:
+        one: 'Implícita'
+        other: 'Implícitas'
+      fail:
+        one: 'Ingreso fallido'
+        other: 'Ingresos fallidos'
       execution:
         one: 'Ejecución'
         other: 'Ejecuciones'
@@ -35,6 +44,9 @@ es:
       ldap:
         one: 'Configuración LDAP'
         other: 'LDAP'
+      login:
+        one: 'Ingreso'
+        other: 'Ingresos'
       maintainer:
         one: 'Mantenedor'
         other: 'Mantenedores'
@@ -47,6 +59,9 @@ es:
       output:
         one: 'Salida regla'
         other: 'Salida reglas'
+      panel:
+        one: 'Panel'
+        other: 'Paneles'
       parameter:
         one: 'Parámetro'
         other: 'Parámetros'
@@ -56,6 +71,9 @@ es:
       property:
         one: 'Propiedad'
         other: 'Propiedades'
+      query:
+        one: 'Consulta'
+        other: 'Consultas'
       require:
         one: 'Inclusión'
         other: 'Inclusiones'
@@ -71,6 +89,9 @@ es:
       script:
         one: 'Guión'
         other: 'Guiones'
+      serie:
+        one: 'Serie'
+        other: 'Series'
       server:
         one: 'Servidor'
         other: 'Servidores'
@@ -91,11 +112,14 @@ es:
       account:
         name: 'Nombre'
         tenant_name: 'Contexto'
+        group_issues_by_schedule: 'Agrupar guiones por trabajo'
       comment:
         text: 'Comentario'
         file: 'Adjunto'
         attachment: 'Adjunto'
         issue: 'Caso'
+      dashboard:
+        name: 'Nombre'
       database:
         name: 'Nombre'
         driver: 'Controlador'
@@ -107,24 +131,44 @@ es:
         value: 'Valor'
       descriptor:
         name: 'Nombre'
+      effect:
+        tag: 'Etiqueta'
+        implied: 'Etiqueta'
       execution:
         status: 'Estado'
         started_at: 'Inicio'
         ended_at: 'Fin'
         output: 'Salida'
         server: 'Servidor'
+      fail:
+        user: 'Usuario'
+        created_at: 'Fecha'
+        data: 'Datos'
+        ip: 'Dirección IP'
+        remote_ip: 'Dirección IP remota'
+        user_name: 'Nombre de usuario'
+        user_agent: 'Datos del navegador'
       issue:
         status: 'Estado'
         description: 'Descripción'
         run: 'Corrida'
         data: 'Datos'
+        comments: 'Comentarios'
         tags: 'Etiquetas'
         created_at: 'Fecha de caso'
+        state_transitions: 'Transición de estados'
       issue/taggings:
         tag_id: 'Etiqueta'
       job:
         script: 'Guión'
         server: 'Servidor'
+      login:
+        user: 'Usuario'
+        created_at: 'Fecha'
+        data: 'Datos'
+        ip: 'Dirección IP'
+        remote_ip: 'Dirección IP remota'
+        user_agent: 'Datos del navegador'
       ldap:
         hostname: 'Dirección del servidor'
         port: 'Puerto'
@@ -139,6 +183,8 @@ es:
         test_user: 'Usuario'
         test_password: 'Contraseña'
         role_guest: 'Grupo invitado'
+        role_owner: 'Grupo propietario'
+        role_manager: 'Grupo gerente'
         role_author: 'Grupo autor'
         role_supervisor: 'Grupo supervisor'
         role_security: 'Grupo seguridad'
@@ -152,6 +198,10 @@ es:
         email: 'Correo'
         default: 'Principal'
         account: 'Cuenta'
+      panel:
+        title: 'Título'
+        height: 'Alto'
+        width: 'Ancho'
       parameter:
         name: 'Nombre'
         value: 'Valor'
@@ -160,6 +210,13 @@ es:
       property:
         key: 'Atributo'
         value: 'Valor'
+      query:
+        period: 'Período'
+        filters: 'Filtros'
+        function: 'Función'
+        frequency: 'Frecuencia'
+        range: 'Personalizar Período'
+        output: 'Tipo de salida'
       require:
         script: 'Guión'
       rule:
@@ -186,6 +243,12 @@ es:
         core: 'Principal'
         change: 'Comentario del último cambio'
         language: 'Lenguaje'
+      serie:
+        name: 'Nombre'
+        timestamp: 'Fecha'
+        identifier: 'Identificador'
+        amount: 'Monto'
+        data: 'Datos'
       server:
         name: 'Nombre'
         hostname: 'Dirección'
@@ -200,7 +263,11 @@ es:
         name: 'Nombre'
         style: 'Estilo'
         final: 'Final'
+        group: 'Es grupo'
         export: 'Exportar'
+        export_edit: 'Exportar con edición'
+        parent: 'Grupo'
+        category: 'Es categoría'
       tagging:
         tag: 'Etiqueta'
         tag_id: 'Etiqueta'
@@ -228,6 +295,8 @@ es:
           attributes:
             base:
               user_invalid: 'No tiene permisos para modificar este caso'
+            comments:
+              blank: 'debe tener al menos uno asociado al cambio'
             tags:
               invalid: 'finales debe haber una (solamente)'
         user:
@@ -236,6 +305,12 @@ es:
               globally_taken: 'ya está en uso en otra cuenta'
             username:
               globally_taken: 'ya está en uso en otra cuenta'
+            base:
+              licensed_user_limit: 'Limite de usuarios alcanzado, por favor actualice su licencia.'
+        reminder:
+          attributes:
+            due_at:
+              invalid: 'El vencimiento del reminder debe ser mayor a 5 minutos desde ahora'
 
   errors:
     messages:

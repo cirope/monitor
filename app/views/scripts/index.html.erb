@@ -24,7 +24,7 @@
               <%= imported_tag script %>
               <%= script %>
             </td>
-            <td class="d-none d-md-table-cell"><%= tags script.tags %></td>
+            <td class="d-none d-md-table-cell"><%= tag_icons script.tags %></td>
             <td class="text-right"><%= link_to_show script %></td>
             <% if script.can_be_edited_by? current_user %>
               <td class="text-right"><%= link_to_edit [:edit, script] %></td>

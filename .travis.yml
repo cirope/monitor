@@ -20,10 +20,9 @@ env:
   - ENABLE_WEB_CONSOLE='false'
 before_script:
   - 'cp config/application.travis.yml config/application.yml'
-  - "psql -c 'create database monitor_test;' -U postgres"
-  - 'bundle exec rails db:migrate'
+  - 'bundle exec rails db:create db:migrate'
   - 'slapd -f test/fixtures/ldap/slapd.conf -h ldap://localhost:3389'
-  - 'bundle exec rake ldap:reset'
+  - 'bundle exec rails ldap:reset'
 install:
   - 'rm ${BUNDLE_GEMFILE}.lock'
   - 'eval bundle install --jobs=3 --retry=3 --path=${BUNDLE_PATH:-$PWD/vendor/bundle}'

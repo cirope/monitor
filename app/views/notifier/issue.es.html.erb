@@ -6,7 +6,7 @@
 <% if @issue.data.present? %>
   <h3><%= Issue.human_attribute_name 'data' %></h3>
 
-  <%= render_object_for_email @issue.data %>
+  <%= render_object_for_email @issue.converted_data %>
 <% end %>
 
 <p>

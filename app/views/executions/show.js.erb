@@ -39,7 +39,7 @@
     <% if @measures.any? %>
       $('[data-graphs]').
         html('<%= j render('scripts/measures/graphs', format: :time) %>').
-        find('.ct-chart').
+        find('.graph-container').
         parent().
         trigger('object.mt.added')
     <% end %>

@@ -5,7 +5,13 @@ class AccountsController < ApplicationController
 
   respond_to :html
 
-  before_action :authorize, :not_guest, :not_author, :from_default_account
+  before_action :authorize,
+                :not_guest,
+                :not_owner,
+                :not_manager,
+                :not_author,
+                :from_default_account
+
   before_action :set_account, only: [:show, :edit, :update]
   before_action :set_title
 
@@ -58,7 +64,8 @@ class AccountsController < ApplicationController
     end
 
     def account_params
-      params.require(:account).permit :name, :tenant_name, :lock_version
+      params.require(:account).permit :name, :tenant_name,
+        :group_issues_by_schedule, :lock_version
     end
 
     def from_default_account

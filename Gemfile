@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.2.5'
+gem 'rails', '~> 6.0.3.7'
 
 gem 'pg'
-gem 'apartment'
+gem 'ros-apartment', require: 'apartment'
 gem 'sassc-rails'
-gem 'bootstrap'
+gem 'bootstrap', '< 5'
 gem 'font-awesome-sass'
 gem 'uglifier'
 gem 'jquery-rails'
@@ -18,7 +18,6 @@ gem 'bcrypt'
 gem 'responders'
 gem 'simple_form'
 gem 'figaro'
-gem 'carrierwave'
 gem 'validates_timeliness'
 gem 'kaminari'
 gem 'net-ssh'
@@ -26,18 +25,25 @@ gem 'net-scp'
 gem 'request_store'
 gem 'request_store-sidekiq'
 gem 'sidekiq'
-gem 'apartment-sidekiq'
+gem 'ros-apartment-sidekiq', require: 'apartment-sidekiq'
 gem 'whenever', require: false
-gem 'paper_trail'
-gem 'roadie-rails'
+gem 'paper_trail', '< 12' # https://github.com/paper-trail-gem/paper_trail/issues/1305
+gem 'premailer-rails'
 gem 'ruby-ntlm'
 gem 'rubyzip', require: 'zip'
 gem 'diffy'
 gem 'prawn'
 gem 'prawn-table'
 gem 'coderay'
+gem 'apexcharts'
+gem 'groupdate'
+gem 'mimemagic'
+gem 'jwt'
+gem 'simple_command'
 
-gem 'web-console'
+group :development, :production do
+  gem 'web-console'
+end
 
 gem 'unicorn'
 gem 'unicorn-rails'
@@ -53,7 +59,7 @@ gem 'autoprefixer-rails', '< 10'
 
 group :development do
   gem 'listen'
-  gem 'rubocop-github'
+  gem 'minitest-reporters'
 
   # Support for ed25519 ssh keys
   gem 'ed25519'

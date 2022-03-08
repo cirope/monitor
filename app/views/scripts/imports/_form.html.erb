@@ -1,0 +1,10 @@
+<%= form_tag scripts_imports_create_path, method: :post, multipart: true do %>
+  <div class="form-group">
+    <label for="file"><%= t '.file' %></label>
+    <%= file_field_tag 'file', class: 'form-control-file', accept: 'application/zip' %>
+  </div>
+
+  <div class="form-actions">
+    <%= submit_tag t('.submit'), class: 'btn btn-primary' %>
+  </div>
+<% end %>

@@ -1,0 +1,17 @@
+<div class="card">
+  <div class="card-header">
+    <h3><%= @dashboard %></h3>
+  </div>
+  <div class="card-body">
+    <div class="row" id="panels">
+      <% @dashboard.panels.order(:title).each do |panel| %>
+        <%= render 'panels/panel', panel: panel %>
+      <% end %>
+    </div>
+
+    <%= link_to t('.add_panel'), new_dashboard_panel_path(@dashboard), class: 'btn btn-primary' %>
+  </div>
+</div>
+
+<%= link_to_edit [:edit, @dashboard] %> |
+<%= link_to_index dashboards_path %>

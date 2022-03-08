@@ -1,0 +1,9 @@
+<h2>Hola <strong><%= @user.name %></strong>,</h2>
+
+<p>Tienes un recordatorio por el siguiente caso:</p>
+
+<p>Caso: <%= @reminder.issue.description %></p>
+
+<p>
+  <%= link_to 'Ir al caso', issue_url(@reminder.issue) %>
+</p>

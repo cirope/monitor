@@ -98,11 +98,15 @@ class LdapTest < ActiveSupport::TestCase
 
   test 'options' do
     @ldap.role_guest = 'Guest'
+    @ldap.role_owner = 'Owner'
+    @ldap.role_manager = 'Manager'
     @ldap.role_author = 'Author'
     @ldap.role_supervisor = 'Supervisor'
     @ldap.role_security = 'Security'
 
     assert_equal 'Guest', @ldap.role_guest
+    assert_equal 'Owner', @ldap.role_owner
+    assert_equal 'Manager', @ldap.role_manager
     assert_equal 'Author', @ldap.role_author
     assert_equal 'Supervisor', @ldap.role_supervisor
     assert_equal 'Security', @ldap.role_security
@@ -112,13 +116,20 @@ class LdapTest < ActiveSupport::TestCase
     Current.account = send 'public.accounts', :default
 
     assert_nil User.where(email: 'juan@administrators.com').take
+    assert_nil User.where(email: 'joe@administrators.com').take
 
     @ldap.import 'admin', 'admin123'
 
     user = User.where(email: 'juan@administrators.com').take
 
     assert_not_nil user
+    assert user.guest?
     assert_equal tags(:guest), user.tags.take
+
+    user = User.where(email: 'joe@administrators.com').take
+
+    assert_not_nil user
+    assert user.owner?
   end
 
   test 'default' do

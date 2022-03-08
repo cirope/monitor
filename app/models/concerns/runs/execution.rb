@@ -10,6 +10,11 @@ module Runs::Execution
     out  = server.execute self if schedule.run?
     data = ActiveSupport::JSON.decode out[:output] rescue nil
 
+    if data&.is_a?(Hash) && (series = data['series']).present?
+      # Delete series key only if all series were created
+      Serie.add(series) && data.delete('series')
+    end
+
     finish status: out[:status], output: out[:output], data: data
   end
 

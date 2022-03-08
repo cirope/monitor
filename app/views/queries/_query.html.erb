@@ -1,0 +1,31 @@
+<fieldset>
+  <div class="card mb-2">
+    <div class="card-header">
+      <h5>
+        <%= Query.model_name.human count: 1 %>
+        <div class="float-right">
+          <%= link_to_remove_nested_item f %>
+        </div>
+      </h5>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <%= f.input :function, collection: functions, prompt: true %>
+        </div>
+        <div class="col-md-6">
+          <%= f.input :output, collection: outputs, prompt: true %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <%= f.input :period, collection: periods, prompt: true %>
+        </div>
+        <div class="col-md-6">
+          <%= f.input :filters, as: :check_boxes, collection: Query.filters,
+            checked: f.object.filters %>
+        </div>
+      </div>
+    </div>
+  </div>
+</fieldset>

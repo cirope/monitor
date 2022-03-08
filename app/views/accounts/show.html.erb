@@ -4,9 +4,14 @@
   </div>
 
   <div class="card-body">
-    <p>
+    <p class="mb-1">
       <strong><%= Account.human_attribute_name 'tenant_name' %></strong>:
       <%= @account.tenant_name %>
+    </p>
+
+    <p class="mb-1">
+      <strong><%= Account.human_attribute_name 'group_issues_by_schedule' %></strong>:
+      <%= t @account.group_issues_by_schedule ? 'yes' : 'no' %>
     </p>
   </div>
 </div>

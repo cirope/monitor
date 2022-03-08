@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class ProcessesController < ApplicationController
-  before_action :authorize, :not_guest
+  before_action :authorize, :not_guest, :not_owner, :not_manager
   before_action :only_supervisor, only: :destroy
 
   def index

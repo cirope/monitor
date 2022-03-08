@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  # Dashboard
-  get 'dashboard', to: 'dashboard#index', as: 'dashboard'
+  # Home
+  get 'home',                      to: 'home#index', as: 'home'
+  get 'home/api_issues_by_status', to: 'home#api_issues_by_status'
 
   # Web console
   get 'console', to: 'console#show', as: 'console'
@@ -25,7 +26,10 @@ Rails.application.routes.draw do
   delete 'issues/board/destroy_all', to: 'issues/board#destroy_all', as: 'issues_board_destroy_all'
 
   # Issues data export
-  post   'issues/exports',     to: 'issues/exports#create'
+  post   'issues/exports',           to: 'issues/exports#create'
+
+  # Get Api script/issues
+  post   'script/api_issues',        to: 'issues#api_issues'
 
   # Resources
   resources :comments, except: [:index, :new]
@@ -42,6 +46,12 @@ Rails.application.routes.draw do
     resources :scripts, only: [:show] do
       resources :issues, only: [:index]
     end
+  end
+
+  # Dashboards
+  resources :series, only: [:index, :show]
+  resources :dashboards do
+    resources :panels, except: [:index, :show]
   end
 
   resources :issues, except: [:new, :create] do
@@ -101,6 +111,24 @@ Rails.application.routes.draw do
   end
 
   resources :processes, only: [:index, :destroy]
+
+  scope ':kind', kind: /login|fail/ do
+    resources :records, only: [:index, :show]
+  end
+
+  resources :views, only: [:create]
+
+  namespace :api do
+    namespace :v1 do
+      resources :scripts, except: [:index, :show, :new, :create, :edit, :update, :destroy] do
+        get 'issues', to: 'scripts/issues#index'
+      end
+
+      namespace :scripts do
+        get 'issues_by_status', to: 'issues_by_status#index'
+      end
+    end
+  end
 
   root 'sessions#new'
 end
