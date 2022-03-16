@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    Ascii85 (1.1.0)
     actioncable (6.0.3.7)
       actionpack (= 6.0.3.7)
       nio4r (~> 2.0)
@@ -70,6 +71,7 @@ GEM
       zeitwerk (~> 2.2, >= 2.2.2)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    afm (0.2.2)
     airbrussh (1.4.0)
       sshkit (>= 1.6.1, != 1.7.0)
     ansi (1.5.0)
@@ -121,6 +123,7 @@ GEM
       activesupport (>= 4.2.0)
     groupdate (5.2.2)
       activesupport (>= 5)
+    hashery (2.1.2)
     htmlentities (4.3.4)
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
@@ -183,6 +186,12 @@ GEM
       request_store (~> 1.1)
     parallel (1.20.1)
     pdf-core (0.9.0)
+    pdf-reader (2.9.2)
+      Ascii85 (~> 1.0)
+      afm (~> 0.2.1)
+      hashery (~> 2.0)
+      ruby-rc4
+      ttfunk
     pg (1.2.3)
     popper_js (1.16.0)
     prawn (2.4.0)
@@ -258,6 +267,7 @@ GEM
     ruby-odbc (0.999991)
     ruby-plsql (0.7.1)
     ruby-progressbar (1.11.0)
+    ruby-rc4 (0.1.5)
     rubyzip (2.3.0)
     sassc (2.4.0)
       ffi (~> 1.9)
@@ -360,6 +370,7 @@ DEPENDENCIES
   net-ssh
   newrelic_rpm
   paper_trail (< 12)
+  pdf-reader
   pg
   prawn
   prawn-table
@@ -392,4 +403,4 @@ DEPENDENCIES
   whenever
 
 BUNDLED WITH
-   2.1.4
+   2.2.15
