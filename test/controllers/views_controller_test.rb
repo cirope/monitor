@@ -9,7 +9,7 @@ class ViewsControllerTest < ActionController::TestCase
 
     login user: user
 
-    assert_difference 'View.count', 1 do
+    assert_difference 'View.count' do
       post :create, params: { issue_id: issue.id }, format: :js
       assert_response :success
       assert_equal issue.id, user.views.last.issue_id
