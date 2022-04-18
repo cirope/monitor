@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.2.5'
+gem 'rails', '~> 6.1'
 
 gem 'pg'
-gem 'apartment'
+gem 'ros-apartment', require: 'apartment'
 gem 'sassc-rails'
-gem 'bootstrap'
+gem 'bootstrap', '4.6.0'
 gem 'font-awesome-sass'
 gem 'uglifier'
 gem 'jquery-rails'
@@ -36,6 +36,8 @@ gem 'diffy'
 gem 'prawn'
 gem 'prawn-table'
 gem 'coderay'
+gem 'matrix'
+gem 'net-smtp', require: false
 
 gem 'web-console'
 
