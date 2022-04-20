@@ -6,7 +6,7 @@
         <%= f.association :tag, collection: tagging_tags(collection), label: false, prompt: true %>
       <% else %>
         <%= f.input :tag, as: :autocomplete, label: false, url: tags_path(kind: kind), input_html: {
-          readonly: collection || !unlimited_tag_form_edition_for?(kind),
+          readonly: collection || unlimited_tag_form_edition_for?(kind),
           data: { empty_result_label: t('.empty') }
         } %>
       <% end %>

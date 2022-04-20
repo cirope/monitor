@@ -10,6 +10,6 @@ module Issues::Permissions
   end
 
   def can_be_light_edited_by? user
-    user.supervisor? || user.manager? || (users.include?(user) && !closed?)
+    (user.supervisor? || user.manager? || users.include?(user)) && !closed?
   end
 end
