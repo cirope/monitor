@@ -5,7 +5,21 @@ module Scripts::Import
 
   module ClassMethods
     def import zip_path
-      transaction { import_zip zip_path }
+      scripts = []
+
+      transaction do
+        scripts = import_zip zip_path
+
+        raise ActiveRecord::Rollback if scripts.any? &:invalid?
+      end
+
+      scripts
+    end
+
+    def file_invalid? file_path
+      extension = file_path.split('.').last.downcase
+
+      extension.blank? || extension != 'zip'
     end
 
     private
@@ -24,28 +38,32 @@ module Scripts::Import
         import_scripts scripts_data
       end
 
-
       def import_scripts scripts_data
-        scripts_data.each do |uuid, script_data|
+        scripts_data.map do |_uuid, script_data|
           import_script script_data, scripts_data
-        end
+        end.compact
       end
 
       def import_script data, scripts_data
         return if data == :imported
 
-        uuid   = data['uuid']
-        script = find_by uuid: uuid
+        uuid    = data['uuid']
+        script  = find_by uuid: uuid
+        version = data.delete 'current_version'
 
         import_requires data['requires'], scripts_data
 
         if script
           script.update_from_data data
         else
-          create_from_data data
+          script = create_from_data data
         end
 
-        scripts_data[uuid] = :imported
+        script.imported_version = version || script.default_version
+
+        scripts_data[uuid] = :imported if script.valid?
+
+        script
       end
 
       def import_requires requires, scripts_data
@@ -57,18 +75,22 @@ module Scripts::Import
       end
 
       def create_from_data data
-        parameters = data.delete('parameters')
-        requires   = require_attributes data.delete('requires')
+        descriptions = data.delete('descriptions') || []
+        imported_as  = data.delete('exported_as') || default_imported_as
+        parameters   = data.delete('parameters')
+        requires     = require_attributes data.delete('requires')
 
         if data['change'].blank?
           date           = I18n.l Time.zone.now, format: :compact
           data['change'] = I18n.t 'scripts.imports.default_change', date: date
         end
 
-        create! data.merge({
-          imported_at:           Time.zone.now,
-          parameters_attributes: parameters,
-          requires_attributes:   requires
+        create data.merge({
+          descriptions_attributes: descriptions,
+          imported_as:             imported_as,
+          imported_at:             Time.zone.now,
+          parameters_attributes:   parameters,
+          requires_attributes:     requires
         })
       end
 
@@ -80,15 +102,21 @@ module Scripts::Import
   end
 
   def update_from_data data
-    update_parameters data.delete('parameters')
-    update_requires   data.delete('requires')
+    update_descriptions data.delete('descriptions') || []
+    update_parameters   data.delete('parameters')
+    update_requires     data.delete('requires')
 
+    data['imported_as'] = data.delete('exported_as') || default_imported_as
     data['imported_at'] = Time.zone.now if imported_at
 
-    update! data
+    update data
   end
 
   private
+
+    def default_imported_as
+      Script.imported_as[:read_only]
+    end
 
     def update_parameters parameters_data
       names = []
@@ -103,6 +131,21 @@ module Scripts::Import
       end
 
       parameters.where.not(name: names).destroy_all
+    end
+
+    def update_descriptions descriptions_data
+      names = []
+
+      descriptions_data.each do |description_data|
+        name        = description_data['name']
+        description = descriptions.detect { |d| d.name == name }
+
+        descriptions.create! description_data unless description
+
+        names << name
+      end
+
+      descriptions.where.not(name: names).destroy_all
     end
 
     def update_requires requires_data

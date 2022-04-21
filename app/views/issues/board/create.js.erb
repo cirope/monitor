@@ -2,6 +2,6 @@
   var $row   = $('[data-issue="<%= @issue.id %>"]')
   var $board = $('#board')
 
-  $row.replaceWith('<%= j render('issues/issue', issue: @issue) %>')
+  $row.replaceWith('<%= j render("issues/#@template", issue: @issue) %>')
   $board.replaceWith('<%= j render('shared/board_actions') %>')
 }()

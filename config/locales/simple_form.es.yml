@@ -43,6 +43,7 @@ es:
         status: 'Estado'
         tags: 'Etiquetas'
         user: 'Usuario'
+        date: 'Fecha'
     hints:
       issue:
         description: 'Descripción'

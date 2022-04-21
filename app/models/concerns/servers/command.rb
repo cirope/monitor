@@ -55,10 +55,20 @@ module Servers::Command
       "#{Rails.root}/bin/rails"
     end
 
+    def local_command script_path
+      if File.extname(script_path) == '.rb'
+        [rails, 'runner', script_path]
+      else
+        `chmod +x #{script_path}`
+
+        [script_path]
+      end
+    end
+
     def local_exec script_path, executable
       status = 1
 
-      Open3.popen2e rails, 'runner', script_path do |stdin, stdout, thread|
+      Open3.popen2e *local_command(script_path) do |stdin, stdout, thread|
         executable.update! pid: thread.pid
 
         stdout.each { |line| yield "#{line.strip}\n" }

@@ -41,6 +41,10 @@ class TaggingsController < ApplicationController
     end
 
     def issues
-      current_user.supervisor? ? Issue.all : current_user.issues
+      if current_user.supervisor? || current_user.manager?
+        Issue.all
+      else
+        current_user.issues
+      end
     end
 end

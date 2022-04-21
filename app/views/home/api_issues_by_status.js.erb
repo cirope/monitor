@@ -1,0 +1,4 @@
++function () {
+  $('[data-target="api-issues-by-status"]').html('<%= j render('api_issues_by_status', format: :html) %>').
+  trigger('object.panel.added')
+}()

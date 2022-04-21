@@ -21,31 +21,37 @@ class Issues::BoardHelperTest < ActionView::TestCase
   end
 
   test 'link to create permalink' do
-    @virtual_path = ''
+    @virtual_path = 'issues.board.index'
 
     assert_match /href=".*"/, link_to_create_permalink
   end
 
   test 'link to download issue data' do
-    @virtual_path = ''
+    @virtual_path = 'issues.board.index'
 
     assert_match /href=".*"/, link_to_download_issue_data
   end
 
   test 'link to download grouped issue data' do
-    @virtual_path = ''
+    @virtual_path = 'issues.board.index'
 
     assert_match /href=".*"/, link_to_download_grouped_issue_data
   end
 
   test 'link to download pdf' do
-    @virtual_path = ''
+    @virtual_path = 'issues.board.index'
 
     assert_match /href=".*"/, link_to_download_pdf
   end
 
+  test 'link to download csv' do
+    @virtual_path = 'issues.board.index'
+
+    assert_match /href=".*"/, link_to_download_csv
+  end
+
   test 'link to destroy all issues' do
-    @virtual_path = ''
+    @virtual_path = 'issues.board.index'
 
     assert_match /href=".*"/, link_to_destroy_all_issues
   end

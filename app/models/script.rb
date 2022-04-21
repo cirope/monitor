@@ -12,7 +12,7 @@ class Script < ApplicationRecord
   include Scripts::Export
   include Scripts::Import
   include Scripts::Injections
-  include Scripts::JSON
+  include Scripts::Json
   include Scripts::Maintainers
   include Scripts::ModeRuby
   include Scripts::ModeSql
@@ -26,7 +26,6 @@ class Script < ApplicationRecord
   include SearchableByName
   include Taggable
 
-  mount_uploader :file, FileUploader
   has_one_attached :attachment
 
   strip_fields :name
@@ -43,6 +42,8 @@ class Script < ApplicationRecord
   has_many :execution_measures, through: :executions, class_name: 'Measure', source: :measures
   has_many :run_measures, through: :runs, class_name: 'Measure', source: :measures
   belongs_to :database, optional: true
+
+  attribute :imported_version, :string
 
   def to_s
     name

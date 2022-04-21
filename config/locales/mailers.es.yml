@@ -15,3 +15,7 @@ es:
   user_mailer:
     password_reset:
       subject: 'Restablecer contraseña'
+
+  reminder_mailer:
+    reminder_issue:
+      subject: 'Recordatorio de caso'

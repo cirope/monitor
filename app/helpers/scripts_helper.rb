@@ -38,7 +38,7 @@ module ScriptsHelper
   end
 
   def disable_edition?
-    @script.imported_at.present?
+    !@script.is_editable?
   end
 
   def lang_icon lang

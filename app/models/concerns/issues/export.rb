@@ -17,6 +17,7 @@ module Issues::Export
 
     def export_to_csvs
       @files_content = {}
+      data           = converted_data
 
       if data.kind_of? Hash
         hash_to_csv  description, data

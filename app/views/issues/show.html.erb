@@ -2,9 +2,10 @@
   <div class="card-header">
     <h5>
       <%= @issue %>
-      <small class="float-right">
-        <%= issue_status @issue.status %>
-      </small>
+      <span class="float-right" data-status>
+        <%= render 'views/view', issue: @issue %>
+        <%= issue_status @issue %>
+      </span>
     </h5>
   </div>
 
@@ -16,7 +17,7 @@
 
     <p class="mb-1">
       <strong><%= Issue.human_attribute_name 'run' %></strong>:
-      <%= link_to_unless current_user.guest? || current_user.security?, @issue.run, @issue.run %>
+      <%= link_to_if current_user.author? || current_user.supervisor?, @issue.run, @issue.run %>
     </p>
 
     <ul class="list-inline" data-tagging-list>
@@ -59,7 +60,7 @@
     <div id="subscriptions" class="card-body">
       <ul>
         <% @issue.subscriptions.each do |subscription| %>
-          <li><%= link_to_unless current_user.guest? || current_user.security?, subscription.user, subscription.user %></li>
+          <li><%= link_to_if current_user.can_read_users?, subscription.user, subscription.user %></li>
         <% end %>
       </ul>
     </div>
@@ -81,7 +82,12 @@
   </div>
 </div>
 
-<% if @permalink.blank? && (current_user.author? || current_user.supervisor?) %>
-  <%= link_to_edit [:edit, @issue, context: @context] %> |
+<% if @permalink.blank? && current_user.can_edit_issues? %>
+  <%= link_to_edit [:edit, @issue, context: @context, filter: filter_query_hash] %> |
 <% end %>
-<%= link_to_index issue_index_path %>
+
+<% if current_user.owner? %>
+  <%= link_to_index script_issues_path(@issue.script, filter: filter_query_hash) %>
+<% else %>
+  <%= link_to_index issue_index_path(filter: filter_query_hash) %>
+<% end %>

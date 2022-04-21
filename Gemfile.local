@@ -1,4 +1,6 @@
-gem 'composite_primary_keys', require: false
+# gem 'composite_primary_keys', require: false
+# https://github.com/composite-primary-keys/composite_primary_keys/pull/472
+gem 'composite_primary_keys'
 gem 'ruby-odbc', require: false
 
 unless ENV['TRAVIS']
@@ -11,5 +13,15 @@ unless ENV['TRAVIS']
   gem 'activerecord-sqlserver-adapter', require: false
 
   # MySQL driver
-  gem 'mysql2', '~> 0.4.10'
+  gem 'mysql2'
+
+  # SQLite
+  gem 'sqlite3'
+
+  # Sequel
+  gem 'sequel'
+
+  # Excel parser
+  gem 'roo'
+  gem 'pdf-reader'
 end

@@ -2,22 +2,31 @@
 
 class Issue < ApplicationRecord
   include Auditable
+  include DataCasting
   include Exportable
+  include Issues::CanonicalData
   include Issues::Comments
+  include Issues::Csv
+  include Issues::DataType
   include Issues::Export
   include Issues::GroupedExport
   include Issues::Notifications
-  include Issues::PDF
+  include Issues::Pdf
   include Issues::Permissions
+  include Issues::Reminders
   include Issues::Scopes
   include Issues::Status
   include Issues::Subscriptions
+  include Issues::StateTransitions
   include Issues::Validation
+  include Issues::Url
+  include Issues::Views
   include Filterable
   include Taggable
 
   belongs_to :run
   has_one :script, through: :run
+  has_one :schedule, through: :run
   has_many :users, through: :subscriptions
   has_and_belongs_to_many :permalinks
 

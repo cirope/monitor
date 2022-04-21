@@ -1,0 +1,49 @@
+<div class="card mb-3 mb-3">
+  <div class="card-header">
+    <% if filters? %>
+      <p class="text-warning mb-0 float-right">
+        <%= icon 'fas', 'filter' %>
+        <%= link_to records_path, title: t('cancel') do %>
+          <%= icon 'fas', 'times-circle' %>
+        <% end %>
+      </p>
+    <% end %>
+
+    <a class="dropdown-toggle text-reset text-decoration-none d-block" href="#filters" data-toggle="collapse">
+      <%= icon 'fas', 'search' %>
+      <%= t 'filters.title' %>
+    </a>
+  </div>
+  <div id="filters" class="card-body collapse">
+    <%= simple_form_for :filter, method: :get do |f| %>
+      <fieldset>
+        <div class="row">
+          <div class="col-lg-4">
+            <%= f.input :date, as: :date_picker, required: false,
+              input_html: {
+                value: filter_params[:date],
+                class: 'form-control-sm',
+                data:  { date_range: true }
+              }
+            %>
+          </div>
+          <div class="col-lg-4">
+            <%= f.input :user,
+              required: false,
+              input_html: {
+                value: filter_params[:user],
+                class: 'form-control-sm'
+              }
+            %>
+          </div>
+          <div class="col-lg-4 pt-4">
+            <p class="text-right mb-0">
+              <%= f.button :submit, t('filters.submit'), class: 'btn-sm btn-secondary' %>
+              <%= link_to t('cancel'), records_path, class: 'small' %>
+            </p>
+          </div>
+        </div>
+      </fieldset>
+    <% end %>
+  </div>
+</div>

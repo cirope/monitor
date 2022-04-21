@@ -16,13 +16,13 @@ module Comments::Validation
   private
 
     def set_user
-      if PaperTrail.request.whodunnit
-        self.user_id = PaperTrail.request.whodunnit
-      end
+      self.user_id = Current.user.id if Current.user
     end
 
     def user_belongs_to_issue?
-      allowed = user.supervisor? || user.issues.exists?(issue_id)
+      allowed = user.supervisor? ||
+                user.manager?    ||
+                user.issues.exists?(issue_id)
 
       errors.add :issue, :invalid unless allowed
     end
