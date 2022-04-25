@@ -40,6 +40,7 @@ gem 'groupdate'
 gem 'mimemagic'
 gem 'jwt'
 gem 'simple_command'
+gem 'execjs', '2.7.0'
 
 group :development, :production do
   gem 'web-console'
