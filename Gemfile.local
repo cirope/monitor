@@ -13,13 +13,13 @@ unless ENV['TRAVIS']
   gem 'activerecord-sqlserver-adapter', require: false
 
   # MySQL driver
-  gem 'mysql2'
+ # gem 'mysql2'
 
   # SQLite
-  gem 'sqlite3'
+  #gem 'sqlite3'
 
   # Sequel
-  gem 'sequel'
+  #gem 'sequel'
 
   # Excel parser
   gem 'roo'
