@@ -76,8 +76,8 @@ GEM
       sshkit (>= 1.6.1, != 1.7.0)
     ansi (1.5.0)
     apexcharts (0.2.0)
-    autoprefixer-rails (10.4.2.0)
-      execjs (~> 2)
+    autoprefixer-rails (9.8.6.5)
+      execjs
     bcrypt (3.1.17)
     bcrypt_pbkdf (1.1.0)
     bindex (0.8.1)
@@ -334,6 +334,7 @@ DEPENDENCIES
   activerecord-session_store
   activerecord-sqlserver-adapter
   apexcharts
+  autoprefixer-rails (< 10)
   bcrypt
   bcrypt_pbkdf
   bootstrap (< 5)
