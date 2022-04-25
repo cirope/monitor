@@ -3,7 +3,7 @@
 class ScriptsController < ApplicationController
   include Scripts::Filters
 
-  before_action :authorize, :not_guest, :not_security
+  before_action :authorize, :not_guest, :not_owner, :not_manager, :not_security
   before_action :set_title, except: [:destroy]
   before_action :set_script, only: [:show, :edit, :update, :destroy]
   before_action :set_server, only: [:show]

@@ -4,7 +4,13 @@ module Taggable
   extend ActiveSupport::Concern
 
   included do
-    has_many :taggings, as: :taggable, dependent: :destroy
+    before_validation :add_implied_tags
+
+    has_many :taggings, as:         :taggable,
+                        dependent:  :destroy,
+                        inverse_of: :taggable,
+                        after_add:  :add_implied
+
     has_many :tags, through: :taggings
 
     accepts_nested_attributes_for :taggings, allow_destroy: true, reject_if: :all_blank
@@ -23,4 +29,22 @@ module Taggable
       left_joins(:taggings).where(taggings: { id: nil }).references :taggings
     end
   end
+
+  private
+
+    def add_implied tagging
+      if tagging.tag&.effects.present?
+        tagging.tag.effects.each do |effect|
+          unless taggings.any? { |t| t.tag == effect.implied }
+            taggings << Tagging.new(tag: effect.implied)
+          end
+        end
+      end
+    end
+
+    def add_implied_tags
+      taggings.select(&:new_record?).each do |tagging|
+        add_implied tagging
+      end
+    end
 end

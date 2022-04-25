@@ -1,8 +1,16 @@
 <%= simple_form_for [@issue, @tagging], html: { class: 'mb-3', data: { remote: request.xhr? } } do |f| %>
   <%= f.input :tag, label: false, wrapper_html: { class: 'input-group' } do %>
-    <%= f.input_field :tag, as: :autocomplete, url: tags_path(kind: 'issue'), autofocus: true, data: {
-      empty_result_label: t('.empty')
-    } %>
+    <% if collection = @issue.options&.fetch('tag_group', nil) %>
+      <%= f.association :tag, collection: tagging_tags(collection),
+                              label: false,
+                              prompt: true,
+                              wrapper: false,
+                              input_html: { class: 'custom-select' } %>
+    <% else %>
+      <%= f.input_field :tag, as: :autocomplete, url: tags_path(kind: 'issue'), autofocus: true, data: {
+        empty_result_label: t('.empty')
+      } %>
+    <% end %>
 
     <div class="input-group-append" invalid-attr>
       <%= f.button :submit, t('.add'), class: 'btn-secondary' %>

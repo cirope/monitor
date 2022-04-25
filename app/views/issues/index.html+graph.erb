@@ -1,0 +1,33 @@
+<h2 class="h4 text-center mb-4">
+  <%= @issues.take&.script&.name %>
+</h2>
+
+<div class="row justify-content-md-center">
+  <div class="col-lg-8 col-xl-6">
+    <ul class="nav nav-pills nav-fill mb-5">
+      <li class="nav-item">
+        <a class="nav-link active" href="#" data-graph-type="pie" data-graph-target="<%= @stats.object_id%>">
+          <%= t '.graph.pie' %>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="#" data-graph-type="line" data-graph-target="<%= @stats.object_id%>">
+          <%= t '.graph.line' %>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="#" data-graph-type="bar" data-graph-target="<%= @stats.object_id%>">
+          <%= t '.graph.bar' %>
+        </a>
+      </li>
+    </ul>
+
+    <%= graph_container @stats %>
+  </div>
+</div>
+
+<p class="h5 mb-3 mt-4 text-center">
+  <%= link_to t('back'), issue_index_path(filter: filter_query_hash) %>
+</p>

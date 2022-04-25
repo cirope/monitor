@@ -2,7 +2,10 @@
 
 class Parameter < ApplicationRecord
   include Auditable
+  include Attributes::Strip
   include Parameters::Validation
 
-  belongs_to :script
+  strip_fields :name
+
+  belongs_to :script, inverse_of: :parameters
 end

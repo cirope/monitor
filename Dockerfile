@@ -15,7 +15,8 @@ RUN apt update && \
     apt install -qq -y build-essential git libxml2-dev libsass-dev \
                        libpq-dev freetds-dev libmariadb-dev unixodbc-dev \
                        wget nodejs libxml2 libxml2-utils  \
-                       openssl ssh tzdata alien libaio1 libaio-dev
+                       openssl ssh tzdata alien libaio1 libaio-dev \
+                       libsqlite3-dev
 
 ENV base_url    "https://download.oracle.com/otn_software/linux/instantclient/193000"
 ENV basic_rpm   "oracle-instantclient19.3-basic-19.3.0.0.0-1.x86_64.rpm"

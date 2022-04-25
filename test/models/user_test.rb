@@ -150,6 +150,48 @@ class UserTest < ActiveSupport::TestCase
     assert_equal Time.zone.today, @user.password_reset_sent_at.to_date
   end
 
+  test 'permissions' do
+    can_use_mine_filter = %w(manager author supervisor)
+    can_read_users      = %w(manager author supervisor)
+    can_edit_issues     = %w(owner manager author supervisor)
+
+    can_use_mine_filter.each do |role|
+      @user.role = role
+
+      assert @user.can_use_mine_filter?
+    end
+
+    (User::ROLES - can_use_mine_filter).each do |role|
+      @user.role = role
+
+      refute @user.can_use_mine_filter?
+    end
+
+    can_read_users.each do |role|
+      @user.role = role
+
+      assert @user.can_read_users?
+    end
+
+    (User::ROLES - can_read_users).each do |role|
+      @user.role = role
+
+      refute @user.can_read_users?
+    end
+
+    can_edit_issues.each do |role|
+      @user.role = role
+
+      assert @user.can_edit_issues?
+    end
+
+    (User::ROLES - can_edit_issues).each do |role|
+      @user.role = role
+
+      refute @user.can_edit_issues?
+    end
+  end
+
   test 'auth' do
     @user.update! username: 'admin'
 
@@ -250,5 +292,41 @@ class UserTest < ActiveSupport::TestCase
 
   test 'by issues' do
     skip
+  end
+
+  test 'Licensed user limit' do
+    max_licensed_user = Rails.application.credentials.max_licensed_users_count[:global]
+    licensed_user     = (users :eduardo)
+
+    (max_licensed_user - User.licensed_user.count).times do |i|
+      new_licensed_user                 = User.new
+      new_licensed_user.email           = i.to_s + licensed_user.email
+      new_licensed_user.username        = i.to_s + licensed_user.username
+      new_licensed_user.name            = i.to_s + licensed_user.name
+      new_licensed_user.lastname        = i.to_s + licensed_user.lastname
+      new_licensed_user.role            = licensed_user.role
+      new_licensed_user.password        = '123456'
+
+      new_licensed_user.save!
+    end
+
+    new_licensed_user                 = User.new
+    new_licensed_user.email           = 'test' + licensed_user.email
+    new_licensed_user.username        = 'test' + licensed_user.username
+    new_licensed_user.name            = 'test' + licensed_user.name
+    new_licensed_user.lastname        = 'test' + licensed_user.lastname
+    new_licensed_user.role            = licensed_user.role
+    new_licensed_user.password        = '123456'
+
+    assert_raise { new_licensed_user.save! }
+
+    assert_error new_licensed_user, :base, :licensed_user_limit
+
+    not_licensed_user = users :god
+    not_licensed_user.role = 'supervisor'
+
+    assert_raise { not_licensed_user.save! }
+
+    assert_error not_licensed_user, :base, :licensed_user_limit
   end
 end

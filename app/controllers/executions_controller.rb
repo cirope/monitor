@@ -3,7 +3,13 @@
 class ExecutionsController < ApplicationController
   respond_to :html
 
-  before_action :authorize, :not_guest, :not_security, :set_script
+  before_action :authorize,
+                :not_guest,
+                :not_owner,
+                :not_manager,
+                :not_security,
+                :set_script
+
   before_action :set_server, only: [:create]
   before_action :set_execution, only: [:show, :update]
 

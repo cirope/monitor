@@ -69,6 +69,12 @@ module Issues::BoardHelper
     end
   end
 
+  def link_to_download_csv
+    link_to issues_board_path(format: :csv), class: 'dropdown-item' do
+      t '.download_csv'
+    end
+  end
+
   def link_to_destroy_all_issues
     options = {
       class: 'dropdown-item',

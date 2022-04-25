@@ -7,6 +7,8 @@ class Memberships::SwitchController < ApplicationController
   def create
     account = @membership.account
 
+    reset_session
+
     account.switch do
       user = User.find_by! email: @membership.email
 

@@ -66,6 +66,68 @@ class RunTest < ActiveSupport::TestCase
     skip
   end
 
+  test 'execute with series output' do
+    result = {
+      status: 'ok',
+      output: {
+        series: [
+          {
+            name:       'test2',
+            identifier: 'user_2',
+            timestamp:  1.days.ago,
+            amount:     1.11
+          },
+          {
+            name:       'test3',
+            identifier: 'user_3',
+            timestamp:  3.days.ago,
+            amount:     3.33
+          }
+        ]
+      }.to_json
+    }
+
+    assert_difference 'Serie.count', 2 do
+      override_and_run_execute @run, result
+    end
+
+    # delete series key after success serie creation
+    refute @run.reload.data.key? 'series'
+  end
+
+  test 'execute with malformed output' do
+    result = {
+      status: 'ok',
+      output: {
+        series: [
+          {
+            name:       'test2',
+            identifier: 'user_2',
+            timestamp:  1.days.ago,
+            amount:     1.11
+          },
+          {
+            name:       '',
+            identifier: '',
+            timestamp:  2.days.ago
+          },
+          {
+            name:       'test3',
+            identifier: 'user_3',
+            timestamp:  3.days.ago,
+            amount:     3.33
+          }
+        ]
+      }.to_json
+    }
+
+    assert_difference 'Serie.count', 2 do
+      override_and_run_execute @run, result
+    end
+
+    assert @run.reload.data.key? 'series'
+  end
+
   test 'mark as running' do
     skip
   end
@@ -159,4 +221,14 @@ class RunTest < ActiveSupport::TestCase
 
     assert_nil parsed_errors[run.script]
   end
+
+  private
+
+    def override_and_run_execute run, result
+      stub_any_instance Schedule, :run?, true do
+        stub_any_instance Server, :execute, result do
+          assert run.execute
+        end
+      end
+    end
 end

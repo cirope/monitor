@@ -9,6 +9,7 @@ es:
     not_authorized: 'No está autorizado para ver el contenido'
 
   navigation:
+    back: 'Volver'
     destroy: 'Eliminar'
     edit: 'Editar'
     index: 'Listado'
@@ -44,15 +45,18 @@ es:
     show:
       title: 'Consola'
 
-  dashboard:
+  dashboards:
+    edit:
+      title: 'Editar tablero'
     index:
-      title: 'Listado de casos'
-      empty_html: 'No hay casos activos'
-      empty_search_html: 'No hay casos que coincidan con el criterio de búsqueda'
-    filters:
-      show:
-        mine: 'Míos'
-        all: 'Todos'
+      new: 'Nuevo tablero'
+      title: 'Listado de tableros'
+      empty_html: 'No hay tableros, puede crear uno con el botón <span class="badge badge-primary">Nuevo tablero</span>'
+    new:
+      title: 'Crear tablero'
+    show:
+      title: 'Ver tablero'
+      add_panel: 'Nuevo panel'
 
   databases:
     edit:
@@ -92,6 +96,10 @@ es:
     edit:
       unsaved_data_warning: 'Ha modificado el contenido, si abandona la página perderá todos los cambios'
 
+  effects:
+    effect:
+      empty: 'No se encontraron etiquetas con ese criterio'
+
   executions:
     index:
       empty_html: 'No hay ejecuciones'
@@ -106,11 +114,40 @@ es:
       killed: 'Terminada'
       error: 'Finalizada con errores'
 
+  home:
+    index:
+      title: 'Listado de casos'
+      empty_html: 'No hay casos activos'
+      empty_search_html: 'No hay casos que coincidan con el criterio de búsqueda'
+      actions: 'Acciones'
+      api_issues_by_status: 'Enlace para obtener datos'
+      not_viewed: 'No vistos'
+    filters:
+      show:
+        mine: 'Míos'
+        all: 'Todos'
+    api_issues_by_status:
+      link: 'Enlace'
+      url: 'URL'
+      header: 'Encabezado'
+      token: 'Token'
+      copy_url: 'Copiar URL'
+      copy_header: 'Copiar encabezado'
+      copy_token: 'Copiar Token'
+
   imports:
     new:
       title: 'Importar usuarios desde LDAP'
 
   issues:
+    api_issues:
+      link: 'Enlace'
+      url: 'URL'
+      header: 'Encabezado'
+      token: 'Token'
+      copy_url: 'Copiar URL'
+      copy_header: 'Copiar encabezado'
+      copy_token: 'Copiar Token'
     board:
       form:
         group_comments_email: 'Agrupar correo'
@@ -125,6 +162,7 @@ es:
         download_issue_data: 'Descargar datos'
         download_grouped_issue_data: 'Descargar datos agrupados por guión'
         download_pdf: 'Descargar PDF'
+        download_csv: 'Descargar CSV'
         destroy_all: 'Eliminar casos'
         actions: 'Acciones'
       update:
@@ -140,13 +178,31 @@ es:
       create:
         filename: 'datos.zip'
     index:
+      actions: 'Acciones'
       new: 'Nuevo caso'
       title: 'Listado de casos'
       add_all: 'Agregar todos al carrito'
       remove_all: 'Eliminar todos del carrito'
       empty_html: 'No tiene casos'
       empty_search_html: 'No hay casos que coincidan con el criterio de búsqueda'
+      undefined: 'Sin definir'
+      graph:
+        line: 'Línea'
+        bar: 'Barra'
+        pie: 'Torta'
+    index_alt:
+      total: 'Total'
+      add_all: 'Agregar todos al carrito'
+      remove_all: 'Eliminar todos del carrito'
+      tags: 'Causa'
+      final_tags: 'Resultado'
+      actions: 'Acciones'
+      api_issues: 'Enlace para obtener datos'
+      download_csv: 'Descargar CSV'
     issue:
+      add_to_board: 'Agregar al carrito'
+      remove_from_board: 'Eliminar del carrito'
+    issue_alt:
       add_to_board: 'Agregar al carrito'
       remove_from_board: 'Eliminar del carrito'
     new:
@@ -170,6 +226,7 @@ es:
       all: 'Todos'
       pending: 'Pendiente'
       taken: 'En proceso'
+      revision: 'En revisión'
       closed: 'Cerrado'
     subscriptions:
       subscription:
@@ -222,6 +279,43 @@ es:
   outputs:
     show:
       scripts_with_errors: 'Guiones con errores'
+
+  panels:
+    edit:
+      title: 'Editar panel'
+    index:
+      new: 'Nuevo panel'
+      title: 'Listado de paneles'
+      empty_html: 'No hay paneles, puede crear uno con el botón <span class="badge badge-primary">Nuevo panel</span>'
+    new:
+      title: 'Crear panel'
+      query: 'Agregar consulta'
+
+  queries:
+    frequencies:
+      hourly: 'Cada Hora'
+      daily: 'Diaria'
+      weekly: 'Semanal'
+      monthly: 'Mensual'
+      yearly: 'Anual'
+    functions:
+      count: 'Conteo'
+      minimum: 'Mínimo'
+      maximum: 'Máximo'
+      sum: 'Suma'
+      average: 'Promedio'
+    outputs:
+      area: 'Gráfico de área'
+      column: 'Gráfico de barras'
+      donut: 'Gráfico de dona'
+      line: 'Gráfico de línea'
+      pie: 'Gráfico de torta'
+    periods:
+      total: 'Total'
+      day: 'Día corriente'
+      week: 'Semana corriente'
+      month: 'Mes corriente'
+      year: 'Año corriente'
 
   requires:
     require:
@@ -315,13 +409,20 @@ es:
       empty: 'No se encontraron bases de datos con ese criterio'
     imports:
       create:
-        imported: 'Guiones importados correctamente'
+        title: 'Importar guiones'
+        scripts_imported: 'Guiones importados correctamente'
+        script_imported: 'Importado'
         no_file: 'Debe proporcionar un archivo'
-        fail: 'Se produjo un error importando los guiones'
+        fail: 'No se importaron los guiones, revise los errores.'
+        no_scripts: 'El archivo no tiene un formato compatible.'
+        file_invalid_extension: 'La extensión del archivo no es correcta.'
+        internal_format_invalid: 'El archivo no tiene un formato compatible.'
+        error: 'Con errores'
       new:
         title: 'Importar guiones'
-        file: 'Archivo'
+      form:
         submit: 'Importar'
+        file: 'Archivo'
       default_change: 'Importado el %{date}'
     measures:
       index:
@@ -437,6 +538,13 @@ es:
       title: 'Mis datos'
       submit: 'Actualizar mis datos'
 
+  series:
+    index:
+      title: 'Listado de series'
+      empty_html: 'No se han encontrado datos'
+    show:
+      title: 'Ver serie'
+
   tags:
     edit:
       title: 'Editar etiqueta'
@@ -446,8 +554,10 @@ es:
       empty_html: 'No hay etiquetas, puede crear una con el botón <span class="badge badge-primary">Nueva etiqueta</span>'
     new:
       title: 'Crear etiqueta'
+      effect: 'Agregar implícita'
     show:
       title: 'Ver etiqueta'
+      children: 'Sub-etiquetas'
     styles:
       secondary: 'Por defecto'
       primary: 'Importante'
@@ -455,6 +565,8 @@ es:
       info: 'Informativa'
       warning: 'Advertencia'
       danger: 'Peligro'
+    form:
+      empty: 'No se encontraron etiquetas con ese criterio'
 
   taggings:
     new:
@@ -483,6 +595,8 @@ es:
       security: 'Seguridad'
       supervisor: 'Supervisor'
       author: 'Autor'
+      manager: 'Analista'
+      owner: 'Propietario'
       guest: 'Invitado'
     imports:
       new:
@@ -498,3 +612,34 @@ es:
         updated: 'Actualizado'
         error: 'Con errores'
         deprecated_users: 'Usuarios ausentes en el servidor LDAP'
+  
+  views:
+    view:
+      mark_as_viewed: 'Marcar como visto'
+      viewed_at: 'Marcado como visto el %{on}'
+
+  records:
+    index:
+      title: 'Registros de ingreso'
+      empty_html: 'No hay registros'
+    show:
+      key: 'Dato'
+      value: 'Valor'
+
+  api:
+    v1:
+      authenticate_user:
+        not_generate_token: 'No se puede generar'
+      authorize_api_request:
+        errors:
+          invalid_token: 'Token invalido'
+          missing_token: 'Token ausente'
+      issues:
+        script_incorrect: 'El ID del guión debe ser numérico'
+        script_not_exist: 'El ID del guión no existe'
+        keys:
+          tags: 'Causa'
+          final_tags: 'Resultado'
+          category_tags: 'Categoria'
+          auditor: 'Auditor'
+          audited: 'Auditado'

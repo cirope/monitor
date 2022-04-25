@@ -12,25 +12,27 @@
 </div>
 
 <% if can_be_graphed? object %>
-  <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
-      <%= t '.graph.type' %>
-    </button>
-    <div class="dropdown-menu">
-      <a class="dropdown-item" href="#" data-graph-type="line" data-graph-target="<%= object.object_id%>">
-        <%= t '.graph.line' %>
-      </a>
-      <a class="dropdown-item" href="#" data-graph-type="bar" data-graph-target="<%= object.object_id%>">
-        <%= t '.graph.bar' %>
-      </a>
-      <a class="dropdown-item" href="#" data-graph-type="pie" data-graph-target="<%= object.object_id%>">
-        <%= t '.graph.pie' %>
-      </a>
+  <div class="text-center mb-4">
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
+        <%= t '.graph.type' %>
+      </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#" data-graph-type="line" data-graph-target="<%= object.object_id%>">
+          <%= t '.graph.line' %>
+        </a>
+        <a class="dropdown-item" href="#" data-graph-type="bar" data-graph-target="<%= object.object_id%>">
+          <%= t '.graph.bar' %>
+        </a>
+        <a class="dropdown-item" href="#" data-graph-type="pie" data-graph-target="<%= object.object_id%>">
+          <%= t '.graph.pie' %>
+        </a>
+      </div>
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-lg-8 offset-lg-2">
+  <div class="row justify-content-md-center">
+    <div class="col-lg-8 col-xl-6">
       <%= graph_container object %>
     </div>
   </div>

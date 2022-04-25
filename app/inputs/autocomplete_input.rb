@@ -24,6 +24,8 @@ class AutocompleteInput < SimpleForm::Inputs::Base
 
     def model
       attribute_name.to_s.classify.constantize
+    rescue
+      object.class.reflect_on_association(attribute_name).class_name.constantize
     end
 
     def url
@@ -43,7 +45,7 @@ class AutocompleteInput < SimpleForm::Inputs::Base
         title:       model.model_name.human,
         placeholder: model.model_name.human,
         data: {
-          autocomplete_url: url,
+          autocomplete_url:    url,
           autocomplete_target: "##{id_field}"
         }
       }.deep_merge options

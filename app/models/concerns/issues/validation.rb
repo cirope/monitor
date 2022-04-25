@@ -6,11 +6,20 @@ module Issues::Validation
   included do
     validates :status, presence: true, inclusion: { in: :next_status }
     validates :description, pdf_encoding: true
+    validate :requires_comment, if: :status_changed?
     validate :has_final_tag
     validate :user_can_modify
   end
 
   private
+
+    def requires_comment
+      user = Current.user
+
+      if user&.owner? && comments.detect(&:new_record?).blank?
+        errors.add :comments, :blank
+      end
+    end
 
     def has_final_tag
       if closed?
@@ -22,9 +31,7 @@ module Issues::Validation
     end
 
     def user_can_modify
-      if PaperTrail.request.whodunnit
-        user = User.find PaperTrail.request.whodunnit
-      end
+      user = Current.user
 
       if user&.author? && users.exclude?(user)
         errors.add :base, :user_invalid

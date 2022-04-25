@@ -1,6 +1,15 @@
 <div class="card">
   <div class="card-body">
-    <h2>
+    <h2 class="h2">
+      <% if @tag.parent %>
+        <div class="badge badge-<%= @tag.parent.style %>">
+          <%= @tag.parent %>
+        </div>
+
+        <span class="h4 text-muted mx-1">
+          /
+        </span>
+      <% end %>
       <div class="badge badge-<%= @tag.style %>">
         <%= @tag %>
       </div>
@@ -17,6 +26,42 @@
           <%= @tag.send(option) %>
         <% end %>
       </p>
+    <% end %>
+
+    <% if @tag.effects.any? %>
+      <h3 class="h5">
+        <%= Effect.model_name.human count: @tag.effects.size %>
+      </h3>
+
+      <ul>
+        <% @tag.effects.each do |effect| %>
+          <li>
+            <%= link_to [effect.implied, kind: effect.implied.kind] do %>
+              <span class="badge badge-<%= effect.implied.style %>">
+                <%= effect.implied %>
+              </span>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <% if @tag.children.any? %>
+      <h3 class="h5">
+        <%= t '.children' %>
+      </h3>
+
+      <ul>
+        <% @tag.children.each do |child| %>
+          <li>
+            <%= link_to [child, kind: child.kind] do %>
+              <span class="badge badge-<%= child.style %>">
+                <%= child %>
+              </span>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
     <% end %>
   </div>
 </div>

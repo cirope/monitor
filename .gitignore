@@ -19,3 +19,10 @@ public/uploads
 
 # Ignore deliverable files
 deliverable/monitor-*
+
+# Ignore byebugHistory
+.byebug_history
+
+# Ignore ./vscode
+.vscode/
+/config/master.key
