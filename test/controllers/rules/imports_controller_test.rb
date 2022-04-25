@@ -38,7 +38,7 @@ class Rules::ImportsControllerTest < ActionController::TestCase
 
   test 'should not import if file has incorrect format' do
     post :create, params: {
-      file: fixture_file_upload('files/test.sh', 'text/plain', false)
+      file: fixture_file_upload('test/fixtures/files/test.sh', 'text/plain', false)
     }
 
     assert_redirected_to rules_url

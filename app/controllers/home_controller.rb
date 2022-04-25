@@ -40,9 +40,11 @@ class HomeController < ApplicationController
 
     def grouped_issues
       if @grouped_by_schedule
-        convert_grouped_issues_to_a(issue_count_by_schedule)
+        ScriptOrScheduleWithIssuesViewsDecorator.new(issue_count_by_schedule)
+                                                .to_a
       else
-        convert_grouped_issues_to_a(issue_count_by_script params[:schedule_id])
+        ScriptOrScheduleWithIssuesViewsDecorator.new(issue_count_by_script params[:schedule_id])
+                                                .to_a
       end
     end
 
@@ -67,11 +69,5 @@ class HomeController < ApplicationController
 
     def group_by_schedule?
       params[:schedule_id].blank? && current_account.group_issues_by_schedule?
-    end
-
-    def convert_grouped_issues_to_a results
-      results.group_by { |k, _v| [k.first, k.second] }
-             .map { |k, v| [k].concat(v.map(&:last)) }
-             .map { |e| [e.first].concat((e.count == 3 ? [e.second + e.last, e.last]  : [e.last, e.last]))}
     end
 end

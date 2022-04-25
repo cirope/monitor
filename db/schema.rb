@@ -2,15 +2,15 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# This file is the source Rails uses to define your schema when running `rails
-# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
 # be faster and is potentially less error prone than running all of your
 # migrations from scratch. Old migrations may fail to apply correctly if those
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_14_144912) do
+ActiveRecord::Schema.define(version: 2022_04_25_150907) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -45,7 +45,130 @@ ActiveRecord::Schema.define(version: 2022_02_14_144912) do
     t.bigint "byte_size", null: false
     t.string "checksum", null: false
     t.datetime "created_at", null: false
+    t.string "service_name", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "active_storage_variant_records", force: :cascade do |t|
+    t.integer "blob_id", null: false
+    t.string "variation_digest", null: false
+    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "bounced_checks", id: :serial, force: :cascade do |t|
+    t.string "pk_scc", limit: 25, null: false
+    t.string "pk_sc", limit: 20, null: false
+    t.string "bco_dest", limit: 10, null: false
+    t.string "suc_dest", limit: 10, null: false
+    t.string "cp", limit: 10, null: false
+    t.string "cuenta", limit: 15, null: false
+    t.string "cheque", limit: 15, null: false
+    t.decimal "importe", precision: 17, scale: 2, null: false
+    t.string "sistema", limit: 10, null: false
+    t.string "bco_orig", limit: 10, null: false
+    t.string "suc_orig", limit: 10
+    t.date "fec_proc", null: false
+    t.string "rechazo1", limit: 10, null: false
+    t.string "rechazo2", limit: 10
+    t.string "archivo", limit: 254, null: false
+    t.index ["pk_sc"], name: "idx_bounced_checks_pk_sc"
+    t.index ["pk_scc"], name: "idx_bounced_checks_pk_scc"
+  end
+
+  create_table "check_inventory", id: :serial, force: :cascade do |t|
+    t.string "pk_scc", limit: 25, null: false
+    t.string "nsuc_q14", limit: 6, null: false
+    t.string "ncta_q14", limit: 10, null: false
+    t.string "nche_q14", limit: 9, null: false
+    t.string "nsec_q14", limit: 2, null: false
+    t.string "cche_q14", limit: 5, null: false
+    t.string "seri_q14", limit: 2, null: false
+    t.string "esta_q14", limit: 3, null: false
+    t.date "fest_q14", null: false
+    t.string "caus_q14", limit: 1, null: false
+    t.decimal "impo_q14", precision: 17, scale: 2, null: false
+    t.string "just_q14", limit: 1, null: false
+    t.index ["pk_scc"], name: "idx_check_inventory_pk_scc"
+  end
+
+  create_table "checking_account_master", id: :serial, force: :cascade do |t|
+    t.string "pk_sc", limit: 20, null: false
+    t.string "nsuc_q11", limit: 6, null: false
+    t.string "ncta_q11", limit: 10, null: false
+    t.string "esct_q11", limit: 1, null: false
+    t.string "escl_q11", limit: 2, null: false
+    t.string "sect_q11", limit: 2, null: false
+    t.string "sbct_q11", limit: 3, null: false
+    t.date "func_q11"
+    t.decimal "sope_q11", precision: 17, scale: 2, null: false
+    t.decimal "scon_q11", precision: 17, scale: 2, null: false
+    t.decimal "mblo_q11", precision: 17, scale: 2, null: false
+    t.decimal "impo_q11", precision: 17, scale: 2, null: false
+    t.decimal "dimp_q11", precision: 17, scale: 2, null: false
+    t.decimal "d24h_q11", precision: 17, scale: 2, null: false
+    t.decimal "d48h_q11", precision: 17, scale: 2, null: false
+    t.decimal "d72h_q11", precision: 17, scale: 2, null: false
+    t.string "ctas_q11", limit: 3, null: false
+    t.string "mcie_q11", limit: 3, null: false
+    t.decimal "cert_q11", precision: 17, scale: 2, null: false
+    t.string "cmdi_q11", limit: 6, null: false
+    t.string "rese_q11", limit: 2, null: false
+    t.string "imga_q11", limit: 2, null: false
+    t.string "cord_q11", limit: 2, null: false
+    t.string "fres_q11", limit: 2, null: false
+    t.string "catm_q11", limit: 2, null: false
+    t.string "uhre_q11", limit: 4, null: false
+    t.decimal "sure_q11", precision: 17, scale: 2, null: false
+    t.string "cmhi_q11", limit: 4, null: false
+    t.string "micf_q11", limit: 8, null: false
+    t.string "cant_q11", limit: 4, null: false
+    t.date "feal_q11"
+    t.date "fbam_q11"
+    t.date "fbaj_q11"
+    t.date "fcie_q11"
+    t.date "fure_q11"
+    t.decimal "inta_q11", precision: 17, scale: 2, null: false
+    t.decimal "sant_q11", precision: 17, scale: 2, null: false
+    t.string "inve_q11", limit: 3, null: false
+    t.string "ddeu_q11", limit: 4, null: false
+    t.decimal "cons_q11", precision: 17, scale: 2, null: false
+    t.string "marc_q11", limit: 1, null: false
+    t.decimal "comp_q11", precision: 17, scale: 2, null: false
+    t.date "feac_q11"
+    t.string "ddep_q11", limit: 3, null: false
+    t.decimal "tcom_q11", precision: 17, scale: 2, null: false
+    t.decimal "tpun_q11", precision: 17, scale: 2, null: false
+    t.decimal "b24h_q11", precision: 17, scale: 2, null: false
+    t.decimal "b48h_q11", precision: 17, scale: 2, null: false
+    t.decimal "b72h_q11", precision: 17, scale: 2, null: false
+    t.string "dco1_q11", limit: 3, null: false
+    t.date "feu1_q11"
+    t.decimal "mone_q11", precision: 13, scale: 2, null: false
+    t.decimal "treg_q11", precision: 13, scale: 2, null: false
+    t.decimal "tava_q11", precision: 13, scale: 2, null: false
+    t.decimal "sreg_q11", precision: 13, scale: 2, null: false
+    t.decimal "sava_q11", precision: 13, scale: 2, null: false
+    t.decimal "idem_q11", precision: 13, scale: 2, null: false
+    t.decimal "idea_q11", precision: 17, scale: 2, null: false
+    t.decimal "suli_q11", precision: 17, scale: 2, null: false
+    t.date "feua_q11"
+    t.string "dcon_q11", limit: 3, null: false
+    t.string "civa_q11", limit: 2, null: false
+    t.index ["pk_sc"], name: "idx_checking_account_master_pk_sc"
+  end
+
+  create_table "clientes", id: false, force: :cascade do |t|
+    t.integer "id"
+    t.integer "numdoc"
+    t.string "nombre", limit: 60
+    t.datetime "fecha_nac"
+    t.string "sexo", limit: 1
+    t.string "direccion", limit: 80
+    t.string "localidad", limit: 60
+    t.string "codpost", limit: 4
+    t.string "provincia", limit: 20
+    t.string "telefono", limit: 30
+    t.string "mail", limit: 80
   end
 
   create_table "comments", id: :serial, force: :cascade do |t|
@@ -286,6 +409,29 @@ ActiveRecord::Schema.define(version: 2022_02_14_144912) do
     t.index ["token"], name: "index_permalinks_on_token", unique: true
   end
 
+  create_table "pla_operaciones", id: false, force: :cascade do |t|
+    t.integer "id"
+    t.datetime "fecha"
+    t.integer "id_tipo_operacion"
+    t.decimal "importe", precision: 20, scale: 2
+    t.integer "id_persona_titular"
+    t.integer "id_persona_operacion"
+    t.integer "efectivo"
+    t.integer "debcre"
+  end
+
+  create_table "pla_personas", id: false, force: :cascade do |t|
+    t.integer "id_persona"
+    t.string "nombre", limit: 60
+    t.string "fisica_juridica", limit: 1
+    t.decimal "monto_presunto", precision: 20, scale: 2, default: "0.0"
+  end
+
+  create_table "pla_tipos_operacion", id: false, force: :cascade do |t|
+    t.integer "id"
+    t.string "descripcion", limit: 200
+  end
+
   create_table "properties", id: :serial, force: :cascade do |t|
     t.string "key", null: false
     t.string "value", null: false
@@ -322,6 +468,38 @@ ActiveRecord::Schema.define(version: 2022_02_14_144912) do
     t.index ["due_at"], name: "index_reminders_on_due_at"
     t.index ["issue_id"], name: "index_reminders_on_issue_id"
     t.index ["state_class_type"], name: "index_reminders_on_state_class_type"
+  end
+
+  create_table "reported_checks", id: :serial, force: :cascade do |t|
+    t.string "pk_scc", limit: 25, null: false
+    t.string "banco", limit: 5, null: false
+    t.string "sucursal", limit: 3, null: false
+    t.string "cuenta", limit: 11, null: false
+    t.string "nro_cheque", limit: 8, null: false
+    t.string "año_aviso", limit: 2, null: false
+    t.string "nro_aviso", limit: 6, null: false
+    t.string "cod_motivo", limit: 1, null: false
+    t.string "causa_motivo", limit: 1, null: false
+    t.date "fecha_notificacion"
+    t.string "causal_inform", limit: 2, null: false
+    t.decimal "importe", precision: 14, scale: 2, null: false
+    t.date "fecha_rechazo"
+    t.string "dato_0_0", limit: 11, null: false
+    t.date "fecha_pago_cheque"
+    t.string "dato_0_1", limit: 11, null: false
+    t.date "fecha_pago_multa"
+    t.date "fecha_cierre"
+    t.string "cuit_titular_1", limit: 11, null: false
+    t.string "cuit_titular_2", limit: 11, null: false
+    t.string "cuit_titular_3", limit: 11, null: false
+    t.string "cuit_titular_4", limit: 11, null: false
+    t.string "cuit_titular_5", limit: 11, null: false
+    t.string "cuit_titular_6", limit: 11, null: false
+    t.string "cuit_titular_7", limit: 11, null: false
+    t.string "cuit_titular_8", limit: 11, null: false
+    t.string "cuit_titular_9", limit: 11, null: false
+    t.string "cuit_titular_10", limit: 11, null: false
+    t.index ["pk_scc"], name: "idx_reported_checks_pk_scc"
   end
 
   create_table "requires", id: :serial, force: :cascade do |t|
@@ -525,6 +703,7 @@ ActiveRecord::Schema.define(version: 2022_02_14_144912) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "issues", on_update: :restrict, on_delete: :restrict
   add_foreign_key "comments", "users", on_update: :restrict, on_delete: :restrict
   add_foreign_key "dashboards", "users", on_update: :restrict, on_delete: :restrict

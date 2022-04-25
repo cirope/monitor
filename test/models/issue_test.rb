@@ -492,4 +492,48 @@ class IssueTest < ActiveSupport::TestCase
     assert_equal 1, issues.count
     assert_equal another_issue.id, issues.first.id
   end
+
+  test 'should return view by user' do
+    issue = issues :ls_on_atahualpa_not_well
+
+    assert_equal views(:franco_view_ls), issue.view_by(users :franco)
+  end
+
+  test 'should return issues grouped by views for current user' do
+    Subscription.create! issue: issues(:ls_on_atahualpa_not_well_again),
+                         user: users(:franco)
+
+    current_user    = users :franco
+    expected_return = Issue.left_joins(:views)
+                           .group("#{View.table_name}.user_id")
+                           .merge(View.viewed_by(current_user).or(View.where(user_id: nil)))
+                           .count
+
+    assert_equal expected_return, Issue.grouped_by_views(current_user).count
+  end
+
+  test 'should return issues grouped by script and views for current user' do
+    Subscription.create! issue: issues(:ls_on_atahualpa_not_well_again),
+                         user: users(:franco)
+
+    current_user    = users :franco
+    schedule        = schedules :ls_on_atahualpa
+    expected_return = Issue.grouped_by_script(schedule.id)
+                           .grouped_by_views(current_user)
+                           .count
+
+    assert_equal expected_return, Issue.grouped_by_script_and_views(schedule.id, current_user).count
+  end
+
+  test 'should return issues grouped by schedule and views for current user' do
+    Subscription.create! issue: issues(:ls_on_atahualpa_not_well_again),
+                         user: users(:franco)
+
+    current_user    = users :franco
+    expected_return = Issue.grouped_by_schedule
+                           .grouped_by_views(current_user)
+                           .count
+
+    assert_equal expected_return, Issue.grouped_by_schedule_and_views(current_user).count
+  end
 end

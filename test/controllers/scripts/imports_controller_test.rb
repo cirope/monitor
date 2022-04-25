@@ -61,7 +61,7 @@ class Scripts::ImportsControllerTest < ActionController::TestCase
 
   test 'should not import if file has incorrect format' do
     post :create, params: {
-      file: fixture_file_upload('files/test.sh', 'text/plain', false)
+      file: fixture_file_upload('test/fixtures/files/test.sh', 'text/plain', false)
     }
 
     assert_redirected_to scripts_imports_new_url
@@ -71,7 +71,7 @@ class Scripts::ImportsControllerTest < ActionController::TestCase
 
   test 'should not import if the zip has invalid json' do
     post :create, params: {
-      file: fixture_file_upload('files/invalid_json.zip', 'application/zip',
+      file: fixture_file_upload('test/fixtures/files/invalid_json.zip', 'application/zip',
                                 false)
     }
 

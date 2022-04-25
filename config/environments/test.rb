@@ -45,7 +45,7 @@ Rails.application.configure do
   config.active_support.deprecation = :stderr
 
   # Raises error for missing translations
-  config.action_view.raise_on_missing_translations = true
+  # config.i18n.raise_on_missing_translations = true
 
   # Set timecop to January 5, 2017 10:05:00 AM UTC
   config.after_initialize do
