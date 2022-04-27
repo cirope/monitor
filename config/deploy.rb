@@ -14,7 +14,7 @@ set :linked_files, %w{config/application.yml}
 set :linked_dirs, %w{log storage tmp/pids}
 
 set :rbenv_type, :user
-set :rbenv_ruby, '2.6.6'
+set :rbenv_ruby, '2.7.1'
 
 set :keep_releases, 5
 
