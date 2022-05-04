@@ -119,3 +119,6 @@ es:
     users:
       update:
         stale: 'No se pudo actualizar el usuario, revise los datos e inténtelo nuevamente'
+
+    application:
+      stale: 'Test Stale'

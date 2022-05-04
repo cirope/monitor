@@ -7,7 +7,7 @@ class Issues::BoardController < ApplicationController
 
   before_action :authorize, :not_guest, :not_owner
   before_action :only_supervisor, only: [:destroy_all]
-  before_action :set_title
+  before_action :set_title, only: [:index]
   before_action :set_issue,  only: [:create, :destroy]
   before_action :set_script, only: [:create, :destroy]
 

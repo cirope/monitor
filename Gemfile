@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 6.0.3.7'
+gem 'rails', '~> 6.1'
 
 gem 'pg'
 gem 'ros-apartment', require: 'apartment'
 gem 'sassc-rails'
 gem 'bootstrap', '< 5'
-gem 'font-awesome-sass', '< 6'
+gem 'font-awesome-sass'
 gem 'uglifier'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
@@ -18,7 +18,7 @@ gem 'bcrypt'
 gem 'responders'
 gem 'simple_form'
 gem 'figaro'
-gem 'validates_timeliness'
+gem 'validates_timeliness', '~> 6.0.0.beta2'
 gem 'kaminari'
 gem 'net-ssh'
 gem 'net-scp'
@@ -40,6 +40,8 @@ gem 'groupdate'
 gem 'mimemagic'
 gem 'jwt'
 gem 'simple_command'
+gem 'matrix'
+gem 'net-smtp', require: false
 
 group :development, :production do
   gem 'web-console'

@@ -11,7 +11,7 @@ Bundler.require(*Rails.groups)
 module MonitorApp
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.0
+    config.load_defaults 6.1
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
@@ -33,5 +33,8 @@ module MonitorApp
       config.web_console.mount_point      = "/console/#{SecureRandom.uuid}"
       config.web_console.permissions      = '0.0.0.0/0'
     end
+
+    # Permitted hosts
+    config.hosts << /\A[\w\d-]+\.#{ENV['APP_HOST']}\z/
   end
 end
