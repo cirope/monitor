@@ -68,7 +68,7 @@ class Issues::BoardControllerTest < ActionController::TestCase
               comments_attributes: {
                 '0' => {
                   text: 'New comment',
-                  attachment: fixture_file_upload('files/test.sh', 'text/plain', false)
+                  attachment: fixture_file_upload('test/fixtures/files/test.sh', 'text/plain', false)
                 }
               }
             }
@@ -93,7 +93,7 @@ class Issues::BoardControllerTest < ActionController::TestCase
               comments_attributes: {
                 '0' => {
                   text: 'New comment',
-                  attachment: fixture_file_upload('files/test.sh', 'text/plain', false)
+                  attachment: fixture_file_upload('test/fixtures/files/test.sh', 'text/plain', false)
                 }
               }
             }

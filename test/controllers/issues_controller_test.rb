@@ -177,7 +177,7 @@ class IssuesControllerTest < ActionController::TestCase
             comments_attributes: [
               {
                 text: 'test comment',
-                file: fixture_file_upload('files/test.sh', 'text/plain', false)
+                file: fixture_file_upload('test/fixtures/files/test.sh', 'text/plain', false)
               }
             ]
           }
@@ -214,7 +214,7 @@ class IssuesControllerTest < ActionController::TestCase
               comments_attributes: [
                 {
                   text: 'test comment',
-                  file: fixture_file_upload('files/test.sh', 'text/plain', false)
+                  file: fixture_file_upload('test/fixtures/files/test.sh', 'text/plain', false)
                 }
               ]
             }

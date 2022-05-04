@@ -578,6 +578,9 @@ es:
       empty: 'No se encontraron etiquetas con ese criterio'
 
   users:
+    alias:
+      # Only used on tests
+      title: 'Prueba alias'
     edit:
       title: 'Editar usuario'
     index:
