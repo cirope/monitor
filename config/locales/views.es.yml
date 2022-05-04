@@ -579,7 +579,8 @@ es:
 
   users:
     alias:
-      title: 'Test Alias'
+      # Only used on tests
+      title: 'Prueba alias'
     edit:
       title: 'Editar usuario'
     index:
