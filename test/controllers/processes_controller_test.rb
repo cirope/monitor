@@ -11,6 +11,8 @@ class ProcessesControllerTest < ActionController::TestCase
   end
 
   test 'should finish pid' do
+    skip if RUBY_PLATFORM.include?('darwin')
+
     login
 
     sleep_p = sleep_process interval: 0.04
@@ -37,6 +39,8 @@ class ProcessesControllerTest < ActionController::TestCase
   end
 
   test 'should not finish pid without supervisor' do
+    skip if RUBY_PLATFORM.include?('darwin')
+
     login user: users(:eduardo)
 
     sleep_p = sleep_process interval: 0.06

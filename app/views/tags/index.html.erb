@@ -1,16 +1,20 @@
-<ul class="nav nav-tabs mb-2">
-  <% tag_kinds.each do |kind, name| %>
-    <% active = kind.to_s == params[:kind] %>
+<% unless current_user.manager? %>
+  <ul class="nav nav-tabs mb-2">
+    <% tag_kinds.each do |kind, name| %>
+      <% active = kind.to_s == params[:kind] %>
 
-    <%= content_tag :li, class: 'nav-item' do %>
-      <%= link_to name, tags_path(kind: kind), class: "nav-link#{' active' if active}" %>
+      <%= content_tag :li, class: 'nav-item' do %>
+        <%= link_to name, tags_path(kind: kind), class: "nav-link#{' active' if active}" %>
+      <% end %>
     <% end %>
-  <% end %>
-</ul>
+  </ul>
+<% end %>
 
 <div class="card">
   <% if @tags.empty? %>
-    <%= render 'shared/empty_index', message: t('.empty_html') %>
+    <div class="card-body">
+      <%= render 'shared/empty_index', message: t('.empty_html') %>
+    </div>
   <% else %>
     <table class="table table-hover">
       <thead>
@@ -24,17 +28,19 @@
 
       <tbody>
         <% @tags.each do |tag| %>
-          <tr>
+          <%= content_tag :tr, class: tag.group && 'table-info' do %>
             <td><%= tag.name %></td>
             <td class="text-right"><%= link_to_show [tag, kind: tag.kind] %></td>
             <td class="text-right"><%= link_to_edit [:edit, tag, kind: tag.kind] %></td>
             <td class="text-right"><%= link_to_destroy [tag, kind: tag.kind] %></td>
-          </tr>
+          <% end %>
         <% end %>
       </tbody>
     </table>
 
-    <%= paginate @tags %>
+    <div class="mx-3">
+      <%= paginate @tags %>
+    </div>
   <% end %>
 </div>
 

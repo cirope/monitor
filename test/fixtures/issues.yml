@@ -2,10 +2,14 @@ ls_on_atahualpa_not_well:
   description: Ls on Atahualpa aparently is not working
   status: pending
   data: { "test": "data" }
+  data_type: object
+  options:
   run: past_ls_on_atahualpa
 
 ls_on_atahualpa_not_well_again:
   description: Ls on Atahualpa aparently is not working again
   status: pending
-  data: { "test": "data" }
+  data: [ { "test": "data" } ]
+  data_type: single_row
+  options:
   run: past_ls_on_atahualpa

@@ -31,6 +31,12 @@ class Issues::BoardControllerTest < ActionController::TestCase
     assert_equal 'application/pdf', response.content_type
   end
 
+  test 'should get index on CSV' do
+    get :index, session: { board_issues: [@issue.id] }, as: :csv
+    assert_response :success
+    assert_equal 'text/csv', response.content_type
+  end
+
   test 'should add issue to the board via xhr' do
     post :create, params: { filter: { id: @issue.id } }, xhr: true, as: :js
     assert_response :success
@@ -62,7 +68,7 @@ class Issues::BoardControllerTest < ActionController::TestCase
               comments_attributes: {
                 '0' => {
                   text: 'New comment',
-                  file: fixture_file_upload('files/test.sh', 'text/plain', false)
+                  attachment: fixture_file_upload('test/fixtures/files/test.sh', 'text/plain', false)
                 }
               }
             }
@@ -72,7 +78,7 @@ class Issues::BoardControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to issues_board_url
-    assert @issue.last_comment.file?
+    assert @issue.last_comment.attachment.attached?
   end
 
   test 'should add grouped comment to issues' do
@@ -87,7 +93,7 @@ class Issues::BoardControllerTest < ActionController::TestCase
               comments_attributes: {
                 '0' => {
                   text: 'New comment',
-                  file: fixture_file_upload('files/test.sh', 'text/plain', false)
+                  attachment: fixture_file_upload('test/fixtures/files/test.sh', 'text/plain', false)
                 }
               }
             }
@@ -97,7 +103,7 @@ class Issues::BoardControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to issues_board_url
-    assert @issue.last_comment.file?
+    assert @issue.last_comment.attachment.attached?
   end
 
   test 'should replace tags from issues' do
@@ -159,7 +165,7 @@ class Issues::BoardControllerTest < ActionController::TestCase
       board_issue_errors: { @issue.id => 'Error' }
     }
 
-    assert_redirected_to dashboard_url
+    assert_redirected_to home_url
     assert_equal 0, session[:board_issues].size
     assert_equal 0, session[:board_issue_errors].size
   end
@@ -178,7 +184,7 @@ class Issues::BoardControllerTest < ActionController::TestCase
       }
     end
 
-    assert_redirected_to dashboard_url
+    assert_redirected_to home_url
     assert_equal 0, session[:board_issues].size
     assert_equal 0, session[:board_issue_errors].size
     assert issue.reload

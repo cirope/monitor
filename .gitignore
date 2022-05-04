@@ -3,18 +3,26 @@
 
 # Ignore all logfiles and tempfiles.
 log/*.log
-tmp
+tmp/
 
 # Ignore generated docs
-doc
+doc/
 
 # Ignore application configuration
 config/application.yml
 
 # Ignore uploaded files
-private
+private/
 !private/exports/.gitkeep
+storage/
 public/uploads
 
 # Ignore deliverable files
 deliverable/monitor-*
+
+# Ignore byebugHistory
+.byebug_history
+
+# Ignore ./vscode
+.vscode/
+/config/master.key

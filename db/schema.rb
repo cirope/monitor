@@ -2,17 +2,18 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# Note that this schema.rb definition is the authoritative source for your
-# database schema. If you need to create the application database on another
-# system, you should be using db:schema:load, not running all the migrations
-# from scratch. The latter is a flawed and unsustainable approach (the more migrations
-# you'll amass, the slower it'll run and the greater likelihood for issues).
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
+# be faster and is potentially less error prone than running all of your
+# migrations from scratch. Old migrations may fail to apply correctly if those
+# migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_07_163559) do
+ActiveRecord::Schema.define(version: 2022_05_03_121256) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_trgm"
   enable_extension "plpgsql"
 
   create_table "accounts", force: :cascade do |t|
@@ -21,8 +22,37 @@ ActiveRecord::Schema.define(version: 2019_09_07_163559) do
     t.integer "lock_version", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.jsonb "options"
     t.index ["name"], name: "index_accounts_on_name"
     t.index ["tenant_name"], name: "index_accounts_on_tenant_name", unique: true
+  end
+
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.string "service_name", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "active_storage_variant_records", force: :cascade do |t|
+    t.integer "blob_id", null: false
+    t.string "variation_digest", null: false
+    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
   create_table "comments", id: :serial, force: :cascade do |t|
@@ -35,6 +65,16 @@ ActiveRecord::Schema.define(version: 2019_09_07_163559) do
     t.index ["issue_id"], name: "index_comments_on_issue_id"
     t.index ["text"], name: "index_comments_on_text"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "dashboards", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "user_id"
+    t.integer "lock_version", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_dashboards_on_name"
+    t.index ["user_id"], name: "index_dashboards_on_user_id"
   end
 
   create_table "databases", id: :serial, force: :cascade do |t|
@@ -82,6 +122,15 @@ ActiveRecord::Schema.define(version: 2019_09_07_163559) do
     t.index ["schedule_id"], name: "index_dispatchers_on_schedule_id"
   end
 
+  create_table "effects", force: :cascade do |t|
+    t.bigint "tag_id", null: false
+    t.bigint "implied_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["implied_id"], name: "index_effects_on_implied_id"
+    t.index ["tag_id"], name: "index_effects_on_tag_id"
+  end
+
   create_table "executions", force: :cascade do |t|
     t.bigint "script_id", null: false
     t.bigint "server_id", null: false
@@ -99,6 +148,14 @@ ActiveRecord::Schema.define(version: 2019_09_07_163559) do
     t.index ["user_id"], name: "index_executions_on_user_id"
   end
 
+  create_table "fails", force: :cascade do |t|
+    t.jsonb "data"
+    t.datetime "created_at", null: false
+    t.bigint "user_id"
+    t.index ["created_at"], name: "index_fails_on_created_at"
+    t.index ["user_id"], name: "index_fails_on_user_id"
+  end
+
   create_table "issues", id: :serial, force: :cascade do |t|
     t.string "status", null: false
     t.text "description"
@@ -107,6 +164,11 @@ ActiveRecord::Schema.define(version: 2019_09_07_163559) do
     t.integer "lock_version", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "data_type"
+    t.jsonb "options"
+    t.jsonb "state_transitions", default: {}
+    t.text "canonical_data"
+    t.index ["canonical_data"], name: "index_issues_on_canonical_data", opclass: :gin_trgm_ops, using: :gin
     t.index ["created_at"], name: "index_issues_on_created_at"
     t.index ["data"], name: "index_issues_on_data", using: :gin
     t.index ["description"], name: "index_issues_on_description"
@@ -115,8 +177,8 @@ ActiveRecord::Schema.define(version: 2019_09_07_163559) do
   end
 
   create_table "issues_permalinks", id: false, force: :cascade do |t|
-    t.bigint "issue_id", null: false
-    t.bigint "permalink_id", null: false
+    t.integer "issue_id", null: false
+    t.integer "permalink_id", null: false
     t.index ["issue_id"], name: "index_issues_permalinks_on_issue_id"
     t.index ["permalink_id"], name: "index_issues_permalinks_on_permalink_id"
   end
@@ -149,6 +211,15 @@ ActiveRecord::Schema.define(version: 2019_09_07_163559) do
     t.datetime "updated_at", null: false
     t.jsonb "options"
     t.string "roles_attribute", null: false
+  end
+
+  create_table "logins", force: :cascade do |t|
+    t.jsonb "data"
+    t.datetime "closed_at"
+    t.datetime "created_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["created_at"], name: "index_logins_on_created_at"
+    t.index ["user_id"], name: "index_logins_on_user_id"
   end
 
   create_table "maintainers", id: :serial, force: :cascade do |t|
@@ -194,6 +265,18 @@ ActiveRecord::Schema.define(version: 2019_09_07_163559) do
     t.index ["trigger_id"], name: "index_outputs_on_trigger_id"
   end
 
+  create_table "panels", force: :cascade do |t|
+    t.string "title", null: false
+    t.integer "height", default: 1, null: false
+    t.integer "width", default: 1, null: false
+    t.bigint "dashboard_id"
+    t.integer "lock_version", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["dashboard_id"], name: "index_panels_on_dashboard_id"
+    t.index ["title"], name: "index_panels_on_title"
+  end
+
   create_table "parameters", id: :serial, force: :cascade do |t|
     t.string "name", null: false
     t.text "value", null: false
@@ -217,6 +300,35 @@ ActiveRecord::Schema.define(version: 2019_09_07_163559) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["database_id"], name: "index_properties_on_database_id"
+  end
+
+  create_table "queries", force: :cascade do |t|
+    t.string "output", null: false
+    t.string "function", null: false
+    t.string "period"
+    t.string "filters", default: [], null: false, array: true
+    t.string "frequency"
+    t.integer "from_count"
+    t.integer "to_count"
+    t.string "from_period"
+    t.string "to_period"
+    t.datetime "from_at"
+    t.datetime "to_at"
+    t.boolean "range", default: false, null: false
+    t.bigint "panel_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["panel_id"], name: "index_queries_on_panel_id"
+  end
+
+  create_table "reminders", force: :cascade do |t|
+    t.datetime "due_at", null: false
+    t.string "state_class_type", null: false
+    t.jsonb "transition_rules"
+    t.integer "issue_id", null: false
+    t.index ["due_at"], name: "index_reminders_on_due_at"
+    t.index ["issue_id"], name: "index_reminders_on_issue_id"
+    t.index ["state_class_type"], name: "index_reminders_on_state_class_type"
   end
 
   create_table "requires", id: :serial, force: :cascade do |t|
@@ -285,14 +397,27 @@ ActiveRecord::Schema.define(version: 2019_09_07_163559) do
     t.datetime "updated_at", null: false
     t.boolean "core"
     t.string "change"
-    t.uuid "uuid", default: -> { "(md5(((random())::text || (clock_timestamp())::text)))::uuid" }, null: false
+    t.uuid "uuid", default: -> { "(md5(((random())::text || (clock_timestamp())::text)))::uuid" }
     t.datetime "imported_at"
     t.string "language", default: "ruby"
     t.bigint "database_id"
+    t.string "imported_as"
     t.index ["core"], name: "index_scripts_on_core"
     t.index ["database_id"], name: "index_scripts_on_database_id"
     t.index ["name"], name: "index_scripts_on_name"
     t.index ["uuid"], name: "index_scripts_on_uuid", unique: true
+  end
+
+  create_table "series", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "timestamp", null: false
+    t.string "identifier", null: false
+    t.decimal "amount", precision: 15, scale: 3, null: false
+    t.jsonb "data"
+    t.index ["data"], name: "index_series_on_data", using: :gin
+    t.index ["identifier"], name: "index_series_on_identifier"
+    t.index ["name"], name: "index_series_on_name"
+    t.index ["timestamp"], name: "index_series_on_timestamp"
   end
 
   create_table "servers", id: :serial, force: :cascade do |t|
@@ -345,9 +470,11 @@ ActiveRecord::Schema.define(version: 2019_09_07_163559) do
     t.string "kind", default: "script", null: false
     t.string "style", default: "secondary", null: false
     t.jsonb "options"
+    t.bigint "parent_id"
     t.index ["kind"], name: "index_tags_on_kind"
     t.index ["name"], name: "index_tags_on_name"
     t.index ["options"], name: "index_tags_on_options", using: :gin
+    t.index ["parent_id"], name: "index_tags_on_parent_id"
   end
 
   create_table "triggers", id: :serial, force: :cascade do |t|
@@ -395,32 +522,54 @@ ActiveRecord::Schema.define(version: 2019_09_07_163559) do
     t.index ["whodunnit"], name: "index_versions_on_whodunnit"
   end
 
+  create_table "views", force: :cascade do |t|
+    t.bigint "issue_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["issue_id"], name: "index_views_on_issue_id"
+    t.index ["user_id"], name: "index_views_on_user_id"
+  end
+
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "issues", on_update: :restrict, on_delete: :restrict
   add_foreign_key "comments", "users", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "dashboards", "users", on_update: :restrict, on_delete: :restrict
   add_foreign_key "databases", "accounts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "dependencies", "schedules", column: "dependent_id", on_update: :restrict, on_delete: :restrict
   add_foreign_key "dependencies", "schedules", on_update: :restrict, on_delete: :restrict
   add_foreign_key "descriptions", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "dispatchers", "rules", on_update: :restrict, on_delete: :restrict
   add_foreign_key "dispatchers", "schedules", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "effects", "tags", column: "implied_id", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "effects", "tags", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "fails", "users", on_update: :restrict, on_delete: :restrict
   add_foreign_key "issues", "runs", on_update: :restrict, on_delete: :restrict
   add_foreign_key "issues_permalinks", "issues", on_update: :restrict, on_delete: :restrict
   add_foreign_key "issues_permalinks", "permalinks", on_update: :restrict, on_delete: :restrict
   add_foreign_key "jobs", "schedules", on_update: :restrict, on_delete: :restrict
   add_foreign_key "jobs", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "jobs", "servers", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "logins", "users", on_update: :restrict, on_delete: :restrict
   add_foreign_key "maintainers", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "maintainers", "users", on_update: :restrict, on_delete: :restrict
   add_foreign_key "memberships", "accounts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "outputs", "runs", on_update: :restrict, on_delete: :restrict
   add_foreign_key "outputs", "triggers", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "panels", "dashboards", on_update: :restrict, on_delete: :restrict
   add_foreign_key "parameters", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "properties", "databases", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "queries", "panels", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "reminders", "issues", on_update: :restrict, on_delete: :restrict
   add_foreign_key "requires", "scripts", column: "caller_id", on_update: :restrict, on_delete: :restrict
   add_foreign_key "requires", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "runs", "jobs", on_update: :restrict, on_delete: :restrict
   add_foreign_key "subscriptions", "issues", on_update: :restrict, on_delete: :restrict
   add_foreign_key "subscriptions", "users", on_update: :restrict, on_delete: :restrict
   add_foreign_key "taggings", "tags", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "tags", "tags", column: "parent_id", on_update: :restrict, on_delete: :restrict
   add_foreign_key "triggers", "rules", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "views", "issues", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "views", "users", on_update: :restrict, on_delete: :restrict
 end

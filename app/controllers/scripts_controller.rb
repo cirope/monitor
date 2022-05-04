@@ -3,7 +3,7 @@
 class ScriptsController < ApplicationController
   include Scripts::Filters
 
-  before_action :authorize, :not_guest, :not_security
+  before_action :authorize, :not_guest, :not_owner, :not_manager, :not_security
   before_action :set_title, except: [:destroy]
   before_action :set_script, only: [:show, :edit, :update, :destroy]
   before_action :set_server, only: [:show]
@@ -61,8 +61,8 @@ class ScriptsController < ApplicationController
     end
 
     def script_params
-      params.require(:script).permit :name, :core, :file, :file_cache, :text,
-        :change, :lock_version, :language, :database_id,
+      params.require(:script).permit :name, :core, :attachment, :text, :change,
+        :language, :database_id, :lock_version,
         maintainers_attributes: [:id, :user_id, :_destroy],
         descriptions_attributes: [:id, :name, :value, :_destroy],
         parameters_attributes: [:id, :name, :value, :_destroy],

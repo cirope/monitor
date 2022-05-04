@@ -3,22 +3,20 @@ default: &default
   encoding: unicode
   host: <%= ENV['DB_HOST'] || 'localhost' %>
   port: 5432
-  pool: 5
+  pool: <%= Rails.env.production? ? 10 : 5 %>
   username: <%= ENV['TRAVIS'] ? 'postgres' : 'monitor' %>
   password: <%= ENV['TRAVIS'] ? '' : ENV['APP_DB_PASSWORD'] || 'monitor' %>
+  database: <%= "monitor_#{Rails.env}" %>
+  schema_search_path: 'public,shared_extensions'
 
 development:
   <<: *default
-  database: monitor_development
 
 test:
   <<: *default
-  database: monitor_test
 
 production:
   <<: *default
-  database: monitor_production
 
 sandbox:
   <<: *default
-  database: monitor_production

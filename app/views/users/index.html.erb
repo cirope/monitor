@@ -25,7 +25,7 @@
             <td><%= user.name %></td>
             <td><%= user.lastname %></td>
             <td class="d-none d-md-table-cell"><%= mail_to user.email %></td>
-            <td class="d-none d-lg-table-cell"><%= tags user.tags %></td>
+            <td class="d-none d-lg-table-cell"><%= tag_icons user.tags %></td>
             <td class="text-right"><%= link_to_show user %></td>
             <% unless current_user.author? %>
               <td class="text-right"><%= link_to_edit [:edit, user] %></td>

@@ -4,7 +4,7 @@ module ActionTitle
   extend ActiveSupport::Concern
 
   def set_title
-    @title = t action_title
+    @title = t action_title unless request_js?
   end
 
   def action_aliases
@@ -15,5 +15,9 @@ module ActionTitle
 
     def action_title
       [controller_path.gsub('/', '.'), action_aliases[action_name] || action_name, 'title'].join '.'
+    end
+
+    def request_js?
+      request&.xhr? || request&.format == 'text/javascript'
     end
 end

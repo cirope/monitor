@@ -10,7 +10,7 @@ class ExecutionsHelperTest < ActionView::TestCase
   end
 
   test 'link to force kill' do
-    @virtual_path = ''
+    @virtual_path = 'executions.kill_actions'
     @execution    = executions :live_ls
     @script       = @execution.script
 
@@ -18,7 +18,7 @@ class ExecutionsHelperTest < ActionView::TestCase
   end
 
   test 'link to kill' do
-    @virtual_path = ''
+    @virtual_path = 'executions.kill_actions'
     @execution    = executions :live_ls
     @script       = @execution.script
 

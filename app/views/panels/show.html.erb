@@ -1,0 +1,13 @@
+<div class="card">
+  <div class="card-header">
+    <h3><%= @dashboard %></h3>
+  </div>
+  <div class="card-body">
+    <div class="row" id="panels">
+      <% @dashboard.panels.order(:title).each do |panel| %>
+        <%= render 'panels/panel', panel: panel %>
+      <% end %>
+    </div>
+    <%= render 'form' %>
+  </div>
+</div>

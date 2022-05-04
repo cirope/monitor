@@ -4,7 +4,7 @@ require 'test_helper'
 
 class ConsoleControllerTest < ActionController::TestCase
   test 'should get show' do
-    skip unless ENABLE_WEB_CONSOLE
+    skip # unless ENABLE_WEB_CONSOLE
 
     login
 
