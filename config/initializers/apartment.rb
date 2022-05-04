@@ -6,6 +6,7 @@
 #
 require 'apartment/elevators/generic'
 require 'session_elevator'
+
 # require 'apartment/elevators/domain'
 # require 'apartment/elevators/subdomain'
 # require 'apartment/elevators/first_subdomain'
