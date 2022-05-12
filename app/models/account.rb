@@ -7,6 +7,7 @@ class Account < ApplicationRecord
   include Accounts::Destroy
   include Accounts::Memberships
   include Accounts::OnEach
+  include Accounts::Options
   include Accounts::Request
   include Accounts::Scope
   include Accounts::Tenant

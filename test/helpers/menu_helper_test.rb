@@ -58,6 +58,10 @@ class MenuHelperTest < ActionView::TestCase
     assert show_board?
   end
 
+  test 'records helper model' do
+    assert_equal 'records', records_helper_model.model_name.route_key
+  end
+
   private
 
     def board_session

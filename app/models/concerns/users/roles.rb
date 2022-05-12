@@ -4,7 +4,7 @@ module Users::Roles
   extend ActiveSupport::Concern
 
   included do
-    ROLES = %w(security supervisor author guest)
+    ROLES = %w(security supervisor author manager owner guest)
 
     ROLES.each do |role|
       define_method "#{role}?" do

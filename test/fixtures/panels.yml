@@ -1,0 +1,5 @@
+servers_overloaded:
+  title: Servers overloaded
+  height: 1
+  width: 1
+  dashboard: franco_default

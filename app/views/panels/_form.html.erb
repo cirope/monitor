@@ -1,0 +1,33 @@
+<%= simple_form_for [@dashboard, @panel] do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <div class="row">
+      <div class="col">
+        <%= f.input :title, input_html: { autofocus: true } %>
+      </div>
+      <div class="col">
+        <%= f.input :width %>
+      </div>
+      <div class="col">
+        <%= f.input :height %>
+      </div>
+    </div>
+
+    <%= f.simple_fields_for :queries, queries do |rf| %>
+      <%= render 'queries/query', f: rf %>
+    <% end %>
+
+    <%= link_to_add_fields t('panels.new.query'), f, :queries %>
+    <%= f.input :lock_version, as: :hidden %>
+  </div>
+
+  <hr>
+
+  <div class="form-actions">
+    <p class="mb-0">
+      <%= f.button :submit, class: 'btn-primary' %>
+      <%= link_to t('cancel'), @dashboard, class: 'small' %>
+    </p>
+  </div>
+<% end %>

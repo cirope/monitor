@@ -4,7 +4,7 @@ class Database < ApplicationRecord
   include Attributes::Strip
   include Databases::ActiveRecordConfig
   include Databases::Credentials
-  include Databases::ODBC
+  include Databases::Odbc
   include Databases::Properties
   include Databases::Scopes
   include Databases::Search

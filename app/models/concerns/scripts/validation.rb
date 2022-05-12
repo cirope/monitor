@@ -12,6 +12,7 @@ module Scripts::Validation
     validate :change_on_text_changed?
     validate :text_or_file_present?
     validate :no_text_and_file?
+    validate :compatible_version?, if: :imported_version
   end
 
   private
@@ -29,5 +30,9 @@ module Scripts::Validation
 
     def no_text_and_file?
       errors.add :attachment, :invalid if text.present? && attachment.attached?
+    end
+
+    def compatible_version?
+      errors.add :imported_version, :invalid unless imported_version == current_version
     end
 end

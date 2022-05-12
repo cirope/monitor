@@ -11,7 +11,7 @@ Descripción
 <% if @issue.data.present? %>
 <%= Issue.human_attribute_name 'data' %>
 
-  <% @issue.data.each do |k, v| %>
+  <% @issue.converted_data.each do |k, v| %>
   | <%= k %>: <%= v %>
   <% end %>
 <% end %>

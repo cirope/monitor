@@ -17,6 +17,7 @@ module Issues::Export
 
     def export_to_csvs
       @files_content = {}
+      data           = converted_data
 
       if data.kind_of? Hash
         hash_to_csv  description, data
@@ -107,7 +108,7 @@ module Issues::Export
         key = sanitize_filename(name + "_#{@basenames_index[name] += 1}") + '.csv'
       end
 
-      @files_content[key] = ::CSV.generate CSV_OPTIONS do |csv|
+      @files_content[key] = ::CSV.generate **CSV_OPTIONS do |csv|
         yield csv
       end
     end
