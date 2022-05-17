@@ -42,6 +42,8 @@ gem 'jwt'
 gem 'simple_command'
 gem 'matrix'
 gem 'net-smtp', require: false
+gem 'execjs', '2.7.0'
+gem 'autoprefixer-rails', '< 10'
 
 group :development, :production do
   gem 'web-console'
