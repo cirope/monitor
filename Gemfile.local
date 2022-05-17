@@ -12,15 +12,6 @@ unless ENV['TRAVIS']
   gem 'tiny_tds', '< 2.0.0', require: false
   gem 'activerecord-sqlserver-adapter', require: false
 
-  # MySQL driver
-  gem 'mysql2'
-
-  # SQLite
-  gem 'sqlite3'
-
-  # Sequel
-  gem 'sequel'
-
   # Excel parser
   gem 'roo'
   gem 'pdf-reader'
