@@ -41,7 +41,7 @@ gem 'mimemagic'
 gem 'jwt'
 gem 'simple_command'
 gem 'matrix'
-gem 'net-smtp', require: false
+#gem 'net-smtp', require: false
 gem 'execjs', '2.7.0'
 gem 'autoprefixer-rails', '< 10'
 
