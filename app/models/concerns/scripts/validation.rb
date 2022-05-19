@@ -10,7 +10,7 @@ module Scripts::Validation
     validates :text, syntax: true, if: :ruby?
     validates :database, presence: true, if: :sql?
     validate :change_on_text_changed?
-    validate :text_or_file_present?
+    validate :text_or_file_present?, unless: :container?
     validate :no_text_and_file?
     validate :compatible_version?, if: :imported_version
   end

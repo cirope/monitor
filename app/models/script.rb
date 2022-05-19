@@ -5,7 +5,6 @@ class Script < ApplicationRecord
   include Auditable
   include Exportable
   include Filterable
-  include Scripts::Callbacks
   include Scripts::Copy
   include Scripts::Descriptions
   include Scripts::Destroy
@@ -14,6 +13,7 @@ class Script < ApplicationRecord
   include Scripts::Injections
   include Scripts::Json
   include Scripts::Maintainers
+  include Scripts::ModeContainer
   include Scripts::ModeRuby
   include Scripts::ModeSql
   include Scripts::Parameters
@@ -32,7 +32,8 @@ class Script < ApplicationRecord
 
   enum language: {
     'ruby' => 'ruby',
-    'sql'  => 'sql'
+    'sql'  => 'sql',
+    'container' => 'container'
   }
 
   has_many :jobs, dependent: :destroy
