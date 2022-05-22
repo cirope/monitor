@@ -16,28 +16,26 @@
       <% end %>
     </div>
 
-    <% if !@script.container? %>
-      <%= f.input :text, label: false, input_html: {
-        rows: 5,
-        disabled: disable_edition?,
-        data: {
-          editor:               true,
-          language:             @script.language,
-          change_input:         '#script_change',
-          file_input:           '#script_attachment',
-          observe_other_fields: true,
-          phrases:              editor_phrases.to_json,
-          readonly:             disable_edition?,
-          unsaved_data_warning: t('editor.edit.unsaved_data_warning')
-        }
-      } %>
-    <% end %>
+    <%= f.input :text, label: false, input_html: {
+      rows: 5,
+      disabled: disable_edition?,
+      data: {
+        editor:               true,
+        language:             @script.language,
+        change_input:         '#script_change',
+        file_input:           '#script_attachment',
+        observe_other_fields: true,
+        phrases:              editor_phrases.to_json,
+        readonly:             disable_edition?,
+        unsaved_data_warning: t('editor.edit.unsaved_data_warning')
+      }
+    } %>
 
     <%= f.input :change, wrapper_html: {
       hidden: @script.errors[:change].blank?
     } %>
 
-    <% if !@script.container? %>
+    <% if !@script.shell? %>
       <%= render "form_#{@script.language}", f: f %>
     <% end %>
 

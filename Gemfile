@@ -42,7 +42,6 @@ gem 'jwt'
 gem 'simple_command'
 gem 'matrix'
 gem 'net-smtp', require: false
-gem 'docker-api'
 
 group :development, :production do
   gem 'web-console'
