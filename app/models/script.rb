@@ -15,6 +15,7 @@ class Script < ApplicationRecord
   include Scripts::Json
   include Scripts::Maintainers
   include Scripts::ModeRuby
+  include Scripts::ModeShell
   include Scripts::ModeSql
   include Scripts::Parameters
   include Scripts::Pdf
@@ -31,8 +32,9 @@ class Script < ApplicationRecord
   strip_fields :name
 
   enum language: {
-    'ruby' => 'ruby',
-    'sql'  => 'sql'
+    'ruby'  => 'ruby',
+    'sql'   => 'sql',
+    'shell' => 'shell'
   }
 
   has_many :jobs, dependent: :destroy
