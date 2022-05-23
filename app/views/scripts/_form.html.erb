@@ -35,7 +35,7 @@
       hidden: @script.errors[:change].blank?
     } %>
 
-    <% if !@script.shell? %>
+    <% unless @script.shell? %>
       <%= render "form_#{@script.language}", f: f %>
     <% end %>
 
