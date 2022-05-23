@@ -35,6 +35,6 @@ module MonitorApp
     end
 
     # Permitted hosts
-    config.hosts << /\A[\w\d-]+\.#{ENV['APP_HOST']}\z/
+    config.hosts << ENV['APP_HOST']
   end
 end
