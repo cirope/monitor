@@ -64,7 +64,7 @@ class DatabaseTest < ActiveSupport::TestCase
   test 'password' do
     password_property = send 'public.properties', :postgresql_password
 
-    assert_equal password_property.value, @database.password
+    assert_equal password_property.password, @database.password
   end
 
   test 'property' do
