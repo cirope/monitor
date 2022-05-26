@@ -44,7 +44,7 @@
           <%= render 'taggings/tagging', f: tf, **issue_tagging_options(@issue) %>
         <% end %>
 
-        <% unless limited_issue_form_edition? %>
+        <% if @issue.can_be_light_edited_by? current_user %>
           <%= link_to_add_fields t('issues.new.tagging'), f, :taggings, **issue_tagging_options(@issue) %>
         <% end %>
       </div>

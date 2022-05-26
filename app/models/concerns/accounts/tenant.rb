@@ -13,11 +13,9 @@ module Accounts::Tenant
     account = self
 
     Apartment::Tenant.switch tenant_name do
-      Serie.switch tenant_name do
-        Current.account = account
+      Current.account = account
 
-        yield
-      end
+      yield
     end
   ensure
     Current.account = current
@@ -25,7 +23,6 @@ module Accounts::Tenant
 
   def switch!
     Apartment::Tenant.switch! tenant_name
-    Serie.switch! tenant_name
   end
 
   module ClassMethods
@@ -38,14 +35,11 @@ module Accounts::Tenant
 
     def create_tenant
       Apartment::Tenant.create tenant_name
-      Serie.create_tenant tenant_name
     end
 
     def destroy_tenant
       if Apartment.connection.schema_exists? tenant_name
         Apartment::Tenant.drop tenant_name
       end
-
-      Serie.drop_tenant tenant_name
     end
 end

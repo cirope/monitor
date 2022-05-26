@@ -4,6 +4,7 @@ class Issue < ApplicationRecord
   include Auditable
   include DataCasting
   include Exportable
+  include Issues::CanonicalData
   include Issues::Comments
   include Issues::Csv
   include Issues::DataType
@@ -12,12 +13,14 @@ class Issue < ApplicationRecord
   include Issues::Notifications
   include Issues::Pdf
   include Issues::Permissions
+  include Issues::Reminders
   include Issues::Scopes
   include Issues::Status
   include Issues::Subscriptions
   include Issues::StateTransitions
   include Issues::Validation
   include Issues::Url
+  include Issues::Views
   include Filterable
   include Taggable
 

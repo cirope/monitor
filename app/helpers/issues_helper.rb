@@ -145,6 +145,10 @@ module IssuesHelper
     end
   end
 
+  def limited_issue_tag_form_edition?
+    !@issue.can_be_light_edited_by? current_user
+  end
+
   def limited_issue_form_edition?
     !@issue.can_be_edited_by? current_user
   end

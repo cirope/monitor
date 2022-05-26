@@ -14,7 +14,7 @@ class HomeController < ApplicationController
 
   def index
     @grouped_by_schedule = group_by_schedule?
-    @script_counts       = Kaminari.paginate_array(grouped_issues.to_a).page params[:page]
+    @script_counts       = Kaminari.paginate_array(grouped_issues).page params[:page]
 
     respond_with @script_counts
   end
@@ -40,18 +40,24 @@ class HomeController < ApplicationController
 
     def grouped_issues
       if @grouped_by_schedule
-        issue_count_by_schedule
+        ScriptOrScheduleWithIssuesViewsDecorator.new(issue_count_by_schedule)
+                                                .to_a
       else
-        issue_count_by_script params[:schedule_id]
+        ScriptOrScheduleWithIssuesViewsDecorator.new(issue_count_by_script params[:schedule_id])
+                                                .to_a
       end
     end
 
     def issue_count_by_script schedule_id
-      issues.grouped_by_script(schedule_id).ordered_by_script_name.count
+      issues.grouped_by_script_and_views(schedule_id, @current_user)
+            .ordered_by_script_name
+            .count
     end
 
     def issue_count_by_schedule
-      issues.grouped_by_schedule.ordered_by_schedule_name.count
+      issues.grouped_by_schedule_and_views(@current_user)
+            .ordered_by_schedule_name
+            .count
     end
 
     def scoped_issues

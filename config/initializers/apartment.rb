@@ -5,6 +5,8 @@
 # Require whichever Elevator you're using below or none if you have a custom one.
 #
 require 'apartment/elevators/generic'
+require 'session_elevator'
+
 # require 'apartment/elevators/domain'
 # require 'apartment/elevators/subdomain'
 # require 'apartment/elevators/first_subdomain'
@@ -76,7 +78,7 @@ Apartment.configure do |config|
   # e.g when using a PostgreSQL extension like hstore.
   # Any schemas added here will be available along with your selected Tenant.
   #
-  # config.persistent_schemas = %w{ hstore }
+  config.persistent_schemas = %w{ shared_extensions }
 
   # <== PostgreSQL only options
   #

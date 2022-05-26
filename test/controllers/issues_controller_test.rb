@@ -36,6 +36,42 @@ class IssuesControllerTest < ActionController::TestCase
     assert_select 'a[href*=?]', 'partial=alt', count: 1
   end
 
+  test 'should get alt index filtered canonical data' do
+    @issue.script.issues.each do |issue|
+      issue.update! data: [['Header one', 'Header two'], ['Value 1', 'Value 2']]
+    end
+
+    get :index, params: {
+      script_id: @issue.script.id,
+      filter: {
+        canonical_data: {
+          'Header one': 'lue',
+          keys_ordered: @issue.reload.canonical_data.keys.to_json
+        }
+      }
+    }
+    assert_response :success
+    assert_select 'a[href*=?]', 'partial=alt', count: 1
+  end
+
+  test 'should get empty alt index filtered canonical data' do
+    @issue.script.issues.each do |issue|
+      issue.update! data: [['Header one', 'Header two'], ['Value 1', 'Value 2']]
+    end
+
+    get :index, params: {
+      script_id: @issue.script.id,
+      filter: {
+        canonical_data: {
+          'Header one': 'test',
+          keys_ordered: @issue.reload.canonical_data.keys.to_json
+        }
+      }
+    }
+    assert_response :success
+    assert_select '.alert', text: I18n.t('issues.index.empty_search_html')
+  end
+
   test 'should get filtered index' do
     get :index, params: {
       script_id: @issue.script.id,
@@ -141,7 +177,7 @@ class IssuesControllerTest < ActionController::TestCase
             comments_attributes: [
               {
                 text: 'test comment',
-                file: fixture_file_upload('files/test.sh', 'text/plain', false)
+                file: fixture_file_upload('test/fixtures/files/test.sh', 'text/plain', false)
               }
             ]
           }
@@ -178,7 +214,7 @@ class IssuesControllerTest < ActionController::TestCase
               comments_attributes: [
                 {
                   text: 'test comment',
-                  file: fixture_file_upload('files/test.sh', 'text/plain', false)
+                  file: fixture_file_upload('test/fixtures/files/test.sh', 'text/plain', false)
                 }
               ]
             }
@@ -209,5 +245,36 @@ class IssuesControllerTest < ActionController::TestCase
                                    protocol: ENV['APP_PROTOCOL']
 
     assert_match url, response.body
+  end
+
+  test 'return filter params' do
+    @issue.update! data: [{ "test": 'data' }]
+
+    keys_ordered = issues.first.canonical_data.keys
+
+    params_hash = {
+      id: @issue.id,
+      name: 'test',
+      description: @issue.description,
+      status: @issue.status,
+      user: 'test',
+      user_id: @issue.users.first.id,
+      show: 'test',
+      tags: @issue.tags.to_s,
+      data: @issue.data.to_s,
+      comment: @issue.comments.first.text,
+      key: @issue.data.first.first,
+      created_at: @issue.created_at,
+      scheduled_at: @issue.schedule.scheduled_at,
+      canonical_data: ActionController::Parameters.new(@issue.reload
+                                                             .canonical_data
+                                                             .merge(keys_ordered: keys_ordered)),
+      no_return: 'no return'
+    }
+
+    @controller.params = ActionController::Parameters.new({ filter: params_hash })
+
+    assert_equal ActionController::Parameters.new(params_hash).permit(Issues::Filters::PERMITED_FILTER_PARAMS), 
+                 @controller.send(:filter_params)
   end
 end

@@ -2,17 +2,18 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# This file is the source Rails uses to define your schema when running `rails
-# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
 # be faster and is potentially less error prone than running all of your
 # migrations from scratch. Old migrations may fail to apply correctly if those
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_04_145557) do
+ActiveRecord::Schema.define(version: 2022_05_03_121256) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_trgm"
   enable_extension "plpgsql"
 
   create_table "accounts", force: :cascade do |t|
@@ -44,6 +45,7 @@ ActiveRecord::Schema.define(version: 2021_11_04_145557) do
     t.bigint "byte_size", null: false
     t.string "checksum", null: false
     t.datetime "created_at", null: false
+    t.string "service_name", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
@@ -58,6 +60,12 @@ ActiveRecord::Schema.define(version: 2021_11_04_145557) do
     t.index ["drop_down_option_id"], name: "index_answers_on_drop_down_option_id"
     t.index ["question_id"], name: "index_answers_on_question_id"
     t.index ["survey_answer_id"], name: "index_answers_on_survey_answer_id"
+  end
+
+  create_table "active_storage_variant_records", force: :cascade do |t|
+    t.integer "blob_id", null: false
+    t.string "variation_digest", null: false
+    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
   create_table "comments", id: :serial, force: :cascade do |t|
@@ -180,6 +188,8 @@ ActiveRecord::Schema.define(version: 2021_11_04_145557) do
     t.string "data_type"
     t.jsonb "options"
     t.jsonb "state_transitions", default: {}
+    t.text "canonical_data"
+    t.index ["canonical_data"], name: "index_issues_on_canonical_data", opclass: :gin_trgm_ops, using: :gin
     t.index ["created_at"], name: "index_issues_on_created_at"
     t.index ["data"], name: "index_issues_on_data", using: :gin
     t.index ["description"], name: "index_issues_on_description"
@@ -341,6 +351,16 @@ ActiveRecord::Schema.define(version: 2021_11_04_145557) do
     t.index ["survey_id"], name: "index_questions_on_survey_id"
   end
 
+  create_table "reminders", force: :cascade do |t|
+    t.datetime "due_at", null: false
+    t.string "state_class_type", null: false
+    t.jsonb "transition_rules"
+    t.integer "issue_id", null: false
+    t.index ["due_at"], name: "index_reminders_on_due_at"
+    t.index ["issue_id"], name: "index_reminders_on_issue_id"
+    t.index ["state_class_type"], name: "index_reminders_on_state_class_type"
+  end
+
   create_table "requires", id: :serial, force: :cascade do |t|
     t.integer "caller_id", null: false
     t.integer "script_id", null: false
@@ -411,10 +431,23 @@ ActiveRecord::Schema.define(version: 2021_11_04_145557) do
     t.datetime "imported_at"
     t.string "language", default: "ruby"
     t.bigint "database_id"
+    t.string "imported_as"
     t.index ["core"], name: "index_scripts_on_core"
     t.index ["database_id"], name: "index_scripts_on_database_id"
     t.index ["name"], name: "index_scripts_on_name"
     t.index ["uuid"], name: "index_scripts_on_uuid", unique: true
+  end
+
+  create_table "series", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "timestamp", null: false
+    t.string "identifier", null: false
+    t.decimal "amount", precision: 15, scale: 3, null: false
+    t.jsonb "data"
+    t.index ["data"], name: "index_series_on_data", using: :gin
+    t.index ["identifier"], name: "index_series_on_identifier"
+    t.index ["name"], name: "index_series_on_name"
+    t.index ["timestamp"], name: "index_series_on_timestamp"
   end
 
   create_table "servers", id: :serial, force: :cascade do |t|
@@ -535,10 +568,20 @@ ActiveRecord::Schema.define(version: 2021_11_04_145557) do
     t.index ["whodunnit"], name: "index_versions_on_whodunnit"
   end
 
+  create_table "views", force: :cascade do |t|
+    t.bigint "issue_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["issue_id"], name: "index_views_on_issue_id"
+    t.index ["user_id"], name: "index_views_on_user_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "answers", "drop_down_options", on_update: :restrict, on_delete: :restrict
   add_foreign_key "answers", "questions", on_update: :restrict, on_delete: :restrict
   add_foreign_key "answers", "survey_answers", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "issues", on_update: :restrict, on_delete: :restrict
   add_foreign_key "comments", "users", on_update: :restrict, on_delete: :restrict
   add_foreign_key "dashboards", "users", on_update: :restrict, on_delete: :restrict
@@ -569,6 +612,7 @@ ActiveRecord::Schema.define(version: 2021_11_04_145557) do
   add_foreign_key "properties", "databases", on_update: :restrict, on_delete: :restrict
   add_foreign_key "queries", "panels", on_update: :restrict, on_delete: :restrict
   add_foreign_key "questions", "surveys", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "reminders", "issues", on_update: :restrict, on_delete: :restrict
   add_foreign_key "requires", "scripts", column: "caller_id", on_update: :restrict, on_delete: :restrict
   add_foreign_key "requires", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "runs", "jobs", on_update: :restrict, on_delete: :restrict
@@ -580,4 +624,6 @@ ActiveRecord::Schema.define(version: 2021_11_04_145557) do
   add_foreign_key "taggings", "tags", on_update: :restrict, on_delete: :restrict
   add_foreign_key "tags", "tags", column: "parent_id", on_update: :restrict, on_delete: :restrict
   add_foreign_key "triggers", "rules", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "views", "issues", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "views", "users", on_update: :restrict, on_delete: :restrict
 end

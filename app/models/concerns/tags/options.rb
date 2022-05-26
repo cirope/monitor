@@ -6,7 +6,7 @@ module Tags::Options
   def kind_options
     options = {
       issue:  { final: :boolean, group: :boolean, category: :boolean },
-      script: { export: :boolean },
+      script: { export: :boolean, editable: :boolean },
       user:   {}
     }
 
@@ -47,6 +47,15 @@ module Tags::Options
 
   def export= export
     assign_option 'export', export == true || export == '1'
+  end
+
+  def editable
+    options&.fetch 'editable', nil
+  end
+  alias_method :editable?, :editable
+
+  def editable= editable
+    assign_option 'editable', editable == true || editable == '1'
   end
 
   private

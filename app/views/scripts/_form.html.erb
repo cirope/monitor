@@ -35,7 +35,9 @@
       hidden: @script.errors[:change].blank?
     } %>
 
-    <%= render "form_#{@script.language}", f: f %>
+    <% unless @script.shell? %>
+      <%= render "form_#{@script.language}", f: f %>
+    <% end %>
 
     <%= render 'form_sensitive_fields', f: f unless disable_edition? %>
 
