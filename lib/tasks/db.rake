@@ -7,6 +7,7 @@ namespace :db do
       set_issue_data_type        # 2021-05-11
       generate_state_transitions # 2021-10-29
       set_issue_canonical_data   # 2022-02-01
+      encrypt_properties_passwds # 2022-05-27
     end
   end
 end
@@ -104,4 +105,16 @@ private
 
   def set_issue_canonical_data?
     Issue.where.not(canonical_data: nil).empty?
+  end
+
+  def encrypt_properties_passwds
+    PaperTrail.enabled = false
+
+    Property.find_each do |property|
+      if property.password? && property.value.present?
+        property.update_column :value, ::Security.encrypt(property.value)
+      end
+    end
+  ensure
+    PaperTrail.enabled = true
   end
