@@ -107,7 +107,7 @@ private
     Issue.where.not(canonical_data: nil).empty?
   end
 
-  def encrypt_properties_passwds
+  def encrypt_property_passwords
     PaperTrail.enabled = false
 
     Property.find_each do |property|
