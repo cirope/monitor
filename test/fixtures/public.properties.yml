@@ -13,5 +13,5 @@ postgresql_user:
 
 postgresql_password:
   key: Password
-  value: secret
+  value: <%= ::Security.encrypt 'secret' %>
   database: postgresql
