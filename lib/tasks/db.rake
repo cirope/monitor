@@ -7,7 +7,7 @@ namespace :db do
       set_issue_data_type        # 2021-05-11
       generate_state_transitions # 2021-10-29
       set_issue_canonical_data   # 2022-02-01
-      encrypt_properties_passwds # 2022-05-27
+      encrypt_property_passwords # 2022-05-27
     end
   end
 end
