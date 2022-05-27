@@ -112,7 +112,11 @@ private
 
     Property.find_each do |property|
       if property.password? && property.value.present?
-        property.update_column :value, ::Security.encrypt(property.value)
+        begin
+          ::Security.decrypt(property.value)
+        rescue
+          property.update_column :value, ::Security.encrypt(property.value)
+        end
       end
     end
   ensure
