@@ -1,12 +1,37 @@
 <div class="card">
   <div class="card-body">
-    <h6>
+    <h4>
       <%= question.title %>
-    </h6>
-    <ul>
-      <% question.results.each do |key, value| %>
-        <li><%= "#{key} = #{value}" %></li>
-      <% end %>
-    </ul>
+    </h4>
+    <div class="row">
+      <div class="card text-white bg-secondary mb-3 mr-1" style="max-width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Cantidad de respuestas</h5>
+          <% question.results.each do |key, value| %>
+            <p class="card-text"><%= "#{key} = #{value}" %></p>
+          <% end %>
+        </div>
+      </div>
+      <div class="card text-white bg-secondary mb-3 mr-1" style="max-width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Suma de scores por respuesta</h5>
+          <% question.group_by_and_sum_scores.each do |key, value| %>
+            <p class="card-text"><%= "#{key} = #{value}" %></p>
+          <% end %>
+        </div>
+      </div>
+      <div class="card text-white bg-secondary mb-3 mr-1" style="max-width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Cantidad de respuestas</h5>
+            <p class="card-text"><%= "#{question.count_answers}" %></p>
+        </div>
+      </div>
+      <div class="card text-white bg-secondary mb-3 mr-1" style="max-width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Total de score</h5>
+            <p class="card-text"><%= "#{question.sum_scores}" %></p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

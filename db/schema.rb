@@ -137,6 +137,7 @@ ActiveRecord::Schema.define(version: 2022_05_03_121256) do
 
   create_table "drop_down_options", force: :cascade do |t|
     t.string "value"
+    t.integer "score"
     t.bigint "question_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

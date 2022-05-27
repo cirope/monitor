@@ -33,6 +33,13 @@
         </p>
       </div>
     <% end %>
+
+    <% if @issue.survey.present? %>
+      <p>
+        <%= link_to 'Responder Encuesta', issue_survey_answer_path(@issue), class: 'btn btn-success btn-sm' %>
+        <%= link_to 'Resultados Encuesta', issue_results_survey_path(@issue), class: 'btn btn-info btn-sm' %>
+      </p>
+    <% end %>
   </div>
 </div>
 

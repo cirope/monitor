@@ -1,7 +1,7 @@
 <div class="card">
   <div class="card-body">
     <%= f.label :response_text, f.object.question.title, style: 'display: block' %>
-    <%= f.text_field :response_text %>
+    <%= f.input :response_text, label: false %>
     <%= f.hidden_field :type %>
     <%= f.hidden_field :question_id, value: f.object.question.id %>
   </div>

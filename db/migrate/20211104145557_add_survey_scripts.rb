@@ -18,6 +18,7 @@ class AddSurveyScripts < ActiveRecord::Migration[6.0]
 
     create_table :drop_down_options do |t|
       t.string :value
+      t.integer :score
       t.references :question, null: false, index: true, foreign_key: {
         on_delete: :restrict, on_update: :restrict
       }
