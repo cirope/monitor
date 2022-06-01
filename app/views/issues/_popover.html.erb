@@ -1,0 +1,13 @@
+<% if value.kind_of? Hash %>
+  <ul>
+    <% value.each do |key, val| %>
+      <li><b><%= key %>:</b> <%= val %> </li>
+    <% end %>
+  </ul>
+<% else %>
+  <ul>
+    <% value.each do |val| %>
+      <li><%= val %></li>
+    <% end %>
+  </ul>
+<% end %>
