@@ -4,6 +4,7 @@ class Survey < ApplicationRecord
   has_many :survey_answers
   has_many :questions
   belongs_to :issue
+  has_many :controls, dependent: :destroy
 
   def create_survey_answer
     survey_answer        = SurveyAnswer.new
@@ -14,5 +15,9 @@ class Survey < ApplicationRecord
     end
 
     survey_answer
+  end
+
+  def control_answer answer
+    controls.each { |control| control.control_answer answer }
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_03_121256) do
+ActiveRecord::Schema.define(version: 2022_06_07_124742) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -78,6 +78,24 @@ ActiveRecord::Schema.define(version: 2022_05_03_121256) do
     t.index ["issue_id"], name: "index_comments_on_issue_id"
     t.index ["text"], name: "index_comments_on_text"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "control_outputs", force: :cascade do |t|
+    t.string "status", null: false
+    t.text "output"
+    t.bigint "control_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["control_id"], name: "index_control_outputs_on_control_id"
+    t.index ["status"], name: "index_control_outputs_on_status"
+  end
+
+  create_table "controls", force: :cascade do |t|
+    t.text "callback", null: false
+    t.bigint "survey_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["survey_id"], name: "index_controls_on_survey_id"
   end
 
   create_table "dashboards", force: :cascade do |t|
@@ -585,6 +603,8 @@ ActiveRecord::Schema.define(version: 2022_05_03_121256) do
   add_foreign_key "answers", "survey_answers", on_update: :restrict, on_delete: :restrict
   add_foreign_key "comments", "issues", on_update: :restrict, on_delete: :restrict
   add_foreign_key "comments", "users", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "control_outputs", "controls"
+  add_foreign_key "controls", "surveys"
   add_foreign_key "dashboards", "users", on_update: :restrict, on_delete: :restrict
   add_foreign_key "databases", "accounts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "dependencies", "schedules", column: "dependent_id", on_update: :restrict, on_delete: :restrict
