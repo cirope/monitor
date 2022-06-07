@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 class Survey < ApplicationRecord
-  has_many :survey_answers
-  has_many :questions
+  has_many :survey_answers, dependent: :destroy
+  has_many :questions, dependent: :destroy
   belongs_to :issue
   has_many :controls, dependent: :destroy
+
+  accepts_nested_attributes_for :questions
 
   def create_survey_answer
     survey_answer        = SurveyAnswer.new

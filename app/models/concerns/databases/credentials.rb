@@ -12,6 +12,6 @@ module Databases::Credentials
   def password
     property = properties.detect { |p| p.key =~ /\Apass/i }
 
-    property&.value
+    property&.password
   end
 end

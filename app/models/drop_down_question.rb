@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class DropDownQuestion < Question
-  has_many :drop_down_options, foreign_key: 'question_id'
+  has_many :drop_down_options, foreign_key: 'question_id', dependent: :destroy
+
+  accepts_nested_attributes_for :drop_down_options
 
   MESS = 'SYSTEM ERROR: method missing'
 
@@ -26,8 +28,7 @@ class DropDownQuestion < Question
     DropDownAnswer.left_joins(:drop_down_option)
                   .where(question_id: id)
                   .group("#{DropDownOption.table_name}.value")
-                  .count
-                  
+                  .count          
   end
 
   def group_by_and_sum_scores
