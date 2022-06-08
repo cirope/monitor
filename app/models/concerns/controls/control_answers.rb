@@ -3,13 +3,13 @@ module Controls::ControlAnswers
 
   def control_answer answer
     question = answer.question
-    status   = 'ok'
-    output   = nil
+    status = 'ok'
 
-    begin
-      output = eval(code)
-    rescue
+    output = begin
+      eval(code)
+    rescue => ex
       status = 'error'
+      ex.message
     end
 
     control_outputs.create! status: status, output: output
