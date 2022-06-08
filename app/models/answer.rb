@@ -5,7 +5,7 @@ class Answer < ApplicationRecord
   belongs_to :question
   has_one :survey, through: :survey_answer
 
-  after_commit :control_answer
+  after_save :control_answer
 
   private
 
