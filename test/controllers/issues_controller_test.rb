@@ -228,12 +228,13 @@ class IssuesControllerTest < ActionController::TestCase
   end
 
   test 'should destroy issue' do
-    assert_difference 'Issue.count', -1 do
-      assert_difference [
-        'Survey.count', 'Question.count', 'DropDownOption.count',
-        'SurveyAnswer.count', 'Answer.count',
-      ] do
-        delete :destroy, params: { id: @issue }
+    assert_difference ['Issue.count', 'Survey.count'], -1 do
+      assert_difference ['Question.count', 'SurveyAnswer.count'], -2 do
+        assert_difference 'DropDownOption.count', -3 do
+          assert_difference 'Answer.count', -4 do
+            delete :destroy, params: { id: @issue }
+          end
+        end
       end
     end
 
