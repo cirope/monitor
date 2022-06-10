@@ -12,10 +12,6 @@ class Question < ApplicationRecord
     raise MESS
   end
 
-  # def create_question
-  #   raise MESS
-  # end
-
   def results
     raise MESS
   end

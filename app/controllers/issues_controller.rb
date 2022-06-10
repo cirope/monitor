@@ -71,9 +71,11 @@ class IssuesController < ApplicationController
     @survey_answer      = SurveyAnswer.new survey_answer_params
     @survey_answer.user = current_user
 
-    @survey_answer.save!
-
-    redirect_to issue_path(@survey_answer.survey.issue)
+    if @survey_answer.save
+      redirect_to issue_path(@survey_answer.survey.issue), notice: 'Respuesta almacenada'
+    else
+      render :survey_answer
+    end
   end
 
   def results_survey
@@ -161,7 +163,10 @@ class IssuesController < ApplicationController
     end
 
     def survey_answer_params
-      params.require(:survey_answer).permit :survey_id,
-        answers_attributes: [:id, :type, :response_text, :drop_down_option_id, :question_id]
+      params.require(:survey_answer)
+            .permit :survey_id, answers_attributes: [
+              :id, :type, :response_text, :drop_down_option_id,
+              :question_id
+            ]
     end
 end

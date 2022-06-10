@@ -234,6 +234,12 @@ es:
     taggings:
       tagging:
         empty: 'No se encontraron etiquetas con ese criterio'
+    survey_answer:
+      title: 'Encuesta'
+    create_survey_answer:
+      title: 'Crear respuesta de encuesta'
+    results_survey:
+      title: 'Resultados de encuesta'
 
   ldaps:
     edit:

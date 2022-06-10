@@ -1,0 +1,14 @@
+first_drop_down_option_drop_down_question:
+  question: drop_down_question_survey_for_ls_on_atahualpa_not_well
+  value: 'first option'
+  score: 100
+
+second_drop_down_option_drop_down_question:
+  question: drop_down_question_survey_for_ls_on_atahualpa_not_well
+  value: 'second option'
+  score: 50
+
+third_drop_down_option_drop_down_question:
+  question: drop_down_question_survey_for_ls_on_atahualpa_not_well
+  value: 'first option'
+  score: 0

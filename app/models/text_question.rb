@@ -10,12 +10,8 @@ class TextQuestion < Question
     text_answer
   end
 
-  # def create_question
-  #   self.new
-  # end
-
   def results
-    answers.map { |text_answer| text_answer.response_text }
+    answers.map(&:response_text)
   end
 
   def results_partial

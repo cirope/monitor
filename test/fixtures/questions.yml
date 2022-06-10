@@ -1,0 +1,9 @@
+text_question_survey_for_ls_on_atahualpa_not_well:
+  survey: survey_for_ls_on_atahualpa_not_well
+  type: 'TextQuestion'
+  title: 'Text Question?'
+
+drop_down_question_survey_for_ls_on_atahualpa_not_well:
+  survey: survey_for_ls_on_atahualpa_not_well
+  type: 'DropDownQuestion'
+  title: 'Drop Down Question?'
