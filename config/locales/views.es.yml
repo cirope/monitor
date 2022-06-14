@@ -31,6 +31,18 @@ es:
     show:
       title: 'Ver cuenta'
 
+  authentications:
+    new:
+      title: 'Ingreso'
+      log_in: 'Ingresar'
+      username: 'Usuario o correo'
+      password: 'Contraseña'
+      remember_me: 'Recordarme'
+      forgot_password: '¿Olvidaste tu contraseña?'
+      subtitle: 'Ingrese su usuario o correo electrónico para acceder'
+      password_subtitle: 'Por favor ingrese su contraseña para acceder'
+      welcome: 'Bienvenido'
+
   board:
     index:
       title: 'Carrito de casos'
@@ -495,8 +507,6 @@ es:
       title: 'Ingreso'
       log_in: 'Ingresar'
       username: 'Usuario o correo'
-      password: 'Contraseña'
-      remember_me: 'Recordarme'
       forgot_password: '¿Olvidaste tu contraseña?'
       subtitle: 'Ingrese su usuario o correo electrónico para acceder'
 

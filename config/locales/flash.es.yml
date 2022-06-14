@@ -21,6 +21,11 @@ es:
         notice: 'Cuenta eliminada'
         alert:  'La cuenta no pudo ser eliminada'
 
+    authentications:
+      create:
+        invalid: 'La contraseña es incorrecta. Por favor inténtelo nuevamente.'
+      logged_in: 'Bienvenido'
+
     databases:
       create:
         notice: 'Base de datos creada'
@@ -101,8 +106,7 @@ es:
 
     sessions:
       create:
-        invalid: 'Tu correo y/o contraseña no están bien =('
-        logged_in: 'Bienvenido'
+        invalid: 'No pudimos encontrar tu cuenta de Gredit =('
       destroy:
         logged_out: 'Hasta la próxima'
 

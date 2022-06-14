@@ -13,6 +13,10 @@ Rails.application.routes.draw do
   post   'sessions', to: 'sessions#create', as: 'sessions'
   delete 'logout',   to: 'sessions#destroy', as: 'logout'
 
+  # Authentication
+  get  'signin', to: 'authentications#new',    as: 'signin'
+  post 'auth',   to: 'authentications#create', as: 'auth'
+
   # Profiles
   get   'profile', to: 'profiles#edit', as: 'profile'
   patch 'profile', to: 'profiles#update'
