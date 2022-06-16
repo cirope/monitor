@@ -12,11 +12,25 @@ class SessionsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test 'should ask for password' do
+    Ldap.default.destroy!
+
+    assert_no_difference '@user.logins.count' do
+      post :create, params: { username: @user.email }
+    end
+
+    assert_redirected_to signin_url
+  end
+
   test 'should create a new session' do
     Ldap.default.destroy!
 
     assert_difference '@user.logins.count' do
-      post :create, params: { username: @user.email, password: '123' }
+      post :create, params: { username: @user.email }
+
+      @controller = AuthenticationsController.new
+
+      post :create, params: { password: '123' }
     end
 
     assert_redirected_to home_url
@@ -27,8 +41,12 @@ class SessionsControllerTest < ActionController::TestCase
     Ldap.default.destroy!
 
     assert_difference '@user.logins.count' do
-      post :create, params:  { username: @user.email, password: '123' },
+      post :create, params:  { username: @user.email },
                     session: { previous_url: schedules_url }
+
+      @controller = AuthenticationsController.new
+
+      post :create, params: { password: '123' }
     end
 
     assert_redirected_to schedules_url
@@ -39,7 +57,11 @@ class SessionsControllerTest < ActionController::TestCase
     @user.update! username: 'admin'
 
     assert_difference '@user.logins.count' do
-      post :create, params: { username: @user.username, password: 'admin123' }
+      post :create, params: { username: @user.username }
+
+      @controller = AuthenticationsController.new
+
+      post :create, params: { password: 'admin123' }
     end
 
     assert_redirected_to home_url
@@ -51,7 +73,11 @@ class SessionsControllerTest < ActionController::TestCase
 
     assert_no_difference '@user.logins.count' do
       assert_difference '@user.fails.count' do
-        post :create, params: { username: @user.email, password: 'wrong' }
+        post :create, params: { username: @user.email }
+
+        @controller = AuthenticationsController.new
+
+        post :create, params: { password: 'wrong' }
       end
     end
 
@@ -64,7 +90,7 @@ class SessionsControllerTest < ActionController::TestCase
 
     assert_no_difference '@user.logins.count' do
       assert_difference 'Fail.count' do
-        post :create, params: { username: 'not_exist', password: 'wrong' }
+        post :create, params: { username: 'not_exist' }
       end
     end
 
