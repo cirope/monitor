@@ -4,8 +4,8 @@ default: &default
   host: <%= ENV['DB_HOST'] || 'localhost' %>
   port: 5432
   pool: <%= Rails.env.production? ? 10 : 5 %>
-  username: <%= ENV['TRAVIS'] ? 'postgres' : 'monitor' %>
-  password: <%= ENV['TRAVIS'] ? 'postgres' : ENV['APP_DB_PASSWORD'] || 'monitor' %>
+  username: <%= ENV['GH_ACTIONS'] ? 'postgres' : 'monitor' %>
+  password: <%= ENV['GH_ACTIONS'] ? 'postgres' : ENV['APP_DB_PASSWORD'] || 'monitor' %>
   database: <%= "monitor_#{Rails.env}" %>
   schema_search_path: 'public,shared_extensions'
 

@@ -73,7 +73,7 @@ jobs:
         options: --entrypoint redis-server
     env:
       RAILS_ENV: test
-      TRAVIS: true
+      GH_ACTIONS: true
       DATABASE_URL: "postgres://postgres:postgres@localhost:5432/monitor_test"
       REDIS_URL: redis://localhost:6379/0
       RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
