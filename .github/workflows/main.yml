@@ -3,21 +3,11 @@ on:
   push:
     branches:
       - master
-      - c-bancor
-      - c-bersa
-      - c-bica
-      - c-bsc
-      - c-bsf
-      - c-bsj
+      - c-*
   pull_request:
     branches:
       - master
-      - c-bancor
-      - c-bersa
-      - c-bica
-      - c-bsc
-      - c-bsf
-      - c-bsj
+      - c-*
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -29,19 +19,9 @@ jobs:
         use_v27:
           - >-
             ${{ contains(github.ref_name, 'master')
-            || contains(github.ref_name, 'bancor')
-            || endsWith(github.ref_name, 'bersa')
-            || contains(github.ref_name, 'bica')
-            || contains(github.ref_name, 'bsc')
-            || contains(github.ref_name, 'bsf')
-            || contains(github.ref_name, 'bsj')
+            || startsWith(github.ref_name, 'c-')
             || contains(github.event.pull_request.base.ref, 'master')
-            || contains(github.event.pull_request.base.ref, 'bancor')
-            || endsWith(github.event.pull_request.base.ref, 'bersa')
-            || contains(github.event.pull_request.base.ref, 'bica')
-            || contains(github.event.pull_request.base.ref, 'bsc')
-            || contains(github.event.pull_request.base.ref, 'bsf')
-            || contains(github.event.pull_request.base.ref, 'bsj') }}
+            || startsWith(github.event.pull_request.base.ref, 'c-') }}
         use_v31:
           - >-
             ${{ contains(github.ref_name, 'master')
