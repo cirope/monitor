@@ -7,26 +7,28 @@ module Sessions
       session.delete(:previous_url) || home_url
     end
 
-    def store_current_user user
-      session[:current_user_id] = user.id
+    def create_login_record user
+      login = user.logins.create! request: request
+
+      session[:login_id] = login.id
     end
 
     def store_current_account account
       session[:tenant_name] = account.tenant_name
     end
 
-    def create_fail_record user, user_name
-      Fail.create! user: user, user_name: user_name, request: request
+    def store_auth_token user
+      jar = params[:remember_me] ? cookies.permanent : cookies
+
+      jar.encrypted[:token] = {
+        value:    user.auth_token,
+        secure:   Rails.application.config.force_ssl,
+        httponly: true
+      }
     end
 
-    def switch_to_default_account_for username
-      @account = Account.default_by_username_or_email username
-
-      if @account
-        @account.switch { yield @account }
-      else
-        yield nil
-      end
+    def create_fail_record user, user_name
+      Fail.create! user: user, user_name: user_name, request: request
     end
 
     def clear_session

@@ -1,9 +1,10 @@
-require 'idp_settings_adapter'
-
 class SamlSessionsController < ApplicationController
+  include Sessions
+
   skip_before_action :verify_authenticity_token, raise: false
 
-  before_action :set_saml_config
+  before_action :set_account
+  before_action :set_saml_config, only: [:new, :metadata]
 
   def new
     if @saml_config
@@ -12,7 +13,7 @@ class SamlSessionsController < ApplicationController
 
       redirect_to action
     else
-      redirect_to new_session_url
+      redirect_to login_url, alert: t('sessions.create.invalid', scope: :flash)
     end
   end
 
@@ -23,31 +24,34 @@ class SamlSessionsController < ApplicationController
   end
 
   def create
-    auth = Authentication.new params, request, session, current_organization, false
+    if @account
+      @account.switch do
+        auth = ServiceSaml.new saml, params[:SAMLResponse]
 
-    if auth.authenticated?
-      flash.notice = auth.message
+        if auth.authenticated?
+          create_login_record   auth.user
+          store_auth_token      auth.user
+          store_current_account @account
 
-      set_session_values auth.user
+          redirect_to default_url, notice: t('authentications.logged_in', scope: :flash)
+        else
+          create_fail_record auth.user
+
+          redirect_to login_url, alert: t('sessions.create.invalid', scope: :flash)
+        end
+      end
     else
-      flash.alert = auth.message
+      redirect_to login_url, alert: t('sessions.create.invalid', scope: :flash)
     end
-
-    redirect_to auth.redirect_url
   end
 
   private
 
-    def set_saml_config
-      if current_organization&.saml_provider.present?
-        @saml_config = IdpSettingsAdapter.saml_settings current_organization.saml_provider
-      end
+    def set_account
+      @account = Account.find_by tenant_name: params['tenant_name']
     end
 
-    def set_session_values user
-      session[:last_access] = Time.zone.now
-      session[:user_id]     = user.id
-
-      user.logged_in! session[:last_access]
+    def set_saml_config
+      @saml_config = OneLogin::RubySaml::Settings.new @saml.settings if saml
     end
 end

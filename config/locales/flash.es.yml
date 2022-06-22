@@ -88,6 +88,16 @@ es:
         notice: 'Corrida eliminada'
         alert:  'La corrida no pudo ser eliminada, tiene casos asociados'
 
+    samls:
+      create:
+        notice: 'Configuración SAML creada'
+      update:
+        notice: 'Configuración SAML actualizada'
+        alert:  ''
+      destroy:
+        notice: 'Configuración SAML eliminada'
+        alert:  'La configuración SAML no pudo ser eliminada'
+
     schedules:
       run:
         notice: 'Ejecución programada'

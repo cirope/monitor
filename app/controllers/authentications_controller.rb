@@ -20,8 +20,8 @@ class AuthenticationsController < ApplicationController
 
   def create
     if @user && @account && @user.auth(params[:password])
-      create_login_record   @user
-      store_auth_token      @user
+      create_login_record @user
+      store_auth_token    @user
 
       redirect_to default_url, notice: t('.logged_in', scope: :flash)
     else
@@ -41,21 +41,5 @@ class AuthenticationsController < ApplicationController
 
     def set_account
       @account = Account.find_by tenant_name: session[:tenant_name]
-    end
-
-    def create_login_record user
-      login = user.logins.create! request: request
-
-      session[:login_id] = login.id
-    end
-
-    def store_auth_token user
-      jar = params[:remember_me] ? cookies.permanent : cookies
-
-      jar.encrypted[:token] = {
-        value:    user.auth_token,
-        secure:   Rails.application.config.force_ssl,
-        httponly: true
-      }
     end
 end

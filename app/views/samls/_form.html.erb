@@ -1,0 +1,37 @@
+<%= simple_form_for @saml do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :lock_version, as: :hidden %>
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.input :provider, collection: providers, prompt: true, autofocus: true %>
+        <%= f.input :idp_homepage %>
+        <%= f.input :idp_entity_id %>
+        <%= f.input :idp_sso_target_url %>
+        <%= f.input :sp_entity_id %>
+        <%= f.input :assertion_consumer_service_url %>
+        <%= f.input :name_identifier_format %>
+        <%= f.input :assertion_consumer_service_binding %>
+        <%= f.input :role_guest %>
+        <%= f.input :role_manager %>
+      </div>
+      <div class="col-md-6">
+        <%= f.input :username_attribute %>
+        <%= f.input :name_attribute %>
+        <%= f.input :lastname_attribute %>
+        <%= f.input :email_attribute %>
+        <%= f.input :roles_attribute %>
+        <%= f.input :role_owner %>
+        <%= f.input :role_author %>
+        <%= f.input :role_security %>
+        <%= f.input :role_supervisor %>
+      </div>
+    </div>
+    <%= f.input :idp_cert, input_html: { rows: 5 } %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, class: 'btn-primary' %>
+  </div>
+<% end %>

@@ -13,7 +13,7 @@ class SessionsControllerTest < ActionController::TestCase
   end
 
   test 'should ask for password' do
-    Ldap.default.destroy!
+    destroy_ad_services
 
     assert_no_difference '@user.logins.count' do
       post :create, params: { username: @user.email }
@@ -23,7 +23,7 @@ class SessionsControllerTest < ActionController::TestCase
   end
 
   test 'should create a new session' do
-    Ldap.default.destroy!
+    destroy_ad_services
 
     assert_difference '@user.logins.count' do
       post :create, params: { username: @user.email }
@@ -38,7 +38,7 @@ class SessionsControllerTest < ActionController::TestCase
   end
 
   test 'should create a new session and redirect to previous url' do
-    Ldap.default.destroy!
+    destroy_ad_services
 
     assert_difference '@user.logins.count' do
       post :create, params:  { username: @user.email },
@@ -69,7 +69,7 @@ class SessionsControllerTest < ActionController::TestCase
   end
 
   test 'should not create a new session with correct username' do
-    Ldap.default.destroy!
+    destroy_ad_services
 
     assert_no_difference '@user.logins.count' do
       assert_difference '@user.fails.count' do
@@ -86,7 +86,7 @@ class SessionsControllerTest < ActionController::TestCase
   end
 
   test 'should not create a new session with incorrect username' do
-    Ldap.default.destroy!
+    destroy_ad_services
 
     assert_no_difference '@user.logins.count' do
       assert_difference 'Fail.count' do
@@ -117,5 +117,10 @@ class SessionsControllerTest < ActionController::TestCase
 
     def current_user
       @controller.send :current_user
+    end
+
+    def destroy_ad_services
+      Ldap.default.destroy!
+      Saml.default.destroy!
     end
 end

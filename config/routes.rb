@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :samls
   # Home
   get 'home',                      to: 'home#index', as: 'home'
   get 'home/api_issues_by_status', to: 'home#api_issues_by_status'
@@ -16,6 +17,11 @@ Rails.application.routes.draw do
   # Authentication
   get  'signin', to: 'authentications#new',    as: 'signin'
   post 'auth',   to: 'authentications#create', as: 'auth'
+
+  # SAML
+  get 'saml/:tenant_name/auth', to: 'saml_sessions#new', as: :new_saml_session
+  post 'saml/:tenant_name/callback', to: 'saml_sessions#create', as: :saml_session
+  get 'saml/:tenant_name/metadata', to: 'saml_sessions#metadata', as: :saml_metadata
 
   # Profiles
   get   'profile', to: 'profiles#edit', as: 'profile'

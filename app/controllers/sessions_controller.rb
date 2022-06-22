@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
         store_current_user user
         store_current_account account
 
-        redirect_to signin_url
+        redirect_to saml ? [:new, :saml_session, tenant_name: account.tenant_name] : signin_url
       else
         create_fail_record user, params[:username]
         clear_session
@@ -39,4 +39,20 @@ class SessionsController < ApplicationController
 
     redirect_to root_url, notice: t('.logged_out', scope: :flash)
   end
+
+  private
+
+    def store_current_user user
+      session[:current_user_id] = user.id
+    end
+
+    def switch_to_default_account_for username
+      account = Account.default_by_username_or_email username
+
+      if account
+        account.switch { yield account }
+      else
+        yield nil
+      end
+    end
 end

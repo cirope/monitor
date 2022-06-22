@@ -549,6 +549,20 @@ es:
       title: 'Mis datos'
       submit: 'Actualizar mis datos'
 
+  samls:
+    edit:
+      title: 'Editar configuración SAML'
+    index:
+      new: 'Nueva configuración SAML'
+      title: 'Listado de configuraciones SAML'
+      empty_html: 'No hay configuraciones SAML, puede crear una con el botón <span class="badge badge-primary">Nueva configuración SAML</span>'
+    new:
+      title: 'Crear configuración SAML'
+    show:
+      title: 'Ver configuración SAML'
+    providers:
+      azure: 'Azure'
+
   series:
     index:
       title: 'Listado de series'
