@@ -64,7 +64,13 @@ class IssuesController < ApplicationController
   end
 
   def survey_answer
-    @survey_answer = Survey.find_by!(issue_id: params[:issue_id]).create_survey_answer
+    survey = Survey.find_by!(issue_id: params[:issue_id])
+
+    if survey.can_create_survey_answer?
+      @survey_answer = survey.create_survey_answer
+    else
+      redirect_to issue_path(survey.issue)
+    end
   end
 
   def create_survey_answer

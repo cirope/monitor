@@ -1,15 +1,20 @@
-module Controls::ControlAnswers
+module PostControls::Control
   extend ActiveSupport::Concern
 
-  def control_answer answer
-    question = answer.question
+  def control survey_answer: nil, answer: nil
+    question = answer.question if answer.present?
+    survey = survey_answer.survey if survey_answer.present?
     status = 'ok'
 
     output = begin
+      RequestStore.store[:stdout] = stdout = StringIO.new
+
       eval(code)
     rescue => ex
       status = 'error'
       ex.message
+    ensure
+      RequestStore.store[:stdout] = nil
     end
 
     control_outputs.create! status: status, output: output
@@ -19,8 +24,6 @@ module Controls::ControlAnswers
 
     def code
       <<-RUBY
-        RequestStore.store[:stdout] = stdout = StringIO.new
-
         ApplicationRecord.transaction do
           #{callback}
         end

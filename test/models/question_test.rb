@@ -25,4 +25,19 @@ class QuestionTest < ActiveSupport::TestCase
       @question.results
     end
   end
+
+  test 'execute post control answer and update question from question' do
+    question = questions :drop_down_question_survey_for_ls_on_atahualpa_not_well
+
+    question.post_controls
+            .first
+            .update_attribute :callback, "question.update_attribute(:title, 'test')"
+
+    assert_difference 'ControlOutput.count' do
+      question.post_control_answer question.answers.first
+    end
+
+    assert ControlOutput.last.ok?
+    assert_equal 'test', question.reload.title
+  end
 end

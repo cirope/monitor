@@ -222,6 +222,8 @@ es:
     show:
       title: 'Ver caso'
       download_data: 'Descargar datos'
+      new_survey_answer: 'Responder Encuesta'
+      results_survey: 'Resultados Encuesta'
     status:
       all: 'Todos'
       pending: 'Pendiente'

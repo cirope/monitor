@@ -5,11 +5,11 @@ class Answer < ApplicationRecord
   belongs_to :question
   has_one :survey, through: :survey_answer
 
-  after_save :control_answer
+  after_save :post_control_answer
 
   private
 
-    def control_answer
-      survey.control_answer self
+    def post_control_answer
+      question.post_control_answer self
     end
 end
