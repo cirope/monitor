@@ -14,6 +14,6 @@ class FileRemoveJob < ApplicationJob
     end
 
     def wait_time
-      ENV['TRAVIS'] ? 0.1 : 0.01
+      ENV['GH_ACTIONS'] ? 0.1 : 0.01
     end
 end
