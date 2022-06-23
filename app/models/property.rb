@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Property < ApplicationRecord
+  include Properties::Encrypt
   include Properties::Validations
   include PublicAuditable
 

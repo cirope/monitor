@@ -1,10 +1,7 @@
 # frozen_string_literal: true
 
 class Serie < ApplicationRecord
-  establish_connection :metrics
-
   include Series::Validations
-  include Series::Tentant
 
   def self.add rows = []
     rows.map { |r| create_sample r.symbolize_keys }.all?

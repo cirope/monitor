@@ -2,6 +2,12 @@
 
 Web application that runs against _any_ data source and _explore_ for defects
 
-=== Build Status {<img src="https://secure.travis-ci.org/cirope/monitor.png"/>}[http://travis-ci.org/cirope/monitor]
+=== Workflow status badge by branch:
 
-=== Code Status {<img src="https://codeclimate.com/github/cirope/monitor.png"/>}[https://codeclimate.com/github/cirope/monitor]
+- +master+: {rdoc-image:https://github.com/cirope/monitor/actions/workflows/main.yml/badge.svg?branch=master}[https://github.com/cirope/monitor/actions/workflows/main.yml?query=branch:master]
+- +c-bancor+: {rdoc-image:https://github.com/cirope/monitor/actions/workflows/main.yml/badge.svg?branch=c-bancor}[https://github.com/cirope/monitor/actions/workflows/main.yml?query=branch:c-bancor]
+- +c-bersa+: {rdoc-image:https://github.com/cirope/monitor/actions/workflows/main.yml/badge.svg?branch=c-bersa}[https://github.com/cirope/monitor/actions/workflows/main.yml?query=branch:c-bersa]
+- +c-bica+: {rdoc-image:https://github.com/cirope/monitor/actions/workflows/main.yml/badge.svg?branch=c-bica}[https://github.com/cirope/monitor/actions/workflows/main.yml?query=branch:c-bica]
+- +c-bsc+: {rdoc-image:https://github.com/cirope/monitor/actions/workflows/main.yml/badge.svg?branch=c-bsc}[https://github.com/cirope/monitor/actions/workflows/main.yml?query=branch:c-bsc]
+- +c-bsf+: {rdoc-image:https://github.com/cirope/monitor/actions/workflows/main.yml/badge.svg?branch=c-bsf}[https://github.com/cirope/monitor/actions/workflows/main.yml?query=branch:c-bsf]
+- +c-bsj+: {rdoc-image:https://github.com/cirope/monitor/actions/workflows/main.yml/badge.svg?branch=c-bsj}[https://github.com/cirope/monitor/actions/workflows/main.yml?query=branch:c-bsj]

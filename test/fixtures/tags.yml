@@ -36,3 +36,10 @@ guest:
   kind: user
   style: secondary
   parent:
+
+editable:
+  name: editable
+  kind: script
+  style: secondary
+  options: { "editable": true }
+  parent:

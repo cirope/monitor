@@ -6,6 +6,8 @@ namespace :db do
       change_tags_style          # 2019-04-15
       set_issue_data_type        # 2021-05-11
       generate_state_transitions # 2021-10-29
+      set_issue_canonical_data   # 2022-02-01
+      encrypt_property_passwords # 2022-05-27
     end
   end
 end
@@ -64,7 +66,7 @@ private
         Issue.find_each do |issue|
           state_transitions_hash = {}
 
-          issue.versions.each do |version|
+          issue.versions.find_each do |version|
             if version.object_changes.key? 'status'
               date_time_state_transition = DateTime.parse(version.object_changes['updated_at'][1]).to_s :db
               new_status                 = version.object_changes['status'][1]
@@ -75,7 +77,7 @@ private
             end
           end
 
-          issue.update! state_transitions: state_transitions_hash
+          issue.update_attribute('state_transitions', state_transitions_hash)
         end
       end
     end
@@ -83,4 +85,40 @@ private
 
   def state_transitions_were_generated?
     Issue.where.not(state_transitions: {}).any?
+  end
+
+  def set_issue_canonical_data
+    PaperTrail.enabled = false
+
+    Account.on_each do
+      if set_issue_canonical_data?
+        Issue.single_row_data_type.find_each do |issue|
+          issue.data_will_change!
+
+          issue.save!
+        end
+      end
+    end
+  ensure
+    PaperTrail.enabled = true
+  end
+
+  def set_issue_canonical_data?
+    Issue.where.not(canonical_data: nil).empty?
+  end
+
+  def encrypt_property_passwords
+    PaperTrail.enabled = false
+
+    Property.find_each do |property|
+      if property.password? && property.value.present?
+        begin
+          ::Security.decrypt(property.value)
+        rescue
+          property.update_column :value, ::Security.encrypt(property.value)
+        end
+      end
+    end
+  ensure
+    PaperTrail.enabled = true
   end

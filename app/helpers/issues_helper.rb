@@ -145,6 +145,10 @@ module IssuesHelper
     end
   end
 
+  def limited_issue_tag_form_edition?
+    !@issue.can_be_light_edited_by? current_user
+  end
+
   def limited_issue_form_edition?
     !@issue.can_be_edited_by? current_user
   end
@@ -191,6 +195,14 @@ module IssuesHelper
 
     link_to script_issues_path(@script, url_options), options do
       t 'issues.index_alt.download_csv'
+    end
+  end
+
+  def filter_original_query_hash
+    if params[:filter].present? && params[:filter][:original_filter].present?
+      JSON.parse params[:filter][:original_filter]
+    else
+      filter_query_hash
     end
   end
 

@@ -23,7 +23,6 @@ class HomeHelperTest < ActionView::TestCase
 
   private
 
-
     def issue_filter
       {}
     end

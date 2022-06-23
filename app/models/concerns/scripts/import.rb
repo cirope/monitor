@@ -75,8 +75,10 @@ module Scripts::Import
       end
 
       def create_from_data data
-        parameters = data.delete('parameters')
-        requires   = require_attributes data.delete('requires')
+        descriptions = data.delete('descriptions') || []
+        imported_as  = data.delete('exported_as') || default_imported_as
+        parameters   = data.delete('parameters')
+        requires     = require_attributes data.delete('requires')
 
         if data['change'].blank?
           date           = I18n.l Time.zone.now, format: :compact
@@ -84,9 +86,11 @@ module Scripts::Import
         end
 
         create data.merge({
-          imported_at:           Time.zone.now,
-          parameters_attributes: parameters,
-          requires_attributes:   requires
+          descriptions_attributes: descriptions,
+          imported_as:             imported_as,
+          imported_at:             Time.zone.now,
+          parameters_attributes:   parameters,
+          requires_attributes:     requires
         })
       end
 
@@ -98,15 +102,21 @@ module Scripts::Import
   end
 
   def update_from_data data
-    update_parameters data.delete('parameters')
-    update_requires   data.delete('requires')
+    update_descriptions data.delete('descriptions') || []
+    update_parameters   data.delete('parameters')
+    update_requires     data.delete('requires')
 
+    data['imported_as'] = data.delete('exported_as') || default_imported_as
     data['imported_at'] = Time.zone.now if imported_at
 
     update data
   end
 
   private
+
+    def default_imported_as
+      Script.imported_as[:read_only]
+    end
 
     def update_parameters parameters_data
       names = []
@@ -121,6 +131,21 @@ module Scripts::Import
       end
 
       parameters.where.not(name: names).destroy_all
+    end
+
+    def update_descriptions descriptions_data
+      names = []
+
+      descriptions_data.each do |description_data|
+        name        = description_data['name']
+        description = descriptions.detect { |d| d.name == name }
+
+        descriptions.create! description_data unless description
+
+        names << name
+      end
+
+      descriptions.where.not(name: names).destroy_all
     end
 
     def update_requires requires_data

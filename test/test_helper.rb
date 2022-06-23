@@ -14,8 +14,6 @@ Apartment::Tenant.drop    'default' rescue nil
 Apartment::Tenant.create  'default'
 Apartment::Tenant.switch! 'default'
 
-Serie.create_tenant 'default'
-
 class ActiveSupport::TestCase
   # Run tests in parallel with specified workers
   # Commented out until further _polishment_

@@ -265,6 +265,7 @@ es:
         final: 'Final'
         group: 'Es grupo'
         export: 'Exportar'
+        export_edit: 'Exportar con edición'
         parent: 'Grupo'
         category: 'Es categoría'
       tagging:
@@ -306,6 +307,10 @@ es:
               globally_taken: 'ya está en uso en otra cuenta'
             base:
               licensed_user_limit: 'Limite de usuarios alcanzado, por favor actualice su licencia.'
+        reminder:
+          attributes:
+            due_at:
+              invalid: 'El vencimiento del reminder debe ser mayor a 5 minutos desde ahora'
 
   errors:
     messages:

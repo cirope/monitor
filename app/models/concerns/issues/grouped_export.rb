@@ -56,7 +56,7 @@ module Issues::GroupedExport
           name, *headers = name_with_headers.split HEADERS_SEPARATOR
           filename       = grouped_sanitized_filename name, csvs
 
-          csvs[filename] = CSV.generate CSV_OPTIONS do |csv|
+          csvs[filename] = CSV.generate **CSV_OPTIONS do |csv|
             csv << headers
 
             rows.each { |row| csv << row}

@@ -50,4 +50,8 @@ class TagsHelperTest < ActionView::TestCase
     def limited_issue_form_edition?
       !@allow_edit
     end
+
+    def limited_issue_tag_form_edition?
+      @allow_edit
+    end
 end

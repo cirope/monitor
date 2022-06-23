@@ -271,6 +271,20 @@ class IssueTest < ActiveSupport::TestCase
     assert issues.all? { |issue| issue.comments.any? { |c| c.text =~ /wat/i } }
   end
 
+  test 'by scheduled_at' do
+    (runs :boom_on_atahualpa).issues << Issue.new(status: 'pending')
+
+    run_to_query = runs :past_ls_on_atahualpa
+
+    from_date = (run_to_query.scheduled_at - 1.minutes).strftime('%d/%m/%Y%k:%M')
+
+    to_date   = (run_to_query.scheduled_at + 1.minutes).strftime('%d/%m/%Y%k:%M')
+
+    issues = Issue.by_scheduled_at("#{from_date} - #{to_date}")
+
+    assert_equal run_to_query.issues.count, issues.count
+  end
+
   test 'pending?' do
     assert @issue.pending?
 
@@ -411,5 +425,115 @@ class IssueTest < ActiveSupport::TestCase
     @issue.update! status: 'taken'
 
     assert @issue.reload.state_transitions['taken'].present?
+  end
+
+  test 'check status changed and update states reminders' do
+    reminder = reminders :reminder_of_ls_on_atahualpa_not_well
+
+    reminder.update! transition_rules: { 'status_changed': { 'taken': 'done' } }
+
+    @issue.update! status: 'taken'
+
+    assert_equal 'done', reminder.reload.state_class_type
+  end
+
+  test 'check status changed and not update states reminders' do
+    reminder = reminders :reminder_of_ls_on_atahualpa_not_well
+
+    reminder.update! transition_rules: { 'status_changed': { 'taken': 'test' } }
+
+    @issue.update! status: 'taken'
+
+    assert_equal 'pending', reminder.reload.state_class_type
+  end
+
+  test 'should update canonical data' do
+    @issue.update! data: [[:h1, :h2], ['v1', 'v2']]
+
+    expected = { 'h1' => 'v1', 'h2' => 'v2' }
+
+    assert_equal expected, @issue.reload.canonical_data
+
+    @issue.update! data: { key1: 1, key2: [[:h1, :h2], ['v1', 'v2'], ['v3', 'v4']] }
+
+    assert_nil @issue.reload.canonical_data
+
+    @issue.update! data: [{ h1: 'v1', h2: 'v2' }]
+
+    expected = { 'h1' => 'v1', 'h2' => 'v2' }
+
+    assert_equal expected, @issue.reload.canonical_data
+
+    @issue.update! data: nil
+
+    assert_nil @issue.reload.canonical_data
+  end
+
+  test 'should return a issue with like canonical data' do
+    @issue.update! data: [[:k1, :k2, :k3], ['value1', 'value2', 'value1']]
+
+    another_issue = issues :ls_on_atahualpa_not_well_again
+
+    another_issue.update! data: [[:k1, :k2, :k3], ['value2', 'value1', 'value2']]
+
+    keys_orderd_json = ['k1', 'k2', 'k3'].to_json
+
+    data_keys = { 'k3' => nil, 'k2' => nil, 'k1' => 'lue1', keys_ordered: keys_orderd_json }
+
+    issues = Issue.by_canonical_data(data_keys)
+
+    assert_equal 1, issues.count
+    assert_equal @issue.id, issues.first.id
+
+    data_keys = { 'k3' => nil, 'k2' => nil, 'k1' => 'lue2', keys_ordered: keys_orderd_json }
+
+    issues = Issue.by_canonical_data(data_keys)
+
+    assert_equal 1, issues.count
+    assert_equal another_issue.id, issues.first.id
+  end
+
+  test 'should return view by user' do
+    issue = issues :ls_on_atahualpa_not_well
+
+    assert_equal views(:franco_view_ls), issue.view_by(users :franco)
+  end
+
+  test 'should return issues grouped by views for current user' do
+    Subscription.create! issue: issues(:ls_on_atahualpa_not_well_again),
+                         user: users(:franco)
+
+    current_user    = users :franco
+    expected_return = Issue.left_joins(:views)
+                           .group("#{View.table_name}.user_id")
+                           .merge(View.viewed_by(current_user).or(View.where(user_id: nil)))
+                           .count
+
+    assert_equal expected_return, Issue.grouped_by_views(current_user).count
+  end
+
+  test 'should return issues grouped by script and views for current user' do
+    Subscription.create! issue: issues(:ls_on_atahualpa_not_well_again),
+                         user: users(:franco)
+
+    current_user    = users :franco
+    schedule        = schedules :ls_on_atahualpa
+    expected_return = Issue.grouped_by_script(schedule.id)
+                           .grouped_by_views(current_user)
+                           .count
+
+    assert_equal expected_return, Issue.grouped_by_script_and_views(schedule.id, current_user).count
+  end
+
+  test 'should return issues grouped by schedule and views for current user' do
+    Subscription.create! issue: issues(:ls_on_atahualpa_not_well_again),
+                         user: users(:franco)
+
+    current_user    = users :franco
+    expected_return = Issue.grouped_by_schedule
+                           .grouped_by_views(current_user)
+                           .count
+
+    assert_equal expected_return, Issue.grouped_by_schedule_and_views(current_user).count
   end
 end

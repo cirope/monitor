@@ -28,3 +28,10 @@ select_from_users:
   change: 'Initial script'
   language: sql
   database: postgresql
+
+pwd:
+  uuid: <%= SecureRandom.uuid %>
+  name: Execute one pwd
+  text: 'pwd'
+  change: 'Initial script'
+  language: shell

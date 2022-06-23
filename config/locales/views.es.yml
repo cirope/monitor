@@ -121,6 +121,7 @@ es:
       empty_search_html: 'No hay casos que coincidan con el criterio de búsqueda'
       actions: 'Acciones'
       api_issues_by_status: 'Enlace para obtener datos'
+      not_viewed: 'No vistos'
     filters:
       show:
         mine: 'Míos'
@@ -386,6 +387,7 @@ es:
       import: 'Importar'
       export: 'Exportar'
       new_sql: 'Nuevo guión SQL'
+      new_shell: 'Nuevo guión SHELL'
     new:
       title: 'Crear guión'
       maintainer: 'Agregar mantenedor'
@@ -577,6 +579,9 @@ es:
       empty: 'No se encontraron etiquetas con ese criterio'
 
   users:
+    alias:
+      # Only used on tests
+      title: 'Prueba alias'
     edit:
       title: 'Editar usuario'
     index:
@@ -611,6 +616,11 @@ es:
         updated: 'Actualizado'
         error: 'Con errores'
         deprecated_users: 'Usuarios ausentes en el servidor LDAP'
+  
+  views:
+    view:
+      mark_as_viewed: 'Marcar como visto'
+      viewed_at: 'Marcado como visto el %{on}'
 
   records:
     index:
