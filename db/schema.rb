@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_03_121256) do
+ActiveRecord::Schema.define(version: 2022_06_23_123607) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -200,7 +200,7 @@ ActiveRecord::Schema.define(version: 2022_05_03_121256) do
     t.string "hostname", null: false
     t.integer "port", default: 389, null: false
     t.string "basedn", null: false
-    t.string "filter"
+    t.text "filter"
     t.string "login_mask", null: false
     t.string "username_attribute", null: false
     t.string "name_attribute", null: false
