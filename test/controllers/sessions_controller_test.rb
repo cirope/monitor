@@ -85,18 +85,30 @@ class SessionsControllerTest < ActionController::TestCase
     assert_nil current_user
   end
 
-  test 'should not create a new session with incorrect username' do
+  test 'should redirect to signin_url with incorrect username' do
     destroy_ad_services
 
     assert_no_difference '@user.logins.count' do
-      assert_difference 'Fail.count' do
-        post :create, params: { username: 'not_exist' }
-      end
+      post :create, params: { username: 'not_exist' }
     end
 
-    assert_response :success
+    assert_redirected_to signin_url
     assert_nil current_user
-    assert Fail.last.user.blank?
+  end
+
+  test 'should redirect to saml sessions' do
+    Ldap.default.destroy!
+
+    assert_no_difference '@user.logins.count' do
+      post :create, params: { username: 'franco' }
+    end
+
+    assert_redirected_to [
+      :new,
+      :saml_session,
+      tenant_name: current_account.tenant_name
+    ]
+    assert_nil current_user
   end
 
   test 'should get destroy' do
@@ -117,6 +129,10 @@ class SessionsControllerTest < ActionController::TestCase
 
     def current_user
       @controller.send :current_user
+    end
+
+    def current_account
+      @controller.send :current_account
     end
 
     def destroy_ad_services

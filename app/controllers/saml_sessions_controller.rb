@@ -18,9 +18,11 @@ class SamlSessionsController < ApplicationController
   end
 
   def metadata
-    meta = OneLogin::RubySaml::Metadata.new
+    @account&.switch do
+      meta = OneLogin::RubySaml::Metadata.new
 
-    render xml: meta.generate(@saml_config)
+      render xml: meta.generate(@saml_config)
+    end
   end
 
   def create
@@ -35,7 +37,7 @@ class SamlSessionsController < ApplicationController
 
           redirect_to default_url, notice: t('authentications.logged_in', scope: :flash)
         else
-          create_fail_record auth.user
+          create_fail_record auth.user, auth.username
 
           redirect_to login_url, alert: t('sessions.create.invalid', scope: :flash)
         end

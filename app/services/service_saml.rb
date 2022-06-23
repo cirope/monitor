@@ -1,5 +1,5 @@
 class ServiceSaml
-  attr_accessor :user, :auth
+  attr_accessor :user, :auth, :username
 
   def initialize saml, response
     @saml     = saml
@@ -28,8 +28,8 @@ class ServiceSaml
 
     def saml_user_for email, attributes
       pruned_attributes = prune_custom_attributes attributes
-      email    = pruned_attributes[:email] || email
-      username = pruned_attributes[:username]
+      email     = pruned_attributes[:email] || email
+      @username = pruned_attributes[:username]
 
       if @user = User.find_by(email: email)
         update_user pruned_attributes

@@ -116,7 +116,7 @@ es:
 
     sessions:
       create:
-        invalid: 'No pudimos encontrar tu cuenta de Gredit =('
+        invalid: 'Tu correo y/o contraseña no están bien =('
       destroy:
         logged_out: 'Hasta la próxima'
 

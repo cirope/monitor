@@ -11,22 +11,25 @@ class SessionsController < ApplicationController
   end
 
   def create
-    switch_to_default_account_for params[:username] do |account|
-      user = User.visible.by_username_or_email params[:username]
+    if params[:username].present?
 
-      if user && account
-        store_current_user user
-        store_current_account account
+      switch_to_default_account_for params[:username] do |account|
+        store_username
+        redirect_url = signin_url
 
-        redirect_to saml ? [:new, :saml_session, tenant_name: account.tenant_name] : signin_url
-      else
-        create_fail_record user, params[:username]
-        clear_session
+        if account
+          store_current_account account
 
-        flash.now.alert = t '.invalid', scope: :flash
+          redirect_url = [:new, :saml_session, tenant_name: account.tenant_name] if saml
+        end
 
-        render 'new'
+        redirect_to redirect_url
       end
+
+    else
+      flash.now.alert = t '.invalid', scope: :flash
+
+      render 'new'
     end
   end
 
@@ -42,17 +45,7 @@ class SessionsController < ApplicationController
 
   private
 
-    def store_current_user user
-      session[:current_user_id] = user.id
-    end
-
-    def switch_to_default_account_for username
-      account = Account.default_by_username_or_email username
-
-      if account
-        account.switch { yield account }
-      else
-        yield nil
-      end
+    def store_username
+      session[:username] = params[:username]
     end
 end

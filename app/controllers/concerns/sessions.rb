@@ -35,4 +35,14 @@ module Sessions
       reset_session
       cookies.delete :token
     end
+
+    def switch_to_default_account_for username
+      account = Account.default_by_username_or_email username
+
+      if account
+        account.switch { yield account }
+      else
+        yield nil
+      end
+    end
 end

@@ -3,40 +3,40 @@
 class AuthenticationsController < ApplicationController
   include Sessions
 
-  before_action :set_user, :set_account, :set_title
+  before_action :set_username, :set_title
 
   def new
     if current_user&.visible?
       redirect_to default_url
-    elsif @user && @account
-      render 'new'
     else
-      create_fail_record @user, params[:username]
-      clear_session
-
-      redirect_to login_url, alert: t('sessions.create.invalid', scope: :flash)
+      render 'new'
     end
   end
 
   def create
-    if @user && @account && @user.auth(params[:password])
-      create_login_record @user
-      store_auth_token    @user
+    switch_to_default_account_for @username do |account|
+      user = User.visible.by_username_or_email @username
 
-      redirect_to default_url, notice: t('.logged_in', scope: :flash)
-    else
-      create_fail_record @user, params[:username]
+      if user && account && user.auth(params[:password])
+        create_login_record   user
+        store_auth_token      user
+        store_current_account account
 
-      flash.now.alert = t '.invalid', scope: :flash
+        redirect_to default_url, notice: t('.logged_in', scope: :flash)
+      else
+        create_fail_record user, @username
 
-      render 'new'
+        flash.now.alert = t 'invalid', scope: [:flash, :sessions, :create]
+
+        render 'new'
+      end
     end
   end
 
   private
 
-    def set_user
-      @user = User.find_by id: session[:current_user_id]
+    def set_username
+      @username = session[:username]
     end
 
     def set_account
