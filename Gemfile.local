@@ -6,4 +6,6 @@ unless ENV['TRAVIS']
   # Excel parser
   gem 'roo'
   gem 'pdf-reader'
+  gem 'charlock_holmes'
+  gem 'caxlsx'
 end
