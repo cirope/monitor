@@ -7,9 +7,10 @@ module PreControls::Control
     output = begin
       RequestStore.store[:stdout] = stdout = StringIO.new
 
-      eval(code)
+      eval code
     rescue => ex
       status = 'error'
+
       ex.message
     ensure
       RequestStore.store[:stdout] = nil

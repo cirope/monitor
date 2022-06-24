@@ -3,15 +3,16 @@ module PostControls::Control
 
   def control survey_answer: nil, answer: nil
     question = answer.question if answer.present?
-    survey = survey_answer.survey if survey_answer.present?
-    status = 'ok'
+    survey   = survey_answer.survey if survey_answer.present?
+    status   = 'ok'
 
     output = begin
       RequestStore.store[:stdout] = stdout = StringIO.new
 
-      eval(code)
+      eval code
     rescue => ex
       status = 'error'
+
       ex.message
     ensure
       RequestStore.store[:stdout] = nil
