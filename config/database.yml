@@ -14,6 +14,7 @@ development:
 
 test:
   <<: *default
+  database: 'monitor_test'
 
 production:
   <<: *default

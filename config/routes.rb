@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   post 'auth',   to: 'authentications#create', as: 'auth'
 
   # SAML
-  get 'saml/:tenant_name/auth', to: 'saml_sessions#new', as: :new_saml_session
+  get 'saml/auth', to: 'saml_sessions#new', as: :new_saml_session
   post 'saml/:tenant_name/callback', to: 'saml_sessions#create', as: :saml_session
   get 'saml/:tenant_name/metadata', to: 'saml_sessions#metadata', as: :saml_metadata
 

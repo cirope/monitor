@@ -116,6 +116,7 @@ es:
 
     sessions:
       create:
+        username_invalid: 'Tu usuario o correo no es válido'
         invalid: 'Tu correo y/o contraseña no están bien =('
       destroy:
         logged_out: 'Hasta la próxima'

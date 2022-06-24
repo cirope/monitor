@@ -43,11 +43,11 @@ class SamlTest < ActiveSupport::TestCase
     assert_error @saml, :name_attribute, :blank
     assert_error @saml, :lastname_attribute, :blank
     assert_error @saml, :email_attribute, :blank
-    #assert_error @saml, :roles_attribute, :blank
-    #assert_error @saml, :role_guest, :blank
-    #assert_error @saml, :role_author, :blank
-    #assert_error @saml, :role_supervisor, :blank
-    #assert_error @saml, :role_security, :blank
+    assert_error @saml, :roles_attribute, :blank
+    assert_error @saml, :role_guest, :blank
+    assert_error @saml, :role_author, :blank
+    assert_error @saml, :role_supervisor, :blank
+    assert_error @saml, :role_security, :blank
   end
 
   test 'validates inclusion' do

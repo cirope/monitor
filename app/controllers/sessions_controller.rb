@@ -20,14 +20,14 @@ class SessionsController < ApplicationController
         if account
           store_current_account account
 
-          redirect_url = [:new, :saml_session, tenant_name: account.tenant_name] if saml
+          redirect_url = new_saml_session_url if saml
         end
 
         redirect_to redirect_url
       end
 
     else
-      flash.now.alert = t '.invalid', scope: :flash
+      flash.now.alert = t '.username_invalid', scope: :flash
 
       render 'new'
     end

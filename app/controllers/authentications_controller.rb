@@ -38,8 +38,4 @@ class AuthenticationsController < ApplicationController
     def set_username
       @username = session[:username]
     end
-
-    def set_account
-      @account = Account.find_by tenant_name: session[:tenant_name]
-    end
 end

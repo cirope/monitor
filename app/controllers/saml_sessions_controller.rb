@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class SamlSessionsController < ApplicationController
   include Sessions
 
   skip_before_action :verify_authenticity_token, raise: false
 
-  before_action :set_account
+  before_action :set_account, only: [:create]
   before_action :set_saml_config, only: [:new, :metadata]
 
   def new
@@ -13,37 +15,35 @@ class SamlSessionsController < ApplicationController
 
       redirect_to action
     else
-      redirect_to login_url, alert: t('sessions.create.invalid', scope: :flash)
+      redirect_to login_url, alert: t('invalid', scope: [:flash, :sessions, :create])
     end
   end
 
   def metadata
-    @account&.switch do
-      meta = OneLogin::RubySaml::Metadata.new
+    meta = OneLogin::RubySaml::Metadata.new
 
-      render xml: meta.generate(@saml_config)
-    end
+    render xml: meta.generate(@saml_config)
   end
 
   def create
     if @account
       @account.switch do
-        auth = ServiceSaml.new saml, params[:SAMLResponse]
+        user = saml.process_response params[:SAMLResponse]
 
-        if auth.authenticated?
-          create_login_record   auth.user
-          store_auth_token      auth.user
+        if user
+          create_login_record   user
+          store_auth_token      user
           store_current_account @account
 
           redirect_to default_url, notice: t('authentications.logged_in', scope: :flash)
         else
-          create_fail_record auth.user, auth.username
+          create_fail_record user, user
 
-          redirect_to login_url, alert: t('sessions.create.invalid', scope: :flash)
+          redirect_to login_url, alert: t('invalid', scope: [:flash, :sessions, :create])
         end
       end
     else
-      redirect_to login_url, alert: t('sessions.create.invalid', scope: :flash)
+      redirect_to login_url, alert: t('invalid', scope: [:flash, :sessions, :create])
     end
   end
 
@@ -54,6 +54,6 @@ class SamlSessionsController < ApplicationController
     end
 
     def set_saml_config
-      @saml_config = OneLogin::RubySaml::Settings.new @saml.settings if saml
+      @saml_config = OneLogin::RubySaml::Settings.new saml&.settings
     end
 end
