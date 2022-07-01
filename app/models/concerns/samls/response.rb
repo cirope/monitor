@@ -36,7 +36,7 @@ module Samls::Response
           lastname: attributes[:lastname],
           email:    attributes[:email],
           role:     extract_role(attributes),
-          hidden: false
+          hidden:   false
         )
       end
     end

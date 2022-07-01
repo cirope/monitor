@@ -22,8 +22,6 @@ es:
         alert:  'La cuenta no pudo ser eliminada'
 
     authentications:
-      create:
-        invalid: 'La contraseña es incorrecta. Por favor inténtelo nuevamente.'
       logged_in: 'Bienvenido'
 
     databases:

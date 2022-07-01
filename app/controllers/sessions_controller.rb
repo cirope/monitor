@@ -14,9 +14,9 @@ class SessionsController < ApplicationController
     if params[:username].present?
 
       switch_to_default_account_for params[:username] do |account|
-        store_username
         redirect_url = signin_url
 
+        store_username
         if account
           store_current_account account
 

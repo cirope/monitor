@@ -116,7 +116,6 @@ es:
         name: 'Nombre'
         tenant_name: 'Contexto'
         group_issues_by_schedule: 'Agrupar guiones por trabajo'
-        saml_provider: 'Proveedor SAML'
       comment:
         text: 'Comentario'
         file: 'Adjunto'
