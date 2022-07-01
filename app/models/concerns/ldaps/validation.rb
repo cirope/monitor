@@ -11,9 +11,10 @@ module Ldaps::Validation
       :lastname_attribute, :email_attribute, :roles_attribute,
       :role_guest, :role_author, :role_supervisor, :role_security,
       presence: true
-    validates :hostname, :basedn, :filter, :login_mask, :username_attribute,
+    validates :hostname, :basedn, :login_mask, :username_attribute,
       :name_attribute, :lastname_attribute, :email_attribute,
       length: { maximum: 255 }
+    validates :filter, length: { maximum: 500 }
     validates :port, numericality: { only_integer: true, greater_than: 0, less_than: 65536 }
     validates :basedn, format: /\A(\w+=[\w\s-]+)(,\w+=[\w\s-]+)*\z/
     validates :username_attribute, :name_attribute, :lastname_attribute,
