@@ -370,6 +370,27 @@ ActiveRecord::Schema.define(version: 2022_06_23_123607) do
     t.index ["status"], name: "index_runs_on_status"
   end
 
+  create_table "samls", force: :cascade do |t|
+    t.string "provider", null: false
+    t.string "idp_homepage", null: false
+    t.string "idp_entity_id", null: false
+    t.string "idp_sso_target_url", null: false
+    t.string "sp_entity_id", null: false
+    t.string "assertion_consumer_service_url", null: false
+    t.string "name_identifier_format", null: false
+    t.string "assertion_consumer_service_binding", null: false
+    t.text "idp_cert", null: false
+    t.string "username_attribute", null: false
+    t.string "name_attribute", null: false
+    t.string "lastname_attribute", null: false
+    t.string "email_attribute", null: false
+    t.string "roles_attribute", null: false
+    t.jsonb "options"
+    t.integer "lock_version", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "schedules", id: :serial, force: :cascade do |t|
     t.datetime "start", null: false
     t.datetime "end"
