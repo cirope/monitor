@@ -14,6 +14,17 @@ Rails.application.routes.draw do
   post   'sessions', to: 'sessions#create', as: 'sessions'
   delete 'logout',   to: 'sessions#destroy', as: 'logout'
 
+  # Authentication
+  get  'signin', to: 'authentications#new',    as: 'signin'
+  post 'auth',   to: 'authentications#create', as: 'auth'
+
+  # SAML
+  resources :samls
+
+  get 'saml/auth', to: 'saml_sessions#new', as: :new_saml_session
+  post 'saml/:tenant_name/callback', to: 'saml_sessions#create', as: :saml_session
+  get 'saml/:tenant_name/metadata', to: 'saml_sessions#metadata', as: :saml_metadata
+
   # Profiles
   get   'profile', to: 'profiles#edit', as: 'profile'
   patch 'profile', to: 'profiles#update'

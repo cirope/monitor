@@ -18,7 +18,9 @@
     <%= left_menu_item_for Account, accounts_path if current_account.default? %>
     <%= left_menu_item_for Server, servers_path %>
     <%= left_menu_item_for Database, databases_path %>
-    <%= left_menu_item_for Ldap, ldaps_path %>
+    <%= left_menu_item_for Ldap,  ldaps_path %>
+    <%= left_menu_item_for Saml,  samls_path %>
+    <%= left_menu_item_for Drive, drives_path %>
   <% end %>
 
   <% if current_user.supervisor? && ENABLE_WEB_CONSOLE %>
