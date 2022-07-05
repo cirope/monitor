@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_23_123607) do
+ActiveRecord::Schema.define(version: 2022_07_01_113018) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -120,6 +120,19 @@ ActiveRecord::Schema.define(version: 2022_06_23_123607) do
     t.datetime "updated_at", null: false
     t.index ["rule_id"], name: "index_dispatchers_on_rule_id"
     t.index ["schedule_id"], name: "index_dispatchers_on_schedule_id"
+  end
+
+  create_table "drives", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "provider", null: false
+    t.string "client_id", null: false
+    t.string "client_secret", null: false
+    t.bigint "account_id", null: false
+    t.integer "lock_version", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["account_id"], name: "index_drives_on_account_id"
+    t.index ["name"], name: "index_drives_on_name", unique: true
   end
 
   create_table "effects", force: :cascade do |t|
@@ -542,6 +555,7 @@ ActiveRecord::Schema.define(version: 2022_06_23_123607) do
   add_foreign_key "descriptions", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "dispatchers", "rules", on_update: :restrict, on_delete: :restrict
   add_foreign_key "dispatchers", "schedules", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "drives", "accounts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "effects", "tags", column: "implied_id", on_update: :restrict, on_delete: :restrict
   add_foreign_key "effects", "tags", on_update: :restrict, on_delete: :restrict
   add_foreign_key "fails", "users", on_update: :restrict, on_delete: :restrict

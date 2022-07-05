@@ -96,7 +96,7 @@ GEM
       i18n
       rake (>= 10.0.0)
       sshkit (>= 1.9.0)
-    capistrano-bundler (2.0.1)
+    capistrano-bundler (2.1.0)
       capistrano (~> 3.1)
     capistrano-rails (1.6.2)
       capistrano (~> 3.1)
@@ -113,7 +113,7 @@ GEM
     crass (1.0.6)
     css_parser (1.11.0)
       addressable
-    diffy (3.4.0)
+    diffy (3.4.2)
     digest (3.1.0)
     ed25519 (1.3.0)
     erubi (1.10.0)
@@ -140,7 +140,7 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
-    jwt (2.3.0)
+    jwt (2.4.1)
     kaminari (1.2.2)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.2.2)
@@ -170,7 +170,7 @@ GEM
       rake
     mini_mime (1.1.2)
     mini_portile2 (2.8.0)
-    minitest (5.15.0)
+    minitest (5.16.1)
     minitest-reporters (1.5.0)
       ansi
       builder
@@ -182,21 +182,21 @@ GEM
       digest
       net-protocol
       strscan
-    net-ldap (0.17.0)
+    net-ldap (0.17.1)
     net-pop (0.1.1)
       digest
       net-protocol
       timeout
     net-protocol (0.1.3)
       timeout
-    net-scp (3.0.0)
-      net-ssh (>= 2.6.5, < 7.0.0)
+    net-scp (1.2.1)
+      net-ssh (>= 2.6.5)
     net-smtp (0.3.1)
       digest
       net-protocol
       timeout
-    net-ssh (6.1.0)
-    newrelic_rpm (8.7.0)
+    net-ssh (7.0.1)
+    newrelic_rpm (8.8.0)
     nio4r (2.5.8)
     nokogiri (1.13.6-x86_64-linux)
       racc (~> 1.4)
@@ -211,7 +211,7 @@ GEM
       hashery (~> 2.0)
       ruby-rc4
       ttfunk
-    pg (1.3.5)
+    pg (1.4.1)
     popper_js (1.16.0)
     prawn (2.4.0)
       pdf-core (~> 0.9.0)
@@ -227,9 +227,9 @@ GEM
       premailer (~> 1.7, >= 1.7.9)
     public_suffix (4.0.7)
     racc (1.6.0)
-    rack (2.2.3)
-    rack-test (1.1.0)
-      rack (>= 1.0, < 3)
+    rack (2.2.4)
+    rack-test (2.0.2)
+      rack (>= 1.3)
     rails (6.1.6)
       actioncable (= 6.1.6)
       actionmailbox (= 6.1.6)
@@ -248,7 +248,7 @@ GEM
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
-    rails-html-sanitizer (1.4.2)
+    rails-html-sanitizer (1.4.3)
       loofah (~> 2.3)
     railties (6.1.6)
       actionpack (= 6.1.6)
@@ -261,7 +261,7 @@ GEM
     rb-fsevent (0.11.1)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    redis (4.6.0)
+    redis (4.7.1)
     request_store (1.5.1)
       rack (>= 1.4)
     request_store-sidekiq (0.1.0)
@@ -296,8 +296,8 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    sequel (5.56.0)
-    sidekiq (6.4.2)
+    sequel (5.57.0)
+    sidekiq (6.5.1)
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
       redis (>= 4.2.0)
@@ -305,14 +305,14 @@ GEM
     simple_form (5.1.0)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
-    sprockets (4.0.3)
+    sprockets (4.1.1)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
     sprockets-rails (3.4.2)
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
-    sqlite3 (1.4.2)
+    sqlite3 (1.4.4)
     sshkit (1.21.2)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
@@ -351,7 +351,7 @@ GEM
     websocket-extensions (0.1.5)
     whenever (1.0.0)
       chronic (>= 0.6.3)
-    zeitwerk (2.5.4)
+    zeitwerk (2.6.0)
 
 PLATFORMS
   x86_64-linux

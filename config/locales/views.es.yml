@@ -92,6 +92,20 @@ es:
     dispatcher:
       empty: 'No se encontraron reglas con ese criterio'
 
+  drives:
+    edit:
+      title: 'Editar configuración DRIVE'
+    index:
+      new: 'Nueva configuración DRIVE'
+      title: 'Listado de configuraciones DRIVE'
+      empty_html: 'No hay configuraciones DRIVE, puede crear una con el botón <span class="badge badge-primary">Nueva configuración DRIVE</span>'
+    new:
+      title: 'Crear configuración DRIVE'
+    show:
+      title: 'Ver configuración DRIVE'
+    providers:
+      google: 'Google Drive'
+
   editor:
     edit:
       unsaved_data_warning: 'Ha modificado el contenido, si abandona la página perderá todos los cambios'

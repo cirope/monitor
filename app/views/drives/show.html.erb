@@ -1,0 +1,28 @@
+<div class="card">
+  <div class="card-header">
+    <h5><%= @drive %></h5>
+  </div>
+  <div class="card-body">
+    <p class="mb-1">
+      <strong><%= Drive.human_attribute_name 'name' %></strong>:
+      <%= @drive.name %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Drive.human_attribute_name 'provider' %></strong>:
+      <%= @drive.provider %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Drive.human_attribute_name 'client_id' %></strong>:
+      <%= @drive.client_id %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Drive.human_attribute_name 'client_secret' %></strong>:
+      <%= @drive.client_secret %>
+    </p>
+  </div>
+</div>
+
+<% unless current_user.supervisor? %>
+  <%= link_to_edit [:edit, @drive] %> |
+<% end %>
+<%= link_to_index drives_path %>
