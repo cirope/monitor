@@ -116,7 +116,7 @@ es:
     show:
       title: 'Ver configuración DRIVE'
     providers:
-      google: 'Google Drive'
+      drive: 'Google Drive'
 
   editor:
     edit:

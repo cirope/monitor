@@ -11,7 +11,7 @@ class DrivesController < ApplicationController
 
   # GET /drives
   def index
-    @drives = Drive.ordered.page params[:page]
+    @drives = @account.drives.ordered.page params[:page]
 
     respond_with @drives
   end

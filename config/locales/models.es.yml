@@ -140,8 +140,10 @@ es:
       drive:
         name: 'Nombre'
         provider: 'Proveedor'
+        identifier: 'Identificador'
         client_id: 'Cliente ID'
         client_secret: 'Clave Secreta'
+        code: 'Código de verificación'
       effect:
         tag: 'Etiqueta'
         implied: 'Etiqueta'

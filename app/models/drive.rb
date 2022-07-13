@@ -2,6 +2,9 @@
 
 class Drive < ApplicationRecord
   include Attributes::Strip
+  include Drives::Defaults
+  include Drives::Providers
+  include Drives::GoogleDrive
   include Drives::Validation
   include PublicAuditable
 

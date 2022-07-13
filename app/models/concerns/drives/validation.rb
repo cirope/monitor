@@ -2,10 +2,11 @@ module Drives::Validation
   extend ActiveSupport::Concern
 
   included do
-    PROVIDERS = ['google']
+    PROVIDERS = ['drive']
 
-    validates :name, uniqueness: { case_sensitive: false }
-    validates :name, :client_id, :client_secret, presence: true,
+    validates :name, :identifier, uniqueness: { case_sensitive: false }
+    validates :name, :identifier, :client_id, :client_secret,
+      presence: true,
       length: { maximum: 255 }
     validates :provider, inclusion: { in: PROVIDERS }
   end

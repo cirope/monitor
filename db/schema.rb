@@ -127,11 +127,14 @@ ActiveRecord::Schema.define(version: 2022_07_01_113018) do
     t.string "provider", null: false
     t.string "client_id", null: false
     t.string "client_secret", null: false
+    t.string "identifier", null: false
+    t.string "code"
     t.bigint "account_id", null: false
     t.integer "lock_version", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["account_id"], name: "index_drives_on_account_id"
+    t.index ["identifier"], name: "index_drives_on_identifier"
     t.index ["name"], name: "index_drives_on_name", unique: true
   end
 

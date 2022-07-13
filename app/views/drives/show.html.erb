@@ -19,6 +19,14 @@
       <strong><%= Drive.human_attribute_name 'client_secret' %></strong>:
       <%= @drive.client_secret %>
     </p>
+    <p class="mb-1">
+      <strong><%= Drive.human_attribute_name 'identifier' %></strong>:
+      <%= @drive.identifier %>
+    </p>
+
+    <p>
+      <%= link_to 'Auth', @drive.provider_auth_url %>
+    </p>
   </div>
 </div>
 
