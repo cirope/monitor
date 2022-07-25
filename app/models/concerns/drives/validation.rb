@@ -4,7 +4,8 @@ module Drives::Validation
   included do
     PROVIDERS = ['drive']
 
-    validates :name, :identifier, uniqueness: { case_sensitive: false }
+    validates :name, :identifier,
+      uniqueness: { case_sensitive: false }
     validates :name, :identifier, :client_id, :client_secret,
       presence: true,
       length: { maximum: 255 }

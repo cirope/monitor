@@ -31,9 +31,7 @@ module Drives::GoogleDrive
         expiry:        Time.zone.at(auth_token.expires_at)
       }.to_json
 
-      cmd = config_file(token_json)
-
-      system(cmd)
+      system config_file(token_json)
     end
   end
 
@@ -55,7 +53,7 @@ module Drives::GoogleDrive
     def config_file token_json
       [
         'rclone config create',
-        "#{name}".parameterize(separator: '_'),
+        "#{section}",
         "#{provider}",
         'config_is_local false',
         "client_id #{client_id}",

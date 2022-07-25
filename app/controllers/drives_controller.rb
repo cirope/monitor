@@ -37,15 +37,24 @@ class DrivesController < ApplicationController
   def create
     @drive = @account.drives.new drive_params
 
-    @drive.save
-    respond_with @drive
+    if @drive.save
+      redirect_to @drive.provider_auth_url
+    else
+      render 'new'
+    end
   end
 
   # PATCH/PUT /drives/1
   def update
-    update_resource @drive, drive_params
-
-    respond_with @drive
+    if @drive.update drive_params.except :name
+      if @drive.redirect_to_auth_url?
+        redirect_to @drive.provider_auth_url
+      else
+        redirect_to @drive
+      end
+    else
+      render 'edit'
+    end
   end
 
   # DELETE /drives/1

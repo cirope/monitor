@@ -3,7 +3,7 @@
 
   <div class="form-inputs">
     <%= f.input :provider, collection: drive_providers, prompt: true, autofocus: true %>
-    <%= f.input :name %>
+    <%= f.input :name, disabled: @drive.persisted? %>
     <%= f.input :client_id %>
     <%= f.input :client_secret %>
   </div>

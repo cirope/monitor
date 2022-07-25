@@ -2,7 +2,9 @@
 
 class Drive < ApplicationRecord
   include Attributes::Strip
-  include Drives::Defaults
+  include Drives::Callbacks
+  include Drives::ConfigFile
+  include Drives::MountPoint
   include Drives::Providers
   include Drives::GoogleDrive
   include Drives::Validation

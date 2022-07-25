@@ -1,4 +1,4 @@
-module Drives::Defaults
+module Drives::Callbacks
   extend ActiveSupport::Concern
 
   included do

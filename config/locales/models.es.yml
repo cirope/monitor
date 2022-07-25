@@ -27,8 +27,8 @@ es:
         one: 'Atributo'
         other: 'Atributos'
       drive:
-        one: 'Configuración Drive'
-        other: 'Drive'
+        one: 'Configuración DRIVE'
+        other: 'DRIVE'
       effect:
         one: 'Implícita'
         other: 'Implícitas'
