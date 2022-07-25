@@ -9,10 +9,6 @@ module Drives::Providers
     send "#{provider}_auth_url"
   end
 
-  def provider_config code
-    send "#{provider}_config", code
-  end
-
   def redirect_to_auth_url?
     saved_change_to_provider?  ||
     saved_change_to_client_id? ||

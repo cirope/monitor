@@ -3,7 +3,6 @@ module Drives::MountPoint
 
   included do
     after_create_commit :create_mount_point
-    after_destroy :umount_drive
   end
 
   def mount_point

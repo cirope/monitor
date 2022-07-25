@@ -23,16 +23,12 @@ module Drives::GoogleDrive
   def drive_config code
     auth_token = drive_token_url(code)
 
-    if auth_token.response&.status.to_i == 200
-      token_json = {
-        access_token:  auth_token.token,
-        refresh_token: auth_token.refresh_token,
-        token_type:    auth_token.response.parsed['token_type'],
-        expiry:        Time.zone.at(auth_token.expires_at)
-      }.to_json
-
-      system config_file(token_json)
-    end
+    {
+      access_token:  auth_token.token,
+      refresh_token: auth_token.refresh_token,
+      token_type:    auth_token.response.parsed['token_type'],
+      expiry:        Time.zone.at(auth_token.expires_at)
+    }.to_json if auth_token.response&.status.to_i == 200
   end
 
   private
@@ -48,17 +44,5 @@ module Drives::GoogleDrive
         code,
         redirect_uri: redirect_uri
       )
-    end
-
-    def config_file token_json
-      [
-        'rclone config create',
-        "#{section}",
-        "#{provider}",
-        'config_is_local false',
-        "client_id #{client_id}",
-        "client_secret #{client_secret}",
-        "token '#{token_json}'"
-      ].join ' '
     end
 end

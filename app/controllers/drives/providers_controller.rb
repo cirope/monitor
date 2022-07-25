@@ -6,8 +6,7 @@ class Drives::ProvidersController < ApplicationController
 
   def index
     begin
-      if @drive.provider_config params[:code]
-        @drive.mount_drive
+      if @drive.update_config params[:code]
 
         redirect_to @drive, notice: t('.success', scope: :flash)
       else
