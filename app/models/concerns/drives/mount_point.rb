@@ -17,6 +17,16 @@ module Drives::MountPoint
     system "fusermount -uz #{mount_point}"
   end
 
+  module ClassMethods
+    def mount_all
+      Drive.all.map &:mount_drive
+    end
+
+    def umount_all
+      Drive.all.map &:umount_drive
+    end
+  end
+
   private
 
     def create_mount_point
