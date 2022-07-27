@@ -1,3 +1,3 @@
 # frozen_string_literal: true
 
-Timeliness.default_timezone = :local
+Timeliness.default_timezone = 'Buenos Aires'

@@ -31,6 +31,18 @@ es:
     show:
       title: 'Ver cuenta'
 
+  authentications:
+    new:
+      title: 'Ingreso'
+      log_in: 'Ingresar'
+      username: 'Usuario o correo'
+      password: 'Contraseña'
+      remember_me: 'Recordarme'
+      forgot_password: '¿Olvidaste tu contraseña?'
+      subtitle: 'Ingrese su usuario o correo electrónico para acceder'
+      password_subtitle: 'Por favor ingrese su contraseña para acceder'
+      welcome: 'Bienvenido'
+
   board:
     index:
       title: 'Carrito de casos'
@@ -495,8 +507,6 @@ es:
       title: 'Ingreso'
       log_in: 'Ingresar'
       username: 'Usuario o correo'
-      password: 'Contraseña'
-      remember_me: 'Recordarme'
       forgot_password: '¿Olvidaste tu contraseña?'
       subtitle: 'Ingrese su usuario o correo electrónico para acceder'
 
@@ -538,6 +548,20 @@ es:
     edit:
       title: 'Mis datos'
       submit: 'Actualizar mis datos'
+
+  samls:
+    edit:
+      title: 'Editar configuración SAML'
+    index:
+      new: 'Nueva configuración SAML'
+      title: 'Listado de configuraciones SAML'
+      empty_html: 'No hay configuraciones SAML, puede crear una con el botón <span class="badge badge-primary">Nueva configuración SAML</span>'
+    new:
+      title: 'Crear configuración SAML'
+    show:
+      title: 'Ver configuración SAML'
+    providers:
+      azure: 'Azure'
 
   series:
     index:
