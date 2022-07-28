@@ -28,14 +28,18 @@ class SamlSessionsController < ApplicationController
   def create
     if @account
       @account.switch do
-        user = saml.process_response params[:SAMLResponse]
+        user, auth = saml.process_response params[:SAMLResponse]
 
         if user
-          create_login_record   user
-          store_auth_token      user
-          store_current_account @account
+          if auth == 'valid'
+            create_login_record   user
+            store_auth_token      user
+            store_current_account @account
 
-          redirect_to default_url, notice: t('authentications.logged_in', scope: :flash)
+            redirect_to default_url, notice: t('authentications.logged_in', scope: :flash)
+          else
+            redirect_to login_url, alert: t('not_authorized', scope: [:flash, :sessions, :create])
+          end
         else
           create_fail_record user, user
 
