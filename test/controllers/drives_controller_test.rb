@@ -5,9 +5,11 @@ require 'test_helper'
 class DrivesControllerTest < ActionController::TestCase
 
   setup do
-    @drive = drives(:one)
+    @drive = drives :drive_config
 
-    login
+    login user: users(:god)
+
+    Current.account = send 'public.accounts', :default
   end
 
   test 'should get index' do
@@ -24,12 +26,15 @@ class DrivesControllerTest < ActionController::TestCase
     assert_difference 'Drive.count' do
       post :create, params: {
         drive: {
-          name: nil, provider: nil, client_id: nil, client_secret: nil, account: nil
+          name: 'New Drive',
+          provider: 'drive',
+          client_id: 'new_client_id',
+          client_secret: 'new_client_secret'
         }
       }
     end
 
-    assert_redirected_to drive_url(Drive.last)
+    assert_redirected_to Drive.last.provider_auth_url
   end
 
   test 'should show drive' do
@@ -42,13 +47,12 @@ class DrivesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test 'should update drive' do
+  test 'should update drive and redirect to authorization' do
     patch :update, params: {
-      id: @drive,
-      drive: { attr: 'value' }
+      id: @drive, drive: { client_id: 'client_id_updated' }
     }
 
-    assert_redirected_to drive_url(@drive)
+    assert_redirected_to @drive.provider_auth_url
   end
 
   test 'should destroy drive' do
