@@ -130,6 +130,7 @@ es:
       create:
         username_invalid: 'Tu usuario o correo no es válido'
         invalid: 'Tu correo y/o contraseña no están bien =('
+        not_authorized: 'No está autorizado para ingresar a la aplicación'
       destroy:
         logged_out: 'Hasta la próxima'
 
