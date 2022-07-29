@@ -2,7 +2,8 @@ module Drives::MountPoint
   extend ActiveSupport::Concern
 
   included do
-    after_create_commit :create_mount_point
+    after_create_commit  :create_mount_point
+    after_destroy_commit :delete_mount_point
   end
 
   def mount_point
@@ -14,7 +15,7 @@ module Drives::MountPoint
   end
 
   def umount_drive
-    system "fusermount -uz #{mount_point}"
+    system "fusermount -uz #{mount_point}" if Dir.exist?(mount_point)
   end
 
   module ClassMethods
@@ -31,5 +32,9 @@ module Drives::MountPoint
 
     def create_mount_point
       FileUtils.mkdir_p mount_point
+    end
+
+    def delete_mount_point
+      FileUtils.rmdir mount_point if Dir.exist?(mount_point)
     end
 end

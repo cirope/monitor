@@ -48,11 +48,13 @@ class DrivesControllerTest < ActionController::TestCase
   end
 
   test 'should update drive and redirect to authorization' do
+    @drive.create_section
+
     patch :update, params: {
       id: @drive, drive: { client_id: 'client_id_updated' }
     }
 
-    assert_redirected_to @drive.provider_auth_url
+    assert_redirected_to @drive.reload.provider_auth_url
   end
 
   test 'should destroy drive' do

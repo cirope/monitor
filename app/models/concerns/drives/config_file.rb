@@ -11,6 +11,10 @@ module Drives::ConfigFile
     name.parameterize(separator: '_')
   end
 
+  def create_section
+    system config_file_cmd('create')
+  end
+
   def update_config code
     token = send "#{provider}_config", code
 
@@ -20,10 +24,6 @@ module Drives::ConfigFile
   end
 
   private
-
-    def create_section
-      system config_file_cmd('create')
-    end
 
     def update_section
       umount_drive
