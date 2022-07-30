@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
         if account
           store_current_account account
 
-          redirect_url = new_saml_session_url if saml
+          redirect_url = new_saml_session_url(account.tenant_name) if saml
         end
 
         redirect_to redirect_url
