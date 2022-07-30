@@ -16,7 +16,8 @@ class SessionsController < ApplicationController
       switch_to_default_account_for params[:username] do |account|
         redirect_url = signin_url
 
-        store_username
+        store_username params[:username]
+
         if account
           store_current_account account
 
@@ -42,10 +43,4 @@ class SessionsController < ApplicationController
 
     redirect_to root_url, notice: t('.logged_out', scope: :flash)
   end
-
-  private
-
-    def store_username
-      session[:username] = params[:username]
-    end
 end

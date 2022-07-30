@@ -6,7 +6,6 @@ class SamlSessionsController < ApplicationController
   skip_before_action :verify_authenticity_token, raise: false
 
   before_action :set_account, only: [:new, :create]
-  before_action :set_saml_config, only: [:new, :metadata]
 
   def new
     if @account && session[:username].present?
@@ -15,7 +14,7 @@ class SamlSessionsController < ApplicationController
 
         if user
           saml_request = OneLogin::RubySaml::Authrequest.new
-          action       = saml_request.create @saml_config
+          action       = saml_request.create saml_config
 
           user.update_saml_request_id saml_request.request_id
 
@@ -32,7 +31,7 @@ class SamlSessionsController < ApplicationController
   def metadata
     meta = OneLogin::RubySaml::Metadata.new
 
-    render xml: meta.generate(@saml_config)
+    render xml: meta.generate(saml_config)
   end
 
   def create
@@ -67,7 +66,7 @@ class SamlSessionsController < ApplicationController
       @account = Account.find_by tenant_name: params['tenant_name']
     end
 
-    def set_saml_config
-      @saml_config = OneLogin::RubySaml::Settings.new saml&.settings
+    def saml_config
+      OneLogin::RubySaml::Settings.new saml&.settings
     end
 end
