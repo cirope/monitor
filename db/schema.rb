@@ -122,22 +122,6 @@ ActiveRecord::Schema.define(version: 2022_07_30_122441) do
     t.index ["schedule_id"], name: "index_dispatchers_on_schedule_id"
   end
 
-  create_table "drives", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "provider", null: false
-    t.string "client_id", null: false
-    t.string "client_secret", null: false
-    t.string "identifier", null: false
-    t.string "code"
-    t.bigint "account_id", null: false
-    t.integer "lock_version", default: 0, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["account_id"], name: "index_drives_on_account_id"
-    t.index ["identifier"], name: "index_drives_on_identifier"
-    t.index ["name"], name: "index_drives_on_name", unique: true
-  end
-
   create_table "effects", force: :cascade do |t|
     t.bigint "tag_id", null: false
     t.bigint "implied_id", null: false
@@ -581,7 +565,6 @@ ActiveRecord::Schema.define(version: 2022_07_30_122441) do
   add_foreign_key "descriptions", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "dispatchers", "rules", on_update: :restrict, on_delete: :restrict
   add_foreign_key "dispatchers", "schedules", on_update: :restrict, on_delete: :restrict
-  add_foreign_key "drives", "accounts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "effects", "tags", column: "implied_id", on_update: :restrict, on_delete: :restrict
   add_foreign_key "effects", "tags", on_update: :restrict, on_delete: :restrict
   add_foreign_key "fails", "users", on_update: :restrict, on_delete: :restrict
