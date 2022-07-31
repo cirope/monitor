@@ -103,7 +103,7 @@ class SessionsControllerTest < ActionController::TestCase
       post :create, params: { username: 'franco' }
     end
 
-    assert_redirected_to new_saml_session_url
+    assert_redirected_to new_saml_session_url(current_account.tenant_name)
     assert_nil current_user
   end
 
