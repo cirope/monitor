@@ -21,7 +21,7 @@ class Account < ApplicationRecord
   attr_readonly :tenant_name
 
   has_many :databases, dependent: :destroy
-  has_many :drives   , dependent: :destroy
+  has_many :drives,    dependent: :destroy
 
   def to_s
     name
