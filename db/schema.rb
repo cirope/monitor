@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_01_113018) do
+ActiveRecord::Schema.define(version: 2022_07_30_122441) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -539,11 +539,13 @@ ActiveRecord::Schema.define(version: 2022_07_01_113018) do
     t.string "role", default: "author", null: false
     t.string "username"
     t.boolean "hidden", default: false, null: false
+    t.string "saml_request_id"
     t.index ["auth_token"], name: "index_users_on_auth_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["hidden"], name: "index_users_on_hidden"
     t.index ["password_reset_token"], name: "index_users_on_password_reset_token", unique: true
     t.index ["role"], name: "index_users_on_role"
+    t.index ["saml_request_id"], name: "index_users_on_saml_request_id"
     t.index ["username"], name: "index_users_on_username"
   end
 

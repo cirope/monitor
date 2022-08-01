@@ -13,6 +13,10 @@ module Sessions
       session[:login_id] = login.id
     end
 
+    def store_username username
+      session[:username] = username
+    end
+
     def store_current_account account
       session[:tenant_name] = account.tenant_name
     end
