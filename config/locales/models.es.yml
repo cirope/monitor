@@ -26,6 +26,9 @@ es:
       description:
         one: 'Atributo'
         other: 'Atributos'
+      drive:
+        one: 'Configuración DRIVE'
+        other: 'DRIVE'
       effect:
         one: 'Implícita'
         other: 'Implícitas'
@@ -134,6 +137,13 @@ es:
         value: 'Valor'
       descriptor:
         name: 'Nombre'
+      drive:
+        name: 'Nombre'
+        provider: 'Proveedor'
+        identifier: 'Identificador'
+        client_id: 'ID Cliente'
+        client_secret: 'Clave secreta'
+        code: 'Código de verificación'
       effect:
         tag: 'Etiqueta'
         implied: 'Etiqueta'
