@@ -141,7 +141,7 @@ es:
         name: 'Nombre'
         provider: 'Proveedor'
         identifier: 'Identificador'
-        client_id: 'Cliente ID'
+        client_id: 'ID Cliente'
         client_secret: 'Clave Secreta'
         code: 'Código de verificación'
       effect:
