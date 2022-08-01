@@ -142,7 +142,7 @@ es:
         provider: 'Proveedor'
         identifier: 'Identificador'
         client_id: 'ID Cliente'
-        client_secret: 'Clave Secreta'
+        client_secret: 'Clave secreta'
         code: 'Código de verificación'
       effect:
         tag: 'Etiqueta'
