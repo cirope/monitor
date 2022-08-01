@@ -6,18 +6,17 @@ module Samls::Response
     saml_response = OneLogin::RubySaml::Response.new response, settings: saml_config
 
     if saml_response.is_valid?
-      saml_user_for saml_response.nameid, saml_response.attributes
+      saml_user_for saml_response
     end
   end
 
   private
 
-    def saml_user_for email, attributes
-      result = nil
-      pruned_attributes = prune_custom_attributes attributes
-      pruned_attributes[:email] ||= email
+    def saml_user_for saml_response
+      pruned_attributes = prune_custom_attributes saml_response.attributes
+      pruned_attributes[:email] ||= saml_response.nameid
 
-      if user = find_user(pruned_attributes)
+      if user = find_user(saml_response.in_response_to, pruned_attributes)
         role = extract_role pruned_attributes
 
         if role
@@ -30,9 +29,11 @@ module Samls::Response
       end
     end
 
-    def find_user attributes
-      User.find_by(email: attributes[:email]&.downcase) ||
-        User.find_by(username: attributes[:username]&.downcase)
+    def find_user request_id, attributes
+      conditions = { saml_request_id: request_id }
+
+      User.find_by(conditions.merge(email: attributes[:email]&.downcase)) ||
+        User.find_by(conditions.merge(username: attributes[:username]&.downcase))
     end
 
     def update_user user, role, attributes

@@ -16,11 +16,12 @@ class SessionsController < ApplicationController
       switch_to_default_account_for params[:username] do |account|
         redirect_url = signin_url
 
-        store_username
+        store_username params[:username]
+
         if account
           store_current_account account
 
-          redirect_url = new_saml_session_url if saml
+          redirect_url = new_saml_session_url(account.tenant_name) if saml
         end
 
         redirect_to redirect_url
@@ -42,10 +43,4 @@ class SessionsController < ApplicationController
 
     redirect_to root_url, notice: t('.logged_out', scope: :flash)
   end
-
-  private
-
-    def store_username
-      session[:username] = params[:username]
-    end
 end
