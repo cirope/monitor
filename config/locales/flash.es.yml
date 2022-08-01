@@ -34,6 +34,20 @@ es:
         notice: 'Base de datos eliminada'
         alert:  'La base de datos no pudo ser eliminada'
 
+    drives:
+      create:
+        notice: 'Configuración DRIVE creada'
+      update:
+        notice: 'Configuración DRIVE actualizada'
+        alert:  ''
+      destroy:
+        notice: 'Configuración DRIVE eliminada'
+        alert:  'La configuración DRIVE no pudo ser eliminada'
+      providers:
+        index:
+          invalid: 'Ocurrió un error en la respuesta del proveedor DRIVE'
+          success: 'Se realizó la configuración DRIVE con éxito'
+
     executions:
       create:
         notice: 'Ejecutando...'

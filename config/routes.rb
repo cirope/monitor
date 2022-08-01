@@ -17,12 +17,13 @@ Rails.application.routes.draw do
   get  'signin', to: 'authentications#new',    as: 'signin'
   post 'auth',   to: 'authentications#create', as: 'auth'
 
-  # SAML
-  resources :samls
+  # DRIVE
+  get 'drives/providers', to: 'drives/providers#index'
 
-  get 'saml/:tenant_name/auth', to: 'saml_sessions#new', as: :new_saml_session
-  post 'saml/:tenant_name/callback', to: 'saml_sessions#create', as: :saml_session
-  get 'saml/:tenant_name/metadata', to: 'saml_sessions#metadata', as: :saml_metadata
+  # SAML
+  get  'saml/:tenant_name/auth',     to: 'saml_sessions#new',      as: :new_saml_session
+  post 'saml/:tenant_name/callback', to: 'saml_sessions#create',   as: :saml_session
+  get  'saml/:tenant_name/metadata', to: 'saml_sessions#metadata', as: :saml_metadata
 
   # Profiles
   get   'profile', to: 'profiles#edit', as: 'profile'
@@ -46,9 +47,11 @@ Rails.application.routes.draw do
   resources :comments, except: [:index, :new]
   resources :databases
   resources :descriptors
+  resources :drives
   resources :ldaps
   resources :rules
   resources :password_resets, only: [:new, :create, :edit, :update]
+  resources :samls
 
   resources :accounts, except: [:destroy] do
     resources :issues, only: [:show]
