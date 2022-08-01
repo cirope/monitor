@@ -8,7 +8,7 @@ module Drives::ConfigFile
   end
 
   def section
-    name.parameterize(separator: '_')
+    name.parameterize separator: '_'
   end
 
   def create_section
