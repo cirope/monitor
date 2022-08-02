@@ -32,8 +32,6 @@ module Drives::ConfigFile
     end
 
     def delete_section
-      umount_drive
-
       system "rclone config delete #{section}"
     end
 
