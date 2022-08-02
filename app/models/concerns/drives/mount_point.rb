@@ -35,6 +35,8 @@ module Drives::MountPoint
     end
 
     def delete_mount_point
+      umount_drive
+
       FileUtils.rmdir mount_point if Dir.exist?(mount_point)
     end
 end
