@@ -27,6 +27,7 @@
 //= require codemirror/addon/search/search
 //= require codemirror/addon/search/searchcursor
 //= require codemirror/addon/selection/active-line
+//= require codemirror/mode/python
 //= require codemirror/mode/ruby
 //= require codemirror/mode/shell
 //= require codemirror/mode/sql

@@ -20,15 +20,15 @@ module Scripts::Copy
   end
 
   def extension
-    attachment.attached? ? attachment.filename.extension_with_delimiter : '.rb'
+    attachment.attached? ? attachment.filename.extension_with_delimiter : language_extension
   end
 
   def body inclusion = false, server = nil
-    body = inclusion ? '' : "#!/usr/bin/env ruby\n\n"
+    body = inclusion ? '' : language_inclusion
 
     body += headers(server).to_s unless inclusion
     body += dependencies.to_s
-    body += variables
+    body += variables if language != 'python'
     body += commented_text inclusion
 
     body
@@ -42,6 +42,14 @@ module Scripts::Copy
 
     def dependencies
       try "#{language}_dependencies"
+    end
+
+    def language_extension
+      try("#{language}_extension") || '.rb'
+    end
+
+    def language_inclusion
+      try("#{language}_inclusion") || "#!/usr/bin/env ruby\n\n"
     end
 
     def variables
@@ -59,7 +67,7 @@ module Scripts::Copy
       if attachment.attached?
         ActiveStorage::Blob.service.path_for attachment.key
       else
-        path = "/tmp/script-#{uuid}.rb"
+        path = "/tmp/script-#{uuid}#{language_extension}"
 
         File.open(path, 'w') { |file| file << body(false, server) }
 
