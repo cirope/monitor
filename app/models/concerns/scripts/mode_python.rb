@@ -5,6 +5,9 @@ module Scripts::ModePython
   end
 
   def python_dependencies
+    includes.map do |script|
+      script.body 'local inclusion'
+    end.join
   end
 
   def python_commented_text comment = nil
