@@ -8,7 +8,7 @@ module Scripts::Filters
   end
 
   def scripts
-    scripts = Script.search query: params[:q]
+    scripts = Script.search query: params[:q], lang: params[:lang]
     scripts = scripts.filter_by filter_params
     scripts = scripts.limit 10 if request.xhr?
 

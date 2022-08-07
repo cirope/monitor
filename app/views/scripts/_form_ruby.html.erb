@@ -12,9 +12,11 @@
   </div>
   <div id="requires" class="collapse card-body">
     <%= f.simple_fields_for :requires, requires do |rf| %>
-      <%= render 'requires/require', f: rf %>
+      <%= render 'requires/require', f: rf, lang: f.object.language %>
     <% end %>
 
-    <%= link_to_add_fields t('scripts.new.require'), f, :requires unless disable_edition? %>
+    <%= link_to_add_fields(
+      t('scripts.new.require'), f, :requires, lang: f.object.language
+    ) unless disable_edition? %>
   </div>
 </div>

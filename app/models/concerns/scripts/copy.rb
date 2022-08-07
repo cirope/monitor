@@ -28,7 +28,7 @@ module Scripts::Copy
 
     body += headers(server).to_s unless inclusion
     body += dependencies.to_s
-    body += variables if language != 'python'
+    body += variables
     body += commented_text inclusion
 
     body
@@ -53,6 +53,8 @@ module Scripts::Copy
     end
 
     def variables
+      try("#{language}_variables")  ||
+
       StringIO.new.tap do |buffer|
         buffer << as_inner_varialble('parameters', parameters)
         buffer << as_inner_varialble('attributes', descriptions)

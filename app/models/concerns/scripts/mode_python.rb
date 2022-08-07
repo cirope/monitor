@@ -12,7 +12,7 @@ module Scripts::ModePython
 
     [
       "# Begin #{uuid} #{name} #{comment}\n\n",
-      "#{text_with_python_injections}",
+      "#{text}",
       "# End #{uuid} #{name} #{comment}\n\n"
     ].join("\n\n")
   end
@@ -25,17 +25,22 @@ module Scripts::ModePython
     "#!/usr/bin/env python3\n\n"
   end
 
+  def language_variables
+    StringIO.new.tap do |buffer|
+      buffer << as_inner_varialble('parameters', parameters)
+      buffer << as_inner_varialble('attributes', descriptions)
+    end.string
+  end
+
   private
 
-    def text_with_python_injections
-      <<-RUBY
-try:
+    def as_inner_varialble name, collection
+      result = "#{name} = {}\n\n"
 
-  #{text.indent(2)}
+      collection.each do |object|
+        result += "#{name}['#{object.name}'] = '#{object.value}'\n"
+      end
 
-except Exception as e:
-  print(e)
-
-      RUBY
+      "#{result}\n"
     end
 end
