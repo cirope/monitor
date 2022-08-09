@@ -44,6 +44,8 @@ gem 'matrix'
 gem 'net-smtp', require: false
 gem 'net-pop', require: false
 gem 'net-imap', require: false
+gem 'ruby-saml'
+gem 'oauth2'
 
 group :development, :production do
   gem 'web-console'

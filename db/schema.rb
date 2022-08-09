@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_07_124742) do
+ActiveRecord::Schema.define(version: 2022_07_30_122441) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -49,23 +49,31 @@ ActiveRecord::Schema.define(version: 2022_06_07_124742) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "active_storage_variant_records", force: :cascade do |t|
-    t.integer "blob_id", null: false
-    t.string "variation_digest", null: false
-    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
-  end
-
   create_table "answers", force: :cascade do |t|
     t.string "response_text"
     t.bigint "drop_down_option_id"
     t.bigint "survey_answer_id", null: false
     t.bigint "question_id"
-    t.string "type", null: false
+    t.string "type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["drop_down_option_id"], name: "index_answers_on_drop_down_option_id"
     t.index ["question_id"], name: "index_answers_on_question_id"
     t.index ["survey_answer_id"], name: "index_answers_on_survey_answer_id"
+  end
+
+  create_table "clientes", id: false, force: :cascade do |t|
+    t.integer "id"
+    t.integer "numdoc"
+    t.string "nombre", limit: 60
+    t.datetime "fecha_nac"
+    t.string "sexo", limit: 1
+    t.string "direccion", limit: 80
+    t.string "localidad", limit: 60
+    t.string "codpost", limit: 4
+    t.string "provincia", limit: 20
+    t.string "telefono", limit: 30
+    t.string "mail", limit: 80
   end
 
   create_table "comments", id: :serial, force: :cascade do |t|
@@ -153,9 +161,24 @@ ActiveRecord::Schema.define(version: 2022_06_07_124742) do
     t.index ["schedule_id"], name: "index_dispatchers_on_schedule_id"
   end
 
+  create_table "drives", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "provider", null: false
+    t.string "client_id", null: false
+    t.string "client_secret", null: false
+    t.string "identifier", null: false
+    t.string "code"
+    t.bigint "account_id", null: false
+    t.integer "lock_version", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["account_id"], name: "index_drives_on_account_id"
+    t.index ["identifier"], name: "index_drives_on_identifier"
+    t.index ["name"], name: "index_drives_on_name", unique: true
+  end
+
   create_table "drop_down_options", force: :cascade do |t|
     t.string "value"
-    t.integer "score"
     t.bigint "question_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -240,7 +263,7 @@ ActiveRecord::Schema.define(version: 2022_06_07_124742) do
     t.string "hostname", null: false
     t.integer "port", default: 389, null: false
     t.string "basedn", null: false
-    t.string "filter"
+    t.text "filter"
     t.string "login_mask", null: false
     t.string "username_attribute", null: false
     t.string "name_attribute", null: false
@@ -333,6 +356,29 @@ ActiveRecord::Schema.define(version: 2022_06_07_124742) do
     t.index ["token"], name: "index_permalinks_on_token", unique: true
   end
 
+  create_table "pla_operaciones", id: false, force: :cascade do |t|
+    t.integer "id"
+    t.datetime "fecha"
+    t.integer "id_tipo_operacion"
+    t.decimal "importe", precision: 20, scale: 2
+    t.integer "id_persona_titular"
+    t.integer "id_persona_operacion"
+    t.integer "efectivo"
+    t.integer "debcre"
+  end
+
+  create_table "pla_personas", id: false, force: :cascade do |t|
+    t.integer "id_persona"
+    t.string "nombre", limit: 60
+    t.string "fisica_juridica", limit: 1
+    t.decimal "monto_presunto", precision: 20, scale: 2, default: "0.0"
+  end
+
+  create_table "pla_tipos_operacion", id: false, force: :cascade do |t|
+    t.integer "id"
+    t.string "descripcion", limit: 200
+  end
+
   create_table "properties", id: :serial, force: :cascade do |t|
     t.string "key", null: false
     t.string "value", null: false
@@ -417,6 +463,27 @@ ActiveRecord::Schema.define(version: 2022_06_07_124742) do
     t.index ["job_id"], name: "index_runs_on_job_id"
     t.index ["scheduled_at"], name: "index_runs_on_scheduled_at"
     t.index ["status"], name: "index_runs_on_status"
+  end
+
+  create_table "samls", force: :cascade do |t|
+    t.string "provider", null: false
+    t.string "idp_homepage", null: false
+    t.string "idp_entity_id", null: false
+    t.string "idp_sso_target_url", null: false
+    t.string "sp_entity_id", null: false
+    t.string "assertion_consumer_service_url", null: false
+    t.string "name_identifier_format", null: false
+    t.string "assertion_consumer_service_binding", null: false
+    t.text "idp_cert", null: false
+    t.string "username_attribute", null: false
+    t.string "name_attribute", null: false
+    t.string "lastname_attribute", null: false
+    t.string "email_attribute", null: false
+    t.string "roles_attribute", null: false
+    t.jsonb "options"
+    t.integer "lock_version", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "schedules", id: :serial, force: :cascade do |t|
@@ -567,11 +634,13 @@ ActiveRecord::Schema.define(version: 2022_06_07_124742) do
     t.string "role", default: "author", null: false
     t.string "username"
     t.boolean "hidden", default: false, null: false
+    t.string "saml_request_id"
     t.index ["auth_token"], name: "index_users_on_auth_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["hidden"], name: "index_users_on_hidden"
     t.index ["password_reset_token"], name: "index_users_on_password_reset_token", unique: true
     t.index ["role"], name: "index_users_on_role"
+    t.index ["saml_request_id"], name: "index_users_on_saml_request_id"
     t.index ["username"], name: "index_users_on_username"
   end
 
@@ -588,8 +657,8 @@ ActiveRecord::Schema.define(version: 2022_06_07_124742) do
   end
 
   create_table "views", force: :cascade do |t|
-    t.bigint "issue_id", null: false
-    t.bigint "user_id", null: false
+    t.integer "issue_id", null: false
+    t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["issue_id"], name: "index_views_on_issue_id"
@@ -597,7 +666,6 @@ ActiveRecord::Schema.define(version: 2022_06_07_124742) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "answers", "drop_down_options", on_update: :restrict, on_delete: :restrict
   add_foreign_key "answers", "questions", on_update: :restrict, on_delete: :restrict
   add_foreign_key "answers", "survey_answers", on_update: :restrict, on_delete: :restrict
@@ -612,6 +680,7 @@ ActiveRecord::Schema.define(version: 2022_06_07_124742) do
   add_foreign_key "descriptions", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "dispatchers", "rules", on_update: :restrict, on_delete: :restrict
   add_foreign_key "dispatchers", "schedules", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "drives", "accounts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "drop_down_options", "questions", on_update: :restrict, on_delete: :restrict
   add_foreign_key "effects", "tags", column: "implied_id", on_update: :restrict, on_delete: :restrict
   add_foreign_key "effects", "tags", on_update: :restrict, on_delete: :restrict
