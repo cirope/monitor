@@ -1,0 +1,11 @@
+control_output_for_first_pre_control:
+  control: first_pre_control_for_survey
+  status: 'ok'
+
+control_output_for_first_post_control_for_survey:
+  control: first_post_control_for_survey
+  status: 'ok'
+
+control_output_for_first_post_control_drop_down_question:
+  control: first_post_control_for_drop_down_question
+  status: 'ok'

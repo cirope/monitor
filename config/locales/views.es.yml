@@ -248,6 +248,8 @@ es:
     show:
       title: 'Ver caso'
       download_data: 'Descargar datos'
+      new_survey_answer: 'Responder Encuesta'
+      results_survey: 'Resultados Encuesta'
     status:
       all: 'Todos'
       pending: 'Pendiente'
@@ -260,6 +262,12 @@ es:
     taggings:
       tagging:
         empty: 'No se encontraron etiquetas con ese criterio'
+    survey_answer:
+      title: 'Encuesta'
+    create_survey_answer:
+      title: 'Crear respuesta de encuesta'
+    results_survey:
+      title: 'Resultados de encuesta'
 
   ldaps:
     edit:

@@ -100,10 +100,12 @@ ActiveRecord::Schema.define(version: 2022_07_30_122441) do
 
   create_table "controls", force: :cascade do |t|
     t.text "callback", null: false
-    t.bigint "survey_id", null: false
+    t.string "controllable_type", null: false
+    t.bigint "controllable_id", null: false
+    t.string "type", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["survey_id"], name: "index_controls_on_survey_id"
+    t.index ["controllable_type", "controllable_id"], name: "index_controls_on_controllable"
   end
 
   create_table "dashboards", force: :cascade do |t|
@@ -672,7 +674,6 @@ ActiveRecord::Schema.define(version: 2022_07_30_122441) do
   add_foreign_key "comments", "issues", on_update: :restrict, on_delete: :restrict
   add_foreign_key "comments", "users", on_update: :restrict, on_delete: :restrict
   add_foreign_key "control_outputs", "controls"
-  add_foreign_key "controls", "surveys"
   add_foreign_key "dashboards", "users", on_update: :restrict, on_delete: :restrict
   add_foreign_key "databases", "accounts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "dependencies", "schedules", column: "dependent_id", on_update: :restrict, on_delete: :restrict

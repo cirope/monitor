@@ -345,6 +345,10 @@ es:
           attributes:
             due_at:
               invalid: 'El vencimiento del reminder debe ser mayor a 5 minutos desde ahora'
+        survey_answer:
+          attributes:
+            base:
+              invalid_pre_controls: 'No se puede crear la respuesta a la encuesta debido a los pre controles de la survey fallaron'
 
   errors:
     messages:

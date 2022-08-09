@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class DropDownOption < ApplicationRecord
-  validates :value, presence: true
+  validates :value, :score, presence: true
 
   belongs_to :question, optional: true
 end

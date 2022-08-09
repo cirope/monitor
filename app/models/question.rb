@@ -5,6 +5,9 @@ class Question < ApplicationRecord
 
   belongs_to :survey
   has_many :answers
+  has_many :post_controls, as: :controllable, dependent: :destroy
+
+  accepts_nested_attributes_for :post_controls
 
   MESS = 'SYSTEM ERROR: method missing'
 
@@ -12,11 +15,11 @@ class Question < ApplicationRecord
     raise MESS
   end
 
-  # def create_question
-  #   raise MESS
-  # end
-
   def results
     raise MESS
+  end
+
+  def post_control_answer answer
+    post_controls.each { |post_control| post_control.control answer: answer }
   end
 end

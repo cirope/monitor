@@ -10,10 +10,11 @@
 
   <div class="card-body">
     <%= simple_form_for @survey_answer, url: issue_create_survey_answer_path do |survey_answer_form| %>
+      <%= survey_answer_form.error_notification %>
       <%= survey_answer_form.simple_fields_for :answers, @survey_answer.answers do |answer_form| %>
         <%= render "issues/answers/#{answer_form.object.partial}", f: answer_form %>
       <% end %>
-      <%= survey_answer_form.submit "Enviar", :class => 'btn btn-sm btn-secondary', :onclick => "alert('Respuesta almacenada')" %>
+      <%= survey_answer_form.submit "Enviar", class: 'btn btn-sm btn-secondary' %>
       <%= survey_answer_form.hidden_field :survey_id, value: @survey_answer.survey.id %>
     <% end %>
   </div>

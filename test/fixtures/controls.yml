@@ -1,0 +1,14 @@
+first_pre_control_for_survey:
+  type: 'PreControl'
+  controllable: survey_for_ls_on_atahualpa_not_well (Survey)
+  callback: 'true'
+
+first_post_control_for_survey:
+  type: 'PostControl'
+  controllable: survey_for_ls_on_atahualpa_not_well (Survey)
+  callback: 'true'
+
+first_post_control_for_drop_down_question:
+  type: 'PostControl'
+  controllable: drop_down_question_survey_for_ls_on_atahualpa_not_well (Question)
+  callback: 'true'

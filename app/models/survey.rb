@@ -4,9 +4,14 @@ class Survey < ApplicationRecord
   has_many :survey_answers, dependent: :destroy
   has_many :questions, dependent: :destroy
   belongs_to :issue
-  has_many :controls, dependent: :destroy
+  has_many :post_controls, as: :controllable, dependent: :destroy
+  has_many :pre_controls, as: :controllable, dependent: :destroy
 
-  accepts_nested_attributes_for :questions
+  accepts_nested_attributes_for :questions, :pre_controls, :post_controls
+
+  def can_create_survey_answer?
+    pre_controls.detect { |p_c| p_c.control.error? }.blank?
+  end
 
   def create_survey_answer
     survey_answer        = SurveyAnswer.new
@@ -19,7 +24,7 @@ class Survey < ApplicationRecord
     survey_answer
   end
 
-  def control_answer answer
-    controls.each { |control| control.control_answer answer }
+  def post_control_survey_answer survey_answer
+    post_controls.each { |post_control| post_control.control survey_answer: survey_answer }
   end
 end
