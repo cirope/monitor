@@ -17,7 +17,7 @@
         <% @drives.each do |drive| %>
           <tr>
             <td><%= drive.name %></td>
-            <td><%= drive.provider %></td>
+            <td><%= i18n_provider drive.provider %></td>
             <td class="text-right"><%= link_to_show drive %></td>
             <% unless current_user.supervisor? %>
               <td class="text-right"><%= link_to_edit [:edit, drive] %></td>
