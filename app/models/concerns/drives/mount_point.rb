@@ -7,7 +7,7 @@ module Drives::MountPoint
   end
 
   def mount_point
-    File.join Dir.home, section
+    File.join "#{Rails.root}/drives", section
   end
 
   def mount_drive

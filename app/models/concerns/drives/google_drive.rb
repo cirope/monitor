@@ -6,7 +6,7 @@ module Drives::GoogleDrive
   def drive_client
     OAuth2::Client.new(
       client_id, client_secret,
-      site:          'https://accounts.google.com',
+      site:          'https://accounts.google.com?prompt=consent&access_type=offline',
       token_url:     '/o/oauth2/token',
       authorize_url: '/o/oauth2/auth'
     )

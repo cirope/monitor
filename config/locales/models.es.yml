@@ -143,7 +143,8 @@ es:
         identifier: 'Identificador'
         client_id: 'ID Cliente'
         client_secret: 'Clave secreta'
-        code: 'Código de verificación'
+        drive_auth_url: 'URL de autorización'
+        mount_point: 'Punto de montaje'
       effect:
         tag: 'Etiqueta'
         implied: 'Etiqueta'
