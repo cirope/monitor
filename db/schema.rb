@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_30_122441) do
+ActiveRecord::Schema.define(version: 2022_08_10_134439) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -128,7 +128,6 @@ ActiveRecord::Schema.define(version: 2022_07_30_122441) do
     t.string "client_id", null: false
     t.string "client_secret", null: false
     t.string "identifier", null: false
-    t.string "code"
     t.bigint "account_id", null: false
     t.integer "lock_version", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
