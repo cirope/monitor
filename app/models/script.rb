@@ -12,8 +12,10 @@ class Script < ApplicationRecord
   include Scripts::Export
   include Scripts::Import
   include Scripts::Injections
+  include Scripts::PythonInjections
   include Scripts::Json
   include Scripts::Maintainers
+  include Scripts::ModePython
   include Scripts::ModeRuby
   include Scripts::ModeShell
   include Scripts::ModeSql
@@ -32,9 +34,10 @@ class Script < ApplicationRecord
   strip_fields :name
 
   enum language: {
-    'ruby'  => 'ruby',
-    'sql'   => 'sql',
-    'shell' => 'shell'
+    'python' => 'python',
+    'ruby'   => 'ruby',
+    'sql'    => 'sql',
+    'shell'  => 'shell'
   }
 
   has_many :jobs, dependent: :destroy

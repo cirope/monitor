@@ -43,9 +43,10 @@ module ScriptsHelper
 
   def lang_icon lang
     icon = case lang
-           when 'ruby'  then icon 'fas', 'gem'
-           when 'sql'   then icon 'fas', 'database'
-           when 'shell' then icon 'fas', 'hashtag'
+           when 'python' then icon 'fab', 'python'
+           when 'ruby'   then icon 'fas', 'gem'
+           when 'sql'    then icon 'fas', 'database'
+           when 'shell'  then icon 'fas', 'hashtag'
            end
 
     content_tag :abbr, title: lang.titleize do
