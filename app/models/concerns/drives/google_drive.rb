@@ -31,6 +31,10 @@ module Drives::GoogleDrive
     }.to_json if auth_token.response&.status.to_i == 200
   end
 
+  def drive_flags
+    '--drive-shared-with-me'
+  end
+
   private
 
     def redirect_uri
