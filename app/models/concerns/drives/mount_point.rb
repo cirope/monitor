@@ -11,7 +11,7 @@ module Drives::MountPoint
   end
 
   def mount_drive
-    Open3.popen3 "rclone mount #{section}: #{mount_point} #{provider_flags}"
+    Open3.popen3 "rclone mount #{section}: #{mount_point}"
   end
 
   def umount_drive
