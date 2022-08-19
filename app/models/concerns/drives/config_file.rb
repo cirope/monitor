@@ -11,12 +11,9 @@ module Drives::ConfigFile
     name.parameterize separator: '_'
   end
 
-  def create_section
-    system config_file_cmd('create')
-  end
-
   def update_config code
     token = send "#{provider}_config", code
+    umount_drive
 
     system config_file_cmd('update', "token '#{token}'")
 
@@ -25,10 +22,16 @@ module Drives::ConfigFile
 
   private
 
+    def create_section
+      system config_file_cmd('create')
+    end
+
     def update_section
       umount_drive
 
       system config_file_cmd('update')
+
+      mount_drive
     end
 
     def delete_section
@@ -39,9 +42,10 @@ module Drives::ConfigFile
       cmd = [
         "rclone config #{action}",
         "#{section}",
-        'config_is_local false',
-        "client_id #{client_id}",
-        "client_secret #{client_secret}",
+        'config_is_local=false',
+        "client_id=#{client_id}",
+        "client_secret=#{client_secret}",
+        "root_folder_id=#{root_folder_id}",
         extras
       ].compact
 
