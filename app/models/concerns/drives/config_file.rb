@@ -13,6 +13,7 @@ module Drives::ConfigFile
 
   def update_config code
     token = send "#{provider}_config", code
+
     umount_drive
 
     system config_file_cmd('update', "token '#{token}'")
