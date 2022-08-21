@@ -47,6 +47,16 @@ class DrivesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test 'should update drive and redirect to authorization' do
+    @drive.send :create_section
+
+    patch :update, params: {
+      id: @drive, drive: { client_id: 'client_id_updated' }
+    }
+
+    assert_redirected_to @drive.reload.provider_auth_url
+  end
+
   test 'should destroy drive' do
     assert_difference 'Drive.count', -1 do
       delete :destroy, params: { id: @drive }
