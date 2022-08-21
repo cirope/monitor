@@ -76,6 +76,6 @@ class DrivesController < ApplicationController
 
     def drive_params
       params.require(:drive).permit :name, :provider, :client_id,
-        :client_secret
+        :client_secret, :root_folder_id
     end
 end

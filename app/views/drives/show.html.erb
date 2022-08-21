@@ -20,12 +20,16 @@
       <%= @drive.client_secret %>
     </p>
     <p class="mb-1">
+      <strong><%= Drive.human_attribute_name 'root_folder_id' %></strong>:
+      <%= @drive.root_folder_id %>
+    </p>
+    <p class="mb-1">
       <strong><%= Drive.human_attribute_name 'identifier' %></strong>:
       <%= @drive.identifier %>
     </p>
     <p class="mb-1">
       <strong><%= Drive.human_attribute_name 'mount_point' %></strong>:
-      <%= @drive.section %>
+      <%= "drives/#{@drive.section}/" %>
     </p>
     <p class="mb-1">
       <strong><%= Drive.human_attribute_name 'drive_auth_url' %></strong>:
