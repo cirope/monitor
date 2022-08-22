@@ -3,17 +3,12 @@
 module Scripts::PythonInjections
   extend ActiveSupport::Concern
 
-  PY_ODBC_CONNECTION_REGEX = /__ODBC_connect__\(?\s*['"](\w+)['"]\s*\)?/
-  PY_CONNECTION_REGEX      = /__py_connection__ = ['"](\w+)['"]/
-  PY_DB_PROPERTY_REGEX     = /__py_databases__ = ['"](\w+)['"]\]\[['"](\w+)['"]/
+  PY_CONNECTION_REGEX   = /@py_connection\[['"](\w+)['"]\]/
+  PY_DB_PROPERTY_REGEX  = /@databases\[['"](\w+)['"]\]\[['"](\w+)['"]\]/
 
   def text_with_python_injections
     lines = text.each_line.map do |line|
-      if (match = line.match(PY_ODBC_CONNECTION_REGEX)) && line[','].blank?
-        connection_name = match.captures.first
-
-        inject_py_db_properties line, connection_name
-      elsif (match = line.match(PY_CONNECTION_REGEX))
+      if (match = line.match(PY_CONNECTION_REGEX))
         connection_name = match.captures.first
 
         inject_py_connection line, connection_name
@@ -32,24 +27,14 @@ module Scripts::PythonInjections
 
   private
 
-    def inject_py_db_properties line, connection_name
-      db = Database.current.find_by name: connection_name
-
-      if db && db.driver.downcase =~ /freetds/ && db.user && db.password
-        arguments = "'#{connection_name}', '#{db.user}', '#{db.password}'"
-        new_line  = line.sub ODBC_CONNECTION_REGEX, "ODBC.connect(#{arguments})"
-
-        "#{new_line}\r\n"
-      else
-        line
-      end
-    end
-
     def inject_py_connection line, connection_name
       db = Database.current.find_by name: connection_name
 
       if db
-        connection = "db.bind(#{db.pony_config})"
+        connection = [
+          "db = Database()",
+          "db.bind(#{db.pony_config})",
+        ].join("\n\n")
 
         line.sub PY_CONNECTION_REGEX, connection
       else
