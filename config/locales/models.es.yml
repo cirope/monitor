@@ -145,6 +145,7 @@ es:
         client_secret: 'Clave secreta'
         drive_auth_url: 'URL de autorización'
         mount_point: 'Punto de montaje'
+        root_folder_id: 'ID de la carpeta raíz'
       effect:
         tag: 'Etiqueta'
         implied: 'Etiqueta'
