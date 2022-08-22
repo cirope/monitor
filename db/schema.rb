@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_10_134439) do
+ActiveRecord::Schema.define(version: 2022_08_19_013729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -132,6 +132,7 @@ ActiveRecord::Schema.define(version: 2022_08_10_134439) do
     t.integer "lock_version", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "root_folder_id"
     t.index ["account_id"], name: "index_drives_on_account_id"
     t.index ["identifier"], name: "index_drives_on_identifier"
     t.index ["name"], name: "index_drives_on_name", unique: true
