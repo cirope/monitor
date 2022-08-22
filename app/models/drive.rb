@@ -12,7 +12,7 @@ class Drive < ApplicationRecord
 
   scope :ordered, -> { order :name }
 
-  strip_fields :name, :client_id, :client_secret
+  strip_fields :name, :client_id, :client_secret, :root_folder_id
 
   belongs_to :account
 
