@@ -6,6 +6,7 @@ module Scripts::ModeRuby
     [
       global_settings,
       (external_gem_require if server&.local?),
+      (local_context if server&.local?),
       ruby_cores_code
     ].compact.join
   end
@@ -46,6 +47,15 @@ module Scripts::ModeRuby
               #{handle_require_load_error}
             end
           end\n\n
+        RUBY
+      end.string
+    end
+
+    def local_context
+      StringIO.new.tap do |buffer|
+        buffer << <<-RUBY
+          Account.find(#{Account.current.take.id}).switch!
+          script_id = #{self.id}
         RUBY
       end.string
     end
