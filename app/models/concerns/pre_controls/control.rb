@@ -1,7 +1,7 @@
 module PreControls::Control
   extend ActiveSupport::Concern
 
-  def control
+  def control survey: nil
     status = 'ok'
 
     output = begin

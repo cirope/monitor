@@ -10,7 +10,7 @@ class Survey < ApplicationRecord
   accepts_nested_attributes_for :questions, :pre_controls, :post_controls
 
   def can_create_survey_answer?
-    pre_controls.detect { |p_c| p_c.control.error? }.blank?
+    pre_controls.detect { |pre_control| pre_control.control(survey: self).error? }.blank?
   end
 
   def create_survey_answer
