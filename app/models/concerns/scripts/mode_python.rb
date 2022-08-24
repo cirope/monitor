@@ -16,7 +16,6 @@ module Scripts::ModePython
 
     [
       "# Begin #{uuid} #{name} #{comment}\n",
-      "db = Database()",
       "#{text_with_python_injections}",
       "# End #{uuid} #{name} #{comment}\n\n"
     ].join("\n\n")

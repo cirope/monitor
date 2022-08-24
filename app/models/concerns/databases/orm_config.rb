@@ -1,13 +1,6 @@
 module Databases::OrmConfig
   extend ActiveSupport::Concern
 
-  def orm_config orm
-    case orm
-    when 'active_record' then ar_config
-    when 'pony' then pony_config
-    end
-  end
-
   private
 
     def host
