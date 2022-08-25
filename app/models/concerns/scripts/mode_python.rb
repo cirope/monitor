@@ -12,13 +12,13 @@ module Scripts::ModePython
   end
 
   def python_commented_text comment = nil
-    comment ||= 'script'
+    comment ||= 'script body'
 
     [
-      "# Begin #{uuid} #{name} #{comment}\n",
-      "#{text_with_python_injections}",
+      "# Begin #{uuid} #{name} #{comment}",
+      "#{text_with_python_injections}\n",
       "# End #{uuid} #{name} #{comment}\n\n"
-    ].join("\n\n")
+    ].join("\n")
   end
 
   def python_extension
