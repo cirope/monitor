@@ -2,7 +2,9 @@
 
 class Database < ApplicationRecord
   include Attributes::Strip
+  include Databases::OrmConfig
   include Databases::ActiveRecordConfig
+  include Databases::PonyConfig
   include Databases::Credentials
   include Databases::Odbc
   include Databases::Properties
