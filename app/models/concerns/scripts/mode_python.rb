@@ -2,7 +2,6 @@ module Scripts::ModePython
   extend ActiveSupport::Concern
 
   def python_headers _server
-    "from pony.orm import *\n\n"
   end
 
   def python_dependencies
@@ -16,9 +15,9 @@ module Scripts::ModePython
 
     [
       "# Begin #{uuid} #{name} #{comment}",
-      "#{text_with_python_injections}\n",
+      "#{text_with_python_injections}",
       "# End #{uuid} #{name} #{comment}\n\n"
-    ].join("\n")
+    ].join("\n\n")
   end
 
   def python_extension

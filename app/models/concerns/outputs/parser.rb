@@ -52,13 +52,7 @@ module Outputs::Parser
 
     def parse_and_find_lines_with_error_in language
       errors = {}
-
-      own_script_errors = case language
-        when 'ruby'
-          /#{script.uuid}#{Regexp.escape script.extension}:(\d+):in(.*)/
-        when 'python'
-          /#{script.uuid}#{script.extension}", line (\d+), in(.*)/
-        end
+      own_script_errors = line_with_error_in language
 
       output_lines_with_error(own_script_errors).each do |n, error|
         uuid, values = original_script_from_error_line n, error
@@ -80,7 +74,7 @@ module Outputs::Parser
       output.split("\n").map do |line|
         line_number, error = *line.match(own_script_errors)&.captures
 
-        [line_number.to_i - 1 , error] if line_number && error
+        [line_number.to_i - 1, error] if line_number && error
       end.compact
     end
 
@@ -110,4 +104,14 @@ module Outputs::Parser
         }
       ] if script_uuid.present?
     end
+
+    def line_with_error_in language
+      case language
+      when 'ruby'
+        /#{script.uuid}#{Regexp.escape script.extension}:(\d+):in(.*)/
+      when 'python'
+        /#{script.uuid}#{script.extension}", line (\d+), in(.*)/
+      end
+    end
+
 end
