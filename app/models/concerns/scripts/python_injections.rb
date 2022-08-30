@@ -34,7 +34,7 @@ module Scripts::PythonInjections
         connection = [
           "db = Database()",
           "db.bind(#{db.pony_config})",
-        ].join("\n\n")
+        ].join("\n")
 
         line.sub PY_CONNECTION_REGEX, connection
       else

@@ -7,8 +7,8 @@ module Outputs::Parser
     return {} unless error?
 
     case script.language
-    when 'ruby'
-      parse_and_find_lines_with_error_in_ruby
+    when 'python', 'ruby'
+      parse_and_find_lines_with_error_in script.language
     when 'sql'
       parse_and_find_lines_with_error_in_sql
     else
@@ -50,10 +50,17 @@ module Outputs::Parser
       end
     end
 
-    def parse_and_find_lines_with_error_in_ruby
+    def parse_and_find_lines_with_error_in language
       errors = {}
 
-      output_lines_with_error.each do |n, error|
+      own_script_errors = case language
+        when 'ruby'
+          /#{script.uuid}#{Regexp.escape script.extension}:(\d+):in(.*)/
+        when 'python'
+          /#{script.uuid}#{script.extension}", line (\d+), in(.*)/
+        end
+
+      output_lines_with_error(own_script_errors).each do |n, error|
         uuid, values = original_script_from_error_line n, error
 
         if uuid
@@ -69,9 +76,7 @@ module Outputs::Parser
       end
     end
 
-    def output_lines_with_error
-      own_script_errors = /#{script.uuid}#{Regexp.escape script.extension}:(\d+):in(.*)/
-
+    def output_lines_with_error own_script_errors
       output.split("\n").map do |line|
         line_number, error = *line.match(own_script_errors)&.captures
 
