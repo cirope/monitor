@@ -35,7 +35,7 @@ module Scripts::PythonInjections
           "from pony.orm import *",
           "db = Database()",
           "db.bind(#{db.pony_config})",
-        ].join(";")
+        ].join("\n")
 
         line.sub PONY_CONNECTION_REGEX, connection
       else

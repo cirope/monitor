@@ -24,20 +24,20 @@ module Scripts::ModePython
     '.py'
   end
 
-  def language_inclusion
+  def python_inclusion
     "#!/usr/bin/env python3\n\n"
   end
 
-  def language_variables
+  def python_variables
     StringIO.new.tap do |buffer|
-      buffer << as_inner_varialble('parameters', parameters)
-      buffer << as_inner_varialble('attributes', descriptions)
+      buffer << python_as_inner_varialble('parameters', parameters)
+      buffer << python_as_inner_varialble('attributes', descriptions)
     end.string
   end
 
   private
 
-    def as_inner_varialble name, collection
+    def python_as_inner_varialble name, collection
       result = "#{name} = {}\n\n"
 
       collection.each do |object|
