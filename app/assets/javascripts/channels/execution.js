@@ -13,25 +13,12 @@ $(document).on('ready turbolinks:load', function () {
       var url        = $('[data-status-refresh-url]').data('statusRefreshUrl')
 
       if (lastStatus !== data.status || (data.pid && lastPid !== data.pid))
-        Status._refresh(url)
+        Status._refresh(url, data.status)
     },
 
-    _refresh: function (url) {
-      var fetching = outputDiv.data('fetching')
-      var queue    = outputDiv.data('queue') || []
-
-      if (url && !fetching) {
-        outputDiv.data('fetching', true)
-
-        jQuery.getScript(url).done(function () {
-          var queuedUrl = queue.shift()
-
-          outputDiv.data('fetching', false)
-          outputDiv.data('queue', queue)
-          Status._refresh(queuedUrl)
-        })
-      } else if (url) {
-        outputDiv.data('queue', queue.concat(url))
+    _refresh: function (url, current_status) {
+      if (url && (current_status === 'success' || current_status === 'error')) {
+        jQuery.getScript(url);
       }
     }
   }
