@@ -7,10 +7,11 @@ class ExecutionChannel < ApplicationCable::Channel
 
   def fetch
     String(execution.output).lines.each_with_index do |line, i|
-      self.class.send_line execution.id, line:   line,
-                                         order:  i.next,
-                                         status: execution.status,
-                                         pid:    execution.pid
+      self.class.send_line execution.id, line:     line,
+                                         order:    i.next,
+                                         status:   execution.status,
+                                         pid:      execution.pid,
+                                         finished: execution.finished?
     end
   end
 
