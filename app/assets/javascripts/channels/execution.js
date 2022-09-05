@@ -13,11 +13,11 @@ $(document).on('ready turbolinks:load', function () {
       var url        = $('[data-status-refresh-url]').data('statusRefreshUrl')
 
       if (lastStatus !== data.status || (data.pid && lastPid !== data.pid))
-        Status._refresh(url, data.status)
+        Status._refresh(url, data.finished)
     },
 
-    _refresh: function (url, current_status) {
-      if (url && (current_status === 'success' || current_status === 'error')) {
+    _refresh: function (url, finished) {
+      if (url && finished) {
         jQuery.getScript(url);
       }
     }

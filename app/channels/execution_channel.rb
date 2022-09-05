@@ -14,14 +14,15 @@ class ExecutionChannel < ApplicationCable::Channel
     end
   end
 
-  def self.send_line execution_id, line:, order:, status:, pid:
+  def self.send_line execution_id, line:, order:, status:, pid:, finished:
     broadcasting = broadcasting_for_current_account "execution:#{execution_id}"
 
     ActionCable.server.broadcast broadcasting, {
-      line:   line,
-      order:  order,
-      status: status,
-      pid:    pid
+      line:     line,
+      order:    order,
+      status:   status,
+      pid:      pid,
+      finished: finished
     }
   end
 
