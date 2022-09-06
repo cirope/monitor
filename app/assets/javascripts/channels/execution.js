@@ -18,7 +18,7 @@ $(document).on('ready turbolinks:load', function () {
 
     _refresh: function (url, finished) {
       if (url && finished) {
-        jQuery.getScript(url);
+        jQuery.getScript(url)
       }
     }
   }
