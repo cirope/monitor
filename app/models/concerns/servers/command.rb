@@ -60,7 +60,7 @@ module Servers::Command
     end
 
     def local_command script_path
-      extname = File.extname(script_path)
+      extname = File.extname script_path
 
       case extname
       when '.rb' then [rails, 'runner', script_path]
