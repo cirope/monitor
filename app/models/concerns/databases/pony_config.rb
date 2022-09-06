@@ -10,7 +10,7 @@ module Databases::PonyConfig
       "port='#{port}'",
       "user='#{user}'",
       "password='#{password}'",
-      "database='#{database}'",
+      "database='#{database}'"
     ].join(', ')
   end
 
