@@ -415,6 +415,7 @@ es:
       export: 'Exportar'
       new_sql: 'Nuevo guión SQL'
       new_shell: 'Nuevo guión SHELL'
+      new_python: 'Nuevo guión Python'
     new:
       title: 'Crear guión'
       maintainer: 'Agregar mantenedor'

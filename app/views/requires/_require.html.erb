@@ -1,7 +1,7 @@
 <fieldset class="script_require">
   <div class="row">
     <div class="col-sm-11">
-      <%= f.input :script, as: :autocomplete, label: false, url: scripts_path, input_html: {
+      <%= f.input :script, as: :autocomplete, label: false, url: scripts_path(lang: lang), input_html: {
         disabled: disable_edition?, data: { empty_result_label: t('.empty') }
       } %>
     </div>
