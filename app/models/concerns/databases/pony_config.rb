@@ -11,7 +11,7 @@ module Databases::PonyConfig
       "user='#{user}'",
       "password='#{password}'",
       "database='#{database}'"
-    ].join(', ')
+    ].join ', '
   end
 
   def adapter_drivers
