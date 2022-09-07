@@ -119,4 +119,13 @@ module Outputs::Parser
         /#{script.uuid}#{script.extension}", line (\d+), in(.*)/
       end
     end
+
+    def line_with_error_in language
+      case language
+      when 'ruby'
+        /#{script.uuid}#{Regexp.escape script.extension}:(\d+):in(.*)/
+      when 'python'
+        /#{script.uuid}#{script.extension}", line (\d+), in(.*)/
+      end
+    end
 end

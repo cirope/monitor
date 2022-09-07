@@ -32,10 +32,10 @@ module Scripts::PythonInjections
 
       if db
         connection = [
-          "from pony.orm import *",
-          "db = Database()",
-          "db.bind(#{db.pony_config})",
-        ].join("\n")
+          'from pony.orm import *',
+          'db = Database()',
+          "db.bind(#{db.pony_config})"
+        ].join ';'
 
         line.sub PONY_CONNECTION_REGEX, connection
       else

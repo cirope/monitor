@@ -423,7 +423,7 @@ es:
       export: 'Exportar'
       new_sql: 'Nuevo guión SQL'
       new_shell: 'Nuevo guión SHELL'
-      new_python: 'Nuevo guión PYTHON'
+      new_python: 'Nuevo guión Python'
     new:
       title: 'Crear guión'
       maintainer: 'Agregar mantenedor'
@@ -664,7 +664,7 @@ es:
         updated: 'Actualizado'
         error: 'Con errores'
         deprecated_users: 'Usuarios ausentes en el servidor LDAP'
-  
+
   views:
     view:
       mark_as_viewed: 'Marcar como visto'

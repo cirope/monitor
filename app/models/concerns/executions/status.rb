@@ -44,9 +44,10 @@ module Executions::Status
                 lines_count.next
               end
 
-      ExecutionChannel.send_line id, line:   nil,
-                                     order:  order,
-                                     status: status,
-                                     pid:    pid
+      ExecutionChannel.send_line id, line:     nil,
+                                     order:    order,
+                                     status:   status,
+                                     pid:      pid,
+                                     finished: finished?
     end
 end

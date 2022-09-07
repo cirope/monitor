@@ -10,8 +10,8 @@ module Databases::PonyConfig
       "port='#{port}'",
       "user='#{user}'",
       "password='#{password}'",
-      "database='#{database}'",
-    ].join(', ')
+      "database='#{database}'"
+    ].join ', '
   end
 
   def adapter_drivers
@@ -19,7 +19,6 @@ module Databases::PonyConfig
     when /postgres/i then 'psycopg2'
     when /mysql/i    then 'PyMySQL'
     when /sqlite/i   then nil
-    when /oracle/i   then ['cx_Oracle']
     else
       raise "Unsupported adapter for driver #{driver}"
     end
@@ -32,7 +31,6 @@ module Databases::PonyConfig
       when /postgres/i then 'postgres'
       when /mysql/i    then 'mysql'
       when /sqlite/i   then 'sqlite'
-      when /oracle/i   then 'oracle'
       else
         raise "Unsupported adapter for driver #{driver}"
       end
