@@ -6,7 +6,7 @@ class Notifier < ApplicationMailer
     @body   = message[:body]
 
     Hash(message[:attachments]).each do |filename, file|
-      attachments[filename] = File.read(file) rescue file
+      attachments[filename] = file['path'] ? File.read(file['path']) : file
     end
 
     mail to:      message[:to],
