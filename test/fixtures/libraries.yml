@@ -1,0 +1,4 @@
+net_smtp:
+  name: 'net-smtp'
+  options: 'require: false'
+  script: ls

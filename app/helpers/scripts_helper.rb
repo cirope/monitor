@@ -29,6 +29,12 @@ module ScriptsHelper
     @script.parameters
   end
 
+  def libraries
+    @script.libraries.new if @script.libraries.empty?
+
+    @script.libraries
+  end
+
   def descriptions
     if @script.descriptions.empty?
       Descriptor.all.each { |d| @script.descriptions.new name: d.name }
