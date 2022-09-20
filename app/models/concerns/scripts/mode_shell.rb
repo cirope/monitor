@@ -5,7 +5,7 @@ module Scripts::ModeShell
     global_settings
   end
 
-  def shell_dependencies
+  def shell_includes
     ['open3'].map do |gem_name|
       "require '#{gem_name}'\n"
     end.join

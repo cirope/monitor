@@ -8,4 +8,8 @@ class Library < ApplicationRecord
   strip_fields :name
 
   belongs_to :script, inverse_of: :libraries
+
+  def to_s
+    name
+  end
 end

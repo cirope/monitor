@@ -1,4 +1,3 @@
 net_smtp:
-  name: 'net-smtp'
-  options: 'require: false'
+  name: 'csv'
   script: ls

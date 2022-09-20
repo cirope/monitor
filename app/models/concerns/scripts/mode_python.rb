@@ -4,7 +4,13 @@ module Scripts::ModePython
   def python_headers _server
   end
 
-  def python_dependencies
+  def python_libraries
+    libraries.map do |library|
+      "import #{library}"
+    end.join("\n")
+  end
+
+  def python_includes
     includes.map do |script|
       script.body 'local inclusion'
     end.join

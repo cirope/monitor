@@ -5,13 +5,19 @@ module Scripts::ModeRuby
   def ruby_headers server
     [
       global_settings,
-      (external_gem_require if server&.local?),
+#      (external_gem_require if server&.local?),
       (local_context if server&.local?),
       ruby_cores_code
     ].compact.join
   end
 
-  def ruby_dependencies
+  def ruby_libraries
+    libraries.map do |library|
+      "require '#{library}'\n"
+    end.join
+  end
+
+  def ruby_includes
     includes.map do |script|
       script.body 'local inclusion'
     end.join
@@ -37,6 +43,17 @@ module Scripts::ModeRuby
       end.string
     end
 
+    def local_context
+      StringIO.new.tap do |buffer|
+        buffer << <<-RUBY
+          Account.find(#{Account.current.take.id}).switch!
+          script_id = #{self.id}
+        RUBY
+      end.string
+    end
+
+=begin
+
     def external_gem_require
       StringIO.new.tap do |buffer|
         buffer << <<-RUBY
@@ -47,15 +64,6 @@ module Scripts::ModeRuby
               #{handle_require_load_error}
             end
           end\n\n
-        RUBY
-      end.string
-    end
-
-    def local_context
-      StringIO.new.tap do |buffer|
-        buffer << <<-RUBY
-          Account.find(#{Account.current.take.id}).switch!
-          script_id = #{self.id}
         RUBY
       end.string
     end
@@ -102,4 +110,5 @@ module Scripts::ModeRuby
     def chruby_search_path
       'bash -c "source /usr/share/chruby/chruby.sh && chruby #{RUBY_VERSION} && #{gem_command}"'
     end
+=end
 end
