@@ -57,10 +57,22 @@
   
       <div id="comments" class="card-body">
         <% @issue.comments.reject(&:new_record?).each do |comment| %>
-          <blockquote class="blockquote ml-3">
-            <%= simple_format comment.text, class: 'mb-0' %>
-            <footer class="blockquote-footer"><%= comment.user %></footer>
-          </blockquote>
+          <div class="row">
+            <div class="col-lg-10 col-md-9">
+              <blockquote class="blockquote ml-3">
+                <%= simple_format comment.text, class: 'mb-0' %>
+                <footer class="blockquote-footer"><%= comment.user %></footer>
+              </blockquote>
+            </div>
+            <div class="col-lg-2 col-md-3">
+              <% if comment.attachment.attached? %>
+                <p class="mb-3">
+                  <strong><%= Comment.human_attribute_name 'attachment' %></strong>:
+                  <%= link_to t('messages.download'), rails_blob_path(comment.attachment, disposition: 'attachment') %>
+                </p>
+              <% end %>
+            </div>
+          </div>
         <% end %>
 
         <% @issue.errors.full_messages_for(:comments).each do |error| %>
