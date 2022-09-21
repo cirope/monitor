@@ -2,7 +2,6 @@ module Scripts::ModePython
   extend ActiveSupport::Concern
 
   def python_headers _server
-    "from pony.orm import *\n\n"
   end
 
   def python_dependencies
@@ -12,10 +11,10 @@ module Scripts::ModePython
   end
 
   def python_commented_text comment = nil
-    comment ||= 'script'
+    comment ||= 'script body'
 
     [
-      "# Begin #{uuid} #{name} #{comment}\n",
+      "# Begin #{uuid} #{name} #{comment}",
       "#{text_with_python_injections}",
       "# End #{uuid} #{name} #{comment}\n\n"
     ].join("\n\n")
@@ -25,20 +24,20 @@ module Scripts::ModePython
     '.py'
   end
 
-  def language_inclusion
+  def python_inclusion
     "#!/usr/bin/env python3\n\n"
   end
 
-  def language_variables
+  def python_variables
     StringIO.new.tap do |buffer|
-      buffer << as_inner_varialble('parameters', parameters)
-      buffer << as_inner_varialble('attributes', descriptions)
+      buffer << python_as_inner_varialble('parameters', parameters)
+      buffer << python_as_inner_varialble('attributes', descriptions)
     end.string
   end
 
   private
 
-    def as_inner_varialble name, collection
+    def python_as_inner_varialble name, collection
       result = "#{name} = {}\n\n"
 
       collection.each do |object|

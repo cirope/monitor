@@ -3,15 +3,15 @@
 module Scripts::PythonInjections
   extend ActiveSupport::Concern
 
-  PY_CONNECTION_REGEX   = /@py_connection\[['"](\w+)['"]\]/
+  PONY_CONNECTION_REGEX = /@pony_connection\[['"](\w+)['"]\]/
   PY_DB_PROPERTY_REGEX  = /@databases\[['"](\w+)['"]\]\[['"](\w+)['"]\]/
 
   def text_with_python_injections
     lines = text.each_line.map do |line|
-      if (match = line.match(PY_CONNECTION_REGEX))
+      if (match = line.match(PONY_CONNECTION_REGEX))
         connection_name = match.captures.first
 
-        inject_py_connection line, connection_name
+        inject_pony_connection line, connection_name
       elsif (match = line.match(PY_DB_PROPERTY_REGEX))
         connection_name = match.captures.first
         property_key    = match.captures.last
@@ -27,16 +27,17 @@ module Scripts::PythonInjections
 
   private
 
-    def inject_py_connection line, connection_name
+    def inject_pony_connection line, connection_name
       db = Database.current.find_by name: connection_name
 
       if db
         connection = [
-          "db = Database()",
-          "db.bind(#{db.pony_config})",
-        ].join("\n\n")
+          'from pony.orm import *',
+          'db = Database()',
+          "db.bind(#{db.pony_config})"
+        ].join ';'
 
-        line.sub PY_CONNECTION_REGEX, connection
+        line.sub PONY_CONNECTION_REGEX, connection
       else
         line
       end
