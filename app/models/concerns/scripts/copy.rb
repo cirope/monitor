@@ -27,7 +27,6 @@ module Scripts::Copy
     body = inclusion ? '' : lang_inclusion
 
     body += lang_headers(server).to_s unless inclusion
-    body += lang_libraries.to_s
     body += lang_includes.to_s
     body += lang_variables
     body += commented_text inclusion

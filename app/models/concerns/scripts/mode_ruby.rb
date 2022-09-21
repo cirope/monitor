@@ -4,17 +4,29 @@ module Scripts::ModeRuby
 
   def ruby_headers server
     [
+      lang_libraries.to_s,
       global_settings,
-#      (external_gem_require if server&.local?),
       (local_context if server&.local?),
       ruby_cores_code
     ].compact.join
   end
 
   def ruby_libraries
-    libraries.map do |library|
-      "require '#{library}'\n"
-    end.join
+    libs = libraries.map do |library|
+      "gem '#{library}', '#{library.options}'"
+    end.join("\n")
+
+    StringIO.new.tap do |buffer|
+      buffer << <<-RUBY
+        require 'bundler/inline'
+
+        gemfile do
+          source 'https://rubygems.org'
+
+          #{libs}
+        end\n
+      RUBY
+    end.string
   end
 
   def ruby_includes
@@ -51,64 +63,4 @@ module Scripts::ModeRuby
         RUBY
       end.string
     end
-
-=begin
-
-    def external_gem_require
-      StringIO.new.tap do |buffer|
-        buffer << <<-RUBY
-          def require lib
-            begin
-              super lib
-            rescue LoadError => ex
-              #{handle_require_load_error}
-            end
-          end\n\n
-        RUBY
-      end.string
-    end
-
-    def handle_require_load_error
-      <<-RUBY
-        raise ex unless ex.to_s.match? /cannot load such file/i
-
-        gem_command = "gem which \#{lib.split('/').first}"
-        gem_path    = `#{search_gem_path}`.strip
-
-        if gem_path != ''
-          gem_dir = File.dirname gem_path
-
-          raise ex if $:.include? gem_dir
-
-          $: << gem_path
-          super lib
-        else
-          raise ex
-        end
-      RUBY
-    end
-
-
-    def search_gem_path
-      <<-RUBY
-        cd ~/; (
-          (#{bash_search_path})   ||
-          (#{rbenv_search_path})  ||
-          (#{chruby_search_path})
-        ) 2>/dev/null
-      RUBY
-    end
-
-    def bash_search_path
-      '#{gem_command} || bash -c "#{gem_command}" || env -i bash -c "#{gem_command}"'
-    end
-
-    def rbenv_search_path
-      'bash -c \'eval "$(~/.rbenv/bin/rbenv init -)" && #{gem_command}\''
-    end
-
-    def chruby_search_path
-      'bash -c "source /usr/share/chruby/chruby.sh && chruby #{RUBY_VERSION} && #{gem_command}"'
-    end
-=end
 end

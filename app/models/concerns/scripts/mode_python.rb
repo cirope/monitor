@@ -6,8 +6,8 @@ module Scripts::ModePython
 
   def python_libraries
     libraries.map do |library|
-      "import #{library}"
-    end.join("\n")
+      "import #{library}\n"
+    end.join
   end
 
   def python_includes
