@@ -30,7 +30,7 @@ module TagsHelper
   end
 
   def unlimited_tag_form_edition_for? kind
-    kind != 'issue' || limited_issue_tag_form_edition?
+    kind == 'issue' ? limited_issue_tag_form_edition? : false
   end
 
   def effects
