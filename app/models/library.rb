@@ -3,6 +3,7 @@
 class Library < ApplicationRecord
   include Auditable
   include Attributes::Strip
+  include Libraries::GemLine
   include Libraries::Validation
 
   strip_fields :name

@@ -25,7 +25,7 @@ class TagsHelperTest < ActionView::TestCase
   end
 
   test 'limited tag form edition for' do
-    assert unlimited_tag_form_edition_for?('user')
+    assert !unlimited_tag_form_edition_for?('user')
 
     assert !unlimited_tag_form_edition_for?('issue')
 

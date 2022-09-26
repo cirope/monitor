@@ -59,8 +59,6 @@ module Scripts::ModeRuby
     def ruby_libs
       libs = libraries.to_a + includes_libraries.to_a
 
-      libs.map do |library|
-        ["gem '#{library}'", library.options].reject(&:blank?).join ', '
-      end.join("\n")
+      libs.map { |library| library.gem_line }.join "\n"
     end
 end
