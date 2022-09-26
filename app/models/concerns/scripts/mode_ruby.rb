@@ -12,21 +12,15 @@ module Scripts::ModeRuby
   end
 
   def ruby_libraries
-    libs = libraries.map do |library|
-      "gem '#{library}', '#{library.options}'"
-    end.join("\n")
+    <<~RUBY
+      require 'bundler/inline'
 
-    StringIO.new.tap do |buffer|
-      buffer << <<-RUBY
-        require 'bundler/inline'
+      gemfile do
+        source 'https://rubygems.org'
 
-        gemfile do
-          source 'https://rubygems.org'
-
-          #{libs}
-        end\n
-      RUBY
-    end.string
+        #{ruby_libs}
+      end\n
+    RUBY
   end
 
   def ruby_includes
@@ -56,11 +50,17 @@ module Scripts::ModeRuby
     end
 
     def local_context
-      StringIO.new.tap do |buffer|
-        buffer << <<-RUBY
-          Account.find(#{Account.current.take.id}).switch!
-          script_id = #{self.id}
-        RUBY
-      end.string
+      <<~RUBY
+        Account.find(#{Account.current.take.id}).switch!
+        script_id = #{self.id}\n
+      RUBY
+    end
+
+    def ruby_libs
+      libs = libraries.to_a + includes_libraries.to_a
+
+      libs.map do |library|
+        ["gem '#{library}'", library.options].reject(&:blank?).join ', '
+      end.join("\n")
     end
 end
