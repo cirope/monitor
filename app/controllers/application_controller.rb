@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   include LdapConfig
   include Responder
   include Roles
+  include SamlConfig
   include StoreLocation
   include UpdateResource
 

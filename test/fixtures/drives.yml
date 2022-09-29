@@ -1,0 +1,7 @@
+drive_config:
+  name: Google Drive
+  provider: drive
+  client_id: client_id
+  client_secret: client_secret
+  identifier: identifier
+  account: default

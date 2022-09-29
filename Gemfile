@@ -41,6 +41,8 @@ gem 'mimemagic'
 gem 'jwt'
 gem 'simple_command'
 gem 'matrix'
+gem 'ruby-saml'
+gem 'oauth2'
 
 group :development, :production do
   gem 'web-console'

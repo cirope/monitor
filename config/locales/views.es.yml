@@ -31,6 +31,18 @@ es:
     show:
       title: 'Ver cuenta'
 
+  authentications:
+    new:
+      title: 'Ingreso'
+      log_in: 'Ingresar'
+      username: 'Usuario o correo'
+      password: 'Contraseña'
+      remember_me: 'Recordarme'
+      forgot_password: '¿Olvidaste tu contraseña?'
+      subtitle: 'Ingrese su usuario o correo electrónico para acceder'
+      password_subtitle: 'Por favor ingrese su contraseña para acceder'
+      welcome: 'Bienvenido'
+
   board:
     index:
       title: 'Carrito de casos'
@@ -91,6 +103,21 @@ es:
   dispatchers:
     dispatcher:
       empty: 'No se encontraron reglas con ese criterio'
+
+  drives:
+    edit:
+      title: 'Editar configuración DRIVE'
+    index:
+      new: 'Nueva configuración DRIVE'
+      title: 'Listado de configuraciones DRIVE'
+      empty_html: 'No hay configuraciones DRIVE, puede crear una con el botón <span class="badge badge-primary">Nueva configuración DRIVE</span>'
+    new:
+      title: 'Crear configuración DRIVE'
+    show:
+      title: 'Ver configuración DRIVE'
+      drive_auth_url: 'Haga clic en el siguiente enlace para autorizar el accesso a %{provider}'
+    providers:
+      drive: 'Google Drive'
 
   editor:
     edit:
@@ -388,6 +415,7 @@ es:
       export: 'Exportar'
       new_sql: 'Nuevo guión SQL'
       new_shell: 'Nuevo guión SHELL'
+      new_python: 'Nuevo guión Python'
     new:
       title: 'Crear guión'
       maintainer: 'Agregar mantenedor'
@@ -495,8 +523,6 @@ es:
       title: 'Ingreso'
       log_in: 'Ingresar'
       username: 'Usuario o correo'
-      password: 'Contraseña'
-      remember_me: 'Recordarme'
       forgot_password: '¿Olvidaste tu contraseña?'
       subtitle: 'Ingrese su usuario o correo electrónico para acceder'
 
@@ -538,6 +564,20 @@ es:
     edit:
       title: 'Mis datos'
       submit: 'Actualizar mis datos'
+
+  samls:
+    edit:
+      title: 'Editar configuración SAML'
+    index:
+      new: 'Nueva configuración SAML'
+      title: 'Listado de configuraciones SAML'
+      empty_html: 'No hay configuraciones SAML, puede crear una con el botón <span class="badge badge-primary">Nueva configuración SAML</span>'
+    new:
+      title: 'Crear configuración SAML'
+    show:
+      title: 'Ver configuración SAML'
+    providers:
+      azure: 'Azure'
 
   series:
     index:

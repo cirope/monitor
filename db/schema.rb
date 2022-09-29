@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_23_123607) do
+ActiveRecord::Schema.define(version: 2022_08_19_013729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -120,6 +120,22 @@ ActiveRecord::Schema.define(version: 2022_06_23_123607) do
     t.datetime "updated_at", null: false
     t.index ["rule_id"], name: "index_dispatchers_on_rule_id"
     t.index ["schedule_id"], name: "index_dispatchers_on_schedule_id"
+  end
+
+  create_table "drives", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "provider", null: false
+    t.string "client_id", null: false
+    t.string "client_secret", null: false
+    t.string "identifier", null: false
+    t.bigint "account_id", null: false
+    t.integer "lock_version", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "root_folder_id"
+    t.index ["account_id"], name: "index_drives_on_account_id"
+    t.index ["identifier"], name: "index_drives_on_identifier"
+    t.index ["name"], name: "index_drives_on_name", unique: true
   end
 
   create_table "effects", force: :cascade do |t|
@@ -370,6 +386,27 @@ ActiveRecord::Schema.define(version: 2022_06_23_123607) do
     t.index ["status"], name: "index_runs_on_status"
   end
 
+  create_table "samls", force: :cascade do |t|
+    t.string "provider", null: false
+    t.string "idp_homepage", null: false
+    t.string "idp_entity_id", null: false
+    t.string "idp_sso_target_url", null: false
+    t.string "sp_entity_id", null: false
+    t.string "assertion_consumer_service_url", null: false
+    t.string "name_identifier_format", null: false
+    t.string "assertion_consumer_service_binding", null: false
+    t.text "idp_cert", null: false
+    t.string "username_attribute", null: false
+    t.string "name_attribute", null: false
+    t.string "lastname_attribute", null: false
+    t.string "email_attribute", null: false
+    t.string "roles_attribute", null: false
+    t.jsonb "options"
+    t.integer "lock_version", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "schedules", id: :serial, force: :cascade do |t|
     t.datetime "start", null: false
     t.datetime "end"
@@ -502,11 +539,13 @@ ActiveRecord::Schema.define(version: 2022_06_23_123607) do
     t.string "role", default: "author", null: false
     t.string "username"
     t.boolean "hidden", default: false, null: false
+    t.string "saml_request_id"
     t.index ["auth_token"], name: "index_users_on_auth_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["hidden"], name: "index_users_on_hidden"
     t.index ["password_reset_token"], name: "index_users_on_password_reset_token", unique: true
     t.index ["role"], name: "index_users_on_role"
+    t.index ["saml_request_id"], name: "index_users_on_saml_request_id"
     t.index ["username"], name: "index_users_on_username"
   end
 
@@ -542,6 +581,7 @@ ActiveRecord::Schema.define(version: 2022_06_23_123607) do
   add_foreign_key "descriptions", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "dispatchers", "rules", on_update: :restrict, on_delete: :restrict
   add_foreign_key "dispatchers", "schedules", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "drives", "accounts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "effects", "tags", column: "implied_id", on_update: :restrict, on_delete: :restrict
   add_foreign_key "effects", "tags", on_update: :restrict, on_delete: :restrict
   add_foreign_key "fails", "users", on_update: :restrict, on_delete: :restrict

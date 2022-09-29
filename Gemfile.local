@@ -8,4 +8,7 @@ unless ENV['TRAVIS']
   gem 'pdf-reader'
   gem 'charlock_holmes'
   gem 'caxlsx'
+  gem 'roo-xls'
+  gem 'dbf'
+  gem 'docx'
 end

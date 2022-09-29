@@ -1,0 +1,91 @@
+<div class="card">
+  <div class="card-header">
+    <h5><%= @saml %></h5>
+  </div>
+
+  <div class="card-body">
+    <p class="mb-1">
+      <strong><%= Saml.human_attribute_name 'provider' %></strong>:
+      <%= t @saml.provider, scope: [:samls, :providers] %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Saml.human_attribute_name 'idp_homepage' %></strong>:
+      <%= @saml.idp_homepage %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Saml.human_attribute_name 'idp_entity_id' %></strong>:
+      <%= @saml.idp_entity_id %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Saml.human_attribute_name 'idp_sso_target_url' %></strong>:
+      <%= @saml.idp_sso_target_url %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Saml.human_attribute_name 'sp_entity_id' %></strong>:
+      <%= @saml.sp_entity_id %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Saml.human_attribute_name 'assertion_consumer_service_url' %></strong>:
+      <%= @saml.assertion_consumer_service_url %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Saml.human_attribute_name 'name_identifier_format' %></strong>:
+      <%= @saml.name_identifier_format %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Saml.human_attribute_name 'assertion_consumer_service_binding' %></strong>:
+      <%= @saml.assertion_consumer_service_binding %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Saml.human_attribute_name 'idp_cert' %></strong>:
+      <%= @saml.idp_cert %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Saml.human_attribute_name 'username_attribute' %></strong>:
+      <%= @saml.username_attribute %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Saml.human_attribute_name 'name_attribute' %></strong>:
+      <%= @saml.name_attribute %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Saml.human_attribute_name 'lastname_attribute' %></strong>:
+      <%= @saml.lastname_attribute %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Saml.human_attribute_name 'email_attribute' %></strong>:
+      <%= @saml.email_attribute %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Saml.human_attribute_name 'roles_attribute' %></strong>:
+      <%= @saml.roles_attribute %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Saml.human_attribute_name 'role_guest' %></strong>:
+      <%= @saml.role_guest %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Saml.human_attribute_name 'role_author' %></strong>:
+      <%= @saml.role_author %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Saml.human_attribute_name 'role_supervisor' %></strong>:
+      <%= @saml.role_supervisor %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Saml.human_attribute_name 'role_security' %></strong>:
+      <%= @saml.role_security %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Saml.human_attribute_name 'role_owner' %></strong>:
+      <%= @saml.role_owner %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Saml.human_attribute_name 'role_manager' %></strong>:
+      <%= @saml.role_manager %>
+    </p>
+  </div>
+</div>
+
+<%= link_to_edit [:edit, @saml] %> |
+<%= link_to_index samls_path %>

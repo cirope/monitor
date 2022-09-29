@@ -28,10 +28,11 @@ module Executions::Run
     PaperTrail.request enabled: false do
       update! output: [output, line].compact.join
 
-      ExecutionChannel.send_line id, line:   line,
-                                     order:  lines_count,
-                                     status: status,
-                                     pid:    pid
+      ExecutionChannel.send_line id, line:     line,
+                                     order:    lines_count,
+                                     status:   status,
+                                     pid:      pid,
+                                     finished: finished?
     end
   end
 

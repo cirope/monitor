@@ -26,6 +26,9 @@ es:
       description:
         one: 'Atributo'
         other: 'Atributos'
+      drive:
+        one: 'Configuración DRIVE'
+        other: 'DRIVE'
       effect:
         one: 'Implícita'
         other: 'Implícitas'
@@ -83,6 +86,9 @@ es:
       run:
         one: 'Corrida'
         other: 'Corridas'
+      saml:
+        one: 'Configuración SAML'
+        other: 'SAML'
       schedule:
         one: 'Trabajo'
         other: 'Trabajos'
@@ -131,6 +137,15 @@ es:
         value: 'Valor'
       descriptor:
         name: 'Nombre'
+      drive:
+        name: 'Nombre'
+        provider: 'Proveedor'
+        identifier: 'Identificador'
+        client_id: 'ID Cliente'
+        client_secret: 'Clave secreta'
+        drive_auth_url: 'URL de autorización'
+        mount_point: 'Punto de montaje'
+        root_folder_id: 'ID de la carpeta raíz'
       effect:
         tag: 'Etiqueta'
         implied: 'Etiqueta'
@@ -229,6 +244,27 @@ es:
         ended_at: 'Fecha fin ejecución'
         output: 'Salida'
         data: 'Datos'
+      saml:
+        provider: 'Proveedor'
+        idp_homepage: 'Dirección URL de metadatos de federación de aplicación'
+        idp_entity_id: 'Identificador de Azure AD'
+        idp_sso_target_url: 'Dirección URL de inicio de sesión único'
+        sp_entity_id: 'Identificador (ID de la entidad)'
+        assertion_consumer_service_url: 'URL de respuesta (URL de servicio de consumidor de aserciones)'
+        name_identifier_format: 'Formato del identificador de nombre'
+        assertion_consumer_service_binding: 'Servicio de consumidor de aserciones'
+        idp_cert: 'Certificado de firma de SAML (codificada en Base64)'
+        username_attribute: 'Atributo con el nombre de usuario'
+        name_attribute: 'Atributo con el nombre'
+        lastname_attribute: 'Atributo con el apellido'
+        email_attribute: 'Atributo con el correo electrónico'
+        roles_attribute: 'Atributo con roles'
+        role_guest: 'Grupo invitado'
+        role_owner: 'Grupo propietario'
+        role_manager: 'Grupo gerente'
+        role_author: 'Grupo autor'
+        role_supervisor: 'Grupo supervisor'
+        role_security: 'Grupo seguridad'
       schedule:
         name: 'Nombre'
         start: 'Inicio'
