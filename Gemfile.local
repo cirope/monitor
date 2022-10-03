@@ -11,4 +11,5 @@ unless ENV['TRAVIS']
   gem 'roo-xls'
   gem 'dbf'
   gem 'docx'
+  gem 'rover-df'
 end
