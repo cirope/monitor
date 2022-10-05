@@ -1,13 +1,27 @@
 module Scripts::ModePython
   extend ActiveSupport::Concern
 
-  def python_headers _server
+  def python_headers server
+    [
+      python_libraries.to_s,
+    ].compact.join
   end
 
   def python_libraries
-    libraries.map do |library|
-      "import #{library}\n"
-    end.join
+    <<~PYTHON
+      import subprocess
+      import sys
+
+      def import_or_install(library):
+        try:
+          __import__(library)
+        except ImportError:
+          subprocess.check_call([sys.executable, '-m', 'pip', 'install', library], stdout=subprocess.DEVNULL)
+        finally:
+          __import__(library)
+
+      #{python_import_libs}
+    PYTHON
   end
 
   def python_includes
@@ -42,6 +56,18 @@ module Scripts::ModePython
   end
 
   private
+
+    def python_import_libs
+      libs = libraries.to_a + includes_libraries.to_a
+
+      StringIO.new.tap do |buffer|
+        libs.each do |library|
+          buffer << <<~PYTHON
+            import_or_install('#{library}')\n
+          PYTHON
+        end
+      end.string
+    end
 
     def python_as_inner_varialble name, collection
       result = "#{name} = {}\n\n"

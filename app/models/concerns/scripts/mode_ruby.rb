@@ -59,6 +59,6 @@ module Scripts::ModeRuby
     def ruby_libs
       libs = libraries.to_a + includes_libraries.to_a
 
-      libs.map { |library| library.gem_line }.join "\n"
+      libs.map { |library| library.print }.join "\n"
     end
 end
