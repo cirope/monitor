@@ -12,11 +12,11 @@ module Scripts::ModePython
       import subprocess
       import sys
 
-      def import_or_install(library):
+      def import_or_install(library, command):
         try:
           __import__(library)
         except ImportError:
-          subprocess.check_call([sys.executable, '-m', 'pip', 'install', library], stdout=subprocess.DEVNULL)
+          subprocess.check_call(command, stdout=subprocess.DEVNULL)
         finally:
           __import__(library)
 
@@ -62,11 +62,22 @@ module Scripts::ModePython
 
       StringIO.new.tap do |buffer|
         libs.each do |library|
+          cmd = make_command library
+
           buffer << <<~PYTHON
-            import_or_install('#{library}')\n
+            import_or_install('#{library}', #{cmd})\n
           PYTHON
         end
       end.string
+    end
+
+    def make_command library
+      opts    = library.options.split(' ') << '--no-warn-script-location'
+      version = opts.shift.delete(' ')
+      name    = version =~ /[==,<=,>=,<,>]/ ? "#{library.name}#{version}" : library.name
+      cmd     = "'#{opts.join(' ')}', '#{name}'"
+
+      "[sys.executable, '-m', 'pip', 'install', #{cmd}]"
     end
 
     def python_as_inner_varialble name, collection

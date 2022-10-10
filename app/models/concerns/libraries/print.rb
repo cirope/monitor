@@ -10,6 +10,6 @@ module Libraries::Print
   end
 
   def python_print
-    ["#{name}", options].reject(&:blank?).join ', '
+    ["#{name}", options].reject(&:blank?).join ' '
   end
 end
