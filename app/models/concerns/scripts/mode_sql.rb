@@ -6,7 +6,7 @@ module Scripts::ModeSql
     global_settings
   end
 
-  def sql_dependencies
+  def sql_includes
     ['json', 'active_record', database.adapter_gems].flatten.map do |gem_name|
       "require '#{gem_name}'\n"
     end.join

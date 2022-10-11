@@ -418,6 +418,7 @@ es:
       new_python: 'Nuevo guión Python'
     new:
       title: 'Crear guión'
+      library: 'Agregar biblioteca'
       maintainer: 'Agregar mantenedor'
       require: 'Agregar inclusión'
       tagging: 'Agregar etiqueta'

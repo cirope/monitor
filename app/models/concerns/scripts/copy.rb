@@ -20,15 +20,15 @@ module Scripts::Copy
   end
 
   def extension
-    attachment.attached? ? attachment.filename.extension_with_delimiter : language_extension
+    attachment.attached? ? attachment.filename.extension_with_delimiter : lang_extension
   end
 
   def body inclusion = false, server = nil
-    body = inclusion ? '' : language_inclusion
+    body = inclusion ? '' : lang_inclusion
 
-    body += headers(server).to_s unless inclusion
-    body += dependencies.to_s
-    body += variables
+    body += lang_headers(server).to_s unless inclusion
+    body += lang_includes.to_s
+    body += lang_variables
     body += commented_text inclusion
 
     body
@@ -36,23 +36,27 @@ module Scripts::Copy
 
   private
 
-    def headers server
+    def lang_headers server
       try "#{language}_headers", server
     end
 
-    def dependencies
-      try "#{language}_dependencies"
+    def lang_libraries
+      try "#{language}_libraries"
     end
 
-    def language_extension
+    def lang_includes
+      try "#{language}_includes"
+    end
+
+    def lang_extension
       try("#{language}_extension") || '.rb'
     end
 
-    def language_inclusion
+    def lang_inclusion
       try("#{language}_inclusion") || "#!/usr/bin/env ruby\n\n"
     end
 
-    def variables
+    def lang_variables
       try("#{language}_variables")  ||
 
       StringIO.new.tap do |buffer|
@@ -69,7 +73,7 @@ module Scripts::Copy
       if attachment.attached?
         ActiveStorage::Blob.service.path_for attachment.key
       else
-        path = "/tmp/script-#{uuid}#{language_extension}"
+        path = "/tmp/script-#{uuid}#{lang_extension}"
 
         File.open(path, 'w') { |file| file << body(false, server) }
 
