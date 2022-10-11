@@ -10,11 +10,11 @@ module Libraries::Validation
   private
 
     def unique_name
-      others = script.libraries.reject do |p|
-        (id && p.id == id) || (id.nil? && p.object_id == object_id)
+      others = script.libraries.reject do |l|
+        (id && l.id == id) || (id.nil? && l.object_id == object_id)
       end
 
-      if others.any? { |p| p.name == name }
+      if others.any? { |l| l.name == name }
         errors.add :name, :taken
       end
     end
