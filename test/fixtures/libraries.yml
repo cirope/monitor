@@ -1,3 +1,3 @@
-net_smtp:
+csv:
   name: 'csv'
   script: ls

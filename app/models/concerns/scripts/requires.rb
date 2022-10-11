@@ -7,7 +7,7 @@ module Scripts::Requires
     has_many :requires, dependent: :destroy, foreign_key: :caller_id
     has_many :dependants, dependent: :destroy, class_name: 'Require'
     has_many :includes, through: :requires, source: :script
-    has_many :includes_libraries, through: :includes, source: :libraries
+    has_many :included_libraries, through: :includes, source: :libraries
 
     accepts_nested_attributes_for :requires, allow_destroy: true, reject_if: :all_blank
   end

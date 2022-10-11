@@ -4,7 +4,7 @@ require 'test_helper'
 
 class LibraryTest < ActiveSupport::TestCase
   setup do
-    @library = libraries :net_smtp
+    @library = libraries :csv
   end
 
   test 'blank attributes' do

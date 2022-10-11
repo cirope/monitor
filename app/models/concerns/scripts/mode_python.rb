@@ -58,7 +58,7 @@ module Scripts::ModePython
   private
 
     def python_import_libs
-      libs = libraries.to_a + includes_libraries.to_a
+      libs = libraries.to_a + included_libraries.to_a
 
       StringIO.new.tap do |buffer|
         libs.each do |library|
