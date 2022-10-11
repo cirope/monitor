@@ -61,7 +61,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Install dependencies
-        run: sudo apt -y install slapd ldap-utils unixodbc-dev rclone
+        run: sudo apt -y install slapd ldap-utils unixodbc-dev && sudo dpkg -i https://downloads.rclone.org/rclone-current-linux-amd64.deb
       - name: Remove Gemfile.lock
         run: rm Gemfile.lock
       - name: Install ruby and gems
