@@ -14,8 +14,6 @@ module Libraries::Validation
         (id && l.id == id) || (id.nil? && l.object_id == object_id)
       end
 
-      if others.any? { |l| l.name == name }
-        errors.add :name, :taken
-      end
+      errors.add :name, :taken if others.any? { |l| l.name == name }
     end
 end
