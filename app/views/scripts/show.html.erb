@@ -55,7 +55,7 @@
         <%= Library.model_name.human count: @script.libraries.size %>
       </h5>
     </div>
-    <div id="maintainers" class="card-body">
+    <div id="libraries" class="card-body">
       <ul>
         <% @script.libraries.each do |library| %>
           <li><%= library.print %></li>
