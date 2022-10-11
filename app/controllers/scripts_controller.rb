@@ -63,6 +63,7 @@ class ScriptsController < ApplicationController
     def script_params
       params.require(:script).permit :name, :core, :attachment, :text, :change,
         :language, :database_id, :lock_version,
+        libraries_attributes: [:id, :name, :options, :_destroy],
         maintainers_attributes: [:id, :user_id, :_destroy],
         descriptions_attributes: [:id, :name, :value, :_destroy],
         parameters_attributes: [:id, :name, :value, :_destroy],

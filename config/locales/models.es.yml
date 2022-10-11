@@ -47,6 +47,9 @@ es:
       ldap:
         one: 'Configuración LDAP'
         other: 'LDAP'
+      library:
+        one: 'Biblioteca'
+        other: 'Bibliotecas'
       login:
         one: 'Ingreso'
         other: 'Ingresos'
@@ -203,6 +206,9 @@ es:
         role_author: 'Grupo autor'
         role_supervisor: 'Grupo supervisor'
         role_security: 'Grupo seguridad'
+      library:
+        name: 'Nombre'
+        options: 'Opciones'
       maintainer:
         user: 'Usuario'
       measure:

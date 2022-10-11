@@ -1,0 +1,16 @@
+<fieldset class="library">
+  <div class="row">
+    <div class="col-sm-5">
+      <%= f.input :name, as: :slim, input_html: { disabled: disable_edition? } %>
+    </div>
+    <div class="col-sm-6">
+      <%= f.input :options, as: :slim %>
+    </div>
+    <div class="col-sm-1">
+      <div class="row-controls text-right mb-3 mb-sm-0 mt-n4 mt-sm-n2">
+        <%= f.input :id, as: :hidden %>
+        <%= link_to_remove_nested_item f unless disable_edition? %>
+      </div>
+    </div>
+  </div>
+</fieldset>

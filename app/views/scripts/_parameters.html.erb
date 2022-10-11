@@ -1,0 +1,14 @@
+<div class="card mb-3">
+  <div class="card-header">
+    <a class="text-reset text-decoration-none d-block" href="#parameters" data-toggle="collapse">
+      <%= Parameter.model_name.human count: 0 %>
+    </a>
+  </div>
+  <div id="parameters" class="collapse card-body">
+    <%= f.simple_fields_for :parameters, parameters do |df| %>
+      <%= render 'parameters/parameter', f: df %>
+    <% end %>
+
+    <%= link_to_add_fields t('scripts.new.parameter'), f, :parameters unless disable_edition? %>
+  </div>
+</div>
