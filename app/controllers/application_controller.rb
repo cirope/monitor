@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   include CurrentAccount
   include CurrentUser
   include LdapConfig
+  include PdfRender
   include Responder
   include Roles
   include SamlConfig
