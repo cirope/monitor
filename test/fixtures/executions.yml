@@ -2,6 +2,6 @@ live_ls:
   script: ls
   server: atahualpa
   status: <%= Execution.statuses[:running] %>
-  started_at: <%= Time.zone.now.to_s :db %>
+  started_at: <%= Time.zone.now.to_fs :db %>
   user: franco
   pid: 123456789 # So it does not kill some random process when tested

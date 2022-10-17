@@ -38,7 +38,7 @@ class DrivesController < ApplicationController
     @drive = @account.drives.new drive_params
 
     if @drive.save
-      redirect_to @drive.provider_auth_url
+      redirect_to @drive.provider_auth_url, allow_other_host: true
     else
       render 'new'
     end
@@ -48,7 +48,7 @@ class DrivesController < ApplicationController
   def update
     if @drive.update drive_params.except :name
       if @drive.redirect_to_auth_url?
-        redirect_to @drive.provider_auth_url
+        redirect_to @drive.provider_auth_url, allow_other_host: true
       else
         redirect_to @drive
       end
