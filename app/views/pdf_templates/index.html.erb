@@ -1,0 +1,31 @@
+<% if @pdf_templates.empty? %>
+  <%= render 'shared/empty_index', message: empty_message %>
+<% else %>
+  <div class="card">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th><%= PdfTemplate.human_attribute_name 'name' %></th>
+          <th colspan="3">
+            <%= link_to_new new_pdf_template_path, class: 'btn btn-secondary btn-sm py-0 mr-n2 float-right' %>
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @pdf_templates.each do |pdf_template| %>
+          <tr>
+            <td><%= pdf_template.name %></td>
+            <td class="text-right"><%= link_to_show pdf_template %></td>
+            <td class="text-right"><%= link_to_edit [:edit, pdf_template] %></td>
+            <td class="text-right"><%= link_to_destroy pdf_template %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+
+<div class="btn-group">
+  <%= link_to_new new_pdf_template_path, class: 'btn btn-primary' %>
+</div>

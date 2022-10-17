@@ -71,6 +71,9 @@ es:
       parameter:
         one: 'Parámetro'
         other: 'Parámetros'
+      pdf_template:
+        one: 'Plantilla Pdf'
+        other: 'Plantillas Pdf'
       permalink:
         one: 'Enlace permanente'
         other: 'Enlaces permanentes'
@@ -226,6 +229,8 @@ es:
       parameter:
         name: 'Nombre'
         value: 'Valor'
+      pdf_template:
+        name: 'Nombre'
       permalink:
         token: 'Testigo'
       property:
