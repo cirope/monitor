@@ -30,4 +30,6 @@
   <% unless current_user.manager? %>
     <%= left_menu_item_for processes_helper_model, processes_path %>
   <% end %>
+
+  <%= left_menu_item_for PdfTemplate, pdf_templates_path %>
 </ul>

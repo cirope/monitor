@@ -13,6 +13,9 @@ module PdfTemplates::Validation
   private
 
     def content_present
-      errors.add :base, 'El contenido no puede ser vacio' if content.blank?
+      if content.blank?
+        errors.add :content, :blank
+        errors.add :base, 'El contenido no puede ser vacio'
+      end
     end
 end
