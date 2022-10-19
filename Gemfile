@@ -48,7 +48,7 @@ gem 'ruby-saml'
 gem 'oauth2'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
-gem "importmap-rails", "~> 1.1"
+gem "importmap-rails"
 
 group :development, :production do
   gem 'web-console'
