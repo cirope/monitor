@@ -8,20 +8,24 @@ module Scripts::ModePython
   end
 
   def python_libraries
-    <<~PYTHON
-      import subprocess
-      import sys
+    libs = libraries.to_a + included_libraries.to_a
 
-      def import_or_install(library, command):
-        try:
-          __import__(library)
-        except ImportError:
-          subprocess.check_call(command, stdout=subprocess.DEVNULL)
-        finally:
-          __import__(library)
+    if libs.present?
+      <<~PYTHON
+        import subprocess
+        import sys
 
-      #{python_import_libs}
-    PYTHON
+        def import_or_install(library, command):
+          try:
+            __import__(library)
+          except ImportError:
+            subprocess.check_call(command, stdout=subprocess.DEVNULL)
+          finally:
+            __import__(library)
+
+        #{python_import_libs(libs)}
+      PYTHON
+    end
   end
 
   def python_includes
@@ -57,9 +61,7 @@ module Scripts::ModePython
 
   private
 
-    def python_import_libs
-      libs = libraries.to_a + included_libraries.to_a
-
+    def python_import_libs libs
       StringIO.new.tap do |buffer|
         libs.each do |library|
           cmd = make_command library

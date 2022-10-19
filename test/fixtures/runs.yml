@@ -32,8 +32,8 @@ boom_on_atahualpa:
   ended_at: <%= 30.seconds.ago.to_fs :db %>
   output: |-
     Are you reeeeaaaadddddyyy?
-    /tmp/script-fc671557-c493-2431-96bb-70bca0a2cc21.rb:29:in `*': nil can't be coerced into Integer (TypeError)
-    from /tmp/script-fc671557-c493-2431-96bb-70bca0a2cc21.rb:29:in `'
+    /tmp/script-fc671557-c493-2431-96bb-70bca0a2cc21.rb:21:in `*': nil can't be coerced into Integer (TypeError)
+    from /tmp/script-fc671557-c493-2431-96bb-70bca0a2cc21.rb:21:in `'
     Exit status: 1
   job: boom_on_atahualpa
   pid:

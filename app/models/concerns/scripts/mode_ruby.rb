@@ -12,15 +12,19 @@ module Scripts::ModeRuby
   end
 
   def ruby_libraries
-    <<~RUBY
-      require 'bundler/inline'
+    libs = libraries.to_a + included_libraries.to_a
 
-      gemfile do
-        source 'https://rubygems.org'
+    if libs.present?
+      <<~RUBY
+        require 'bundler/inline'
 
-        #{ruby_libs}
-      end\n
-    RUBY
+        gemfile do
+          source 'https://rubygems.org'
+
+          #{ruby_import_libs(libs)}
+        end\n
+      RUBY
+    end
   end
 
   def ruby_includes
@@ -56,9 +60,7 @@ module Scripts::ModeRuby
       RUBY
     end
 
-    def ruby_libs
-      libs = libraries.to_a + included_libraries.to_a
-
+    def ruby_import_libs libs
       libs.map { |library| library.print }.join "\n"
     end
 end
