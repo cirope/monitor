@@ -52,6 +52,9 @@ module Scripts::ModePython
     "#!/usr/bin/env python3\n\n"
   end
 
+  def python_db_connection
+  end
+
   def python_variables
     StringIO.new.tap do |buffer|
       buffer << python_as_inner_varialble('parameters', parameters)
