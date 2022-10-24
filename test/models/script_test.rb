@@ -439,7 +439,7 @@ class ScriptTest < ActiveSupport::TestCase
 
     @script.text = "@@ar_connection['#{db.name}']"
     config       = db.ar_config
-    expected     = "ActiveRecord::Base.establish_connection(#{config})"
+    expected     = '_ar_connection'
 
     assert_equal expected, @script.text_with_injections
   end
