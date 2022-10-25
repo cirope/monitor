@@ -16,4 +16,24 @@ class PdfTest < ActiveSupport::TestCase
 
     assert_instance_of String, pdf_string
   end
+
+  test 'raise exception when not find pdf template' do
+    assert_raise(ActiveRecord::RecordNotFound) do
+      Pdf.generate_from_template 'not exists'
+    end
+  end
+
+  test 'raise exception when use a variable undefined in pdf template' do
+    assert_raise(ActionView::Template::Error) do
+      Pdf.generate_from_template 'First pdf template'
+    end
+  end
+
+  test 'generate string with pdf using pdf template, locals and options' do
+    pdf_string = Pdf.generate_from_template 'First pdf template',
+                                            locals: { var: 'test' },
+                                            options: { orientation: 'Landscape' }
+
+    assert_instance_of String, pdf_string
+  end
 end

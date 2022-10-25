@@ -322,10 +322,13 @@ es:
     index:
       empty_html: 'No hay Plantillas PDF, puede crear uno con el botón <span class="badge badge-primary">Nueva Plantilla PDF</span>'
       new: 'Nueva Plantilla PDF'
+      title: 'Listado de Plantillas PDF'
     edit:
       title: 'Editar Plantilla PDF'
     new:
       title: 'Nueva Plantilla PDF'
+    show:
+      title: 'Ver Plantilla PDF'
 
   queries:
     frequencies:

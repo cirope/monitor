@@ -1,4 +1,9 @@
-# one:
-#   record: name_of_fixture (ClassOfFixture)
-#   name: content
-#   body: <p>In a <i>million</i> stars!</p>
+rich_text_first_pdf_template:
+  record: first_pdf_template (PdfTemplate)
+  name: 'content'
+  body: "<div class=\"trix-content\">\n  <div>A example of pdf template</div><pre>2+2</pre><div>a variable</div><pre>var</pre><div>final</div>\n</div>\n"
+
+rich_text_second_pdf_template:
+  record: second_pdf_template (PdfTemplate)
+  name: 'content'
+  body: "<div class=\"trix-content\">\n  <div>A example of pdf template</div></div>\n"
