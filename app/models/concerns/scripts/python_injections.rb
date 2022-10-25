@@ -28,16 +28,16 @@ module Scripts::PythonInjections
   private
 
     def inject_pony_connection line, connection_name
-      db = Database.current.find_by name: connection_name
+      @db = Database.current.find_by name: connection_name
 
-      if db
+      if @db
         connection = [
           'from pony.orm import *',
           'db = Database()',
           "db.bind(#{db.pony_config})"
         ].join ';'
 
-        line.sub PONY_CONNECTION_REGEX, connection
+        line.sub PONY_CONNECTION_REGEX, '_pony_connection'
       else
         line
       end

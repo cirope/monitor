@@ -49,7 +49,7 @@ module Scripts::Injections
       @db = Database.current.find_by name: connection_name
 
       if @db
-        line.sub AR_CONNECTION_REGEX, '_ar_connection'
+        line.sub AR_CONNECTION_REGEX, "_ar_connection(#{@db.ar_config}, '#{@db.cipher_key}')"
       else
         line
       end

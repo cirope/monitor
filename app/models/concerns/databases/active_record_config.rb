@@ -45,7 +45,7 @@ module Databases::ActiveRecordConfig
     def encrypt_password password
       @cipher_key ||= SecureRandom.hex
       cipher      = OpenSSL::Cipher.new(GREDIT_CIPHER).encrypt
-      cipher.key  = Digest::MD5.hexdigest cipher_key
+      cipher.key  = Digest::MD5.hexdigest @cipher_key
       encrypted   = cipher.update(password) + cipher.final
 
       Base64.encode64(encrypted)
