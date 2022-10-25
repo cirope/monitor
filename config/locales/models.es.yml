@@ -349,11 +349,11 @@ es:
         pdf_template:
           attributes:
             base:
-              content_blank: 'El contenido no puede ser vacio'
+              content_blank: 'El contenido no puede estar vacio'
         reminder:
           attributes:
             due_at:
-              invalid: 'El vencimiento del reminder debe ser mayor a 5 minutos desde ahora'
+              invalid: 'El vencimiento del recordatorio debe ser mayor a 5 minutos desde ahora'
         user:
           attributes:
             email:
