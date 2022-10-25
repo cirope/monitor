@@ -8,7 +8,7 @@ class PdfTemplatesController < ApplicationController
   respond_to :html
 
   def index
-    @pdf_templates = PdfTemplate.all
+    @pdf_templates = PdfTemplate.all.order(:id).page params[:page]
 
     respond_with @pdf_templates
   end

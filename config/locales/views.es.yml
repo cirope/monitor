@@ -320,12 +320,12 @@ es:
 
   pdf_templates:
     index:
-      empty_html: 'No hay Plantillas Pdf, puede crear uno con el botón <span class="badge badge-primary">Nueva Plantilla Pdf</span>'
-      new: 'Nueva Plantilla Pdf'
+      empty_html: 'No hay Plantillas PDF, puede crear uno con el botón <span class="badge badge-primary">Nueva Plantilla PDF</span>'
+      new: 'Nueva Plantilla PDF'
     edit:
-      title: 'Editar Plantilla Pdf'
+      title: 'Editar Plantilla PDF'
     new:
-      title: 'Nueva Plantilla Pdf'
+      title: 'Nueva Plantilla PDF'
 
   queries:
     frequencies:

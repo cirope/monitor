@@ -72,8 +72,8 @@ es:
         one: 'Parámetro'
         other: 'Parámetros'
       pdf_template:
-        one: 'Plantilla Pdf'
-        other: 'Plantillas Pdf'
+        one: 'Plantilla PDF'
+        other: 'Plantillas PDF'
       permalink:
         one: 'Enlace permanente'
         other: 'Enlaces permanentes'
@@ -346,6 +346,14 @@ es:
               blank: 'debe tener al menos uno asociado al cambio'
             tags:
               invalid: 'finales debe haber una (solamente)'
+        pdf_template:
+          attributes:
+            base:
+              content_blank: 'El contenido no puede ser vacio'
+        reminder:
+          attributes:
+            due_at:
+              invalid: 'El vencimiento del reminder debe ser mayor a 5 minutos desde ahora'
         user:
           attributes:
             email:
@@ -354,10 +362,7 @@ es:
               globally_taken: 'ya está en uso en otra cuenta'
             base:
               licensed_user_limit: 'Limite de usuarios alcanzado, por favor actualice su licencia.'
-        reminder:
-          attributes:
-            due_at:
-              invalid: 'El vencimiento del reminder debe ser mayor a 5 minutos desde ahora'
+        
 
   errors:
     messages:

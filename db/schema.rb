@@ -327,7 +327,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_17_200329) do
     t.integer "lock_version", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["script_id"], name: "index_parameters_on_script_id"
   end
 
   create_table "permalinks", id: :serial, force: :cascade do |t|
