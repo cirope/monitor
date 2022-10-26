@@ -1,0 +1,5 @@
+first_pdf_template:
+  name: 'First pdf template'
+
+second_pdf_template:
+  name: 'Second pdf template'

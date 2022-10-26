@@ -3,7 +3,7 @@
 class Issues::BoardController < ApplicationController
   include Issues::Filters
 
-  respond_to :html, :js, :csv, :pdf
+  respond_to :html, :js, :csv
 
   before_action :authorize, :not_guest, :not_owner
   before_action :only_supervisor, only: [:destroy_all]
@@ -15,7 +15,10 @@ class Issues::BoardController < ApplicationController
     @issues = issues.order(:created_at).where id: board_session
     @issues = @issues.page params[:page] unless skip_page?
 
-    respond_with @issues
+    respond_to do |format|
+      format.pdf { render_pdf @issues }
+      format.any(:html, :js, :csv) { respond_with @issues }
+    end
   end
 
   def create
