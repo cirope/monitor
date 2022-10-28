@@ -7,8 +7,9 @@
     <td>
       <% if value.kind_of?(Hash) || value.kind_of?(Array) %>
 
-        <% if value.kind_of?(Hash) && value.keys.count == 2 &&
-          value.keys.include?("url") &&  value.keys.include?("label") %>
+        <% if value.kind_of?(Hash) && value.keys.count == 3 &&
+          value.keys.include?("url") && value.keys.include?("label") &&
+          value.keys.include?("data") %>
 
           <% permalink = Permalink.find value["url"] %>
           <%= link_to value["label"], permalink %>
