@@ -318,6 +318,18 @@ es:
       title: 'Crear panel'
       query: 'Agregar consulta'
 
+  pdf_templates:
+    index:
+      empty_html: 'No hay plantillas PDF, puede crear una con el botón <span class="badge badge-primary">Nueva plantilla PDF</span>'
+      new: 'Nueva plantilla PDF'
+      title: 'Listado de plantillas PDF'
+    edit:
+      title: 'Editar plantilla PDF'
+    new:
+      title: 'Nueva plantilla PDF'
+    show:
+      title: 'Ver plantilla PDF'
+
   queries:
     frequencies:
       hourly: 'Cada Hora'

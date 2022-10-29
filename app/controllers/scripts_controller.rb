@@ -9,7 +9,7 @@ class ScriptsController < ApplicationController
   before_action :set_server, only: [:show]
   before_action :check_if_can_edit, only: [:edit, :update, :destroy]
 
-  respond_to :html, :json, :pdf
+  respond_to :html, :json
 
   def index
     @scripts = scripts.order(:id).page params[:page]
@@ -18,7 +18,10 @@ class ScriptsController < ApplicationController
   end
 
   def show
-    respond_with @script
+    respond_to do |format|
+      format.pdf { render_pdf @script }
+      format.any(:html, :json) { respond_with @script }
+    end
   end
 
   def new

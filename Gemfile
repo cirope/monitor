@@ -46,6 +46,9 @@ gem 'net-pop', require: false
 gem 'net-imap', require: false
 gem 'ruby-saml'
 gem 'oauth2'
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+gem "importmap-rails"
 
 group :development, :production do
   gem 'web-console'

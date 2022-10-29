@@ -151,6 +151,9 @@ GEM
     htmlentities (4.3.4)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
+    importmap-rails (1.1.5)
+      actionpack (>= 6.0.0)
+      railties (>= 6.0.0)
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
@@ -380,6 +383,9 @@ GEM
     websocket-extensions (0.1.5)
     whenever (1.0.0)
       chronic (>= 0.6.3)
+    wicked_pdf (2.6.3)
+      activesupport
+    wkhtmltopdf-binary (0.12.6.5)
     zeitwerk (2.6.1)
 
 PLATFORMS
@@ -405,6 +411,7 @@ DEPENDENCIES
   figaro
   font-awesome-sass
   groupdate
+  importmap-rails
   jbuilder
   jquery-rails
   jquery-ui-rails
@@ -456,6 +463,8 @@ DEPENDENCIES
   validates_timeliness!
   web-console
   whenever
+  wicked_pdf
+  wkhtmltopdf-binary
 
 BUNDLED WITH
    2.3.7
