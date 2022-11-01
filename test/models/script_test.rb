@@ -439,9 +439,9 @@ class ScriptTest < ActiveSupport::TestCase
 
     @script.text = "@@ar_connection['#{db.name}']"
     config       = db.ar_config
-    expected     = '_ar_connection'
+    expected     = /_ar_connection/
 
-    assert_equal expected, @script.text_with_injections
+    assert_match expected, @script.text_with_injections
   end
 
   test 'text with db properties injections' do

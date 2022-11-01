@@ -8,7 +8,8 @@ module Scripts::ModePython
   end
 
   def python_libraries
-    libs = libraries.to_a + included_libraries.to_a
+    orm_libs = search_orm_libs
+    libs = libraries.to_a + included_libraries.to_a + orm_libs
 
     if libs.present?
       <<~PYTHON
@@ -24,6 +25,7 @@ module Scripts::ModePython
             __import__(library)
 
         #{python_import_libs(libs)}
+        #{python_import_orm_libs(orm_libs)}
       PYTHON
     end
   end
@@ -52,9 +54,6 @@ module Scripts::ModePython
     "#!/usr/bin/env python3\n\n"
   end
 
-  def python_db_connection
-  end
-
   def python_variables
     StringIO.new.tap do |buffer|
       buffer << python_as_inner_varialble('parameters', parameters)
@@ -69,20 +68,42 @@ module Scripts::ModePython
         libs.each do |library|
           cmd = make_command library
 
-          buffer << <<~PYTHON
-            import_or_install('#{library}', #{cmd})\n
-          PYTHON
+          buffer << "import_or_install('#{library}', #{cmd})\n"
         end
       end.string
     end
 
     def make_command library
-      opts    = library.options.split(' ') << '--no-warn-script-location'
-      version = opts.shift.delete(' ')
-      name    = version =~ /[==,<=,>=,<,>]/ ? "#{library.name}#{version}" : library.name
+      opts    = library.options.to_s.split(' ') << '--no-warn-script-location'
+      version = opts.shift.strip if opts.first =~ /[==,<=,>=,<,>]/
+      name    = version ? "#{library.name}#{version}" : library.name
       cmd     = "'#{opts.join(' ')}', '#{name}'"
 
       "[sys.executable, '-m', 'pip', 'install', #{cmd}]"
+    end
+
+    def python_import_orm_libs libs
+      if libs.map(&:name).include? 'pony'
+        <<~PYTHON
+          import base64
+          import hashlib
+          from pony.orm import *
+          from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
+
+          def _pony_connection(pony_config, cipher_key):
+            pwd = base64.b64decode(pony_config['password'])
+            iv  = cipher_key[:16].encode()
+            key = hashlib.md5(cipher_key.encode()).hexdigest()
+
+            cipher    = Cipher(algorithms.AES(key.encode()), modes.CBC(iv))
+            decryptor = cipher.decryptor()
+            password  = decryptor.update(pwd) + decryptor.finalize()
+
+            pony_config.update(password=password.decode().strip())
+
+            return pony_config
+        PYTHON
+      end
     end
 
     def python_as_inner_varialble name, collection
@@ -93,5 +114,21 @@ module Scripts::ModePython
       end
 
       "#{result}\n"
+    end
+
+    def search_orm_libs
+      libs = []
+
+      text.each_line.map do |line|
+        if (match = line.match(PONY_CONNECTION_REGEX))
+          connection_name = match.captures.first
+
+          if db = Database.current.find_by(name: connection_name)
+            libs |= ['pony', 'cryptography', db.adapter_drivers]
+          end
+        end
+      end
+
+      libs.map { |lib| Library.new(name: lib) }
     end
 end

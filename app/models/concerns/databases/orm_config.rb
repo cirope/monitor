@@ -72,4 +72,16 @@ module Databases::OrmConfig
         value
       end
     end
+
+    def encrypt_password password
+      if password
+        @cipher_key ||= SecureRandom.hex
+        cipher      = OpenSSL::Cipher.new(GREDIT_CIPHER).encrypt
+        cipher.key  = Digest::MD5.hexdigest @cipher_key
+        cipher.iv   = @cipher_key[0..15]
+        encrypted   = cipher.update(password) + cipher.final
+
+        Base64.strict_encode64(encrypted)
+      end
+    end
 end

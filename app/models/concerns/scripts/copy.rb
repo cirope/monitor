@@ -117,6 +117,7 @@ module Scripts::Copy
             def _ar_connection ar_config, cipher_key
               cipher     = OpenSSL::Cipher.new('#{GREDIT_CIPHER}').decrypt
               cipher.key = Digest::MD5.hexdigest(cipher_key)
+              cipher.iv  = cipher_key[0..15]
               encrypted  = Base64.decode64(ar_config[:password])
               passwd     = cipher.update(encrypted) + cipher.final
 

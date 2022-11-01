@@ -3,7 +3,6 @@
 module Scripts::PythonInjections
   extend ActiveSupport::Concern
 
-  PONY_CONNECTION_REGEX = /@pony_connection\[['"](\w+)['"]\]/
   PY_DB_PROPERTY_REGEX  = /@databases\[['"](\w+)['"]\]\[['"](\w+)['"]\]/
 
   def text_with_python_injections
@@ -32,12 +31,11 @@ module Scripts::PythonInjections
 
       if @db
         connection = [
-          'from pony.orm import *',
           'db = Database()',
-          "db.bind(#{db.pony_config})"
-        ].join ';'
+          "db.bind(_pony_connection(#{@db.pony_config}, '#{@db.cipher_key}'))"
+        ].join '; '
 
-        line.sub PONY_CONNECTION_REGEX, '_pony_connection'
+        line.sub PONY_CONNECTION_REGEX, connection
       else
         line
       end
