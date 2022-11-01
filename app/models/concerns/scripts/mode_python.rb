@@ -9,7 +9,7 @@ module Scripts::ModePython
 
   def python_libraries
     orm_libs = search_orm_libs
-    libs = libraries.to_a + included_libraries.to_a + orm_libs
+    libs     = libraries.to_a + included_libraries.to_a + orm_libs
 
     if libs.present?
       <<~PYTHON
@@ -129,6 +129,6 @@ module Scripts::ModePython
         end
       end
 
-      libs.map { |lib| Library.new(name: lib) }
+      libs.map { |lib| Library.new name: lib }
     end
 end

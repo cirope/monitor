@@ -211,7 +211,7 @@ GEM
       timeout
     net-scp (4.0.0)
       net-ssh (>= 2.6.5, < 8.0.0)
-    net-smtp (0.3.2)
+    net-smtp (0.3.3)
       net-protocol
     net-ssh (7.0.1)
     newrelic_rpm (8.12.0)
@@ -326,7 +326,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    sequel (5.61.0)
+    sequel (5.62.0)
     sidekiq (6.5.7)
       connection_pool (>= 2.2.5)
       rack (~> 2.0)
@@ -384,7 +384,7 @@ GEM
     wicked_pdf (2.6.3)
       activesupport
     wkhtmltopdf-binary (0.12.6.5)
-    zeitwerk (2.6.1)
+    zeitwerk (2.6.4)
 
 PLATFORMS
   x86_64-linux
@@ -448,7 +448,7 @@ DEPENDENCIES
   rubyzip
   sassc-rails
   sequel
-  sidekiq (= 6.5.7)
+  sidekiq (< 7)
   simple_command
   simple_form
   sqlite3

@@ -27,12 +27,12 @@ module Scripts::PythonInjections
   private
 
     def inject_pony_connection line, connection_name
-      @db = Database.current.find_by name: connection_name
+      db = Database.current.find_by name: connection_name
 
-      if @db
+      if db
         connection = [
           'db = Database()',
-          "db.bind(_pony_connection(#{@db.pony_config}, '#{@db.cipher_key}'))"
+          "db.bind(_pony_connection(#{db.pony_config}, '#{db.cipher_key}'))"
         ].join '; '
 
         line.sub PONY_CONNECTION_REGEX, connection

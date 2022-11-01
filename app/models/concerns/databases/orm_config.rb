@@ -81,7 +81,7 @@ module Databases::OrmConfig
         cipher.iv   = @cipher_key[0..15]
         encrypted   = cipher.update(password) + cipher.final
 
-        Base64.strict_encode64(encrypted)
+        Base64.strict_encode64 encrypted
       end
     end
 end

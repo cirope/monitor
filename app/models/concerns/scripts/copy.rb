@@ -121,7 +121,7 @@ module Scripts::Copy
               encrypted  = Base64.decode64(ar_config[:password])
               passwd     = cipher.update(encrypted) + cipher.final
 
-              ActiveRecord::Base.establish_connection(ar_config.merge(password: passwd))
+              ActiveRecord::Base.establish_connection ar_config.merge(password: passwd)
             end
           }
         RUBY
