@@ -32,7 +32,7 @@ module Scripts::PythonInjections
       if db
         connection = [
           'db = Database()',
-          "db.bind(_pony_connection(#{db.pony_config}, '#{db.cipher_key}'))"
+          "db.bind(_pony_connection(#{db.pony_config}, algorithms.AES('#{db.cipher_key}'.encode()), modes.CBC('#{db.cipher_iv}'.encode())))"
         ].join '; '
 
         line.sub PONY_CONNECTION_REGEX, connection

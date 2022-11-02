@@ -86,20 +86,28 @@ module Scripts::ModePython
       if libs.map(&:name).include? 'pony'
         <<~PYTHON
           import base64
-          import hashlib
           from pony.orm import *
           from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
+          from cryptography.hazmat.primitives import padding
 
-          def _pony_connection(pony_config, cipher_key):
-            pwd = base64.b64decode(pony_config['password'])
-            iv  = cipher_key[:16].encode()
-            key = hashlib.md5(cipher_key.encode()).hexdigest()
+          def _unpad(data, size=128):
+            padder         = padding.PKCS7(size).unpadder()
+            unpadded_data  = padder.update(data)
+            unpadded_data += padder.finalize()
 
-            cipher    = Cipher(algorithms.AES(key.encode()), modes.CBC(iv))
+            return unpadded_data
+
+          def _decrypt(ct, method, mode):
+            cipher    = Cipher(method, mode)
             decryptor = cipher.decryptor()
-            password  = decryptor.update(pwd) + decryptor.finalize()
 
-            pony_config.update(password=password.decode().strip())
+            return decryptor.update(ct) + decryptor.finalize()
+
+          def _pony_connection(pony_config, method, mode):
+            encrypted = base64.b64decode(pony_config['password'])
+            password  = _decrypt(encrypted, method, mode)
+
+            pony_config.update(password=_unpad(password).decode())
 
             return pony_config
         PYTHON

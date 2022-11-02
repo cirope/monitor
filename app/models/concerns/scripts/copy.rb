@@ -114,14 +114,14 @@ module Scripts::Copy
       if database
         <<~RUBY
           BEGIN {
-            def _ar_connection ar_config, cipher_key
+            def _ar_connection ar_config, cipher_key, cipher_iv
               cipher     = OpenSSL::Cipher.new('#{GREDIT_CIPHER}').decrypt
-              cipher.key = Digest::MD5.hexdigest(cipher_key)
-              cipher.iv  = cipher_key[0..15]
+              cipher.key = cipher_key
+              cipher.iv  = cipher_iv
               encrypted  = Base64.decode64(ar_config[:password])
-              passwd     = cipher.update(encrypted) + cipher.final
+              password   = cipher.update(encrypted) + cipher.final
 
-              ActiveRecord::Base.establish_connection ar_config.merge(password: passwd)
+              ActiveRecord::Base.establish_connection ar_config.merge(password: password)
             end
           }
         RUBY

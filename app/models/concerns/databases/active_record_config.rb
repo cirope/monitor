@@ -3,8 +3,6 @@
 module Databases::ActiveRecordConfig
   extend ActiveSupport::Concern
 
-  attr_accessor :cipher_key
-
   def ar_config
     {
       adapter:  adapter,
