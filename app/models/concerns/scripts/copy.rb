@@ -115,7 +115,7 @@ module Scripts::Copy
         <<~RUBY
           BEGIN {
             def _ar_connection ar_config, cipher_key, cipher_iv
-              cipher     = OpenSSL::Cipher.new('#{GREDIT_CIPHER}').decrypt
+              cipher     = OpenSSL::Cipher.new('#{GREDIT_CIPHER.keys.first.to_s}').decrypt
               cipher.key = cipher_key
               cipher.iv  = cipher_iv
               encrypted  = Base64.decode64(ar_config[:password])

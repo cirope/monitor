@@ -77,10 +77,10 @@ module Databases::OrmConfig
 
     def encrypt_password password
       if password
-        @cipher_key ||= SecureRandom.hex
+        @cipher_key ||= SecureRandom.hex 16
         @cipher_iv  ||= SecureRandom.hex 8
 
-        cipher      = OpenSSL::Cipher.new(GREDIT_CIPHER).encrypt
+        cipher      = OpenSSL::Cipher.new(GREDIT_CIPHER.keys.first.to_s).encrypt
         cipher.key  = @cipher_key
         cipher.iv   = @cipher_iv
         encrypted   = cipher.update(password) + cipher.final
