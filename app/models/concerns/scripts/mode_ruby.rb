@@ -43,6 +43,10 @@ module Scripts::ModeRuby
     ].join("\n\n")
   end
 
+  def ruby_db_connection
+    ar_connection @db
+  end
+
   private
 
     def ruby_cores_code

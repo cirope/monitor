@@ -30,6 +30,7 @@ module Scripts::Copy
     body += lang_includes.to_s
     body += lang_variables
     body += commented_text inclusion
+    body += lang_db_connection.to_s
 
     body
   end
@@ -69,6 +70,10 @@ module Scripts::Copy
       send "#{language}_commented_text", inclusion
     end
 
+    def lang_db_connection
+      try "#{language}_db_connection"
+    end
+
     def path server = nil
       if attachment.attached?
         ActiveStorage::Blob.service.path_for attachment.key
@@ -103,5 +108,23 @@ module Scripts::Copy
       end
 
       "#{result}\n"
+    end
+
+    def ar_connection database
+      if database
+        <<~RUBY
+          BEGIN {
+            def _ar_connection ar_config, cipher_key, cipher_iv
+              cipher     = OpenSSL::Cipher.new('#{GREDIT_CIPHER.keys.first.to_s}').decrypt
+              cipher.key = cipher_key
+              cipher.iv  = cipher_iv
+              encrypted  = Base64.decode64(ar_config[:password])
+              password   = cipher.update(encrypted) + cipher.final
+
+              ActiveRecord::Base.establish_connection ar_config.merge(password: password)
+            end
+          }
+        RUBY
+      end
     end
 end

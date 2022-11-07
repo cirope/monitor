@@ -4,14 +4,9 @@ module Databases::PonyConfig
   extend ActiveSupport::Concern
 
   def pony_config
-    [
-      "provider='#{provider}'",
-      "host='#{host}'",
-      "port='#{port}'",
-      "user='#{user}'",
-      "password='#{password}'",
-      "database='#{database}'"
-    ].join ', '
+    <<~PYTHON
+      dict(provider='#{provider}', host='#{host}', port='#{port}', user='#{user}', password='#{encrypt_password(password)}', database='#{database}')
+    PYTHON
   end
 
   def adapter_drivers

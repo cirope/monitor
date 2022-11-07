@@ -3,7 +3,6 @@
 module Scripts::PythonInjections
   extend ActiveSupport::Concern
 
-  PONY_CONNECTION_REGEX = /@pony_connection\[['"](\w+)['"]\]/
   PY_DB_PROPERTY_REGEX  = /@databases\[['"](\w+)['"]\]\[['"](\w+)['"]\]/
 
   def text_with_python_injections
@@ -31,11 +30,15 @@ module Scripts::PythonInjections
       db = Database.current.find_by name: connection_name
 
       if db
+        config    = db.pony_config # Aquí se genera el key y el iv
+        cipher    = GREDIT_CIPHER.values.first
+        algorithm = cipher[:algorithm] % { key: "'#{db.cipher_key}'.encode()" }
+        mode      = cipher[:mode]      % { iv:  "'#{db.cipher_iv}'.encode()"  }
+
         connection = [
-          'from pony.orm import *',
           'db = Database()',
-          "db.bind(#{db.pony_config})"
-        ].join ';'
+          "db.bind(_pony_connection(#{config}, #{algorithm}, #{mode}))"
+        ].join '; '
 
         line.sub PONY_CONNECTION_REGEX, connection
       else
