@@ -11,8 +11,12 @@
           value.keys.include?("url") && value.keys.include?("label") &&
           value.keys.include?("data") %>
 
-          <% permalink = Permalink.find value["url"] %>
-          <%= link_to value["label"], permalink %>
+          <% if value["label"] == 0 %>
+            <%= value["label"] %>
+          <% else %>
+            <% permalink = Permalink.find value["url"] %>
+            <%= link_to value["label"], permalink %>
+          <% end %>
 
         <% else %>
 
