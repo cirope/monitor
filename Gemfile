@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 6.1'
+gem 'rails', '~> 7.0'
 
 gem 'pg'
 gem 'ros-apartment', require: 'apartment'
@@ -18,16 +18,16 @@ gem 'bcrypt'
 gem 'responders'
 gem 'simple_form'
 gem 'figaro'
-gem 'validates_timeliness', '~> 6.0.0.beta2'
+gem 'validates_timeliness', github: 'mitsuru/validates_timeliness', branch: 'rails7'
 gem 'kaminari'
 gem 'net-ssh'
 gem 'net-scp'
 gem 'request_store'
 gem 'request_store-sidekiq'
-gem 'sidekiq'
+gem 'sidekiq', '< 7'
 gem 'ros-apartment-sidekiq', require: 'apartment-sidekiq'
 gem 'whenever', require: false
-gem 'paper_trail', '< 12' # https://github.com/paper-trail-gem/paper_trail/issues/1305
+gem 'paper_trail'
 gem 'premailer-rails'
 gem 'ruby-ntlm'
 gem 'rubyzip', require: 'zip'
@@ -46,6 +46,9 @@ gem 'net-pop', require: false
 gem 'net-imap', require: false
 gem 'ruby-saml'
 gem 'oauth2'
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+gem "importmap-rails"
 
 group :development, :production do
   gem 'web-console'

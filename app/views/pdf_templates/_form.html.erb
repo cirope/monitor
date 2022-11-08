@@ -1,0 +1,19 @@
+<%= simple_form_for @pdf_template do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <div class="row">
+      <div class="col-lg-10 col-md-9 col-8">
+        <%= f.input :name, input_html: { autofocus: true, disabled: false } %>
+      </div>
+    </div>
+
+    <%= f.rich_text_area :content %>
+    <%= f.input :lock_version, as: :hidden %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, class: 'btn-primary' %>
+  </div>
+<% end %>

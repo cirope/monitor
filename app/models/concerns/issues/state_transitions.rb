@@ -10,6 +10,6 @@ module Issues::StateTransitions
   private
 
     def maybe_store_state_transition
-      state_transitions[status] = Time.now.to_s :db unless status_was == status
+      state_transitions[status] = Time.now.to_fs :db unless status_was == status
     end
 end

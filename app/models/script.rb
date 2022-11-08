@@ -14,6 +14,7 @@ class Script < ApplicationRecord
   include Scripts::Injections
   include Scripts::PythonInjections
   include Scripts::Json
+  include Scripts::Libraries
   include Scripts::Maintainers
   include Scripts::ModePython
   include Scripts::ModeRuby

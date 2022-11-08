@@ -1,6 +1,8 @@
 module Databases::OrmConfig
   extend ActiveSupport::Concern
 
+  attr_accessor :cipher_key, :cipher_iv
+
   private
 
     def host
@@ -70,6 +72,20 @@ module Databases::OrmConfig
         "/#{match.to_a.last}"
       else
         value
+      end
+    end
+
+    def encrypt_password password
+      if password
+        @cipher_key ||= SecureRandom.hex 16
+        @cipher_iv  ||= SecureRandom.hex 8
+
+        cipher      = OpenSSL::Cipher.new(GREDIT_CIPHER.keys.first.to_s).encrypt
+        cipher.key  = @cipher_key
+        cipher.iv   = @cipher_iv
+        encrypted   = cipher.update(password) + cipher.final
+
+        Base64.strict_encode64 encrypted
       end
     end
 end

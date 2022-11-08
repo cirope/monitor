@@ -7,9 +7,10 @@
   <meta name="turbolinks-cache-control" content="no-cache">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <%= stylesheet_link_tag    'application', data: { turbolinks_track: 'reload' }, media: 'all' %>
-  <%= javascript_include_tag 'application', data: { turbolinks_track: 'reload' } %>
+  <%= javascript_include_tag 'application_assets', data: { turbolinks_track: 'reload' } %>
   <%= csrf_meta_tags %>
   <%= favicon_link_tag 'favicon.png', rel: 'icon', type: 'image/png' %>
+  <%= javascript_importmap_tags %>
 </head>
 <body<%== ' class="authentication-bg"' unless current_user&.visible? %>>
   <div class="alert alert-warning fixed-top mx-auto mt-1 text-center border-0 p-2 loading-caption" hidden>

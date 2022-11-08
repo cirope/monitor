@@ -21,6 +21,7 @@
     <%= left_menu_item_for Ldap, ldaps_path %>
     <%= left_menu_item_for Saml, samls_path %>
     <%= left_menu_item_for Drive, drives_path %>
+    <%= left_menu_item_for PdfTemplate, pdf_templates_path %>
   <% end %>
 
   <% if current_user.supervisor? && ENABLE_WEB_CONSOLE %>

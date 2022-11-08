@@ -1,0 +1,14 @@
+<div class="card mb-3">
+  <div class="card-header">
+    <a class="text-reset text-decoration-none d-block" href="#libraries" data-toggle="collapse">
+      <%= Library.model_name.human count: 0 %>
+    </a>
+  </div>
+  <div id="libraries" class="collapse card-body">
+    <%= f.simple_fields_for :libraries, libraries do |df| %>
+      <%= render 'libraries/library', f: df %>
+    <% end %>
+
+    <%= link_to_add_fields t('scripts.new.library'), f, :libraries unless disable_edition? %>
+  </div>
+</div>

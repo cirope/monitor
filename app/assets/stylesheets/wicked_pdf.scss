@@ -1,0 +1,48 @@
+@import "bootstrap";
+
+html {
+  font-size: 12px;
+}
+
+div.alwaysbreak {
+  page-break-before: always;
+}
+
+div.nobreak:before {
+  clear: both;
+}
+
+div.nobreak {
+  page-break-inside: avoid;
+}
+
+.border-print-0 {
+  border: none;
+}
+
+.card-body {
+  padding: 1.25rem 0.25rem;
+}
+
+.container-fluid {
+  max-width: 300px;
+  float: left;
+}
+
+.d-print-table-cell {
+  display: table-cell;
+}
+
+.d-print-none {
+  display: none;
+}
+
+.page-break {
+  display: block;
+  clear: both;
+  page-break-after: always;
+}
+
+.row {
+  display: -webkit-box;
+}
