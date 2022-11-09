@@ -9,7 +9,7 @@
       </div>
     </div>
 
-    <%= f.rich_text_area :content %>
+    <%= f.input :content, as: :trix_editor %>
     <%= f.input :lock_version, as: :hidden %>
   </div>
 
