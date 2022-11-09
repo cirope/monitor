@@ -81,6 +81,7 @@
 //= require servers
 //= require tags
 //= require taggings
+//= require trix
 //= require trix_configuration
 //= require users
 //= require users/imports

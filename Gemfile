@@ -7,7 +7,7 @@ gem 'ros-apartment', require: 'apartment'
 gem 'sassc-rails'
 gem 'bootstrap', '< 5'
 gem 'font-awesome-sass'
-gem 'uglifier'
+gem 'sprockets-rails'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'turbolinks'
@@ -48,7 +48,7 @@ gem 'ruby-saml'
 gem 'oauth2'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
-gem "importmap-rails"
+gem 'trix-rails', require: 'trix'
 
 group :development, :production do
   gem 'web-console'
