@@ -327,8 +327,8 @@ GEM
       sprockets-rails
       tilt
     sequel (5.62.0)
-    sidekiq (6.5.7)
-      connection_pool (>= 2.2.5)
+    sidekiq (6.5.8)
+      connection_pool (>= 2.2.5, < 3)
       rack (~> 2.0)
       redis (>= 4.5.0, < 5)
     simple_command (1.0.1)
@@ -362,8 +362,6 @@ GEM
     turbolinks-source (5.2.0)
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
-    uglifier (4.2.0)
-      execjs (>= 0.3.0, < 3)
     unicorn (6.1.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
@@ -384,7 +382,7 @@ GEM
     wicked_pdf (2.6.3)
       activesupport
     wkhtmltopdf-binary (0.12.6.5)
-    zeitwerk (2.6.4)
+    zeitwerk (2.6.6)
 
 PLATFORMS
   x86_64-linux
@@ -451,11 +449,11 @@ DEPENDENCIES
   sidekiq (< 7)
   simple_command
   simple_form
+  sprockets-rails
   sqlite3
   timecop
   tiny_tds (< 2.0.0)
   turbolinks
-  uglifier
   unicorn
   unicorn-rails
   validates_timeliness!
@@ -465,4 +463,4 @@ DEPENDENCIES
   wkhtmltopdf-binary
 
 BUNDLED WITH
-   2.3.14
+   2.3.24
