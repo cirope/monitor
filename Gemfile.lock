@@ -361,6 +361,8 @@ GEM
     turbolinks-source (5.2.0)
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
+    uglifier (4.2.0)
+      execjs (>= 0.3.0, < 3)
     unicorn (6.1.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
@@ -447,12 +449,12 @@ DEPENDENCIES
   sidekiq (< 7)
   simple_command
   simple_form
-  sprockets-rails
   sqlite3
   timecop
   tiny_tds (< 2.0.0)
   trix-rails
   turbolinks
+  uglifier
   unicorn
   unicorn-rails
   validates_timeliness!
