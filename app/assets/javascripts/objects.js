@@ -25,7 +25,7 @@
     new ApexCharts(container, options).render()
   }
 
-  $(document).on('turbolinks:load', function () {
+  $(document).on('turbo:load', function () {
     $('.graph-container').parent().trigger('object.mt.added')
   })
 

@@ -1,6 +1,6 @@
 /* global App */
 
-$(document).on('ready turbolinks:load', function () {
+$(document).on('ready turbo:load', function () {
   var body      = document.querySelector('body')
   var outputDiv = $('[data-actioncable-watch="execution"]')
 
