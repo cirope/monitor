@@ -37,14 +37,21 @@ class ScriptsController < ApplicationController
   def create
     @script = Script.new script_params
 
-    @script.save
-    respond_with @script
+    if @script.save
+      redirect_to @script
+    else
+      render 'new', status: :unprocessable_entity
+    end
   end
 
   def update
     @script.update script_params
 
-    respond_with @script
+    if @script.save
+      redirect_to @script
+    else
+      render 'edit', status: :unprocessable_entity
+    end
   end
 
   def destroy
