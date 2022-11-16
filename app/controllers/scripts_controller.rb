@@ -9,29 +9,22 @@ class ScriptsController < ApplicationController
   before_action :set_server, only: [:show]
   before_action :check_if_can_edit, only: [:edit, :update, :destroy]
 
-  respond_to :html, :json
-
   def index
     @scripts = scripts.order(:id).page params[:page]
-
-    respond_with @scripts
   end
 
   def show
     respond_to do |format|
       format.pdf { render_pdf @script }
-      format.any(:html, :json) { respond_with @script }
+      format.any(:html, :json)
     end
   end
 
   def new
     @script = Script.new language: params[:lang]
-
-    respond_with @script
   end
 
   def edit
-    respond_with @script
   end
 
   def create
@@ -45,9 +38,7 @@ class ScriptsController < ApplicationController
   end
 
   def update
-    @script.update script_params
-
-    if @script.save
+    if @script.update script_params
       redirect_to @script
     else
       render 'edit', status: :unprocessable_entity
@@ -57,7 +48,7 @@ class ScriptsController < ApplicationController
   def destroy
     @script.destroy
 
-    respond_with @script, location: scripts_url
+    redirect_to scripts_url
   end
 
   private

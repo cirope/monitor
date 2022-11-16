@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class PermalinksController < ApplicationController
-  respond_to :html, :json, :js
-
   before_action :authorize
   before_action :not_guest, :not_owner, :not_security, only: [:create]
   before_action :set_account, only: [:show]
@@ -18,8 +16,6 @@ class PermalinksController < ApplicationController
   # POST /permalinks
   def create
     @permalink = Permalink.create permalink_params
-
-    respond_with @permalink
   end
 
   private
