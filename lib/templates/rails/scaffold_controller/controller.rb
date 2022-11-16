@@ -48,7 +48,7 @@ class <%= controller_class_name %>Controller < ApplicationController
   def destroy
     @<%= orm_instance.destroy %>
 
-    redirect_to <%= singular_table_name %>_url
+    redirect_to <%= plural_table_name %>_url
   end
 
   private
