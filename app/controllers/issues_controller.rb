@@ -25,6 +25,11 @@ class IssuesController < ApplicationController
       @stats       = params[:graph].present? ? graph_stats : stats
       @data_keys   = return_data_keys params, @issues
     end
+
+    respond_to do |format|
+      format.any(:html, :js, :json)
+      format.csv { render csv: @issues }
+    end
   end
 
   def show

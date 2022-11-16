@@ -15,7 +15,8 @@ class Issues::BoardController < ApplicationController
 
     respond_to do |format|
       format.pdf { render_pdf @issues }
-      format.any(:html, :js, :csv)
+      format.csv { render csv: @issues }
+      format.any(:html, :js)
     end
   end
 
