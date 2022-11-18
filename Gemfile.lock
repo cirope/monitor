@@ -347,6 +347,8 @@ GEM
     sshkit (1.21.3)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
+    terser (1.1.12)
+      execjs (>= 0.3.0, < 3)
     thor (1.2.1)
     tilt (2.0.11)
     timecop (0.9.5)
@@ -361,8 +363,6 @@ GEM
       railties (>= 6.0.0)
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
-    uglifier (4.2.0)
-      execjs (>= 0.3.0, < 3)
     unicorn (6.1.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
@@ -450,10 +450,10 @@ DEPENDENCIES
   simple_command
   simple_form
   sqlite3
+  terser
   timecop
   tiny_tds (< 2.0.0)
   turbo-rails
-  uglifier
   unicorn
   unicorn-rails
   validates_timeliness!
