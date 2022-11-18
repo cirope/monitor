@@ -2,7 +2,7 @@
 //! locale : Spanish [es]
 //! author : Julio Napurí : https://github.com/julionc
 
-import moment from"moment/moment";
+import moment from 'moment/moment';
 
 var monthsShortDot =
         'ene._feb._mar._abr._may._jun._jul._ago._sep._oct._nov._dic.'.split(
