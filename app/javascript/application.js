@@ -23,7 +23,9 @@ import 'codemirror/mode/ruby'
 import 'codemirror/mode/shell'
 import 'codemirror/mode/sql'
 
-import 'moment'
+import 'moment/moment'
+import 'moment/es'
+import 'daterangepicker'
 
 import 'metis_menu'
 import 'jquery-slimscroll'

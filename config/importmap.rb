@@ -11,6 +11,7 @@ pin 'jquery',     to: 'jquery3.min.js', preload: true
 pin 'jquery_ujs', to: 'jquery_ujs.js',  preload: true
 pin 'jquery-ui/widgets/autocomplete', to: 'jquery-ui/widgets/autocomplete.js',  preload: true
 
+pin_all_from 'vendor/javascript/moment',     under: 'moment'
 pin_all_from 'vendor/javascript/codemirror', under: 'codemirror'
 
 pin 'editor'
@@ -21,9 +22,7 @@ pin 'rules'
 pin 'servers'
 pin 'trix_configuration'
 
-pin 'moment'
 pin 'daterangepicker'
-
 pin 'metis_menu'
 pin 'jquery-slimscroll'
 pin 'hyper'
