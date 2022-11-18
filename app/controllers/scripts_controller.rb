@@ -16,7 +16,7 @@ class ScriptsController < ApplicationController
   def show
     respond_to do |format|
       format.pdf { render_pdf @script }
-      format.any(:html, :json)
+      format.any :html, :json
     end
   end
 

@@ -27,7 +27,7 @@ class IssuesController < ApplicationController
     end
 
     respond_to do |format|
-      format.any(:html, :js, :json)
+      format.any :html, :js, :json
       format.csv { render csv: @issues }
     end
   end
