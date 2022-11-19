@@ -1,6 +1,7 @@
 /* global App */
+import consumer from 'consumer'
 
-$(document).on('ready turbolinks:load', function () {
+$(document).on('ready turbo:load', function () {
   var body      = document.querySelector('body')
   var outputDiv = $('[data-actioncable-watch="execution"]')
 
@@ -75,7 +76,7 @@ $(document).on('ready turbolinks:load', function () {
     $('.loading-caption').removeAttr('hidden')
   })
 
-  App.cable.subscriptions.create(
+  consumer.subscriptions.create(
     {
       channel: 'ExecutionChannel',
       id:      outputDiv.data('actioncableWatchExecutionId')

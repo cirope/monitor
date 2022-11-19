@@ -4,12 +4,8 @@ class Scripts::MeasuresController < ApplicationController
   before_action :authorize, :not_guest, :not_owner, :not_manager, :not_security
   before_action :set_title, :set_script
 
-  respond_to :html
-
   def index
     @measures = measures.preload(:measurable).reorder(created_at: :desc).page params[:page]
-
-    respond_with @measures
   end
 
   private

@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class ExecutionsController < ApplicationController
-  respond_to :html
-
   before_action :authorize,
                 :not_guest,
                 :not_owner,
@@ -29,7 +27,7 @@ class ExecutionsController < ApplicationController
 
     @execution.save
 
-    respond_with @script, @execution
+    redirect_to [@script, @execution]
   end
 
   def update

@@ -3,8 +3,6 @@
 class HomeController < ApplicationController
   include Issues::Filters
 
-  respond_to :html, :js
-
   before_action :authorize
   before_action :set_title
 
@@ -15,8 +13,6 @@ class HomeController < ApplicationController
   def index
     @grouped_by_schedule = group_by_schedule?
     @script_counts       = Kaminari.paginate_array(grouped_issues).page params[:page]
-
-    respond_with @script_counts
   end
 
   def api_issues_by_status

@@ -6,52 +6,49 @@ class SamlsController < ApplicationController
   before_action :set_title, except: [:destroy]
   before_action :not_supervisor, except: [:index, :show]
 
-  respond_to :html
-
   # GET /samls
   def index
     @samls = Saml.order(:id).page params[:page]
-
-    respond_with @samls
   end
 
   # GET /samls/1
   def show
-    respond_with @saml
   end
 
   # GET /samls/new
   def new
     @saml = Saml.new
-
-    respond_with @saml
   end
 
   # GET /samls/1/edit
   def edit
-    respond_with @saml
   end
 
   # POST /samls
   def create
     @saml = Saml.new saml_params
 
-    @saml.save
-    respond_with @saml
+    if @saml.save
+      redirect_to @saml
+    else
+      render 'new', status: :unprocessable_entity
+    end
   end
 
   # PATCH/PUT /samls/1
   def update
-    @saml.update saml_params
-
-    respond_with @saml
+    if @saml.update saml_params
+      redirect_to @saml
+    else
+      render 'edit', status: :unprocessable_entity
+    end
   end
 
   # DELETE /samls/1
   def destroy
     @saml.destroy
 
-    respond_with @saml
+    redirect_to samls_url
   end
 
   private

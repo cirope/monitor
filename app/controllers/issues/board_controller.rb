@@ -3,8 +3,6 @@
 class Issues::BoardController < ApplicationController
   include Issues::Filters
 
-  respond_to :html, :js, :csv
-
   before_action :authorize, :not_guest, :not_owner
   before_action :only_supervisor, only: [:destroy_all]
   before_action :set_title, only: [:index]
@@ -17,7 +15,8 @@ class Issues::BoardController < ApplicationController
 
     respond_to do |format|
       format.pdf { render_pdf @issues }
-      format.any(:html, :js, :csv) { respond_with @issues }
+      format.csv { render csv: @issues }
+      format.any :html, :js
     end
   end
 

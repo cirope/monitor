@@ -3,8 +3,6 @@
 class MembershipsController < ApplicationController
   include Memberships::Filters
 
-  respond_to :html, :js
-
   before_action :authorize
   before_action :set_membership, only: [:update]
   before_action :set_title, except: [:destroy]

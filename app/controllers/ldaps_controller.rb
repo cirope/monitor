@@ -6,45 +6,42 @@ class LdapsController < ApplicationController
   before_action :set_ldap, only: [:show, :edit, :update, :destroy]
   before_action :not_supervisor, except: [:index, :show]
 
-  respond_to :html
-
   def index
     @ldaps = Ldap.order(:id).page params[:page]
-
-    respond_with @ldaps
   end
 
   def show
-    respond_with @ldap
   end
 
   def new
     @ldap = Ldap.new
-
-    respond_with @ldap
   end
 
   def edit
-    respond_with @ldap
   end
 
   def create
     @ldap = Ldap.new ldap_params
 
-    @ldap.save
-    respond_with @ldap
+    if @ldap.save
+      redirect_to @ldap
+    else
+      render 'new', status: :unprocessable_entity
+    end
   end
 
   def update
-    @ldap.update ldap_params
-
-    respond_with @ldap
+    if @ldap.update ldap_params
+      redirect_to @ldap
+    else
+      render 'edit', status: :unprocessable_entity
+    end
   end
 
   def destroy
     @ldap.destroy
 
-    respond_with @ldap
+    redirect_to ldaps_url
   end
 
   private

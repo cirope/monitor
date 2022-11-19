@@ -100,7 +100,7 @@
   else
     window.onbeforeunload = _onBeforeUnload
 
-  $(document).on('ready turbolinks:load editors:start', startEditors)
+  $(document).on('ready turbo:load turbo:render editors:start', startEditors)
 
   $(document).on('change', '[data-editor]', function () {
     $('[data-editor]').data('unsavedData', true)
@@ -110,7 +110,7 @@
     $('[data-editor]').data('unsavedData', false)
   })
 
-  $(document).on('turbolinks:before-visit', function () {
+  $(document).on('turbo:before-visit', function () {
     var editor = $('[data-editor]')
 
     if (editor.data('unsavedData')) return confirm(editor.data('unsavedDataWarning'))
