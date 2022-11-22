@@ -7,30 +7,22 @@ class DrivesController < ApplicationController
   before_action :set_drive, only: [:show, :edit, :update, :destroy]
   before_action :not_supervisor, except: [:index, :show]
 
-  respond_to :html
-
   # GET /drives
   def index
     @drives = @account.drives.ordered.page params[:page]
-
-    respond_with @drives
   end
 
   # GET /drives/1
   def show
-    respond_with @drive
   end
 
   # GET /drives/new
   def new
     @drive = @account.drives.new
-
-    respond_with @drive
   end
 
   # GET /drives/1/edit
   def edit
-    respond_with @drive
   end
 
   # POST /drives
@@ -40,7 +32,7 @@ class DrivesController < ApplicationController
     if @drive.save
       redirect_to @drive.provider_auth_url, allow_other_host: true
     else
-      render 'new'
+      render 'new', status: :unprocessable_entity
     end
   end
 
@@ -53,7 +45,7 @@ class DrivesController < ApplicationController
         redirect_to @drive
       end
     else
-      render 'edit'
+      render 'edit', status: :unprocessable_entity
     end
   end
 
@@ -61,7 +53,7 @@ class DrivesController < ApplicationController
   def destroy
     @drive.destroy
 
-    respond_with @drive
+    redirect_to drives_url
   end
 
   private

@@ -1,12 +1,12 @@
-$(document).on('turbolinks:request-start', function () {
+$(document).on('turbo:submit-start', function () {
   $('.loading-caption').removeAttr('hidden')
 })
 
-$(document).on('turbolinks:request-end', function () {
+$(document).on('turbo:submit-end', function () {
   $('.loading-caption').attr('hidden', true)
 })
 
-$(document).on('turbolinks:load', function () {
+$(document).on('turbo:load', function () {
   var leftSidebar = new $.LeftSidebar.Constructor
 
   leftSidebar.init()

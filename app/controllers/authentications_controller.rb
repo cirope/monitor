@@ -9,7 +9,7 @@ class AuthenticationsController < ApplicationController
     if current_user&.visible?
       redirect_to default_url
     else
-      render 'new'
+      render 'new', status: :unprocessable_entity
     end
   end
 
@@ -28,7 +28,7 @@ class AuthenticationsController < ApplicationController
 
         flash.now.alert = t 'invalid', scope: [:flash, :sessions, :create]
 
-        render 'new'
+        render 'new', status: :unprocessable_entity
       end
     end
   end

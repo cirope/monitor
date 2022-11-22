@@ -23,7 +23,7 @@ class PasswordResetsController < ApplicationController
     else
       flash.now[:alert] = t '.not_found', scope: :flash
 
-      render 'new'
+      render 'new', status: :unprocessable_entity
     end
   end
 
@@ -36,7 +36,7 @@ class PasswordResetsController < ApplicationController
     elsif @user.update(user_params)
       redirect_to root_url, notice: t('.notice', scope: :flash)
     else
-      render 'edit'
+      render 'edit', status: :unprocessable_entity
     end
   end
 

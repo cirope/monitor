@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class PanelsController < ApplicationController
-  respond_to :html
-
   before_action :authorize
   before_action :set_dashboard
   before_action :set_panel, only: [:edit, :update, :destroy]
@@ -11,13 +9,10 @@ class PanelsController < ApplicationController
   # GET /dashboards/1/panels/new
   def new
     @panel = @dashboard.panels.new
-
-    respond_with @panel
   end
 
   # GET /panels/1/edit
   def edit
-    respond_with @panel
   end
 
   # POST /dashboards/1/panels
@@ -27,16 +22,16 @@ class PanelsController < ApplicationController
     if @panel.save
       redirect_to @dashboard
     else
-      render 'new'
+      render 'new', status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /panels/1
   def update
-    if update_resource @panel, panel_params
+    if @panel.update panel_params
       redirect_to @dashboard
     else
-      render 'edit'
+      render 'edit', status: :unprocessable_entity
     end
   end
 
