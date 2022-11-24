@@ -60,18 +60,8 @@
     $('[data-editor]:not([data-observed])').each(function (i, element) {
       var $textarea = $(element)
       var readonly  = $textarea.data('readonly')
-      var editor    = CodeMirror.fromTextArea($textarea.get(0), {
-        mode:              $textarea.data('language'),
-        tabSize:           2,
-        autoCloseBrackets: true,
-        matchBrackets:     true,
-        lineNumbers:       true,
-        styleActiveLine:   true,
-        foldGutter:        true,
-        theme:             readonly ? 'duotone-dark' : 'duotone-light',
-        readOnly:          readonly,
-        gutters:           ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
-        phrases:           $textarea.data('phrases')
+      var editor    = new EditorView({
+        parent: $textarea.get(0),
       })
 
       editor.on('change', function () { $textarea.trigger('change') })

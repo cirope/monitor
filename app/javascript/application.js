@@ -8,16 +8,20 @@ import 'jquery-ui/widgets/autocomplete'
 import 'turbolinks_events'
 import 'bootstrap'
 
-import 'codemirror/codemirror'
-import 'codemirror/addon/dialog/dialog'
-import 'codemirror/addon/edit/closebrackets'
-import 'codemirror/addon/edit/matchbrackets'
-import 'codemirror/addon/fold/foldcode'
-import 'codemirror/addon/fold/foldgutter'
-import 'codemirror/addon/fold/indent-fold'
-import 'codemirror/addon/search/search'
-import 'codemirror/addon/search/searchcursor'
-import 'codemirror/addon/selection/active-line'
+import 'codemirror'
+import "@codemirror/autocomplete"
+import "@codemirror/commands"
+import "@codemirror/language"
+import "@codemirror/lint"
+import "@codemirror/search"
+import "@codemirror/state"
+import "@codemirror/view"
+import "@lezer/common"
+import "@lezer/highlight"
+import "crelt"
+import "style-mod"
+import "w3c-keyname"
+
 import 'codemirror/mode/python'
 import 'codemirror/mode/ruby'
 import 'codemirror/mode/shell'
