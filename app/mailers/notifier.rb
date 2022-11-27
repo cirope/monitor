@@ -21,7 +21,7 @@ class Notifier < ApplicationMailer
     mail to: to
   end
 
-  def mass_issue user:, permalink:
+  def recent_issues user:, permalink:
     @permalink = permalink
 
     mail to: user.email

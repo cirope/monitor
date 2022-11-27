@@ -3,15 +3,18 @@ module Users::Notifications
 
   def notify_recent_issues time
     recent_issues = recent_issues_from time
-    permalink     = Permalink.create! issue_ids: recent_issues.ids
 
-    Notifier.mass_issue(user:      self,
-                        permalink: permalink).deliver_later
+    if recent_issues.exists?
+      permalink     = Permalink.create! issue_ids: recent_issues.ids
+
+      Notifier.recent_issues(user:      self,
+                             permalink: permalink).deliver_later
+    end
   end
 
   module ClassMethods
     def notify_recent_issues_all_users time
-      with_recent_issues.find_each do |user|
+      with_recent_issues(time).find_each do |user|
         user.notify_recent_issues time
       end
     end
