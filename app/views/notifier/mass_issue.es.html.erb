@@ -1,0 +1,6 @@
+<h2>Casos recientes</h2>
+
+<p>
+  Para visualizar los casos recientes haga clic en el siguiente enlace
+  <%= link_to t('.issues', count: @permalink.issues.count), account_permalink_url(current_account, @permalink) %>
+</p>
