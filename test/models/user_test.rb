@@ -332,7 +332,7 @@ class UserTest < ActiveSupport::TestCase
     assert_error not_licensed_user, :base, :licensed_user_limit
   end
 
-  test 'recent issues' do
+  test 'notify recent issues' do
     Current.user = user = users :franco
 
     assert_equal 1, user.issues.count
@@ -342,5 +342,11 @@ class UserTest < ActiveSupport::TestCase
     end
   ensure
     Current.user = nil
+  end
+
+  test 'notify recent issues all users' do
+    assert_enqueued_emails 2 do
+      User.notify_recent_issues_all_users 1.hour
+    end
   end
 end
