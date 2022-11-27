@@ -5,7 +5,7 @@ module Users::Notifications
     recent_issues = recent_issues_from time
 
     if recent_issues.exists?
-      permalink     = Permalink.create! issue_ids: recent_issues.ids
+      permalink = Permalink.create! issue_ids: recent_issues.ids
 
       Notifier.recent_issues(user:      self,
                              permalink: permalink).deliver_later
@@ -35,6 +35,6 @@ module Users::Notifications
     def recent_issues_from time
       recent_at = Time.zone.now - time
 
-      issues.where('issues.created_at >= :recent_at', recent_at: recent_at)
+      issues.where 'issues.created_at >= :recent_at', recent_at: recent_at
     end
 end
