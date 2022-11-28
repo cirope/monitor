@@ -25,6 +25,7 @@ module Users::Notifications
         recent_at = Time.zone.now - time
 
         joins(:issues).
+          where(issues: { status: 'pending' }).
           where('issues.created_at >= :recent_at', recent_at: recent_at).
           distinct
       end
@@ -35,6 +36,8 @@ module Users::Notifications
     def recent_issues_from time
       recent_at = Time.zone.now - time
 
-      issues.where 'issues.created_at >= :recent_at', recent_at: recent_at
+      issues.
+        where(issues: { status: 'pending' }).
+        where 'issues.created_at >= :recent_at', recent_at: recent_at
     end
 end

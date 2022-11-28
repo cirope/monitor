@@ -1,6 +1,24 @@
-<h2>Casos recientes</h2>
+<h2>Tiene nuevos casos</h2>
 
 <p>
-  Para visualizar los casos recientes haga clic en el siguiente enlace
-  <%= link_to t('.issues', count: @permalink.issues.count), account_permalink_url(current_account, @permalink) %>
+  <strong>
+    Para visualizar todos estos casos, haga clic en el siguiente enlace
+    <%= link_to "Ver #{t('.issues', count: @permalink.issues.count)}", account_permalink_url(current_account, @permalink) %>
+  </strong>
+</p>
+
+<% @permalink.issues.each do |issue| %>
+  <ul>
+    <li>
+      <%= issue.description %> |
+      <%= link_to 'Ver caso', account_issue_url(current_account, issue) %>
+    </li>
+  </ul>
+<% end %>
+
+<p>
+  <strong>
+    Para visualizar todos estos casos, haga clic en el siguiente enlace
+    <%= link_to "Ver #{t('.issues', count: @permalink.issues.count)}", account_permalink_url(current_account, @permalink) %>
+  </strong>
 </p>

@@ -1,6 +1,9 @@
-Casos recientes
+Tiene nuevos casos
 ================================================================================
 
-Para visualizar los casos recientes haga clic en el siguiente enlace:
+<% @permalink.issues.each do |issue| %>
+  - <%= issue.description %>
+<% end %>
 
+Para visualizar todos estos casos, acceda al siguiente enlace
 <%= account_permalink_url current_account, @permalink %>

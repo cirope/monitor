@@ -15,6 +15,17 @@ class NotifierPreview < ActionMailer::Preview
     Notifier.issue Issue.where.not(data: nil).take, ['test@monitor.com']
   end
 
+  # Preview this email at http://localhost:3000/rails/mailers/notifier/recent_issues
+  def recent_issues
+    with_account!
+
+    user      = User.take
+    issues    = Issue.all.limit 10
+    permalink = Permalink.create issue_ids: issues.ids
+
+    Notifier.recent_issues user: user, permalink: permalink
+  end
+
   # Preview this email at http://localhost:3000/rails/mailers/notifier/comment
   def comment
     with_account!
