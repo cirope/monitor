@@ -1,7 +1,7 @@
 module Users::Notifications
   extend ActiveSupport::Concern
 
-  def notify_recent_issues time
+  def notify_recent_issues time = 10.minutes
     recent_issues = recent_issues_from time
 
     if recent_issues.exists?
@@ -13,7 +13,7 @@ module Users::Notifications
   end
 
   module ClassMethods
-    def notify_recent_issues_all_users time
+    def notify_recent_issues_all_users time = 10.minutes
       with_recent_issues(time).find_each do |user|
         user.notify_recent_issues time
       end
@@ -22,11 +22,12 @@ module Users::Notifications
     private
 
       def with_recent_issues time
-        recent_at = Time.zone.now - time
+        created_on = Time.zone.now - time
 
         joins(:issues).
-          where(issues: { status: 'pending' }).
-          where('issues.created_at >= :recent_at', recent_at: recent_at).
+          where(
+            issues: { status: 'pending', created_at: created_on...Time.zone.now }
+          ).
           distinct
       end
   end
@@ -34,10 +35,11 @@ module Users::Notifications
   private
 
     def recent_issues_from time
-      recent_at = Time.zone.now - time
+      created_on = Time.zone.now - time
 
       issues.
-        where(issues: { status: 'pending' }).
-        where 'issues.created_at >= :recent_at', recent_at: recent_at
+        where(
+          issues: { status: 'pending', created_at: created_on...Time.zone.now }
+        )
     end
 end
