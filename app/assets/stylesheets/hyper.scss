@@ -5,9 +5,13 @@
 @import "hyper/config/default/custom-variables";
 
 // Structure
-@import "hyper/custom/structure/general";
-@import "hyper/custom/structure/left-menu";
+@import "hyper/custom/structure/sidenav";
 @import "hyper/custom/structure/topbar";
+@import "hyper/custom/structure/right-sidebar";
+@import "hyper/custom/structure/page-head";
+@import "hyper/custom/structure/footer";
+// horizontal nav
+@import "hyper/custom/structure/horizontal-nav";
 
 //Fonts
 @import "hyper/custom/fonts/nunito";

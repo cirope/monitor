@@ -6,6 +6,8 @@ import 'jquery'
 import 'jquery_ujs'
 import 'jquery-ui/widgets/autocomplete'
 import 'turbolinks_events'
+
+import '@popperjs/core'
 import 'bootstrap'
 
 import 'codemirror/codemirror'
