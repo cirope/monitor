@@ -3,6 +3,8 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
+  include ActionMailer::TestHelper
+
   setup do
     @user = users :franco
 
@@ -328,5 +330,23 @@ class UserTest < ActiveSupport::TestCase
     assert_raise { not_licensed_user.save! }
 
     assert_error not_licensed_user, :base, :licensed_user_limit
+  end
+
+  test 'notify recent issues' do
+    Current.user = user = users :franco
+
+    assert_equal 1, user.issues.count
+
+    assert_enqueued_emails 1 do
+      user.notify_recent_issues 1.hour
+    end
+  ensure
+    Current.user = nil
+  end
+
+  test 'notify recent issues all users' do
+    assert_enqueued_emails 2 do
+      User.notify_recent_issues_all_users 1.hour
+    end
   end
 end
