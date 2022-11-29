@@ -22,12 +22,11 @@ module Users::Notifications
     private
 
       def with_recent_issues time
-        now        = Time.zone.now
-        created_on = now - time
+        created_on = Time.zone.now - time
 
         joins(:issues).
           where(
-            issues: { status: 'pending', created_at: created_on...now }
+            issues: { status: 'pending', created_at: created_on... }
           ).
           distinct
       end
@@ -36,12 +35,11 @@ module Users::Notifications
   private
 
     def recent_issues_from time
-      now        = Time.zone.now
-      created_on = now - time
+      created_on = Time.zone.now - time
 
       issues.
         where(
-          issues: { status: 'pending', created_at: created_on...now }
+          issues: { status: 'pending', created_at: created_on... }
         )
     end
 end
