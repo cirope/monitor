@@ -11,6 +11,11 @@ es:
       issues:
         one: 'un caso'
         other: '%{count} casos'
+    recent_issues:
+      subject: 'Tiene nuevos casos'
+      issues:
+        one: 'un caso'
+        other: '%{count} casos'
 
   user_mailer:
     password_reset:
