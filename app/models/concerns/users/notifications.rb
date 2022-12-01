@@ -1,15 +1,17 @@
 module Users::Notifications
   extend ActiveSupport::Concern
 
-  def notify_recent_issues time = 10.minutes
-    recent_issues = recent_issues_from time
+  def notify_issues issues
+    if issues.exists?
+      permalink = Permalink.create! issue_ids: issues.ids
 
-    if recent_issues.exists?
-      permalink = Permalink.create! issue_ids: recent_issues.ids
-
-      Notifier.recent_issues(user:      self,
-                             permalink: permalink).deliver_later
+      Notifier.issues(user:      self,
+                      permalink: permalink).deliver_later
     end
+  end
+
+  def notify_recent_issues time = 10.minutes
+    notify_issues recent_issues_from(time)
   end
 
   module ClassMethods
