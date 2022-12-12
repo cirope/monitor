@@ -11,7 +11,7 @@ es:
       issues:
         one: 'un caso'
         other: '%{count} casos'
-    recent_issues:
+    issues:
       subject: 'Tiene nuevos casos'
       issues:
         one: 'un caso'
