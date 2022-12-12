@@ -10,6 +10,7 @@ class User < ApplicationRecord
   include Users::Dashboards
   include Users::Licenses
   include Users::Memberships
+  include Users::Notifications
   include Users::Overrides
   include Users::PasswordReset
   include Users::Permissions

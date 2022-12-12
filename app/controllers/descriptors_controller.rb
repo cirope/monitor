@@ -11,45 +11,42 @@ class DescriptorsController < ApplicationController
   before_action :set_descriptor, only: [:show, :edit, :update, :destroy]
   before_action :set_title, except: [:destroy]
 
-  respond_to :html, :json
-
   def index
     @descriptors = Descriptor.all.page params[:page]
-
-    respond_with @descriptors
   end
 
   def show
-    respond_with @descriptor
   end
 
   def new
     @descriptor = Descriptor.new
-
-    respond_with @descriptor
   end
 
   def edit
-    respond_with @descriptor
   end
 
   def create
     @descriptor = Descriptor.new(descriptor_params)
 
-    @descriptor.save
-    respond_with @descriptor
+    if @descriptor.save
+      redirect_to @descriptor
+    else
+      render 'new', status: :unprocessable_entity
+    end
   end
 
   def update
-    update_resource @descriptor, descriptor_params
-
-    respond_with @descriptor
+    if @descriptor.update descriptor_params
+      redirect_to @descriptor
+    else
+      render 'edit', status: :unprocessable_entity
+    end
   end
 
   def destroy
     @descriptor.destroy
 
-    respond_with @descriptor
+    redirect_to descriptors_url
   end
 
   private

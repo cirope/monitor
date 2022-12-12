@@ -9,45 +9,42 @@ class DatabasesController < ApplicationController
   before_action :set_database, only: [:show, :edit, :update, :destroy]
   before_action :not_supervisor, except: [:index, :show]
 
-  respond_to :html, :json
-
   def index
     @databases = databases.ordered.page params[:page]
-
-    respond_with @databases
   end
 
   def show
-    respond_with @database
   end
 
   def new
     @database = @account.databases.new
-
-    respond_with @database
   end
 
   def edit
-    respond_with @database
   end
 
   def create
     @database = @account.databases.new database_params
 
-    @database.save
-    respond_with @database
+    if @database.save
+      redirect_to @database
+    else
+      render 'new', status: :unprocessable_entity
+    end
   end
 
   def update
-    @database.update database_params
-
-    respond_with @database
+    if @database.update database_params
+      redirect_to @database
+    else
+      render 'edit', status: :unprocessable_entity
+    end
   end
 
   def destroy
     @database.destroy
 
-    respond_with @database
+    redirect_to databases_url
   end
 
   private

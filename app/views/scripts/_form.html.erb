@@ -16,20 +16,22 @@
       <% end %>
     </div>
 
-    <%= f.input :text, label: false, input_html: {
-      rows: 5,
-      disabled: disable_edition?,
-      data: {
-        editor:               true,
-        language:             @script.language,
-        change_input:         '#script_change',
-        file_input:           '#script_attachment',
-        observe_other_fields: true,
-        phrases:              editor_phrases.to_json,
-        readonly:             disable_edition?,
-        unsaved_data_warning: t('editor.edit.unsaved_data_warning')
-      }
-    } %>
+    <% unless @script.attachment.attached? %>
+      <%= f.input :text, label: false, input_html: {
+        rows: 5,
+        disabled: disable_edition?,
+        data: {
+          editor:               true,
+          language:             @script.language,
+          change_input:         '#script_change',
+          file_input:           '#script_attachment',
+          observe_other_fields: true,
+          phrases:              editor_phrases.to_json,
+          readonly:             disable_edition?,
+          unsaved_data_warning: t('editor.edit.unsaved_data_warning')
+        }
+      } %>
+    <% end %>
 
     <%= f.input :change, wrapper_html: {
       hidden: @script.errors[:change].blank?
@@ -41,20 +43,7 @@
 
     <%= render 'form_sensitive_fields', f: f unless disable_edition? %>
 
-    <div class="card mb-3">
-      <div class="card-header">
-        <a class="text-reset text-decoration-none d-block" href="#parameters" data-toggle="collapse">
-          <%= Parameter.model_name.human count: 0 %>
-        </a>
-      </div>
-      <div id="parameters" class="collapse card-body">
-        <%= f.simple_fields_for :parameters, parameters do |df| %>
-          <%= render 'parameters/parameter', f: df %>
-        <% end %>
-
-        <%= link_to_add_fields t('scripts.new.parameter'), f, :parameters unless disable_edition? %>
-      </div>
-    </div>
+    <%= render 'scripts/parameters', f: f %>
 
     <%= f.input :lock_version, as: :hidden %>
     <%= f.input :language, as: :hidden %>

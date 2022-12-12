@@ -9,9 +9,9 @@ module Databases::ActiveRecordConfig
       host:     host,
       port:     port,
       username: user,
-      password: password,
+      password: encrypt_password(password),
       database: database
-    }.inspect
+    }
   end
 
   def adapter_gems

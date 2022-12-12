@@ -30,7 +30,7 @@ class SessionsController < ApplicationController
     else
       flash.now.alert = t '.username_invalid', scope: :flash
 
-      render 'new'
+      render 'new', status: :unprocessable_entity
     end
   end
 

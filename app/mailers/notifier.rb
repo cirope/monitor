@@ -21,6 +21,12 @@ class Notifier < ApplicationMailer
     mail to: to
   end
 
+  def issues user:, permalink:
+    @permalink = permalink
+
+    mail to: user.email
+  end
+
   def comment comment, users
     @comment = comment
     @issue   = comment.issue
