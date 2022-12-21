@@ -5,11 +5,7 @@
 // Logo
 .logo {
     display: block;
-    line-height: $topbar-height;
-    width: $leftbar-width;
-    position: fixed;
-    top: 0;
-    text-align: center;
+    line-height: 80px;
 
     span.logo-lg {
         display: block;
@@ -130,14 +126,15 @@
         position: absolute;
         right: 30px;
         display: inline-block;
-        font-family: "Material Design Icons";
+        font-family: "Font Awesome 6 Free";
         text-rendering: auto;
         line-height: 1.5rem;
         font-size: 1.1rem;
+        font-weight: 900;
         transform: translate(0, 0);
 
         &:before {
-            content: "\F0142";
+            content: "\f105";
         }
     }
 
@@ -185,7 +182,7 @@
         .side-nav-item {
             .menu-arrow {
                 &:before {
-                    content: "\F0141" !important;
+                    content: "\f105" !important;
                 }
             }
         }

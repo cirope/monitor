@@ -12,7 +12,7 @@
   <%= favicon_link_tag 'favicon.png', rel: 'icon', type: 'image/png' %>
 </head>
 <body<%== ' class="authentication-bg"' unless current_user&.visible? %>>
-  <div class="alert alert-warning fixed-top mx-auto mt-1 text-center border-0 p-2 loading-caption" hidden>
+  <div class="alert alert-primary fixed-top mx-auto mt-1 text-center border-0 p-2 loading-caption" hidden>
     <p class="mb-0">
       <strong><%= t 'navigation.loading' %></strong>
     </p>
@@ -20,13 +20,12 @@
 
   <% if current_user&.visible? %>
     <div class="wrapper">
+      <%= render 'shared/menu' %>
       <%= render 'shared/left_menu' %>
 
       <div class="content-page">
         <div class="content">
-          <%= render 'shared/menu' %>
-
-          <div class="content-fluid mt-3">
+          <div class="container-fluid mt-3">
             <%= render 'shared/flash' if flash_message %>
 
             <%= yield %>

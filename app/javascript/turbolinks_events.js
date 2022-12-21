@@ -7,8 +7,5 @@ $(document).on('turbo:submit-end', function () {
 })
 
 $(document).on('turbo:load', function () {
-  var leftSidebar = new $.LeftSidebar.Constructor
-
-  leftSidebar.init()
   $('[autofocus]').focus()
 })

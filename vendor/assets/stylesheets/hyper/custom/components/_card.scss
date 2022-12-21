@@ -7,6 +7,9 @@
     box-shadow: $card-box-shadow;
     margin-bottom: $grid-gutter-width;
 
+    .card-header {
+      border-bottom: 1px solid #e3eaef;
+    }
     .header-title {
         margin-bottom: 0.5rem;
         text-transform: uppercase;

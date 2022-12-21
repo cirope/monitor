@@ -1,34 +1,36 @@
-<ul class="side-nav-second-level" aria-expanded="false">
-  <%= left_menu_item_for User, users_path %>
+<div class="<%= is_config_action? ? 'collapsed' : 'collapse' %>" id="config-actions">
+  <ul class="side-nav-second-level" aria-expanded="false">
+    <%= left_menu_item_for User, users_path %>
 
-  <% if current_user.supervisor? || current_user.security? %>
-    <%= left_menu_item_for records_helper_model, records_path(kind: 'login') %>
-  <% end %>
-
-  <% if current_user.manager? %>
-    <%= left_menu_item_for Tag, tags_path(kind: 'issue') %>
-  <% end %>
-
-  <% unless current_user.author? || current_user.manager? %>
-    <% unless current_user.security? %>
-      <%= left_menu_item_for Tag, tags_path(kind: 'script') %>
-      <%= left_menu_item_for Descriptor, descriptors_path %>
+    <% if current_user.supervisor? || current_user.security? %>
+      <%= left_menu_item_for records_helper_model, records_path(kind: 'login') %>
     <% end %>
 
-    <%= left_menu_item_for Account, accounts_path if current_account.default? %>
-    <%= left_menu_item_for Server, servers_path %>
-    <%= left_menu_item_for Database, databases_path %>
-    <%= left_menu_item_for Ldap, ldaps_path %>
-    <%= left_menu_item_for Saml, samls_path %>
-    <%= left_menu_item_for Drive, drives_path %>
-    <%= left_menu_item_for PdfTemplate, pdf_templates_path %>
-  <% end %>
+    <% if current_user.manager? %>
+      <%= left_menu_item_for Tag, tags_path(kind: 'issue') %>
+    <% end %>
 
-  <% if current_user.supervisor? && ENABLE_WEB_CONSOLE %>
-    <%= left_menu_item_for console_helper_model, console_path %>
-  <% end %>
+    <% unless current_user.author? || current_user.manager? %>
+      <% unless current_user.security? %>
+        <%= left_menu_item_for Tag, tags_path(kind: 'script') %>
+        <%= left_menu_item_for Descriptor, descriptors_path %>
+      <% end %>
 
-  <% unless current_user.manager? %>
-    <%= left_menu_item_for processes_helper_model, processes_path %>
-  <% end %>
-</ul>
+      <%= left_menu_item_for Account, accounts_path if current_account.default? %>
+      <%= left_menu_item_for Server, servers_path %>
+      <%= left_menu_item_for Database, databases_path %>
+      <%= left_menu_item_for Ldap, ldaps_path %>
+      <%= left_menu_item_for Saml, samls_path %>
+      <%= left_menu_item_for Drive, drives_path %>
+      <%= left_menu_item_for PdfTemplate, pdf_templates_path %>
+    <% end %>
+
+    <% if current_user.supervisor? && ENABLE_WEB_CONSOLE %>
+      <%= left_menu_item_for console_helper_model, console_path %>
+    <% end %>
+
+    <% unless current_user.manager? %>
+      <%= left_menu_item_for processes_helper_model, processes_path %>
+    <% end %>
+  </ul>
+</div>

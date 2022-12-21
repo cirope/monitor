@@ -1,5 +1,5 @@
-<div class="left-side-menu pt-2">
-  <div class="slimscroll-menu">
+<div class="leftside-menu pt-2">
+  <div class="slimscroll-leftbar">
     <%= link_to root_url, class: 'logo text-center text-white', title: logo_title do %>
       <span class="logo-lg">
         <%= image_tag 'logo.svg', size: '170x52', alt: app_name %>
@@ -9,27 +9,29 @@
       </span>
     <% end %>
 
-    <ul class="metismenu side-nav my-3">
-      <%= menu_item_for Issue, home_path, icon: 'clipboard-list', active: controller_name == 'home' %>
+    <div class="h-100 my-3" id="leftside-menu-container">
+      <ul class="side-nav">
+        <%= menu_item_for Issue, home_path, icon: 'clipboard-list', active: controller_name == 'home' %>
 
-      <% if current_user.author? || current_user.supervisor? %>
-        <%= menu_item_for Script, scripts_path, icon: 'code' %>
-        <%= menu_item_for Schedule, schedules_path, active: controller_name == 'runs', icon: 'calendar' %>
-        <%= menu_item_for Rule, rules_path, icon: 'code-branch' unless current_user.author? %>
-      <% end %>
+        <% if current_user.author? || current_user.supervisor? %>
+          <%= menu_item_for Script, scripts_path, icon: 'code' %>
+          <%= menu_item_for Schedule, schedules_path, active: controller_name == 'runs', icon: 'calendar' %>
+          <%= menu_item_for Rule, rules_path, icon: 'code-branch' unless current_user.author? %>
+        <% end %>
 
-      <% unless current_user.guest? || current_user.owner? %>
-        <li class="side-nav-item<%= ' mm-active' if is_config_action? %>">
-          <%= link_to 'javascript: void(0);', class: 'side-nav-link' do %>
-            <%= icon 'fas', 'cog' %>
-            <span class="ml-n1"><%= t('.config') %></span>
-            <%= icon 'fas', 'angle-right', class: 'menu-arrow' %>
-          <% end %>
-          <%= render 'shared/config_actions' %>
-        </li>
-      <% end %>
-    </ul>
+        <% unless current_user.guest? || current_user.owner? %>
+          <li class="side-nav-item<%= ' menuitem-active' if is_config_action? %>">
+            <%= link_to '#config-actions', class: "side-nav-link", data: { bs_toggle: 'collapse' } do %>
+              <%= icon 'fas', 'cog' %>
+              <span class="ml-n1"><%= t('.config') %></span>
+              <span class="menu-arrow"></span>
+            <% end %>
+            <%= render 'shared/config_actions' %>
+          </li>
+        <% end %>
+      </ul>
 
-    <div class="clearfix"></div>
+      <div class="clearfix"></div>
+    </div>
   </div>
 </div>

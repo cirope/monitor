@@ -29,7 +29,6 @@ import 'moment/moment'
 import 'moment/es'
 import 'daterangepicker'
 
-import 'metis_menu'
 import 'jquery-slimscroll'
 import 'hyper'
 

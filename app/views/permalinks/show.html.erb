@@ -3,7 +3,7 @@
     <caption>
       <h4>
         <%= @script %>
-        <small class="float-right">
+        <small class="float-end">
           <%= link_to t('back'), home_path, class: 'small' %>
         </small>
       </h4>
@@ -28,7 +28,7 @@
         <td><%= truncate issue.description, length: 50 %></td>
         <td class="d-none d-sm-table-cell"><%= issue_status issue %></td>
         <td class="d-none d-lg-table-cell"><%= tag_icons issue.tags %></td>
-        <td class="text-right"><%= link_to_show permalink_issue_path(@permalink, issue) %></td>
+        <td class="text-end"><%= link_to_show permalink_issue_path(@permalink, issue) %></td>
       </tr>
     <% end %>
   </tbody>

@@ -1,0 +1,10 @@
+// 
+// general.scss
+//
+
+// Fix event bubbling on iOS devices
+@supports (-webkit-overflow-scrolling: touch) {
+  body {
+    cursor: pointer;
+  }
+}

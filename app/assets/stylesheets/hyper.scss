@@ -1,30 +1,38 @@
+//Core files
+
 @import "bootstrap/functions";
 @import "bootstrap/variables";
-@import "bootstrap/mixins";
+
 @import "hyper/config/default/variables";
+@import "hyper/config/default/light-mode";
 @import "hyper/config/default/custom-variables";
 
+@import "bootstrap";
+
 // Structure
+@import "hyper/custom/structure/general";
 @import "hyper/custom/structure/sidenav";
 @import "hyper/custom/structure/topbar";
-@import "hyper/custom/structure/right-sidebar";
 @import "hyper/custom/structure/page-head";
-@import "hyper/custom/structure/footer";
-// horizontal nav
+
+// Horizontal nav
 @import "hyper/custom/structure/horizontal-nav";
 
-//Fonts
+// Fonts
 @import "hyper/custom/fonts/nunito";
 
-//Components
+// Components
 @import "hyper/custom/components/mixins";
 @import "hyper/custom/components/accordions";
+@import "hyper/custom/components/alert";
 @import "hyper/custom/components/avatar";
 @import "hyper/custom/components/breadcrumb";
 @import "hyper/custom/components/buttons";
 @import "hyper/custom/components/badge";
 @import "hyper/custom/components/card";
+@import "hyper/custom/components/custom-forms";
 @import "hyper/custom/components/dropdown";
+@import "hyper/custom/components/docs";
 @import "hyper/custom/components/forms";
 @import "hyper/custom/components/modal";
 @import "hyper/custom/components/nav";
@@ -33,18 +41,21 @@
 @import "hyper/custom/components/print";
 @import "hyper/custom/components/progress";
 @import "hyper/custom/components/reboot";
+@import "hyper/custom/components/ribbons";
 @import "hyper/custom/components/switch";
 @import "hyper/custom/components/tables";
 @import "hyper/custom/components/type";
+@import "hyper/custom/components/tooltip";
 @import "hyper/custom/components/utilities";
+@import "hyper/custom/components/widgets";
+@import "hyper/custom/components/social";
+@import "hyper/custom/components/steps";
+@import "hyper/custom/components/preloader";
+@import "hyper/custom/components/hero";
 
-// Vendors
-@import "hyper/vendor/daterangepicker";
+//Pages
+@import "hyper/custom/pages/authentication";
 
 // Plugins
 @import "hyper/custom/plugins/daterange";
-@import "hyper/custom/plugins/metis-menu";
 @import "hyper/custom/plugins/slimscroll";
-
-// Pages
-@import "hyper/custom/pages/authentication";

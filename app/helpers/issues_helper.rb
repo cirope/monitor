@@ -57,7 +57,7 @@ module IssuesHelper
     status = issue.status
     style  = issue_style issue
 
-    content_tag :span, t("issues.status.#{status}"), class: "badge badge-#{style} p-1"
+    content_tag :span, t("issues.status.#{status}"), class: "badge bg-#{style} p-1"
   end
 
   def status

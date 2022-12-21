@@ -4,17 +4,17 @@ module Shared::UserActionsHelper
   def role_badge role
     case role
     when 'security'
-      'badge-danger'
+      'bg-danger'
     when 'supervisor'
-      'badge-success'
+      'bg-success'
     when 'author'
-      'badge-info'
+      'bg-info'
     when 'manager'
-      'badge-secondary'
+      'bg-secondary'
     when 'owner'
-      'badge-primary'
+      'bg-primary'
     when 'guest'
-      'badge-light'
+      'bg-light'
     end
   end
 end

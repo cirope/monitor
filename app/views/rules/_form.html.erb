@@ -6,7 +6,7 @@
       <div class="col-lg-10 col-md-9 col-8">
         <%= f.input :name, input_html: { autofocus: true, disabled: disable_rule_edition? } %>
       </div>
-      <div class="col-lg-2 col-md-3 col-4 pt-3 text-right">
+      <div class="col-lg-2 col-md-3 col-4 pt-3 text-end">
         <div class="custom-control custom-checkbox mt-2">
           <%= f.check_box :enabled, disabled: disable_rule_edition?, class: 'custom-control-input' %>
           <label class="custom-control-label" for="rule_enabled"><%= Rule.human_attribute_name 'enabled' %></label>

@@ -68,9 +68,9 @@
         }
 
         // RTL Layout
-        if (document.getElementById('app-style').href.includes('rtl.min.css')) {
-            document.getElementsByTagName('html')[0].dir = "rtl";
-        }
+        //if (document.getElementById('app-style').href.includes('rtl.min.css')) {
+        //    document.getElementsByTagName('html')[0].dir = "rtl";
+        //}
     }
 
     // Portlet Widget (Card Reload, Collapse, and Delete)
@@ -321,46 +321,6 @@
                     $(obj).mask(maskFormat, { 'reverse': reverse });
                 else
                     $(obj).mask(maskFormat);
-            });
-        }
-
-        // Date-Range-Picker
-        if (jQuery().daterangepicker) {
-            //date pickers ranges only
-            var start = moment().subtract(29, 'days');
-            var end = moment();
-            var defaultRangeOptions = {
-                startDate: start,
-                endDate: end,
-                ranges: {
-                    'Today': [moment(), moment()],
-                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                    'This Month': [moment().startOf('month'), moment().endOf('month')],
-                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-                }
-            };
-
-            $('[data-toggle="date-picker-range"]').each(function (idx, obj) {
-                var objOptions = $.extend({}, defaultRangeOptions, $(obj).data());
-                var target = objOptions["targetDisplay"];
-                //rendering
-                $(obj).daterangepicker(objOptions, function (start, end) {
-                    if (target)
-                        $(target).html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-                });
-            });
-
-            // Datetime and date range picker
-            var defaultOptions = {
-                "cancelClass": "btn-light",
-                "applyButtonClasses": "btn-success"
-            };
-
-            $('[data-toggle="date-picker"]').each(function (idx, obj) {
-                var objOptions = $.extend({}, defaultOptions, $(obj).data());
-                $(obj).daterangepicker(objOptions);
             });
         }
 

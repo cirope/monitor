@@ -24,7 +24,6 @@ pin 'servers'
 pin 'trix_configuration'
 
 pin 'daterangepicker'
-pin 'metis_menu'
 pin 'jquery-slimscroll'
 pin 'hyper'
 
