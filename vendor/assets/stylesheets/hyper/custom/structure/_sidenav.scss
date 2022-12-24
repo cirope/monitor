@@ -42,22 +42,22 @@
 // Wrapper
 .wrapper {
     height: 100%;
-    overflow: hidden;
+//    overflow: hidden;
     width: 100%;
 }
 
 //Content Page
 .content-page {
     margin-left: $leftbar-width;
-    overflow: hidden;
+//    overflow: hidden;
     min-height: 100vh;
     padding: $topbar-height 12px 65px;
 }
 
 // Left Side-menu (Default dark)
 .leftside-menu {
-    width: $leftbar-width;
-    min-width: $leftbar-width;
+    width: $leftbar-width !important;
+    min-width: $leftbar-width !important;
     z-index: 1000;
     background: $bg-leftbar-gradient;
     bottom: 0;

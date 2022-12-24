@@ -24,7 +24,6 @@ pin 'servers'
 pin 'trix_configuration'
 
 pin 'daterangepicker'
-pin 'jquery-slimscroll'
 pin 'hyper'
 
 pin 'apexcharts'

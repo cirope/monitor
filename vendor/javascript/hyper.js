@@ -158,38 +158,6 @@
                     if (!upperLevelParent.is('body')) upperLevelParent.addClass("menuitem-active");
                 }
             });
-
-
-            setTimeout(function () {
-                var activatedItem = document.querySelector('li.menuitem-active .active');
-                if (activatedItem != null) {
-                    var simplebarContent = document.querySelector('.leftside-menu .simplebar-content-wrapper');
-                    var offset = activatedItem.offsetTop - 300;
-                    if (simplebarContent && offset > 100) {
-                        scrollTo(simplebarContent, offset, 600);
-                    }
-                }
-            }, 200);
-
-            // scrollTo (Left Side Bar Active Menu)
-            function easeInOutQuad(t, b, c, d) {
-                t /= d / 2;
-                if (t < 1) return c / 2 * t * t + b;
-                t--;
-                return -c / 2 * (t * (t - 2) - 1) + b;
-            }
-            function scrollTo(element, to, duration) {
-                var start = element.scrollTop, change = to - start, currentTime = 0, increment = 20;
-                var animateScroll = function () {
-                    currentTime += increment;
-                    var val = easeInOutQuad(currentTime, start, change, duration);
-                    element.scrollTop = val;
-                    if (currentTime < duration) {
-                        setTimeout(animateScroll, increment);
-                    }
-                };
-                animateScroll();
-            }
         }
     }
 

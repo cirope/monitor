@@ -53,9 +53,11 @@
 @import "hyper/custom/components/preloader";
 @import "hyper/custom/components/hero";
 
-//Pages
-@import "hyper/custom/pages/authentication";
+// Vendors
+@import "hyper/vendor/daterangepicker";
 
 // Plugins
 @import "hyper/custom/plugins/daterange";
-@import "hyper/custom/plugins/slimscroll";
+
+//Pages
+@import "hyper/custom/pages/authentication";

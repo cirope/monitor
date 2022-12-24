@@ -40,6 +40,7 @@ module MenuHelper
   def is_config_action?
     models = [
       User,
+      records_helper_model,
       Tag,
       Descriptor,
       Account,
