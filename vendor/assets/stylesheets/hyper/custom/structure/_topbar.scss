@@ -110,14 +110,15 @@
     float: left;
     z-index: 1;
     position: relative;
-    margin-left: -$grid-gutter-width;
+    //margin-left: -$grid-gutter-width;
 
     &.disable-btn {
         display: none;
     }
 
     @include media-breakpoint-down(md) {
-        margin: 0 !important;
+      margin-left: 15px;
+        //margin: 0 !important;
     }
 }
 
@@ -455,7 +456,7 @@ html[data-topbar-color="dark"] {
             position: static;
 
             .dropdown-menu {
-                left: 10px !important;
+                width: 50% !important;
                 right: 10px !important;
             }
         }

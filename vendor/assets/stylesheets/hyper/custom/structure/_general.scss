@@ -2,6 +2,11 @@
 // general.scss
 //
 
+.offcanvas-body {
+  display: block !important;
+  padding: var(--ct-offcanvas-padding-y) var(--ct-offcanvas-padding-x) !important;
+}
+
 // Fix event bubbling on iOS devices
 @supports (-webkit-overflow-scrolling: touch) {
   body {

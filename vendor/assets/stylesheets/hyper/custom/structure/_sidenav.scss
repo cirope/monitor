@@ -1059,8 +1059,7 @@ html[data-sidenav-color="dark"] {
 
     .leftside-menu {
         box-shadow: $box-shadow;
-        display: none;
-        z-index: 10 !important;
+        z-index: 10000 !important;
     }
 
     .sidebar-enable {

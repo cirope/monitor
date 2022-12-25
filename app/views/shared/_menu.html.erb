@@ -1,8 +1,9 @@
 <div class="navbar-custom topnav-navbar">
   <div class="container-fluid detached-nav">
-    <button class="button-toggle-menu open-left text-muted disable-btn" data-bs-toogle="offcanvas" data-bs-target="#left-menu">
+    <a class="button-toggle-menu open-left text-muted disable-btn" data-bs-toggle="offcanvas"
+      href="#left-menu" role="button" aria-controls="left-menu">
       <%= icon 'fas', 'bars' %>
-    </button>
+    </a>
 
     <ul class="list-unstyled topbar-menu float-end mb-0">
       <%= render 'shared/board_actions' %>
