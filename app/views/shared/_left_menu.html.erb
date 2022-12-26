@@ -20,7 +20,7 @@
 
       <% unless current_user.guest? || current_user.owner? %>
         <li class="side-nav-item<%= ' menuitem-active' if is_config_action? %>">
-          <%= link_to '#config-actions', class: "side-nav-link", data: { bs_toggle: 'collapse' } do %>
+          <%= link_to '#config-actions', class: 'side-nav-link', data: { bs_toggle: 'collapse' } do %>
             <%= icon 'fas', 'cog' %>
             <span class="ml-n1"><%= t('.config') %></span>
             <span class="menu-arrow"></span>
