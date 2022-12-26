@@ -36,9 +36,9 @@
 
     <% @tag.kind_options.each do |option, type| %>
       <% if type == :boolean %>
-        <div class="custom-control custom-checkbox">
-          <%= f.check_box option, class: 'custom-control-input' %>
-          <label class="custom-control-label" for="tag_<%= option %>"><%= Tag.human_attribute_name option %></label>
+        <div class="form-check">
+          <%= f.check_box option, class: 'form-check-input' %>
+          <label class="form-check-label" for="tag_<%= option %>"><%= Tag.human_attribute_name option %></label>
         </div>
       <% else %>
         <%= f.input option, as: type %>

@@ -48,10 +48,10 @@
             <div class="col-sm-3">
               <%= cf.input :attachment, label: false %>
             </div>
-            <div class="col-sm-3 text-end">
-              <div class="custom-control custom-checkbox">
-                <%= check_box_tag 'issue[group_comments_email]', 1, params[:issue]&[:group_comments_email], class: 'custom-control-input' %>
-                <label class="custom-control-label" for="issue_group_comments_email"><%= t '.group_comments_email' %></label>
+            <div class="col-sm-3">
+              <div class="form-check float-end mt-2">
+                <%= check_box_tag 'issue[group_comments_email]', 1, params[:issue]&[:group_comments_email], class: 'form-check-input' %>
+                <label class="form-check-label" for="issue_group_comments_email"><%= t '.group_comments_email' %></label>
               </div>
             </div>
           <% end %>
