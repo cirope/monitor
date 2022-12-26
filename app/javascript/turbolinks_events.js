@@ -1,4 +1,4 @@
-$(document).on('turbo:submit-start', function () {
+$(document).on('turbo:submit-start turbo:click', function () {
   $('.loading-caption').removeAttr('hidden')
 })
 
