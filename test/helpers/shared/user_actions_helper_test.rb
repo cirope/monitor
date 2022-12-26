@@ -6,25 +6,25 @@ class Shared::UserActionsHelperTest < ActionView::TestCase
   test 'Should return badge to supervisor role' do
     supervisor = users :franco
 
-    assert_equal role_badge(supervisor.role), 'badge-success'
+    assert_equal role_badge(supervisor.role), 'bg-success'
   end
 
   test 'Should return badge to guest role' do
     supervisor = users :john
 
-    assert_equal role_badge(supervisor.role), 'badge-light'
+    assert_equal role_badge(supervisor.role), 'bg-light'
   end
 
   test 'Should return badge to author role' do
     supervisor = users :eduardo
 
-    assert_equal role_badge(supervisor.role), 'badge-info'
+    assert_equal role_badge(supervisor.role), 'bg-info'
   end
 
   test 'Should return badge to security role' do
     supervisor = users :god
 
-    assert_equal role_badge(supervisor.role), 'badge-danger'
+    assert_equal role_badge(supervisor.role), 'bg-danger'
   end
 
   test 'Should return badge to manager role' do
@@ -32,7 +32,7 @@ class Shared::UserActionsHelperTest < ActionView::TestCase
     
     manager.role = 'manager'
 
-    assert_equal role_badge(manager.role), 'badge-secondary'
+    assert_equal role_badge(manager.role), 'bg-secondary'
   end
 
   test 'Should return badge to owner role' do
@@ -40,6 +40,6 @@ class Shared::UserActionsHelperTest < ActionView::TestCase
 
     owner.role = 'owner'
 
-    assert_equal role_badge(owner.role), 'badge-primary'
+    assert_equal role_badge(owner.role), 'bg-primary'
   end
 end

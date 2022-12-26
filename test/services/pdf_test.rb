@@ -10,7 +10,7 @@ class PdfTest < ActiveSupport::TestCase
   end
 
   test 'generate string with pdf using bootstrap, locals and options' do
-    pdf_string = Pdf.generate '<span class="badge badge-primary"><%= 2 + 2 %>:<%= var %></span>',
+    pdf_string = Pdf.generate '<span class="badge bg-primary"><%= 2 + 2 %>:<%= var %></span>',
                               locals: { var: 'test' },
                               options: { orientation: 'Landscape' }
 
