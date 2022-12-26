@@ -39,7 +39,7 @@
         <% if @issue.survey.can_create_survey_answer? %>
           <%= link_to I18n.t('issues.show.new_survey_answer'), issue_survey_answer_path(@issue), class: 'btn btn-success btn-sm' %>
         <% end %>
-        <%= link_to I18n.t('issues.show.results_survey'), issue_results_survey_path(@issue), class: 'btn btn-info btn-sm' %>
+        <%= link_to I18n.t('issues.show.survey_results'), issue_survey_results_path(@issue), class: 'btn btn-info btn-sm' %>
       </p>
     <% end %>
   </div>

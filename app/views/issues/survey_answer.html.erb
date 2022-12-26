@@ -14,10 +14,10 @@
       <%= survey_answer_form.simple_fields_for :answers, @survey_answer.answers do |answer_form| %>
         <%= render "issues/answers/#{answer_form.object.partial}", f: answer_form %>
       <% end %>
-      <%= survey_answer_form.submit "Enviar", class: 'btn btn-sm btn-secondary' %>
+      <%= survey_answer_form.submit class: 'btn btn-sm btn-secondary' %>
       <%= survey_answer_form.hidden_field :survey_id, value: @survey_answer.survey.id %>
     <% end %>
   </div>
 </div>
 
-<%= link_to 'Volver', issue_path(@survey_answer.survey.issue) %>
+<%= link_to t('back'), issue_path(@survey_answer.survey.issue) %>

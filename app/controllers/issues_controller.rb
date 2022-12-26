@@ -64,7 +64,7 @@ class IssuesController < ApplicationController
   end
 
   def survey_answer
-    survey = Survey.find_by!(issue_id: params[:issue_id])
+    survey = Survey.find_by! issue_id: params[:issue_id]
 
     if survey.can_create_survey_answer?
       @survey_answer = survey.create_survey_answer
@@ -78,14 +78,15 @@ class IssuesController < ApplicationController
     @survey_answer.user = current_user
 
     if @survey_answer.save
-      redirect_to issue_path(@survey_answer.survey.issue), notice: 'Respuesta almacenada'
+      redirect_to issue_path(@survey_answer.survey.issue),
+                  notice: t('.create_survey_answer', scope: :flash)
     else
       render :survey_answer
     end
   end
 
-  def results_survey
-    @survey = Survey.find_by!(issue_id: params[:issue_id])
+  def survey_results
+    @survey = Survey.find_by! issue_id: params[:issue_id]
   end
 
   private

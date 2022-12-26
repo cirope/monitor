@@ -1,12 +1,10 @@
 <div class="card">
   <div class="card-body">
-    <h4>
-      <%= question.title %>
-    </h4>
+    <h4><%= question.title %></h4>
     <div class="row">
       <div class="card text-white bg-secondary mb-3 mr-1" style="max-width: 18rem;">
         <div class="card-body">
-          <h5 class="card-title">Cantidad de respuestas</h5>
+          <h5 class="card-title"><%= I18n.t('issues.survey_results.drop_down_question.number_of_answers_per_option') %></h5>
           <% question.results.each do |key, value| %>
             <p class="card-text"><%= "#{key} = #{value}" %></p>
           <% end %>
@@ -14,7 +12,7 @@
       </div>
       <div class="card text-white bg-secondary mb-3 mr-1" style="max-width: 18rem;">
         <div class="card-body">
-          <h5 class="card-title">Suma de scores por respuesta</h5>
+          <h5 class="card-title"><%= I18n.t('issues.survey_results.drop_down_question.group_by_and_sum_scores') %></h5>
           <% question.group_by_and_sum_scores.each do |key, value| %>
             <p class="card-text"><%= "#{key} = #{value}" %></p>
           <% end %>
@@ -22,13 +20,13 @@
       </div>
       <div class="card text-white bg-secondary mb-3 mr-1" style="max-width: 18rem;">
         <div class="card-body">
-          <h5 class="card-title">Cantidad de respuestas</h5>
+          <h5 class="card-title"><%= I18n.t('issues.survey_results.drop_down_question.number_of_answers') %></h5>
             <p class="card-text"><%= "#{question.count_answers}" %></p>
         </div>
       </div>
       <div class="card text-white bg-secondary mb-3 mr-1" style="max-width: 18rem;">
         <div class="card-body">
-          <h5 class="card-title">Total de score</h5>
+          <h5 class="card-title"><%= I18n.t('issues.survey_results.drop_down_question.sum_scores') %></h5>
             <p class="card-text"><%= "#{question.sum_scores}" %></p>
         </div>
       </div>

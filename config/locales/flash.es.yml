@@ -52,6 +52,9 @@ es:
       create:
         notice: 'Ejecutando...'
 
+    issues:
+      create_survey_answer: 'Respuesta almacenada'
+
     ldaps:
       create:
         notice: 'Configuración LDAP creada'

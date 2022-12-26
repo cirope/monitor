@@ -10,9 +10,9 @@
 
   <div class="card-body">
     <% @survey.questions.each do |question| %>
-      <%= render "issues/results_survey/#{question.results_partial}", question: question %>
+      <%= render "issues/survey_results/#{question.results_partial}", question: question %>
     <% end %>
   </div>
 </div>
 
-<%= link_to 'Volver', issue_path(@survey.issue) %>
+<%= link_to t('back'), issue_path(@survey.issue) %>

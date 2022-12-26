@@ -2,12 +2,12 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-      <%= f.input :status, collection: status, prompt: false, hint: false, input_html: {
-        autofocus: true, disabled: !can_edit_status?
-      } %>
+    <%= f.input :status, collection: status, prompt: false, hint: false, input_html: {
+      autofocus: true, disabled: !can_edit_status?
+    } %>
     <%= f.input :description, hint: false, input_html: { rows: 4, readonly: limited_issue_form_edition? } %>
     <%= f.input :lock_version, as: :hidden %>
-  
+
     <div class="card mb-3">
       <div class="card-header">
         <span class="badge badge-pill badge-light float-right">
@@ -21,11 +21,11 @@
         <%= f.simple_fields_for :subscriptions, subscriptions do |df| %>
           <%= render 'subscriptions/subscription', f: df %>
         <% end %>
-  
+
         <%= link_to_add_fields t('issues.new.subscription'), f, :subscriptions unless limited_issue_form_edition? %>
       </div>
     </div>
-  
+
     <div class="card mb-3<%= ' border border-danger' if @issue.errors[:tags].present? %>">
       <div class="card-header">
         <span class="badge badge-pill badge-light float-right">
@@ -49,12 +49,11 @@
         <% end %>
       </div>
     </div>
-  
+
     <div class="card">
       <div class="card-header">
         <%= Comment.model_name.human count: 0 %>
       </div>
-  
       <div id="comments" class="card-body">
         <% @issue.comments.reject(&:new_record?).each do |comment| %>
           <div class="row">

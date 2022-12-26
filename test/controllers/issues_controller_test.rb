@@ -331,7 +331,7 @@ class IssuesControllerTest < ActionController::TestCase
   end
 
   test 'should return results survey' do
-    get :results_survey, params: { issue_id: @issue.id }
+    get :survey_results, params: { issue_id: @issue.id }
 
     assert_response :success
   end

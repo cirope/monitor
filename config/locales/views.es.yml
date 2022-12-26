@@ -246,11 +246,18 @@ es:
         count: 'Cantidad'
         last_comment: 'Último comentario'
         not_tagged: 'Sin etiquetas'
+    survey_results:
+      title: 'Resultados de la encuesta'
+      drop_down_question:
+        number_of_answers_per_option: 'Cantidad de respuestas por opción'
+        number_of_answers: 'Cantidad de respuestas'
+        group_by_and_sum_scores: 'Suma de scores por opción'
+        sum_scores: 'Total de score'
     show:
       title: 'Ver caso'
       download_data: 'Descargar datos'
-      new_survey_answer: 'Responder Encuesta'
-      results_survey: 'Resultados Encuesta'
+      new_survey_answer: 'Responder encuesta'
+      survey_results: 'Resultados de la encuesta'
     status:
       all: 'Todos'
       pending: 'Pendiente'
@@ -266,9 +273,7 @@ es:
     survey_answer:
       title: 'Encuesta'
     create_survey_answer:
-      title: 'Crear respuesta de encuesta'
-    results_survey:
-      title: 'Resultados de encuesta'
+      title: 'Crear respuesta'
 
   ldaps:
     edit:

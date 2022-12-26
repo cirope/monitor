@@ -74,7 +74,7 @@ Rails.application.routes.draw do
 
     get 'survey_answer'
     post 'create_survey_answer'
-    get 'results_survey'
+    get 'survey_results'
   end
 
   resources :memberships, only: [:index, :update] do

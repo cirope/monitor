@@ -4,6 +4,7 @@ class AddSurveyScripts < ActiveRecord::Migration[6.0]
       t.references :issue, null: false, index: true, foreign_key: {
         on_delete: :restrict, on_update: :restrict
       }
+
       t.timestamps null: false
     end
 
@@ -13,6 +14,7 @@ class AddSurveyScripts < ActiveRecord::Migration[6.0]
         on_delete: :restrict, on_update: :restrict
       }
       t.string :type, null: false
+
       t.timestamps null: false
     end
 
@@ -22,6 +24,7 @@ class AddSurveyScripts < ActiveRecord::Migration[6.0]
       t.references :question, null: false, index: true, foreign_key: {
         on_delete: :restrict, on_update: :restrict
       }
+
       t.timestamps null: false
     end
 
@@ -32,6 +35,7 @@ class AddSurveyScripts < ActiveRecord::Migration[6.0]
       t.references :user, null: false, index: true, foreign_key: {
         on_delete: :restrict, on_update: :restrict
       }
+
       t.timestamps null: false
     end
 
@@ -47,6 +51,7 @@ class AddSurveyScripts < ActiveRecord::Migration[6.0]
         on_delete: :restrict, on_update: :restrict
       }
       t.string :type, null: false
+
       t.timestamps null: false
     end
   end
