@@ -14,8 +14,8 @@
           </p>
         </div>
         <%= form_tag sessions_path, novalidate: 'novalidate' do %>
-          <div class="form-group">
-            <%= label_tag :username, t('.username') %>
+          <div class="mb-3">
+            <%= label_tag :username, t('.username'), class: 'form-label' %>
             <%= text_field_tag :username, params[:username], placeholder: t('.username'), class: 'form-control', autofocus: true, autocomplete: 'off' %>
           </div>
 

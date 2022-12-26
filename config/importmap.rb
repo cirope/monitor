@@ -5,7 +5,8 @@ pin 'application', preload: true
 pin '@hotwired/turbo-rails', to: 'turbo.min.js', preload: true
 pin 'turbolinks_events'
 
-pin 'bootstrap',  to: 'bootstrap.bundle.js'
+pin '@popperjs/core', to: 'popper.js',        preload: true
+pin 'bootstrap',      to: 'bootstrap.min.js', preload: true
 
 pin 'jquery',     to: 'jquery3.min.js', preload: true
 pin 'jquery_ujs', to: 'jquery_ujs.js',  preload: true
@@ -23,8 +24,6 @@ pin 'servers'
 pin 'trix_configuration'
 
 pin 'daterangepicker'
-pin 'metis_menu'
-pin 'jquery-slimscroll'
 pin 'hyper'
 
 pin 'apexcharts'

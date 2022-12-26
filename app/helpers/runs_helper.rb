@@ -4,15 +4,15 @@ module RunsHelper
   def run_status status
     klass = case status
             when 'ok'
-              'badge-success'
+              'bg-success'
             when 'error'
-              'badge-danger'
+              'bg-danger'
             when 'canceled'
-              'badge-warning'
+              'bg-warning'
             when 'aborted', 'killed'
-              'badge-warning'
+              'bg-warning'
             else
-              'badge-secondary'
+              'bg-secondary'
             end
 
     content_tag :span, t("runs.status.#{status}"), class: "badge #{klass}"

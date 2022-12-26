@@ -32,7 +32,7 @@
             <td><%= l record.created_at, format: :compact %></td>
             <td><%= record_user_name record %></td>
             <td><%= record.data['remote_ip'] %></td>
-            <td class="text-right">
+            <td class="text-end">
               <%= link_to_show record_path(record, kind: params[:kind]) %>
             </td> 
           </tr>

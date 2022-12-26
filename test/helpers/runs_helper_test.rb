@@ -4,9 +4,9 @@ require 'test_helper'
 
 class RunsHelperTest < ActionView::TestCase
   test 'run status' do
-    assert_match /badge-success/, run_status('ok')
-    assert_match /badge-danger/, run_status('error')
-    assert_match /badge-secondary/, run_status('pending')
+    assert_match /bg-success/, run_status('ok')
+    assert_match /bg-danger/, run_status('error')
+    assert_match /bg-secondary/, run_status('pending')
   end
 
   test 'run output' do
