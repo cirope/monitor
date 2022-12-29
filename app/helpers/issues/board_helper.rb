@@ -5,7 +5,7 @@ module Issues::BoardHelper
     session[:board_issues] ||= []
   end
 
-  def td_value value
+  def td_content value
     if value.kind_of?(Hash) || value.kind_of?(Array)
       title   = content_tag(:i, "", class: 'fas fa-search')
       options = {

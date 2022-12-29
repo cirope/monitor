@@ -4,7 +4,7 @@
 <tr data-issue="<%= issue.id %>">
 
   <% data.to_a[0...-1].each do |_header, value| %>
-    <%= content_tag(:td, td_value(value)) %>
+    <%= content_tag(:td, td_content(value)) %>
   <% end %>
 
   <td class="d-none d-sm-table-cell"><%= issue_status issue %></td>
