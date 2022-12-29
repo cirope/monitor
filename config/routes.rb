@@ -49,9 +49,10 @@ Rails.application.routes.draw do
   resources :descriptors
   resources :drives
   resources :ldaps
-  resources :rules
   resources :password_resets, only: [:new, :create, :edit, :update]
   resources :pdf_templates
+  resources :roles
+  resources :rules
   resources :samls
 
   resources :accounts, except: [:destroy] do

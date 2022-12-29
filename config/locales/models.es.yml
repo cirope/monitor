@@ -77,6 +77,9 @@ es:
       permalink:
         one: 'Enlace permanente'
         other: 'Enlaces permanentes'
+      permission:
+        one: 'Permiso'
+        other: 'Permisos'
       property:
         one: 'Propiedad'
         other: 'Propiedades'
@@ -86,6 +89,9 @@ es:
       require:
         one: 'Inclusión'
         other: 'Inclusiones'
+      role:
+        one: 'Rol'
+        other: 'Roles'
       rule:
         one: 'Regla'
         other: 'Reglas'
@@ -233,6 +239,12 @@ es:
         name: 'Nombre'
       permalink:
         token: 'Testigo'
+      permission:
+        section: 'Sección'
+        read: 'Lectura'
+        edit: 'Crear/Editar'
+        destroy: 'Eliminar'
+        role: 'Rol'
       property:
         key: 'Atributo'
         value: 'Valor'
@@ -245,6 +257,9 @@ es:
         output: 'Tipo de salida'
       require:
         script: 'Guión'
+      role:
+        name: 'Nombre'
+        description: 'Descripción'
       rule:
         name: 'Nombre'
         enabled: 'Habilitada'

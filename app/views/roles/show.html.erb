@@ -1,0 +1,18 @@
+<div class="card">
+  <div class="card-header">
+    <h5><%= @role %></h5>
+  </div>
+  <div class="card-body">
+    <p class="mb-1">
+      <strong><%= Role.human_attribute_name 'name' %></strong>:
+      <%= @role.name %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Role.human_attribute_name 'description' %></strong>:
+      <%= @role.description %>
+    </p>
+  </div>
+</div>
+
+<%= link_to_edit [:edit, @role] %> |
+<%= link_to_index roles_path %>
