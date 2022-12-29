@@ -5,6 +5,32 @@ module Issues::BoardHelper
     session[:board_issues] ||= []
   end
 
+  def td_value value
+    if value.kind_of?(Hash) || value.kind_of?(Array)
+      title   = content_tag(:i, "", class: 'fas fa-search')
+      options = {
+        'role': 'button',
+        'data-toggle': 'popover',
+        'data-placement': 'top',
+        'data-html': 'true',
+        'data-content': issue_popover_data_content(value)
+      }
+
+      content_tag(:a, title, options)
+    else
+      value
+    end
+  end
+
+  def issue_popover_data_content value
+    content_tag :ul do
+      value.collect do |key, val|
+        text = value.kind_of?(Hash) ? "#{key}: #{val}" : val
+        concat(content_tag(:li, text))
+      end
+    end
+  end
+
   def issue_validation_errors issue
     errors = session[:board_issue_errors]
     error  = errors && errors[issue.id]

@@ -4,42 +4,7 @@
 <tr data-issue="<%= issue.id %>">
 
   <% data.to_a[0...-1].each do |_header, value| %>
-    <td>
-      <% if value.kind_of?(Hash) || value.kind_of?(Array) %>
-
-        <% if value.kind_of?(Hash) && value.keys.count == 2 &&
-          value.keys.include?("url") && value.keys.include?("label") %>
-
-            <% permalink = Permalink.find value["url"] %>
-            <%= link_to value["label"], permalink %>
-
-        <% else %>
-
-          <a role="button" data-toggle="popover" data-placement="top" data-html="true"
-            data-content="
-              <% if value.kind_of? Hash %>
-                <ul>
-                  <% value.each do |key, val| %>
-                    <li><b><%= key %>:</b> <%= val %> </li>
-                  <% end %>
-                </ul>
-              <% else %>
-                <ul>
-                  <% value.each do |val| %>
-                    <li><%= val %></li>
-                  <% end %>
-                </ul>
-              <% end %>
-            ">
-            <i class="fas fa-search"></i>
-          </a>
-
-        <% end %>
-
-      <% else %>
-        <%= value %>
-      <% end %>
-    </td>
+    <%= content_tag(:td, td_value(value)) %>
   <% end %>
 
   <td class="d-none d-sm-table-cell"><%= issue_status issue %></td>
