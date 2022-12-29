@@ -18,21 +18,10 @@ module ObjectsHelper
 
   def link_or_show parent, key, object, id
     if object.is_a?(Hash) || object.is_a?(Array)
+      key = [params[:key], key].compact.join '__/__'
 
-      # TODO: optimize or remove before merge
-      if object.kind_of?(Hash) && object.keys.count == 2 &&
-        object.keys.include?("url") && object.keys.include?("label")
-
-        permalink = Permalink.find object["url"]
-        link_to object["label"], permalink
-
-      else
-
-        key = [params[:key], key].compact.join '__/__'
-
-        link_to [parent, key: key, container_id: id], data: { remote: true } do
-          icon 'fas', 'search', title: t('.more')
-        end
+      link_to [parent, key: key, container_id: id], data: { remote: true } do
+        icon 'fas', 'search', title: t('.more')
       end
     else
       object || raw('&nbsp;')
