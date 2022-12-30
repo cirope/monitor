@@ -10,7 +10,7 @@ module MenuHelper
 
     if active
       link_class += ' active'
-      li_class   += ' mm-active'
+      li_class   += ' menuitem-active'
     end
 
     content_tag :li, link_to(link_text, path, class: link_class), class: li_class
@@ -29,7 +29,7 @@ module MenuHelper
   def left_menu_item_for model, path
     link    = left_menu_link_for model, path
     options = if model.model_name.route_key == controller_name
-                { class: 'mm-active' }
+                { class: 'menuitem-active' }
               else
                 {}
               end
@@ -40,12 +40,16 @@ module MenuHelper
   def is_config_action?
     models = [
       User,
+      records_helper_model,
       Tag,
       Descriptor,
       Account,
       Server,
       Database,
       Ldap,
+      Saml,
+      Drive,
+      PdfTemplate,
       console_helper_model,
       processes_helper_model
     ]

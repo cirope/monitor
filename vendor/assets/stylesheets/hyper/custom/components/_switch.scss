@@ -1,4 +1,4 @@
-// 
+//
 // switch.scss
 //
 
@@ -7,10 +7,10 @@
 input[data-switch] {
     display: none;
 
-    + label {
+    +label {
         width: 56px;
         height: 24px;
-        background-color: $gray-100;
+        background-color: var(--#{$prefix}gray-100);
         background-image: none;
         border-radius: 2rem;
         cursor: pointer;
@@ -20,7 +20,7 @@ input[data-switch] {
         transition: all 0.1s ease-in-out;
 
         &:before {
-            color: $dark;
+            color: var(--#{$prefix}gray-900);
             content: attr(data-off-label);
             display: block;
             font-family: inherit;
@@ -29,18 +29,19 @@ input[data-switch] {
             line-height: 24px;
             position: absolute;
             right: 3px;
-            margin: 0 .21667rem;
+            margin: 0 0.21667rem;
             top: 0;
             text-align: center;
             min-width: 1.66667rem;
             overflow: hidden;
             transition: all 0.1s ease-in-out;
         }
+
         &:after {
-            content: '';
+            content: "";
             position: absolute;
             left: 4px;
-            background-color: $gray-500;
+            background-color: var(--#{$prefix}gray-500);
             box-shadow: none;
             border-radius: 2rem;
             height: 18px;
@@ -49,39 +50,50 @@ input[data-switch] {
             transition: all 0.1s ease-in-out;
         }
     }
+
     &:checked {
         +label {
             background-color: $primary;
+
             &:before {
                 color: $white;
                 content: attr(data-on-label);
                 right: auto;
                 left: 4px;
             }
+
             &:after {
                 left: 34px;
-                background-color: $gray-100;
+                background-color: var(--#{$prefix}gray-100);
             }
         }
     }
 }
 
 input[data-switch="bool"] {
-    + label {
+    +label {
         background-color: $danger;
+    }
+}
+
+input:disabled {
+    +label {
+        opacity: 0.5;
+        cursor: default;
     }
 }
 
 input[data-switch="bool"]+label:before,
 input[data-switch="bool"]:checked+label:before {
-    color: $white !important;
+    color: $white  !important;
 }
 
 input[data-switch="bool"]+label:after {
-    background-color: $gray-100;
+    background-color: var(--#{$prefix}gray-100);
 }
 
-@each $color,$value in $theme-colors {
+@each $color,
+$value in $theme-colors {
     input[data-switch="#{$color}"]:checked+label {
         background-color: #{$value};
     }

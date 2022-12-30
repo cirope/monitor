@@ -3,7 +3,7 @@
     <h5>
       <span class="text-muted"><%= Run.model_name.human count: 1 %> -</span>
       <%= link_to @run.script, @run.script %>
-      <span class="float-right">
+      <span class="float-end">
         <%= run_status @run.status %>
       </span>
     </h5>
@@ -106,7 +106,7 @@
 <%= render 'scripts/measures/graphs', format: :time if @measures.any? %>
 
 <% if @run.can_be_killed? %>
-  <div class="float-right">
+  <div class="float-end">
     <%= link_to_force_kill_run %>
     <%= link_to_kill_run %>
   </div>

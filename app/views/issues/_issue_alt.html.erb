@@ -13,11 +13,11 @@
 
   <td><%= data.to_a.last.last %></td>
 
-  <td class="text-right"><%= link_to_show [issue, filter: filter_params.to_h] %></td>
+  <td class="text-end"><%= link_to_show [issue, filter: filter_params.to_h] %></td>
   <% if current_user.can_edit_issues? %>
-    <td class="text-right"><%= link_to_edit [:edit, issue, filter: filter_params.to_h] %></td>
+    <td class="text-end"><%= link_to_edit [:edit, issue, filter: filter_params.to_h] %></td>
     <% unless current_user.owner? %>
-      <td class="text-right">
+      <td class="text-end">
         <%=
           if is_in_board? issue
             link_to_remove_from_board issue, url_params: { partial: 'alt' }
@@ -28,7 +28,7 @@
       </td>
     <% end %>
     <% if current_user.supervisor? %>
-      <td class="text-right"><%= link_to_destroy [issue, filter: filter_params.to_h] %></td>
+      <td class="text-end"><%= link_to_destroy [issue, filter: filter_params.to_h] %></td>
     <% end %>
   <% end %>
 </tr>

@@ -6,6 +6,8 @@ import 'jquery'
 import 'jquery_ujs'
 import 'jquery-ui/widgets/autocomplete'
 import 'turbolinks_events'
+
+import '@popperjs/core'
 import 'bootstrap'
 
 import 'codemirror/codemirror'
@@ -27,8 +29,6 @@ import 'moment/moment'
 import 'moment/es'
 import 'daterangepicker'
 
-import 'metis_menu'
-import 'jquery-slimscroll'
 import 'hyper'
 
 import 'apexcharts'

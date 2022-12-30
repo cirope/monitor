@@ -1,4 +1,4 @@
-$(document).on('turbo:submit-start', function () {
+$(document).on('turbo:submit-start turbo:click', function () {
   $('.loading-caption').removeAttr('hidden')
 })
 
@@ -7,8 +7,5 @@ $(document).on('turbo:submit-end', function () {
 })
 
 $(document).on('turbo:load', function () {
-  var leftSidebar = new $.LeftSidebar.Constructor
-
-  leftSidebar.init()
   $('[autofocus]').focus()
 })

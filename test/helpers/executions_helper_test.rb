@@ -4,9 +4,9 @@ require 'test_helper'
 
 class ExecutionsHelperTest < ActionView::TestCase
   test 'execution status' do
-    assert_match /badge-success/, execution_status('success')
-    assert_match /badge-danger/, execution_status('error')
-    assert_match /badge-secondary/, execution_status('pending')
+    assert_match /bg-success/, execution_status('success')
+    assert_match /bg-danger/, execution_status('error')
+    assert_match /bg-secondary/, execution_status('pending')
   end
 
   test 'link to force kill' do
