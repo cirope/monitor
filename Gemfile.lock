@@ -262,6 +262,7 @@ GEM
     ruby-ntlm (0.0.4)
     ruby-oci8 (2.2.11)
     ruby-odbc (0.999991)
+    ruby-ole (1.2.12.2)
     ruby-plsql (0.8.0)
     ruby-progressbar (1.11.0)
     ruby-rc4 (0.1.5)
@@ -282,6 +283,8 @@ GEM
     simple_form (5.1.0)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
+    spreadsheet (1.3.0)
+      ruby-ole
     sprockets (4.0.3)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -384,6 +387,7 @@ DEPENDENCIES
   sidekiq
   simple_command
   simple_form
+  spreadsheet
   timecop
   tiny_tds
   turbolinks
