@@ -7,7 +7,7 @@ module Tags::Options
     options = {
       issue:  { final: :boolean, group: :boolean, category: :boolean },
       script: { export: :boolean, editable: :boolean },
-      user:   {}
+      user:   { recovery: :boolean }
     }
 
     options[kind.to_sym]
@@ -56,6 +56,15 @@ module Tags::Options
 
   def editable= editable
     assign_option 'editable', editable == true || editable == '1'
+  end
+
+  def recovery
+    options&.fetch 'recovery', nil
+  end
+  alias_method :recovery?, :recovery
+
+  def recovery= recovery
+    assign_option 'recovery', recovery == true || recovery == '1'
   end
 
   private

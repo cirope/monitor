@@ -21,4 +21,8 @@ module Users::Authentication
       authenticate password
     end
   end
+
+  def recovery?
+    tags.any? &:recovery?
+  end
 end

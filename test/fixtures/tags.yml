@@ -43,3 +43,10 @@ editable:
   style: secondary
   options: { "editable": true }
   parent:
+
+recovery:
+  name: Recovery
+  kind: user
+  style: secondary
+  options: { "recovery": true }
+  parent:
