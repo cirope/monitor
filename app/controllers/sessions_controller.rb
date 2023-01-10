@@ -23,7 +23,7 @@ class SessionsController < ApplicationController
           store_current_account account
 
           if saml && !user.recovery?
-            redirect_url = new_saml_session_url(account.tenant_name)
+            redirect_url = new_saml_session_url account.tenant_name
           end
         end
 
