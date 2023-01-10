@@ -7,7 +7,7 @@
       <%= f.input :lastname, input_html: { disabled: ldap } %>
       <%= f.input :email, input_html: { disabled: ldap } %>
       <%= f.input :username, input_html: { disabled: ldap } %>
-      <% unless ldap %>
+      <% if !ldap && @user.new_record? %>
         <%= f.input :password %>
         <%= f.input :password_confirmation %>
       <% end %>
