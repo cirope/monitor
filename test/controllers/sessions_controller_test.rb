@@ -108,8 +108,6 @@ class SessionsControllerTest < ActionController::TestCase
   end
 
   test 'should create session with tag recovery' do
-    Ldap.default.destroy!
-
     @user.tags << tags(:recovery)
 
     assert_difference '@user.logins.count' do
