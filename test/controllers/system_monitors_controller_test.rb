@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'test_helper'
 
-class ProcessesControllerTest < ActionController::TestCase
+class SystemMonitorsControllerTest < ActionController::TestCase
   test 'should get index' do
     login
 
@@ -21,8 +21,8 @@ class ProcessesControllerTest < ActionController::TestCase
 
     delete :destroy, params: { id: sleep_p.pid }
 
-    assert_redirected_to processes_url
-    assert_equal I18n.t('processes.destroy.destroyed'), flash[:notice]
+    assert_redirected_to system_monitors_url
+    assert_equal I18n.t('system_monitors.destroy.destroyed'), flash[:notice]
 
     sleep 0.25 if ENV['GH_ACTIONS']
 
@@ -34,8 +34,8 @@ class ProcessesControllerTest < ActionController::TestCase
 
     delete :destroy, params: { id: 999999 }
 
-    assert_redirected_to processes_url
-    assert_equal I18n.t('processes.destroy.cannot_be_destroyed'), flash[:notice]
+    assert_redirected_to system_monitors_url
+    assert_equal I18n.t('system_monitors.destroy.cannot_be_destroyed'), flash[:notice]
   end
 
   test 'should not finish pid without supervisor' do

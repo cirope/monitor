@@ -1,0 +1,26 @@
+<fieldset class="role_permission">
+  <div class="row">
+    <div class="col-sm-3">
+      <%= f.input :section, collection: permission_sections, label: false,
+        prompt: t('permissions.select.section') %>
+    </div>
+    <div class="col-sm-2">
+      <%= f.input :permit_read %>
+    </div>
+    <div class="col-sm-2">
+      <%= f.input :permit_edit %>
+    </div>
+    <div class="col-sm-2">
+      <%= f.input :permit_destroy %>
+    </div>
+    <div class="col-sm-2">
+      <%= f.input :admin %>
+    </div>
+    <div class="col-sm-1">
+      <div class="row-controls mb-3 mb-sm-0 mt-n4 mt-sm-n2">
+        <%= f.input :id, as: :hidden %>
+        <%= link_to_remove_nested_item f %>
+      </div>
+    </div>
+  </div>
+</fieldset>

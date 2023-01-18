@@ -364,6 +364,23 @@ es:
     show:
       title: 'Casos'
 
+  permissions:
+    select:
+      section: 'Seleccione una sección'
+
+  roles:
+    edit:
+      title: 'Editar rol'
+    index:
+      new: 'Nuevo rol'
+      title: 'Listado de roles'
+      empty_html: 'No hay roles, puede crear uno con el botón <span class="badge bg-primary">Nuevo rol</span>'
+    new:
+      title: 'Crear rol'
+      permission: 'Agregar Permiso'
+    show:
+      title: 'Ver rol'
+
   rules:
     edit:
       title: 'Editar regla'
@@ -559,20 +576,6 @@ es:
       back: 'Volver'
       subtitle: 'Ingrese su dirección de correo y le enviaremos las instrucciones para recuperar su contraseña'
 
-  processes:
-    index:
-      title: 'Procesos'
-      command: 'Comando'
-      cpu: 'CPU'
-      memory: 'Memoria'
-      memory_percent: '%'
-      pid: 'PID'
-      time: 'Tiempo'
-      kill: 'Terminar'
-    destroy:
-      destroyed: 'Proceso terminado'
-      cannot_be_destroyed: 'No se pudo terminar el proceso'
-
   profiles:
     edit:
       title: 'Mis datos'
@@ -598,6 +601,14 @@ es:
       empty_html: 'No se han encontrado datos'
     show:
       title: 'Ver serie'
+
+  system_monitors:
+    index:
+      title: 'Procesos'
+      kill: 'Terminar'
+    destroy:
+      destroyed: 'Proceso terminado'
+      cannot_be_destroyed: 'No se pudo terminar el proceso'
 
   tags:
     edit:
@@ -669,7 +680,7 @@ es:
         updated: 'Actualizado'
         error: 'Con errores'
         deprecated_users: 'Usuarios ausentes en el servidor LDAP'
-  
+
   views:
     view:
       mark_as_viewed: 'Marcar como visto'

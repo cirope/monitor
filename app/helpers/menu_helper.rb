@@ -38,24 +38,8 @@ module MenuHelper
   end
 
   def is_config_action?
-    models = [
-      User,
-      records_helper_model,
-      Tag,
-      Descriptor,
-      Account,
-      Server,
-      Database,
-      Ldap,
-      Saml,
-      Drive,
-      PdfTemplate,
-      console_helper_model,
-      processes_helper_model
-    ]
-
-    models.any? do |model|
-      model.model_name.route_key == controller_name
+    Permission.config_actions.any? do |model|
+      model.constantize.model_name.route_key == controller_name
     end
   end
 
@@ -80,39 +64,6 @@ module MenuHelper
 
   def show_board?
     board_session.present?
-  end
-
-  def console_helper_model
-    model_name = OpenStruct.new route_key: 'console'
-    model      = OpenStruct.new model_name: model_name
-
-    def model_name.human options
-      I18n.t 'console.show.title'
-    end
-
-    model
-  end
-
-  def processes_helper_model
-    model_name = OpenStruct.new route_key: 'processes'
-    model      = OpenStruct.new model_name: model_name
-
-    def model_name.human options
-      I18n.t 'processes.index.title'
-    end
-
-    model
-  end
-
-  def records_helper_model
-    model_name = OpenStruct.new route_key: 'records'
-    model      = OpenStruct.new model_name: model_name
-
-    def model_name.human options
-      I18n.t 'records.index.title'
-    end
-
-    model
   end
 
   private

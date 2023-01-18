@@ -7,7 +7,7 @@ class RolesController < ApplicationController
 
   # GET /roles
   def index
-    @roles = Role.all
+    @roles = Role.ordered.page params[:page]
   end
 
   # GET /roles/1
@@ -25,7 +25,7 @@ class RolesController < ApplicationController
 
   # POST /roles
   def create
-    @role = Role.new(role_params)
+    @role = Role.new role_params
 
     if @role.save
       redirect_to @role
@@ -53,10 +53,13 @@ class RolesController < ApplicationController
   private
 
     def set_role
-      @role = Role.find(params[:id])
+      @role = Role.find params[:id]
     end
 
     def role_params
-      params.require(:role).permit :name, :description
+      params.require(:role).permit :name, :description, :lock_version,
+        permissions_attributes: [
+          :id, :section, :permit_read, :permit_edit, :permit_destroy, :admin, :_destroy
+        ]
     end
 end

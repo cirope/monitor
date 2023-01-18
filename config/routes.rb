@@ -126,7 +126,7 @@ Rails.application.routes.draw do
     resources :tags
   end
 
-  resources :processes, only: [:index, :destroy]
+  resources :system_monitors, only: [:index, :destroy]
 
   scope ':kind', kind: /login|fail/ do
     resources :records, only: [:index, :show]

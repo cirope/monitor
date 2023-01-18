@@ -4,7 +4,7 @@
     <%= left_menu_item_for User, users_path %>
 
     <% if current_user.supervisor? || current_user.security? %>
-      <%= left_menu_item_for records_helper_model, records_path(kind: 'login') %>
+      <%= left_menu_item_for Record, records_path(kind: 'login') %>
     <% end %>
 
     <% if current_user.manager? %>
@@ -27,11 +27,11 @@
     <% end %>
 
     <% if current_user.supervisor? && ENABLE_WEB_CONSOLE %>
-      <%= left_menu_item_for console_helper_model, console_path %>
+      <%= left_menu_item_for Console, console_path %>
     <% end %>
 
     <% unless current_user.manager? %>
-      <%= left_menu_item_for processes_helper_model, processes_path %>
+      <%= left_menu_item_for SystemMonitor, system_monitors_path %>
     <% end %>
   </ul>
 </div>

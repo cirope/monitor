@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class ProcessesController < ApplicationController
+class SystemMonitorsController < ApplicationController
   before_action :authorize, :not_guest, :not_owner, :not_manager
   before_action :only_supervisor, only: :destroy
 
@@ -10,8 +10,8 @@ class ProcessesController < ApplicationController
   def destroy
     SystemProcess.new(params[:id]).kill
 
-    redirect_to processes_path, notice: t('.destroyed')
+    redirect_to system_monitors_path, notice: t('.destroyed')
   rescue
-    redirect_to processes_path, notice: t('.cannot_be_destroyed')
+    redirect_to system_monitors_path, notice: t('.cannot_be_destroyed')
   end
 end

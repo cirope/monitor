@@ -2,12 +2,12 @@
   <table class="table table-hover">
     <thead>
       <tr>
-        <th><%= t '.pid' %></th>
-        <th><%= t '.cpu' %></th>
-        <th><%= t '.memory' %></th>
-        <th class="d-none d-md-table-cell"><%= t '.memory_percent' %></th>
-        <th class="d-none d-md-table-cell"><%= t '.time' %></th>
-        <th class="d-none d-lg-table-cell"><%= t '.command' %></th>
+        <th><%= SystemMonitor.human_attribute_name 'pid' %></th>
+        <th><%= SystemMonitor.human_attribute_name 'cpu' %></th>
+        <th><%= SystemMonitor.human_attribute_name 'memory' %></th>
+        <th class="d-none d-md-table-cell"><%= SystemMonitor.human_attribute_name 'memory_percent' %></th>
+        <th class="d-none d-md-table-cell"><%= SystemMonitor.human_attribute_name 'time' %></th>
+        <th class="d-none d-lg-table-cell"><%= SystemMonitor.human_attribute_name 'command' %></th>
         <th></th>
       </tr>
     </thead>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_28_171018) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_16_222007) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -492,9 +492,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_28_171018) do
 
   create_table "permissions", force: :cascade do |t|
     t.string "section", null: false
-    t.boolean "read", default: false, null: false
-    t.boolean "edit", default: false, null: false
-    t.boolean "destroy", default: false, null: false
+    t.boolean "permit_read", default: false, null: false
+    t.boolean "permit_edit", default: false, null: false
+    t.boolean "permit_destroy", default: false, null: false
     t.boolean "admin", default: false, null: false
     t.bigint "role_id", null: false
     t.datetime "created_at", null: false
@@ -819,15 +819,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_28_171018) do
     t.string "password_reset_token"
     t.datetime "password_reset_sent_at", precision: nil
     t.integer "lock_version", default: 0, null: false
-    t.string "role", default: "author", null: false
+    t.string "old_role", default: "author", null: false
     t.string "username"
     t.boolean "hidden", default: false, null: false
     t.string "saml_request_id"
+    t.bigint "role_id"
     t.index ["auth_token"], name: "index_users_on_auth_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["hidden"], name: "index_users_on_hidden"
+    t.index ["old_role"], name: "index_users_on_old_role"
     t.index ["password_reset_token"], name: "index_users_on_password_reset_token", unique: true
-    t.index ["role"], name: "index_users_on_role"
+    t.index ["role_id"], name: "index_users_on_role_id"
     t.index ["saml_request_id"], name: "index_users_on_saml_request_id"
     t.index ["username"], name: "index_users_on_username"
   end
@@ -888,7 +890,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_28_171018) do
   add_foreign_key "outputs", "triggers", on_update: :restrict, on_delete: :restrict
   add_foreign_key "panels", "dashboards", on_update: :restrict, on_delete: :restrict
   add_foreign_key "parameters", "scripts", on_update: :restrict, on_delete: :restrict
-  add_foreign_key "permissions", "roles"
+  add_foreign_key "permissions", "roles", on_update: :restrict, on_delete: :restrict
   add_foreign_key "properties", "databases", on_update: :restrict, on_delete: :restrict
   add_foreign_key "queries", "panels", on_update: :restrict, on_delete: :restrict
   add_foreign_key "questions", "surveys", on_update: :restrict, on_delete: :restrict
@@ -904,6 +906,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_28_171018) do
   add_foreign_key "taggings", "tags", on_update: :restrict, on_delete: :restrict
   add_foreign_key "tags", "tags", column: "parent_id", on_update: :restrict, on_delete: :restrict
   add_foreign_key "triggers", "rules", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "users", "roles", on_update: :restrict, on_delete: :restrict
   add_foreign_key "views", "issues", on_update: :restrict, on_delete: :restrict
   add_foreign_key "views", "users", on_update: :restrict, on_delete: :restrict
 end

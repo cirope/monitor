@@ -3,6 +3,26 @@ es:
     created_at: 'Creación'
     updated_at: 'Actualización'
 
+  activemodel:
+    models:
+      console:
+        one: 'Consola'
+        other: 'Consola'
+      record:
+        one: 'Registro de ingreso'
+        other: 'Registros de ingreso'
+      system_monitor:
+        one: 'Proceso'
+        other: 'Procesos'
+    attributes:
+      system_monitor:
+        command: 'Comando'
+        cpu: 'CPU'
+        memory: 'Memoria'
+        memory_percent: '%'
+        pid: 'PID'
+        time: 'Tiempo'
+
   activerecord:
     models:
       account:
@@ -241,9 +261,9 @@ es:
         token: 'Testigo'
       permission:
         section: 'Sección'
-        read: 'Lectura'
-        edit: 'Crear/Editar'
-        destroy: 'Eliminar'
+        permit_read: 'Leer'
+        permit_edit: 'Crear/Editar'
+        permit_destroy: 'Eliminar'
         role: 'Rol'
       property:
         key: 'Atributo'
@@ -378,7 +398,7 @@ es:
               globally_taken: 'ya está en uso en otra cuenta'
             base:
               licensed_user_limit: 'Limite de usuarios alcanzado, por favor actualice su licencia.'
-        
+
 
   errors:
     messages:

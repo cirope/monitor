@@ -1,3 +1,5 @@
 class Permission < ApplicationRecord
-  belongs_to :role
+  include Permissions::Relations
+  include Permissions::Scopes
+  include Permissions::Validation
 end

@@ -60,7 +60,7 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      params.require(:user).permit :name, :lastname, :email, :username, :password, :password_confirmation, :role, :lock_version,
-        taggings_attributes: [:id, :tag_id, :_destroy]
+      params.require(:user).permit :name, :lastname, :email, :username, :password, :password_confirmation,
+        :role_id, :lock_version, taggings_attributes: [:id, :tag_id, :_destroy]
     end
 end

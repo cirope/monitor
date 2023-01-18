@@ -3,7 +3,7 @@ franco:
   lastname: Catena
   email: francocatena@gmail.com
   username: franco
-  role: supervisor
+  old_role: supervisor
   password_digest: <%= BCrypt::Password.create('123', cost: BCrypt::Engine::MIN_COST) %>
   auth_token: <%= SecureRandom.urlsafe_base64 %>
   password_reset_token: <%= SecureRandom.urlsafe_base64 %>
@@ -14,7 +14,7 @@ john:
   lastname: Doe
   email: john@doe.com
   username: john
-  role: guest
+  old_role: guest
   password_digest: <%= BCrypt::Password.create('123', cost: BCrypt::Engine::MIN_COST) %>
   auth_token: <%= SecureRandom.urlsafe_base64 %>
   password_reset_token: <%= SecureRandom.urlsafe_base64 %>
@@ -25,7 +25,7 @@ eduardo:
   lastname: Galeano
   email: edu@galeano.com
   username: eduardo
-  role: author
+  old_role: author
   password_digest: <%= BCrypt::Password.create('123', cost: BCrypt::Engine::MIN_COST) %>
   auth_token: <%= SecureRandom.urlsafe_base64 %>
   password_reset_token: <%= SecureRandom.urlsafe_base64 %>
@@ -36,7 +36,7 @@ god:
   lastname: Christ
   email: jesus@heaven.com
   username: god
-  role: security
+  old_role: security
   password_digest: <%= BCrypt::Password.create('123', cost: BCrypt::Engine::MIN_COST) %>
   auth_token: <%= SecureRandom.urlsafe_base64 %>
   password_reset_token: <%= SecureRandom.urlsafe_base64 %>
