@@ -3,11 +3,10 @@
 class RunsController < ApplicationController
   include Runs::Filters
 
-  before_action :authorize, :not_guest, :not_owner, :not_manager, :not_security
+  before_action :authorize
   before_action :set_title, except: [:destroy]
   before_action :set_schedule, only: [:index]
   before_action :set_run, only: [:show, :update, :destroy]
-  before_action :not_author, except: [:index, :update, :show]
 
   def index
     @runs = runs.preload(:script).reorder(scheduled_at: :desc).page params[:page]

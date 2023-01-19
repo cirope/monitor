@@ -4,10 +4,6 @@ class AccountsController < ApplicationController
   include Accounts::Filters
 
   before_action :authorize,
-                :not_guest,
-                :not_owner,
-                :not_manager,
-                :not_author,
                 :from_default_account
 
   before_action :set_account, only: [:show, :edit, :update]

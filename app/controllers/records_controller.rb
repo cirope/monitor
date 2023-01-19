@@ -3,11 +3,7 @@
 class RecordsController < ApplicationController
   include Records::Filters
 
-  before_action :authorize,
-                :not_guest,
-                :not_author,
-                :not_owner,
-                :not_manager
+  before_action :authorize
 
   # GET /records
   def index

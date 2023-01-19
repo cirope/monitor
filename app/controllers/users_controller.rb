@@ -3,10 +3,9 @@
 class UsersController < ApplicationController
   include Users::Filters
 
-  before_action :authorize, :not_guest, :not_owner
+  before_action :authorize
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :set_title, except: [:destroy]
-  before_action :not_author, only: [:edit, :update, :destroy]
 
   # GET /users
   def index

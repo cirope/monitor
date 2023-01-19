@@ -5,13 +5,10 @@ module Users::Roles
 
   included do
     belongs_to :role
+    has_many :permissions, through: :role
+  end
 
-    ROLES = %w(security supervisor author manager owner guest)
-
-    ROLES.each do |role|
-      define_method "#{role}?" do
-        self.old_role == role
-      end
-    end
+  def can? action, section
+    permissions.find_by(section: section.to_s)&.send "permit_#{action}"
   end
 end

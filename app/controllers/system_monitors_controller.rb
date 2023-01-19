@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 class SystemMonitorsController < ApplicationController
-  before_action :authorize, :not_guest, :not_owner, :not_manager
-  before_action :only_supervisor, only: :destroy
+  before_action :authorize
 
   def index
     @processes = SystemProcess.user_top

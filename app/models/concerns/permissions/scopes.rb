@@ -7,7 +7,7 @@ module Permissions::Scopes
 
   module ClassMethods
     def config_actions
-      Permission::SECTIONS.select { |k,v| v[:is_config] == true }.keys
+      Permission::SECTIONS.select { |k,v| v[:is_config] }.keys
     end
   end
 end
