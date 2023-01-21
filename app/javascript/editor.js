@@ -46,11 +46,11 @@
     editor.on('change', function () {
       if (editor.getValue().trim()) {
         $change.prop('disabled', false).val('')
-        $change.closest('.form-group').removeAttr('hidden')
+        $change.closest('.script_change').removeAttr('hidden')
         $file.prop('disabled', true).attr('hidden', true)
       } else {
         $change.prop('disabled', true)
-        $change.closest('.form-group').attr('hidden', true)
+        $change.closest('.script_change').attr('hidden', true)
         $file.prop('disabled', false).removeAttr('hidden')
       }
     })
