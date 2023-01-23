@@ -27,7 +27,7 @@ gem 'request_store-sidekiq'
 gem 'sidekiq', '< 7'
 gem 'ros-apartment-sidekiq', require: 'apartment-sidekiq'
 gem 'whenever', require: false
-gem 'paper_trail'
+gem 'paper_trail', '< 12' # https://github.com/paper-trail-gem/paper_trail/issues/1305
 gem 'premailer-rails'
 gem 'ruby-ntlm'
 gem 'rubyzip', require: 'zip'
