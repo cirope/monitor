@@ -18,7 +18,7 @@ class SamlSessionsController < ApplicationController
 
           user.update_saml_request_id saml_request.request_id
 
-          redirect_to action
+          redirect_to action, allow_other_host: true
         else
           redirect_to login_url, alert: t('invalid', scope: [:flash, :sessions, :create])
         end

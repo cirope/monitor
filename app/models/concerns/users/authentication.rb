@@ -15,10 +15,14 @@ module Users::Authentication
   def auth password
     ldap = Ldap.default
 
-    if ldap
+    if ldap && !recovery?
       password.present? && ldap.ldap(username, password).bind
     else
       authenticate password
     end
+  end
+
+  def recovery?
+    tags.any? &:recovery?
   end
 end

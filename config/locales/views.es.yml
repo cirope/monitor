@@ -24,7 +24,7 @@ es:
     index:
       new: 'Nueva cuenta'
       title: 'Listado de cuentas'
-      empty_html: 'No hay cuentas, puede crear una con el botón <span class="badge badge-primary">Nueva cuenta</span>'
+      empty_html: 'No hay cuentas, puede crear una con el botón <span class="badge bg-primary">Nueva cuenta</span>'
       empty_search_html: 'No hay cuentas que coincidan con el criterio de búsqueda'
     new:
       title: 'Crear cuenta'
@@ -63,7 +63,7 @@ es:
     index:
       new: 'Nuevo tablero'
       title: 'Listado de tableros'
-      empty_html: 'No hay tableros, puede crear uno con el botón <span class="badge badge-primary">Nuevo tablero</span>'
+      empty_html: 'No hay tableros, puede crear uno con el botón <span class="badge bg-primary">Nuevo tablero</span>'
     new:
       title: 'Crear tablero'
     show:
@@ -76,7 +76,7 @@ es:
     index:
       new: 'Nueva base de datos'
       title: 'Listado de bases de datos'
-      empty_html: 'No hay bases de datos, puede crear una con el botón <span class="badge badge-primary">Nueva base de datos</span>'
+      empty_html: 'No hay bases de datos, puede crear una con el botón <span class="badge bg-primary">Nueva base de datos</span>'
       empty_search_html: 'No hay bases de datos que coincidan con el criterio de búsqueda'
     new:
       title: 'Crear base de datos'
@@ -90,7 +90,7 @@ es:
     index:
       new: 'Nuevo descriptor'
       title: 'Listado de descriptores'
-      empty_html: 'No hay descriptores, puede crear uno con el botón <span class="badge badge-primary">Nuevo descriptor</span>'
+      empty_html: 'No hay descriptores, puede crear uno con el botón <span class="badge bg-primary">Nuevo descriptor</span>'
     new:
       title: 'Crear descriptor'
     show:
@@ -110,7 +110,7 @@ es:
     index:
       new: 'Nueva configuración DRIVE'
       title: 'Listado de configuraciones DRIVE'
-      empty_html: 'No hay configuraciones DRIVE, puede crear una con el botón <span class="badge badge-primary">Nueva configuración DRIVE</span>'
+      empty_html: 'No hay configuraciones DRIVE, puede crear una con el botón <span class="badge bg-primary">Nueva configuración DRIVE</span>'
     new:
       title: 'Crear configuración DRIVE'
     show:
@@ -268,7 +268,7 @@ es:
     index:
       new: 'Nueva configuración LDAP'
       title: 'Listado de configuraciones LDAP'
-      empty_html: 'No hay configuraciones LDAP, puede crear una con el botón <span class="badge badge-primary">Nueva configuración LDAP</span>'
+      empty_html: 'No hay configuraciones LDAP, puede crear una con el botón <span class="badge bg-primary">Nueva configuración LDAP</span>'
     new:
       title: 'Crear configuración LDAP'
     show:
@@ -313,10 +313,22 @@ es:
     index:
       new: 'Nuevo panel'
       title: 'Listado de paneles'
-      empty_html: 'No hay paneles, puede crear uno con el botón <span class="badge badge-primary">Nuevo panel</span>'
+      empty_html: 'No hay paneles, puede crear uno con el botón <span class="badge bg-primary">Nuevo panel</span>'
     new:
       title: 'Crear panel'
       query: 'Agregar consulta'
+
+  pdf_templates:
+    index:
+      empty_html: 'No hay plantillas PDF, puede crear una con el botón <span class="badge bg-primary">Nueva plantilla PDF</span>'
+      new: 'Nueva plantilla PDF'
+      title: 'Listado de plantillas PDF'
+    edit:
+      title: 'Editar plantilla PDF'
+    new:
+      title: 'Nueva plantilla PDF'
+    show:
+      title: 'Ver plantilla PDF'
 
   queries:
     frequencies:
@@ -358,7 +370,7 @@ es:
     index:
       new: 'Nueva regla'
       title: 'Listado de reglas'
-      empty_html: 'No hay reglas, puede crear una con el botón <span class="badge badge-primary">Nueva regla</span>'
+      empty_html: 'No hay reglas, puede crear una con el botón <span class="badge bg-primary">Nueva regla</span>'
       empty_search_html: 'No hay reglas que coincidan con el criterio de búsqueda'
       import: 'Importar'
       export: 'Exportar'
@@ -409,7 +421,7 @@ es:
     index:
       new: 'Nuevo guión'
       title: 'Listado de guiones'
-      empty_html: 'No hay guiones, puede crear uno con el botón <span class="badge badge-primary">Nuevo guión</span>'
+      empty_html: 'No hay guiones, puede crear uno con el botón <span class="badge bg-primary">Nuevo guión</span>'
       empty_search_html: 'No hay guiones que coincidan con el criterio de búsqueda'
       import: 'Importar'
       export: 'Exportar'
@@ -418,6 +430,7 @@ es:
       new_python: 'Nuevo guión Python'
     new:
       title: 'Crear guión'
+      library: 'Agregar biblioteca'
       maintainer: 'Agregar mantenedor'
       require: 'Agregar inclusión'
       tagging: 'Agregar etiqueta'
@@ -479,7 +492,7 @@ es:
     index:
       new: 'Nuevo trabajo'
       title: 'Listado de trabajos'
-      empty_html: 'No hay trabajos, puede crear uno con el botón <span class="badge badge-primary">Nuevo trabajo</span>'
+      empty_html: 'No hay trabajos, puede crear uno con el botón <span class="badge bg-primary">Nuevo trabajo</span>'
       empty_search_html: 'No hay trabajos que coincidan con el criterio de búsqueda'
     new:
       title: 'Crear trabajo'
@@ -509,7 +522,7 @@ es:
     index:
       new: 'Nuevo servidor'
       title: 'Listado de servidores'
-      empty_html: 'No hay servidores, puede crear uno con el botón <span class="badge badge-primary">Nuevo servidor</span>'
+      empty_html: 'No hay servidores, puede crear uno con el botón <span class="badge bg-primary">Nuevo servidor</span>'
       empty_search_html: 'No hay servidores que coincidan con el criterio de búsqueda'
       make_default: 'Convertir en principal'
       default: 'Principal'
@@ -571,7 +584,7 @@ es:
     index:
       new: 'Nueva configuración SAML'
       title: 'Listado de configuraciones SAML'
-      empty_html: 'No hay configuraciones SAML, puede crear una con el botón <span class="badge badge-primary">Nueva configuración SAML</span>'
+      empty_html: 'No hay configuraciones SAML, puede crear una con el botón <span class="badge bg-primary">Nueva configuración SAML</span>'
     new:
       title: 'Crear configuración SAML'
     show:
@@ -592,7 +605,7 @@ es:
     index:
       new: 'Nueva etiqueta'
       title: 'Listado de etiquetas'
-      empty_html: 'No hay etiquetas, puede crear una con el botón <span class="badge badge-primary">Nueva etiqueta</span>'
+      empty_html: 'No hay etiquetas, puede crear una con el botón <span class="badge bg-primary">Nueva etiqueta</span>'
     new:
       title: 'Crear etiqueta'
       effect: 'Agregar implícita'
@@ -628,7 +641,7 @@ es:
       new: 'Nuevo usuario'
       title: 'Listado de usuarios'
       ldap_import: 'Importar desde LDAP'
-      empty_html: 'No hay usuarios, puede crear uno con el botón <span class="badge badge-primary">Nuevo usuario</span>'
+      empty_html: 'No hay usuarios, puede crear uno con el botón <span class="badge bg-primary">Nuevo usuario</span>'
       empty_search_html: 'No hay usuarios que coincidan con el criterio de búsqueda'
     new:
       title: 'Crear usuario'

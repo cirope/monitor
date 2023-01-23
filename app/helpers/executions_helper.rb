@@ -4,15 +4,15 @@ module ExecutionsHelper
   def execution_status status
     klass = case status.to_s
             when 'success'
-              'badge-success'
+              'bg-success'
             when 'error'
-              'badge-danger'
+              'bg-danger'
             when 'running'
-              'badge-info'
+              'bg-info'
             when 'killed'
-              'badge-warning'
+              'bg-warning'
             else
-              'badge-secondary'
+              'bg-secondary'
             end
 
     content_tag :span, t("executions.status.#{status}"), class: "badge #{klass}"

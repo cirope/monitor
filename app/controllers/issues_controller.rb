@@ -3,8 +3,6 @@
 class IssuesController < ApplicationController
   include Issues::Filters
 
-  respond_to :html, :json, :js, :csv
-
   before_action :authorize
   before_action :not_guest, except: [:index, :show]
   before_action :not_author, :not_manager, only: [:destroy]
@@ -28,29 +26,31 @@ class IssuesController < ApplicationController
       @data_keys   = return_data_keys params, @issues
     end
 
-    respond_with @issues
+    respond_to do |format|
+      format.any :html, :js, :json
+      format.csv { render csv: @issues }
+    end
   end
 
   def show
     @comment = @issue.comments.new
-
-    respond_with @issue
   end
 
   def edit
-    respond_with @issue
   end
 
   def update
-    @issue.update issue_params
-
-    respond_with @issue, location: issue_url(@issue, context: @context, filter: params[:filter]&.to_unsafe_h)
+    if @issue.update issue_params
+      redirect_to issue_url(@issue, context: @context, filter: params[:filter]&.to_unsafe_h)
+    else
+      render 'edit', status: :unprocessable_entity
+    end
   end
 
   def destroy
     @issue.destroy
 
-    respond_with @issue, location: script_issues_url(@issue.script, filter: params[:filter]&.to_unsafe_h)
+    redirect_to script_issues_url(@issue.script, filter: params[:filter]&.to_unsafe_h)
   end
 
   def api_issues

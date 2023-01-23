@@ -47,6 +47,9 @@ es:
       ldap:
         one: 'Configuración LDAP'
         other: 'LDAP'
+      library:
+        one: 'Biblioteca'
+        other: 'Bibliotecas'
       login:
         one: 'Ingreso'
         other: 'Ingresos'
@@ -68,6 +71,9 @@ es:
       parameter:
         one: 'Parámetro'
         other: 'Parámetros'
+      pdf_template:
+        one: 'Plantilla PDF'
+        other: 'Plantillas PDF'
       permalink:
         one: 'Enlace permanente'
         other: 'Enlaces permanentes'
@@ -203,6 +209,9 @@ es:
         role_author: 'Grupo autor'
         role_supervisor: 'Grupo supervisor'
         role_security: 'Grupo seguridad'
+      library:
+        name: 'Nombre'
+        options: 'Opciones'
       maintainer:
         user: 'Usuario'
       measure:
@@ -220,6 +229,8 @@ es:
       parameter:
         name: 'Nombre'
         value: 'Valor'
+      pdf_template:
+        name: 'Nombre'
       permalink:
         token: 'Testigo'
       property:
@@ -304,6 +315,7 @@ es:
         export_edit: 'Exportar con edición'
         parent: 'Grupo'
         category: 'Es categoría'
+        recovery: 'Recuperación'
       tagging:
         tag: 'Etiqueta'
         tag_id: 'Etiqueta'
@@ -335,6 +347,14 @@ es:
               blank: 'debe tener al menos uno asociado al cambio'
             tags:
               invalid: 'finales debe haber una (solamente)'
+        pdf_template:
+          attributes:
+            base:
+              content_blank: 'El contenido no puede estar vacio'
+        reminder:
+          attributes:
+            due_at:
+              invalid: 'El vencimiento del recordatorio debe ser mayor a 5 minutos desde ahora'
         user:
           attributes:
             email:
@@ -343,10 +363,7 @@ es:
               globally_taken: 'ya está en uso en otra cuenta'
             base:
               licensed_user_limit: 'Limite de usuarios alcanzado, por favor actualice su licencia.'
-        reminder:
-          attributes:
-            due_at:
-              invalid: 'El vencimiento del reminder debe ser mayor a 5 minutos desde ahora'
+        
 
   errors:
     messages:

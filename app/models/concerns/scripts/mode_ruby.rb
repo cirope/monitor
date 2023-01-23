@@ -4,14 +4,30 @@ module Scripts::ModeRuby
 
   def ruby_headers server
     [
+      lang_libraries.to_s,
       global_settings,
-      (external_gem_require if server&.local?),
       (local_context if server&.local?),
       ruby_cores_code
     ].compact.join
   end
 
-  def ruby_dependencies
+  def ruby_libraries
+    libs = libraries.to_a + included_libraries.to_a
+
+    if libs.present?
+      <<~RUBY
+        require 'bundler/inline'
+
+        gemfile do
+          source 'https://rubygems.org'
+
+          #{ruby_import_libs(libs)}
+        end\n
+      RUBY
+    end
+  end
+
+  def ruby_includes
     includes.map do |script|
       script.body 'local inclusion'
     end.join
@@ -27,6 +43,10 @@ module Scripts::ModeRuby
     ].join("\n\n")
   end
 
+  def ruby_db_connection
+    ar_connection @db
+  end
+
   private
 
     def ruby_cores_code
@@ -37,69 +57,14 @@ module Scripts::ModeRuby
       end.string
     end
 
-    def external_gem_require
-      StringIO.new.tap do |buffer|
-        buffer << <<-RUBY
-          def require lib
-            begin
-              super lib
-            rescue LoadError => ex
-              #{handle_require_load_error}
-            end
-          end\n\n
-        RUBY
-      end.string
-    end
-
     def local_context
-      StringIO.new.tap do |buffer|
-        buffer << <<-RUBY
-          Account.find(#{Account.current.take.id}).switch!
-          script_id = #{self.id}
-        RUBY
-      end.string
-    end
-
-    def handle_require_load_error
-      <<-RUBY
-        raise ex unless ex.to_s.match? /cannot load such file/i
-
-        gem_command = "gem which \#{lib.split('/').first}"
-        gem_path    = `#{search_gem_path}`.strip
-
-        if gem_path != ''
-          gem_dir = File.dirname gem_path
-
-          raise ex if $:.include? gem_dir
-
-          $: << gem_path
-          super lib
-        else
-          raise ex
-        end
+      <<~RUBY
+        Account.find(#{Account.current.take.id}).switch!
+        script_id = #{self.id}\n
       RUBY
     end
 
-
-    def search_gem_path
-      <<-RUBY
-        cd ~/; (
-          (#{bash_search_path})   ||
-          (#{rbenv_search_path})  ||
-          (#{chruby_search_path})
-        ) 2>/dev/null
-      RUBY
-    end
-
-    def bash_search_path
-      '#{gem_command} || bash -c "#{gem_command}" || env -i bash -c "#{gem_command}"'
-    end
-
-    def rbenv_search_path
-      'bash -c \'eval "$(~/.rbenv/bin/rbenv init -)" && #{gem_command}\''
-    end
-
-    def chruby_search_path
-      'bash -c "source /usr/share/chruby/chruby.sh && chruby #{RUBY_VERSION} && #{gem_command}"'
+    def ruby_import_libs libs
+      libs.map { |library| library.print }.join "\n"
     end
 end

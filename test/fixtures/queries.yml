@@ -8,7 +8,7 @@ count_to_be_used:
   from_period: day
   to_period: month
   output: pie
-  from_at: <%= 1.day.ago.to_s :db %>
-  to_at: <%= 1.day.from_now.to_s :db %>
+  from_at: <%= 1.day.ago.to_fs :db %>
+  to_at: <%= 1.day.from_now.to_fs :db %>
   range: false
   panel: servers_overloaded

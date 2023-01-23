@@ -2,7 +2,7 @@ _fixture:
   model_class: Serie
 first_transaction:
   name: Transfers to others
-  timestamp: <%= Time.zone.today.to_s(:db) %>
+  timestamp: <%= Time.zone.today.to_fs(:db) %>
   identifier: transaction_001
   amount: 3000.5
   data: { "some": "data" }

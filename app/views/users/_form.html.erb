@@ -7,7 +7,7 @@
       <%= f.input :lastname, input_html: { disabled: ldap } %>
       <%= f.input :email, input_html: { disabled: ldap } %>
       <%= f.input :username, input_html: { disabled: ldap } %>
-      <% unless ldap %>
+      <% if !ldap && @user.new_record? %>
         <%= f.input :password %>
         <%= f.input :password_confirmation %>
       <% end %>
@@ -16,7 +16,7 @@
 
       <div class="card">
         <div class="card-header">
-          <a class="text-reset text-decoration-none d-block" href="#tags" data-toggle="collapse">
+          <a class="text-reset text-decoration-none d-block" href="#tags" data-bs-toggle="collapse">
             <%= Tag.model_name.human count: 0 %>
           </a>
         </div>

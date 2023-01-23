@@ -1,9 +1,13 @@
-<div class="navbar-custom">
-  <ul class="list-unstyled topbar-right-menu float-right mb-0">
-    <%= render 'shared/board_actions' %>
-    <%= render 'shared/user_actions' %>
-  </ul>
-  <button class="button-menu-mobile open-left disable-btn text-muted">
-    <%= icon 'fas', 'bars' %>
-  </button>
+<div class="navbar-custom topnav-navbar">
+  <div class="container-fluid detached-nav">
+    <a class="button-toggle-menu open-left text-muted disable-btn" data-bs-toggle="offcanvas"
+      href="#left-menu" role="button" aria-controls="left-menu">
+      <%= icon 'fas', 'bars' %>
+    </a>
+
+    <ul class="list-unstyled topbar-menu float-end mb-0">
+      <%= render 'shared/board_actions' %>
+      <%= render 'shared/user_actions' %>
+    </ul>
+  </div>
 </div>

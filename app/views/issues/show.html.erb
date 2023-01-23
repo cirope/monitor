@@ -2,7 +2,7 @@
   <div class="card-header">
     <h5>
       <%= @issue %>
-      <span class="float-right" data-status>
+      <span class="float-end" data-status>
         <%= render 'views/view', issue: @issue %>
         <%= issue_status @issue %>
       </span>
@@ -41,7 +41,7 @@
     <div class="card-header">
       <h5>
         <%= Issue.human_attribute_name 'data' %>
-        <span class="float-right"><%= link_to_export_data %></span>
+        <span class="float-end"><%= link_to_export_data %></span>
       </h5>
     </div>
     <div id="data">

@@ -1,36 +1,31 @@
 # frozen_string_literal: true
 
 class CommentsController < ApplicationController
-  respond_to :js, :html
-
   before_action :authorize
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
 
   def show
-    respond_with @comment
   end
 
   def edit
-    respond_with @comment
   end
 
   def create
     @comment = current_user.comments.new comment_params
 
-    @comment.save
-    respond_with @comment, location: issue_url(@comment.issue)
+    if @comment.save
+      redirect_to issue_url(@comment.issue)
+    else
+      render 'new', status: :unprocessable_entity
+    end
   end
 
   def update
-    update_resource @comment, comment_params
-
-    respond_with @comment
+    @comment.update comment_params
   end
 
   def destroy
     @comment.destroy
-
-    respond_with @comment
   end
 
   private

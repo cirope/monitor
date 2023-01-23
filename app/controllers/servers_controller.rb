@@ -8,45 +8,42 @@ class ServersController < ApplicationController
   before_action :set_server, only: [:show, :edit, :update, :destroy]
   before_action :not_supervisor, except: [:index, :show]
 
-  respond_to :html, :json
-
   def index
     @servers = servers.order(:id).page params[:page]
-
-    respond_with @servers
   end
 
   def show
-    respond_with @server
   end
 
   def new
     @server = Server.new
-
-    respond_with @server
   end
 
   def edit
-    respond_with @server
   end
 
   def create
     @server = Server.new server_params
 
-    @server.save
-    respond_with @server
+    if @server.save
+      redirect_to @server
+    else
+      render 'new', status: :unprocessable_entity
+    end
   end
 
   def update
-    @server.update server_params
-
-    respond_with @server
+    if @server.update server_params
+      redirect_to @server
+    else
+      render 'edit', status: :unprocessable_entity
+    end
   end
 
   def destroy
     @server.destroy
 
-    respond_with @server
+    redirect_to @server
   end
 
   private

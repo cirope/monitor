@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_19_013729) do
-
+ActiveRecord::Schema[7.0].define(version: 2022_10_17_200329) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -25,6 +24,16 @@ ActiveRecord::Schema.define(version: 2022_08_19_013729) do
     t.jsonb "options"
     t.index ["name"], name: "index_accounts_on_name"
     t.index ["tenant_name"], name: "index_accounts_on_tenant_name", unique: true
+  end
+
+  create_table "action_text_rich_texts", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "body"
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
   end
 
   create_table "active_storage_attachments", force: :cascade do |t|
@@ -43,7 +52,7 @@ ActiveRecord::Schema.define(version: 2022_08_19_013729) do
     t.string "content_type"
     t.text "metadata"
     t.bigint "byte_size", null: false
-    t.string "checksum", null: false
+    t.string "checksum"
     t.datetime "created_at", null: false
     t.string "service_name", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
@@ -229,6 +238,16 @@ ActiveRecord::Schema.define(version: 2022_08_19_013729) do
     t.string "roles_attribute", null: false
   end
 
+  create_table "libraries", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "options"
+    t.bigint "script_id", null: false
+    t.integer "lock_version", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["script_id"], name: "index_libraries_on_script_id"
+  end
+
   create_table "logins", force: :cascade do |t|
     t.jsonb "data"
     t.datetime "closed_at"
@@ -300,6 +319,14 @@ ActiveRecord::Schema.define(version: 2022_08_19_013729) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["script_id"], name: "index_parameters_on_script_id"
+  end
+
+  create_table "pdf_templates", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "content"
+    t.integer "lock_version", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "permalinks", id: :serial, force: :cascade do |t|
@@ -591,6 +618,7 @@ ActiveRecord::Schema.define(version: 2022_08_19_013729) do
   add_foreign_key "jobs", "schedules", on_update: :restrict, on_delete: :restrict
   add_foreign_key "jobs", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "jobs", "servers", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "libraries", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "logins", "users", on_update: :restrict, on_delete: :restrict
   add_foreign_key "maintainers", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "maintainers", "users", on_update: :restrict, on_delete: :restrict

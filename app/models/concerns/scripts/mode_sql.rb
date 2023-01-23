@@ -6,7 +6,7 @@ module Scripts::ModeSql
     global_settings
   end
 
-  def sql_dependencies
+  def sql_includes
     ['json', 'active_record', database.adapter_gems].flatten.map do |gem_name|
       "require '#{gem_name}'\n"
     end.join
@@ -22,6 +22,10 @@ module Scripts::ModeSql
     ].join "\n\n"
   end
 
+  def sql_db_connection
+    ar_connection database
+  end
+
   private
 
     def text_with_sql_injections
@@ -30,7 +34,7 @@ module Scripts::ModeSql
 
         begin
           query   = %Q{#{text}}
-          pool    = ActiveRecord::Base.establish_connection(#{database.ar_config})
+          pool    = _ar_connection #{database.ar_config}, '#{database.cipher_key}', '#{database.cipher_iv}'
           results = pool.connection.exec_query(query).to_a
 
           puts wrap_results(query, results).to_json

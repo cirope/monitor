@@ -109,7 +109,7 @@ class ScheduleTest < ActiveSupport::TestCase
       @schedule.update! start: 2.months.from_now
     end
 
-    assert @schedule.runs.pending.all? { |r| r.scheduled_at.to_s(:db) == @schedule.start.to_s(:db) }
+    assert @schedule.runs.pending.all? { |r| r.scheduled_at.to_fs(:db) == @schedule.start.to_fs(:db) }
   end
 
   test 'cancel pending runs' do

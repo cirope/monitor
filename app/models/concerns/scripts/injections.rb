@@ -46,12 +46,10 @@ module Scripts::Injections
     end
 
     def inject_ar_connection line, connection_name
-      db = Database.current.find_by name: connection_name
+      @db = Database.current.find_by name: connection_name
 
-      if db
-        connection = "ActiveRecord::Base.establish_connection(#{db.ar_config})"
-
-        line.sub AR_CONNECTION_REGEX, connection
+      if @db
+        line.sub AR_CONNECTION_REGEX, "_ar_connection(#{@db.ar_config}, '#{@db.cipher_key}', '#{@db.cipher_iv}')"
       else
         line
       end

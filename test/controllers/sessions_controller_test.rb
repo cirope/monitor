@@ -81,7 +81,7 @@ class SessionsControllerTest < ActionController::TestCase
       end
     end
 
-    assert_response :success
+    assert_response :unprocessable_entity
     assert_nil current_user
   end
 
@@ -105,6 +105,21 @@ class SessionsControllerTest < ActionController::TestCase
 
     assert_redirected_to new_saml_session_url(current_account.tenant_name)
     assert_nil current_user
+  end
+
+  test 'should create session with tag recovery' do
+    @user.tags << tags(:recovery)
+
+    assert_difference '@user.logins.count' do
+      post :create, params: { username: @user.email }
+
+      @controller = AuthenticationsController.new
+
+      post :create, params: { password: '123' }
+    end
+
+    assert_redirected_to home_url
+    assert_equal @user.id, current_user.id
   end
 
   test 'should get destroy' do
