@@ -2,7 +2,7 @@
 
 module Shared::UserActionsHelper
   def role_badge role
-    case role
+    case role&.type
     when 'security'
       'bg-danger'
     when 'supervisor'

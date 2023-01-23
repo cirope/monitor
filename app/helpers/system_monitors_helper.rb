@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module SystemMonitorHelper
+module SystemMonitorsHelper
   def link_to_kill_process process
     options = {
       class: 'text-danger',

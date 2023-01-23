@@ -380,6 +380,13 @@ es:
       permission: 'Agregar Permiso'
     show:
       title: 'Ver rol'
+    types:
+      security: 'Seguridad'
+      supervisor: 'Supervisor'
+      author: 'Autor'
+      manager: 'Analista'
+      owner: 'Propietario'
+      guest: 'Invitado'
 
   rules:
     edit:

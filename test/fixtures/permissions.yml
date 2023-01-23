@@ -1,7 +1,6 @@
-admin:
+supervisor:
   section: users
-  permit_read: true
-  permit_edit: true
-  permit_destroy: true
-  admin: true
-  role: admin
+  read: true
+  edit: true
+  remove: true
+  role: supervisor

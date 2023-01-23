@@ -4,12 +4,13 @@
   <div class="form-inputs">
     <div class="row">
       <div class="col-md-6">
-        <%= f.input :name %>
+        <%= f.input :name, autofocus: true %>
       </div>
       <div class="col-md-6">
-        <%= f.input :description %>
+        <%= f.input :type, collection: role_types, prompt: true %>
       </div>
     </div>
+    <%= f.input :description %>
     <%= f.input :lock_version, as: :hidden %>
 
     <div class="card">

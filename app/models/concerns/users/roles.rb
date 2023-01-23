@@ -6,9 +6,17 @@ module Users::Roles
   included do
     belongs_to :role
     has_many :permissions, through: :role
+
+    delegate :security?, :supervisor?, :author?, :manager?, :owner?, :guest?, to: :role
   end
 
   def can? action, section
-    permissions.find_by(section: section.to_s)&.send "permit_#{action}"
+    set_permissions.detect { |per| per.section == section.to_s }&.send action
   end
+
+  private
+
+    def set_permissions
+      @_permissions ||= permissions.to_a
+    end
 end

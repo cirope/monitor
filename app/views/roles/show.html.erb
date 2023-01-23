@@ -8,6 +8,10 @@
       <%= @role.name %>
     </p>
     <p class="mb-1">
+      <strong><%= Role.human_attribute_name 'type' %></strong>:
+      <%= t_role_type @role.type %>
+    </p>
+    <p class="mb-1">
       <strong><%= Role.human_attribute_name 'description' %></strong>:
       <%= @role.description %>
     </p>

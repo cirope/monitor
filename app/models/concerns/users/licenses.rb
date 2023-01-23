@@ -6,7 +6,7 @@ module Users::Licenses
   included do
     before_save :check_licensed_user_limit, if: :should_check_licensed_user?
 
-    scope :licensed_user, -> { where(role: ['manager', 'author', 'supervisor']) }
+    scope :licensed_user, -> { joins(:role).where(roles: { type: ['manager', 'author', 'supervisor']}) }
   end
 
   private
@@ -34,7 +34,7 @@ module Users::Licenses
     end
 
     def was_not_licensed_user?
-      ['manager', 'author', 'supervisor'].exclude? role_was
+      #['manager', 'author', 'supervisor'].exclude? role_was
     end
 
     def going_to_be_a_licensed_user?

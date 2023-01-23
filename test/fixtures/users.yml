@@ -8,6 +8,7 @@ franco:
   auth_token: <%= SecureRandom.urlsafe_base64 %>
   password_reset_token: <%= SecureRandom.urlsafe_base64 %>
   password_reset_sent_at: <%= Time.zone.now %>
+  role: supervisor
 
 john:
   name: John
@@ -19,6 +20,7 @@ john:
   auth_token: <%= SecureRandom.urlsafe_base64 %>
   password_reset_token: <%= SecureRandom.urlsafe_base64 %>
   password_reset_sent_at: <%= Time.zone.now %>
+  role: guest
 
 eduardo:
   name: Eduardo
@@ -30,6 +32,7 @@ eduardo:
   auth_token: <%= SecureRandom.urlsafe_base64 %>
   password_reset_token: <%= SecureRandom.urlsafe_base64 %>
   password_reset_sent_at: <%= Time.zone.now %>
+  role: author
 
 god:
   name: Jesus
@@ -41,3 +44,4 @@ god:
   auth_token: <%= SecureRandom.urlsafe_base64 %>
   password_reset_token: <%= SecureRandom.urlsafe_base64 %>
   password_reset_sent_at: <%= Time.zone.now %>
+  role: security

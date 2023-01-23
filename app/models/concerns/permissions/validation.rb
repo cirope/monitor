@@ -27,6 +27,6 @@ module Permissions::Validation
     }
 
     validates :section, presence: true, inclusion: { in: Permission::SECTIONS.keys }
-    validates :permit_read, :permit_edit, :permit_destroy, inclusion: { in: [true, false] }
+    validates :read, :edit, :remove, inclusion: { in: [true, false] }
   end
 end

@@ -7,7 +7,7 @@
 
     <span>
       <span class="account-user-name"><%= current_user %></span>
-      <span class="account-position badge <%= role_badge current_user.old_role %>"><%= t "users.roles.#{current_user.old_role}" %></span>
+      <span class="account-position badge <%= role_badge current_user.role %>"><%= t_role_type current_user.role.type %></span>
     </span>
   </a>
 

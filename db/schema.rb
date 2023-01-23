@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_16_222007) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_23_205738) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -388,7 +388,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_16_222007) do
     t.integer "lock_version", default: 0, null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.jsonb "options"
     t.string "roles_attribute", null: false
   end
 
@@ -492,10 +491,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_16_222007) do
 
   create_table "permissions", force: :cascade do |t|
     t.string "section", null: false
-    t.boolean "permit_read", default: false, null: false
-    t.boolean "permit_edit", default: false, null: false
-    t.boolean "permit_destroy", default: false, null: false
-    t.boolean "admin", default: false, null: false
+    t.boolean "read", default: false, null: false
+    t.boolean "edit", default: false, null: false
+    t.boolean "remove", default: false, null: false
     t.bigint "role_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -615,6 +613,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_16_222007) do
   end
 
   create_table "roles", force: :cascade do |t|
+    t.string "type", null: false
     t.string "name", null: false
     t.string "description", null: false
     t.integer "lock_version", default: 0, null: false
@@ -668,7 +667,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_16_222007) do
     t.string "lastname_attribute", null: false
     t.string "email_attribute", null: false
     t.string "roles_attribute", null: false
-    t.jsonb "options"
     t.integer "lock_version", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

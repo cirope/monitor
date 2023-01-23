@@ -2,9 +2,9 @@
 
 require 'test_helper'
 
-class ProcessesHelperTest < ActionView::TestCase
+class SystemMonitorsHelperTest < ActionView::TestCase
   test 'link to kill' do
-    @virtual_path = 'processes.index'
+    @virtual_path = 'system_monitors.index'
     process       = SystemProcess.new 999
     link          = link_to_kill_process process
 

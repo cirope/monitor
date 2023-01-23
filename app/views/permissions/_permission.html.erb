@@ -5,18 +5,15 @@
         prompt: t('permissions.select.section') %>
     </div>
     <div class="col-sm-2">
-      <%= f.input :permit_read %>
+      <%= f.input :read %>
     </div>
     <div class="col-sm-2">
-      <%= f.input :permit_edit %>
+      <%= f.input :edit %>
     </div>
     <div class="col-sm-2">
-      <%= f.input :permit_destroy %>
+      <%= f.input :remove %>
     </div>
     <div class="col-sm-2">
-      <%= f.input :admin %>
-    </div>
-    <div class="col-sm-1">
       <div class="row-controls mb-3 mb-sm-0 mt-n4 mt-sm-n2">
         <%= f.input :id, as: :hidden %>
         <%= link_to_remove_nested_item f %>

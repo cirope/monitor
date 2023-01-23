@@ -5,7 +5,7 @@ require 'test_helper'
 class RolesControllerTest < ActionController::TestCase
 
   setup do
-    @role = roles(:one)
+    @role = roles :supervisor
 
     login
   end
@@ -24,7 +24,15 @@ class RolesControllerTest < ActionController::TestCase
     assert_difference 'Role.count' do
       post :create, params: {
         role: {
-          name: nil, description: nil
+          name: 'New Role', description: 'New Role', type: 'supervisor',
+          permissions_attributes: [
+            {
+              section: 'Issue',
+              read: true,
+              edit: true,
+              remove: true
+            }
+          ],
         }
       }
     end
@@ -45,7 +53,7 @@ class RolesControllerTest < ActionController::TestCase
   test 'should update role' do
     patch :update, params: {
       id: @role,
-      role: { attr: 'value' }
+      role: { type: 'guest' }
     }
 
     assert_redirected_to role_url(@role)

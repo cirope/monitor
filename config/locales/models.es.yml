@@ -229,12 +229,6 @@ es:
         roles_attribute: 'Atributo con roles'
         test_user: 'Usuario'
         test_password: 'Contraseña'
-        role_guest: 'Grupo invitado'
-        role_owner: 'Grupo propietario'
-        role_manager: 'Grupo gerente'
-        role_author: 'Grupo autor'
-        role_supervisor: 'Grupo supervisor'
-        role_security: 'Grupo seguridad'
       library:
         name: 'Nombre'
         options: 'Opciones'
@@ -261,9 +255,9 @@ es:
         token: 'Testigo'
       permission:
         section: 'Sección'
-        permit_read: 'Leer'
-        permit_edit: 'Crear/Editar'
-        permit_destroy: 'Eliminar'
+        read: 'Ver'
+        edit: 'Crear/Editar'
+        remove: 'Eliminar'
         role: 'Rol'
       property:
         key: 'Atributo'
@@ -280,6 +274,7 @@ es:
       role:
         name: 'Nombre'
         description: 'Descripción'
+        type: 'Tipo'
       rule:
         name: 'Nombre'
         enabled: 'Habilitada'
@@ -305,12 +300,6 @@ es:
         lastname_attribute: 'Atributo con el apellido'
         email_attribute: 'Atributo con el correo electrónico'
         roles_attribute: 'Atributo con roles'
-        role_guest: 'Grupo invitado'
-        role_owner: 'Grupo propietario'
-        role_manager: 'Grupo gerente'
-        role_author: 'Grupo autor'
-        role_supervisor: 'Grupo supervisor'
-        role_security: 'Grupo seguridad'
       schedule:
         name: 'Nombre'
         start: 'Inicio'

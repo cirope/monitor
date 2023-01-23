@@ -22,7 +22,8 @@ class UserTest < ActiveSupport::TestCase
       email: 'new@user.com',
       username: 'new',
       password: '123',
-      password_confirmation: '123'
+      password_confirmation: '123',
+      role: roles(:supervisor)
     )
 
     assert @user.reload.auth_token.present?
@@ -68,22 +69,13 @@ class UserTest < ActiveSupport::TestCase
     @user.name = 'abcde' * 52
     @user.lastname = 'abcde' * 52
     @user.email = 'abcde' * 52
-    @user.role = 'abcde' * 52
     @user.username = 'abcde' * 52
 
     assert @user.invalid?
     assert_error @user, :name, :too_long, count: 255
     assert_error @user, :lastname, :too_long, count: 255
     assert_error @user, :email, :too_long, count: 255
-    assert_error @user, :role, :too_long, count: 255
     assert_error @user, :username, :too_long, count: 255
-  end
-
-  test 'included attributes' do
-    @user.role = 'wrong'
-
-    assert @user.invalid?
-    assert_error @user, :role, :inclusion
   end
 
   test 'username globally taken on create' do
@@ -124,14 +116,6 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
-  test 'guest?' do
-    @user.role = 'guest'
-    assert @user.guest?
-
-    @user.role = 'author'
-    assert !@user.guest?
-  end
-
   test 'password expired' do
     @user.password_reset_sent_at = Time.zone.now
 
@@ -158,37 +142,37 @@ class UserTest < ActiveSupport::TestCase
     can_edit_issues     = %w(owner manager author supervisor)
 
     can_use_mine_filter.each do |role|
-      @user.role = role
+      @user.role = roles role.to_sym
 
       assert @user.can_use_mine_filter?
     end
 
-    (User::ROLES - can_use_mine_filter).each do |role|
-      @user.role = role
+    (Role::TYPES - can_use_mine_filter).each do |role|
+      @user.role = roles role.to_sym
 
       refute @user.can_use_mine_filter?
     end
 
     can_read_users.each do |role|
-      @user.role = role
+      @user.role = roles role.to_sym
 
       assert @user.can_read_users?
     end
 
-    (User::ROLES - can_read_users).each do |role|
-      @user.role = role
+    (Role::TYPES - can_read_users).each do |role|
+      @user.role = roles role.to_sym
 
       refute @user.can_read_users?
     end
 
     can_edit_issues.each do |role|
-      @user.role = role
+      @user.role = roles role.to_sym
 
       assert @user.can_edit_issues?
     end
 
-    (User::ROLES - can_edit_issues).each do |role|
-      @user.role = role
+    (Role::TYPES - can_edit_issues).each do |role|
+      @user.role = roles role.to_sym
 
       refute @user.can_edit_issues?
     end
@@ -325,7 +309,7 @@ class UserTest < ActiveSupport::TestCase
     assert_error new_licensed_user, :base, :licensed_user_limit
 
     not_licensed_user = users :god
-    not_licensed_user.role = 'supervisor'
+    not_licensed_user.role = roles :supervisor
 
     assert_raise { not_licensed_user.save! }
 
