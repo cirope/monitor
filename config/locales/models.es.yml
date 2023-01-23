@@ -315,6 +315,7 @@ es:
         export_edit: 'Exportar con edición'
         parent: 'Grupo'
         category: 'Es categoría'
+        recovery: 'Recuperación'
       tagging:
         tag: 'Etiqueta'
         tag_id: 'Etiqueta'
