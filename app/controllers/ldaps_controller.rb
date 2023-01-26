@@ -56,6 +56,7 @@ class LdapsController < ApplicationController
         :lastname_attribute, :email_attribute, :roles_attribute,
         :test_user, :test_password,
         :role_guest, :role_author, :role_supervisor, :role_security,
+        :role_owner, :role_manager,
         :lock_version
     end
 end
