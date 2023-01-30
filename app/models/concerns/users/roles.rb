@@ -10,8 +10,11 @@ module Users::Roles
     delegate :security?, :supervisor?, :author?, :manager?, :owner?, :guest?, to: :role
   end
 
-  def can? action, section
-    set_permissions.detect { |per| per.section == section.to_s }&.send action
+  def can? action, path
+    section = path.to_s.split('/').first.classify
+
+    Permission.system.include?(section) ||
+      set_permissions.detect { |per| per.section == section }&.send(action)
   end
 
   private

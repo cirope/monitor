@@ -6,7 +6,7 @@ module RolesHelper
   end
 
   def permission_sections
-    Permission::SECTIONS.keys.map do |section|
+    Permission.sections.map do |section|
       [section.constantize.model_name.human(count: 0), section]
     end
   end

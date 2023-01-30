@@ -18,7 +18,7 @@
       <tbody>
         <% @versions.each do |version| %>
           <tr>
-            <td><%= version.user %></td>
+            <td><%= User.find_by id: version.whodunnit %></td>
             <td class="d-none d-md-table-cell"><%= truncate version_change_for(version) %></td>
             <td><%= l version_change_date_for(version), format: :compact %></td>
             <td class="text-end"><%= link_to_show script_version_path(@script, version) %></td>

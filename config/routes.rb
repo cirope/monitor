@@ -44,7 +44,6 @@ Rails.application.routes.draw do
   post   'script/api_issues',        to: 'issues#api_issues'
 
   # Resources
-  resources :comments, except: [:index, :new]
   resources :databases
   resources :descriptors
   resources :drives
@@ -71,6 +70,9 @@ Rails.application.routes.draw do
   end
 
   resources :issues, except: [:new, :create] do
+    scope module: 'issues' do
+      resources :comments, except: [:index, :new]
+    end
     resources :taggings, only: [:new, :create, :destroy]
   end
 

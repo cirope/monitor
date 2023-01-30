@@ -1,22 +1,17 @@
+security:
+  type: security
+  name: Seguridad
+  description: Seguridad del sistema
+
 supervisor:
   type: supervisor
   name: Supervisor
   description: Supervisor del sistema
 
-guest:
-  type: guest
-  name: Invitado
-  description: Invitado del sistema
-
 author:
   type: author
   name: Autor
   description: Autor del sistema
-
-security:
-  type: security
-  name: Seguridad
-  description: Seguridad del sistema
 
 manager:
   type: manager
@@ -27,3 +22,8 @@ owner:
   type: owner
   name: Propietario
   description: Propietario
+
+guest:
+  type: guest
+  name: Invitado
+  description: Invitado del sistema

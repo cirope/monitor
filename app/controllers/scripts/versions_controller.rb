@@ -8,7 +8,7 @@ class Scripts::VersionsController < ApplicationController
   def index
     @versions = @script.versions_with_text_changes.reorder(
       created_at: :desc
-    ).preload(:user).page params[:page]
+    ).page params[:page]
   end
 
   def show

@@ -49,7 +49,7 @@ class SystemMonitorsControllerTest < ActionController::TestCase
 
     delete :destroy, params: { id: sleep_p.pid }
 
-    assert_redirected_to root_url
+    assert_redirected_to login_url
     assert_equal I18n.t('messages.not_authorized'), flash[:alert]
     assert sleep_p.still_running?
 
@@ -61,7 +61,7 @@ class SystemMonitorsControllerTest < ActionController::TestCase
 
     get :index
 
-    assert_redirected_to root_url
+    assert_redirected_to login_url
     assert_equal I18n.t('messages.not_authorized'), flash[:alert]
   end
 

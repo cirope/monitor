@@ -14,7 +14,7 @@ module Shared::UserActionsHelper
     when 'owner'
       'bg-primary'
     when 'guest'
-      'bg-light'
+      'bg-light text-dark'
     end
   end
 end

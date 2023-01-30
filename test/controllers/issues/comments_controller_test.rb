@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class CommentsControllerTest < ActionController::TestCase
+class Issues::CommentsControllerTest < ActionController::TestCase
   setup do
     @comment = comments :possitive
 
@@ -12,9 +12,9 @@ class CommentsControllerTest < ActionController::TestCase
   test 'should create comment' do
     assert_difference 'Comment.count' do
       post :create, params: {
+        issue_id: @comment.issue_id,
         comment: {
-          text:     @comment.text,
-          issue_id: @comment.issue_id
+          text: @comment.text,
         }
       }
     end
@@ -23,17 +23,18 @@ class CommentsControllerTest < ActionController::TestCase
   end
 
   test 'should show comment' do
-    get :show, params: { id: @comment }, xhr: true, as: :js
+    get :show, params: { issue_id: @comment.issue_id, id: @comment }, xhr: true, as: :js
     assert_response :success
   end
 
   test 'should get edit' do
-    get :edit, params: { id: @comment }, xhr: true, as: :js
+    get :edit, params: { issue_id: @comment.issue_id, id: @comment }, xhr: true, as: :js
     assert_response :success
   end
 
   test 'should update comment' do
     patch :update, params: {
+      issue_id: @comment.issue_id,
       id: @comment,
       comment: { text: 'Updated text' }
     }, xhr: true, as: :js
@@ -43,7 +44,7 @@ class CommentsControllerTest < ActionController::TestCase
 
   test 'should destroy comment' do
     assert_difference('Comment.count', -1) do
-      delete :destroy, params: { id: @comment }, xhr: true, as: :js
+      delete :destroy, params: { issue_id: @comment.issue_id, id: @comment }, xhr: true, as: :js
     end
 
     assert_response :success

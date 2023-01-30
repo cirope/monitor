@@ -4,10 +4,4 @@ module Permissions::Scopes
   included do
     scope :ordered, -> { order "#{table_name}.section ASC" }
   end
-
-  module ClassMethods
-    def config_actions
-      Permission::SECTIONS.select { |k,v| v[:is_config] }.keys
-    end
-  end
 end

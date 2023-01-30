@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-class CommentsController < ApplicationController
+class Issues::CommentsController < ApplicationController
   before_action :authorize
+  before_action :set_issue
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
 
   def show
@@ -11,7 +12,7 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @comment = current_user.comments.new comment_params
+    @comment = current_user.comments.new comment_params.merge issue: @issue
 
     if @comment.save
       redirect_to issue_url(@comment.issue)
@@ -30,11 +31,15 @@ class CommentsController < ApplicationController
 
   private
 
+    def set_issue
+      @issue = Issue.find_by id: params[:issue_id]
+    end
+
     def set_comment
       @comment = current_user.comments.find params[:id]
     end
 
     def comment_params
-      params.require(:comment).permit :text, :issue_id, :attachment
+      params.require(:comment).permit :text, :attachment
     end
 end

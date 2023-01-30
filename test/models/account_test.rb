@@ -76,7 +76,7 @@ class AccountTest < ActiveSupport::TestCase
     user    = users :john
 
     account.switch do
-      assert_difference ['account.memberships.count', 'User.count'] do
+      assert_difference ['account.memberships.count', 'User.count', 'Role.count', 'Permission.count'] do
         account.enroll user, copy_user: true
       end
     end

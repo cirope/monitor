@@ -6,6 +6,7 @@ ROLES = {
     permissions_attributes: [
       { section: 'Issue',         read: true, edit: true,  remove: false },
       { section: 'User',          read: true, edit: true,  remove: true  },
+      { section: 'Role',          read: true, edit: true,  remove: true  },
       { section: 'Record',        read: true, edit: true,  remove: true  },
       { section: 'Tag',           read: true, edit: false, remove: false },
       { section: 'Account',       read: true, edit: true,  remove: true  },

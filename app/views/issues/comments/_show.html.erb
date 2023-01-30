@@ -3,14 +3,14 @@
     <blockquote class="blockquote ml-3 controls-container">
       <% if comment.owned_by? current_user %>
         <div class="row-controls float-end">
-          <%= link_to_edit [:edit, comment], data: { remote: true } %> |
-          <%= link_to_destroy comment, data: { remote: true } %>
+          <%= link_to_edit [:edit, @issue, comment], data: { remote: true } %> |
+          <%= link_to_destroy [@issue, comment], data: { remote: true } %>
         </div>
       <% end %>
 
       <%= simple_format comment.text, class: 'mb-0' %>
-      <footer class="blockquote-footer"><%= comment.user %></footer>
     </blockquote>
+    <footer class="blockquote-footer"><%= comment.user %></footer>
   </div>
   <div class="col-lg-2 col-md-3">
     <% if comment.attachment.attached? %>
