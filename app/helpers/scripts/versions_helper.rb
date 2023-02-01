@@ -20,4 +20,8 @@ module Scripts::VersionsHelper
 
     raw Diffy::Diff.new(previous, current, include_plus_and_minus_in_html: true)
   end
+
+  def version_whodunnit version
+    User.find_by id: version.whodunnit
+  end
 end
