@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class DrivesController < ApplicationController
-  before_action :authorize
+  include Authorization
+
   before_action :set_title, except: [:destroy]
   before_action :set_account
   before_action :set_drive, only: [:show, :edit, :update, :destroy]

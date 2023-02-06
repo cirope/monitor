@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class SystemMonitorsController < ApplicationController
-  before_action :authorize
+  include Authorization
 
   def index
     @processes = SystemProcess.user_top

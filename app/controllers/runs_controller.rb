@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class RunsController < ApplicationController
+  include Authorization
   include Runs::Filters
 
-  before_action :authorize
   before_action :set_title, except: [:destroy]
   before_action :set_schedule, only: [:index]
   before_action :set_run, only: [:show, :update, :destroy]

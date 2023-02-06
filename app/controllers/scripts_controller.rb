@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class ScriptsController < ApplicationController
+  include Authorization
   include Scripts::Filters
 
-  before_action :authorize
   before_action :set_title, except: [:destroy]
   before_action :set_script, only: [:show, :edit, :update, :destroy]
   before_action :set_server, only: [:show]

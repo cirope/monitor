@@ -2,15 +2,15 @@ module Permissions::Sections
   extend ActiveSupport::Concern
 
   included do
-    SECTIONS = {
-      menu: [
+    MENU = {
+      main: [
         'Issue',
         'Script',
         'Schedule',
         'Rule',
         'Permalink',
       ],
-      menu_config: [
+      config: [
         'Role',
         'User',
         'Record',
@@ -27,6 +27,7 @@ module Permissions::Sections
         'SystemMonitor'
       ],
       system: [
+        'Authentication',
         'Home',
         'Profile',
         'Session'
@@ -36,15 +37,15 @@ module Permissions::Sections
 
   module ClassMethods
     def sections
-      Permission::SECTIONS.fetch_values(:menu, :menu_config).flatten
+      Permission::MENU.fetch_values(:main, :config).flatten
     end
 
     def config_actions
-      Permission::SECTIONS[:menu_config]
+      Permission::MENU[:config]
     end
 
     def system
-      Permission::SECTIONS[:system]
+      Permission::MENU[:system]
     end
   end
 end

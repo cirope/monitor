@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class Scripts::ImportsController < ApplicationController
-  before_action :authorize
+  include Authorization
+
   before_action :set_title, only: [:new]
 
   def new

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_23_205738) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_05_180657) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -219,16 +219,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_23_205738) do
     t.string "type", null: false
     t.index ["controllable_type", "controllable_id"], name: "index_controls_on_controllable"
     t.index ["survey_id"], name: "index_controls_on_survey_id"
-  end
-
-  create_table "dashboards", force: :cascade do |t|
-    t.string "name", null: false
-    t.bigint "user_id"
-    t.integer "lock_version", default: 0, null: false
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["name"], name: "index_dashboards_on_name"
-    t.index ["user_id"], name: "index_dashboards_on_user_id"
   end
 
   create_table "databases", id: :serial, force: :cascade do |t|
@@ -453,18 +443,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_23_205738) do
     t.index ["trigger_id"], name: "index_outputs_on_trigger_id"
   end
 
-  create_table "panels", force: :cascade do |t|
-    t.string "title", null: false
-    t.integer "height", default: 1, null: false
-    t.integer "width", default: 1, null: false
-    t.bigint "dashboard_id"
-    t.integer "lock_version", default: 0, null: false
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["dashboard_id"], name: "index_panels_on_dashboard_id"
-    t.index ["title"], name: "index_panels_on_title"
-  end
-
   create_table "parameters", id: :serial, force: :cascade do |t|
     t.string "name", null: false
     t.text "value", null: false
@@ -531,25 +509,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_23_205738) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["database_id"], name: "index_properties_on_database_id"
-  end
-
-  create_table "queries", force: :cascade do |t|
-    t.string "output", null: false
-    t.string "function", null: false
-    t.string "period"
-    t.string "filters", default: [], null: false, array: true
-    t.string "frequency"
-    t.integer "from_count"
-    t.integer "to_count"
-    t.string "from_period"
-    t.string "to_period"
-    t.datetime "from_at", precision: nil
-    t.datetime "to_at", precision: nil
-    t.boolean "range", default: false, null: false
-    t.bigint "panel_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["panel_id"], name: "index_queries_on_panel_id"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -861,7 +820,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_23_205738) do
   add_foreign_key "comments", "users", on_update: :restrict, on_delete: :restrict
   add_foreign_key "control_outputs", "controls"
   add_foreign_key "controls", "surveys"
-  add_foreign_key "dashboards", "users", on_update: :restrict, on_delete: :restrict
   add_foreign_key "databases", "accounts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "dependencies", "schedules", column: "dependent_id", on_update: :restrict, on_delete: :restrict
   add_foreign_key "dependencies", "schedules", on_update: :restrict, on_delete: :restrict
@@ -886,11 +844,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_23_205738) do
   add_foreign_key "memberships", "accounts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "outputs", "runs", on_update: :restrict, on_delete: :restrict
   add_foreign_key "outputs", "triggers", on_update: :restrict, on_delete: :restrict
-  add_foreign_key "panels", "dashboards", on_update: :restrict, on_delete: :restrict
   add_foreign_key "parameters", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "permissions", "roles", on_update: :restrict, on_delete: :restrict
   add_foreign_key "properties", "databases", on_update: :restrict, on_delete: :restrict
-  add_foreign_key "queries", "panels", on_update: :restrict, on_delete: :restrict
   add_foreign_key "questions", "surveys", on_update: :restrict, on_delete: :restrict
   add_foreign_key "reminders", "issues", on_update: :restrict, on_delete: :restrict
   add_foreign_key "requires", "scripts", column: "caller_id", on_update: :restrict, on_delete: :restrict

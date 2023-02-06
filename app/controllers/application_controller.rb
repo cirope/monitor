@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   include CacheControl
   include CurrentAccount
   include CurrentUser
+  include Authorization
   include LdapConfig
   include PdfRender
   include SamlConfig
@@ -14,17 +15,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :set_paper_trail_whodunnit
-
-  def authorize
-    puts "##############################"
-    puts controller_path
-    puts "##############################"
-    unless current_user&.visible? &&
-           current_account &&
-           current_user&.can?(:read, controller_path)
-      redirect_to login_url, alert: t('messages.not_authorized')
-    end
-  end
 
   def not_authorized_redirect condition
     redirect_to root_url, alert: t('messages.not_authorized') if condition

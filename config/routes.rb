@@ -65,9 +65,6 @@ Rails.application.routes.draw do
 
   # Dashboards
   resources :series, only: [:index, :show]
-  resources :dashboards do
-    resources :panels, except: [:index, :show]
-  end
 
   resources :issues, except: [:new, :create] do
     scope module: 'issues' do
