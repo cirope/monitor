@@ -26,18 +26,6 @@ module Users::Licenses
     end
 
     def should_check_licensed_user?
-      new_record? || change_to_licensed_user?
-    end
-
-    def change_to_licensed_user?
-      was_not_licensed_user? && going_to_be_a_licensed_user?
-    end
-
-    def was_not_licensed_user?
-      ['manager', 'author', 'supervisor'].exclude? role_was
-    end
-
-    def going_to_be_a_licensed_user?
-      manager? || author? || supervisor?
+      ['manager', 'author', 'supervisor'].include? role
     end
 end
