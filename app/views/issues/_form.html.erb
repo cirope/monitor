@@ -60,8 +60,8 @@
             <div class="col-lg-10 col-md-9">
               <blockquote class="blockquote ml-3">
                 <%= simple_format comment.text, class: 'mb-0' %>
-                <footer class="blockquote-footer"><%= comment.user %></footer>
               </blockquote>
+              <footer class="blockquote-footer"><%= comment.user %>, <%= l comment.created_at, format: :compact %></footer>
             </div>
             <div class="col-lg-2 col-md-3">
               <% if comment.attachment.attached? %>
