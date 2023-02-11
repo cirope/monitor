@@ -57,9 +57,6 @@ module Ldaps::Import
 
     def extract_role entry
       role_names = roles_in entry
-      puts "##################################"
-      puts role_names.inspect
-      puts "##################################"
 
       # TODO cambiar role.type a role.name cuando se hable con el cliente
       Role.order(:id).detect { |role| role_names.include? role.type }

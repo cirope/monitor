@@ -12,7 +12,7 @@ class Shared::UserActionsHelperTest < ActionView::TestCase
   test 'Should return badge to guest role' do
     supervisor = users :john
 
-    assert_equal role_badge(supervisor.role), 'bg-light'
+    assert_equal role_badge(supervisor.role), 'bg-light text-dark'
   end
 
   test 'Should return badge to author role' do

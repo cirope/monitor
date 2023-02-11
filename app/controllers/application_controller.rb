@@ -5,12 +5,12 @@ class ApplicationController < ActionController::Base
   include CacheControl
   include CurrentAccount
   include CurrentUser
-  include Authorization
   include LdapConfig
   include PdfRender
   include SamlConfig
   include StoreLocation
   include UpdateResource
+  include Authorization
 
   protect_from_forgery with: :exception
 

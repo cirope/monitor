@@ -10,16 +10,18 @@ module Users::Roles
     delegate :security?, :supervisor?, :author?, :manager?, :owner?, :guest?, to: :role
   end
 
-  def can? action_name, path
-    section = path.to_s.split('/').first.classify
-    action  = set_action action_name
+  def can? action, controller_path
+    if action
+      controller = controller_path.to_s.split('/').map &:classify
 
+      if Permission.system.include? controller.first
+        true
+      else
+        section = set_section controller
 
-    puts "######## PA #########################"
-    puts section
-    puts "#################################"
-    Permission.system.include?(section) ||
-      set_permissions.detect { |per| per.section == section }&.send(action)
+        set_permissions.detect { |per| per.section == section }&.send action
+      end
+    end
   end
 
   private
@@ -28,12 +30,19 @@ module Users::Roles
       @_permissions ||= permissions.to_a
     end
 
-    def set_action action_name
-      case action_name.to_s
-        when 'index', 'show' then 'read'
-        when 'new', 'create', 'edit', 'update' then 'edit'
-        when 'destroy' then 'remove'
-        else false
-        end
+    def set_section sections
+      case sections.length
+      when 1
+        c_name = sections.first
+
+        Permission.sections.detect { |section| section == c_name } ||
+          Permission::MENU.values.flatten.detect do |hsh|
+            hsh[:controllers]&.include? c_name
+          end&.fetch(:item)
+      when 2
+        Permission::MENU.values.flatten.detect do |hsh|
+          hsh[:item] == sections.first && hsh[:controllers]&.include?(sections.last)
+        end&.fetch :item
+      end
     end
 end

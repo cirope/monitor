@@ -10,7 +10,7 @@
 
       <%= simple_format comment.text, class: 'mb-0' %>
     </blockquote>
-    <footer class="blockquote-footer"><%= comment.user %></footer>
+    <footer class="blockquote-footer"><%= comment.user %>, <%= l comment.created_at, format: :compact %></footer>
   </div>
   <div class="col-lg-2 col-md-3">
     <% if comment.attachment.attached? %>

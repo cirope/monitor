@@ -128,7 +128,7 @@ private
     Account.on_each do
       unless Role.exists?
         ROLES.each do |old_role, params|
-          if role = Role.create(params.merge(type: old_role))
+          if role = Role.create!(params.merge(type: old_role))
             User.where(old_role: old_role).update_all role_id: role.id
           end
         end

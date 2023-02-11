@@ -44,7 +44,7 @@ module MenuHelper
   end
 
   def is_config_action?
-    Permission.config_actions.any? do |model|
+    Permission.config.any? do |model|
       model.constantize.model_name.route_key == controller_name
     end
   end

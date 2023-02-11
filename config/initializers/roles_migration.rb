@@ -16,7 +16,7 @@ ROLES = {
       { section: 'Saml',          read: true, edit: true,  remove: true  },
       { section: 'Drive',         read: true, edit: true,  remove: true  },
       { section: 'SystemMonitor', read: true, edit: false, remove: false },
-      { section: 'Permalink',     read: true, edit: false, remove: false },
+      { section: 'Membership',    read: true, edit: true,  remove: false },
     ]
   },
   supervisor: {
@@ -41,9 +41,7 @@ ROLES = {
       { section: 'PdfTemplate',   read: true, edit: true,  remove: true  },
       { section: 'Console',       read: true, edit: true,  remove: true  },
       { section: 'SystemMonitor', read: true, edit: true,  remove: true  },
-      { section: 'Execution',     read: true, edit: true,  remove: true  },
-      { section: 'Permalink',     read: true, edit: true,  remove: false },
-      { section: 'Run',           read: true, edit: true,  remove: true  },
+      { section: 'Membership',    read: true, edit: true,  remove: false },
     ]
   },
   author: {
@@ -57,37 +55,35 @@ ROLES = {
       { section: 'Tag',           read: true, edit: false, remove: false },
       { section: 'PdfTemplate',   read: true, edit: true,  remove: true  },
       { section: 'SystemMonitor', read: true, edit: false, remove: false },
-      { section: 'Execution',     read: true, edit: true,  remove: true  },
-      { section: 'Permalink',     read: true, edit: true,  remove: false },
-      { section: 'Run',           read: true, edit: true,  remove: false },
+      { section: 'Membership',    read: true, edit: true,  remove: false },
     ]
   },
   manager: {
     name: 'Analista',
     description: 'Analista',
     permissions_attributes: [
-      { section: 'Issue',     read: true, edit: true, remove: false },
-      { section: 'User',      read: true, edit: true, remove: true  },
-      { section: 'Tag',       read: true, edit: true, remove: true  },
-      { section: 'Permalink', read: true, edit: true, remove: false },
+      { section: 'Issue',      read: true, edit: true, remove: false },
+      { section: 'User',       read: true, edit: true, remove: true  },
+      { section: 'Tag',        read: true, edit: true, remove: true  },
+      { section: 'Membership', read: true, edit: true, remove: false },
     ]
   },
   owner: {
     name: 'Propietario',
     description: 'Propietario',
     permissions_attributes: [
-      { section: 'Issue',     read: true, edit: true,  remove: false },
-      { section: 'Tag',       read: true, edit: false, remove: false },
-      { section: 'Permalink', read: true, edit: false, remove: false },
+      { section: 'Issue',      read: true, edit: true,  remove: false },
+      { section: 'Tag',        read: true, edit: false, remove: false },
+      { section: 'Membership', read: true, edit: true,  remove: false },
     ]
   },
   guest: {
     name: 'Invitado',
     description: 'Invitado',
     permissions_attributes: [
-      { section: 'Issue',     read: true, edit: false, remove: false },
-      { section: 'Tag',       read: true, edit: false, remove: false },
-      { section: 'Permalink', read: true, edit: false, remove: false },
+      { section: 'Issue',      read: true, edit: false, remove: false },
+      { section: 'Tag',        read: true, edit: false, remove: false },
+      { section: 'Membership', read: true, edit: true,  remove: false },
     ]
   },
 }

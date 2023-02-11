@@ -4,48 +4,59 @@ module Permissions::Sections
   included do
     MENU = {
       main: [
-        'Issue',
-        'Script',
-        'Schedule',
-        'Rule',
-        'Permalink',
+        { item: 'Issue',    controllers: ['Board', 'Permalink', 'Export'] },
+        { item: 'Script',   controllers: ['Execution', 'Measure', 'Version', 'Import', 'Export'] },
+        { item: 'Schedule', controllers: ['Run'] },
+        { item: 'Rule',     controllers: ['Import', 'Export'] },
       ],
       config: [
-        'Role',
-        'User',
-        'Record',
-        'Tag',
-        'Descriptor',
-        'Account',
-        'Server',
-        'Database',
-        'Ldap',
-        'Saml',
-        'Drive',
-        'PdfTemplate',
-        'Console',
-        'SystemMonitor'
+        { item: 'Role'          },
+        { item: 'User',     controllers: ['Import'] },
+        { item: 'Record'        },
+        { item: 'Tag'           },
+        { item: 'Descriptor'    },
+        { item: 'Account'       },
+        { item: 'Server'        },
+        { item: 'Database'      },
+        { item: 'Ldap'          },
+        { item: 'Saml'          },
+        { item: 'Drive'         },
+        { item: 'PdfTemplate'   },
+        { item: 'Console'       },
+        { item: 'SystemMonitor' },
+      ],
+      user: [
+        { item: 'Membership' },
       ],
       system: [
-        'Authentication',
-        'Home',
-        'Profile',
-        'Session'
+        { item: 'Authentication' },
+        { item: 'Home' },
+        { item: 'Profile' },
+        { item: 'Session' },
+        { item: 'Series' },
       ]
     }
   end
 
   module ClassMethods
-    def sections
-      Permission::MENU.fetch_values(:main, :config).flatten
+    def main
+      menu :main
     end
 
-    def config_actions
-      Permission::MENU[:config]
+    def sections
+      menu(:main) + menu(:config) + menu(:user)
+    end
+
+    def config
+      menu :config
     end
 
     def system
-      Permission::MENU[:system]
+      menu :system
+    end
+
+    def menu section
+      Permission::MENU[section].map { |hsh| hsh[:item] }.flatten
     end
   end
 end
