@@ -33,13 +33,11 @@ class UserTest < ActiveSupport::TestCase
     @user.name = ''
     @user.lastname = ''
     @user.email = ''
-    @user.role = ''
 
     assert @user.invalid?
     assert_error @user, :name, :blank
     assert_error @user, :lastname, :blank
     assert_error @user, :email, :blank
-    assert_error @user, :role, :blank
   end
 
   test 'unique attributes' do
@@ -138,8 +136,6 @@ class UserTest < ActiveSupport::TestCase
 
   test 'permissions' do
     can_use_mine_filter = %w(manager author supervisor)
-    can_read_users      = %w(manager author supervisor)
-    can_edit_issues     = %w(owner manager author supervisor)
 
     can_use_mine_filter.each do |role|
       @user.role = roles role.to_sym
@@ -151,30 +147,6 @@ class UserTest < ActiveSupport::TestCase
       @user.role = roles role.to_sym
 
       refute @user.can_use_mine_filter?
-    end
-
-    can_read_users.each do |role|
-      @user.role = roles role.to_sym
-
-      assert @user.can_read_users?
-    end
-
-    (Role::TYPES - can_read_users).each do |role|
-      @user.role = roles role.to_sym
-
-      refute @user.can_read_users?
-    end
-
-    can_edit_issues.each do |role|
-      @user.role = roles role.to_sym
-
-      assert @user.can_edit_issues?
-    end
-
-    (Role::TYPES - can_edit_issues).each do |role|
-      @user.role = roles role.to_sym
-
-      refute @user.can_edit_issues?
     end
   end
 

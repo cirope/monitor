@@ -4,7 +4,7 @@ require 'test_helper'
 
 class PermissionTest < ActiveSupport::TestCase
   setup do
-    @permission = permissions :supervisor
+    @permission = permissions :supervisor_Issue
   end
 
   test 'blank attributes' do

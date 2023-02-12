@@ -195,6 +195,7 @@ es:
         remote_ip: 'Dirección IP remota'
         user_name: 'Nombre de usuario'
         user_agent: 'Datos del navegador'
+        role: 'Rol'
       issue:
         status: 'Estado'
         description: 'Descripción'

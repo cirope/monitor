@@ -63,4 +63,8 @@ class MenuHelperTest < ActionView::TestCase
     def set_controller_name name
       @_controller_name = name
     end
+
+    def current_user
+      users :franco
+    end
 end

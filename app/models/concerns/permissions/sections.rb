@@ -4,8 +4,8 @@ module Permissions::Sections
   included do
     MENU = {
       main: [
-        { item: 'Issue',    controllers: ['Board', 'Permalink', 'Export'] },
-        { item: 'Script',   controllers: ['Execution', 'Measure', 'Version', 'Import', 'Export'] },
+        { item: 'Issue',    controllers: ['Board', 'Comment', 'Permalink', 'Tagging', 'Export', 'View'] },
+        { item: 'Script',   controllers: ['Execution', 'Measure', 'Version', 'Revert', 'Import', 'Export'] },
         { item: 'Schedule', controllers: ['Run'] },
         { item: 'Rule',     controllers: ['Import', 'Export'] },
       ],
@@ -16,7 +16,7 @@ module Permissions::Sections
         { item: 'Tag'           },
         { item: 'Descriptor'    },
         { item: 'Account'       },
-        { item: 'Server'        },
+        { item: 'Server',   controllers: ['Default'] },
         { item: 'Database'      },
         { item: 'Ldap'          },
         { item: 'Saml'          },
@@ -26,11 +26,12 @@ module Permissions::Sections
         { item: 'SystemMonitor' },
       ],
       user: [
-        { item: 'Membership' },
+        { item: 'Membership', controllers: ['Switch'] },
       ],
       system: [
         { item: 'Authentication' },
         { item: 'Home' },
+        { item: 'PasswordReset' },
         { item: 'Profile' },
         { item: 'Session' },
         { item: 'Series' },

@@ -2,29 +2,31 @@
 
 module LinksHelper
   def link_to_destroy(*args)
-    options = args.extract_options!
+    if current_user.can? :remove, controller_name
+      options = args.extract_options!
 
-    options[:data]           ||= {}
-    options[:data][:method]  ||= :delete
-    options[:data][:confirm] ||= t('messages.confirmation')
+      options[:data]           ||= {}
+      options[:data][:method]  ||= :delete
+      options[:data][:confirm] ||= t('messages.confirmation')
 
-    link_with_icon({ action: 'destroy', icon: 'trash' }, *(args << options))
+      link_with_icon({ action: 'destroy', icon: 'trash' }, *(args << options))
+    end
   end
 
   def link_to_edit *args
-    link_with_icon({ action: 'edit', icon: 'pen' }, *args)
+    link_with_icon({ action: 'edit', icon: 'pen' }, *args) if current_user.can? :edit, controller_name
   end
 
   def link_to_index *args
-    link_to t('navigation.index'), *args
+    link_to t('navigation.index'), *args if current_user.can? :read, controller_name
   end
 
   def link_to_new *args
-    link_to t('.new'), *args
+    link_to t('.new'), *args if current_user.can? :edit, controller_name
   end
 
   def link_to_show *args
-    link_with_icon({ action: 'show', icon: 'search' }, *args)
+    link_with_icon({ action: 'show', icon: 'search' }, *args) if current_user.can? :read, controller_name
   end
 
   private

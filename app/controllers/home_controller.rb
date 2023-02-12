@@ -4,6 +4,7 @@ class HomeController < ApplicationController
   include Authorization
   include Issues::Filters
 
+  before_action :authorize, except: [:api_issues_by_status]
   before_action :set_title
 
   PERMITED_FILTER_PARAMS = [

@@ -7,7 +7,8 @@ module Users::Roles
     belongs_to :role
     has_many :permissions, through: :role
 
-    delegate :security?, :supervisor?, :author?, :manager?, :owner?, :guest?, to: :role
+    delegate :security?, :supervisor?, :author?, :manager?, :owner?,
+      :guest?, to: :role
   end
 
   def can? action, controller_path

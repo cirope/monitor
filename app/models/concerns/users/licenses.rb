@@ -28,6 +28,6 @@ module Users::Licenses
     end
 
     def should_check_licensed_user?
-      LICENSED_USERS.include? role
+      LICENSED_USERS.include? role.type
     end
 end

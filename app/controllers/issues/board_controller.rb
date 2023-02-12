@@ -4,8 +4,9 @@ class Issues::BoardController < ApplicationController
   include Authorization
   include Issues::Filters
 
+  before_action :authorize, except: [:destroy_all, :empty]
   before_action :set_title, only: [:index]
-  before_action :set_issue,  only: [:create, :destroy]
+  before_action :set_issue, only: [:create, :destroy]
   before_action :set_script, only: [:create, :destroy]
 
   def index

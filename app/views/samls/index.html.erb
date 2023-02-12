@@ -6,10 +6,8 @@
       <thead>
         <tr>
           <th><%= Saml.human_attribute_name 'provider' %></th>
-          <th colspan="<%= current_user.supervisor? ? 1 : 3 %>">
-            <% if !saml && !current_user.supervisor? %>
-              <%= link_to_new new_saml_path, class: 'btn btn-secondary btn-sm py-0 mr-n2 float-end' %>
-            <% end %>
+          <th colspan="3">
+            <%= link_to_new new_saml_path, class: 'btn btn-secondary btn-sm py-0 mr-n2 float-end' if !saml %>
           </th>
         </tr>
       </thead>
@@ -19,10 +17,8 @@
           <tr>
             <td><%= t saml.provider, scope: [:samls, :providers] %></td>
             <td class="text-end"><%= link_to_show saml %></td>
-            <% if current_user.security? %>
-              <td class="text-end"><%= link_to_edit [:edit, saml] %></td>
-              <td class="text-end"><%= link_to_destroy saml %></td>
-            <% end %>
+            <td class="text-end"><%= link_to_edit [:edit, saml] %></td>
+            <td class="text-end"><%= link_to_destroy saml %></td>
           </tr>
         <% end %>
       </tbody>
@@ -32,6 +28,4 @@
   <%= paginate @samls %>
 <% end %>
 
-<% if !saml && !current_user.supervisor? %>
-  <%= link_to_new new_saml_path, class: 'btn btn-primary' %>
-<% end %>
+<%= link_to_new new_saml_path, class: 'btn btn-primary' if !saml %>

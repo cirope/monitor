@@ -60,7 +60,7 @@
     <div id="subscriptions" class="card-body">
       <ul>
         <% @issue.subscriptions.each do |subscription| %>
-          <li><%= link_to_if current_user.can_read_users?, subscription.user, subscription.user %></li>
+          <li><%= link_to_if current_user.can?(:read, User), subscription.user, subscription.user %></li>
         <% end %>
       </ul>
     </div>
@@ -82,7 +82,7 @@
   </div>
 </div>
 
-<% if @permalink.blank? && current_user.can_edit_issues? %>
+<% if @permalink.blank? && current_user.can?(:edit, Issue) %>
   <%= link_to_edit [:edit, @issue, context: @context, filter: filter_query_hash] %> |
 <% end %>
 
