@@ -4,7 +4,6 @@ class SchedulesController < ApplicationController
   include Authorization
   include Schedules::Filters
 
-  before_action :authorize, except: [:run, :cleanup]
   before_action :set_title, except: [:destroy, :cleanup, :run]
   before_action :set_schedule, only: [:show, :edit, :update, :destroy, :run, :cleanup]
 

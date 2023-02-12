@@ -59,8 +59,20 @@ class RolesControllerTest < ActionController::TestCase
     assert_redirected_to role_url(@role)
   end
 
-  test 'should destroy role' do
+  test 'should destroy role with no associated users' do
+    new_role = Role.create @role.dup.attributes.merge(name: 'New Role')
+
+    assert_not_nil new_role
+
     assert_difference 'Role.count', -1 do
+      delete :destroy, params: { id: new_role }
+    end
+
+    assert_redirected_to roles_url
+  end
+
+  test 'should not destroy role with associated users' do
+    assert_no_difference 'Role.count' do
       delete :destroy, params: { id: @role }
     end
 

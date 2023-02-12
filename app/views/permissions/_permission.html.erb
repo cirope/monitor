@@ -1,23 +1,17 @@
 <fieldset class="role_permission">
   <div class="row">
     <div class="col-sm-3">
-      <%= f.input :section, collection: permission_sections, label: false,
-        prompt: t('permissions.select.section') %>
+      <strong><%= f.object.section.constantize.model_name.human count: 0 %></strong>
+      <%= f.input :section, as: :hidden %>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-3">
       <%= f.input :read %>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-3">
       <%= f.input :edit %>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-3">
       <%= f.input :remove %>
-    </div>
-    <div class="col-sm-2">
-      <div class="row-controls mb-3 mb-sm-0 mt-n4 mt-sm-n2">
-        <%= f.input :id, as: :hidden %>
-        <%= link_to_remove_nested_item f %>
-      </div>
     </div>
   </div>
 </fieldset>

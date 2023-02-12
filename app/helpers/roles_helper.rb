@@ -1,8 +1,13 @@
 module RolesHelper
   def role_permissions
-    @role.permissions.new if @role.permissions.empty?
+    permissions = @role.permissions.to_a
 
-    @role.permissions
+    Permission.sections.each_with_object([]) do |section, arr|
+      permission = permissions.detect { |p| p.section == section } ||
+        @role.permissions.new(section: section)
+
+      arr << permission
+    end
   end
 
   def permission_sections

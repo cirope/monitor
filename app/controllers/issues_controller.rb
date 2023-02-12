@@ -4,7 +4,6 @@ class IssuesController < ApplicationController
   include Authorization
   include Issues::Filters
 
-  before_action :authorize, except: [:api_issues]
   before_action :set_title, except: [:destroy]
   before_action :set_account, only: [:show, :index]
   before_action :set_script, only: [:index]

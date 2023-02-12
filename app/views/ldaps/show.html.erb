@@ -47,7 +47,5 @@
   </div>
 </div>
 
-<% if current_user.security? %>
-  <%= link_to_edit [:edit, @ldap] %> |
-<% end %>
+<%= link_to_edit [:edit, @ldap] %> |
 <%= link_to_index ldaps_path %>

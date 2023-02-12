@@ -23,8 +23,6 @@
         <%= f.simple_fields_for :permissions, role_permissions do |pf| %>
           <%= render 'permissions/permission', f: pf %>
         <% end %>
-
-        <%= link_to_add_fields t('roles.new.permission'), f, :permissions %>
       </div>
     </div>
   </div>

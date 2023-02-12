@@ -3,7 +3,7 @@
 class ViewsController < ApplicationController
   include Authorization
 
-  before_action :authorize, except: :create
+  before_action :authorize, except: [:create]
 
   # * POST /views
   def create

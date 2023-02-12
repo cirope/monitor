@@ -78,9 +78,13 @@ class UserTest < ActiveSupport::TestCase
 
   test 'username globally taken on create' do
     account = Account.create! name: 'Test', tenant_name: 'test'
+    role    = @user.role.dup
 
     account.switch do
+      role_new_account = Role.create role.attributes
+
       user       = @user.dup
+      user.role  = role_new_account
       user.email = 'other@email.com'
 
       refute user.save

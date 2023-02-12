@@ -20,6 +20,7 @@ module Authorization
         when 'index', 'show' then 'read'
         when 'new', 'create', 'edit', 'update' then 'edit'
         when 'destroy' then 'remove'
+        else 'read'
         end
     end
 end
