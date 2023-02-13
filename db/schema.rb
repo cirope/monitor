@@ -378,6 +378,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_05_180657) do
     t.integer "lock_version", default: 0, null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.jsonb "options"
     t.string "roles_attribute", null: false
   end
 
@@ -626,6 +627,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_05_180657) do
     t.string "lastname_attribute", null: false
     t.string "email_attribute", null: false
     t.string "roles_attribute", null: false
+    t.jsonb "options"
     t.integer "lock_version", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
