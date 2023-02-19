@@ -19,10 +19,38 @@
           <%= Permission.model_name.human count: 0 %>
         </h5>
       </div>
-      <div id="permissions" class="card-body">
-        <%= f.simple_fields_for :permissions, role_permissions do |pf| %>
-          <%= render 'permissions/permission', f: pf %>
-        <% end %>
+      <div class="card-body">
+        <ul class="nav nav-tabs nav-bordered mb-3">
+          <li class="nav-item">
+            <%= link_to t('roles.permissions.main'), "#main-permissions",
+              data: { bs_toggle: 'tab' }, class: 'nav-link active' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to t('roles.permissions.config'), "#config-permissions",
+              data: { bs_toggle: 'tab' }, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to t('roles.permissions.user'), "#user-permissions",
+              data: { bs_toggle: 'tab' }, class: 'nav-link' %>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div id="main-permissions" class="tab-pane active show">
+            <%= f.simple_fields_for :permissions, main_permissions do |pf| %>
+              <%= render 'permissions/permission', f: pf %>
+            <% end %>
+          </div>
+          <div id="config-permissions" class="tab-pane">
+            <%= f.simple_fields_for :permissions, config_permissions do |pf| %>
+              <%= render 'permissions/permission', f: pf %>
+            <% end %>
+          </div>
+          <div id="user-permissions" class="tab-pane">
+            <%= f.simple_fields_for :permissions, user_permissions do |pf| %>
+              <%= render 'permissions/permission', f: pf %>
+            <% end %>
+          </div>
+        </div>
       </div>
     </div>
   </div>

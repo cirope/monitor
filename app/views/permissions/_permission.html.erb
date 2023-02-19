@@ -1,7 +1,7 @@
 <fieldset class="role_permission">
   <div class="row">
     <div class="col-sm-3">
-      <strong><%= f.object.section.constantize.model_name.human count: 0 %></strong>
+      <strong><%= show_section f.object.section %></strong>
       <%= f.input :section, as: :hidden %>
     </div>
     <div class="col-sm-3">

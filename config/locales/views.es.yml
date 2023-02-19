@@ -17,6 +17,8 @@ es:
     logout: 'Salir'
     show: 'Ver'
     switch: 'Ingresar'
+    _yes: 'Si'
+    _no: 'No'
 
   accounts:
     edit:
@@ -386,6 +388,10 @@ es:
       manager: 'Analista'
       owner: 'Propietario'
       guest: 'Invitado'
+    permissions:
+      main: 'Principal'
+      config: 'Configuración'
+      user: 'Usuario'
 
   rules:
     edit:

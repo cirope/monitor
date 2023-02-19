@@ -15,6 +15,41 @@
       <strong><%= Role.human_attribute_name 'description' %></strong>:
       <%= @role.description %>
     </p>
+
+    <div class="card mt-3">
+      <div class="card-header">
+        <h5>
+          <%= Permission.model_name.human count: 0 %>
+        </h5>
+      </div>
+      <div class="card-body">
+        <ul class="nav nav-tabs nav-bordered mb-3">
+          <li class="nav-item">
+            <%= link_to t('roles.permissions.main'), "#main-permissions",
+              data: { bs_toggle: 'tab' }, class: 'nav-link active' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to t('roles.permissions.config'), "#config-permissions",
+              data: { bs_toggle: 'tab' }, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to t('roles.permissions.user'), "#user-permissions",
+              data: { bs_toggle: 'tab' }, class: 'nav-link' %>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div id="main-permissions" class="tab-pane active show">
+            <%= render 'roles/permissions', '@permissions': @role.permissions_for(:main) %>
+          </div>
+          <div id="config-permissions" class="tab-pane">
+            <%= render 'roles/permissions', '@permissions': @role.permissions_for(:config) %>
+          </div>
+          <div id="user-permissions" class="tab-pane">
+            <%= render 'roles/permissions', '@permissions': @role.permissions_for(:user) %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 

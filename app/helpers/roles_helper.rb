@@ -1,13 +1,14 @@
 module RolesHelper
-  def role_permissions
-    permissions = @role.permissions.to_a
+  def main_permissions
+    permissions_for Permission.main
+  end
 
-    Permission.sections.each_with_object([]) do |section, arr|
-      permission = permissions.detect { |p| p.section == section } ||
-        @role.permissions.new(section: section)
+  def config_permissions
+    permissions_for Permission.config
+  end
 
-      arr << permission
-    end
+  def user_permissions
+    permissions_for Permission.user
   end
 
   def permission_sections
@@ -23,4 +24,21 @@ module RolesHelper
   def t_role_type type
     t "roles.types.#{type}"
   end
+
+  def show_section section
+    section.constantize.model_name.human count: 0
+  end
+
+  private
+
+    def permissions_for section
+      permissions = @role.permissions.to_a
+
+      section.each_with_object([]) do |section, arr|
+        permission = permissions.detect { |p| p.section == section } ||
+          @role.permissions.new(section: section)
+
+        arr << permission
+      end
+    end
 end

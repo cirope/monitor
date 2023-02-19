@@ -45,11 +45,15 @@ module Permissions::Sections
     end
 
     def sections
-      menu(:main) + menu(:config) + menu(:user)
+      main + config + user
     end
 
     def config
       menu :config
+    end
+
+    def user
+      menu :user
     end
 
     def system
