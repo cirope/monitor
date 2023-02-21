@@ -32,7 +32,7 @@ module RolesHelper
   private
 
     def permissions_for section
-      permissions = @role.permissions.to_a
+      permissions = @role.permissions.ordered.to_a
 
       section.each_with_object([]) do |section, arr|
         permission = permissions.detect { |p| p.section == section } ||

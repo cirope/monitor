@@ -29,10 +29,6 @@
             <%= link_to t('roles.permissions.config'), "#config-permissions",
               data: { bs_toggle: 'tab' }, class: 'nav-link' %>
           </li>
-          <li class="nav-item">
-            <%= link_to t('roles.permissions.user'), "#user-permissions",
-              data: { bs_toggle: 'tab' }, class: 'nav-link' %>
-          </li>
         </ul>
         <div class="tab-content">
           <div id="main-permissions" class="tab-pane active show">
@@ -42,11 +38,6 @@
           </div>
           <div id="config-permissions" class="tab-pane">
             <%= f.simple_fields_for :permissions, config_permissions do |pf| %>
-              <%= render 'permissions/permission', f: pf %>
-            <% end %>
-          </div>
-          <div id="user-permissions" class="tab-pane">
-            <%= f.simple_fields_for :permissions, user_permissions do |pf| %>
               <%= render 'permissions/permission', f: pf %>
             <% end %>
           </div>

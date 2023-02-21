@@ -6,6 +6,6 @@ module Roles::Scopes
   end
 
   def permissions_for section
-    permissions.where section: Permission.send(section)
+    permissions.ordered.where section: Permission.send(section)
   end
 end

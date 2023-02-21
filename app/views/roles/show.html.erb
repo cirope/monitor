@@ -32,20 +32,13 @@
             <%= link_to t('roles.permissions.config'), "#config-permissions",
               data: { bs_toggle: 'tab' }, class: 'nav-link' %>
           </li>
-          <li class="nav-item">
-            <%= link_to t('roles.permissions.user'), "#user-permissions",
-              data: { bs_toggle: 'tab' }, class: 'nav-link' %>
-          </li>
         </ul>
         <div class="tab-content">
           <div id="main-permissions" class="tab-pane active show">
-            <%= render 'roles/permissions', '@permissions': @role.permissions_for(:main) %>
+            <%= render 'roles/permissions', 'permissions': @role.permissions_for(:main) %>
           </div>
           <div id="config-permissions" class="tab-pane">
-            <%= render 'roles/permissions', '@permissions': @role.permissions_for(:config) %>
-          </div>
-          <div id="user-permissions" class="tab-pane">
-            <%= render 'roles/permissions', '@permissions': @role.permissions_for(:user) %>
+            <%= render 'roles/permissions', 'permissions': @role.permissions_for(:config) %>
           </div>
         </div>
       </div>

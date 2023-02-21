@@ -1,4 +1,4 @@
-class DropDasbboardsAndDeps < ActiveRecord::Migration[7.0]
+class DropDashboardsAndPanels < ActiveRecord::Migration[7.0]
   def change
     drop_table :queries
     drop_table :panels
