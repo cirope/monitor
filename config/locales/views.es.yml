@@ -391,7 +391,6 @@ es:
     permissions:
       main: 'Principal'
       config: 'Configuración'
-      user: 'Usuario'
 
   rules:
     edit:

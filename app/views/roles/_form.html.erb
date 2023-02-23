@@ -13,34 +13,19 @@
     <%= f.input :description %>
     <%= f.input :lock_version, as: :hidden %>
 
-    <div class="card">
-      <div class="card-header">
-        <h5>
-          <%= Permission.model_name.human count: 0 %>
-        </h5>
-      </div>
+    <div class="card ribbon-box">
       <div class="card-body">
-        <ul class="nav nav-tabs nav-bordered mb-3">
-          <li class="nav-item">
-            <%= link_to t('roles.permissions.main'), "#main-permissions",
-              data: { bs_toggle: 'tab' }, class: 'nav-link active' %>
-          </li>
-          <li class="nav-item">
-            <%= link_to t('roles.permissions.config'), "#config-permissions",
-              data: { bs_toggle: 'tab' }, class: 'nav-link' %>
-          </li>
-        </ul>
-        <div class="tab-content">
-          <div id="main-permissions" class="tab-pane active show">
-            <%= f.simple_fields_for :permissions, main_permissions do |pf| %>
-              <%= render 'permissions/permission', f: pf %>
-            <% end %>
-          </div>
-          <div id="config-permissions" class="tab-pane">
-            <%= f.simple_fields_for :permissions, config_permissions do |pf| %>
-              <%= render 'permissions/permission', f: pf %>
-            <% end %>
-          </div>
+        <div class="ribbon ribbon-primary float-start"><%= t 'roles.permissions.main' %></div>
+        <div class="ribbon-content">
+          <%= render 'permissions/permission', f: f, permissions: main_permissions %>
+        </div>
+      </div>
+    </div>
+    <div class="card ribbon-box">
+      <div class="card-body">
+        <div class="ribbon ribbon-primary float-start"><%= t 'roles.permissions.config' %></div>
+        <div class="ribbon-content">
+          <%= render 'permissions/permission', f: f, permissions: config_permissions %>
         </div>
       </div>
     </div>

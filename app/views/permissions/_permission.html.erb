@@ -1,17 +1,26 @@
-<fieldset class="role_permission">
-  <div class="row">
-    <div class="col-sm-3">
-      <strong><%= show_section f.object.section %></strong>
-      <%= f.input :section, as: :hidden %>
-    </div>
-    <div class="col-sm-3">
-      <%= f.input :read %>
-    </div>
-    <div class="col-sm-3">
-      <%= f.input :edit %>
-    </div>
-    <div class="col-sm-3">
-      <%= f.input :remove %>
-    </div>
-  </div>
-</fieldset>
+<div class="table-responsive-sm">
+  <table class="table table-centered table-sm table-permissions">
+    <thead>
+      <tr>
+        <th><%= Permission.human_attribute_name 'section' %></th>
+        <th><%= Permission.human_attribute_name 'read' %></th>
+        <th><%= Permission.human_attribute_name 'edit' %></th>
+        <th><%= Permission.human_attribute_name 'remove' %></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <%= f.simple_fields_for :permissions, permissions do |pf| %>
+        <tr>
+          <td>
+            <%= show_section pf.object.section %>
+            <%= pf.input :section, as: :hidden %>
+          </td>
+          <td><%= pf.input :read, label: false %></td>
+          <td><%= pf.input :edit, label: false %></td>
+          <td><%= pf.input :remove, label: false %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

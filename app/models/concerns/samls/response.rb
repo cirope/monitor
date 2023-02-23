@@ -52,8 +52,7 @@ module Samls::Response
     def extract_role attributes
       role_names = attributes[:roles]
 
-      # TODO cambiar role.type a role.name cuando se hable con el cliente
-      Role.order(:id).detect { |role| role_names.include? role.type }
+      Role.order(:id).detect { |role| role_names.include? role.name }
     end
 
     def prune_custom_attributes attributes
