@@ -389,7 +389,6 @@ es:
             base:
               licensed_user_limit: 'Limite de usuarios alcanzado, por favor actualice su licencia.'
 
-
   errors:
     messages:
       pdf_encoding: 'tiene símbolos no válidos'

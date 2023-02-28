@@ -8,7 +8,7 @@
           <th><%= Ldap.human_attribute_name 'hostname' %></th>
           <th><%= Ldap.human_attribute_name 'port' %></th>
           <th colspan="3">
-            <%= link_to_new new_ldap_path, class: 'btn btn-secondary btn-sm py-0 mr-n2 float-end' if !ldap %>
+            <%= link_to_new new_ldap_path, class: 'btn btn-secondary btn-sm py-0 mr-n2 float-end' unless ldap %>
           </th>
         </tr>
       </thead>

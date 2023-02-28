@@ -7,7 +7,7 @@
         <tr>
           <th><%= Saml.human_attribute_name 'provider' %></th>
           <th colspan="3">
-            <%= link_to_new new_saml_path, class: 'btn btn-secondary btn-sm py-0 mr-n2 float-end' if !saml %>
+            <%= link_to_new new_saml_path, class: 'btn btn-secondary btn-sm py-0 mr-n2 float-end' unless saml %>
           </th>
         </tr>
       </thead>

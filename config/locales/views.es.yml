@@ -17,8 +17,6 @@ es:
     logout: 'Salir'
     show: 'Ver'
     switch: 'Ingresar'
-    _yes: 'Si'
-    _no: 'No'
 
   accounts:
     edit:

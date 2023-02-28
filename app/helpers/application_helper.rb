@@ -16,10 +16,10 @@ module ApplicationHelper
   def show_boolean_badge field
     if field
       badge = 'success'
-      text  = t 'navigation._yes'
+      text  = t 'yes'
     else
       badge = 'danger'
-      text  = t 'navigation._no'
+      text  = t 'no'
     end
 
     content_tag :span, text, class: "badge bg-#{badge}"

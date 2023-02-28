@@ -1,8 +1,11 @@
 # frozen_string_literal: true
+
+I18n.load_path += Dir[Rails.root.join('config', 'locales', '*.{rb,yml}')]
+I18n.available_locales = [:es]
+I18n.default_locale = :es
+
 ROLES = {
   security: {
-    name: 'Seguridad',
-    description: 'Seguridad',
     permissions_attributes: [
       { section: 'Issue',         read: true,  edit: true,  remove: false },
       { section: 'Script',        read: false, edit: false, remove: false },
@@ -25,8 +28,6 @@ ROLES = {
     ]
   },
   supervisor: {
-    name: 'Supervisor',
-    description: 'Supervisor',
     permissions_attributes: [
       { section: 'Issue',         read: true, edit: true,  remove: true  },
       { section: 'Script',        read: true, edit: true,  remove: true  },
@@ -49,8 +50,6 @@ ROLES = {
     ]
   },
   author: {
-    name: 'Autor',
-    description: 'Autor',
     permissions_attributes: [
       { section: 'Issue',         read: true,  edit: true,  remove: false },
       { section: 'Script',        read: true,  edit: true,  remove: true  },
@@ -73,8 +72,6 @@ ROLES = {
     ]
   },
   manager: {
-    name: 'Analista',
-    description: 'Analista',
     permissions_attributes: [
       { section: 'Issue',         read: true,  edit: true,  remove: false },
       { section: 'Script',        read: false, edit: false, remove: false },
@@ -97,8 +94,6 @@ ROLES = {
     ]
   },
   owner: {
-    name: 'Propietario',
-    description: 'Propietario',
     permissions_attributes: [
       { section: 'Issue',         read: true,  edit: true,  remove: false },
       { section: 'Script',        read: false, edit: false, remove: false },
@@ -121,8 +116,6 @@ ROLES = {
     ]
   },
   guest: {
-    name: 'Invitado',
-    description: 'Invitado',
     permissions_attributes: [
       { section: 'Issue',         read: true,  edit: false, remove: false },
       { section: 'Script',        read: false, edit: false, remove: false },
@@ -145,3 +138,9 @@ ROLES = {
     ]
   },
 }
+
+%w(security supervisor author manager owner guest).each do |type|
+  role = I18n.t "roles.types.#{type}"
+
+  ROLES[type.to_sym].merge! name: role, description: role
+end

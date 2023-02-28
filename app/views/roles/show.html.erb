@@ -20,7 +20,7 @@
       <div class="card-body">
         <div class="ribbon ribbon-primary float-start"><%= t 'roles.permissions.main' %></h5></div>
         <div class="ribbon-content">
-          <%= render 'roles/permissions', 'permissions': @role.permissions_for(:main) %>
+          <%= render 'roles/permissions', permissions: @role.permissions_for(:main) %>
         </div>
       </div>
     </div>
@@ -28,7 +28,7 @@
       <div class="card-body">
         <div class="ribbon ribbon-primary float-start"><%= t 'roles.permissions.config' %></h5></div>
         <div class="ribbon-content">
-          <%= render 'roles/permissions', 'permissions': @role.permissions_for(:config) %>
+          <%= render 'roles/permissions', permissions: @role.permissions_for(:config) %>
         </div>
       </div>
     </div>

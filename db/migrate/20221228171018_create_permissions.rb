@@ -9,7 +9,7 @@ class CreatePermissions < ActiveRecord::Migration[7.0]
         on_delete: :restrict, on_update: :restrict
       }
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end
