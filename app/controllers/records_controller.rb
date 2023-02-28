@@ -1,13 +1,8 @@
 # frozen_string_literal: true
 
 class RecordsController < ApplicationController
+  include Authorization
   include Records::Filters
-
-  before_action :authorize,
-                :not_guest,
-                :not_author,
-                :not_owner,
-                :not_manager
 
   # GET /records
   def index

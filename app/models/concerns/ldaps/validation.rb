@@ -9,7 +9,6 @@ module Ldaps::Validation
     validates :test_user, :test_password, :hostname, :port, :basedn, :filter,
       :login_mask, :username_attribute, :name_attribute,
       :lastname_attribute, :email_attribute, :roles_attribute,
-      :role_guest, :role_author, :role_supervisor, :role_security,
       presence: true
     validates :hostname, :basedn, :login_mask, :username_attribute,
       :name_attribute, :lastname_attribute, :email_attribute,

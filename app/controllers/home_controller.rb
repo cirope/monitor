@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class HomeController < ApplicationController
+  include Authorization
   include Issues::Filters
 
-  before_action :authorize
   before_action :set_title
 
   PERMITED_FILTER_PARAMS = [

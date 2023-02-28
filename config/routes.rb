@@ -44,14 +44,14 @@ Rails.application.routes.draw do
   post   'script/api_issues',        to: 'issues#api_issues'
 
   # Resources
-  resources :comments, except: [:index, :new]
   resources :databases
   resources :descriptors
   resources :drives
   resources :ldaps
-  resources :rules
   resources :password_resets, only: [:new, :create, :edit, :update]
   resources :pdf_templates
+  resources :roles
+  resources :rules
   resources :samls
 
   resources :accounts, except: [:destroy] do
@@ -65,11 +65,11 @@ Rails.application.routes.draw do
 
   # Dashboards
   resources :series, only: [:index, :show]
-  resources :dashboards do
-    resources :panels, except: [:index, :show]
-  end
 
   resources :issues, except: [:new, :create] do
+    scope module: 'issues' do
+      resources :comments, except: [:index, :new]
+    end
     resources :taggings, only: [:new, :create, :destroy]
   end
 
@@ -125,7 +125,7 @@ Rails.application.routes.draw do
     resources :tags
   end
 
-  resources :processes, only: [:index, :destroy]
+  resources :system_monitors, only: [:index, :destroy]
 
   scope ':kind', kind: /login|fail/ do
     resources :records, only: [:index, :show]

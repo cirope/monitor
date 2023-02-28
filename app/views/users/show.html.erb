@@ -9,8 +9,8 @@
     </p>
 
     <p class="mb-1">
-      <strong><%= roles_label %></strong>:
-      <%= t "users.roles.#{@user.role}" %>
+      <strong><%= User.human_attribute_name :role %></strong>:
+      <%= t_role_type @user.role.type %>
     </p>
 
     <% if @user.tags.any? %>

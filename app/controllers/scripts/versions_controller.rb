@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class Scripts::VersionsController < ApplicationController
-  before_action :authorize, :not_guest, :not_owner, :not_manager, :not_security
+  include Authorization
+
   before_action :set_title, :set_script
   before_action :set_version, only: [:show]
 

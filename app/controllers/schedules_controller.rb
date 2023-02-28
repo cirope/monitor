@@ -1,12 +1,11 @@
 # frozen_string_literal: true
 
 class SchedulesController < ApplicationController
+  include Authorization
   include Schedules::Filters
 
-  before_action :authorize, :not_guest, :not_owner, :not_manager, :not_security
   before_action :set_title, except: [:destroy, :cleanup, :run]
   before_action :set_schedule, only: [:show, :edit, :update, :destroy, :run, :cleanup]
-  before_action :not_author, except: [:index, :show, :run]
 
   def index
     @schedules = schedules.visible.page params[:page]
