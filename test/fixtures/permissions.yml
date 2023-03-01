@@ -1,0 +1,45 @@
+<% Permission.sections.each do |section| %>
+<%= "supervisor_#{section}:" %>
+  section: <%= section %>
+  read: true
+  edit: true
+  remove: true
+  role: supervisor
+<% end %>
+
+<% Permission.sections.each do |section| %>
+<%= "security_#{section}:" %>
+  section: <%= section %>
+  read: true
+  edit: true
+  remove: true
+  role: security
+<% end %>
+
+author_issue:
+  section: Issue
+  read: true
+  edit: true
+  remove: false
+  role: author
+
+manager_issue:
+  section: Issue
+  read: true
+  edit: true
+  remove: false
+  role: manager
+
+owner_issue:
+  section: Issue
+  read: true
+  edit: true
+  remove: false
+  role: owner
+
+guest_issue:
+  section: Issue
+  read: true
+  edit: false
+  remove: false
+  role: guest

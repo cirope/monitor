@@ -12,7 +12,7 @@ class Shared::UserActionsHelperTest < ActionView::TestCase
   test 'Should return badge to guest role' do
     supervisor = users :john
 
-    assert_equal role_badge(supervisor.role), 'bg-light'
+    assert_equal role_badge(supervisor.role), 'bg-light text-dark'
   end
 
   test 'Should return badge to author role' do
@@ -29,8 +29,8 @@ class Shared::UserActionsHelperTest < ActionView::TestCase
 
   test 'Should return badge to manager role' do
     manager = users :franco
-    
-    manager.role = 'manager'
+
+    manager.role = Role.find_by type: 'manager'
 
     assert_equal role_badge(manager.role), 'bg-secondary'
   end
@@ -38,7 +38,7 @@ class Shared::UserActionsHelperTest < ActionView::TestCase
   test 'Should return badge to owner role' do
     owner = users :franco
 
-    owner.role = 'owner'
+    owner.role = Role.find_by type: 'owner'
 
     assert_equal role_badge(owner.role), 'bg-primary'
   end

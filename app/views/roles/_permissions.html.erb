@@ -1,0 +1,23 @@
+<div class="table-responsive-sm">
+  <table class="table table-centered table-sm table-permissions">
+    <thead>
+      <tr>
+        <th><%= Permission.human_attribute_name 'section' %></th>
+        <th><%= Permission.human_attribute_name 'read' %></th>
+        <th><%= Permission.human_attribute_name 'edit' %></th>
+        <th><%= Permission.human_attribute_name 'remove' %></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% permissions.each do |permission| %>
+        <tr>
+          <td><%= show_section permission.section %></td>
+          <td><%= show_boolean_badge permission.read %></td>
+          <td><%= show_boolean_badge permission.edit %></td>
+          <td><%= show_boolean_badge permission.remove %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

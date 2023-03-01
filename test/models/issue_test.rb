@@ -48,7 +48,7 @@ class IssueTest < ActiveSupport::TestCase
   test 'requires comment' do
     Current.user = users :eduardo
 
-    Current.user.update! role: 'owner'
+    Current.user.update! role: roles(:owner)
 
     @issue.status = 'taken'
 
@@ -102,7 +102,7 @@ class IssueTest < ActiveSupport::TestCase
     @issue.update! status: 'taken'
 
     Current.user      = users :john
-    Current.user.role = 'owner'
+    Current.user.role = roles :owner
 
     assert_equal %w(taken revision), @issue.next_status
 

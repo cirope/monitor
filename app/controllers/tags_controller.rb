@@ -1,12 +1,7 @@
 # frozen_string_literal: true
 
 class TagsController < ApplicationController
-  before_action :authorize
-
-  before_action :not_guest,
-                :not_owner,
-                :not_author,
-                :not_security, except: [:index]
+  include Authorization
 
   before_action :set_title, except: [:destroy]
   before_action :set_tag, only: [:show, :edit, :update, :destroy]

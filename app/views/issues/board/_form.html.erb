@@ -43,7 +43,7 @@
         <div class="row">
           <%= f.simple_fields_for :comments, Comment.new do |cf| %>
             <div class="col-sm-6">
-              <%= cf.input :text, label: false, placeholder: t('comments.comment.text_placeholder'), input_html: { rows: 2 } %>
+              <%= cf.input :text, label: false, placeholder: t('issues.comments.comment.text_placeholder'), input_html: { rows: 2 } %>
             </div>
             <div class="col-sm-3">
               <%= cf.input :attachment, label: false %>

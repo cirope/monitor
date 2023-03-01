@@ -8,6 +8,7 @@ namespace :db do
       generate_state_transitions # 2021-10-29
       set_issue_canonical_data   # 2022-02-01
       encrypt_property_passwords # 2022-05-27
+      roles_migration            # 2023-18-01
     end
   end
 end
@@ -121,4 +122,25 @@ private
     end
   ensure
     PaperTrail.enabled = true
+  end
+
+  def roles_migration
+    Account.on_each do
+      unless Role.exists?
+        ldap = Ldap.default
+        saml = Saml.default
+
+        ROLES.each do |old_role, params|
+          role_name = begin
+            ldap.options[old_role.to_s] || saml.options[old_role.to_s]
+          rescue
+            params[:name]
+          end
+
+          if role = Role.create(params.merge(type: old_role, name: role_name))
+            User.where(old_role: old_role).update_all role_id: role.id
+          end
+        end
+      end
+    end
   end

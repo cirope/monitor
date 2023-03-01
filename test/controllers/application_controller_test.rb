@@ -44,13 +44,6 @@ class ApplicationControllerTest < ActionController::TestCase
     assert_redirected_to login_url
   end
 
-  test 'should not redirect when current user' do
-    login
-    authorize
-
-    assert_nil @response.location
-  end
-
   test 'should update user' do
     user = users :franco
 
@@ -66,26 +59,6 @@ class ApplicationControllerTest < ActionController::TestCase
 
     assert_not_equal 'Updated', user.reload.name
     assert_redirected_to edit_user_url(user)
-  end
-
-  test 'should check not supervisor role' do
-    user = users :franco
-
-    login user: user
-
-    @controller.send(:not_supervisor)
-
-    assert_redirected_to root_url
-  end
-
-  test 'should check guest role' do
-    user = users :franco
-
-    login user: user
-
-    @controller.send(:only_guest)
-
-    assert_redirected_to root_url
   end
 
   test 'should store location' do

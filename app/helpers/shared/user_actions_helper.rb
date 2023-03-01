@@ -2,7 +2,7 @@
 
 module Shared::UserActionsHelper
   def role_badge role
-    case role
+    case role&.type
     when 'security'
       'bg-danger'
     when 'supervisor'
@@ -14,7 +14,7 @@ module Shared::UserActionsHelper
     when 'owner'
       'bg-primary'
     when 'guest'
-      'bg-light'
+      'bg-light text-dark'
     end
   end
 end

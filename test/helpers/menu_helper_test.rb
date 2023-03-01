@@ -42,24 +42,12 @@ class MenuHelperTest < ActionView::TestCase
     refute is_config_action?
   end
 
-  test 'console helper model' do
-    assert_equal 'console', console_helper_model.model_name.route_key
-  end
-
-  test 'processes helper model' do
-    assert_equal 'processes', processes_helper_model.model_name.route_key
-  end
-
   test 'show board?' do
     assert !show_board?
 
     session[:board_issues] = [issues(:ls_on_atahualpa_not_well).id]
 
     assert show_board?
-  end
-
-  test 'records helper model' do
-    assert_equal 'records', records_helper_model.model_name.route_key
   end
 
   private
@@ -74,5 +62,9 @@ class MenuHelperTest < ActionView::TestCase
 
     def set_controller_name name
       @_controller_name = name
+    end
+
+    def current_user
+      users :franco
     end
 end

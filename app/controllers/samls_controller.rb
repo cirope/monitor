@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class SamlsController < ApplicationController
-  before_action :authorize, :not_guest, :not_owner, :not_manager, :not_author
+  include Authorization
+
   before_action :set_saml, only: [:show, :edit, :update, :destroy]
   before_action :set_title, except: [:destroy]
-  before_action :not_supervisor, except: [:index, :show]
 
   # GET /samls
   def index
@@ -62,7 +62,6 @@ class SamlsController < ApplicationController
         :idp_sso_target_url, :sp_entity_id, :assertion_consumer_service_url,
         :name_identifier_format, :assertion_consumer_service_binding, :idp_cert,
         :username_attribute, :name_attribute, :lastname_attribute, :email_attribute,
-        :roles_attribute, :role_guest, :role_manager, :role_author, :role_supervisor,
-        :role_security, :role_owner, :lock_version
+        :roles_attribute, :lock_version
     end
 end

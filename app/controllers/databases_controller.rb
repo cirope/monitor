@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 
 class DatabasesController < ApplicationController
+  include Authorization
   include Databases::Filters
 
-  before_action :authorize, :not_guest, :not_owner, :not_manager, :not_author
   before_action :set_title, except: [:destroy]
   before_action :set_account
   before_action :set_database, only: [:show, :edit, :update, :destroy]
-  before_action :not_supervisor, except: [:index, :show]
 
   def index
     @databases = databases.ordered.page params[:page]

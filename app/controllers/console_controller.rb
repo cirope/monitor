@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class ConsoleController < ApplicationController
-  before_action :authorize, :only_supervisor, :enable?
+  include Authorization
+
+  before_action :enable?
 
   def show
   end
