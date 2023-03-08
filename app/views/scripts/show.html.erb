@@ -109,35 +109,7 @@
   </ul>
 <% end %>
 
-<% if @script.parameters.any? %>
-  <div class="card mb-3">
-    <div class="card-header">
-      <h5>
-        <%= Parameter.model_name.human count: @script.parameters.size %>
-      </h5>
-    </div>
-    <div id="parameters" class="card-body">
-      <div class="table-responsive">
-        <table class="table table-sm">
-          <thead>
-            <tr>
-              <th><%= Parameter.human_attribute_name 'name' %></th>
-              <th><%= Parameter.human_attribute_name 'value' %></th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @script.parameters.each do |parameter| %>
-              <tr>
-                <td><%= parameter.name %></td>
-                <td><%= parameter.value %></td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-<% end %>
+<%= render template: 'scripts/parameters/index' %>
 
 <% if @script.descriptions.any? %>
   <div class="card mb-3">
