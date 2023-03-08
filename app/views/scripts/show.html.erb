@@ -123,6 +123,7 @@
             <tr>
               <th><%= Parameter.human_attribute_name 'name' %></th>
               <th><%= Parameter.human_attribute_name 'value' %></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -130,7 +131,9 @@
               <tr>
                 <td><%= parameter.name %></td>
                 <td><%= parameter.value %></td>
+                <td><%= link_to_show_parameter_versions parameter %></td>
               </tr>
+              <tr><td class="p-0 border-0" colspan="3" data-parameter-id="<%= parameter.id %>"></td></tr>
             <% end %>
           </tbody>
         </table>

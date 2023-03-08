@@ -86,6 +86,13 @@ module ScriptsHelper
     end
   end
 
+  def link_to_show_parameter_versions parameter
+    if parameter.versions.count > 1
+      link_to icon('fas', 'history'), [@script, parameter],
+        remote: true, title: t('scripts.show.history')
+    end
+  end
+
   private
 
     def link_to_create_execution &block
