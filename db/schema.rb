@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_16_222007) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_09_133823) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -96,6 +96,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_16_222007) do
     t.integer "script_id", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.boolean "public", default: false, null: false
+    t.index ["public"], name: "index_descriptions_on_public"
     t.index ["script_id"], name: "index_descriptions_on_script_id"
   end
 
@@ -104,6 +106,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_16_222007) do
     t.integer "lock_version", default: 0, null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.boolean "public", default: false, null: false
   end
 
   create_table "dispatchers", id: :serial, force: :cascade do |t|
