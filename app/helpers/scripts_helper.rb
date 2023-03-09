@@ -37,7 +37,7 @@ module ScriptsHelper
 
   def descriptions
     if @script.descriptions.empty?
-      Descriptor.all.each { |d| @script.descriptions.new name: d.name }
+      Descriptor.all.each { |d| @script.descriptions.new name: d.name, public: d.public }
     end
 
     @script.descriptions

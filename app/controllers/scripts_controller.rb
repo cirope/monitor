@@ -66,7 +66,7 @@ class ScriptsController < ApplicationController
         :language, :database_id, :lock_version,
         libraries_attributes: [:id, :name, :options, :_destroy],
         maintainers_attributes: [:id, :user_id, :_destroy],
-        descriptions_attributes: [:id, :name, :value, :_destroy],
+        descriptions_attributes: [:id, :name, :value, :public, :_destroy],
         parameters_attributes: [:id, :name, :value, :_destroy],
         requires_attributes: [:id, :script_id, :_destroy],
         taggings_attributes: [:id, :tag_id, :_destroy]
