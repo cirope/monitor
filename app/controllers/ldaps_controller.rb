@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class LdapsController < ApplicationController
-  before_action :authorize, :not_guest, :not_owner, :not_manager, :not_author
+  include Authorization
+
   before_action :set_title, except: [:destroy]
   before_action :set_ldap, only: [:show, :edit, :update, :destroy]
-  before_action :not_supervisor, except: [:index, :show]
 
   def index
     @ldaps = Ldap.order(:id).page params[:page]
@@ -54,8 +54,6 @@ class LdapsController < ApplicationController
       params.require(:ldap).permit :hostname, :port, :basedn, :filter,
         :login_mask, :username_attribute, :name_attribute,
         :lastname_attribute, :email_attribute, :roles_attribute,
-        :test_user, :test_password,
-        :role_guest, :role_author, :role_supervisor, :role_security,
-        :lock_version
+        :test_user, :test_password, :lock_version
     end
 end

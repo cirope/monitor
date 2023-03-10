@@ -38,10 +38,6 @@ class SamlsControllerTest < ActionController::TestCase
           lastname_attribute: 'surname',
           email_attribute: 'emailaddress',
           roles_attribute: 'description',
-          role_guest: 'Guest',
-          role_author: 'Author',
-          role_supervisor: 'Supervisor',
-          role_security: 'Security'
         }
       }
     end

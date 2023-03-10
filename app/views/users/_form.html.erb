@@ -3,15 +3,29 @@
 
   <fieldset>
     <div class="form-inputs">
-      <%= f.input :name, input_html: { autofocus: true, disabled: ldap } %>
-      <%= f.input :lastname, input_html: { disabled: ldap } %>
-      <%= f.input :email, input_html: { disabled: ldap } %>
-      <%= f.input :username, input_html: { disabled: ldap } %>
-      <% unless ldap %>
-        <%= f.input :password %>
-        <%= f.input :password_confirmation %>
+      <div class="row">
+        <div class="col-md-6">
+          <%= f.input :name, input_html: { autofocus: true, disabled: ldap } %>
+          <%= f.input :email, input_html: { disabled: ldap } %>
+        </div>
+        <div class="col-md-6">
+          <%= f.input :lastname, input_html: { disabled: ldap } %>
+          <%= f.input :username, input_html: { disabled: ldap } %>
+        </div>
+      </div>
+
+      <% if !ldap && @user.new_record? %>
+        <div class="row">
+          <div class="col-md-6">
+            <%= f.input :password %>
+          </div>
+          <div class="col-md-6">
+            <%= f.input :password_confirmation %>
+          </div>
+        </div>
       <% end %>
-      <%= f.input :role, collection: roles, prompt: true, label: roles_label, input_html: { disabled: ldap } %>
+
+      <%= f.association :role, prompt: true, input_html: { disabled: ldap } %>
       <%= f.input :lock_version, as: :hidden %>
 
       <div class="card">

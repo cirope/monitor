@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class TaggingsController < ApplicationController
-  before_action :authorize, :set_issue
+  include Authorization
+
+  before_action :set_issue
   before_action :set_tagging, only: [:show, :destroy]
   before_action :set_title, except: [:destroy]
 

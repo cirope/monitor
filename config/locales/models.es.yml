@@ -3,6 +3,26 @@ es:
     created_at: 'Creación'
     updated_at: 'Actualización'
 
+  activemodel:
+    models:
+      console:
+        one: 'Consola'
+        other: 'Consola'
+      record:
+        one: 'Registro de ingreso'
+        other: 'Registros de ingreso'
+      system_monitor:
+        one: 'Proceso'
+        other: 'Procesos'
+    attributes:
+      system_monitor:
+        command: 'Comando'
+        cpu: 'CPU'
+        memory: 'Memoria'
+        memory_percent: '%'
+        pid: 'PID'
+        time: 'Tiempo'
+
   activerecord:
     models:
       account:
@@ -77,6 +97,9 @@ es:
       permalink:
         one: 'Enlace permanente'
         other: 'Enlaces permanentes'
+      permission:
+        one: 'Permiso'
+        other: 'Permisos'
       property:
         one: 'Propiedad'
         other: 'Propiedades'
@@ -86,6 +109,9 @@ es:
       require:
         one: 'Inclusión'
         other: 'Inclusiones'
+      role:
+        one: 'Rol'
+        other: 'Roles'
       rule:
         one: 'Regla'
         other: 'Reglas'
@@ -169,6 +195,7 @@ es:
         remote_ip: 'Dirección IP remota'
         user_name: 'Nombre de usuario'
         user_agent: 'Datos del navegador'
+        role: 'Rol'
       issue:
         status: 'Estado'
         description: 'Descripción'
@@ -203,12 +230,6 @@ es:
         roles_attribute: 'Atributo con roles'
         test_user: 'Usuario'
         test_password: 'Contraseña'
-        role_guest: 'Grupo invitado'
-        role_owner: 'Grupo propietario'
-        role_manager: 'Grupo gerente'
-        role_author: 'Grupo autor'
-        role_supervisor: 'Grupo supervisor'
-        role_security: 'Grupo seguridad'
       library:
         name: 'Nombre'
         options: 'Opciones'
@@ -233,6 +254,12 @@ es:
         name: 'Nombre'
       permalink:
         token: 'Testigo'
+      permission:
+        section: 'Sección'
+        read: 'Ver'
+        edit: 'Crear/Editar'
+        remove: 'Eliminar'
+        role: 'Rol'
       property:
         key: 'Atributo'
         value: 'Valor'
@@ -245,6 +272,10 @@ es:
         output: 'Tipo de salida'
       require:
         script: 'Guión'
+      role:
+        name: 'Nombre'
+        description: 'Descripción'
+        type: 'Tipo'
       rule:
         name: 'Nombre'
         enabled: 'Habilitada'
@@ -270,12 +301,6 @@ es:
         lastname_attribute: 'Atributo con el apellido'
         email_attribute: 'Atributo con el correo electrónico'
         roles_attribute: 'Atributo con roles'
-        role_guest: 'Grupo invitado'
-        role_owner: 'Grupo propietario'
-        role_manager: 'Grupo gerente'
-        role_author: 'Grupo autor'
-        role_supervisor: 'Grupo supervisor'
-        role_security: 'Grupo seguridad'
       schedule:
         name: 'Nombre'
         start: 'Inicio'
@@ -315,6 +340,7 @@ es:
         export_edit: 'Exportar con edición'
         parent: 'Grupo'
         category: 'Es categoría'
+        recovery: 'Recuperación'
       tagging:
         tag: 'Etiqueta'
         tag_id: 'Etiqueta'
@@ -362,7 +388,6 @@ es:
               globally_taken: 'ya está en uso en otra cuenta'
             base:
               licensed_user_limit: 'Limite de usuarios alcanzado, por favor actualice su licencia.'
-        
 
   errors:
     messages:

@@ -7,19 +7,17 @@ class ApplicationController < ActionController::Base
   include CurrentUser
   include LdapConfig
   include PdfRender
-  include Roles
   include SamlConfig
   include StoreLocation
   include UpdateResource
+  include Authorization
 
   protect_from_forgery with: :exception
 
   before_action :set_paper_trail_whodunnit
 
-  def authorize
-    unless current_user&.visible? && current_account
-      redirect_to login_url, alert: t('messages.not_authorized')
-    end
+  def not_authorized_redirect condition
+    redirect_to root_url, alert: t('messages.not_authorized') if condition
   end
 
   def user_for_paper_trail

@@ -5,7 +5,7 @@
   <td class="d-none d-sm-table-cell"><%= issue_status issue %></td>
   <td class="d-none d-lg-table-cell"><%= tag_icons issue.tags %></td>
   <td class="text-end"><%= link_to_show [issue, filter: filter_params.to_h] %></td>
-  <% if current_user.can_edit_issues? %>
+  <% if current_user.can?(:edit, Issue) %>
     <td class="text-end"><%= link_to_edit [:edit, issue, filter: filter_params.to_h] %></td>
     <% unless current_user.owner? %>
       <td class="text-end"><%= is_in_board?(issue) ? link_to_remove_from_board(issue) : link_to_add_to_board(issue) %></td>

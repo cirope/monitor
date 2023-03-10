@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class MembershipsController < ApplicationController
+  include Authorization
   include Memberships::Filters
 
-  before_action :authorize
   before_action :set_membership, only: [:update]
   before_action :set_title, except: [:destroy]
 

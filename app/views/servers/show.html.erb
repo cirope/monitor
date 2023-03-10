@@ -30,7 +30,5 @@
   </div>
 </div>
 
-<% unless current_user.supervisor? %>
-  <%= link_to_edit [:edit, @server] %> |
-<% end %>
+<%= link_to_edit [:edit, @server] %> |
 <%= link_to_index servers_path %>

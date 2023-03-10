@@ -11,23 +11,18 @@
 
     <ul class="side-nav mt-3">
       <%= menu_item_for Issue, home_path, icon: 'clipboard-list', active: controller_name == 'home' %>
+      <%= menu_item_for Script, scripts_path, icon: 'code' %>
+      <%= menu_item_for Schedule, schedules_path, active: controller_name == 'runs', icon: 'calendar' %>
+      <%= menu_item_for Rule, rules_path, icon: 'code-branch' %>
 
-      <% if current_user.author? || current_user.supervisor? %>
-        <%= menu_item_for Script, scripts_path, icon: 'code' %>
-        <%= menu_item_for Schedule, schedules_path, active: controller_name == 'runs', icon: 'calendar' %>
-        <%= menu_item_for Rule, rules_path, icon: 'code-branch' unless current_user.author? %>
-      <% end %>
-
-      <% unless current_user.guest? || current_user.owner? %>
-        <li class="side-nav-item<%= ' menuitem-active' if is_config_action? %>">
-          <%= link_to '#config-actions', class: 'side-nav-link', data: { bs_toggle: 'collapse' } do %>
-            <%= icon 'fas', 'cog' %>
-            <span class="ml-n1"><%= t('.config') %></span>
-            <span class="menu-arrow"></span>
-          <% end %>
-          <%= render 'shared/config_actions' %>
-        </li>
-      <% end %>
+      <li class="side-nav-item<%= ' menuitem-active' if is_config_action? %>">
+        <%= link_to '#config-actions', class: 'side-nav-link', data: { bs_toggle: 'collapse' } do %>
+          <%= icon 'fas', 'cog' %>
+          <span class="ml-n1"><%= t('.config') %></span>
+          <span class="menu-arrow"></span>
+        <% end %>
+        <%= render 'shared/config_actions' %>
+      </li>
     </ul>
   </div>
 </div>

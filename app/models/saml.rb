@@ -3,7 +3,6 @@
 class Saml < ApplicationRecord
   include Auditable
   include Attributes::Strip
-  include Samls::Options
   include Samls::Response
   include Samls::Settings
   include Samls::Validation

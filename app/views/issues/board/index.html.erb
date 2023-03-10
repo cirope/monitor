@@ -14,7 +14,7 @@
           <th><%= Issue.human_attribute_name 'description' %></th>
           <th class="d-none d-sm-table-cell"><%= Issue.human_attribute_name 'status' %></th>
           <th class="d-none d-md-table-cell"><%= Tag.model_name.human count: 0 %></th>
-          <th class="text-end" colspan="<%= current_user.can_edit_issues? ? 3 : 2 %>">
+          <th class="text-end" colspan="<%= current_user.can?(:edit, Issue) ? 3 : 2 %>">
             <%= link_to empty_issues_board_path, class: 'btn btn-sm py-0 mr-n2 btn-secondary', data: { method: :delete } do %>
               <%= t '.clear' %>
               <%= icon 'fas', 'paper-plane' %>
@@ -34,7 +34,7 @@
             <td class="d-none d-sm-table-cell"><%= issue_status issue %></td>
             <td class="d-none d-md-table-cell"><%= tag_icons issue.tags %></td>
             <td class="text-end"><%= link_to_show [issue, context: :board] %></td>
-            <% if current_user.can_edit_issues? %>
+            <% if current_user.can?(:edit, Issue) %>
               <td class="text-end"><%= link_to_edit [:edit, issue, context: :board] %></td>
             <% end %>
             <td class="text-end"><%= link_to_remove_from_board issue, options: { remote: false } %></td>

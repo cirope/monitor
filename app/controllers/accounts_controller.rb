@@ -1,15 +1,10 @@
 # frozen_string_literal: true
 
 class AccountsController < ApplicationController
+  include Authorization
   include Accounts::Filters
 
-  before_action :authorize,
-                :not_guest,
-                :not_owner,
-                :not_manager,
-                :not_author,
-                :from_default_account
-
+  before_action :from_default_account
   before_action :set_account, only: [:show, :edit, :update]
   before_action :set_title
 

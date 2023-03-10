@@ -10,8 +10,6 @@
     <% end %>
   </td>
   <td class="text-end"><%= link_to_show server %></td>
-  <% unless current_user.supervisor? %>
-    <td class="text-end"><%= link_to_edit [:edit, server] %></td>
-    <td class="text-end"><%= link_to_destroy server %></td>
-  <% end %>
+  <td class="text-end"><%= link_to_edit [:edit, server] %></td>
+  <td class="text-end"><%= link_to_destroy server %></td>
 </tr>

@@ -162,7 +162,8 @@ class IssuesHelperTest < ActionView::TestCase
 
     refute can_edit_status?
 
-    @current_user.update! role: 'owner'
+    owner = Role.find_by type: 'owner'
+    @current_user.update! role: owner
 
     assert can_edit_status?
   end
