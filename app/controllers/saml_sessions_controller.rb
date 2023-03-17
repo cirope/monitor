@@ -4,6 +4,7 @@ class SamlSessionsController < ApplicationController
   include Sessions
 
   skip_before_action :verify_authenticity_token, raise: false
+  skip_before_action :authorize, raise: false
 
   before_action :set_account, only: [:new, :create]
 
