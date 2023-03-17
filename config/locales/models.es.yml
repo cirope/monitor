@@ -167,8 +167,10 @@ es:
       description:
         name: 'Nombre'
         value: 'Valor'
+        public: '¿Público?'
       descriptor:
         name: 'Nombre'
+        public: '¿Público?'
       drive:
         name: 'Nombre'
         provider: 'Proveedor'

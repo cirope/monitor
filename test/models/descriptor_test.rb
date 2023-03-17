@@ -27,4 +27,11 @@ class DescriptorTest < ActiveSupport::TestCase
     assert @descriptor.invalid?
     assert_error @descriptor, :name, :too_long, count: 255
   end
+
+  test 'included attributes' do
+    @descriptor.public = nil
+
+    assert @descriptor.invalid?
+    assert_error @descriptor, :public, :inclusion
+  end
 end

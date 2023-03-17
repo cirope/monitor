@@ -15,6 +15,15 @@
       <%= @issue.description %>
     </p>
 
+    <% if (descriptions = @issue.script.descriptions.publics).any? %>
+      <% descriptions.each do |description| %>
+        <p class="mb-1">
+          <strong><%= description.name %></strong>:
+          <%= description.value %>
+        </p>
+      <% end %>
+    <% end %>
+
     <p class="mb-1">
       <strong><%= Issue.human_attribute_name 'run' %></strong>:
       <%= link_to_if current_user.author? || current_user.supervisor?, @issue.run, @issue.run %>
@@ -44,7 +53,7 @@
         <span class="float-end"><%= link_to_export_data %></span>
       </h5>
     </div>
-    <div id="data">
+    <div class="card-body" id="data">
       <%= render_object @issue, '' %>
     </div>
   </div>

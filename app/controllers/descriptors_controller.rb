@@ -51,6 +51,6 @@ class DescriptorsController < ApplicationController
     end
 
     def descriptor_params
-      params.require(:descriptor).permit :name, :lock_version
+      params.require(:descriptor).permit :name, :public, :lock_version
     end
 end

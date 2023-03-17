@@ -103,6 +103,7 @@ Rails.application.routes.draw do
   resources :scripts do
     resources :issues,   only: [:index]
     resources :versions, only: [:index, :show], controller: 'scripts/versions'
+    resources :parameters, only: [:show], controller: 'scripts/parameters'
     resources :executions, only: [:index, :create, :update, :show]
     resources :reverts, only: [:create], controller: 'scripts/reverts'
 
