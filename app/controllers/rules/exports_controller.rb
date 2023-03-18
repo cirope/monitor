@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class Rules::ExportsController < ApplicationController
-  include Authorization
+  include Authenticate
+  include Authorize
 
   def create
     path = rules.export

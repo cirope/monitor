@@ -1,6 +1,8 @@
 # frozen_string_literal: true
+
 class SystemMonitorsController < ApplicationController
-  include Authorization
+  include Authenticate
+  include Authorize
 
   def index
     @processes = SystemProcess.user_top

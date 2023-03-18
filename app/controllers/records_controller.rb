@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class RecordsController < ApplicationController
-  include Authorization
+  include Authenticate
+  include Authorize
   include Records::Filters
 
   # GET /records

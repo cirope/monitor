@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class Servers::DefaultController < ApplicationController
-  include Authorization
+  include Authenticate
+  include Authorize
 
   before_action :set_server
 

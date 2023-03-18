@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class LdapsController < ApplicationController
-  include Authorization
+  include Authenticate
+  include Authorize
 
   before_action :set_title, except: [:destroy]
   before_action :set_ldap, only: [:show, :edit, :update, :destroy]

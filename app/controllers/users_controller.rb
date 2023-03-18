@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  include Authorization
+  include Authenticate
+  include Authorize
   include Users::Filters
 
   before_action :set_user, only: [:show, :edit, :update, :destroy]

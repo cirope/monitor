@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class Scripts::MeasuresController < ApplicationController
-  include Authorization
+  include Authenticate
+  include Authorize
 
   before_action :set_title, :set_script
 

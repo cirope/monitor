@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class Scripts::ExportsController < ApplicationController
-  include Authorization
+  include Authenticate
+  include Authorize
 
   def create
     path = scripts.export

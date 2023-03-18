@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class ServersController < ApplicationController
-  include Authorization
+  include Authenticate
+  include Authorize
   include Servers::Filters
 
   before_action :set_title, except: [:destroy]

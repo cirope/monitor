@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ProfilesController < ApplicationController
-  include Authorization
+  include Authenticate
 
   before_action :set_user, :set_title
 

@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class SamlsController < ApplicationController
-  include Authorization
+  include Authenticate
+  include Authorize
 
   before_action :set_saml, only: [:show, :edit, :update, :destroy]
   before_action :set_title, except: [:destroy]

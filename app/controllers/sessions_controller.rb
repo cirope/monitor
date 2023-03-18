@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 class SessionsController < ApplicationController
+  include Authenticate
   include Sessions
 
-  before_action :authorize, only: :destroy
+  before_action :authenticate, only: [:destroy]
   before_action :set_title, except: [:destroy]
 
   def new

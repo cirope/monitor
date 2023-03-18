@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class DatabasesController < ApplicationController
-  include Authorization
+  include Authenticate
+  include Authorize
   include Databases::Filters
 
   before_action :set_title, except: [:destroy]

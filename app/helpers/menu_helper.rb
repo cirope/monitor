@@ -18,8 +18,8 @@ module MenuHelper
     end
   end
 
-  def dropdown_item_for model, path
-    if current_user.can? :read, model
+  def dropdown_item_for model, path, can_read = false
+    if can_read || current_user.can?(:read, model)
       options = if model.model_name.route_key == controller_name
                   { class: 'dropdown-item active' }
                 else

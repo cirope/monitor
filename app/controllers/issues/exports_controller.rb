@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class Issues::ExportsController < ApplicationController
-  include Authorization
+  include Authenticate
+  include Authorize
   include Issues::Filters
 
   before_action :set_issues
