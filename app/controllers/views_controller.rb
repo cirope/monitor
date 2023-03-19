@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ViewsController < ApplicationController
-  include Authenticate
+  include Authentication
 
   # * POST /views
   def create

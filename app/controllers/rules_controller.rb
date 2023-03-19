@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class RulesController < ApplicationController
-  include Authenticate
-  include Authorize
+  include Authentication
+  include Authorization
   include Rules::Filters
 
   before_action :set_title, except: [:destroy]

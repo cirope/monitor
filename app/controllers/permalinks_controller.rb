@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class PermalinksController < ApplicationController
-  include Authenticate
-  include Authorize
+  include Authentication
+  include Authorization
 
   before_action :set_account, only: [:show]
   before_action :set_permalink, only: [:show]

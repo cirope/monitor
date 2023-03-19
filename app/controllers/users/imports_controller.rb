@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Users::ImportsController < ApplicationController
-  include Authenticate
-  include Authorize
+  include Authentication
+  include Authorization
 
   before_action :set_title
 

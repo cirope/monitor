@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Scripts::ParametersController < ApplicationController
-  include Authenticate
-  include Authorize
+  include Authentication
+  include Authorization
 
   before_action :set_script, :set_parameter
 

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class SchedulesController < ApplicationController
-  include Authenticate
-  include Authorize
+  include Authentication
+  include Authorization
   include Schedules::Filters
 
   before_action :set_title, except: [:destroy, :cleanup, :run]

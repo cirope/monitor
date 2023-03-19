@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SeriesController < ApplicationController
-  include Authenticate
+  include Authentication
 
   before_action :set_title
   before_action :set_serie, only: [:show]

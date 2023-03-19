@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Memberships::SwitchController < ApplicationController
-  include Authenticate
+  include Authentication
   include Sessions
 
   before_action :set_membership

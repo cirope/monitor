@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class PdfTemplatesController < ApplicationController
-  include Authenticate
-  include Authorize
+  include Authentication
+  include Authorization
 
   before_action :set_title, except: [:destroy]
   before_action :set_pdf_template, only: [:show, :edit, :update, :destroy]

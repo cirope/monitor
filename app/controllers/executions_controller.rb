@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class ExecutionsController < ApplicationController
-  include Authenticate
-  include Authorize
+  include Authentication
+  include Authorization
 
   before_action :set_script
   before_action :set_server, only: [:create]

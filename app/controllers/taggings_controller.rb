@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class TaggingsController < ApplicationController
-  include Authenticate
-  include Authorize
+  include Authentication
+  include Authorization
 
   before_action :set_issue
   before_action :set_tagging, only: [:show, :destroy]

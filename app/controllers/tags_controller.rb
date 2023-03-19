@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class TagsController < ApplicationController
-  include Authenticate
-  include Authorize
+  include Authentication
+  include Authorization
 
   before_action :set_title, except: [:destroy]
   before_action :set_tag, only: [:show, :edit, :update, :destroy]

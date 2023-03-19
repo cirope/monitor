@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Issues::BoardController < ApplicationController
-  include Authenticate
-  include Authorize
+  include Authentication
+  include Authorization
   include Issues::Filters
 
   before_action :set_title, only: [:index]

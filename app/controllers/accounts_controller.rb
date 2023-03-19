@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class AccountsController < ApplicationController
-  include Authenticate
-  include Authorize
+  include Authentication
+  include Authorization
   include Accounts::Filters
 
   before_action :from_default_account

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SessionsController < ApplicationController
-  include Authenticate
+  include Authentication
   include Sessions
 
   before_action :authenticate, only: [:destroy]
