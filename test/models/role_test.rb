@@ -21,6 +21,7 @@ class RoleTest < ActiveSupport::TestCase
 
     assert role.invalid?
     assert_error role, :name, :taken
+    assert_error role, :identifier, :taken
   end
 
   test 'included attributes' do

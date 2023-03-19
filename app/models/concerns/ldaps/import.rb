@@ -58,7 +58,7 @@ module Ldaps::Import
     def extract_role entry
       role_names = roles_in entry
 
-      Role.order(:id).detect { |role| role_names.include? role.name }
+      Role.order(:id).with_identifer.detect { |role| role_names.include? role.identifier }
     end
 
     def update_user user: nil, data: nil

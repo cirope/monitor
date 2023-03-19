@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_09_133823) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_19_132214) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -58,135 +58,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_09_133823) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "answers", force: :cascade do |t|
-    t.string "response_text"
-    t.bigint "drop_down_option_id"
-    t.bigint "survey_answer_id", null: false
-    t.bigint "question_id"
-    t.string "type", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["drop_down_option_id"], name: "index_answers_on_drop_down_option_id"
-    t.index ["question_id"], name: "index_answers_on_question_id"
-    t.index ["survey_answer_id"], name: "index_answers_on_survey_answer_id"
-  end
-
-  create_table "bounced_checks", id: :serial, force: :cascade do |t|
-    t.string "pk_scc", limit: 25, null: false
-    t.string "pk_sc", limit: 20, null: false
-    t.string "bco_dest", limit: 10, null: false
-    t.string "suc_dest", limit: 10, null: false
-    t.string "cp", limit: 10, null: false
-    t.string "cuenta", limit: 15, null: false
-    t.string "cheque", limit: 15, null: false
-    t.decimal "importe", precision: 17, scale: 2, null: false
-    t.string "sistema", limit: 10, null: false
-    t.string "bco_orig", limit: 10, null: false
-    t.string "suc_orig", limit: 10
-    t.date "fec_proc", null: false
-    t.string "rechazo1", limit: 10, null: false
-    t.string "rechazo2", limit: 10
-    t.string "archivo", limit: 254, null: false
-    t.index ["pk_sc"], name: "idx_bounced_checks_pk_sc"
-    t.index ["pk_scc"], name: "idx_bounced_checks_pk_scc"
-  end
-
-  create_table "check_inventory", id: :serial, force: :cascade do |t|
-    t.string "pk_scc", limit: 25, null: false
-    t.string "nsuc_q14", limit: 6, null: false
-    t.string "ncta_q14", limit: 10, null: false
-    t.string "nche_q14", limit: 9, null: false
-    t.string "nsec_q14", limit: 2, null: false
-    t.string "cche_q14", limit: 5, null: false
-    t.string "seri_q14", limit: 2, null: false
-    t.string "esta_q14", limit: 3, null: false
-    t.date "fest_q14", null: false
-    t.string "caus_q14", limit: 1, null: false
-    t.decimal "impo_q14", precision: 17, scale: 2, null: false
-    t.string "just_q14", limit: 1, null: false
-    t.index ["pk_scc"], name: "idx_check_inventory_pk_scc"
-  end
-
-  create_table "checking_account_master", id: :serial, force: :cascade do |t|
-    t.string "pk_sc", limit: 20, null: false
-    t.string "nsuc_q11", limit: 6, null: false
-    t.string "ncta_q11", limit: 10, null: false
-    t.string "esct_q11", limit: 1, null: false
-    t.string "escl_q11", limit: 2, null: false
-    t.string "sect_q11", limit: 2, null: false
-    t.string "sbct_q11", limit: 3, null: false
-    t.date "func_q11"
-    t.decimal "sope_q11", precision: 17, scale: 2, null: false
-    t.decimal "scon_q11", precision: 17, scale: 2, null: false
-    t.decimal "mblo_q11", precision: 17, scale: 2, null: false
-    t.decimal "impo_q11", precision: 17, scale: 2, null: false
-    t.decimal "dimp_q11", precision: 17, scale: 2, null: false
-    t.decimal "d24h_q11", precision: 17, scale: 2, null: false
-    t.decimal "d48h_q11", precision: 17, scale: 2, null: false
-    t.decimal "d72h_q11", precision: 17, scale: 2, null: false
-    t.string "ctas_q11", limit: 3, null: false
-    t.string "mcie_q11", limit: 3, null: false
-    t.decimal "cert_q11", precision: 17, scale: 2, null: false
-    t.string "cmdi_q11", limit: 6, null: false
-    t.string "rese_q11", limit: 2, null: false
-    t.string "imga_q11", limit: 2, null: false
-    t.string "cord_q11", limit: 2, null: false
-    t.string "fres_q11", limit: 2, null: false
-    t.string "catm_q11", limit: 2, null: false
-    t.string "uhre_q11", limit: 4, null: false
-    t.decimal "sure_q11", precision: 17, scale: 2, null: false
-    t.string "cmhi_q11", limit: 4, null: false
-    t.string "micf_q11", limit: 8, null: false
-    t.string "cant_q11", limit: 4, null: false
-    t.date "feal_q11"
-    t.date "fbam_q11"
-    t.date "fbaj_q11"
-    t.date "fcie_q11"
-    t.date "fure_q11"
-    t.decimal "inta_q11", precision: 17, scale: 2, null: false
-    t.decimal "sant_q11", precision: 17, scale: 2, null: false
-    t.string "inve_q11", limit: 3, null: false
-    t.string "ddeu_q11", limit: 4, null: false
-    t.decimal "cons_q11", precision: 17, scale: 2, null: false
-    t.string "marc_q11", limit: 1, null: false
-    t.decimal "comp_q11", precision: 17, scale: 2, null: false
-    t.date "feac_q11"
-    t.string "ddep_q11", limit: 3, null: false
-    t.decimal "tcom_q11", precision: 17, scale: 2, null: false
-    t.decimal "tpun_q11", precision: 17, scale: 2, null: false
-    t.decimal "b24h_q11", precision: 17, scale: 2, null: false
-    t.decimal "b48h_q11", precision: 17, scale: 2, null: false
-    t.decimal "b72h_q11", precision: 17, scale: 2, null: false
-    t.string "dco1_q11", limit: 3, null: false
-    t.date "feu1_q11"
-    t.decimal "mone_q11", precision: 13, scale: 2, null: false
-    t.decimal "treg_q11", precision: 13, scale: 2, null: false
-    t.decimal "tava_q11", precision: 13, scale: 2, null: false
-    t.decimal "sreg_q11", precision: 13, scale: 2, null: false
-    t.decimal "sava_q11", precision: 13, scale: 2, null: false
-    t.decimal "idem_q11", precision: 13, scale: 2, null: false
-    t.decimal "idea_q11", precision: 17, scale: 2, null: false
-    t.decimal "suli_q11", precision: 17, scale: 2, null: false
-    t.date "feua_q11"
-    t.string "dcon_q11", limit: 3, null: false
-    t.string "civa_q11", limit: 2, null: false
-    t.index ["pk_sc"], name: "idx_checking_account_master_pk_sc"
-  end
-
-  create_table "clientes", id: false, force: :cascade do |t|
-    t.integer "id"
-    t.integer "numdoc"
-    t.string "nombre", limit: 60
-    t.datetime "fecha_nac", precision: nil
-    t.string "sexo", limit: 1
-    t.string "direccion", limit: 80
-    t.string "localidad", limit: 60
-    t.string "codpost", limit: 4
-    t.string "provincia", limit: 20
-    t.string "telefono", limit: 30
-    t.string "mail", limit: 80
-  end
-
   create_table "comments", id: :serial, force: :cascade do |t|
     t.text "text", null: false
     t.integer "user_id", null: false
@@ -197,38 +68,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_09_133823) do
     t.index ["issue_id"], name: "index_comments_on_issue_id"
     t.index ["text"], name: "index_comments_on_text"
     t.index ["user_id"], name: "index_comments_on_user_id"
-  end
-
-  create_table "control_outputs", force: :cascade do |t|
-    t.string "status", null: false
-    t.text "output"
-    t.bigint "control_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["control_id"], name: "index_control_outputs_on_control_id"
-    t.index ["status"], name: "index_control_outputs_on_status"
-  end
-
-  create_table "controls", force: :cascade do |t|
-    t.text "callback", null: false
-    t.bigint "survey_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "controllable_type", null: false
-    t.bigint "controllable_id", null: false
-    t.string "type", null: false
-    t.index ["controllable_type", "controllable_id"], name: "index_controls_on_controllable"
-    t.index ["survey_id"], name: "index_controls_on_survey_id"
-  end
-
-  create_table "dashboards", force: :cascade do |t|
-    t.string "name", null: false
-    t.bigint "user_id"
-    t.integer "lock_version", default: 0, null: false
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["name"], name: "index_dashboards_on_name"
-    t.index ["user_id"], name: "index_dashboards_on_user_id"
   end
 
   create_table "databases", id: :serial, force: :cascade do |t|
@@ -293,15 +132,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_09_133823) do
     t.index ["account_id"], name: "index_drives_on_account_id"
     t.index ["identifier"], name: "index_drives_on_identifier"
     t.index ["name"], name: "index_drives_on_name", unique: true
-  end
-
-  create_table "drop_down_options", force: :cascade do |t|
-    t.string "value"
-    t.integer "score"
-    t.bigint "question_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["question_id"], name: "index_drop_down_options_on_question_id"
   end
 
   create_table "effects", force: :cascade do |t|
@@ -457,18 +287,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_09_133823) do
     t.index ["trigger_id"], name: "index_outputs_on_trigger_id"
   end
 
-  create_table "panels", force: :cascade do |t|
-    t.string "title", null: false
-    t.integer "height", default: 1, null: false
-    t.integer "width", default: 1, null: false
-    t.bigint "dashboard_id"
-    t.integer "lock_version", default: 0, null: false
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["dashboard_id"], name: "index_panels_on_dashboard_id"
-    t.index ["title"], name: "index_panels_on_title"
-  end
-
   create_table "parameters", id: :serial, force: :cascade do |t|
     t.string "name", null: false
     t.text "value", null: false
@@ -505,29 +323,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_09_133823) do
     t.index ["section"], name: "index_permissions_on_section"
   end
 
-  create_table "pla_operaciones", id: false, force: :cascade do |t|
-    t.integer "id"
-    t.datetime "fecha", precision: nil
-    t.integer "id_tipo_operacion"
-    t.decimal "importe", precision: 20, scale: 2
-    t.integer "id_persona_titular"
-    t.integer "id_persona_operacion"
-    t.integer "efectivo"
-    t.integer "debcre"
-  end
-
-  create_table "pla_personas", id: false, force: :cascade do |t|
-    t.integer "id_persona"
-    t.string "nombre", limit: 60
-    t.string "fisica_juridica", limit: 1
-    t.decimal "monto_presunto", precision: 20, scale: 2, default: "0.0"
-  end
-
-  create_table "pla_tipos_operacion", id: false, force: :cascade do |t|
-    t.integer "id"
-    t.string "descripcion", limit: 200
-  end
-
   create_table "properties", id: :serial, force: :cascade do |t|
     t.string "key", null: false
     t.string "value", null: false
@@ -535,34 +330,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_09_133823) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["database_id"], name: "index_properties_on_database_id"
-  end
-
-  create_table "queries", force: :cascade do |t|
-    t.string "output", null: false
-    t.string "function", null: false
-    t.string "period"
-    t.string "filters", default: [], null: false, array: true
-    t.string "frequency"
-    t.integer "from_count"
-    t.integer "to_count"
-    t.string "from_period"
-    t.string "to_period"
-    t.datetime "from_at", precision: nil
-    t.datetime "to_at", precision: nil
-    t.boolean "range", default: false, null: false
-    t.bigint "panel_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["panel_id"], name: "index_queries_on_panel_id"
-  end
-
-  create_table "questions", force: :cascade do |t|
-    t.string "title", null: false
-    t.bigint "survey_id", null: false
-    t.string "type", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["survey_id"], name: "index_questions_on_survey_id"
   end
 
   create_table "reminders", force: :cascade do |t|
@@ -573,38 +340,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_09_133823) do
     t.index ["due_at"], name: "index_reminders_on_due_at"
     t.index ["issue_id"], name: "index_reminders_on_issue_id"
     t.index ["state_class_type"], name: "index_reminders_on_state_class_type"
-  end
-
-  create_table "reported_checks", id: :serial, force: :cascade do |t|
-    t.string "pk_scc", limit: 25, null: false
-    t.string "banco", limit: 5, null: false
-    t.string "sucursal", limit: 3, null: false
-    t.string "cuenta", limit: 11, null: false
-    t.string "nro_cheque", limit: 8, null: false
-    t.string "año_aviso", limit: 2, null: false
-    t.string "nro_aviso", limit: 6, null: false
-    t.string "cod_motivo", limit: 1, null: false
-    t.string "causa_motivo", limit: 1, null: false
-    t.date "fecha_notificacion"
-    t.string "causal_inform", limit: 2, null: false
-    t.decimal "importe", precision: 14, scale: 2, null: false
-    t.date "fecha_rechazo"
-    t.string "dato_0_0", limit: 11, null: false
-    t.date "fecha_pago_cheque"
-    t.string "dato_0_1", limit: 11, null: false
-    t.date "fecha_pago_multa"
-    t.date "fecha_cierre"
-    t.string "cuit_titular_1", limit: 11, null: false
-    t.string "cuit_titular_2", limit: 11, null: false
-    t.string "cuit_titular_3", limit: 11, null: false
-    t.string "cuit_titular_4", limit: 11, null: false
-    t.string "cuit_titular_5", limit: 11, null: false
-    t.string "cuit_titular_6", limit: 11, null: false
-    t.string "cuit_titular_7", limit: 11, null: false
-    t.string "cuit_titular_8", limit: 11, null: false
-    t.string "cuit_titular_9", limit: 11, null: false
-    t.string "cuit_titular_10", limit: 11, null: false
-    t.index ["pk_scc"], name: "idx_reported_checks_pk_scc"
   end
 
   create_table "requires", id: :serial, force: :cascade do |t|
@@ -623,6 +358,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_09_133823) do
     t.integer "lock_version", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "identifier"
+    t.index ["identifier"], name: "index_roles_on_identifier", unique: true
     t.index ["name"], name: "index_roles_on_name", unique: true
   end
 
@@ -704,7 +441,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_09_133823) do
     t.datetime "updated_at", precision: nil, null: false
     t.boolean "core"
     t.string "change"
-    t.uuid "uuid", default: -> { "(md5(((random())::text || (clock_timestamp())::text)))::uuid" }
+    t.uuid "uuid", default: -> { "(md5(((random())::text || (clock_timestamp())::text)))::uuid" }, null: false
     t.datetime "imported_at", precision: nil
     t.string "language", default: "ruby"
     t.bigint "database_id"
@@ -759,26 +496,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_09_133823) do
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
 
-  create_table "survey_answers", force: :cascade do |t|
-    t.bigint "survey_id", null: false
-    t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["survey_id"], name: "index_survey_answers_on_survey_id"
-    t.index ["user_id"], name: "index_survey_answers_on_user_id"
-  end
-
-  create_table "surveys", force: :cascade do |t|
-    t.bigint "issue_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["issue_id"], name: "index_surveys_on_issue_id"
-  end
-
   create_table "taggings", id: :serial, force: :cascade do |t|
     t.integer "tag_id", null: false
-    t.integer "taggable_id", null: false
     t.string "taggable_type", null: false
+    t.integer "taggable_id", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["tag_id"], name: "index_taggings_on_tag_id"
@@ -859,14 +580,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_09_133823) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "answers", "drop_down_options", on_update: :restrict, on_delete: :restrict
-  add_foreign_key "answers", "questions", on_update: :restrict, on_delete: :restrict
-  add_foreign_key "answers", "survey_answers", on_update: :restrict, on_delete: :restrict
   add_foreign_key "comments", "issues", on_update: :restrict, on_delete: :restrict
   add_foreign_key "comments", "users", on_update: :restrict, on_delete: :restrict
-  add_foreign_key "control_outputs", "controls"
-  add_foreign_key "controls", "surveys"
-  add_foreign_key "dashboards", "users", on_update: :restrict, on_delete: :restrict
   add_foreign_key "databases", "accounts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "dependencies", "schedules", column: "dependent_id", on_update: :restrict, on_delete: :restrict
   add_foreign_key "dependencies", "schedules", on_update: :restrict, on_delete: :restrict
@@ -874,7 +589,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_09_133823) do
   add_foreign_key "dispatchers", "rules", on_update: :restrict, on_delete: :restrict
   add_foreign_key "dispatchers", "schedules", on_update: :restrict, on_delete: :restrict
   add_foreign_key "drives", "accounts", on_update: :restrict, on_delete: :restrict
-  add_foreign_key "drop_down_options", "questions", on_update: :restrict, on_delete: :restrict
   add_foreign_key "effects", "tags", column: "implied_id", on_update: :restrict, on_delete: :restrict
   add_foreign_key "effects", "tags", on_update: :restrict, on_delete: :restrict
   add_foreign_key "fails", "users", on_update: :restrict, on_delete: :restrict
@@ -891,21 +605,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_09_133823) do
   add_foreign_key "memberships", "accounts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "outputs", "runs", on_update: :restrict, on_delete: :restrict
   add_foreign_key "outputs", "triggers", on_update: :restrict, on_delete: :restrict
-  add_foreign_key "panels", "dashboards", on_update: :restrict, on_delete: :restrict
   add_foreign_key "parameters", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "permissions", "roles", on_update: :restrict, on_delete: :restrict
   add_foreign_key "properties", "databases", on_update: :restrict, on_delete: :restrict
-  add_foreign_key "queries", "panels", on_update: :restrict, on_delete: :restrict
-  add_foreign_key "questions", "surveys", on_update: :restrict, on_delete: :restrict
   add_foreign_key "reminders", "issues", on_update: :restrict, on_delete: :restrict
   add_foreign_key "requires", "scripts", column: "caller_id", on_update: :restrict, on_delete: :restrict
   add_foreign_key "requires", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "runs", "jobs", on_update: :restrict, on_delete: :restrict
   add_foreign_key "subscriptions", "issues", on_update: :restrict, on_delete: :restrict
   add_foreign_key "subscriptions", "users", on_update: :restrict, on_delete: :restrict
-  add_foreign_key "survey_answers", "surveys", on_update: :restrict, on_delete: :restrict
-  add_foreign_key "survey_answers", "users", on_update: :restrict, on_delete: :restrict
-  add_foreign_key "surveys", "issues", on_update: :restrict, on_delete: :restrict
   add_foreign_key "taggings", "tags", on_update: :restrict, on_delete: :restrict
   add_foreign_key "tags", "tags", column: "parent_id", on_update: :restrict, on_delete: :restrict
   add_foreign_key "triggers", "rules", on_update: :restrict, on_delete: :restrict

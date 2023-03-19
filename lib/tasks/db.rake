@@ -127,17 +127,15 @@ private
   def roles_migration
     Account.on_each do
       unless Role.exists?
-        ldap = Ldap.default
-        saml = Saml.default
+        service = Ldap.default || Saml.default
 
         ROLES.each do |old_role, params|
-          role_name = begin
-            ldap.options[old_role.to_s] || saml.options[old_role.to_s]
-          rescue
-            params[:name]
-          end
+          options    = { type: old_role }
+          identifier = service.options[old_role.to_s] if service
 
-          if role = Role.create(params.merge(type: old_role, name: role_name))
+          options.merge!(identifier: identifier) if identifier.present?
+
+          if role = Role.create(params.merge(options))
             User.where(old_role: old_role).update_all role_id: role.id
           end
         end

@@ -59,8 +59,8 @@ class RolesController < ApplicationController
     end
 
     def role_params
-      params.require(:role).permit :name, :description, :type, :lock_version,
-        permissions_attributes: [
+      params.require(:role).permit :name, :description, :type, :identifier,
+        :lock_version, permissions_attributes: [
           :id, :section, :read, :edit, :remove, :_destroy
         ]
     end
