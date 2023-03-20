@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class SchedulesController < ApplicationController
+  include Authentication
   include Authorization
   include Schedules::Filters
 

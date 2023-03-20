@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class ScriptsController < ApplicationController
+  include Authentication
   include Authorization
   include Scripts::Filters
 

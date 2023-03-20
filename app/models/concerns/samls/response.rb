@@ -52,7 +52,7 @@ module Samls::Response
     def extract_role attributes
       role_names = attributes[:roles]
 
-      Role.order(:id).detect { |role| role_names.include? role.name }
+      Role.order(:id).with_identifer.detect { |role| role_names.include? role.identifier }
     end
 
     def prune_custom_attributes attributes

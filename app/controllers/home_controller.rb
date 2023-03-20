@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class HomeController < ApplicationController
-  include Authorization
+  include Authentication
   include Issues::Filters
 
   before_action :set_title

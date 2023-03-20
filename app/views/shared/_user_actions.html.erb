@@ -14,7 +14,7 @@
   <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
     <%= link_to_edit_profile unless ldap %>
 
-    <%= dropdown_item_for Membership, memberships_path %>
+    <%= dropdown_item_for Membership, memberships_path, true %>
 
     <div class="dropdown-divider"></div>
 

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Scripts::ExportsController < ApplicationController
+  include Authentication
   include Authorization
 
   def create

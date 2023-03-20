@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class DescriptorsController < ApplicationController
+  include Authentication
   include Authorization
 
   before_action :set_descriptor, only: [:show, :edit, :update, :destroy]

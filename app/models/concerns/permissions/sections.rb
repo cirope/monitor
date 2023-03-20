@@ -25,15 +25,6 @@ module Permissions::Sections
         { item: 'Console'       },
         { item: 'SystemMonitor' },
       ],
-      system: [
-        { item: 'Membership', controllers: ['Switch'] },
-        { item: 'Authentication' },
-        { item: 'Home' },
-        { item: 'PasswordReset' },
-        { item: 'Profile' },
-        { item: 'Session' },
-        { item: 'Series' },
-      ]
     }
   end
 
@@ -48,10 +39,6 @@ module Permissions::Sections
 
     def config
       menu :config
-    end
-
-    def system
-      menu :system
     end
 
     def menu section
