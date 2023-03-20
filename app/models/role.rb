@@ -9,5 +9,5 @@ class Role < ApplicationRecord
   include Roles::Types
   include Roles::Validation
 
-  strip_fields :name, :description, :identity
+  strip_fields :name, :description, :identifier
 end
