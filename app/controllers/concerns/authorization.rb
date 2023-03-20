@@ -8,9 +8,7 @@ module Authorization
   private
 
     def authorize
-      unless current_user&.visible? &&
-                    current_account &&
-                    current_user&.can?(set_action, controller_path)
+      unless current_user&.can?(set_action, controller_path)
         redirect_to login_url, alert: t('messages.not_authorized')
       end
     end

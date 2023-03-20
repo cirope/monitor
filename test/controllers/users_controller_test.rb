@@ -83,4 +83,11 @@ class UsersControllerTest < ActionController::TestCase
 
     assert_redirected_to users_url
   end
+
+  test 'should not authorize controller' do
+    login user: users(:john)
+
+    get :index
+    assert_redirected_to login_url
+  end
 end

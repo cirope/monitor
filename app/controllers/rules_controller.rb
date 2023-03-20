@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class RulesController < ApplicationController
+  include Authentication
   include Authorization
   include Rules::Filters
 

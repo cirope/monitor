@@ -10,7 +10,6 @@ class ApplicationController < ActionController::Base
   include SamlConfig
   include StoreLocation
   include UpdateResource
-  include Authorization
 
   protect_from_forgery with: :exception
 

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class RolesController < ApplicationController
+  include Authentication
   include Authorization
 
   before_action :set_role, only: [:show, :edit, :update, :destroy]

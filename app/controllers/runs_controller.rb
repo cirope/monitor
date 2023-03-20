@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class RunsController < ApplicationController
+  include Authentication
   include Authorization
   include Runs::Filters
 

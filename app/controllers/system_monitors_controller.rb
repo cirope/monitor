@@ -1,5 +1,7 @@
 # frozen_string_literal: true
+
 class SystemMonitorsController < ApplicationController
+  include Authentication
   include Authorization
 
   def index

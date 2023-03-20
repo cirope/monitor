@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Issues::CommentsController < ApplicationController
+  include Authentication
   include Authorization
 
   before_action :set_issue

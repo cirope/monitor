@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class AccountsController < ApplicationController
+  include Authentication
   include Authorization
   include Accounts::Filters
 

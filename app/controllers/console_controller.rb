@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class ConsoleController < ApplicationController
+  include Authentication
   include Authorization
 
   before_action :enable?
