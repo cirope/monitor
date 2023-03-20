@@ -60,7 +60,7 @@ class RolesControllerTest < ActionController::TestCase
   end
 
   test 'should destroy role with no associated users' do
-    new_role = Role.create @role.dup.attributes.merge(name: 'New Role')
+    new_role = Role.create @role.dup.attributes.merge(name: 'New Role', identifier: 'New Identifier')
 
     assert_not_nil new_role
 
