@@ -52,7 +52,7 @@ class IssuesController < ApplicationController
   end
 
   def api_issues
-    command_token = Api::V1::AuthenticateUser.call Current.user, Current.account, 1.month.from_now
+    command_token = Api::V1::AuthenticateUser.call Current.user, Current.account
 
     @token = command_token.success? ? command_token.result : command_token.errors
 

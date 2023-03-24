@@ -3,10 +3,10 @@
 class Api::V1::AuthenticateUser
   prepend SimpleCommand
 
-  def initialize user, account, exp = nil
+  def initialize user, account
     @user    = user
     @account = account
-    @exp     = exp
+    @exp     = account.expire_token
   end
 
   def call
