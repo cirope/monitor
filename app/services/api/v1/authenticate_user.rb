@@ -6,7 +6,7 @@ class Api::V1::AuthenticateUser
   def initialize user, account
     @user    = user
     @account = account
-    @exp     = account.expire_token
+    @exp     = account&.expire_token
   end
 
   def call
