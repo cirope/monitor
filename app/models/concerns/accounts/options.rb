@@ -37,7 +37,7 @@ module Accounts::Options
   def token_frequency
     interval, frequency = token_duration&.first
 
-    @token_frequency || frequency || 'days'
+    @token_frequency || frequency || 'months'
   end
 
   private
