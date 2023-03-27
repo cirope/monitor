@@ -30,6 +30,13 @@ es:
       title: 'Crear cuenta'
     show:
       title: 'Ver cuenta'
+    token_frequencies:
+      minutes: 'Minutos'
+      hours: 'Horas'
+      days: 'Días'
+      weeks: 'Semanas'
+      months: 'Meses'
+      years: 'Años'
 
   authentications:
     new:
