@@ -52,11 +52,7 @@ module Samls::Response
     def extract_role attributes
       role_names = attributes[:roles]
 
-      User::ROLES.detect do |role|
-        role_name = send "role_#{role}"
-
-        role_names.include? role_name
-      end
+      Role.order(:id).with_identifer.detect { |role| role_names.include? role.identifier }
     end
 
     def prune_custom_attributes attributes

@@ -1,0 +1,44 @@
+<%= simple_form_for(@role) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.input :name, autofocus: true %>
+      </div>
+      <div class="col-md-6">
+        <%= f.input :type, collection: role_types, prompt: true %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.input :description %>
+      </div>
+      <div class="col-md-6">
+        <%= f.input :identifier %>
+      </div>
+    </div>
+    <%= f.input :lock_version, as: :hidden %>
+
+    <div class="card ribbon-box">
+      <div class="card-body">
+        <div class="ribbon ribbon-primary float-start"><%= t 'roles.permissions.main' %></div>
+        <div class="ribbon-content">
+          <%= render 'permissions/permission', f: f, permissions: main_permissions %>
+        </div>
+      </div>
+    </div>
+    <div class="card ribbon-box">
+      <div class="card-body">
+        <div class="ribbon ribbon-primary float-start"><%= t 'roles.permissions.config' %></div>
+        <div class="ribbon-content">
+          <%= render 'permissions/permission', f: f, permissions: config_permissions %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, class: 'btn-primary' %>
+  </div>
+<% end %>

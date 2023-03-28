@@ -58,11 +58,7 @@ module Ldaps::Import
     def extract_role entry
       role_names = roles_in entry
 
-      User::ROLES.detect do |role|
-        role_name = send "role_#{role}"
-
-        role_names.include? role_name
-      end
+      Role.order(:id).with_identifer.detect { |role| role_names.include? role.identifier }
     end
 
     def update_user user: nil, data: nil

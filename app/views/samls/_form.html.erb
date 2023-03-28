@@ -12,23 +12,17 @@
         <%= f.input :sp_entity_id %>
         <%= f.input :assertion_consumer_service_url %>
         <%= f.input :name_identifier_format %>
-        <%= f.input :assertion_consumer_service_binding %>
-        <%= f.input :role_supervisor %>
-        <%= f.input :role_security %>
       </div>
       <div class="col-md-6">
+        <%= f.input :assertion_consumer_service_binding %>
         <%= f.input :username_attribute %>
         <%= f.input :name_attribute %>
         <%= f.input :lastname_attribute %>
         <%= f.input :email_attribute %>
         <%= f.input :roles_attribute %>
-        <%= f.input :role_author %>
-        <%= f.input :role_guest %>
-        <%= f.input :role_manager %>
-        <%= f.input :role_owner %>
+        <%= f.input :idp_cert, input_html: { rows: 5 } %>
       </div>
     </div>
-    <%= f.input :idp_cert, input_html: { rows: 5 } %>
   </div>
 
   <div class="form-actions">

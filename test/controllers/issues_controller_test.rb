@@ -151,7 +151,7 @@ class IssuesControllerTest < ActionController::TestCase
   test 'should get edit as owner' do
     user = users :john
 
-    user.update! role: 'owner'
+    user.update! role: roles(:owner)
 
     login user: user
 
@@ -191,7 +191,7 @@ class IssuesControllerTest < ActionController::TestCase
   test 'should update issue as owner' do
     user = users :john
 
-    user.update! role: 'owner'
+    user.update! role: roles(:owner)
 
     login user: user
 

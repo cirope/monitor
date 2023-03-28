@@ -1,12 +1,8 @@
 # frozen_string_literal: true
 
 class DescriptorsController < ApplicationController
-  before_action :authorize,
-                :not_guest,
-                :not_owner,
-                :not_manager,
-                :not_security,
-                :not_author
+  include Authentication
+  include Authorization
 
   before_action :set_descriptor, only: [:show, :edit, :update, :destroy]
   before_action :set_title, except: [:destroy]
@@ -56,6 +52,6 @@ class DescriptorsController < ApplicationController
     end
 
     def descriptor_params
-      params.require(:descriptor).permit :name, :lock_version
+      params.require(:descriptor).permit :name, :public, :lock_version
     end
 end

@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
+  include Authentication
+  include Authorization
   include Users::Filters
 
-  before_action :authorize, :not_guest, :not_owner
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :set_title, except: [:destroy]
-  before_action :not_author, only: [:edit, :update, :destroy]
 
   # GET /users
   def index
@@ -60,7 +60,7 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      params.require(:user).permit :name, :lastname, :email, :username, :password, :password_confirmation, :role, :lock_version,
-        taggings_attributes: [:id, :tag_id, :_destroy]
+      params.require(:user).permit :name, :lastname, :email, :username, :password, :password_confirmation,
+        :role_id, :lock_version, taggings_attributes: [:id, :tag_id, :_destroy]
     end
 end

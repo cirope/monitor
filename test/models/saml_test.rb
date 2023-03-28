@@ -25,10 +25,6 @@ class SamlTest < ActiveSupport::TestCase
     @saml.lastname_attribute = ''
     @saml.email_attribute = ''
     @saml.roles_attribute = ''
-    @saml.role_guest = ''
-    @saml.role_author = ''
-    @saml.role_supervisor = ''
-    @saml.role_security = ''
 
     assert @saml.invalid?
     assert_error @saml, :idp_homepage, :blank
@@ -44,10 +40,6 @@ class SamlTest < ActiveSupport::TestCase
     assert_error @saml, :lastname_attribute, :blank
     assert_error @saml, :email_attribute, :blank
     assert_error @saml, :roles_attribute, :blank
-    assert_error @saml, :role_guest, :blank
-    assert_error @saml, :role_author, :blank
-    assert_error @saml, :role_supervisor, :blank
-    assert_error @saml, :role_security, :blank
   end
 
   test 'validates inclusion' do
@@ -68,22 +60,6 @@ class SamlTest < ActiveSupport::TestCase
     assert_error @saml, :name_attribute, :invalid
     assert_error @saml, :lastname_attribute, :invalid
     assert_error @saml, :email_attribute, :invalid
-  end
-
-  test 'options' do
-    @saml.role_guest = 'Guest'
-    @saml.role_owner = 'Owner'
-    @saml.role_manager = 'Manager'
-    @saml.role_author = 'Author'
-    @saml.role_supervisor = 'Supervisor'
-    @saml.role_security = 'Security'
-
-    assert_equal 'Guest', @saml.role_guest
-    assert_equal 'Owner', @saml.role_owner
-    assert_equal 'Manager', @saml.role_manager
-    assert_equal 'Author', @saml.role_author
-    assert_equal 'Supervisor', @saml.role_supervisor
-    assert_equal 'Security', @saml.role_security
   end
 
   test 'default' do

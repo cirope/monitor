@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 class Issues::ExportsController < ApplicationController
+  include Authentication
+  include Authorization
   include Issues::Filters
 
-  before_action :authorize, :set_issues
+  before_action :set_issues
 
   def create
     path = export_path

@@ -30,6 +30,13 @@ es:
       title: 'Crear cuenta'
     show:
       title: 'Ver cuenta'
+    token_frequencies:
+      minutes: 'Minutos'
+      hours: 'Horas'
+      days: 'Días'
+      weeks: 'Semanas'
+      months: 'Meses'
+      years: 'Años'
 
   authentications:
     new:
@@ -46,12 +53,6 @@ es:
   board:
     index:
       title: 'Carrito de casos'
-
-  comments:
-    comment:
-      text_placeholder: 'Escriba un comentario'
-    edit:
-      title: 'Editar comentario'
 
   console:
     show:
@@ -118,6 +119,7 @@ es:
       drive_auth_url: 'Haga clic en el siguiente enlace para autorizar el accesso a %{provider}'
     providers:
       drive: 'Google Drive'
+      onedrive: 'Microsoft OneDrive'
 
   editor:
     edit:
@@ -199,6 +201,11 @@ es:
         done: 'Se limpiaron todos los casos del carrito'
       destroy_all:
         destroyed: 'Se eliminaron todos los casos del carrito'
+    comments:
+      comment:
+        text_placeholder: 'Escriba un comentario'
+      edit:
+        title: 'Editar comentario'
     edit:
       title: 'Editar caso'
     exports:
@@ -363,6 +370,33 @@ es:
   permalinks:
     show:
       title: 'Casos'
+
+  permissions:
+    select:
+      section: 'Seleccione una sección'
+
+  roles:
+    edit:
+      title: 'Editar rol'
+    index:
+      new: 'Nuevo rol'
+      title: 'Listado de roles'
+      empty_html: 'No hay roles, puede crear uno con el botón <span class="badge bg-primary">Nuevo rol</span>'
+    new:
+      title: 'Crear rol'
+      permission: 'Agregar Permiso'
+    show:
+      title: 'Ver rol'
+    types:
+      security: 'Seguridad'
+      supervisor: 'Supervisor'
+      author: 'Autor'
+      manager: 'Analista'
+      owner: 'Propietario'
+      guest: 'Invitado'
+    permissions:
+      main: 'Principal'
+      config: 'Configuración'
 
   rules:
     edit:
@@ -559,20 +593,6 @@ es:
       back: 'Volver'
       subtitle: 'Ingrese su dirección de correo y le enviaremos las instrucciones para recuperar su contraseña'
 
-  processes:
-    index:
-      title: 'Procesos'
-      command: 'Comando'
-      cpu: 'CPU'
-      memory: 'Memoria'
-      memory_percent: '%'
-      pid: 'PID'
-      time: 'Tiempo'
-      kill: 'Terminar'
-    destroy:
-      destroyed: 'Proceso terminado'
-      cannot_be_destroyed: 'No se pudo terminar el proceso'
-
   profiles:
     edit:
       title: 'Mis datos'
@@ -598,6 +618,14 @@ es:
       empty_html: 'No se han encontrado datos'
     show:
       title: 'Ver serie'
+
+  system_monitors:
+    index:
+      title: 'Procesos'
+      kill: 'Terminar'
+    destroy:
+      destroyed: 'Proceso terminado'
+      cannot_be_destroyed: 'No se pudo terminar el proceso'
 
   tags:
     edit:
@@ -669,7 +697,7 @@ es:
         updated: 'Actualizado'
         error: 'Con errores'
         deprecated_users: 'Usuarios ausentes en el servidor LDAP'
-  
+
   views:
     view:
       mark_as_viewed: 'Marcar como visto'

@@ -1,12 +1,31 @@
-<%= simple_form_for @drive do |f| %>
+<%= simple_form_for @drive, data: { turbo: false } do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :provider, collection: drive_providers, prompt: true, autofocus: true %>
-    <%= f.input :name, disabled: @drive.persisted? %>
-    <%= f.input :client_id %>
-    <%= f.input :client_secret %>
-    <%= f.input :root_folder_id %>
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.input :provider, collection: drive_providers, prompt: true, autofocus: true %>
+      </div>
+      <div class="col-md-6">
+        <%= f.input :name, disabled: @drive.persisted? %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.input :client_id %>
+      </div>
+      <div class="col-md-6">
+        <%= f.input :client_secret %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.input :tenant_id %>
+      </div>
+      <div class="col-md-6">
+        <%= f.input :root_folder_id %>
+      </div>
+    </div>
   </div>
 
   <div class="form-actions">

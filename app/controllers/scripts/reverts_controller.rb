@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class Scripts::RevertsController < ApplicationController
-  before_action :authorize, :not_guest, :not_owner, :not_manager, :not_security
+  include Authentication
+  include Authorization
+
   before_action :set_script, :check_if_can_edit
 
   def create

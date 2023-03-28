@@ -1,13 +1,10 @@
 # frozen_string_literal: true
 
 class ExecutionsController < ApplicationController
-  before_action :authorize,
-                :not_guest,
-                :not_owner,
-                :not_manager,
-                :not_security,
-                :set_script
+  include Authentication
+  include Authorization
 
+  before_action :set_script
   before_action :set_server, only: [:create]
   before_action :set_execution, only: [:show, :update]
 

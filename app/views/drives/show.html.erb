@@ -20,6 +20,10 @@
       <%= @drive.client_secret %>
     </p>
     <p class="mb-1">
+      <strong><%= Drive.human_attribute_name 'tenant_id' %></strong>:
+      <%= @drive.tenant_id %>
+    </p>
+    <p class="mb-1">
       <strong><%= Drive.human_attribute_name 'root_folder_id' %></strong>:
       <%= @drive.root_folder_id %>
     </p>
@@ -33,12 +37,10 @@
     </p>
     <p class="mb-1">
       <strong><%= Drive.human_attribute_name 'drive_auth_url' %></strong>:
-      <%= link_to t('.drive_auth_url', provider: i18n_provider(@drive.provider)), @drive.drive_auth_url %>
+      <%= link_to t('.drive_auth_url', provider: i18n_provider(@drive.provider)), @drive.provider_auth_url %>
     </p>
   </div>
 </div>
 
-<% unless current_user.supervisor? %>
-  <%= link_to_edit [:edit, @drive] %> |
-<% end %>
+<%= link_to_edit [:edit, @drive] %> |
 <%= link_to_index drives_path %>

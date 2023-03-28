@@ -1,12 +1,8 @@
 # frozen_string_literal: true
 
 class TagsController < ApplicationController
-  before_action :authorize
-
-  before_action :not_guest,
-                :not_owner,
-                :not_author,
-                :not_security, except: [:index]
+  include Authentication
+  include Authorization
 
   before_action :set_title, except: [:destroy]
   before_action :set_tag, only: [:show, :edit, :update, :destroy]
@@ -57,7 +53,7 @@ class TagsController < ApplicationController
 
     def tag_params
       params.require(:tag).permit :name, :style, :final, :group, :category, :export,
-        :parent_id, :editable, :lock_version,
+        :parent_id, :editable, :recovery, :lock_version,
         effects_attributes: [:id, :implied_id, :_destroy]
     end
 

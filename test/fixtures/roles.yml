@@ -1,0 +1,35 @@
+security:
+  type: security
+  name: Security role
+  identifier: Security role
+  description: Seguridad del sistema
+
+supervisor:
+  type: supervisor
+  name: Supervisor role
+  identifier: Supervisor role
+  description: Supervisor del sistema
+
+author:
+  type: author
+  name: Author role
+  identifier: Author role
+  description: Autor del sistema
+
+manager:
+  type: manager
+  name: Manager role
+  identifier: Manager role
+  description: Analista
+
+owner:
+  type: owner
+  name: Owner role
+  identifier: Owner role
+  description: Propietario
+
+guest:
+  type: guest
+  name: Guest role
+  identifier: Guest role
+  description: Invitado del sistema

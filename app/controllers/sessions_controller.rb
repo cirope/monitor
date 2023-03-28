@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 class SessionsController < ApplicationController
+  include Authentication
   include Sessions
 
-  before_action :authorize, only: :destroy
+  before_action :authenticate, only: [:destroy]
   before_action :set_title, except: [:destroy]
 
   def new
@@ -14,14 +15,17 @@ class SessionsController < ApplicationController
     if params[:username].present?
 
       switch_to_default_account_for params[:username] do |account|
+        user         = User.visible.by_username_or_email params[:username]
         redirect_url = signin_url
 
         store_username params[:username]
 
-        if account
+        if user && account
           store_current_account account
 
-          redirect_url = new_saml_session_url(account.tenant_name) if saml
+          if saml && !user.recovery?
+            redirect_url = new_saml_session_url account.tenant_name
+          end
         end
 
         redirect_to redirect_url
