@@ -1,25 +1,25 @@
-module Drives::GoogleDrive
+module Drives::OneDrive
   extend ActiveSupport::Concern
 
-  def drive_client
+  def onedrive_client
     OAuth2::Client.new(
       client_id, client_secret,
-      site:          'https://accounts.google.com?prompt=consent&access_type=offline',
-      token_url:     '/o/oauth2/token',
-      authorize_url: '/o/oauth2/auth'
+      site:          "https://login.microsoftonline.com/",
+      token_url:     "/#{tenant_id}/oauth2/v2.0/token",
+      authorize_url: "/#{tenant_id}/oauth2/v2.0/authorize"
     )
   end
 
-  def drive_auth_url
-    drive_client.auth_code.authorize_url(
+  def onedrive_auth_url
+    onedrive_client.auth_code.authorize_url(
       redirect_uri: redirect_uri,
-      scope:        'https://www.googleapis.com/auth/drive',
+      scope:        'files.read files.read.all files.readwrite files.readwrite.all offline_access',
       state:        identifier
     )
   end
 
-  def drive_config code
-    auth_token = drive_token_url(code)
+  def onedrive_config code
+    auth_token = onedrive_token_url(code)
 
     {
       access_token:  auth_token.token,
@@ -31,8 +31,8 @@ module Drives::GoogleDrive
 
   private
 
-    def drive_token_url code
-      drive_client.auth_code.get_token(
+    def onedrive_token_url code
+      onedrive_client.auth_code.get_token(
         code,
         redirect_uri: redirect_uri
       )

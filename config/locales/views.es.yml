@@ -119,6 +119,7 @@ es:
       drive_auth_url: 'Haga clic en el siguiente enlace para autorizar el accesso a %{provider}'
     providers:
       drive: 'Google Drive'
+      onedrive: 'Microsoft OneDrive'
 
   editor:
     edit:

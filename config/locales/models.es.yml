@@ -183,6 +183,7 @@ es:
         drive_auth_url: 'URL de autorización'
         mount_point: 'Punto de montaje'
         root_folder_id: 'ID de la carpeta raíz'
+        tenant_id: 'Id. de directorio (inquilino)'
       effect:
         tag: 'Etiqueta'
         implied: 'Etiqueta'
