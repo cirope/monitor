@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# Used by seed, do not delete this file
 
 I18n.load_path += Dir[Rails.root.join('config', 'locales', '*.{rb,yml}')]
 I18n.available_locales = [:es]
