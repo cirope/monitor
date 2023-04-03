@@ -24,7 +24,8 @@ class Issue < ApplicationRecord
   include Filterable
   include Taggable
 
-  belongs_to :run
+  belongs_to :owner, polymorphic: true
+  belongs_to :run, class_name: 'Run', foreign_key: 'owner_id'
   has_one :script, through: :run
   has_one :schedule, through: :run
   has_many :users, through: :subscriptions
