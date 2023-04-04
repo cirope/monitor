@@ -58,7 +58,7 @@ class Api::V1::Scripts::IssuesByStatusControllerTest < ActionController::TestCas
           new_issue.taggings << new_tagging
         end
 
-        new_issue.run = script.jobs.first.runs.first
+        new_issue.owner = script.jobs.first.runs.first
 
         new_issue.save!
       end
