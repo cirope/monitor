@@ -24,7 +24,9 @@ class Issue < ApplicationRecord
   include Filterable
   include Taggable
 
-  belongs_to :run
+  belongs_to :owner, polymorphic: true
+  has_one :self_issue, class_name: 'Issue', foreign_key: :id
+  has_one :run, through: :self_issue, source: :owner, source_type: 'Run'
   has_one :script, through: :run
   has_one :schedule, through: :run
   has_many :users, through: :subscriptions

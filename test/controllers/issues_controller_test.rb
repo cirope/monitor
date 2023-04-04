@@ -228,11 +228,13 @@ class IssuesControllerTest < ActionController::TestCase
   end
 
   test 'should destroy issue' do
+    script = @issue.script
+
     assert_difference 'Issue.count', -1 do
       delete :destroy, params: { id: @issue }
     end
 
-    assert_redirected_to script_issues_url(@issue.script)
+    assert_redirected_to script_issues_url(script)
   end
 
   test 'should respond api issues' do

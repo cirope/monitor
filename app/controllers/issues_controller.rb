@@ -46,9 +46,11 @@ class IssuesController < ApplicationController
   end
 
   def destroy
+    script = @issue.script
+
     @issue.destroy
 
-    redirect_to script_issues_url(@issue.script, filter: params[:filter]&.to_unsafe_h)
+    redirect_to script_issues_url(script, filter: params[:filter]&.to_unsafe_h)
   end
 
   def api_issues
