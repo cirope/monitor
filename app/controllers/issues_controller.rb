@@ -34,7 +34,21 @@ class IssuesController < ApplicationController
     @comment = @issue.comments.new
   end
 
+  def new
+    @issue = Issue.new
+  end
+
   def edit
+  end
+
+  def create
+    @issue = Issue.new issue_params
+
+    if @issue.save
+      redirect_to @issue
+    else
+      render 'new', status: :unprocessable_entity
+    end
   end
 
   def update
@@ -46,11 +60,14 @@ class IssuesController < ApplicationController
   end
 
   def destroy
-    script = @issue.script
+    script        = @issue.script
+    filter_params = { filter: params[:filter]&.to_unsafe_h }
 
     @issue.destroy
 
-    redirect_to script_issues_url(script, filter: params[:filter]&.to_unsafe_h)
+    redirect_to @issue.ticket? ?
+      tickets_url(filter_params) :
+      script_issues_url(script, filter_params)
   end
 
   def api_issues

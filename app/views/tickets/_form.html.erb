@@ -1,0 +1,5 @@
+<%= simple_form_for @issue, controller: 'tickets' do |f| %>
+  <%= f.error_notification %>
+
+  <%= render 'issues/form', f: f %>
+<% end %>

@@ -53,6 +53,7 @@ Rails.application.routes.draw do
   resources :roles
   resources :rules
   resources :samls
+  resources :tickets, only: [:index]
 
   resources :accounts, except: [:destroy] do
     resources :issues, only: [:show]
@@ -66,7 +67,7 @@ Rails.application.routes.draw do
   # Dashboards
   resources :series, only: [:index, :show]
 
-  resources :issues, except: [:new, :create] do
+  resources :issues do
     scope module: 'issues' do
       resources :comments, except: [:index, :new]
     end

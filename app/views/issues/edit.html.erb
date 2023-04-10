@@ -4,7 +4,11 @@
   </div>
 
   <div class="card-body">
-    <%= render 'form' %>
+    <%= simple_form_for @issue, url: [@issue, filter: filter_params.to_h] do |f| %>
+      <%= f.error_notification %>
+
+      <%= render 'form', f: f %>
+    <% end %>
   </div>
 </div>
 

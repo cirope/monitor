@@ -6,6 +6,7 @@ module Issues::Validation
   included do
     validates :status, presence: true, inclusion: { in: :next_status }
     validates :description, pdf_encoding: true
+    validates :title, presence: true, if: :ticket?
     validate :requires_comment, if: :status_changed?
     validate :has_final_tag
     validate :user_can_modify

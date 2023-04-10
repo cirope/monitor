@@ -11,6 +11,7 @@
 
     <ul class="side-nav mt-3">
       <%= menu_item_for Issue, home_path, icon: 'clipboard-list', active: controller_name == 'home' %>
+      <%= menu_item_for Ticket, tickets_path, icon: 'file-lines' %>
       <%= menu_item_for Script, scripts_path, icon: 'code' %>
       <%= menu_item_for Schedule, schedules_path, active: controller_name == 'runs', icon: 'calendar' %>
       <%= menu_item_for Rule, rules_path, icon: 'code-branch' %>
