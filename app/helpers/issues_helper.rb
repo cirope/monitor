@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 module IssuesHelper
+  def issue_types
+    Issue::OWNER_TYPES.map { |ot| [ot.constantize.model_name.human(count: 1), ot] }
+  end
+
   def issue_index_path *args
     if @issue&.ticket?
       tickets_path *args
@@ -206,6 +210,13 @@ module IssuesHelper
     else
       filter_query_hash
     end
+  end
+
+  def issues_owner issue
+    owner_label =  issue.owner_type.constantize.model_name.human count: 1
+    owner_label += " (#{truncate issue.owner.to_s, length: 30})" if issue.owner
+
+    owner_label
   end
 
   private

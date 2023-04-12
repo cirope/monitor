@@ -17,6 +17,7 @@ class Rule < ApplicationRecord
   scope :ordered, -> { order :name }
 
   has_many :dispatchers, dependent: :nullify
+  has_many :tickets, as: :owner, class_name: 'Issue'
 
   strip_fields :name
 

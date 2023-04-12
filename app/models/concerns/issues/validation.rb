@@ -3,13 +3,19 @@
 module Issues::Validation
   extend ActiveSupport::Concern
 
+  OWNER_TYPES = ['Script', 'Rule']
+
   included do
     validates :status, presence: true, inclusion: { in: :next_status }
     validates :description, pdf_encoding: true
-    validates :title, presence: true, if: :ticket?
     validate :requires_comment, if: :status_changed?
     validate :has_final_tag
     validate :user_can_modify
+
+    with_options if: :ticket? do |ticket|
+      ticket.validates :title, presence: true
+      ticket.validates :owner_type, presence: true
+    end
   end
 
   private

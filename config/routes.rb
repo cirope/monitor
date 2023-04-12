@@ -51,7 +51,10 @@ Rails.application.routes.draw do
   resources :password_resets, only: [:new, :create, :edit, :update]
   resources :pdf_templates
   resources :roles
-  resources :rules
+  resources :rules do
+    resources :issues
+    resources :tickets, only: [:index]
+  end
   resources :samls
   resources :tickets, only: [:index]
 
@@ -102,11 +105,12 @@ Rails.application.routes.draw do
   end
 
   resources :scripts do
-    resources :issues,   only: [:index]
+    resources :issues
     resources :versions, only: [:index, :show], controller: 'scripts/versions'
     resources :parameters, only: [:show], controller: 'scripts/parameters'
     resources :executions, only: [:index, :create, :update, :show]
     resources :reverts, only: [:create], controller: 'scripts/reverts'
+    resources :tickets, only: [:index]
 
     scope ':type', type: /execution|run/ do
       resources :measures, only: [:index], controller: 'scripts/measures'

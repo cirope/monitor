@@ -11,6 +11,7 @@ class IssuesController < ApplicationController
   before_action :set_permalink, only: [:show]
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
   before_action :set_context, only: [:show, :edit, :update]
+  before_action :set_owner
   before_action -> { request.variant = :graph if params[:graph].present? }
 
   def index
@@ -43,9 +44,10 @@ class IssuesController < ApplicationController
 
   def create
     @issue = Issue.new issue_params
+    @issue.owner = @owner if @owner
 
     if @issue.save
-      redirect_to @issue
+      redirect_to [@owner, @issue, context: @context, filter: params[:filter]&.to_unsafe_h]
     else
       render 'new', status: :unprocessable_entity
     end
@@ -53,7 +55,7 @@ class IssuesController < ApplicationController
 
   def update
     if @issue.update issue_params
-      redirect_to issue_url(@issue, context: @context, filter: params[:filter]&.to_unsafe_h)
+      redirect_to [@owner, @issue, context: @context, filter: params[:filter]&.to_unsafe_h]
     else
       render 'edit', status: :unprocessable_entity
     end
@@ -66,7 +68,7 @@ class IssuesController < ApplicationController
     @issue.destroy
 
     redirect_to @issue.ticket? ?
-      tickets_url(filter_params) :
+      [@owner, :tickets, filter_params] :
       script_issues_url(script, filter_params)
   end
 

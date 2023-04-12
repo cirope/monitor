@@ -5,9 +5,9 @@ class TicketsController < ApplicationController
   include Authorization
   include Issues::Filters
 
-  before_action :set_title
+  before_action :set_title, :set_owner
 
   def index
-    @issues = Issue.tickets.ordered.page params[:page]
+    @issues = (@owner || Issue).tickets.ordered.page params[:page]
   end
 end

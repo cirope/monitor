@@ -70,6 +70,14 @@ module Issues::Filters
 
   private
 
+    def set_owner
+      @owner = if params[:script_id].present?
+                 Script.find params[:script_id]
+               elsif params[:rule_id].present?
+                 Rule.find params[:rule_id]
+               end
+    end
+
     def scoped_issues
       if @permalink
         @permalink.issues
@@ -86,7 +94,7 @@ module Issues::Filters
 
     def editors_params
       [
-        :status, :title, :description,
+        :status, :title, :description, :owner_type,
           subscriptions_attributes: [:id, :user_id, :_destroy],
           comments_attributes: [:id, :text, :attachment],
           taggings_attributes: [:id, :tag_id, :_destroy]

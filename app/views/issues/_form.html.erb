@@ -1,8 +1,11 @@
-<%= simple_form_for @issue, url: [@issue, filter: filter_params.to_h] do |f| %>
+<%= simple_form_for @issue, url: [@owner, @issue, filter: filter_params.to_h] do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :title, autofocus: true if @issue.new_record? %>
+    <% if @issue.ticket? %>
+      <%= f.input :owner_type, collection: issue_types, prompt: true, autofocus: true unless @owner %>
+      <%= f.input :title, autofocus: !@owner.nil? %>
+    <% end %>
     <%= f.input :status, collection: status, prompt: false, hint: false, input_html: {
       autofocus: true, disabled: !can_edit_status?
     } if @issue.persisted? %>

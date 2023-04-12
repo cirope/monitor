@@ -9,5 +9,5 @@
 </div>
 
 <div class="mt-3">
-  <%= link_to_index tickets_path %>
+  <%= link_to_index [@owner, :tickets, filter: filter_query_hash] %>
 </div>

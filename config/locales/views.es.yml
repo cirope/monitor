@@ -415,6 +415,7 @@ es:
     show:
       title: 'Ver regla'
       last_output: 'Última salida'
+      tickets_list: 'Pedidos'
     exports:
       create:
         filename: 'reglas.zip'
@@ -479,6 +480,7 @@ es:
       no_server: 'Debe establecer un servidor principal'
       executions_list: 'Ejecuciones'
       measures_list: 'Métricas'
+      tickets_list: 'Pedidos'
     exports:
       create:
         filename: 'guiones.zip'

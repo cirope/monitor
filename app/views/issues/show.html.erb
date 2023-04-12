@@ -94,8 +94,8 @@
 </div>
 
 <% if @issue.ticket? %>
-  <%= link_to_edit [:edit, @issue, context: @context, filter: filter_query_hash] %> |
-  <%= link_to_index tickets_path(filter: filter_query_hash) %>
+  <%= link_to_edit [:edit, @owner, @issue, context: @context, filter: filter_query_hash] %> |
+  <%= link_to_index [@owner, :tickets, filter: filter_query_hash] %>
 <% else %>
   <% if @permalink.blank? && current_user.can?(:edit, Issue) %>
     <%= link_to_edit [:edit, @issue, context: @context, filter: filter_query_hash] %> |
