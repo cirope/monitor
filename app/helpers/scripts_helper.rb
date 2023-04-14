@@ -37,7 +37,7 @@ module ScriptsHelper
 
   def descriptions
     if @script.descriptions.empty?
-      Descriptor.all.each { |d| @script.descriptions.new name: d.name }
+      Descriptor.all.each { |d| @script.descriptions.new name: d.name, public: d.public }
     end
 
     @script.descriptions
@@ -83,6 +83,13 @@ module ScriptsHelper
       link_to_create_execution &block
     else
       disabled_link_to_execute &block
+    end
+  end
+
+  def link_to_show_parameter_versions parameter
+    if parameter.versions.count > 1
+      link_to icon('fas', 'history'), [@script, parameter],
+        remote: true, title: t('scripts.show.history')
     end
   end
 

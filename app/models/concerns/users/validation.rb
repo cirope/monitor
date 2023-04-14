@@ -4,9 +4,8 @@ module Users::Validation
   extend ActiveSupport::Concern
 
   included do
-    validates :name, :lastname, :role, presence: true
-    validates :name, :lastname, :email, :username, :role, length: { maximum: 255 }
-    validates :role, inclusion: { in: User::ROLES }
+    validates :name, :lastname, presence: true
+    validates :name, :lastname, :email, :username, length: { maximum: 255 }
     validates :username, uniqueness: { case_sensitive: false }
     validates :email,
       uniqueness: { case_sensitive: false },

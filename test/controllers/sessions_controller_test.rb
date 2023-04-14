@@ -107,6 +107,21 @@ class SessionsControllerTest < ActionController::TestCase
     assert_nil current_user
   end
 
+  test 'should create session with tag recovery' do
+    @user.tags << tags(:recovery)
+
+    assert_difference '@user.logins.count' do
+      post :create, params: { username: @user.email }
+
+      @controller = AuthenticationsController.new
+
+      post :create, params: { password: '123' }
+    end
+
+    assert_redirected_to home_url
+    assert_equal @user.id, current_user.id
+  end
+
   test 'should get destroy' do
     login = logins :franco
 

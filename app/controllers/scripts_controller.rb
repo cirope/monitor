@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 class ScriptsController < ApplicationController
+  include Authentication
+  include Authorization
   include Scripts::Filters
 
-  before_action :authorize, :not_guest, :not_owner, :not_manager, :not_security
   before_action :set_title, except: [:destroy]
   before_action :set_script, only: [:show, :edit, :update, :destroy]
   before_action :set_server, only: [:show]
@@ -66,7 +67,7 @@ class ScriptsController < ApplicationController
         :language, :database_id, :lock_version,
         libraries_attributes: [:id, :name, :options, :_destroy],
         maintainers_attributes: [:id, :user_id, :_destroy],
-        descriptions_attributes: [:id, :name, :value, :_destroy],
+        descriptions_attributes: [:id, :name, :value, :public, :_destroy],
         parameters_attributes: [:id, :name, :value, :_destroy],
         requires_attributes: [:id, :script_id, :_destroy],
         taggings_attributes: [:id, :tag_id, :_destroy]

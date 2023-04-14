@@ -12,13 +12,6 @@ class ConsoleControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test 'should be redirected if not supervisor' do
-    login user: users(:eduardo)
-
-    get :show
-    assert_redirected_to root_url
-  end
-
   test 'should be redirected if disabled' do
     skip if ENABLE_WEB_CONSOLE
 

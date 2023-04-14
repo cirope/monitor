@@ -30,7 +30,7 @@
             <td><%= execution_status execution.status %></td>
             <td class="d-none d-md-table-cell"><%= l execution.started_at, format: :compact if execution.started_at %></td>
             <td class="d-none d-md-table-cell"><%= l execution.ended_at, format: :compact if execution.ended_at %></td>
-            <td class="text-right"><%= link_to_show [@script, execution] %></td>
+            <td class="text-end"><%= link_to_show [@script, execution] %></td>
           </tr>
         <% end %>
       </tbody>

@@ -1,5 +1,5 @@
 <li class="list-inline-item tag-container" data-tagging-id="<%= tagging.id %>">
-  <span class="badge badge-<%= tagging.tag.style %>"><%= tagging.tag %></span>
+  <span class="badge bg-<%= tagging.tag.style %>"><%= tagging.tag %></span>
   <% if @issue.can_be_light_edited_by? current_user %>
     <%= link_to_destroy [@issue, tagging], class: 'tag-controls small', data: { remote: true } %>
   <% end %>

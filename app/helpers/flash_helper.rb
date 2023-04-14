@@ -7,7 +7,7 @@ module FlashHelper
 
   def flash_classes
     if flash[:alert]
-      'alert-danger bg-danger text-white border-0'
+      'alert-danger'
     else
       'alert-info'
     end

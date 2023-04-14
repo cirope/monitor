@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
 class DrivesController < ApplicationController
-  before_action :authorize, :not_guest, :not_owner, :not_manager, :not_author
+  include Authentication
+  include Authorization
+
   before_action :set_title, except: [:destroy]
   before_action :set_account
   before_action :set_drive, only: [:show, :edit, :update, :destroy]
-  before_action :not_supervisor, except: [:index, :show]
 
   # GET /drives
   def index
@@ -68,6 +69,6 @@ class DrivesController < ApplicationController
 
     def drive_params
       params.require(:drive).permit :name, :provider, :client_id,
-        :client_secret, :root_folder_id
+        :client_secret, :root_folder_id, :tenant_id
     end
 end

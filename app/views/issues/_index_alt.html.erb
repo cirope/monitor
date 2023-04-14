@@ -7,9 +7,9 @@
         <tr>
           <th class="border-top-0"></th>
           <% Issue.statuses.each do |status| %>
-            <th class="border-top-0 text-right"><%= t "issues.status.#{status}" %></th>
+            <th class="border-top-0 text-end"><%= t "issues.status.#{status}" %></th>
           <% end %>
-          <th class="border-top-0 text-right"><%= t '.total' %></th>
+          <th class="border-top-0 text-end"><%= t '.total' %></th>
         </tr>
       </thead>
 
@@ -18,11 +18,11 @@
           <tr>
             <td><%= key %></td>
             <% Issue.statuses.each do |status| %>
-              <td class="text-right">
+              <td class="text-end">
                 <%= link_to counts[status] || 0, script_issues_path(@script, filter: filter_query_hash.merge(status: status, key: key)) %>
               </td>
             <% end %>
-            <td class="text-right font-weight-bold">
+            <td class="text-end font-weight-bold">
               <%= link_to counts.values.sum, script_issues_path(@script, filter: filter_query_hash.merge(key: key)) %>
             </td>
           </tr>
@@ -33,11 +33,11 @@
             <strong><%= t '.total' %></strong>
           </td>
           <% issue_stats_totals(stats).each do |status, total| %>
-            <td class="text-right font-weight-bold">
+            <td class="text-end font-weight-bold">
               <%= link_to total, script_issues_path(@script, filter: filter_query_hash.merge(status: status)) %>
             </td>
           <% end %>
-          <td class="text-right font-weight-bold">
+          <td class="text-end font-weight-bold">
             <%= issue_stats_totals(stats).map(&:last).sum %>
           </td>
         </tr>
@@ -74,8 +74,8 @@
               <%= link_to icon('fas', 'chart-pie'), script_issues_path(@script, filter: filter_query_hash, graph: data.keys.last) %>
             </th>
 
-            <th class="border-top-0 text-right" colspan="<%= issue_actions_cols %>">
-              <% if script && current_user.can_edit_issues? && !current_user.owner? %>
+            <th class="border-top-0 text-end" colspan="<%= issue_actions_cols %>">
+              <% if script && current_user.can?(:edit, Issue) && !current_user.owner? %>
                 <div class="btn-group mr-n2" role="group">
                   <%= link_to_add_all_to_board filter: filter_query_hash.merge(status: params.dig(:filter, :status) || 'all') %>
                   <%= link_to_remove_all_from_board filter: filter_query_hash.merge(status: params.dig(:filter, :status) || 'all') %>
@@ -102,8 +102,8 @@
 <hr>
 
 <div class="row ml-0">
-  <div class="dropdown float-left">
-    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+  <div class="dropdown float-start">
+    <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
       <%= t '.actions' %>
     </button>
 

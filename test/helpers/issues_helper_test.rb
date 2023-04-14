@@ -46,19 +46,19 @@ class IssuesHelperTest < ActionView::TestCase
   test 'issue status' do
     issue = Issue.new status: 'pending'
 
-    assert_match /badge-secondary/, issue_status(issue)
+    assert_match /bg-secondary/, issue_status(issue)
 
     issue.status = 'taken'
 
-    assert_match /badge-warning/, issue_status(issue)
+    assert_match /bg-warning/, issue_status(issue)
 
     issue.status = 'closed'
 
-    assert_match /badge-success/, issue_status(issue)
+    assert_match /bg-success/, issue_status(issue)
 
     issue.tags << Tag.new(name: 'test', style: 'danger', final: true)
 
-    assert_match /badge-danger/, issue_status(issue)
+    assert_match /bg-danger/, issue_status(issue)
   end
 
   test 'subscriptions' do
@@ -162,7 +162,8 @@ class IssuesHelperTest < ActionView::TestCase
 
     refute can_edit_status?
 
-    @current_user.update! role: 'owner'
+    owner = Role.find_by type: 'owner'
+    @current_user.update! role: owner
 
     assert can_edit_status?
   end

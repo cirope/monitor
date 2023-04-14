@@ -6,7 +6,7 @@ class Scripts::VersionsHelperTest < ActionView::TestCase
   test 'version change for' do
     version = versions :cd_root_creation
 
-    assert_kind_of String, version_change_for(version)
+    assert_kind_of String, version_change_for(version, 'change')
   end
 
   test 'version change date for' do
@@ -19,6 +19,6 @@ class Scripts::VersionsHelperTest < ActionView::TestCase
     @version = versions :cd_root_creation
     @version.update_column :object_changes, { 'text' => [nil, 'puts "Hola mundo"'] }
 
-    assert_kind_of String, text_diff_for_version
+    assert_kind_of String, text_diff_for_version(@version)
   end
 end

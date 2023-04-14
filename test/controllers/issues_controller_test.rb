@@ -151,7 +151,7 @@ class IssuesControllerTest < ActionController::TestCase
   test 'should get edit as owner' do
     user = users :john
 
-    user.update! role: 'owner'
+    user.update! role: roles(:owner)
 
     login user: user
 
@@ -191,7 +191,7 @@ class IssuesControllerTest < ActionController::TestCase
   test 'should update issue as owner' do
     user = users :john
 
-    user.update! role: 'owner'
+    user.update! role: roles(:owner)
 
     login user: user
 
@@ -228,17 +228,13 @@ class IssuesControllerTest < ActionController::TestCase
   end
 
   test 'should destroy issue' do
-    assert_difference ['Issue.count', 'Survey.count'], -1 do
-      assert_difference ['Question.count', 'SurveyAnswer.count'], -2 do
-        assert_difference 'DropDownOption.count', -3 do
-          assert_difference 'Answer.count', -4 do
-            delete :destroy, params: { id: @issue }
-          end
-        end
-      end
+    script = @issue.script
+
+    assert_difference 'Issue.count', -1 do
+      delete :destroy, params: { id: @issue }
     end
 
-    assert_redirected_to script_issues_url(@issue.script)
+    assert_redirected_to script_issues_url(script)
   end
 
   test 'should respond api issues' do
@@ -280,7 +276,7 @@ class IssuesControllerTest < ActionController::TestCase
 
     @controller.params = ActionController::Parameters.new({ filter: params_hash })
 
-    assert_equal ActionController::Parameters.new(params_hash).permit(Issues::Filters::PERMITED_FILTER_PARAMS), 
+    assert_equal ActionController::Parameters.new(params_hash).permit(Issues::Filters::PERMITED_FILTER_PARAMS),
                  @controller.send(:filter_params)
   end
 

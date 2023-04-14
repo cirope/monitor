@@ -7,7 +7,7 @@ class Api::V1::Scripts::IssuesByStatusControllerTest < ActionController::TestCas
     @account = send 'public.accounts', :default
     @user    = users :franco
     exp      = 1.month.from_now
-    @token   = Api::V1::AuthenticateUser.new(@user, @account, exp).call.result
+    @token   = Api::V1::AuthenticateUser.new(@user, @account).call.result
   end
 
   test 'return a script without issues' do
@@ -58,7 +58,7 @@ class Api::V1::Scripts::IssuesByStatusControllerTest < ActionController::TestCas
           new_issue.taggings << new_tagging
         end
 
-        new_issue.run = script.jobs.first.runs.first
+        new_issue.owner = script.jobs.first.runs.first
 
         new_issue.save!
       end

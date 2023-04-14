@@ -7,8 +7,8 @@
         <tr>
           <th><%= Drive.human_attribute_name 'name' %></th>
           <th><%= Drive.human_attribute_name 'provider' %></th>
-          <th colspan="<%= current_user.supervisor? ? 1 : 3 %>">
-            <%= link_to_new new_drive_path, class: 'btn btn-secondary btn-sm py-0 mr-n2 float-right' unless current_user.supervisor? %>
+          <th colspan="3">
+            <%= link_to_new new_drive_path, class: 'btn btn-secondary btn-sm py-0 mr-n2 float-end' %>
           </th>
         </tr>
       </thead>
@@ -18,11 +18,9 @@
           <tr>
             <td><%= drive.name %></td>
             <td><%= i18n_provider drive.provider %></td>
-            <td class="text-right"><%= link_to_show drive %></td>
-            <% unless current_user.supervisor? %>
-              <td class="text-right"><%= link_to_edit [:edit, drive] %></td>
-              <td class="text-right"><%= link_to_destroy drive %></td>
-            <% end %>
+            <td class="text-end"><%= link_to_show drive %></td>
+            <td class="text-end"><%= link_to_edit [:edit, drive] %></td>
+            <td class="text-end"><%= link_to_destroy drive %></td>
           </tr>
         <% end %>
       </tbody>
@@ -32,6 +30,4 @@
   <%= paginate @drives %>
 <% end %>
 
-<% if !current_user.supervisor? %>
-  <%= link_to_new new_drive_path, class: 'btn btn-primary' %>
-<% end %>
+<%= link_to_new new_drive_path, class: 'btn btn-primary' %>

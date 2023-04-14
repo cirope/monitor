@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
 class IssuesController < ApplicationController
+  include Authentication
+  include Authorization
   include Issues::Filters
 
-  before_action :authorize
-  before_action :not_guest, except: [:index, :show]
-  before_action :not_author, :not_manager, only: [:destroy]
-  before_action :not_security, :not_owner, except: [:index, :show, :edit, :update]
   before_action :set_title, except: [:destroy]
   before_action :set_account, only: [:show, :index]
   before_action :set_script, only: [:index]
@@ -48,13 +46,15 @@ class IssuesController < ApplicationController
   end
 
   def destroy
+    script = @issue.script
+
     @issue.destroy
 
-    redirect_to script_issues_url(@issue.script, filter: params[:filter]&.to_unsafe_h)
+    redirect_to script_issues_url(script, filter: params[:filter]&.to_unsafe_h)
   end
 
   def api_issues
-    command_token = Api::V1::AuthenticateUser.call Current.user, Current.account, 1.month.from_now
+    command_token = Api::V1::AuthenticateUser.call Current.user, Current.account
 
     @token = command_token.success? ? command_token.result : command_token.errors
 

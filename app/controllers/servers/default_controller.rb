@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class Servers::DefaultController < ApplicationController
-  before_action :authorize, :only_security
+  include Authentication
+  include Authorization
+
   before_action :set_server
 
   def update

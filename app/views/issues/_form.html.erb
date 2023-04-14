@@ -10,10 +10,10 @@
 
     <div class="card mb-3">
       <div class="card-header">
-        <span class="badge badge-pill badge-light float-right">
+        <span class="badge rounded-pill badge-primary-lighten float-end">
           <%= @issue.subscriptions.count %>
         </span>
-        <a class="text-reset text-decoration-none d-block" href="#subscriptions" data-toggle="collapse">
+        <a class="text-reset text-decoration-none d-block" href="#subscriptions" data-bs-toggle="collapse">
           <%= User.model_name.human count: 0 %>
         </a>
       </div>
@@ -28,10 +28,10 @@
 
     <div class="card mb-3<%= ' border border-danger' if @issue.errors[:tags].present? %>">
       <div class="card-header">
-        <span class="badge badge-pill badge-light float-right">
+        <span class="badge rounded-pill badge-primary-lighten float-end">
           <%= @issue.taggings.count %>
         </span>
-        <a class="text-reset text-decoration-none d-block" href="#tags" data-toggle="collapse">
+        <a class="text-reset text-decoration-none d-block" href="#tags" data-bs-toggle="collapse">
           <%= Tag.model_name.human count: 0 %>
         </a>
       </div>
@@ -60,8 +60,8 @@
             <div class="col-lg-10 col-md-9">
               <blockquote class="blockquote ml-3">
                 <%= simple_format comment.text, class: 'mb-0' %>
-                <footer class="blockquote-footer"><%= comment.user %></footer>
               </blockquote>
+              <footer class="blockquote-footer"><%= comment.user %>, <%= l comment.created_at, format: :compact %></footer>
             </div>
             <div class="col-lg-2 col-md-3">
               <% if comment.attachment.attached? %>
@@ -79,7 +79,7 @@
         <% end %>
 
         <%= f.simple_fields_for :comments, comments do |cf| %>
-          <%= render 'comments/comment', f: cf %>
+          <%= render 'issues/comments/comment', f: cf %>
         <% end %>
       </div>
     </div>

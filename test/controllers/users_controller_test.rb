@@ -15,7 +15,7 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test 'should get filtered index for autocomplete' do
-    get :index, params: { q: @user.name, role: @user.role }, as: :json
+    get :index, params: { q: @user.name, role: @user.role.type }, as: :json
     assert_response :success
 
     users = JSON.parse @response.body
@@ -44,6 +44,7 @@ class UsersControllerTest < ActionController::TestCase
           email: 'new@user.com',
           password: '123',
           password_confirmation: '123',
+          role_id: roles(:supervisor).id,
           taggings_attributes: [
             {
               tag_id: tags(:admins).id.to_s
@@ -81,5 +82,12 @@ class UsersControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to users_url
+  end
+
+  test 'should not authorize controller' do
+    login user: users(:john)
+
+    get :index
+    assert_redirected_to login_url
   end
 end

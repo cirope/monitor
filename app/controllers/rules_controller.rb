@@ -1,14 +1,9 @@
 # frozen_string_literal: true
 
 class RulesController < ApplicationController
+  include Authentication
+  include Authorization
   include Rules::Filters
-
-  before_action :authorize,
-                :not_guest,
-                :not_owner,
-                :not_manager,
-                :not_security,
-                :not_author
 
   before_action :set_title, except: [:destroy]
   before_action :set_rule, only: [:show, :edit, :update, :destroy]
