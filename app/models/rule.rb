@@ -11,13 +11,13 @@ class Rule < ApplicationRecord
   include Rules::Json
   include Rules::Scopes
   include Rules::Triggers
+  include Ticketable
 
   validates :name, presence: true
 
   scope :ordered, -> { order :name }
 
   has_many :dispatchers, dependent: :nullify
-  has_many :tickets, as: :owner, class_name: 'Issue'
 
   strip_fields :name
 

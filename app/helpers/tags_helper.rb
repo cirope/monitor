@@ -5,7 +5,8 @@ module TagsHelper
     {
       script: Script.model_name.human(count: 0),
       issue:  Issue.model_name.human(count: 0),
-      user:   User.model_name.human(count: 0)
+      user:   User.model_name.human(count: 0),
+      ticket: Ticket.model_name.human(count: 0)
     }
   end
 

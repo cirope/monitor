@@ -883,7 +883,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_09_112942) do
   add_foreign_key "effects", "tags", column: "implied_id", on_update: :restrict, on_delete: :restrict
   add_foreign_key "effects", "tags", on_update: :restrict, on_delete: :restrict
   add_foreign_key "fails", "users", on_update: :restrict, on_delete: :restrict
-  add_foreign_key "issues", "runs", column: "owner_id", on_update: :restrict, on_delete: :restrict
   add_foreign_key "issues_permalinks", "issues", on_update: :restrict, on_delete: :restrict
   add_foreign_key "issues_permalinks", "permalinks", on_update: :restrict, on_delete: :restrict
   add_foreign_key "jobs", "schedules", on_update: :restrict, on_delete: :restrict

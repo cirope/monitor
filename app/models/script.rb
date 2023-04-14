@@ -29,6 +29,7 @@ class Script < ApplicationRecord
   include Scripts::Versions
   include SearchableByName
   include Taggable
+  include Ticketable
 
   has_one_attached :attachment
 
@@ -44,7 +45,6 @@ class Script < ApplicationRecord
   has_many :jobs, dependent: :destroy
   has_many :runs, through: :jobs
   has_many :issues, through: :runs
-  has_many :tickets, as: :owner, class_name: 'Issue'
   has_many :executions, dependent: :destroy
   has_many :execution_measures, through: :executions, class_name: 'Measure', source: :measures
   has_many :run_measures, through: :runs, class_name: 'Measure', source: :measures

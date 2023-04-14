@@ -74,6 +74,8 @@ Rails.application.routes.draw do
     scope module: 'issues' do
       resources :comments, except: [:index, :new]
     end
+    resources :scripts, only: [:new, :create, :show]
+    resources :rules, only: [:new, :create, :show]
     resources :taggings, only: [:new, :create, :destroy]
   end
 
@@ -127,7 +129,7 @@ Rails.application.routes.draw do
 
   resources :users
 
-  scope ':kind', kind: /script|user|issue/ do
+  scope ':kind', kind: /script|user|issue|ticket/ do
     resources :tags
   end
 

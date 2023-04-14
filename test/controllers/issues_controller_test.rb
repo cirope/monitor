@@ -148,7 +148,7 @@ class IssuesControllerTest < ActionController::TestCase
     issue = Issue.last
 
     assert_not_nil issue.owner
-    assert_redirected_to issue_url(issue)
+    assert_redirected_to [script, issue]
   end
 
   test 'should show issue' do

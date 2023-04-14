@@ -5,7 +5,6 @@ module Issues::Scopes
 
   included do
     scope :active,  -> { where.not status: 'closed' }
-    scope :tickets, -> { where "#{table_name}.owner_type IS NULL OR #{table_name}.owner_type != 'Run'" }
     scope :ordered, -> { order "#{Issue.table_name}.created_at DESC" }
     scope :ordered_by_script_name, -> { reorder "#{Script.table_name}.name" }
     scope :ordered_by_schedule_name, -> { reorder "#{Schedule.table_name}.name" }

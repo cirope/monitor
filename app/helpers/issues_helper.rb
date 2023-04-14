@@ -2,7 +2,7 @@
 
 module IssuesHelper
   def issue_types
-    Issue::OWNER_TYPES.map { |ot| [ot.constantize.model_name.human(count: 1), ot] }
+    Issue.ticket_types.map { |ot| [ot.constantize.model_name.human(count: 1), ot] }
   end
 
   def issue_index_path *args
@@ -91,8 +91,10 @@ module IssuesHelper
   end
 
   def issue_tagging_options issue
+    kind = issue.ticket? ? 'ticket' : 'issue'
+
     {
-      kind:       'issue',
+      kind:       kind,
       collection: issue.options&.fetch('tag_group', nil)
     }
   end
@@ -217,6 +219,24 @@ module IssuesHelper
     owner_label += " (#{truncate issue.owner.to_s, length: 30})" if issue.owner
 
     owner_label
+  end
+
+  def link_to_owner issue
+    model = issue.owner_type.downcase
+
+    if issue.owner
+      owner_url = [issue, issue.owner]
+      title     = 'show.title'
+    else
+      owner_url = [:new, issue, model.to_sym]
+      title     = 'index.new'
+    end
+
+    link_to icon('fas', issue.owner_icon), owner_url, title: t(title, scope: model.pluralize)
+  end
+
+  def owner_issues
+    Issue.availables(@ticket.owner_type).map { |issue| [issue.to_s, issue.id] }
   end
 
   private
