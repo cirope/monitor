@@ -1,7 +1,10 @@
 <div class="card">
   <% if @owner %>
     <div class="card-header">
-      <h5><%= @owner.class.model_name.human count: 1 %> - <%= @owner %></h5>
+      <h5>
+        <%= @owner.class.model_name.human count: 1 %> -
+        <span class="text-primary fw-bolder"><%= link_to @owner %></span>
+      </h5>
     </div>
   <% end %>
 
@@ -30,7 +33,7 @@
                 <td><%= truncate issue.title, length: 50 %></td>
                 <td class="d-none d-sm-table-cell"><%= issue_status issue %></td>
                 <td class="d-none d-lg-table-cell"><%= tag_icons issue.tags %></td>
-                <td class="text-end"><%= link_to_owner issue %></td>
+                <td class="text-end"><%= link_to_issue_owner issue %></td>
                 <td class="text-end"><%= link_to_show [@owner, issue, filter: filter_params.to_h] %></td>
                 <td class="text-end"><%= link_to_edit [:edit, @owner, issue, filter: filter_params.to_h] %></td>
                 <td class="text-end"><%= link_to_destroy [@owner, issue, filter: filter_params.to_h] %></td>

@@ -56,7 +56,7 @@ Rails.application.routes.draw do
     resources :tickets, only: [:index]
   end
   resources :samls
-  resources :tickets, only: [:index]
+  resources :tickets, only: [:index, :destroy]
 
   resources :accounts, except: [:destroy] do
     resources :issues, only: [:show]

@@ -673,6 +673,8 @@ es:
       title: 'Crear pedido'
     show:
       title: 'Ver pedido'
+    destroy:
+      title: 'Desasociar'
 
   users:
     alias:

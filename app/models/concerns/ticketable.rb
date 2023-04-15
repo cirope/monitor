@@ -2,14 +2,12 @@ module Ticketable
   extend ActiveSupport::Concern
 
   included do
-    after_destroy :nullify_tickets
-
     has_many :tickets, as: :owner, class_name: 'Issue', dependent: :destroy
   end
 
-  private
+  def ticket_pending
+    ticket = tickets.take
 
-    def nullify_tickets
-      tickets.update_all owner_id: nil
-    end
+    ticket if tickets.one? && ticket&.pending?
+  end
 end

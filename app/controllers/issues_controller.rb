@@ -5,13 +5,13 @@ class IssuesController < ApplicationController
   include Authorization
   include Issues::Filters
 
-  before_action :set_title, except: [:destroy]
   before_action :set_account, only: [:show, :index]
   before_action :set_script, only: [:index]
   before_action :set_permalink, only: [:show]
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
   before_action :set_context, only: [:show, :edit, :update]
   before_action :set_owner
+  before_action :set_title, except: [:destroy]
   before_action -> { request.variant = :graph if params[:graph].present? }
 
   def index
@@ -160,5 +160,13 @@ class IssuesController < ApplicationController
       issues.left_joins(:tags).merge(Tag.final final).or(
         issues.left_joins(:tags).where tags: { id: nil }
       )
+    end
+
+    def set_title
+      unless request_js?
+        model = @issue&.ticket? ? 'tickets' : 'issues'
+
+        @title = t [model, action_aliases[action_name] || action_name, 'title'].join '.'
+      end
     end
 end

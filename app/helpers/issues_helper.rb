@@ -221,7 +221,7 @@ module IssuesHelper
     owner_label
   end
 
-  def link_to_owner issue
+  def link_to_issue_owner issue
     model = issue.owner_type.downcase
 
     if issue.owner
@@ -237,6 +237,13 @@ module IssuesHelper
 
   def owner_issues
     Issue.availables(@ticket.owner_type).map { |issue| [issue.to_s, issue.id] }
+  end
+
+  def submit_issue
+    action = @issue.new_record? ? 'create' : 'update'
+    model  = @issue.ticket? ? Ticket : Issue
+
+    t "helpers.submit.#{action}", model: model.model_name.human(count: 1)
   end
 
   private

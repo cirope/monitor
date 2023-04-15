@@ -19,6 +19,10 @@ module Issues::Tickets
     Issue::OWNER_TYPES[owner_type.to_sym].fetch :icon
   end
 
+  def nullify
+    update_column :owner_id, nil
+  end
+
   module ClassMethods
     def availables type
       active.where owner_id: nil, owner_type: type
