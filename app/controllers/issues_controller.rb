@@ -4,13 +4,13 @@ class IssuesController < ApplicationController
   include Authentication
   include Authorization
   include Issues::Filters
+  include Issues::Owner
 
   before_action :set_account, only: [:show, :index]
   before_action :set_script, only: [:index]
   before_action :set_permalink, only: [:show]
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
   before_action :set_context, only: [:show, :edit, :update]
-  before_action :set_owner
   before_action :set_title, except: [:destroy]
   before_action -> { request.variant = :graph if params[:graph].present? }
 

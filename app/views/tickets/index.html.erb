@@ -1,12 +1,15 @@
 <div class="card">
-  <% if @owner %>
-    <div class="card-header">
-      <h5>
+  <div class="card-header">
+    <h5>
+      <%= @title %>
+
+      <% if @owner %>
+        |
         <%= @owner.class.model_name.human count: 1 %> -
         <span class="text-primary fw-bolder"><%= link_to @owner %></span>
-      </h5>
-    </div>
-  <% end %>
+      <% end %>
+    </h5>
+  </div>
 
   <div class="card-body">
     <% if @issues.empty? %>
@@ -34,9 +37,9 @@
                 <td class="d-none d-sm-table-cell"><%= issue_status issue %></td>
                 <td class="d-none d-lg-table-cell"><%= tag_icons issue.tags %></td>
                 <td class="text-end"><%= link_to_issue_owner issue %></td>
-                <td class="text-end"><%= link_to_show [@owner, issue, filter: filter_params.to_h] %></td>
-                <td class="text-end"><%= link_to_edit [:edit, @owner, issue, filter: filter_params.to_h] %></td>
-                <td class="text-end"><%= link_to_destroy [@owner, issue, filter: filter_params.to_h] %></td>
+                <td class="text-end"><%= link_to_show [@owner, issue] %></td>
+                <td class="text-end"><%= link_to_edit [:edit, @owner, issue] %></td>
+                <td class="text-end"><%= link_to_destroy [@owner, issue] %></td>
               </tr>
             <% end %>
           </tbody>

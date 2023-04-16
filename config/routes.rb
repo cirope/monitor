@@ -52,7 +52,9 @@ Rails.application.routes.draw do
   resources :pdf_templates
   resources :roles
   resources :rules do
-    resources :issues
+    resources :issues do
+      resources :comments, only: [:create], controller: 'issues/comments'
+    end
     resources :tickets, only: [:index]
   end
   resources :samls
@@ -107,7 +109,9 @@ Rails.application.routes.draw do
   end
 
   resources :scripts do
-    resources :issues
+    resources :issues do
+      resources :comments, only: [:create], controller: 'issues/comments'
+    end
     resources :versions, only: [:index, :show], controller: 'scripts/versions'
     resources :parameters, only: [:show], controller: 'scripts/parameters'
     resources :executions, only: [:index, :create, :update, :show]

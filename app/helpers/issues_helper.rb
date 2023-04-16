@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 module IssuesHelper
+  def active_issue
+    controller_name == 'home' ||
+      controller_path =~ /issues/ && !@issue&.ticket?
+  end
+
   def issue_types
     Issue.ticket_types.map { |ot| [ot.constantize.model_name.human(count: 1), ot] }
   end

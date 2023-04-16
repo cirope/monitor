@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 module MenuHelper
-  def menu_item_for model, path, active: false, icon: nil
+  def menu_item_for model, path, active: nil, icon: nil
     if current_user.can? :read, model
-      active     ||= model.model_name.route_key == controller_name
+      active       = model.model_name.route_key == controller_name if active.nil?
       link_class   = 'side-nav-link'
       li_class     = 'side-nav-item'
       link_text    = model.model_name.human count: 0

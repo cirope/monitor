@@ -3,9 +3,9 @@
 class TicketsController < ApplicationController
   include Authentication
   include Authorization
-  include Issues::Filters
+  include Issues::Owner
 
-  before_action :set_title, :set_owner, only: [:index]
+  before_action :set_title, only: [:index]
   before_action :set_ticket, only: [:destroy]
 
   def index
