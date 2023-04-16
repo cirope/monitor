@@ -10,10 +10,10 @@ module Issues::BoardHelper
       title   = content_tag(:i, "", class: 'fas fa-search')
       options = {
         'role': 'button',
-        'data-toggle': 'popover',
-        'data-placement': 'top',
-        'data-html': 'true',
-        'data-content': issue_popover_data_content(value)
+        'data-bs-toggle': 'popover',
+        'data-bs-placement': 'top',
+        'data-bs-html': 'true',
+        'data-bs-content': issue_popover_data_content(value)
       }
 
       content_tag(:a, title, options)
