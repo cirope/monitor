@@ -25,13 +25,13 @@ module Issues::Csv
     end
 
     def can_collapse_data?
-      all.any? && all.all?(&:single_row_data_type?) && issues_can_share_headers?
+      Issue.issues.any? && Issue.issues.all?(&:single_row_data_type?) && issues_can_share_headers?
     end
 
     private
 
       def issues_can_share_headers?
-        header_rows = all.map(&:converted_data).map &:first
+        header_rows = Issue.issues.map(&:converted_data).map &:first
 
         if header_rows.all? { |row| row.kind_of?(Hash) }
           sample = header_rows.first.keys.sort
@@ -65,7 +65,7 @@ module Issues::Csv
       end
 
       def csv_rows
-        issues = all.order(:created_at).preload :run, :tags
+        issues = Issue.issues.order(:created_at).preload :run, :tags
 
         if can_collapse_data?
           issues.map do |issue|

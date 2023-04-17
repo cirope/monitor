@@ -2,7 +2,7 @@
 
 <% if ticket = owner&.ticket_pending %>
   |
-  <mark class="text-info"><%= ticket %></mark>
+  <mark class="text-muted"><%= ticket %></mark>
   <%= link_to icon('fas', 'circle-xmark', t('tickets.destroy.title')),
     ticket_url(ticket),
     method: :delete,

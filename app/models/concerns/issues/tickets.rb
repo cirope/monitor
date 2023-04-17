@@ -20,7 +20,7 @@ module Issues::Tickets
   end
 
   def nullify
-    update_column :owner_id, nil
+    update_column :owner_id, nil if owner&.ticket_pending
   end
 
   module ClassMethods

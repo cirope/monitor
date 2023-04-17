@@ -6,7 +6,7 @@ class TicketsControllerTest < ActionController::TestCase
   include ActionMailer::TestHelper
 
   setup do
-    @ticket = issues :ticket
+    @ticket = issues :ticket_script
 
     login
   end
@@ -23,8 +23,10 @@ class TicketsControllerTest < ActionController::TestCase
       delete :destroy, params: { id: @ticket }
     end
 
-    assert_nil @ticket.reload.owner_id
-    assert_not_nil @ticket.reload.owner_type
+    @ticket.reload
+
+    assert_nil @ticket.owner_id
+    assert_not_nil @ticket.owner_type
     assert_redirected_to owner
   end
 end
