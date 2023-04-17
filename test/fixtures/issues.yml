@@ -13,3 +13,8 @@ ls_on_atahualpa_not_well_again:
   data_type: single_row
   options:
   owner: past_ls_on_atahualpa (Run)
+
+ticket:
+  description: Ticket
+  status: pending
+  owner: cd_root (Script)
