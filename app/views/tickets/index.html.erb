@@ -1,0 +1,56 @@
+<%= render 'filters' %>
+
+<div class="card">
+  <div class="card-header">
+    <h5>
+      <%= @title %>
+
+      <% if @owner %>
+        |
+        <%= @owner.class.model_name.human count: 1 %> -
+        <span class="text-primary fw-bolder"><%= link_to @owner %></span>
+      <% end %>
+    </h5>
+  </div>
+
+  <div class="card-body">
+    <% if @issues.empty? %>
+      <%= render 'shared/empty_index', message: empty_message %>
+    <% else %>
+      <div class="card">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th class="d-none d-sm-table-cell"><%= Issue.human_attribute_name 'created_at' %></th>
+              <th><%= Issue.human_attribute_name 'owner' %></th>
+              <th><%= Issue.human_attribute_name 'title' %></th>
+              <th class="d-none d-sm-table-cell"><%= Issue.human_attribute_name 'status' %></th>
+              <th class="d-none d-lg-table-cell"><%= Tag.model_name.human count: 0 %></th>
+              <th colspan="4"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @issues.each do |issue| %>
+              <tr>
+                <td class="d-none d-sm-table-cell"><%= l issue.created_at, format: :compact %></td>
+                <td><%= issues_owner issue %></td>
+                <td><%= truncate issue.title, length: 50 %></td>
+                <td class="d-none d-sm-table-cell"><%= issue_status issue %></td>
+                <td class="d-none d-lg-table-cell"><%= tag_icons issue.tags %></td>
+                <td class="text-end"><%= link_to_issue_owner issue %></td>
+                <td class="text-end"><%= link_to_show [@owner, issue, filter: filter_query_hash] %></td>
+                <td class="text-end"><%= link_to_edit [:edit, @owner, issue, filter: filter_query_hash] %></td>
+                <td class="text-end"><%= link_to_destroy [@owner, issue, filter: filter_query_hash] %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+
+      <%= paginate @issues %>
+    <% end %>
+  </div>
+</div>
+
+<%= link_to_new [:new, @owner, :issue], class: 'btn btn-primary' %>

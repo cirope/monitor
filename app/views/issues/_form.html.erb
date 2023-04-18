@@ -1,10 +1,14 @@
-<%= simple_form_for @issue, url: [@issue, filter: filter_params.to_h] do |f| %>
+<%= simple_form_for @issue, url: [@owner, @issue, filter: filter_params.to_h] do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
+    <% if @issue.ticket? %>
+      <%= f.input :owner_type, collection: issue_types, prompt: true, autofocus: true unless @issue.owner || @owner %>
+      <%= f.input :title, autofocus: @owner.present? %>
+    <% end %>
     <%= f.input :status, collection: status, prompt: false, hint: false, input_html: {
       autofocus: true, disabled: !can_edit_status?
-    } %>
+    } if @issue.persisted? %>
     <%= f.input :description, hint: false, input_html: { rows: 4, readonly: limited_issue_form_edition? } %>
     <%= f.input :lock_version, as: :hidden %>
 
@@ -87,6 +91,6 @@
 
   <div class="form-actions">
     <%= hidden_field_tag :context, @context %>
-    <%= f.button :submit, class: 'btn-primary' %>
+    <%= f.button :submit, submit_issue, class: 'btn-primary' %>
   </div>
 <% end %>

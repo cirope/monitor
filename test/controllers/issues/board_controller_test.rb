@@ -60,7 +60,7 @@ class Issues::BoardControllerTest < ActionController::TestCase
   end
 
   test 'should add comment to issues' do
-    assert_enqueued_emails Issue.count do
+    assert_enqueued_emails Issue.issues.count do
       assert_no_difference 'Permalink.count' do
         assert_difference '@issue.comments.count' do
           patch :update, params: {

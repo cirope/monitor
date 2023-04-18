@@ -9,6 +9,12 @@ module Issues::Validation
     validate :requires_comment, if: :status_changed?
     validate :has_final_tag
     validate :user_can_modify
+
+    with_options if: :ticket? do |ticket|
+      ticket.validates :title, presence: true
+      ticket.validates :owner_type,
+        inclusion: { in: Issue.ticket_types }
+    end
   end
 
   private

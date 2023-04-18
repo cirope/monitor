@@ -9,6 +9,7 @@ ROLES = {
   security: {
     permissions_attributes: [
       { section: 'Issue',         read: true,  edit: true,  remove: false },
+      { section: 'Ticket',        read: true,  edit: true,  remove: false },
       { section: 'Script',        read: false, edit: false, remove: false },
       { section: 'Schedule',      read: false, edit: false, remove: false },
       { section: 'Rule',          read: false, edit: false, remove: false },
@@ -31,6 +32,7 @@ ROLES = {
   supervisor: {
     permissions_attributes: [
       { section: 'Issue',         read: true, edit: true,  remove: true  },
+      { section: 'Ticket',        read: true, edit: true,  remove: true  },
       { section: 'Script',        read: true, edit: true,  remove: true  },
       { section: 'Schedule',      read: true, edit: true,  remove: true  },
       { section: 'Rule',          read: true, edit: true,  remove: true  },
@@ -53,6 +55,7 @@ ROLES = {
   author: {
     permissions_attributes: [
       { section: 'Issue',         read: true,  edit: true,  remove: false },
+      { section: 'Ticket',        read: true,  edit: true,  remove: false },
       { section: 'Script',        read: true,  edit: true,  remove: true  },
       { section: 'Schedule',      read: true,  edit: false, remove: false },
       { section: 'Rule',          read: false, edit: false, remove: false },
@@ -75,6 +78,7 @@ ROLES = {
   manager: {
     permissions_attributes: [
       { section: 'Issue',         read: true,  edit: true,  remove: false },
+      { section: 'Ticket',        read: true,  edit: true,  remove: false },
       { section: 'Script',        read: false, edit: false, remove: false },
       { section: 'Schedule',      read: false, edit: false, remove: false },
       { section: 'Rule',          read: false, edit: false, remove: false },
@@ -97,6 +101,7 @@ ROLES = {
   owner: {
     permissions_attributes: [
       { section: 'Issue',         read: true,  edit: true,  remove: false },
+      { section: 'Ticket',        read: true,  edit: true,  remove: false },
       { section: 'Script',        read: false, edit: false, remove: false },
       { section: 'Schedule',      read: false, edit: false, remove: false },
       { section: 'Rule',          read: false, edit: false, remove: false },
@@ -119,6 +124,7 @@ ROLES = {
   guest: {
     permissions_attributes: [
       { section: 'Issue',         read: true,  edit: false, remove: false },
+      { section: 'Ticket',        read: true,  edit: false, remove: false },
       { section: 'Script',        read: false, edit: false, remove: false },
       { section: 'Schedule',      read: false, edit: false, remove: false },
       { section: 'Rule',          read: false, edit: false, remove: false },

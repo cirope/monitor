@@ -44,6 +44,7 @@ es:
         tags: 'Etiquetas'
         user: 'Usuario'
         date: 'Fecha'
+        title: 'Título'
     hints:
       issue:
         description: 'Descripción'

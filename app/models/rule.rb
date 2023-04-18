@@ -11,6 +11,7 @@ class Rule < ApplicationRecord
   include Rules::Json
   include Rules::Scopes
   include Rules::Triggers
+  include Ticketable
 
   validates :name, presence: true
 
