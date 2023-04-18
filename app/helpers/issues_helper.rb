@@ -214,7 +214,7 @@ module IssuesHelper
     end
   end
 
-  def issues_owner issue
+  def show_owner_label issue
     owner_label  =  issue.owner_type.constantize.model_name.human count: 1
     owner_label += " (#{truncate issue.owner.to_s, length: 30})" if issue.owner
 
@@ -235,7 +235,7 @@ module IssuesHelper
     link_to icon('fas', issue.owner_icon), owner_url, title: t(title, scope: model.pluralize)
   end
 
-  def submit_issue
+  def submit_issue_label
     action = @issue.new_record? ? 'create' : 'update'
     model  = @issue.ticket? ? Ticket : Issue
 

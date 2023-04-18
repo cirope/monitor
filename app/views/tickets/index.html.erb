@@ -34,7 +34,7 @@
             <% @issues.each do |issue| %>
               <tr>
                 <td class="d-none d-sm-table-cell"><%= l issue.created_at, format: :compact %></td>
-                <td><%= issues_owner issue %></td>
+                <td><%= show_owner_label issue %></td>
                 <td><%= truncate issue.title, length: 50 %></td>
                 <td class="d-none d-sm-table-cell"><%= issue_status issue %></td>
                 <td class="d-none d-lg-table-cell"><%= tag_icons issue.tags %></td>
