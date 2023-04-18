@@ -151,7 +151,7 @@ private
         issue  = role.permissions.find_by section: 'Issue'
 
         if !ticket && issue
-          role.permissions.create(
+          role.permissions.create!(
             section: 'Ticket',
             read:    issue.read,
             edit:    issue.edit,
