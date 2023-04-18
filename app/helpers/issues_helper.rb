@@ -1,11 +1,6 @@
 # frozen_string_literal: true
 
 module IssuesHelper
-  def active_issue
-    controller_name == 'home' ||
-      controller_path =~ /issues/ && !@issue&.ticket?
-  end
-
   def issue_types
     Issue.ticket_types.map { |ot| [ot.constantize.model_name.human(count: 1), ot] }
   end
@@ -220,7 +215,7 @@ module IssuesHelper
   end
 
   def issues_owner issue
-    owner_label =  issue.owner_type.constantize.model_name.human count: 1
+    owner_label  =  issue.owner_type.constantize.model_name.human count: 1
     owner_label += " (#{truncate issue.owner.to_s, length: 30})" if issue.owner
 
     owner_label
@@ -241,7 +236,7 @@ module IssuesHelper
   end
 
   def owner_issues
-    Issue.availables(@ticket.owner_type).map { |issue| [issue.to_s, issue.id] }
+    Issue.unassigned(@ticket.owner_type).map { |issue| [issue.to_s, issue.id] }
   end
 
   def submit_issue

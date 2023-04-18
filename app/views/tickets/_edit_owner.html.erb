@@ -1,6 +1,6 @@
 <% owner = @script || @rule %>
 
-<% if ticket = owner&.ticket_pending %>
+<% if ticket = owner&.pending_ticket %>
   |
   <mark class="text-muted"><%= ticket %></mark>
   <%= link_to icon('fas', 'circle-xmark', t('tickets.destroy.title')),

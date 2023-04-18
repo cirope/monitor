@@ -72,6 +72,11 @@ module MenuHelper
     board_session.present?
   end
 
+  def show_issues_as_active?
+    controller_name == 'home' ||
+      controller_path =~ /issues/ && !@issue&.ticket?
+  end
+
   private
 
     def left_menu_link_for model, path

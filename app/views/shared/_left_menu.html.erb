@@ -10,7 +10,7 @@
     <% end %>
 
     <ul class="side-nav mt-3">
-      <%= menu_item_for Issue, home_path, icon: 'clipboard-list', active: active_issue %>
+      <%= menu_item_for Issue, home_path, icon: 'clipboard-list', active: show_issues_as_active? %>
       <%= menu_item_for Ticket, tickets_path, icon: 'bug', active: controller_name == 'tickets' || @issue&.ticket? %>
       <%= menu_item_for Script, scripts_path, icon: 'code' %>
       <%= menu_item_for Schedule, schedules_path, active: controller_name == 'runs', icon: 'calendar' %>

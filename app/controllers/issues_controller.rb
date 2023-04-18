@@ -43,7 +43,7 @@ class IssuesController < ApplicationController
   end
 
   def create
-    @issue = Issue.new issue_params
+    @issue       = Issue.new issue_params
     @issue.owner = @owner if @owner
 
     if @issue.save

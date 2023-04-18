@@ -30,7 +30,7 @@ module Issues::Filters
   end
 
   def issue_params
-    args = if @issue.nil? || @issue.can_be_edited_by?(current_user)
+    args = if @issue.blank? || @issue.can_be_edited_by?(current_user)
              editors_params
            elsif current_user.owner?
              owner_params

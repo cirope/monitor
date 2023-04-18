@@ -5,7 +5,7 @@ module Ticketable
     has_many :tickets, as: :owner, class_name: 'Issue', dependent: :destroy
   end
 
-  def ticket_pending
+  def pending_ticket
     ticket = tickets.take
 
     ticket if tickets.one? && ticket&.pending?

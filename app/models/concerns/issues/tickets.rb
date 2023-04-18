@@ -20,11 +20,11 @@ module Issues::Tickets
   end
 
   def nullify
-    update_column :owner_id, nil if owner&.ticket_pending
+    update_column :owner_id, nil if owner&.pending_ticket
   end
 
   module ClassMethods
-    def availables type
+    def unassigned type
       active.where owner_id: nil, owner_type: type
     end
 
