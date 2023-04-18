@@ -28,6 +28,10 @@ module Issues::Scopes
       status == 'all' ? all : where(status: status)
     end
 
+    def by_title title
+      where "#{table_name}.title ILIKE ?", "%#{title}%"
+    end
+
     def by_description description
       where "#{table_name}.description ILIKE ?", "%#{description}%"
     end

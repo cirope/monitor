@@ -6,6 +6,7 @@ module Issues::Filters
   PERMITED_FILTER_PARAMS = [
     :id,
     :name,
+    :title,
     :description,
     :status,
     :user,

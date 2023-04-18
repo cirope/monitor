@@ -669,6 +669,7 @@ es:
       new: 'Nuevo pedido'
       title: 'Listado de pedidos'
       empty_html: 'No hay pedidos, puede crear uno con el botón <span class="badge bg-primary">Nuevo pedido</span>'
+      empty_search_html: 'No hay pedidos que coincidan con el criterio de búsqueda'
     new:
       title: 'Crear pedido'
     show:

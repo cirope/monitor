@@ -24,10 +24,6 @@ module Issues::Tickets
   end
 
   module ClassMethods
-    def unassigned type
-      active.where owner_id: nil, owner_type: type
-    end
-
     def ticket_types
       Issue::OWNER_TYPES.select { |k,v| v[:ticket] }.keys.map &:to_s
     end

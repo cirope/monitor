@@ -225,18 +225,14 @@ module IssuesHelper
     model = issue.owner_type.downcase
 
     if issue.owner
-      owner_url = [issue, issue.owner]
+      owner_url = [issue, issue.owner, filter: filter_query_hash]
       title     = 'show.title'
     else
-      owner_url = [:new, issue, model.to_sym]
+      owner_url = [:new, issue, model.to_sym, filter: filter_query_hash]
       title     = 'index.new'
     end
 
     link_to icon('fas', issue.owner_icon), owner_url, title: t(title, scope: model.pluralize)
-  end
-
-  def owner_issues
-    Issue.unassigned(@ticket.owner_type).map { |issue| [issue.to_s, issue.id] }
   end
 
   def submit_issue

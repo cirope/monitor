@@ -1,3 +1,5 @@
+<%= render 'filters' %>
+
 <div class="card">
   <div class="card-header">
     <h5>
@@ -37,9 +39,9 @@
                 <td class="d-none d-sm-table-cell"><%= issue_status issue %></td>
                 <td class="d-none d-lg-table-cell"><%= tag_icons issue.tags %></td>
                 <td class="text-end"><%= link_to_issue_owner issue %></td>
-                <td class="text-end"><%= link_to_show [@owner, issue] %></td>
-                <td class="text-end"><%= link_to_edit [:edit, @owner, issue] %></td>
-                <td class="text-end"><%= link_to_destroy [@owner, issue] %></td>
+                <td class="text-end"><%= link_to_show [@owner, issue, filter: filter_query_hash] %></td>
+                <td class="text-end"><%= link_to_edit [:edit, @owner, issue, filter: filter_query_hash] %></td>
+                <td class="text-end"><%= link_to_destroy [@owner, issue, filter: filter_query_hash] %></td>
               </tr>
             <% end %>
           </tbody>

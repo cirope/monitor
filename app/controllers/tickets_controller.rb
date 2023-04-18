@@ -3,6 +3,7 @@
 class TicketsController < ApplicationController
   include Authentication
   include Authorization
+  include Issues::Filters
   include Issues::Owner
 
   before_action :set_title, only: [:index]
@@ -10,6 +11,7 @@ class TicketsController < ApplicationController
 
   def index
     @issues = (@owner || Issue).tickets.ordered.page params[:page]
+    @issues = @issues.filter_by filter_params.except(:user)
   end
 
   def destroy
