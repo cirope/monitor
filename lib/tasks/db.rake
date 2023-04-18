@@ -9,6 +9,7 @@ namespace :db do
       set_issue_canonical_data   # 2022-02-01
       encrypt_property_passwords # 2022-05-27
       roles_migration            # 2023-18-01
+      add_tickets_to_roles       # 2023-18-04
     end
   end
 end
@@ -138,6 +139,24 @@ private
           if role = Role.create(params.merge(options))
             User.where(old_role: old_role).update_all role_id: role.id
           end
+        end
+      end
+    end
+  end
+
+  def add_tickets_to_roles
+    Account.on_each do
+      Role.all.each do |role|
+        ticket = role.permissions.find_by section: 'Ticket'
+        issue  = role.permissions.find_by section: 'Issue'
+
+        if !ticket && issue
+          role.permissions.create(
+            section: 'Ticket',
+            read:    issue.read,
+            edit:    issue.edit,
+            remove:  issue.remove
+          )
         end
       end
     end
