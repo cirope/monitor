@@ -210,7 +210,7 @@ class IssuesHelperTest < ActionView::TestCase
     ticket = issues :ticket_script
     label  = show_owner_label ticket
 
-    #assert_equal , label
+    assert_match ticket.to_s, label
   end
 
   test 'link to issue owner' do
