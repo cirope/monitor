@@ -391,29 +391,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_09_112942) do
     t.index ["section"], name: "index_permissions_on_section"
   end
 
-  create_table "pla_operaciones", id: false, force: :cascade do |t|
-    t.integer "id"
-    t.datetime "fecha"
-    t.integer "id_tipo_operacion"
-    t.decimal "importe", precision: 20, scale: 2
-    t.integer "id_persona_titular"
-    t.integer "id_persona_operacion"
-    t.integer "efectivo"
-    t.integer "debcre"
-  end
-
-  create_table "pla_personas", id: false, force: :cascade do |t|
-    t.integer "id_persona"
-    t.string "nombre", limit: 60
-    t.string "fisica_juridica", limit: 1
-    t.decimal "monto_presunto", precision: 20, scale: 2, default: "0.0"
-  end
-
-  create_table "pla_tipos_operacion", id: false, force: :cascade do |t|
-    t.integer "id"
-    t.string "descripcion", limit: 200
-  end
-
   create_table "properties", id: :serial, force: :cascade do |t|
     t.string "key", null: false
     t.string "value", null: false
