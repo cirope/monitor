@@ -51,8 +51,14 @@ Rails.application.routes.draw do
   resources :password_resets, only: [:new, :create, :edit, :update]
   resources :pdf_templates
   resources :roles
-  resources :rules
+  resources :rules do
+    resources :issues do
+      resources :comments, only: [:create], controller: 'issues/comments'
+    end
+    resources :tickets, only: [:index]
+  end
   resources :samls
+  resources :tickets, only: [:index, :destroy]
 
   resources :accounts, except: [:destroy] do
     resources :issues, only: [:show]
@@ -66,10 +72,12 @@ Rails.application.routes.draw do
   # Dashboards
   resources :series, only: [:index, :show]
 
-  resources :issues, except: [:new, :create] do
+  resources :issues do
     scope module: 'issues' do
       resources :comments, except: [:index, :new]
     end
+    resources :scripts, only: [:new, :create, :show]
+    resources :rules, only: [:new, :create, :show]
     resources :taggings, only: [:new, :create, :destroy]
 
     get 'survey_answer'
@@ -105,11 +113,14 @@ Rails.application.routes.draw do
   end
 
   resources :scripts do
-    resources :issues,   only: [:index]
+    resources :issues do
+      resources :comments, only: [:create], controller: 'issues/comments'
+    end
     resources :versions, only: [:index, :show], controller: 'scripts/versions'
     resources :parameters, only: [:show], controller: 'scripts/parameters'
     resources :executions, only: [:index, :create, :update, :show]
     resources :reverts, only: [:create], controller: 'scripts/reverts'
+    resources :tickets, only: [:index]
 
     scope ':type', type: /execution|run/ do
       resources :measures, only: [:index], controller: 'scripts/measures'
@@ -126,7 +137,7 @@ Rails.application.routes.draw do
 
   resources :users
 
-  scope ':kind', kind: /script|user|issue/ do
+  scope ':kind', kind: /script|user|issue|ticket/ do
     resources :tags
   end
 

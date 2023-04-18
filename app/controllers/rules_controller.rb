@@ -4,6 +4,7 @@ class RulesController < ApplicationController
   include Authentication
   include Authorization
   include Rules::Filters
+  include Tickets::Scoped
 
   before_action :set_title, except: [:destroy]
   before_action :set_rule, only: [:show, :edit, :update, :destroy]
@@ -23,7 +24,7 @@ class RulesController < ApplicationController
   end
 
   def create
-    @rule = Rule.new rule_params
+    @rule = Rule.new rule_params.merge(tickets: Array(@ticket))
 
     if @rule.save
       redirect_to @rule

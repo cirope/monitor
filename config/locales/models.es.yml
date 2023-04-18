@@ -14,6 +14,9 @@ es:
       system_monitor:
         one: 'Proceso'
         other: 'Procesos'
+      ticket:
+        one: 'Pedido'
+        other: 'Pedidos'
     attributes:
       system_monitor:
         command: 'Comando'
@@ -213,6 +216,9 @@ es:
         tags: 'Etiquetas'
         created_at: 'Fecha de caso'
         state_transitions: 'Transición de estados'
+        title: 'Título'
+        owner: 'Objeto'
+        owner_type: 'Tipo'
       issue/taggings:
         tag_id: 'Etiqueta'
       job:

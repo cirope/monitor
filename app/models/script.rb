@@ -29,6 +29,7 @@ class Script < ApplicationRecord
   include Scripts::Versions
   include SearchableByName
   include Taggable
+  include Ticketable
 
   has_one_attached :attachment
 

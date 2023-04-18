@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_03_123008) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_09_112942) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -238,7 +238,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_03_123008) do
     t.string "status", null: false
     t.text "description"
     t.jsonb "data"
-    t.integer "owner_id", null: false
+    t.integer "owner_id"
     t.integer "lock_version", default: 0, null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -246,7 +246,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_03_123008) do
     t.jsonb "options"
     t.jsonb "state_transitions", default: {}
     t.text "canonical_data"
-    t.string "owner_type", default: "Run", null: false
+    t.string "owner_type"
+    t.string "title"
     t.index ["canonical_data"], name: "index_issues_on_canonical_data", opclass: :gin_trgm_ops, using: :gin
     t.index ["created_at"], name: "index_issues_on_created_at"
     t.index ["data"], name: "index_issues_on_data", using: :gin
@@ -732,7 +733,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_03_123008) do
   add_foreign_key "effects", "tags", column: "implied_id", on_update: :restrict, on_delete: :restrict
   add_foreign_key "effects", "tags", on_update: :restrict, on_delete: :restrict
   add_foreign_key "fails", "users", on_update: :restrict, on_delete: :restrict
-  add_foreign_key "issues", "runs", column: "owner_id", on_update: :restrict, on_delete: :restrict
   add_foreign_key "issues_permalinks", "issues", on_update: :restrict, on_delete: :restrict
   add_foreign_key "issues_permalinks", "permalinks", on_update: :restrict, on_delete: :restrict
   add_foreign_key "jobs", "schedules", on_update: :restrict, on_delete: :restrict

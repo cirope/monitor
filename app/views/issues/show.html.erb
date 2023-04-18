@@ -3,7 +3,7 @@
     <h5>
       <%= @issue %>
       <span class="float-end" data-status>
-        <%= render 'views/view', issue: @issue %>
+        <%= render 'views/view', issue: @issue unless @issue.ticket? %>
         <%= issue_status @issue %>
       </span>
     </h5>
@@ -15,7 +15,7 @@
       <%= @issue.description %>
     </p>
 
-    <% if (descriptions = @issue.script.descriptions.publics).any? %>
+    <% if (descriptions = @issue.descriptions.publics).any? %>
       <% descriptions.each do |description| %>
         <p class="mb-1">
           <strong><%= description.name %></strong>:
@@ -24,10 +24,12 @@
       <% end %>
     <% end %>
 
-    <p class="mb-1">
-      <strong><%= Issue.human_attribute_name 'run' %></strong>:
-      <%= link_to_if current_user.author? || current_user.supervisor?, @issue.run, @issue.run %>
-    </p>
+    <% unless @issue.ticket? %>
+      <p class="mb-1">
+        <strong><%= Issue.human_attribute_name 'run' %></strong>:
+        <%= link_to_if current_user.author? || current_user.supervisor?, @issue.run, @issue.run %>
+      </p>
+    <% end %>
 
     <ul class="list-inline" data-tagging-list>
       <% @issue.taggings.each do |tagging| %>
@@ -100,12 +102,17 @@
   </div>
 </div>
 
-<% if @permalink.blank? && current_user.can?(:edit, Issue) %>
-  <%= link_to_edit [:edit, @issue, context: @context, filter: filter_query_hash] %> |
-<% end %>
-
-<% if current_user.owner? %>
-  <%= link_to_index script_issues_path(@issue.script, filter: filter_query_hash) %>
+<% if @issue.ticket? %>
+  <%= link_to_edit [:edit, @owner, @issue, context: @context, filter: filter_query_hash] %> |
+  <%= link_to_issue_owner @issue %> |
+  <%= link_to_index [@owner, :tickets, filter: filter_query_hash] %>
 <% else %>
-  <%= link_to_index issue_index_path(filter: filter_query_hash) %>
+  <% if @permalink.blank? && current_user.can?(:edit, Issue) %>
+    <%= link_to_edit [:edit, @issue, context: @context, filter: filter_query_hash] %> |
+  <% end %>
+  <% if current_user.owner? %>
+    <%= link_to_index script_issues_path(@issue.script, filter: filter_query_hash) %>
+  <% else %>
+    <%= link_to_index issue_index_path(filter: filter_query_hash) %>
+  <% end %>
 <% end %>
