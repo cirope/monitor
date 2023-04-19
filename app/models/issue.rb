@@ -17,6 +17,7 @@ class Issue < ApplicationRecord
   include Issues::Reminders
   include Issues::Scopes
   include Issues::Status
+  include Issues::Survey
   include Issues::Subscriptions
   include Issues::StateTransitions
   include Issues::Tickets

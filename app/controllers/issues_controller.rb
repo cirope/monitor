@@ -78,8 +78,34 @@ class IssuesController < ApplicationController
     @token = command_token.success? ? command_token.result : command_token.errors
 
     @url = api_v1_script_issues_url params[:script_id],
-                                    host: ENV['APP_HOST'], 
+                                    host: ENV['APP_HOST'],
                                     protocol: ENV['APP_PROTOCOL']
+  end
+
+  def survey_answer
+    survey = Survey.find_by! issue_id: params[:issue_id]
+
+    if survey.can_create_survey_answer?
+      @survey_answer = survey.create_survey_answer
+    else
+      redirect_to issue_path(survey.issue)
+    end
+  end
+
+  def create_survey_answer
+    @survey_answer      = SurveyAnswer.new survey_answer_params
+    @survey_answer.user = current_user
+
+    if @survey_answer.save
+      redirect_to issue_path(@survey_answer.survey.issue),
+                  notice: t('.create_survey_answer', scope: :flash)
+    else
+      render :survey_answer
+    end
+  end
+
+  def survey_results
+    @survey = Survey.find_by! issue_id: params[:issue_id]
   end
 
   private
@@ -160,6 +186,14 @@ class IssuesController < ApplicationController
       issues.left_joins(:tags).merge(Tag.final final).or(
         issues.left_joins(:tags).where tags: { id: nil }
       )
+    end
+
+    def survey_answer_params
+      params.require(:survey_answer)
+            .permit :survey_id, answers_attributes: [
+              :id, :type, :response_text, :drop_down_option_id,
+              :question_id
+            ]
     end
 
     def set_title

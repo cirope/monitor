@@ -314,7 +314,59 @@ class IssuesControllerTest < ActionController::TestCase
 
     @controller.params = ActionController::Parameters.new({ filter: params_hash })
 
-    assert_equal ActionController::Parameters.new(params_hash).permit(Issues::Filters::PERMITED_FILTER_PARAMS), 
+    assert_equal ActionController::Parameters.new(params_hash).permit(Issues::Filters::PERMITED_FILTER_PARAMS),
                  @controller.send(:filter_params)
+  end
+
+  test 'should return survey answer' do
+    get :survey_answer, params: { issue_id: @issue.id }
+
+    assert_response :success
+  end
+
+  test 'should redirect to issue because survey pre controls fail' do
+    @issue.survey.pre_controls << PreControl.new(callback: "raise 'this is an error'")
+
+    assert_difference 'ControlOutput.count', 2 do
+      get :survey_answer, params: { issue_id: @issue.id }
+    end
+
+    assert_response :redirect
+    assert_redirected_to issue_path(@issue)
+  end
+
+  test 'should create survey answer' do
+    survey = surveys(:survey_for_ls_on_atahualpa_not_well)
+
+    assert_difference ['SurveyAnswer.count', 'TextAnswer.count', 'DropDownAnswer.count'], 1 do
+      assert_difference 'ControlOutput.count', 3 do
+        post :create_survey_answer, params: {
+          issue_id: @issue.id,
+          survey_answer: {
+            survey_id: survey.id,
+            answers_attributes: [
+              {
+                question_id: questions(:text_question_survey_for_ls_on_atahualpa_not_well).id,
+                response_text: 'Text answer',
+                type: 'TextAnswer'
+              },
+              {
+                question_id: questions(:drop_down_question_survey_for_ls_on_atahualpa_not_well).id,
+                drop_down_option_id: drop_down_options(:first_drop_down_option_drop_down_question).id,
+                type: 'DropDownAnswer'
+              }
+            ]
+          }
+        }
+      end
+    end
+
+    assert_redirected_to issue_path(survey.issue)
+  end
+
+  test 'should return results survey' do
+    get :survey_results, params: { issue_id: @issue.id }
+
+    assert_response :success
   end
 end

@@ -79,6 +79,10 @@ Rails.application.routes.draw do
     resources :scripts, only: [:new, :create, :show]
     resources :rules, only: [:new, :create, :show]
     resources :taggings, only: [:new, :create, :destroy]
+
+    get 'survey_answer'
+    post 'create_survey_answer'
+    get 'survey_results'
   end
 
   resources :memberships, only: [:index, :update] do

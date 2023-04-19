@@ -1,0 +1,23 @@
+first_text_answer:
+  type: 'TextAnswer'
+  survey_answer: first_survey_answer
+  question: text_question_survey_for_ls_on_atahualpa_not_well
+  response_text: 'First response text'
+
+first_drop_down_answer:
+  type: 'DropDownAnswer'
+  survey_answer: first_survey_answer
+  question: drop_down_question_survey_for_ls_on_atahualpa_not_well
+  drop_down_option: first_drop_down_option_drop_down_question
+
+second_text_answer:
+  type: 'TextAnswer'
+  survey_answer: second_survey_answer
+  question: text_question_survey_for_ls_on_atahualpa_not_well
+  response_text: 'Second response text'
+
+second_drop_down_answer:
+  type: 'DropDownAnswer'
+  survey_answer: second_survey_answer
+  question: drop_down_question_survey_for_ls_on_atahualpa_not_well
+  drop_down_option: second_drop_down_option_drop_down_question

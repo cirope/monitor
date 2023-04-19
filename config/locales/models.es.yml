@@ -136,6 +136,8 @@ es:
       server:
         one: 'Servidor'
         other: 'Servidores'
+      survey_answer:
+        one: 'Respuesta'
       tag:
         one: 'Etiqueta'
         other: 'Etiquetas'
@@ -401,6 +403,10 @@ es:
               globally_taken: 'ya está en uso en otra cuenta'
             base:
               licensed_user_limit: 'Limite de usuarios alcanzado, por favor actualice su licencia.'
+        survey_answer:
+          attributes:
+            base:
+              invalid_pre_controls: 'No se puede crear una respuesta a la encuesta debido a que los pre controles levantaron una excepcion'
 
   errors:
     messages:

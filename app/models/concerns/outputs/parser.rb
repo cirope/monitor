@@ -79,30 +79,45 @@ module Outputs::Parser
     end
 
     def original_script_from_error_line line_number, error
+      script_tmp = parsed_text = nil
+
       @parsed_body ||= script.body(false, server).split "\n"
 
-      n           = line_number
-      delta       = 0
-      script_uuid = nil
+      line_with_error = @parsed_body[line_number]&.strip
 
-      until n.zero?
-        n = n.pred
+      @parsed_body.each do |line|
+        step, script_uuid = line.match(/ (\w+) (#{UUID_REGEX}) /i)&.captures
 
-        script_uuid = @parsed_body[n]&.match(/ (#{UUID_REGEX}) /)&.captures&.first
-
-        if script_uuid
-          delta = n
-          n = 0
+        if step && script_uuid
+          case step.downcase
+          when 'begin'
+            if script_tmp = Script.find_by(uuid: script_uuid)
+              parsed_text = script_tmp.text.split("\n").map &:strip
+            end
+          when 'end'
+            script_tmp = parsed_text = nil
+          end
+        elsif script_tmp && parsed_text
+          if line_index = parsed_text.index(line_with_error)
+             return [
+                script_tmp.uuid,
+                {
+                  error: [line_with_error, error].join(' =>  '),
+                  line:  line_index + 1
+                }
+              ]
+          end
         end
       end
+    end
 
-      [
-        script_uuid,
-        {
-          error: [@parsed_body[line_number]&.strip, error].join(' =>  '),
-          line:  (line_number - delta - 1)
-        }
-      ] if script_uuid.present?
+    def line_with_error_in language
+      case language
+      when 'ruby'
+        /#{script.uuid}#{Regexp.escape script.extension}:(\d+):in(.*)/
+      when 'python'
+        /#{script.uuid}#{script.extension}", line (\d+), in(.*)/
+      end
     end
 
     def line_with_error_in language
