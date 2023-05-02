@@ -4,13 +4,14 @@ class IssuesController < ApplicationController
   include Authentication
   include Authorization
   include Issues::Filters
+  include Issues::Owner
 
-  before_action :set_title, except: [:destroy]
   before_action :set_account, only: [:show, :index]
   before_action :set_script, only: [:index]
   before_action :set_permalink, only: [:show]
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
   before_action :set_context, only: [:show, :edit, :update]
+  before_action :set_title, except: [:destroy]
   before_action -> { request.variant = :graph if params[:graph].present? }
 
   def index
@@ -34,21 +35,41 @@ class IssuesController < ApplicationController
     @comment = @issue.comments.new
   end
 
+  def new
+    @issue = Issue.new
+  end
+
   def edit
+  end
+
+  def create
+    @issue       = Issue.new issue_params
+    @issue.owner = @owner if @owner
+
+    if @issue.save
+      redirect_to [@owner, @issue, context: @context, filter: params[:filter]&.to_unsafe_h]
+    else
+      render 'new', status: :unprocessable_entity
+    end
   end
 
   def update
     if @issue.update issue_params
-      redirect_to issue_url(@issue, context: @context, filter: params[:filter]&.to_unsafe_h)
+      redirect_to [@owner, @issue, context: @context, filter: params[:filter]&.to_unsafe_h]
     else
       render 'edit', status: :unprocessable_entity
     end
   end
 
   def destroy
+    script        = @issue.script
+    filter_params = { filter: params[:filter]&.to_unsafe_h }
+
     @issue.destroy
 
-    redirect_to script_issues_url(@issue.script, filter: params[:filter]&.to_unsafe_h)
+    redirect_to @issue.ticket? ?
+      [@owner, :tickets, filter_params] :
+      script_issues_url(script, filter_params)
   end
 
   def api_issues
@@ -139,5 +160,13 @@ class IssuesController < ApplicationController
       issues.left_joins(:tags).merge(Tag.final final).or(
         issues.left_joins(:tags).where tags: { id: nil }
       )
+    end
+
+    def set_title
+      unless request_js?
+        model = @issue&.ticket? ? 'tickets' : 'issues'
+
+        @title = t [model, action_aliases[action_name] || action_name, 'title'].join '.'
+      end
     end
 end
