@@ -4,6 +4,8 @@ class SessionsController < ApplicationController
   include Authentication
   include Sessions
 
+  layout :set_layout
+
   before_action :authenticate, only: [:destroy]
   before_action :set_title, except: [:destroy]
 
@@ -47,4 +49,10 @@ class SessionsController < ApplicationController
 
     redirect_to root_url, notice: t('.logged_out', scope: :flash)
   end
+
+  private
+
+    def set_layout
+      ['new', 'create'].include?(action_name) ? 'public' : 'application'
+    end
 end
