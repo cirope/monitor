@@ -55,8 +55,6 @@ end
 gem 'unicorn'
 gem 'unicorn-rails'
 
-gem 'newrelic_rpm'
-
 gem 'capistrano'
 gem 'capistrano-rbenv'
 gem 'capistrano-bundler'
