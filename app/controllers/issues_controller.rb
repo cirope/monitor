@@ -82,6 +82,19 @@ class IssuesController < ApplicationController
                                     protocol: ENV['APP_PROTOCOL']
   end
 
+  def tableau_api_issues
+    command_token = Api::V1::AuthenticateUser.call Current.user, Current.account
+
+    @token = command_token.success? ? command_token.result : command_token.errors
+
+    @url = api_v1_tableau_script_issues_url params[:script_id],
+                                            token: @token,
+                                            host: ENV['APP_HOST'],
+                                            protocol: ENV['APP_PROTOCOL']
+
+    render 'api_issues'
+  end
+
   private
 
     def return_data_keys params, issues

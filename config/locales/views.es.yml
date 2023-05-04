@@ -177,6 +177,12 @@ es:
       copy_url: 'Copiar URL'
       copy_header: 'Copiar encabezado'
       copy_token: 'Copiar Token'
+    tableau_api_issues:
+      link: 'Enlace'
+      url: 'URL'
+      copy_url: 'Copiar URL'
+      copy_header: 'Copiar encabezado'
+      copy_token: 'Copiar Token'
     board:
       form:
         group_comments_email: 'Agrupar correo'
@@ -233,6 +239,7 @@ es:
       actions: 'Acciones'
       api_issues: 'Enlace para obtener datos'
       download_csv: 'Descargar CSV'
+      tableau_api_issues: 'Enlace para tableau'
     issue:
       add_to_board: 'Agregar al carrito'
       remove_from_board: 'Eliminar del carrito'

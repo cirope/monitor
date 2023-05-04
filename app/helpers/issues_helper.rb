@@ -191,6 +191,21 @@ module IssuesHelper
     end
   end
 
+  def link_to_tableau_api_issues script_id
+    options = {
+      class: 'dropdown-item',
+      data:  {
+        remote: true,
+        method: :post,
+        toggle: :dropdown
+      }
+    }
+
+    link_to script_tableau_api_issues_path(script_id: script_id), options do
+      t 'issues.index_alt.tableau_api_issues'
+    end
+  end
+
   def link_to_download_issues_csv
     url_options = {
       filter: filter_query_hash.except(:status, :key),

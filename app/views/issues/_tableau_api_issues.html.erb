@@ -1,0 +1,20 @@
+<div class="card border border-success my-3">
+  <div class="card-header">
+    <h5><%= t '.link' %></h5>
+  </div>
+
+  <div class="card-body">
+    <p class="mb-1">
+      <strong><%= t '.url' %></strong>
+      <span class="d-block" data-api-url><%= @url %></span>
+    </p>
+  </div>
+
+  <div class="card-footer">
+    <div class="btn-group">
+      <button type="button" class="btn btn-outline-secondary" data-copy-target="[data-api-url]" disabled>
+        <%= t '.copy_url' %>
+      </button>
+    </div>
+  </div>
+</div>

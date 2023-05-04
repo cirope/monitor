@@ -41,7 +41,8 @@ Rails.application.routes.draw do
   post   'issues/exports',           to: 'issues/exports#create'
 
   # Get Api script/issues
-  post   'script/api_issues',        to: 'issues#api_issues'
+  post   'script/api_issues',         to: 'issues#api_issues'
+  post   'script/tableau_api_issues', to: 'issues#tableau_api_issues'
 
   # Resources
   resources :databases
@@ -153,6 +154,12 @@ Rails.application.routes.draw do
 
       namespace :scripts do
         get 'issues_by_status', to: 'issues_by_status#index'
+      end
+
+      namespace :tableau do
+        resources :scripts, only: [] do
+          get 'issues', to: 'scripts/issues#index'
+        end
       end
     end
   end
