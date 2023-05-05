@@ -5,6 +5,7 @@ gem 'ruby-odbc', require: false
 gem 'dbf', require: false
 gem 'roo', require: false
 gem 'roo-xls', require: false
+gem 'rbase-ff', require: false
 
 unless ENV['TRAVIS']
   # Oracle ActiveRecord adapter
