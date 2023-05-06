@@ -231,7 +231,7 @@ GEM
       hashery (~> 2.0)
       ruby-rc4
       ttfunk
-    pg (1.5.3)
+    pg (1.4.6)
     popper_js (2.11.7)
     prawn (2.4.0)
       pdf-core (~> 0.9.0)
@@ -425,7 +425,7 @@ DEPENDENCIES
   oauth2
   paper_trail
   pdf-reader
-  pg
+  pg (< 1.5)
   prawn
   prawn-table
   premailer-rails
