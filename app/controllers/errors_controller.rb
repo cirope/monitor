@@ -1,9 +1,5 @@
 class ErrorsController < ApplicationController
-  before_action do
-    response.set_header(
-      'Content-Security-Policy', "default-src 'self'; font-src 'self' data:; img-src 'self' data:; object-src 'none'; script-src 'self'; style-src 'self'; frame-ancestors 'self'; form-action 'self';"
-    )
-  end
+  before_action :set_csp_header
 
   def not_found
     respond_to do |format|
@@ -28,4 +24,12 @@ class ErrorsController < ApplicationController
       }
     end
   end
+
+  private
+
+    def set_csp_header
+      response.set_header(
+        'Content-Security-Policy', "default-src 'self'; font-src 'self' data:; img-src 'self' data:; object-src 'none'; script-src 'self'; style-src 'self'; frame-ancestors 'self'; form-action 'self';"
+      )
+    end
 end

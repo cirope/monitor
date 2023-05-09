@@ -3,6 +3,7 @@
 class HomeController < ApplicationController
   include Authentication
   include Issues::Filters
+  include CspHeaders::ScriptSrc
 
   before_action :set_title
 

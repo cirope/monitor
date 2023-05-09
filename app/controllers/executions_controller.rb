@@ -3,6 +3,7 @@
 class ExecutionsController < ApplicationController
   include Authentication
   include Authorization
+  include CspHeaders::ScriptSrc
 
   before_action :set_script
   before_action :set_server, only: [:create]
