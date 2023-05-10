@@ -133,7 +133,8 @@
 # If you have configured the serializer elsewhere, you can remove this section of the file.
 #
 # See https://guides.rubyonrails.org/action_controller_overview.html#cookies for more information.
-Rails.application.config.ssl_options = {
-  hsts:     false,
-  redirect: { exclude: -> request { /healthy/.match? request.path } }
-}
+
+#Rails.application.config.ssl_options = {
+#  hsts:     false,
+#  redirect: { exclude: -> request { /healthy/.match? request.path } }
+#}
