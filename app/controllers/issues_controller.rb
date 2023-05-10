@@ -6,6 +6,8 @@ class IssuesController < ApplicationController
   include Issues::Filters
   include Issues::Owner
 
+  content_security_policy false
+
   before_action :set_account, only: [:show, :index]
   before_action :set_script, only: [:index]
   before_action :set_permalink, only: [:show]

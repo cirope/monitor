@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  match '/404', to: 'errors#not_found',            via: :all
+  match '/422', to: 'errors#unprocessable_entity', via: :all
+  match '/500', to: 'errors#internal_error',       via: :all
+
   # Home
   get 'home',                      to: 'home#index', as: 'home'
   get 'home/api_issues_by_status', to: 'home#api_issues_by_status'

@@ -4,6 +4,8 @@ class HomeController < ApplicationController
   include Authentication
   include Issues::Filters
 
+  content_security_policy false
+
   before_action :set_title
 
   PERMITED_FILTER_PARAMS = [

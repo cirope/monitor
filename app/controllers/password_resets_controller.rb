@@ -5,6 +5,8 @@ class PasswordResetsController < ApplicationController
   before_action :set_account, only: [:edit]
   before_action :set_user, only: [:edit, :update]
 
+  layout 'public'
+
   def new
   end
 

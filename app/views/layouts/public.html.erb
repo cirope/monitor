@@ -10,34 +10,21 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
-  <%= stylesheet_link_tag 'application', data: { turbo_track: 'reload' }, media: 'all' %>
-  <%= javascript_importmap_tags %>
-  <%= csrf_meta_tags %>
+  <%= stylesheet_link_tag 'public', data: { turbo_track: 'reload' }, media: 'all' %>
+
   <%= favicon_link_tag 'favicon.png', rel: 'icon', type: 'image/png' %>
 </head>
-<body>
+<body class="authentication-bg">
   <div class="alert alert-primary fixed-top mx-auto mt-1 text-center border-0 p-2 loading-caption" hidden>
     <p class="mb-0">
       <strong><%= t 'navigation.loading' %></strong>
     </p>
   </div>
 
-  <div class="wrapper">
-    <%= render 'shared/left_menu' %>
+  <div class="container-fluid mt-2 mt-md-3">
+    <%= render 'shared/flash' if flash_message %>
 
-    <div class="content-page">
-      <div class="content">
-        <%= render 'shared/menu' %>
-
-        <div class="container-fluid mt-3">
-          <%= render 'shared/flash' if flash_message %>
-
-          <%= yield %>
-        </div>
-
-        <%= render 'shared/help_modal' %>
-      </div>
-    </div>
+    <%= yield %>
   </div>
 </body>
 </html>
