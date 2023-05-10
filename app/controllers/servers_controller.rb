@@ -5,6 +5,8 @@ class ServersController < ApplicationController
   include Authorization
   include Servers::Filters
 
+  content_security_policy false
+
   before_action :set_title, except: [:destroy]
   before_action :set_server, only: [:show, :edit, :update, :destroy]
 

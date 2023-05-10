@@ -471,7 +471,7 @@ es:
       require: 'Agregar inclusión'
       tagging: 'Agregar etiqueta'
       parameter: 'Agregar parámetro'
-      description: 'Agregar descripción'
+      description: 'Agregar atributo'
     show:
       title: 'Ver guión'
       history: 'Ver historial de cambios'
