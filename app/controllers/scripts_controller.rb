@@ -6,6 +6,8 @@ class ScriptsController < ApplicationController
   include Scripts::Filters
   include Tickets::Scoped
 
+  content_security_policy false
+
   before_action :set_title, except: [:destroy]
   before_action :set_script, only: [:show, :edit, :update, :destroy]
   before_action :set_server, only: [:show]

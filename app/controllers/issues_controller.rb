@@ -5,7 +5,8 @@ class IssuesController < ApplicationController
   include Authorization
   include Issues::Filters
   include Issues::Owner
-  include CspHeaders::ScriptSrc
+
+  content_security_policy false
 
   before_action :set_account, only: [:show, :index]
   before_action :set_script, only: [:index]
