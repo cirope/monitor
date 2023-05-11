@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class RolesController < ApplicationController
+  include Authentication
   include Authorization
 
   before_action :set_role, only: [:show, :edit, :update, :destroy]
@@ -58,8 +59,8 @@ class RolesController < ApplicationController
     end
 
     def role_params
-      params.require(:role).permit :name, :description, :type, :lock_version,
-        permissions_attributes: [
+      params.require(:role).permit :name, :description, :type, :identifier,
+        :lock_version, permissions_attributes: [
           :id, :section, :read, :edit, :remove, :_destroy
         ]
     end

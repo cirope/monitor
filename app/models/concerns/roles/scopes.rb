@@ -3,6 +3,7 @@ module Roles::Scopes
 
   included do
     scope :ordered, -> { order "#{table_name}.name ASC" }
+    scope :with_identifer, -> { where.not identifier: nil }
   end
 
   def permissions_for section

@@ -345,7 +345,7 @@ class IssueTest < ActiveSupport::TestCase
 
     csv = CSV.parse csv_report[3..-1], col_sep: ';', force_quotes: true, headers: true
 
-    assert_equal csv.size, Issue.all.count
+    assert_equal csv.size, Issue.issues.count
 
     FileUtils.rm_f path
   end

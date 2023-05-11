@@ -206,6 +206,32 @@ class IssuesHelperTest < ActionView::TestCase
     assert_equal expected_hash, filter_original_query_hash
   end
 
+  test 'show owner label' do
+    ticket = issues :ticket_script
+    label  = show_owner_label ticket
+
+    assert_match ticket.to_s, label
+  end
+
+  test 'link to issue owner' do
+    ticket = issues :ticket_script
+    link   = link_to_issue_owner ticket
+
+    assert_match issue_script_path(ticket, ticket.owner), link
+
+    ticket = issues :ticket_without_owner
+    link   = link_to_issue_owner ticket
+
+    assert_match new_issue_script_path(ticket), link
+  end
+
+  test 'submit issue label' do
+    @issue = issues :ticket_script
+    label  = submit_issue_label
+
+    assert_equal I18n.t('helpers.submit.update', model: Ticket.model_name.human(count: 1)), label
+  end
+
   private
 
     def board_session

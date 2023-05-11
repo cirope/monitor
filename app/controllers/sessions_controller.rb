@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
 class SessionsController < ApplicationController
+  include Authentication
   include Sessions
 
-  before_action :authorize, only: :destroy
+  layout :set_layout
+
+  before_action :authenticate, only: [:destroy]
   before_action :set_title, except: [:destroy]
 
   def new
@@ -46,4 +49,10 @@ class SessionsController < ApplicationController
 
     redirect_to root_url, notice: t('.logged_out', scope: :flash)
   end
+
+  private
+
+    def set_layout
+      ['new', 'create'].include?(action_name) ? 'public' : 'application'
+    end
 end

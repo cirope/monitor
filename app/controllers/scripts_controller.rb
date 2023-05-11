@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
 class ScriptsController < ApplicationController
+  include Authentication
   include Authorization
   include Scripts::Filters
+  include Tickets::Scoped
+
+  content_security_policy false
 
   before_action :set_title, except: [:destroy]
   before_action :set_script, only: [:show, :edit, :update, :destroy]
@@ -28,7 +32,7 @@ class ScriptsController < ApplicationController
   end
 
   def create
-    @script = Script.new script_params
+    @script = Script.new script_params.merge(tickets: Array(@ticket))
 
     if @script.save
       redirect_to @script
@@ -66,7 +70,7 @@ class ScriptsController < ApplicationController
         :language, :database_id, :lock_version,
         libraries_attributes: [:id, :name, :options, :_destroy],
         maintainers_attributes: [:id, :user_id, :_destroy],
-        descriptions_attributes: [:id, :name, :value, :_destroy],
+        descriptions_attributes: [:id, :name, :value, :public, :_destroy],
         parameters_attributes: [:id, :name, :value, :_destroy],
         requires_attributes: [:id, :script_id, :_destroy],
         taggings_attributes: [:id, :tag_id, :_destroy]

@@ -13,15 +13,11 @@ module Users::Roles
 
   def can? action, controller_path
     if action
-      controller = controller_path.to_s.split('/').map &:classify
+      sections = controller_path.to_s.split('/').map &:classify
+      section  = set_section sections
+      action   = 'read' if sections.length > 1
 
-      if Permission.system.include? controller.first
-        true
-      else
-        section = set_section controller
-
-        set_permissions.detect { |per| per.section == section }&.send action
-      end
+      set_permissions.detect { |per| per.section == section }&.send action
     end
   end
 

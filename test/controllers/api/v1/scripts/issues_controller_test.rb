@@ -15,18 +15,15 @@ class Api::V1::Scripts::IssuesControllerTest < ActionController::TestCase
     exp = 1.month.from_now
 
     @token_with_user_view_all_issues    = Api::V1::AuthenticateUser.new(@user_view_all_issues,
-                                                                        @account,
-                                                                        exp)
+                                                                        @account)
                                                                    .call
                                                                    .result
     @token_with_user_view_filter_issues = Api::V1::AuthenticateUser.new(@user_view_filter_issues,
-                                                                        @account,
-                                                                        exp)
+                                                                        @account)
                                                                    .call
                                                                    .result
     @token_with_user_without_issues     = Api::V1::AuthenticateUser.new(@user_without_issues,
-                                                                        @account,
-                                                                        exp)
+                                                                        @account)
                                                                    .call
                                                                    .result
   end

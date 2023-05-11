@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class DatabasesController < ApplicationController
+  include Authentication
   include Authorization
   include Databases::Filters
 

@@ -1,10 +1,10 @@
 <div class="card my-3">
   <div class="card-header">
-    <h5><%= version_change_for @version %></h5>
+    <h5><%= version_change_for @version, 'change' %></h5>
   </div>
 
   <div class="card-body">
-    <%= text_diff_for_version %>
+    <%= text_diff_for_version @version %>
   </div>
 </div>
 

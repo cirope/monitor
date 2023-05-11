@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class AccountsController < ApplicationController
+  include Authentication
   include Authorization
   include Accounts::Filters
 
@@ -58,7 +59,7 @@ class AccountsController < ApplicationController
 
     def account_params
       params.require(:account).permit :name, :tenant_name,
-        :group_issues_by_schedule, :lock_version
+        :group_issues_by_schedule, :token_interval, :token_frequency, :lock_version
     end
 
     def from_default_account

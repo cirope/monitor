@@ -7,7 +7,8 @@ module Tags::Options
     options = {
       issue:  { final: :boolean, group: :boolean, category: :boolean },
       script: { export: :boolean, editable: :boolean },
-      user:   { recovery: :boolean }
+      user:   { recovery: :boolean },
+      ticket: { final: :boolean},
     }
 
     options[kind.to_sym]

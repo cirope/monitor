@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="<%= locale %>">
+<head>
+  <meta charset="utf-8">
+  <title><%= title %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="turbo-cache-control" content="no-cache">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag 'public', data: { turbo_track: 'reload' }, media: 'all' %>
+
+  <%= favicon_link_tag 'favicon.png', rel: 'icon', type: 'image/png' %>
+</head>
+<body class="authentication-bg">
+  <div class="alert alert-primary fixed-top mx-auto mt-1 text-center border-0 p-2 loading-caption" hidden>
+    <p class="mb-0">
+      <strong><%= t 'navigation.loading' %></strong>
+    </p>
+  </div>
+
+  <div class="container-fluid mt-2 mt-md-3">
+    <%= render 'shared/flash' if flash_message %>
+
+    <%= yield %>
+  </div>
+</body>
+</html>

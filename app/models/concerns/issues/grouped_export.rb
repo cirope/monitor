@@ -41,7 +41,7 @@ module Issues::GroupedExport
         scripts_with_issues = {}
         select_columns      = ["#{Issue.table_name}.id", "#{Job.table_name}.script_id"]
 
-        all.joins(run: :job).pluck(*select_columns).each do |issue_id, script_id|
+        Issue.issues.joins(run: :job).pluck(*select_columns).each do |issue_id, script_id|
           scripts_with_issues[script_id] ||= []
           scripts_with_issues[script_id] << issue_id
         end

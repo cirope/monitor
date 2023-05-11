@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class LdapsController < ApplicationController
+  include Authentication
   include Authorization
 
   before_action :set_title, except: [:destroy]

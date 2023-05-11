@@ -1,0 +1,130 @@
+<div class="card mb-3">
+  <div class="card-header">
+    <% if filters? %>
+      <p class="text-warning mb-0 float-end">
+        <%= icon 'fas', 'filter' %>
+        <%= link_to tickets_path(filter: filter_original_query_hash), title: t('cancel') do %>
+          <%= icon 'fas', 'times-circle' %>
+        <% end %>
+      </p>
+    <% end %>
+
+    <a class="dropdown-toggle text-reset text-decoration-none d-block" href="#filters" data-bs-toggle="collapse">
+      <%= icon 'fas', 'search' %>
+      <%= t 'filters.title' %>
+    </a>
+  </div>
+  <div id="filters" class="card-body collapse">
+    <%= simple_form_for :filter, method: :get do |f| %>
+      <fieldset>
+        <div class="row">
+          <div class="col-lg-4">
+            <%= f.input :title,
+              required: false,
+              input_html: {
+                value:     filter_params[:title],
+                class:     'form-control-sm',
+                autofocus: true
+              }
+            %>
+          </div>
+          <div class="col-lg-4">
+            <%= f.input :created_at, as: :date_picker, required: false,
+              input_html: {
+                value: filter_params[:created_at],
+                class: 'form-control-sm',
+                data:  { date_range: true }
+              }
+            %>
+          </div>
+          <div class="col-lg-4">
+            <%= f.input :status, required: false,
+              collection: filter_status,
+              include_blank: '-',
+              selected: filter_params[:status],
+              input_html: {
+                class: 'form-control-sm'
+              }
+            %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4">
+            <%= f.input :user,
+              required: false, as: :autocomplete, url: users_path,
+              hidden_input_html: {
+                value: filter_params[:user_id]
+              },
+              input_html: {
+                value: filter_params[:user],
+                class: 'form-control-sm',
+                data:  { empty_result_label: t('filters.users.empty') }
+              }
+            %>
+          </div>
+          <div class="col-lg-4">
+            <%= f.input :tags,
+              required: false, as: :autocomplete, url: tags_path(kind: 'ticket'),
+              input_html: {
+                value: filter_params[:tags],
+                class: 'form-control-sm',
+                data:  { empty_result_label: t('filters.tags.empty') }
+              }
+            %>
+          </div>
+          <div class="col-lg-4">
+            <%= f.input :comment,
+              required: false,
+              input_html: {
+                value: filter_params[:comment],
+                class: 'form-control-sm'
+              }
+            %>
+          </div>
+        </div>
+
+        <%= f.input :original_filter, as: :hidden,
+          input_html: {
+            value: (params[:filter] && params[:filter][:original_filter]) || filter_query_hash.to_json
+          }
+        %>
+
+        <% if @data_keys.present? %>
+          <%= f.simple_fields_for :canonical_data do |p| %>
+            <%= p.input :keys_ordered, as: :hidden, input_html: { :value => @data_keys.to_json } %>
+            <% @data_keys.each_with_index do |key, index| %>
+              <% if start_row_in_data_filter(index) %>
+                <div class="row">
+              <% end %>
+                  <div class="col-lg-4">
+                    <%= p.input key.to_sym,
+                          required: false,
+                          input_html: {
+                            value:     (filter_params[:canonical_data].present? ? filter_params[:canonical_data][key.to_sym] : nil),
+                            class:     'form-control-sm',
+                            autofocus: true
+                          }
+                    %>
+                  </div>
+              <% if end_row_in_data_filter(index) %>
+                </div>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+
+        <div class="row">
+          <div class="col-lg-4 offset-lg-8">
+            <div class="form-actions">
+              <p class="text-end mb-0">
+                <%= f.button :submit, t('filters.submit'), class: 'btn-sm btn-secondary' %>
+                <%= link_to t('cancel'), tickets_path(filter: filter_original_query_hash), class: 'small' %>
+              </p>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    <% end %>
+  </div>
+</div>

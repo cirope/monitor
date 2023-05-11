@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Issues::BoardController < ApplicationController
+  include Authentication
   include Authorization
   include Issues::Filters
 

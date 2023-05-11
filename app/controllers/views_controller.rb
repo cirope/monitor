@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 class ViewsController < ApplicationController
-  include Authorization
-
-  before_action :authorize, except: [:create]
+  include Authentication
 
   # * POST /views
   def create

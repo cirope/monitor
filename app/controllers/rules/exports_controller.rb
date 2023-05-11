@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Rules::ExportsController < ApplicationController
+  include Authentication
   include Authorization
 
   def create

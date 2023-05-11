@@ -5,7 +5,8 @@ module Permissions::Sections
     MENU = {
       main: [
         { item: 'Issue',    controllers: ['Board', 'Comment', 'Permalink', 'Tagging', 'Export', 'View'] },
-        { item: 'Script',   controllers: ['Execution', 'Measure', 'Version', 'Revert', 'Import', 'Export'] },
+        { item: 'Ticket' },
+        { item: 'Script',   controllers: ['Execution', 'Measure', 'Version', 'Revert', 'Import', 'Export', 'Parameter'] },
         { item: 'Schedule', controllers: ['Run'] },
         { item: 'Rule',     controllers: ['Import', 'Export'] },
       ],
@@ -25,15 +26,6 @@ module Permissions::Sections
         { item: 'Console'       },
         { item: 'SystemMonitor' },
       ],
-      system: [
-        { item: 'Membership', controllers: ['Switch'] },
-        { item: 'Authentication' },
-        { item: 'Home' },
-        { item: 'PasswordReset' },
-        { item: 'Profile' },
-        { item: 'Session' },
-        { item: 'Series' },
-      ]
     }
   end
 
@@ -48,10 +40,6 @@ module Permissions::Sections
 
     def config
       menu :config
-    end
-
-    def system
-      menu :system
     end
 
     def menu section

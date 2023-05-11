@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class DrivesController < ApplicationController
+  include Authentication
   include Authorization
 
   before_action :set_title, except: [:destroy]
@@ -68,6 +69,6 @@ class DrivesController < ApplicationController
 
     def drive_params
       params.require(:drive).permit :name, :provider, :client_id,
-        :client_secret, :root_folder_id
+        :client_secret, :root_folder_id, :tenant_id
     end
 end

@@ -38,12 +38,6 @@ class ApplicationControllerTest < ActionController::TestCase
     assert_not_nil current_user
   end
 
-  test 'should redirect when there is no current user' do
-    authorize
-
-    assert_redirected_to login_url
-  end
-
   test 'should update user' do
     user = users :franco
 
@@ -85,10 +79,6 @@ class ApplicationControllerTest < ActionController::TestCase
 
     def current_user
       @controller.send :current_user
-    end
-
-    def authorize
-      @controller.send :authorize
     end
 
     def update_resource *args

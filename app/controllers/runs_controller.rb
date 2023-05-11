@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 class RunsController < ApplicationController
+  include Authentication
   include Authorization
   include Runs::Filters
+
+  content_security_policy false
 
   before_action :set_title, except: [:destroy]
   before_action :set_schedule, only: [:index]

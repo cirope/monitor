@@ -2,6 +2,13 @@
   <div class="card-header">
     <h5><%= @descriptor %></h5>
   </div>
+
+  <div class="card-body">
+    <p class="mb-1">
+      <strong><%= Descriptor.human_attribute_name 'public' %></strong>:
+      <%= show_boolean_badge @descriptor.public %>
+    </p>
+  </div>
 </div>
 
 <%= link_to_edit [:edit, @descriptor] %> |

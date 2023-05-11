@@ -8,7 +8,8 @@ namespace :db do
       generate_state_transitions # 2021-10-29
       set_issue_canonical_data   # 2022-02-01
       encrypt_property_passwords # 2022-05-27
-      roles_migration            # 2023-18-01
+      roles_migration            # 2023-01-18
+      add_tickets_to_roles       # 2023-04-18
     end
   end
 end
@@ -125,22 +126,46 @@ private
   end
 
   def roles_migration
+    PaperTrail.enabled = false
+
     Account.on_each do
       unless Role.exists?
-        ldap = Ldap.default
-        saml = Saml.default
+        service = Ldap.default || Saml.default
 
         ROLES.each do |old_role, params|
-          role_name = begin
-            ldap.options[old_role.to_s] || saml.options[old_role.to_s]
-          rescue
-            params[:name]
-          end
+          options    = { type: old_role }
+          identifier = service.options[old_role.to_s] if service
 
-          if role = Role.create(params.merge(type: old_role, name: role_name))
+          options.merge!(identifier: identifier) if identifier.present?
+
+          if (role = Role.create(params.merge(options))).persisted?
             User.where(old_role: old_role).update_all role_id: role.id
           end
         end
       end
     end
+  ensure
+    PaperTrail.enabled = true
+  end
+
+  def add_tickets_to_roles
+    PaperTrail.enabled = false
+
+    Account.on_each do
+      Role.all.each do |role|
+        ticket = role.permissions.find_by section: 'Ticket'
+        issue  = role.permissions.find_by section: 'Issue'
+
+        if !ticket && issue
+          role.permissions.create!(
+            section: 'Ticket',
+            read:    issue.read,
+            edit:    issue.edit,
+            remove:  issue.remove
+          )
+        end
+      end
+    end
+  ensure
+    PaperTrail.enabled = true
   end
