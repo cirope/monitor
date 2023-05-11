@@ -9,8 +9,8 @@ unless ENV['GH_ACTIONS']
   #gem 'activerecord-oracle_enhanced-adapter', require: false
 
   # SQL Server ActiveRecord adapter
-  #gem 'tiny_tds', '< 2.0.0', require: false
-  #gem 'activerecord-sqlserver-adapter', require: false
+  gem 'tiny_tds', '< 2.0.0', require: false
+  gem 'activerecord-sqlserver-adapter', require: false
 
   # MySQL driver
   #gem 'mysql2'
