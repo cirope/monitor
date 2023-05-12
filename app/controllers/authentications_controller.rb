@@ -3,6 +3,8 @@
 class AuthenticationsController < ApplicationController
   include Sessions
 
+  layout 'public'
+
   before_action :set_username, :set_title
 
   def new

@@ -5,6 +5,7 @@ module Permissions::Sections
     MENU = {
       main: [
         { item: 'Issue',    controllers: ['Board', 'Comment', 'Permalink', 'Tagging', 'Export', 'View'] },
+        { item: 'Ticket' },
         { item: 'Script',   controllers: ['Execution', 'Measure', 'Version', 'Revert', 'Import', 'Export', 'Parameter'] },
         { item: 'Schedule', controllers: ['Run'] },
         { item: 'Rule',     controllers: ['Import', 'Export'] },

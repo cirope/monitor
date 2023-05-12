@@ -2,11 +2,11 @@ module Drives::Validation
   extend ActiveSupport::Concern
 
   included do
-    PROVIDERS = ['drive']
+    PROVIDERS = ['drive', 'onedrive']
 
     validates :name, :identifier,
       uniqueness: { case_sensitive: false }
-    validates :name, :identifier, :client_id, :client_secret,
+    validates :provider, :name, :identifier, :client_id, :client_secret,
       presence: true,
       length: { maximum: 255 }
     validates :provider, inclusion: { in: PROVIDERS }

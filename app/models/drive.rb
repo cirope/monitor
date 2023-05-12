@@ -7,12 +7,14 @@ class Drive < ApplicationRecord
   include Drives::MountPoint
   include Drives::Providers
   include Drives::GoogleDrive
+  include Drives::OneDrive
   include Drives::Validation
   include PublicAuditable
 
   scope :ordered, -> { order :name }
 
-  strip_fields :name, :client_id, :client_secret, :root_folder_id
+  strip_fields :name, :client_id, :client_secret,
+    :tenant_id, :root_folder_id
 
   belongs_to :account
 

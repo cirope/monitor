@@ -113,6 +113,44 @@ class IssuesControllerTest < ActionController::TestCase
     end
   end
 
+  test 'should get new' do
+    get :new
+    assert_response :success
+  end
+
+  test 'should create issue' do
+    assert_difference 'Issue.count' do
+      post :create, params: {
+        issue: {
+          owner_type: 'Script',
+          title: 'New Issue',
+          description: 'New Description'
+        }
+      }
+    end
+
+    assert_redirected_to issue_url(Issue.last)
+  end
+
+  test 'should create nested issue' do
+    script = scripts :ls
+
+    assert_difference 'Issue.count' do
+      post :create, params: {
+        script_id: script.id,
+        issue: {
+          title: 'New Issue',
+          description: 'New Description'
+        }
+      }
+    end
+
+    issue = Issue.last
+
+    assert_not_nil issue.owner
+    assert_redirected_to [script, issue]
+  end
+
   test 'should show issue' do
     get :show, params: { id: @issue }
     assert_response :success
@@ -228,11 +266,13 @@ class IssuesControllerTest < ActionController::TestCase
   end
 
   test 'should destroy issue' do
+    script = @issue.script
+
     assert_difference 'Issue.count', -1 do
       delete :destroy, params: { id: @issue }
     end
 
-    assert_redirected_to script_issues_url(@issue.script)
+    assert_redirected_to script_issues_url(script)
   end
 
   test 'should respond api issues' do

@@ -4,15 +4,24 @@
   </div>
 
   <div class="card-body">
-    <%= render 'form' %>
+    <%= simple_form_for @issue, url: [@issue, filter: filter_params.to_h] do |f| %>
+      <%= f.error_notification %>
+
+      <%= render 'form', f: f %>
+    <% end %>
   </div>
 </div>
 
 <div class="mt-3">
-  <%= link_to_show [@issue, context: @context, filter: filter_query_hash] %> |
-  <% if current_user.owner? %>
-    <%= link_to_index script_issues_path(@issue.script, filter: filter_query_hash) %>
+  <%= link_to_show [@owner, @issue, context: @context, filter: filter_query_hash] %> |
+
+  <% if @issue.ticket? %>
+    <%= link_to_index [@owner, :tickets, filter: filter_query_hash] %>
   <% else %>
-    <%= link_to_index issue_index_path(filter: filter_query_hash) %>
+    <% if current_user.owner? %>
+      <%= link_to_index script_issues_path(@issue.script, filter: filter_query_hash) %>
+    <% else %>
+      <%= link_to_index issue_index_path(filter: filter_query_hash) %>
+    <% end %>
   <% end %>
 </div>

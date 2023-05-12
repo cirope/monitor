@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '~> 7.0'
 
-gem 'pg'
+gem 'pg', '< 1.5'
 gem 'ros-apartment', require: 'apartment'
 gem 'sassc-rails'
 gem 'bootstrap'
@@ -47,7 +47,6 @@ gem 'net-imap', require: false
 gem 'ruby-saml'
 gem 'oauth2'
 gem 'wicked_pdf'
-gem 'wkhtmltopdf-binary'
 
 group :development, :production do
   gem 'web-console'
@@ -55,8 +54,6 @@ end
 
 gem 'unicorn'
 gem 'unicorn-rails'
-
-gem 'newrelic_rpm'
 
 gem 'capistrano'
 gem 'capistrano-rbenv'

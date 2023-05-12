@@ -78,9 +78,8 @@ class AccountTest < ActiveSupport::TestCase
     account.switch do
       assert_equal account.memberships.count, 0
       assert_equal User.count, 0
-      assert_equal Role.count, 0
+      assert_equal Role.count, 6
       assert_equal User.count, 0
-      assert_equal Permission.count, 0
     end
 
     account.enroll user, copy_user: true
@@ -88,9 +87,8 @@ class AccountTest < ActiveSupport::TestCase
     account.switch do
       assert_equal account.memberships.count, 1
       assert_equal User.count, 1
-      assert_equal Role.count, 1
+      assert_equal Role.count, 6
       assert_equal User.count, 1
-      assert_equal Permission.count, 1
     end
   end
 

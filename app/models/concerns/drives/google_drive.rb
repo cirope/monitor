@@ -1,8 +1,6 @@
 module Drives::GoogleDrive
   extend ActiveSupport::Concern
 
-  include Rails.application.routes.url_helpers
-
   def drive_client
     OAuth2::Client.new(
       client_id, client_secret,
@@ -32,12 +30,6 @@ module Drives::GoogleDrive
   end
 
   private
-
-    def redirect_uri
-      url_for(
-        controller: 'drives/providers', action: 'index', host: ENV['APP_HOST']
-      )
-    end
 
     def drive_token_url code
       drive_client.auth_code.get_token(

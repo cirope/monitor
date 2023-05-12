@@ -4,6 +4,8 @@ class HomeController < ApplicationController
   include Authentication
   include Issues::Filters
 
+  content_security_policy false
+
   before_action :set_title
 
   PERMITED_FILTER_PARAMS = [
@@ -16,7 +18,7 @@ class HomeController < ApplicationController
   end
 
   def api_issues_by_status
-    command_token = Api::V1::AuthenticateUser.call Current.user, Current.account, 1.month.from_now
+    command_token = Api::V1::AuthenticateUser.call Current.user, Current.account
 
     @token = command_token.success? ? command_token.result : command_token.errors
 

@@ -168,9 +168,9 @@ GEM
     listen (3.8.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
-    loofah (2.21.1)
+    loofah (2.21.2)
       crass (~> 1.0.2)
-      nokogiri (>= 1.5.9)
+      nokogiri (>= 1.12.0)
     mail (2.8.1)
       mini_mime (>= 0.1.1)
       net-imap
@@ -205,9 +205,8 @@ GEM
     net-smtp (0.3.3)
       net-protocol
     net-ssh (7.1.0)
-    newrelic_rpm (9.2.2)
     nio4r (2.5.9)
-    nokogiri (1.14.3-x86_64-linux)
+    nokogiri (1.14.4-x86_64-linux)
       racc (~> 1.4)
     oauth2 (2.0.9)
       faraday (>= 0.17.3, < 3.0)
@@ -227,7 +226,7 @@ GEM
       hashery (~> 2.0)
       ruby-rc4
       ttfunk
-    pg (1.5.3)
+    pg (1.4.6)
     popper_js (2.11.7)
     prawn (2.4.0)
       pdf-core (~> 0.9.0)
@@ -336,7 +335,7 @@ GEM
       net-ssh (>= 2.8.0)
     terser (1.1.15)
       execjs (>= 0.3.0, < 3)
-    thor (1.2.1)
+    thor (1.2.2)
     tilt (2.1.0)
     timecop (0.9.6)
     timeliness (0.4.5)
@@ -372,7 +371,6 @@ GEM
       chronic (>= 0.6.3)
     wicked_pdf (2.6.3)
       activesupport
-    wkhtmltopdf-binary (0.12.6.6)
     zeitwerk (2.6.8)
 
 PLATFORMS
@@ -413,11 +411,10 @@ DEPENDENCIES
   net-scp
   net-smtp
   net-ssh
-  newrelic_rpm
   oauth2
   paper_trail
   pdf-reader
-  pg
+  pg (< 1.5)
   prawn
   prawn-table
   premailer-rails
@@ -445,7 +442,6 @@ DEPENDENCIES
   web-console
   whenever
   wicked_pdf
-  wkhtmltopdf-binary
 
 BUNDLED WITH
    2.4.5

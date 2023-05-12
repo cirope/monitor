@@ -5,6 +5,8 @@ class RunsController < ApplicationController
   include Authorization
   include Runs::Filters
 
+  content_security_policy false
+
   before_action :set_title, except: [:destroy]
   before_action :set_schedule, only: [:index]
   before_action :set_run, only: [:show, :update, :destroy]

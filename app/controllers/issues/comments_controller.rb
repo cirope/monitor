@@ -3,6 +3,7 @@
 class Issues::CommentsController < ApplicationController
   include Authentication
   include Authorization
+  include Issues::Owner
 
   before_action :set_issue
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
@@ -17,7 +18,7 @@ class Issues::CommentsController < ApplicationController
     @comment = current_user.comments.new comment_params.merge issue: @issue
 
     if @comment.save
-      redirect_to issue_url(@comment.issue)
+      redirect_to [@owner, @comment.issue]
     else
       render 'new', status: :unprocessable_entity
     end

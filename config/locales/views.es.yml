@@ -30,6 +30,13 @@ es:
       title: 'Crear cuenta'
     show:
       title: 'Ver cuenta'
+    token_frequencies:
+      minutes: 'Minutos'
+      hours: 'Horas'
+      days: 'Días'
+      weeks: 'Semanas'
+      months: 'Meses'
+      years: 'Años'
 
   authentications:
     new:
@@ -112,6 +119,7 @@ es:
       drive_auth_url: 'Haga clic en el siguiente enlace para autorizar el accesso a %{provider}'
     providers:
       drive: 'Google Drive'
+      onedrive: 'Microsoft OneDrive'
 
   editor:
     edit:
@@ -232,6 +240,7 @@ es:
       add_to_board: 'Agregar al carrito'
       remove_from_board: 'Eliminar del carrito'
     new:
+      title: 'Nuevo pedido'
       subscription: 'Agregar usuario'
       tagging: 'Agregar etiqueta'
     pdf:
@@ -406,6 +415,7 @@ es:
     show:
       title: 'Ver regla'
       last_output: 'Última salida'
+      tickets_list: 'Pedidos'
     exports:
       create:
         filename: 'reglas.zip'
@@ -461,7 +471,7 @@ es:
       require: 'Agregar inclusión'
       tagging: 'Agregar etiqueta'
       parameter: 'Agregar parámetro'
-      description: 'Agregar descripción'
+      description: 'Agregar atributo'
     show:
       title: 'Ver guión'
       history: 'Ver historial de cambios'
@@ -470,6 +480,7 @@ es:
       no_server: 'Debe establecer un servidor principal'
       executions_list: 'Ejecuciones'
       measures_list: 'Métricas'
+      tickets_list: 'Pedidos'
     exports:
       create:
         filename: 'guiones.zip'
@@ -650,6 +661,21 @@ es:
       empty: 'No se encontraron etiquetas con ese criterio'
     tagging:
       empty: 'No se encontraron etiquetas con ese criterio'
+
+  tickets:
+    edit:
+      title: 'Editar pedido'
+    index:
+      new: 'Nuevo pedido'
+      title: 'Listado de pedidos'
+      empty_html: 'No hay pedidos, puede crear uno con el botón <span class="badge bg-primary">Nuevo pedido</span>'
+      empty_search_html: 'No hay pedidos que coincidan con el criterio de búsqueda'
+    new:
+      title: 'Crear pedido'
+    show:
+      title: 'Ver pedido'
+    destroy:
+      title: 'Desasociar'
 
   users:
     alias:

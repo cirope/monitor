@@ -36,7 +36,8 @@ module Accounts::Memberships
       Current.account = self
 
       switch do
-        new_role = create_role role, permissions
+        new_role = Role.find_by(type: role.type) ||
+                   create_role(role, permissions)
 
         User.create! user.attributes.except('id',
                                             'created_at',

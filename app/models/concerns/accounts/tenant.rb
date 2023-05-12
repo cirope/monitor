@@ -4,7 +4,7 @@ module Accounts::Tenant
   extend ActiveSupport::Concern
 
   included do
-    after_create  :create_tenant
+    after_create  :create_tenant, :create_roles
     after_destroy :destroy_tenant
   end
 
@@ -35,6 +35,12 @@ module Accounts::Tenant
 
     def create_tenant
       Apartment::Tenant.create tenant_name
+    end
+
+    def create_roles
+      switch do
+        ROLES.each { |type, params| Role.create! params.merge(type: type) }
+      end
     end
 
     def destroy_tenant
