@@ -34,7 +34,7 @@ module Scripts::ModeSql
 
         begin
           query   = %Q{#{text}}
-          pool    = _ar_connection #{database.ar_config}, '#{database.cipher_key}', '#{database.cipher_iv}'
+          pool    = _ar_connection(#{database.ar_config}, '#{database.cipher_key}', '#{database.cipher_iv}')
           results = pool.connection.exec_query(query).to_a
 
           puts wrap_results(query, results).to_json
