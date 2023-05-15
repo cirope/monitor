@@ -6,6 +6,8 @@ class SessionsController < ApplicationController
 
   layout :set_layout
 
+  content_security_policy false
+
   before_action :authenticate, only: [:destroy]
   before_action :set_title, except: [:destroy]
 
