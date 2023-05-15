@@ -5,8 +5,6 @@ class AuthenticationsController < ApplicationController
 
   layout 'public'
 
-  content_security_policy false
-
   before_action :set_username, :set_title
 
   def new

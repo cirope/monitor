@@ -12,7 +12,7 @@ Rails.application.config.content_security_policy do |policy|
   policy.script_src      :self
   policy.style_src       :self
   policy.frame_ancestors :self
-  policy.form_action     :self
+  policy.form_action     :self, 'login.microsoftonline.com'
 
 #   # Specify URI for violation reports
 #   # policy.report_uri "/csp-violation-report-endpoint"
