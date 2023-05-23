@@ -120,6 +120,11 @@ es:
     providers:
       drive: 'Google Drive'
       onedrive: 'Microsoft OneDrive'
+      sharepoint: 'Microsoft SharePoint'
+      options:
+        root_folder_id: 'ID de la carpeta raíz'
+        tenant_id: 'Id. de directorio (inquilino)'
+        drive_id: 'ID de la unidad'
 
   editor:
     edit:

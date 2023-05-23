@@ -19,14 +19,27 @@ module Drives::GoogleDrive
   end
 
   def drive_config code
-    auth_token = drive_token_url(code)
+    auth_token = sharepoint_token_url(code)
 
-    {
-      access_token:  auth_token.token,
-      refresh_token: auth_token.refresh_token,
-      token_type:    auth_token.response.parsed['token_type'],
-      expiry:        Time.zone.at(auth_token.expires_at)
-    }.to_json if auth_token.response&.status.to_i == 200
+    if auth_token.response&.status.to_i == 200
+      token = {
+        access_token:  auth_token.token,
+        refresh_token: auth_token.refresh_token,
+        token_type:    auth_token.response.parsed['token_type'],
+        expiry:        Time.zone.at(auth_token.expires_at),
+      }.to_json
+
+      options = [ "token='#{token}'" ]
+
+      options.join ' '
+    end
+  end
+
+  def drive_extra_params
+    extra_params = []
+    extra_params << "root_folder_id=#{root_folder_id}" if root_folder_id.present?
+
+    extra_params
   end
 
   private

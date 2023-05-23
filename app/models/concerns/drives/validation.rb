@@ -2,7 +2,7 @@ module Drives::Validation
   extend ActiveSupport::Concern
 
   included do
-    PROVIDERS = ['drive', 'onedrive']
+    PROVIDERS = ['drive', 'onedrive', 'sharepoint']
 
     validates :name, :identifier,
       uniqueness: { case_sensitive: false }
