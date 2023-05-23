@@ -22,7 +22,8 @@ Rails.application.routes.draw do
   post 'auth',   to: 'authentications#create', as: 'auth'
 
   # DRIVE
-  get 'drives/providers', to: 'drives/providers#index'
+  get 'drives/providers',        to: 'drives/providers#index'
+  get 'drives/provider_options', to: 'drives/providers#show'
 
   # SAML
   get  'saml/:tenant_name/auth',     to: 'saml_sessions#new',      as: :new_saml_session

@@ -4,6 +4,8 @@ class DrivesController < ApplicationController
   include Authentication
   include Authorization
 
+  content_security_policy false
+
   before_action :set_title, except: [:destroy]
   before_action :set_account
   before_action :set_drive, only: [:show, :edit, :update, :destroy]
@@ -69,6 +71,6 @@ class DrivesController < ApplicationController
 
     def drive_params
       params.require(:drive).permit :name, :provider, :client_id,
-        :client_secret, :root_folder_id, :tenant_id
+        :client_secret, :root_folder_id, :tenant_id, :drive_id
     end
 end

@@ -27,9 +27,11 @@ class DrivesControllerTest < ActionController::TestCase
       post :create, params: {
         drive: {
           name: 'New Drive',
-          provider: 'drive',
+          provider: 'onedrive',
           client_id: 'new_client_id',
-          client_secret: 'new_client_secret'
+          client_secret: 'new_client_secret',
+          tenant_id: 'new_tenant_id',
+          drive_id: 'new_drive_id'
         }
       }
     end

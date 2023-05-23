@@ -3,6 +3,14 @@ module Drives::Providers
 
   include Rails.application.routes.url_helpers
 
+  PROVIDERS = ['drive', 'onedrive', 'sharepoint']
+
+  PROVIDERS.each do |provider|
+    define_method "#{provider}?" do
+      self.provider == provider
+    end
+  end
+
   def provider_client
     send "#{provider}_client"
   end
