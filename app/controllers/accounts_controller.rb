@@ -58,7 +58,7 @@ class AccountsController < ApplicationController
     end
 
     def account_params
-      params.require(:account).permit :name, :tenant_name,
+      params.require(:account).permit :name, :tenant_name, :style,
         :group_issues_by_schedule, :token_interval, :token_frequency, :lock_version
     end
 

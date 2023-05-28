@@ -6,4 +6,10 @@ module AccountsHelper
       [t("accounts.token_frequencies.#{frequency}"), frequency]
     end
   end
+
+  def account_styles
+    %w(default primary secondary success info warning danger dark).map do |style|
+      [t("accounts.styles.#{style}"), style]
+    end
+  end
 end

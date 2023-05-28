@@ -3,3 +3,4 @@ _fixture:
 default:
   name: Default account
   tenant_name: default
+  style: default
