@@ -7,7 +7,7 @@
         <h5><%= t '.credentials' %></h5>
       </div>
       <div class="card-body">
-        <%= simple_form_for :import, url: users_imports_path do |f| %>
+        <%= simple_form_for :import, url: users_imports_path, data: { turbo: false } do |f| %>
           <div class="form-inputs">
             <%= f.input :username, label: Ldap.human_attribute_name('test_user'), input_html: { autofocus: true } %>
             <%= f.input :password, label: Ldap.human_attribute_name('test_password') %>

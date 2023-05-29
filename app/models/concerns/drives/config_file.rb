@@ -12,11 +12,9 @@ module Drives::ConfigFile
   end
 
   def update_config code
-    token = send "#{provider}_config", code
-
     umount_drive
 
-    system config_file_cmd('update', "token '#{token}'")
+    system config_file_cmd('update', send("#{provider}_config", code))
 
     mount_drive
   end
@@ -24,7 +22,7 @@ module Drives::ConfigFile
   private
 
     def create_section
-      system config_file_cmd('create')
+      system config_file_cmd('create', try("#{provider}_extra_params"))
     end
 
     def update_section
@@ -40,17 +38,19 @@ module Drives::ConfigFile
     end
 
     def config_file_cmd action, extras = nil
+      type = try("#{provider}_provider") || provider
+
       cmd = [
         "rclone config #{action}",
         "#{section}",
         'config_is_local=false',
         "client_id=#{client_id}",
         "client_secret=#{client_secret}",
-        "root_folder_id=#{root_folder_id}",
+        '--non-interactive',
         extras
-      ].compact
+      ].flatten.compact
 
-      cmd.insert(2, provider) if action == 'create'
+      cmd.insert(2, type) if action == 'create'
 
       cmd.join ' '
     end

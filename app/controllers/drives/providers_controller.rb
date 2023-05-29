@@ -2,7 +2,7 @@
 
 class Drives::ProvidersController < ApplicationController
 
-  before_action :set_drive
+  before_action :set_drive, only: [:index]
 
   def index
     begin
@@ -15,6 +15,10 @@ class Drives::ProvidersController < ApplicationController
     rescue
       redirect_to @drive, alert: t('.invalid', scope: :flash)
     end
+  end
+
+  def show
+    @provider_options = Drive.provider_options params[:provider]
   end
 
   private
