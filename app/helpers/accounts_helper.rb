@@ -6,4 +6,8 @@ module AccountsHelper
       [t("accounts.token_frequencies.#{frequency}"), frequency]
     end
   end
+
+  def account_styles
+    Account::STYLES.map { |style| [t("accounts.styles.#{style}"), style] }
+  end
 end
