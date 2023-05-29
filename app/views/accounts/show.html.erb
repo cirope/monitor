@@ -13,6 +13,11 @@
       <strong><%= Account.human_attribute_name 'group_issues_by_schedule' %></strong>:
       <%= t @account.group_issues_by_schedule ? 'yes' : 'no' %>
     </p>
+
+    <p class="mb-1">
+      <strong><%= Account.human_attribute_name 'style' %></strong>:
+      <%= t "accounts.styles.#{@account.style}" %>
+    </p>
   </div>
 </div>
 

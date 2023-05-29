@@ -30,6 +30,22 @@ es:
       title: 'Crear cuenta'
     show:
       title: 'Ver cuenta'
+    styles:
+      default: 'Por defecto'
+      primary: 'Azul'
+      secondary: 'Gris'
+      success: 'Verde'
+      info: 'Celeste'
+      warning: 'Amarillo'
+      danger: 'Rojo'
+      dark: 'Negro'
+    token_frequencies:
+      minutes: 'Minutos'
+      hours: 'Horas'
+      days: 'Días'
+      weeks: 'Semanas'
+      months: 'Meses'
+      years: 'Años'
 
   board:
     index:
@@ -612,7 +628,7 @@ es:
         updated: 'Actualizado'
         error: 'Con errores'
         deprecated_users: 'Usuarios ausentes en el servidor LDAP'
-  
+
   views:
     view:
       mark_as_viewed: 'Marcar como visto'

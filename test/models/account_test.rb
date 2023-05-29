@@ -61,6 +61,13 @@ class AccountTest < ActiveSupport::TestCase
     assert_error @account, :tenant_name, :exclusion
   end
 
+  test 'included attributes' do
+    @account.style = nil
+
+    assert @account.invalid?
+    assert_error @account, :style, :inclusion
+  end
+
   test 'enroll' do
     @account.switch do
       assert_difference '@account.memberships.count' do
