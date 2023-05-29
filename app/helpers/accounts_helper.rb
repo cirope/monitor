@@ -12,4 +12,8 @@ module AccountsHelper
       [t("accounts.styles.#{style}"), style]
     end
   end
+
+  def current_account_style
+    "text-bg-#{current_account.style}" if current_account.style.present?
+  end
 end
