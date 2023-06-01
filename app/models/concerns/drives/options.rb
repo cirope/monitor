@@ -4,7 +4,7 @@ module Drives::Options
   PROVIDER_OPTIONS = {
     drive:      { root_folder_id: :string },
     onedrive:   { tenant_id: :string, drive_id: :string },
-    sharepoint: { tenant_id: :string, drive_id: :string }
+    sharepoint: { drive_id: :string }
   }
 
   def provider_options
@@ -28,15 +28,6 @@ module Drives::Options
 
   def root_folder_id= root_folder_id
     assign_option 'root_folder_id', root_folder_id
-  end
-
-  def tenant_id
-    options&.fetch 'tenant_id', nil
-  end
-  alias_method :tenant_id?, :tenant_id
-
-  def tenant_id= tenant_id
-    assign_option 'tenant_id', tenant_id
   end
 
   def drive_id

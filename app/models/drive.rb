@@ -16,7 +16,7 @@ class Drive < ApplicationRecord
   scope :ordered, -> { order :name }
 
   strip_fields :name, :client_id, :client_secret,
-    :tenant_id, :root_folder_id, :drive_id
+    :root_folder_id, :drive_id
 
   belongs_to :account
 
