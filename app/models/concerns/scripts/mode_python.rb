@@ -112,11 +112,13 @@ module Scripts::ModePython
 
           return decryptor.update(ct) + decryptor.finalize()
 
-        def _decrypt_password(passwd, method, mode):
-          encrypted = base64.b64decode(passwd)
+        def _decrypt_password(config, method, mode):
+          encrypted = base64.b64decode(config['password'])
           password  = _decrypt(encrypted, method, mode)
 
-          return _unpad(password).decode()
+          config.update(password=_unpad(password).decode())
+
+          return config
       PYTHON
     end
 
