@@ -1,0 +1,11 @@
+<%= simple_fields_for :drive do |f| %>
+  <% @provider_options.each_slice(2) do |options| %>
+    <div class="row">
+      <% options.each do |option, type| %>
+        <div class="col-md-6">
+          <%= f.input option, as: type, label: t("drives.providers.options.#{option}") %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

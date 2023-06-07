@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_09_112942) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_28_192203) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -22,6 +22,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_09_112942) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.jsonb "options"
+    t.string "style", default: "default", null: false
     t.index ["name"], name: "index_accounts_on_name"
     t.index ["tenant_name"], name: "index_accounts_on_tenant_name", unique: true
   end
@@ -128,8 +129,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_09_112942) do
     t.integer "lock_version", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "root_folder_id"
-    t.string "tenant_id"
+    t.jsonb "options"
     t.index ["account_id"], name: "index_drives_on_account_id"
     t.index ["identifier"], name: "index_drives_on_identifier"
     t.index ["name"], name: "index_drives_on_name", unique: true

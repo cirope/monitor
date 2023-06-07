@@ -154,6 +154,7 @@ es:
         name: 'Nombre'
         tenant_name: 'Contexto'
         group_issues_by_schedule: 'Agrupar guiones por trabajo'
+        style: 'Estilo'
         token_duration: 'Duración del token'
         token_interval: 'Intervalo de duración del token'
         token_frequency: 'Frecuencia de duración del token'

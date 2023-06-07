@@ -18,13 +18,19 @@
         <%= f.input :client_secret %>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-6">
-        <%= f.input :tenant_id %>
-      </div>
-      <div class="col-md-6">
-        <%= f.input :root_folder_id %>
-      </div>
+
+    <div data-provider-options>
+      <% if @drive.provider_options.present? %>
+        <% @drive.provider_options.each_slice(2) do |options| %>
+          <div class="row">
+            <% options.each do |option, type| %>
+              <div class="col-md-6">
+                <%= f.input option, as: type, label: t("drives.providers.options.#{option}") %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
     </div>
   </div>
 
