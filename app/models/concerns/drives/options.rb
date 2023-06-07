@@ -30,6 +30,15 @@ module Drives::Options
     assign_option 'root_folder_id', root_folder_id
   end
 
+  def tenant_id
+    options&.fetch 'tenant_id', nil
+  end
+  alias_method :tenant_id?, :tenant_id
+
+  def tenant_id= tenant_id
+    assign_option 'tenant_id', tenant_id
+  end
+
   def drive_id
     options&.fetch 'drive_id', nil
   end
