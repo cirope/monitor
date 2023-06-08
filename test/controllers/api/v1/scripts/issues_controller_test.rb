@@ -15,18 +15,15 @@ class Api::V1::Scripts::IssuesControllerTest < ActionController::TestCase
     exp = 1.month.from_now
 
     @token_with_user_view_all_issues    = Api::V1::AuthenticateUser.new(@user_view_all_issues,
-                                                                        @account,
-                                                                        exp)
+                                                                        @account)
                                                                    .call
                                                                    .result
     @token_with_user_view_filter_issues = Api::V1::AuthenticateUser.new(@user_view_filter_issues,
-                                                                        @account,
-                                                                        exp)
+                                                                        @account)
                                                                    .call
                                                                    .result
     @token_with_user_without_issues     = Api::V1::AuthenticateUser.new(@user_without_issues,
-                                                                        @account,
-                                                                        exp)
+                                                                        @account)
                                                                    .call
                                                                    .result
   end
@@ -50,6 +47,7 @@ class Api::V1::Scripts::IssuesControllerTest < ActionController::TestCase
 
   test 'index empty data for user with filter and without issues' do
     request.headers['Authorization'] = @token_with_user_without_issues
+
     get :index, params: { script_id: @script.id }
 
     assert_response :success
@@ -62,6 +60,7 @@ class Api::V1::Scripts::IssuesControllerTest < ActionController::TestCase
 
     assert_response :success
 
+    Current.account = @account
     json_expected = @user_view_filter_issues.issues
                                             .script_id_scoped(@script.id)
                                             .to_json(methods: :url, except: %i[options run_id])
@@ -78,6 +77,7 @@ class Api::V1::Scripts::IssuesControllerTest < ActionController::TestCase
 
     assert_response :success
 
+    Current.account = @account
     json_expected = @user_view_filter_issues.issues
                                             .script_id_scoped(@script.id)
                                             .map do |issue|
@@ -116,6 +116,7 @@ class Api::V1::Scripts::IssuesControllerTest < ActionController::TestCase
 
     assert_response :success
 
+    Current.account = @account
     json_expected = @script.issues.to_json(methods: :url, except: %i[options run_id])
     assert_match json_expected, response.body
   end
@@ -130,6 +131,7 @@ class Api::V1::Scripts::IssuesControllerTest < ActionController::TestCase
 
     assert_response :success
 
+    Current.account = @account
     json_expected = @script.issues
                            .map do |issue|
                              issue.converted_data

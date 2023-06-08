@@ -7,7 +7,7 @@ gem 'roo', require: false
 gem 'roo-xls', require: false
 gem 'rbase-ff', require: false
 
-unless ENV['TRAVIS']
+unless ENV['GH_ACTIONS']
   # Oracle ActiveRecord adapter
   gem 'ruby-oci8', require: false
   gem 'activerecord-oracle_enhanced-adapter', require: false

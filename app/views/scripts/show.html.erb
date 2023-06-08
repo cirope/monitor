@@ -2,7 +2,7 @@
   <div class="card-header">
     <h3 class="clearfix">
       <%= @script %>
-      <small class="float-right">
+      <small class="float-end">
         <% if @script.core %>
           <%= icon 'fas', 'star', class: 'mr-2', title: Script.human_attribute_name('core') %>
         <% end %>
@@ -48,6 +48,23 @@
   </div>
 </div>
 
+<% if @script.libraries.any? %>
+  <div class="card mb-3">
+    <div class="card-header">
+      <h5>
+        <%= Library.model_name.human count: @script.libraries.size %>
+      </h5>
+    </div>
+    <div id="libraries" class="card-body">
+      <ul>
+        <% @script.libraries.each do |library| %>
+          <li><%= library.print %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>
+
 <% if @script.maintainers.any? %>
   <div class="card mb-3">
     <div class="card-header">
@@ -86,7 +103,7 @@
   <ul class="list-inline">
     <% @script.tags.each do |tag| %>
       <li class="list-inline-item">
-        <span class="badge badge-<%= tag.style %>"><%= tag %></span>
+        <span class="badge bg-<%= tag.style %>"><%= tag %></span>
       </li>
     <% end %>
   </ul>
@@ -106,6 +123,7 @@
             <tr>
               <th><%= Parameter.human_attribute_name 'name' %></th>
               <th><%= Parameter.human_attribute_name 'value' %></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -113,7 +131,9 @@
               <tr>
                 <td><%= parameter.name %></td>
                 <td><%= parameter.value %></td>
+                <td><%= link_to_show_parameter_versions parameter %></td>
               </tr>
+              <tr><td class="p-0 border-0" colspan="3" data-parameter-id="<%= parameter.id %>"></td></tr>
             <% end %>
           </tbody>
         </table>
@@ -136,6 +156,7 @@
             <tr>
               <th><%= Description.human_attribute_name 'name' %></th>
               <th><%= Description.human_attribute_name 'value' %></th>
+              <th><%= Description.human_attribute_name 'public' %></th>
             </tr>
           </thead>
           <tbody>
@@ -143,6 +164,7 @@
               <tr>
                 <td><%= description.name %></td>
                 <td><%= description.value %></td>
+                <td><%= show_boolean_badge description.public %></td>
               </tr>
             <% end %>
           </tbody>
@@ -166,6 +188,9 @@
 <% end %> |
 <%= link_to script_measures_path(@script, type: 'execution'), title: t('.measures_list') do %>
   <%= icon 'fas', 'tachometer-alt' %>
+<% end %> |
+<%= link_to [@script, :tickets], title: t('.tickets_list') do %>
+  <%= icon 'fas', 'bug' %>
 <% end %> |
 <%= link_to t('.executions_list'), script_executions_path(@script) %> |
 <%= link_to_index scripts_path %>

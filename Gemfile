@@ -1,33 +1,33 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 6.0.3.7'
+gem 'rails', '~> 7.0'
 
-gem 'pg'
+gem 'pg', '< 1.5'
 gem 'ros-apartment', require: 'apartment'
 gem 'sassc-rails'
-gem 'bootstrap', '< 5'
-gem 'font-awesome-sass', '< 6'
-gem 'uglifier'
+gem 'bootstrap'
+gem 'font-awesome-sass'
+gem 'importmap-rails'
+gem 'terser'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'turbolinks'
+gem 'turbo-rails'
 gem 'jbuilder'
 gem 'activerecord-session_store'
 gem 'net-ldap'
 gem 'bcrypt'
-gem 'responders'
 gem 'simple_form'
 gem 'figaro'
-gem 'validates_timeliness'
+gem 'validates_timeliness', '~> 7.0.0.beta1'
 gem 'kaminari'
 gem 'net-ssh'
 gem 'net-scp'
 gem 'request_store'
 gem 'request_store-sidekiq'
-gem 'sidekiq'
+gem 'sidekiq', '< 7'
 gem 'ros-apartment-sidekiq', require: 'apartment-sidekiq'
 gem 'whenever', require: false
-gem 'paper_trail', '< 12' # https://github.com/paper-trail-gem/paper_trail/issues/1305
+gem 'paper_trail'
 gem 'premailer-rails'
 gem 'ruby-ntlm'
 gem 'rubyzip', require: 'zip'
@@ -40,7 +40,13 @@ gem 'groupdate'
 gem 'mimemagic'
 gem 'jwt'
 gem 'simple_command'
-gem 'execjs', '2.7.0'
+gem 'matrix'
+gem 'net-smtp', require: false
+gem 'net-pop', require: false
+gem 'net-imap', require: false
+gem 'ruby-saml'
+gem 'oauth2'
+gem 'wicked_pdf'
 
 group :development, :production do
   gem 'web-console'
@@ -48,8 +54,6 @@ end
 
 gem 'unicorn'
 gem 'unicorn-rails'
-
-gem 'newrelic_rpm'
 
 gem 'capistrano'
 gem 'capistrano-rbenv'

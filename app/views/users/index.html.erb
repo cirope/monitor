@@ -10,10 +10,11 @@
           <th><%= User.human_attribute_name 'name' %></th>
           <th><%= User.human_attribute_name 'lastname' %></th>
           <th class="d-none d-md-table-cell"><%= User.human_attribute_name 'email' %></th>
+          <th><%= User.human_attribute_name 'role' %></th>
           <th class="d-none d-lg-table-cell"><%= Tag.model_name.human count: 0 %></th>
           <th colspan="<%= user_actions_columns %>">
             <% if !ldap && !current_user.author? %>
-              <%= link_to_new new_user_path, class: 'btn btn-secondary btn-sm py-0 mr-n2 float-right' %>
+              <%= link_to_new new_user_path, class: 'btn btn-secondary btn-sm py-0 mr-n2 float-end' %>
             <% end %>
           </th>
         </tr>
@@ -25,12 +26,13 @@
             <td><%= user.name %></td>
             <td><%= user.lastname %></td>
             <td class="d-none d-md-table-cell"><%= mail_to user.email %></td>
+            <td><%= user.role %></td>
             <td class="d-none d-lg-table-cell"><%= tag_icons user.tags %></td>
-            <td class="text-right"><%= link_to_show user %></td>
+            <td class="text-end"><%= link_to_show user %></td>
             <% unless current_user.author? %>
-              <td class="text-right"><%= link_to_edit [:edit, user] %></td>
+              <td class="text-end"><%= link_to_edit [:edit, user] %></td>
               <% unless ldap %>
-                <td class="text-right"><%= link_to_destroy user %></td>
+                <td class="text-end"><%= link_to_destroy user %></td>
               <% end %>
             <% end %>
           </tr>

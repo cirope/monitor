@@ -1,0 +1,43 @@
+<div class="card">
+  <div class="card-header">
+    <h5><%= @role %></h5>
+  </div>
+  <div class="card-body">
+    <p class="mb-1">
+      <strong><%= Role.human_attribute_name 'name' %></strong>:
+      <%= @role.name %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Role.human_attribute_name 'type' %></strong>:
+      <%= t_role_type @role.type %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Role.human_attribute_name 'description' %></strong>:
+      <%= @role.description %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Role.human_attribute_name 'identifier' %></strong>:
+      <%= @role.identifier %>
+    </p>
+
+    <div class="card ribbon-box">
+      <div class="card-body">
+        <div class="ribbon ribbon-primary float-start"><%= t 'roles.permissions.main' %></h5></div>
+        <div class="ribbon-content">
+          <%= render 'roles/permissions', permissions: @role.permissions_for(:main) %>
+        </div>
+      </div>
+    </div>
+    <div class="card ribbon-box">
+      <div class="card-body">
+        <div class="ribbon ribbon-primary float-start"><%= t 'roles.permissions.config' %></h5></div>
+        <div class="ribbon-content">
+          <%= render 'roles/permissions', permissions: @role.permissions_for(:config) %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= link_to_edit [:edit, @role] %> |
+<%= link_to_index roles_path %>

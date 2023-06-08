@@ -55,9 +55,16 @@ module Servers::Command
       "#{Rails.root}/bin/rails"
     end
 
+    def python3
+      '/usr/bin/python3'
+    end
+
     def local_command script_path
-      if File.extname(script_path) == '.rb'
-        [rails, 'runner', script_path]
+      extname = File.extname script_path
+
+      case extname
+      when '.rb' then [rails, 'runner', script_path]
+      when '.py' then [python3, script_path]
       else
         `chmod +x #{script_path}`
 

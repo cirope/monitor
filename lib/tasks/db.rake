@@ -7,6 +7,9 @@ namespace :db do
       set_issue_data_type        # 2021-05-11
       generate_state_transitions # 2021-10-29
       set_issue_canonical_data   # 2022-02-01
+      encrypt_property_passwords # 2022-05-27
+      roles_migration            # 2023-01-18
+      add_tickets_to_roles       # 2023-04-18
     end
   end
 end
@@ -104,4 +107,65 @@ private
 
   def set_issue_canonical_data?
     Issue.where.not(canonical_data: nil).empty?
+  end
+
+  def encrypt_property_passwords
+    PaperTrail.enabled = false
+
+    Property.find_each do |property|
+      if property.password? && property.value.present?
+        begin
+          ::Security.decrypt(property.value)
+        rescue
+          property.update_column :value, ::Security.encrypt(property.value)
+        end
+      end
+    end
+  ensure
+    PaperTrail.enabled = true
+  end
+
+  def roles_migration
+    PaperTrail.enabled = false
+
+    Account.on_each do
+      unless Role.exists?
+        service = Ldap.default || Saml.default
+
+        ROLES.each do |old_role, params|
+          options    = { type: old_role }
+          identifier = service.options[old_role.to_s] if service
+
+          options.merge!(identifier: identifier) if identifier.present?
+
+          if (role = Role.create(params.merge(options))).persisted?
+            User.where(old_role: old_role).update_all role_id: role.id
+          end
+        end
+      end
+    end
+  ensure
+    PaperTrail.enabled = true
+  end
+
+  def add_tickets_to_roles
+    PaperTrail.enabled = false
+
+    Account.on_each do
+      Role.all.each do |role|
+        ticket = role.permissions.find_by section: 'Ticket'
+        issue  = role.permissions.find_by section: 'Issue'
+
+        if !ticket && issue
+          role.permissions.create!(
+            section: 'Ticket',
+            read:    issue.read,
+            edit:    issue.edit,
+            remove:  issue.remove
+          )
+        end
+      end
+    end
+  ensure
+    PaperTrail.enabled = true
   end

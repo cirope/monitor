@@ -1,53 +1,58 @@
 # frozen_string_literal: true
 
 class ScriptsController < ApplicationController
+  include Authentication
+  include Authorization
   include Scripts::Filters
+  include Tickets::Scoped
 
-  before_action :authorize, :not_guest, :not_owner, :not_manager, :not_security
+  content_security_policy false
+
   before_action :set_title, except: [:destroy]
   before_action :set_script, only: [:show, :edit, :update, :destroy]
   before_action :set_server, only: [:show]
   before_action :check_if_can_edit, only: [:edit, :update, :destroy]
 
-  respond_to :html, :json, :pdf
-
   def index
     @scripts = scripts.order(:id).page params[:page]
-
-    respond_with @scripts
   end
 
   def show
-    respond_with @script
+    respond_to do |format|
+      format.pdf { render_pdf @script }
+      format.any :html, :json
+    end
   end
 
   def new
     @script = Script.new language: params[:lang]
-
-    respond_with @script
   end
 
   def edit
-    respond_with @script
   end
 
   def create
-    @script = Script.new script_params
+    @script = Script.new script_params.merge(tickets: Array(@ticket))
 
-    @script.save
-    respond_with @script
+    if @script.save
+      redirect_to @script
+    else
+      render 'new', status: :unprocessable_entity
+    end
   end
 
   def update
-    @script.update script_params
-
-    respond_with @script
+    if @script.update script_params
+      redirect_to @script
+    else
+      render 'edit', status: :unprocessable_entity
+    end
   end
 
   def destroy
     @script.destroy
 
-    respond_with @script, location: scripts_url
+    redirect_to scripts_url
   end
 
   private
@@ -63,8 +68,9 @@ class ScriptsController < ApplicationController
     def script_params
       params.require(:script).permit :name, :core, :attachment, :text, :change,
         :language, :database_id, :lock_version,
+        libraries_attributes: [:id, :name, :options, :_destroy],
         maintainers_attributes: [:id, :user_id, :_destroy],
-        descriptions_attributes: [:id, :name, :value, :_destroy],
+        descriptions_attributes: [:id, :name, :value, :public, :_destroy],
         parameters_attributes: [:id, :name, :value, :_destroy],
         requires_attributes: [:id, :script_id, :_destroy],
         taggings_attributes: [:id, :tag_id, :_destroy]

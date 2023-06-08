@@ -120,10 +120,8 @@ class HomeControllerTest < ActionController::TestCase
   end
 
   test 'should get filtered index' do
-    get :index, {
-      params: {
-        filter: { name: 'undefined', user: 'none', user_id: '1' }
-      }
+    get :index, params: {
+      filter: { name: 'undefined', user: 'none', user_id: '1' }
     }
     assert_response :success
     assert_select '.alert', text: I18n.t('home.index.empty_search_html')

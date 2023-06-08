@@ -1,0 +1,88 @@
+name: CI
+on:
+  push:
+    branches:
+      - master
+      - c-*
+  pull_request:
+    branches:
+      - master
+      - c-*
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby-version:
+          - 2.7
+          - 3.1
+        use_v27:
+          - >-
+            ${{ contains(github.ref_name, 'master')
+            || startsWith(github.ref_name, 'c-')
+            || contains(github.event.pull_request.base.ref, 'master')
+            || startsWith(github.event.pull_request.base.ref, 'c-') }}
+        use_v31:
+          - >-
+            ${{ contains(github.ref_name, 'master')
+            || contains(github.event.pull_request.base.ref, 'master') }}
+        exclude:
+          - use_v27: false
+            ruby-version: 2.7
+          - use_v31: false
+            ruby-version: 3.1
+    services:
+      postgres:
+        image: postgres:13
+        ports:
+          - '5432:5432'
+        env:
+          POSTGRES_DB: monitor_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+      redis:
+        image: redis
+        ports:
+          - '6379:6379'
+        options: --entrypoint redis-server
+    env:
+      RAILS_ENV: test
+      GH_ACTIONS: true
+      DATABASE_URL: "postgres://postgres:postgres@localhost:5432/monitor_test"
+      REDIS_URL: redis://localhost:6379/0
+      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+      SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt -y install slapd ldap-utils unixodbc-dev fontconfig libxext6 xfonts-75dpi libxrender1 xfonts-base xfonts-utils libfontenc1 x11-common xfonts-encodings
+          curl -sLO https://downloads.rclone.org/rclone-current-linux-amd64.deb
+          sudo dpkg -i rclone-current-linux-amd64.deb
+          curl -sLO https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.jammy_amd64.deb
+          sudo dpkg -i wkhtmltox_0.12.6.1-2.jammy_amd64.deb
+      - name: Remove Gemfile.lock
+        run: rm Gemfile.lock
+      - name: Install ruby and gems
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+          bundler-cache: true
+      - name: Migrate database
+        run: bin/rails db:migrate
+      - name: Copy application.yml
+        run: cp config/application.example.yml config/application.yml
+      - name: Set up and run slpad
+        run: |
+          sudo cp test/fixtures/ldap/slapd.conf /etc/ldap/
+          sudo slapd -f /etc/ldap/slapd.conf -h ldap://localhost:3389
+          bundle exec rails ldap:reset
+      - name: Run tests
+        run: bin/rails test

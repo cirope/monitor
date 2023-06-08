@@ -10,6 +10,8 @@ class Memberships::SwitchControllerTest < ActionController::TestCase
   end
 
   test 'should create' do
+    Saml.default.destroy!
+
     post :create, params: { membership_id: @membership }
 
     assert_redirected_to root_url

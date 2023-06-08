@@ -1,4 +1,4 @@
-<%= simple_form_for @rule do |f| %>
+<%= simple_form_for [@ticket, @rule] do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
@@ -6,7 +6,7 @@
       <div class="col-lg-10 col-md-9 col-8">
         <%= f.input :name, input_html: { autofocus: true, disabled: disable_rule_edition? } %>
       </div>
-      <div class="col-lg-2 col-md-3 col-4 pt-3 text-right">
+      <div class="col-lg-2 col-md-3 col-4 pt-3">
         <div class="custom-control custom-checkbox mt-2">
           <%= f.check_box :enabled, disabled: disable_rule_edition?, class: 'custom-control-input' %>
           <label class="custom-control-label" for="rule_enabled"><%= Rule.human_attribute_name 'enabled' %></label>
@@ -14,16 +14,17 @@
       </div>
     </div>
 
-        <h5>
-          <%= Trigger.model_name.human count: 0 %>
-        </h5>
-      <div id="triggers">
-        <%= f.simple_fields_for :triggers, triggers do |rf| %>
-          <%= render 'triggers/trigger', f: rf %>
-        <% end %>
+    <h5>
+      <%= Trigger.model_name.human count: 0 %>
+    </h5>
 
-        <%= link_to_add_fields t('rules.new.trigger'), f, :triggers unless disable_rule_edition? %>
-      </div>
+    <div id="triggers">
+      <%= f.simple_fields_for :triggers, triggers do |rf| %>
+        <%= render 'triggers/trigger', f: rf %>
+      <% end %>
+
+      <%= link_to_add_fields t('rules.new.trigger'), f, :triggers unless disable_rule_edition? %>
+    </div>
 
     <%= f.input :lock_version, as: :hidden %>
   </div>

@@ -1,7 +1,12 @@
 # frozen_string_literal: true
 
 class SessionsController < ApplicationController
-  before_action :authorize, only: :destroy
+  include Authentication
+  include Sessions
+
+  layout :set_layout
+
+  before_action :authenticate, only: [:destroy]
   before_action :set_title, except: [:destroy]
 
   def new
@@ -9,23 +14,29 @@ class SessionsController < ApplicationController
   end
 
   def create
-    switch_to_default_account_for params[:username] do |account|
-      user = User.visible.by_username_or_email params[:username]
+    if params[:username].present?
 
-      if user && account && user.auth(params[:password])
-        create_login_record   user
-        store_auth_token      user
-        store_current_account account
+      switch_to_default_account_for params[:username] do |account|
+        user         = User.visible.by_username_or_email params[:username]
+        redirect_url = signin_url
 
-        redirect_to default_url, notice: t('.logged_in', scope: :flash)
-      else
-        create_fail_record user, params[:username]
-        clear_session
+        store_username params[:username]
 
-        flash.now.alert = t '.invalid', scope: :flash
+        if user && account
+          store_current_account account
 
-        render 'new'
+          if saml && !user.recovery?
+            redirect_url = new_saml_session_url account.tenant_name
+          end
+        end
+
+        redirect_to redirect_url
       end
+
+    else
+      flash.now.alert = t '.username_invalid', scope: :flash
+
+      render 'new', status: :unprocessable_entity
     end
   end
 
@@ -41,46 +52,7 @@ class SessionsController < ApplicationController
 
   private
 
-    def default_url
-      session.delete(:previous_url) || home_url
-    end
-
-    def create_login_record user
-      login = user.logins.create! request: request
-
-      session[:login_id] = login.id
-    end
-
-    def create_fail_record user, user_name
-      Fail.create! user: user, user_name: user_name, request: request
-    end
-
-    def store_auth_token user
-      jar = params[:remember_me] ? cookies.permanent : cookies
-
-      jar.encrypted[:token] = {
-        value:    user.auth_token,
-        secure:   Rails.application.config.force_ssl,
-        httponly: true
-      }
-    end
-
-    def store_current_account account
-      session[:tenant_name] = account.tenant_name
-    end
-
-    def switch_to_default_account_for username
-      account = Account.default_by_username_or_email username
-
-      if account
-        account.switch { yield account }
-      else
-        yield nil
-      end
-    end
-
-    def clear_session
-      reset_session
-      cookies.delete :token
+    def set_layout
+      ['new', 'create'].include?(action_name) ? 'public' : 'application'
     end
 end

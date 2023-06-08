@@ -4,7 +4,9 @@ module Issues::Scopes
   extend ActiveSupport::Concern
 
   included do
-    scope :active, -> { where.not status: 'closed' }
+    scope :active,  -> { where.not status: 'closed' }
+    scope :issues,  -> { where "#{Issue.table_name}.owner_type = 'Run'" }
+    scope :ordered, -> { order "#{Issue.table_name}.created_at DESC" }
     scope :ordered_by_script_name, -> { reorder "#{Script.table_name}.name" }
     scope :ordered_by_schedule_name, -> { reorder "#{Schedule.table_name}.name" }
   end
@@ -24,6 +26,10 @@ module Issues::Scopes
 
     def by_status status
       status == 'all' ? all : where(status: status)
+    end
+
+    def by_title title
+      where "#{table_name}.title ILIKE ?", "%#{title}%"
     end
 
     def by_description description

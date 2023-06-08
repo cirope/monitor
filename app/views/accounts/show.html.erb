@@ -15,6 +15,11 @@
     </p>
 
     <p class="mb-1">
+      <strong><%= Account.human_attribute_name 'token_duration' %></strong>:
+      <%= @account.token_interval %> <%= t "accounts.token_frequencies.#{@account.token_frequency}" %>
+    </p>
+
+    <p class="mb-1">
       <strong><%= Account.human_attribute_name 'style' %></strong>:
       <%= t "accounts.styles.#{@account.style}" %>
     </p>

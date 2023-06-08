@@ -21,6 +21,9 @@ es:
         notice: 'Cuenta eliminada'
         alert:  'La cuenta no pudo ser eliminada'
 
+    authentications:
+      logged_in: 'Bienvenido'
+
     databases:
       create:
         notice: 'Base de datos creada'
@@ -30,6 +33,20 @@ es:
       destroy:
         notice: 'Base de datos eliminada'
         alert:  'La base de datos no pudo ser eliminada'
+
+    drives:
+      create:
+        notice: 'Configuración DRIVE creada'
+      update:
+        notice: 'Configuración DRIVE actualizada'
+        alert:  ''
+      destroy:
+        notice: 'Configuración DRIVE eliminada'
+        alert:  'La configuración DRIVE no pudo ser eliminada'
+      providers:
+        index:
+          invalid: 'Ocurrió un error en la respuesta del proveedor DRIVE'
+          success: 'Se realizó la configuración DRIVE con éxito'
 
     executions:
       create:
@@ -83,6 +100,16 @@ es:
         notice: 'Corrida eliminada'
         alert:  'La corrida no pudo ser eliminada, tiene casos asociados'
 
+    samls:
+      create:
+        notice: 'Configuración SAML creada'
+      update:
+        notice: 'Configuración SAML actualizada'
+        alert:  ''
+      destroy:
+        notice: 'Configuración SAML eliminada'
+        alert:  'La configuración SAML no pudo ser eliminada'
+
     schedules:
       run:
         notice: 'Ejecución programada'
@@ -101,8 +128,9 @@ es:
 
     sessions:
       create:
+        username_invalid: 'Tu usuario o correo no es válido'
         invalid: 'Tu correo y/o contraseña no están bien =('
-        logged_in: 'Bienvenido'
+        not_authorized: 'No está autorizado para ingresar a la aplicación'
       destroy:
         logged_out: 'Hasta la próxima'
 
@@ -119,3 +147,7 @@ es:
     users:
       update:
         stale: 'No se pudo actualizar el usuario, revise los datos e inténtelo nuevamente'
+
+    application:
+      # Only used on tests
+      stale: 'Prueba'

@@ -60,7 +60,7 @@ class Issues::BoardControllerTest < ActionController::TestCase
   end
 
   test 'should add comment to issues' do
-    assert_enqueued_emails Issue.count do
+    assert_enqueued_emails Issue.issues.count do
       assert_no_difference 'Permalink.count' do
         assert_difference '@issue.comments.count' do
           patch :update, params: {
@@ -68,7 +68,7 @@ class Issues::BoardControllerTest < ActionController::TestCase
               comments_attributes: {
                 '0' => {
                   text: 'New comment',
-                  attachment: fixture_file_upload('files/test.sh', 'text/plain', false)
+                  attachment: fixture_file_upload('test/fixtures/files/test.sh', 'text/plain', false)
                 }
               }
             }
@@ -93,7 +93,7 @@ class Issues::BoardControllerTest < ActionController::TestCase
               comments_attributes: {
                 '0' => {
                   text: 'New comment',
-                  attachment: fixture_file_upload('files/test.sh', 'text/plain', false)
+                  attachment: fixture_file_upload('test/fixtures/files/test.sh', 'text/plain', false)
                 }
               }
             }

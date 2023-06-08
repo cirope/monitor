@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  match '/404', to: 'errors#not_found',            via: :all
+  match '/422', to: 'errors#unprocessable_entity', via: :all
+  match '/500', to: 'errors#internal_error',       via: :all
+
   # Home
   get 'home',                      to: 'home#index', as: 'home'
   get 'home/api_issues_by_status', to: 'home#api_issues_by_status'
@@ -12,6 +16,19 @@ Rails.application.routes.draw do
   get    'login',    to: 'sessions#new', as: 'login'
   post   'sessions', to: 'sessions#create', as: 'sessions'
   delete 'logout',   to: 'sessions#destroy', as: 'logout'
+
+  # Authentication
+  get  'signin', to: 'authentications#new',    as: 'signin'
+  post 'auth',   to: 'authentications#create', as: 'auth'
+
+  # DRIVE
+  get 'drives/providers',        to: 'drives/providers#index'
+  get 'drives/provider_options', to: 'drives/providers#show'
+
+  # SAML
+  get  'saml/:tenant_name/auth',     to: 'saml_sessions#new',      as: :new_saml_session
+  post 'saml/:tenant_name/callback', to: 'saml_sessions#create',   as: :saml_session
+  get  'saml/:tenant_name/metadata', to: 'saml_sessions#metadata', as: :saml_metadata
 
   # Profiles
   get   'profile', to: 'profiles#edit', as: 'profile'
@@ -32,12 +49,21 @@ Rails.application.routes.draw do
   post   'script/api_issues',        to: 'issues#api_issues'
 
   # Resources
-  resources :comments, except: [:index, :new]
   resources :databases
   resources :descriptors
+  resources :drives
   resources :ldaps
-  resources :rules
   resources :password_resets, only: [:new, :create, :edit, :update]
+  resources :pdf_templates
+  resources :roles
+  resources :rules do
+    resources :issues do
+      resources :comments, only: [:create], controller: 'issues/comments'
+    end
+    resources :tickets, only: [:index]
+  end
+  resources :samls
+  resources :tickets, only: [:index, :destroy]
 
   resources :accounts, except: [:destroy] do
     resources :issues, only: [:show]
@@ -50,11 +76,13 @@ Rails.application.routes.draw do
 
   # Dashboards
   resources :series, only: [:index, :show]
-  resources :dashboards do
-    resources :panels, except: [:index, :show]
-  end
 
-  resources :issues, except: [:new, :create] do
+  resources :issues do
+    scope module: 'issues' do
+      resources :comments, except: [:index, :new]
+    end
+    resources :scripts, only: [:new, :create, :show]
+    resources :rules, only: [:new, :create, :show]
     resources :taggings, only: [:new, :create, :destroy]
   end
 
@@ -86,10 +114,14 @@ Rails.application.routes.draw do
   end
 
   resources :scripts do
-    resources :issues,   only: [:index]
+    resources :issues do
+      resources :comments, only: [:create], controller: 'issues/comments'
+    end
     resources :versions, only: [:index, :show], controller: 'scripts/versions'
+    resources :parameters, only: [:show], controller: 'scripts/parameters'
     resources :executions, only: [:index, :create, :update, :show]
     resources :reverts, only: [:create], controller: 'scripts/reverts'
+    resources :tickets, only: [:index]
 
     scope ':type', type: /execution|run/ do
       resources :measures, only: [:index], controller: 'scripts/measures'
@@ -106,11 +138,11 @@ Rails.application.routes.draw do
 
   resources :users
 
-  scope ':kind', kind: /script|user|issue/ do
+  scope ':kind', kind: /script|user|issue|ticket/ do
     resources :tags
   end
 
-  resources :processes, only: [:index, :destroy]
+  resources :system_monitors, only: [:index, :destroy]
 
   scope ':kind', kind: /login|fail/ do
     resources :records, only: [:index, :show]

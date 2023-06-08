@@ -12,7 +12,7 @@ class FileRemoveJobTest < ActiveJob::TestCase
 
     FileRemoveJob.perform_now path
 
-    sleep ENV['TRAVIS'] ? 0.12 : 0.02
+    sleep ENV['GH_ACTIONS'] ? 0.12 : 0.02
 
     assert !path.exist?
   end

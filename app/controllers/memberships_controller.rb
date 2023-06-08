@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class MembershipsController < ApplicationController
+  include Authentication
   include Memberships::Filters
 
-  respond_to :html, :js
+  content_security_policy false
 
-  before_action :authorize
   before_action :set_membership, only: [:update]
   before_action :set_title, except: [:destroy]
 

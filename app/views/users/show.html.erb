@@ -9,15 +9,15 @@
     </p>
 
     <p class="mb-1">
-      <strong><%= roles_label %></strong>:
-      <%= t "users.roles.#{@user.role}" %>
+      <strong><%= User.human_attribute_name :role %></strong>:
+      <%= t_role_type @user.role.type %>
     </p>
 
     <% if @user.tags.any? %>
       <ul class="list-inline">
         <% @user.tags.each do |tag| %>
           <li class="list-inline-item">
-            <span class="badge badge-<%= tag.style %>"><%= tag %></span>
+            <span class="badge bg-<%= tag.style %>"><%= tag %></span>
           </li>
         <% end %>
       </ul>

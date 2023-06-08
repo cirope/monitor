@@ -1,0 +1,40 @@
+<%= simple_form_for @drive, data: { turbo: false } do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.input :provider, collection: drive_providers, prompt: true, autofocus: true %>
+      </div>
+      <div class="col-md-6">
+        <%= f.input :name, disabled: @drive.persisted? %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.input :client_id %>
+      </div>
+      <div class="col-md-6">
+        <%= f.input :client_secret %>
+      </div>
+    </div>
+
+    <div data-provider-options>
+      <% if @drive.provider_options.present? %>
+        <% @drive.provider_options.each_slice(2) do |options| %>
+          <div class="row">
+            <% options.each do |option, type| %>
+              <div class="col-md-6">
+                <%= f.input option, as: type, label: t("drives.providers.options.#{option}") %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, class: 'btn-primary' %>
+  </div>
+<% end %>

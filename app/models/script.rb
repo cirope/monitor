@@ -12,9 +12,13 @@ class Script < ApplicationRecord
   include Scripts::Export
   include Scripts::Import
   include Scripts::Injections
+  include Scripts::PythonInjections
   include Scripts::Json
+  include Scripts::Libraries
   include Scripts::Maintainers
+  include Scripts::ModePython
   include Scripts::ModeRuby
+  include Scripts::ModeShell
   include Scripts::ModeSql
   include Scripts::Parameters
   include Scripts::Pdf
@@ -25,14 +29,17 @@ class Script < ApplicationRecord
   include Scripts::Versions
   include SearchableByName
   include Taggable
+  include Ticketable
 
   has_one_attached :attachment
 
   strip_fields :name
 
   enum language: {
-    'ruby' => 'ruby',
-    'sql'  => 'sql'
+    'python' => 'python',
+    'ruby'   => 'ruby',
+    'sql'    => 'sql',
+    'shell'  => 'shell'
   }
 
   has_many :jobs, dependent: :destroy

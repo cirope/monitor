@@ -55,6 +55,12 @@ class ScriptsControllerTest < ActionController::TestCase
           name: 'Test script',
           text: @script.text,
           change: @script.change,
+          libraries_attributes: [
+            {
+              name: 'bootstrap',
+              options: '< 5'
+            }
+          ],
           maintainers_attributes: [
             {
               user_id: users(:eduardo).id.to_s

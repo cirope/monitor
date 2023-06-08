@@ -10,7 +10,7 @@
           <th><%= Account.human_attribute_name 'name' %></th>
           <th class="d-none d-sm-table-cell"><%= Account.human_attribute_name 'tenant_name' %></th>
           <th colspan="2">
-            <%= link_to_new new_account_path, class: 'btn btn-secondary btn-sm py-0 mr-n2 float-right' %>
+            <%= link_to_new new_account_path, class: 'btn btn-secondary btn-sm py-0 mr-n2 float-end' %>
           </th>
         </tr>
       </thead>
@@ -20,8 +20,8 @@
           <tr>
             <td><%= account.name %></td>
             <td class="d-none d-sm-table-cell"><%= account.tenant_name %></td>
-            <td class="text-right"><%= link_to_show account %></td>
-            <td class="text-right"><%= link_to_edit [:edit, account] %></td>
+            <td class="text-end"><%= link_to_show account %></td>
+            <td class="text-end"><%= link_to_edit [:edit, account] %></td>
           </tr>
         <% end %>
       </tbody>

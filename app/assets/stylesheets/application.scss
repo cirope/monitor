@@ -9,7 +9,8 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require bootstrap_sass
+ *= require trix
+ *= require actiontext
  *= require hyper
  *= require font_awesome
  *= require ie
@@ -59,4 +60,5 @@
  *= require taggings
  *= require users
  *= require users/imports
+ *= require roles
  */

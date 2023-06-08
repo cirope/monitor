@@ -2,7 +2,7 @@
   <div class="card-body">
     <h2 class="h2">
       <% if @tag.parent %>
-        <div class="badge badge-<%= @tag.parent.style %>">
+        <div class="badge bg-<%= @tag.parent.style %>">
           <%= @tag.parent %>
         </div>
 
@@ -10,7 +10,7 @@
           /
         </span>
       <% end %>
-      <div class="badge badge-<%= @tag.style %>">
+      <div class="badge bg-<%= @tag.style %>">
         <%= @tag %>
       </div>
     </h2>
@@ -37,7 +37,7 @@
         <% @tag.effects.each do |effect| %>
           <li>
             <%= link_to [effect.implied, kind: effect.implied.kind] do %>
-              <span class="badge badge-<%= effect.implied.style %>">
+              <span class="badge bg-<%= effect.implied.style %>">
                 <%= effect.implied %>
               </span>
             <% end %>
@@ -55,7 +55,7 @@
         <% @tag.children.each do |child| %>
           <li>
             <%= link_to [child, kind: child.kind] do %>
-              <span class="badge badge-<%= child.style %>">
+              <span class="badge bg-<%= child.style %>">
                 <%= child %>
               </span>
             <% end %>
