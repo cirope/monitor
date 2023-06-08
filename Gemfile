@@ -47,6 +47,7 @@ gem 'net-imap', require: false
 gem 'ruby-saml'
 gem 'oauth2'
 gem 'wicked_pdf'
+gem 'execjs', '< 2.7.0'
 
 group :development, :production do
   gem 'web-console'
