@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_28_192203) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_10_134638) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_28_192203) do
     t.datetime "updated_at", precision: nil, null: false
     t.jsonb "options"
     t.string "style", default: "default", null: false
+    t.boolean "debug_mode", default: true, null: false
     t.index ["name"], name: "index_accounts_on_name"
     t.index ["tenant_name"], name: "index_accounts_on_tenant_name", unique: true
   end

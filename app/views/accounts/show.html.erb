@@ -23,6 +23,11 @@
       <strong><%= Account.human_attribute_name 'style' %></strong>:
       <%= t "accounts.styles.#{@account.style}" %>
     </p>
+
+    <p class="mb-1">
+      <strong><%= Account.human_attribute_name 'debug_mode' %></strong>:
+      <%= t @account.debug_mode ? 'yes' : 'no' %>
+    </p>
   </div>
 </div>
 
