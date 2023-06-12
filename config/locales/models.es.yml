@@ -151,10 +151,11 @@ es:
 
     attributes:
       account:
-        name: 'Nombre'
-        tenant_name: 'Contexto'
+        debug_mode: '¿Modo depuración?'
         group_issues_by_schedule: 'Agrupar guiones por trabajo'
+        name: 'Nombre'
         style: 'Estilo'
+        tenant_name: 'Contexto'
         token_duration: 'Duración del token'
         token_interval: 'Intervalo de duración del token'
         token_frequency: 'Frecuencia de duración del token'

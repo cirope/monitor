@@ -11,8 +11,8 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-6 mt-2">
-        <%= f.input :group_issues_by_schedule, as: :boolean %>
+      <div class="col-md-6">
+        <%= f.input :style, collection: account_styles, prompt: true %>
       </div>
       <div class="col-md-6">
         <div class="row">
@@ -26,8 +26,11 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-6 mt-2">
-        <%= f.input :style, collection: account_styles, prompt: true %>
+      <div class="col-md-6">
+        <%= f.input :group_issues_by_schedule, as: :boolean %>
+      </div>
+      <div class="col-md-6">
+        <%= f.input :debug_mode %>
       </div>
     </div>
     <%= f.input :lock_version, as: :hidden %>
