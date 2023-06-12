@@ -66,7 +66,8 @@ module Servers::Command
       case extname
       when '.rb'
         cmd = [rails, 'runner', script_path]
-        cmd.unshift 'RUBYOPT="-W0"' unless debug_mode
+
+        cmd.prepend 'RUBYOPT="-W0"' unless debug_mode
 
         cmd.join ' '
       when '.py'
