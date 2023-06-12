@@ -72,7 +72,8 @@ module Servers::Command
         cmd.join ' '
       when '.py'
         cmd = [python3, script_path]
-        cmd.unshift 'PYTHONWARNINGS="ignore"' unless debug_mode
+
+        cmd.prepend 'PYTHONWARNINGS="ignore"' unless debug_mode
 
         cmd.join ' '
       else
