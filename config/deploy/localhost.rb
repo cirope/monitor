@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 set :rails_env, 'production'
-set :branch, 'c-bersa'
+set :branch, 'c-bersa-production-beta'
 
 # set :default_env, {
 #   'http_proxy': 'http://172.28.16.125:3128',
