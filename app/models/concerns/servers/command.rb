@@ -60,7 +60,7 @@ module Servers::Command
     end
 
     def local_command script_path
-      debug_mode = Current.account&.debug_mode
+      debug_mode = Account.current.first&.debug_mode
       extname    = File.extname script_path
 
       case extname
@@ -71,7 +71,7 @@ module Servers::Command
         cmd.join ' '
       when '.py'
         cmd = [python3, script_path]
-        cmd.unshift '-W ignore' unless debug_mode
+        cmd.unshift 'PYTHONWARNINGS="ignore"' unless debug_mode
 
         cmd.join ' '
       else
