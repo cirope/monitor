@@ -106,7 +106,7 @@ GEM
     concurrent-ruby (1.2.2)
     connection_pool (2.4.1)
     crass (1.0.6)
-    css_parser (1.12.0)
+    css_parser (1.14.0)
       addressable
     date (3.3.3)
     dbf (4.2.4)
@@ -173,7 +173,7 @@ GEM
       minitest (>= 5.0)
       ruby-progressbar
     multi_json (1.15.0)
-    net-imap (0.3.4)
+    net-imap (0.3.6)
       date
       net-protocol
     net-ldap (0.18.0)
@@ -190,7 +190,7 @@ GEM
     net-ssh (7.1.0)
     newrelic_rpm (9.2.2)
     nio4r (2.5.9)
-    nokogiri (1.13.10-x86_64-linux)
+    nokogiri (1.15.2-x86_64-linux)
       racc (~> 1.4)
     paper_trail (11.1.0)
       activerecord (>= 5.2)
@@ -204,16 +204,16 @@ GEM
       ttfunk (~> 1.7)
     prawn-table (0.2.2)
       prawn (>= 1.3.0, < 3.0.0)
-    premailer (1.15.0)
+    premailer (1.21.0)
       addressable
-      css_parser (>= 1.6.0)
+      css_parser (>= 1.12.0)
       htmlentities (>= 4.0.0)
     premailer-rails (1.12.0)
       actionmailer (>= 3)
       net-smtp
       premailer (~> 1.7, >= 1.7.9)
     public_suffix (4.0.7)
-    racc (1.7.0)
+    racc (1.7.1)
     rack (2.2.7)
     rack-test (2.1.0)
       rack (>= 1.3)
@@ -235,8 +235,9 @@ GEM
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
-    rails-html-sanitizer (1.5.0)
-      loofah (~> 2.19, >= 2.19.1)
+    rails-html-sanitizer (1.6.0)
+      loofah (~> 2.21)
+      nokogiri (~> 1.14)
     railties (6.0.3.7)
       actionpack (= 6.0.3.7)
       activesupport (= 6.0.3.7)
@@ -249,7 +250,8 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     rbase-ff (0.9.3)
-    redis (4.8.1)
+    redis-client (0.14.1)
+      connection_pool
     request_store (1.5.1)
       rack (>= 1.4)
     request_store-sidekiq (0.1.0)
@@ -259,7 +261,7 @@ GEM
       actionpack (>= 5.2)
       railties (>= 5.2)
     rexml (3.2.5)
-    roo (2.8.3)
+    roo (2.10.0)
       nokogiri (~> 1)
       rubyzip (>= 1.3.0, < 3.0.0)
     roo-xls (1.2.0)
@@ -293,10 +295,11 @@ GEM
       childprocess (>= 0.5, < 5.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2)
-    sidekiq (6.5.9)
-      connection_pool (>= 2.2.5, < 3)
-      rack (~> 2.0)
-      redis (>= 4.5.0, < 5)
+    sidekiq (7.1.1)
+      concurrent-ruby (< 2)
+      connection_pool (>= 2.3.0)
+      rack (>= 2.2.4)
+      redis-client (>= 0.14.0)
     simple_command (1.0.1)
     simple_form (5.2.0)
       actionpack (>= 5.2)
@@ -422,4 +425,4 @@ DEPENDENCIES
   whenever
 
 BUNDLED WITH
-   2.3.17
+   2.2.16
