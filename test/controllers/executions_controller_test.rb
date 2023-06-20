@@ -53,4 +53,12 @@ class ExecutionsControllerTest < ActionController::TestCase
 
     assert_response :success
   end
+
+  test 'should destroy server' do
+    assert_difference 'Execution.count', -1 do
+      delete :destroy, params: { id: @execution, script_id: @execution.script_id }
+    end
+
+    assert_redirected_to [@execution.script, :executions]
+  end
 end
