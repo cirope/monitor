@@ -61,4 +61,17 @@ class ExecutionsControllerTest < ActionController::TestCase
 
     assert_redirected_to [@execution.script, :executions]
   end
+
+  test 'should cleanup executions' do
+    script     = @execution.script
+    executions = script.executions.count
+
+    assert_not_equal 0, executions
+
+    assert_difference 'Execution.count', -executions do
+      delete :cleanup, params: { script_id: script }
+    end
+
+    assert_redirected_to script
+  end
 end
