@@ -19,7 +19,7 @@
           <th><%= Execution.human_attribute_name 'status' %></th>
           <th class="d-none d-md-table-cell"><%= Execution.human_attribute_name 'started_at' %></th>
           <th class="d-none d-md-table-cell"><%= Execution.human_attribute_name 'ended_at' %></th>
-          <th></th>
+          <th colspan="2"></th>
         </tr>
       </thead>
 
@@ -31,6 +31,7 @@
             <td class="d-none d-md-table-cell"><%= l execution.started_at, format: :compact if execution.started_at %></td>
             <td class="d-none d-md-table-cell"><%= l execution.ended_at, format: :compact if execution.ended_at %></td>
             <td class="text-end"><%= link_to_show [@script, execution] %></td>
+            <td class="text-end"><%= link_to_destroy [@script, execution] %></td>
           </tr>
         <% end %>
       </tbody>
@@ -38,4 +39,7 @@
   <% end %>
 </div>
 
-<%= paginate @executions if @executions.any? %>
+<div class="float-start">
+  <%= link_to_cleanup_executions @script if @executions.any? %>
+</div>
+<%= paginate @executions %>
