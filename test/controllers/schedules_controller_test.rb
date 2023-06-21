@@ -31,10 +31,14 @@ class SchedulesControllerTest < ActionController::TestCase
   end
 
   test 'should get filtered with script name' do
-    get :index, params: { filter: { name: 'pwd' } }
+    schedule = schedules :boom_on_atahualpa
+
+    schedule.update! name: 'Script name search test'
+
+    get :index, params: { filter: { name: 'boom' } }
     assert_response :success
 
-    assert_select 'td', text: /print working/i, count: 1
+    assert_select 'td', text: /Script name search test/i, count: 1
   end
 
   test 'should get new' do
