@@ -12,3 +12,8 @@ boom_on_atahualpa:
   schedule: boom_on_atahualpa
   script:  boom
   server: atahualpa
+
+pwd_on_atahualpa:
+  schedule: pwd
+  script:  pwd
+  server: atahualpa

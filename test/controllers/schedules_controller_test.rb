@@ -30,6 +30,13 @@ class SchedulesControllerTest < ActionController::TestCase
     assert_select '.alert', text: I18n.t('schedules.index.empty_search_html')
   end
 
+  test 'should get filtered with script name' do
+    get :index, params: { filter: { name: 'pwd' } }
+    assert_response :success
+
+    assert_select 'td', text: /print working/i, count: 1
+  end
+
   test 'should get new' do
     get :new
     assert_response :success
