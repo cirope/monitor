@@ -44,7 +44,9 @@ class ExecutionsController < ApplicationController
   end
 
   def cleanup
-    ExecutionCleanupJob.perform_later @script
+    if current_user.can? :remove, controller_path
+      ExecutionCleanupJob.perform_later @script
+    end
 
     redirect_to @script
   end

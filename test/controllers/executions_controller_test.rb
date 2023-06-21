@@ -54,7 +54,7 @@ class ExecutionsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test 'should destroy server' do
+  test 'should destroy execution' do
     assert_difference 'Execution.count', -1 do
       delete :destroy, params: { id: @execution, script_id: @execution.script_id }
     end

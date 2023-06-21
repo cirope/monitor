@@ -39,7 +39,9 @@
   <% end %>
 </div>
 
-<div class="float-start">
-  <%= link_to_cleanup_executions @script if @executions.any? %>
-</div>
+<% if current_user.can?(:remove, controller_path) && @executions.any? %>
+  <div class="float-start">
+    <%= link_to_cleanup_executions @script %>
+  </div>
+<% end %>
 <%= paginate @executions %>
