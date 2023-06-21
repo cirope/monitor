@@ -10,7 +10,9 @@ module Schedules::Scopes
 
   module ClassMethods
     def by_name name
-      where "#{table_name}.name ILIKE ?", "%#{name}%"
+      left_joins(:scripts).where(
+        "#{table_name}.name ILIKE :name OR #{Script.table_name}.name ILIKE :name", name: "%#{name}%"
+      ).distinct
     end
 
     def by_interval interval
