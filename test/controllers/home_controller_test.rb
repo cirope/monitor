@@ -130,12 +130,20 @@ class HomeControllerTest < ActionController::TestCase
   test 'should get filtered index using issue tags' do
     get :index, params: { filter: { tags: tags(:important).name } }
     assert_response :success
+
     assert_select 'table tbody'
   end
 
   test 'should get filtered index using issue user' do
     get :index, params: { filter: { user_id: users(:john).id } }
     assert_response :success
+    assert_select 'table tbody'
+  end
+
+  test 'should get filtered index using issue data' do
+    get :index, params: { filter: { data: { 'test': 'data' }.to_json } }
+    assert_response :success
+
     assert_select 'table tbody'
   end
 
