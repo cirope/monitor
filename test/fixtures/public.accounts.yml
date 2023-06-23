@@ -4,3 +4,4 @@ default:
   name: Default account
   tenant_name: default
   style: default
+  debug_mode: true

@@ -58,4 +58,18 @@ module ExecutionsHelper
       ].join ' '
     end
   end
+
+  def link_to_cleanup_executions script
+    options = {
+      title: t('executions.cleanup'),
+      data:  {
+        method:  :delete,
+        confirm: t('messages.confirmation')
+      }
+    }
+
+    link_to cleanup_script_executions_url(script), options do
+      icon 'fas', 'eraser'
+    end
+  end
 end

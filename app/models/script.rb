@@ -6,6 +6,7 @@ class Script < ApplicationRecord
   include Exportable
   include Filterable
   include Scripts::Callbacks
+  include Scripts::Cleanup
   include Scripts::Copy
   include Scripts::Descriptions
   include Scripts::Destroy
