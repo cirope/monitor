@@ -31,13 +31,7 @@ class UsersController < ApplicationController
     @user = User.new user_params
 
     if @user.restore?
-      @user = @user.find_and_restore!
-
-      if @user.persisted?
-        redirect_to @user
-      else
-        render 'new', status: :unprocessable_entity
-      end
+      find_user_and_restore
     elsif @user.save
       redirect_to @user
     else
@@ -65,6 +59,16 @@ class UsersController < ApplicationController
 
     def set_user
       @user = User.find params[:id]
+    end
+
+    def find_user_and_restore
+      @user = @user.find_and_restore!
+
+      if @user.persisted?
+        redirect_to @user
+      else
+        render 'new', status: :unprocessable_entity
+      end
     end
 
     def user_params
