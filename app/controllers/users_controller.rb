@@ -30,7 +30,15 @@ class UsersController < ApplicationController
   def create
     @user = User.new user_params
 
-    if @user.save
+    if @user.restore?
+      @user = @user.find_and_restore!
+
+      if @user.persisted?
+        redirect_to @user
+      else
+        render 'new', status: :unprocessable_entity
+      end
+    elsif @user.save
       redirect_to @user
     else
       render 'new', status: :unprocessable_entity
@@ -61,6 +69,6 @@ class UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit :name, :lastname, :email, :username, :password, :password_confirmation,
-        :role_id, :lock_version, taggings_attributes: [:id, :tag_id, :_destroy]
+        :role_id, :restore, :lock_version, taggings_attributes: [:id, :tag_id, :_destroy]
     end
 end

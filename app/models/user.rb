@@ -14,6 +14,7 @@ class User < ApplicationRecord
   include Users::Overrides
   include Users::PasswordReset
   include Users::Permissions
+  include Users::Restore
   include Users::Roles
   include Users::Scopes
   include Users::Search

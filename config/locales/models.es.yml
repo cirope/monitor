@@ -369,6 +369,7 @@ es:
         password: 'Contraseña'
         password_confirmation: 'Confirmación'
         role: 'Rol'
+        restore: '¿Restaurar usuario?'
       paper_trail/version:
         whodunnit: 'Usuario'
         created_at: 'Modificado el'
