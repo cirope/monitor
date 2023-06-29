@@ -90,4 +90,48 @@ class UsersControllerTest < ActionController::TestCase
     get :index
     assert_redirected_to login_url
   end
+
+  test 'should show retore field' do
+    Current.account = send 'public.accounts', :default
+
+    @user.hide
+
+    assert_no_difference 'User.count' do
+      post :create, params: { user: { email: @user.email } }
+    end
+
+    assert_response :unprocessable_entity
+    assert_select '#user_restore', count: 1
+  end
+
+  test 'should not retore user' do
+    Current.account = send 'public.accounts', :default
+
+    @user.hide
+
+    assert_no_difference 'User.count' do
+      post :create, params: {
+        user: { email: @user.email, username: 'franco', restore: '1' }
+      }
+    end
+
+    assert_response :unprocessable_entity
+    assert_select '.alert-danger', count: 2
+  end
+
+  test 'should retore user' do
+    Current.account = send 'public.accounts', :default
+
+    @user.hide
+    assert_equal @user.reload.hidden, true
+
+    assert_no_difference 'User.count' do
+      post :create, params: {
+        user: { email: @user.email, restore: '1' }
+      }
+    end
+
+    assert_redirected_to user_url(@user)
+    assert_equal @user.reload.hidden, false
+  end
 end
