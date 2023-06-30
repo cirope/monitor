@@ -4,7 +4,7 @@ module Users::Restore
   attr_accessor :restore
 
   def restore?
-    restore == '1'
+    restore == '1' || restore == true
   end
 
   def restore_errors_any?
@@ -19,10 +19,13 @@ module Users::Restore
     user = find_hidden_user
 
     if validate_unique_user_to_restore(user)
-        attrs = attributes.select { |attr, value| value.present? }.
-          slice(:name, :lastname, :username, :email, :role_id)
+        attrs          = attributes.select { |attr, value| value.present? }
+        new_attributes = attrs.slice(
+          :name, :lastname, :username, :email, :role_id
+        ).merge hidden: false, restore: true
 
-        user.attributes = attrs.merge hidden: false, restore: '1'
+        user.attributes = new_attributes
+
         user.save!
 
         Current.account.enroll user
