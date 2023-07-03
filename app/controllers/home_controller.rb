@@ -9,7 +9,7 @@ class HomeController < ApplicationController
   before_action :set_title
 
   PERMITED_FILTER_PARAMS = [
-    :name, :status, :show, :tags, :user_id, :user, :description, :comment
+    :name, :status, :show, :tags, :user_id, :user, :description, :comment, :data
   ]
 
   def index

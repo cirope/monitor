@@ -5,9 +5,13 @@
 
   <div class="card-body">
     <p class="mb-1">
+      <strong><%= User.human_attribute_name :email %></strong>:
       <%= mail_to @user.email %>
     </p>
-
+    <p class="mb-1">
+      <strong><%= User.human_attribute_name :username %></strong>:
+      <%= @user.username %>
+    </p>
     <p class="mb-1">
       <strong><%= User.human_attribute_name :role %></strong>:
       <%= t_role_type @user.role.type %>

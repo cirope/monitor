@@ -10,6 +10,8 @@ class Membership < ApplicationRecord
   include Memberships::Validation
   include PublicAuditable
 
+  attr_accessor :restore
+
   strip_fields :email, :username
   downcase_fields :email, :username
 
