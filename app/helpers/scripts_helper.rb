@@ -93,6 +93,18 @@ module ScriptsHelper
     end
   end
 
+  def script_documents
+    @script.documents_attachments.select &:persisted?
+  end
+
+  def script_documents_identifier
+    if @script.documents.attached?
+      docs = @script.documents.select &:new_record?
+
+      raw docs.map(&:filename).join('<br />')
+    end
+  end
+
   private
 
     def link_to_create_execution &block

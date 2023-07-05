@@ -67,13 +67,14 @@ class ScriptsController < ApplicationController
 
     def script_params
       params.require(:script).permit :name, :core, :attachment, :text, :change,
-        :language, :database_id, :lock_version,
+        :language, :database_id, { documents: [] }, :lock_version,
         libraries_attributes: [:id, :name, :options, :_destroy],
         maintainers_attributes: [:id, :user_id, :_destroy],
         descriptions_attributes: [:id, :name, :value, :public, :_destroy],
         parameters_attributes: [:id, :name, :value, :_destroy],
         requires_attributes: [:id, :script_id, :_destroy],
-        taggings_attributes: [:id, :tag_id, :_destroy]
+        taggings_attributes: [:id, :tag_id, :_destroy],
+        documents_attachments_attributes: [:id, :_destroy]
     end
 
     def check_if_can_edit
