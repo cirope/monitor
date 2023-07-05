@@ -1,9 +1,7 @@
-gem 'composite_primary_keys', require: false
+# gem 'composite_primary_keys', require: false
 # https://github.com/composite-primary-keys/composite_primary_keys/pull/472
 gem 'ruby-odbc', require: false
 
-unless ENV['TRAVIS']
-# Excel parser
 gem 'roo'
 gem 'pdf-reader'
 gem 'charlock_holmes'
@@ -12,4 +10,3 @@ gem 'roo-xls'
 gem 'dbf'
 gem 'docx'
 gem 'rover-df'
-end
