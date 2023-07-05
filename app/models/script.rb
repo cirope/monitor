@@ -34,6 +34,9 @@ class Script < ApplicationRecord
 
   has_one_attached :attachment
 
+  has_many_attached :documents
+  accepts_nested_attributes_for :documents_attachments, allow_destroy: true
+
   strip_fields :name
 
   enum language: {
