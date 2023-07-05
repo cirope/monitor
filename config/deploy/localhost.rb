@@ -1,11 +1,7 @@
 # frozen_string_literal: true
 
 set :rails_env, 'production'
-
-set :default_env, {
-  'http_proxy': 'http://172.28.16.125:3128',
-  'https_proxy': 'http://172.28.16.125:3128'
-}
+set :branch, 'c-bancor-test'
 
 role :web, %w{deployer@127.0.0.1}
 role :app, %w{deployer@127.0.0.1}
