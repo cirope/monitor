@@ -1,27 +1,15 @@
-# gem 'composite_primary_keys', require: false
+gem 'composite_primary_keys', require: false
 # https://github.com/composite-primary-keys/composite_primary_keys/pull/472
-gem 'composite_primary_keys'
 gem 'ruby-odbc', require: false
 
-unless ENV['GH_ACTIONS']
-  # Oracle ActiveRecord adapter
-  gem 'ruby-oci8', require: false
-  gem 'activerecord-oracle_enhanced-adapter', require: false
-
-  # SQL Server ActiveRecord adapter
-  gem 'tiny_tds', '< 2.0.0', require: false
-  gem 'activerecord-sqlserver-adapter', require: false
-
-  # MySQL driver
-  gem 'mysql2'
-
-  # SQLite
-  gem 'sqlite3'
-
-  # Sequel
-  gem 'sequel'
-
-  # Excel parser
-  gem 'roo'
-  gem 'pdf-reader'
+unless ENV['TRAVIS']
+# Excel parser
+gem 'roo'
+gem 'pdf-reader'
+gem 'charlock_holmes'
+gem 'caxlsx'
+gem 'roo-xls'
+gem 'dbf'
+gem 'docx'
+gem 'rover-df'
 end
