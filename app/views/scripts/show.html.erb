@@ -174,6 +174,25 @@
   </div>
 <% end %>
 
+<% if @script.documents.attached? %>
+  <div class="card mb-3">
+    <div class="card-header">
+      <h5>
+        <%= Script.human_attribute_name :documents %>
+      </h5>
+    </div>
+    <div id="documents" class="card-body">
+      <ul>
+        <% @script.documents.each do |document| %>
+          <li>
+            <%= link_to document.filename.to_s, rails_blob_path(document, disposition: 'attachment') %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>
+
 <% if @script.can_be_edited_by? current_user %>
   <%= link_to_edit [:edit, @script] %> |
 <% end %>

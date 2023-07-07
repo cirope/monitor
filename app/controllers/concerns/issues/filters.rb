@@ -43,7 +43,7 @@ module Issues::Filters
   end
 
   def issue_filter
-    filter_params.slice :status, :tags, :description, :key, :user_id, :comment, :canonical_data
+    filter_params.slice :status, :tags, :description, :key, :user_id, :comment, :canonical_data, :data
   end
 
   def filter_params

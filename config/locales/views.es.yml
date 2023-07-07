@@ -716,6 +716,10 @@ es:
       manager: 'Analista'
       owner: 'Propietario'
       guest: 'Invitado'
+    restore:
+      confirmation: 'Si desea restaurar el usuario con los datos ingresados por favor haga clic en la siguiente confirmación:'
+      error: 'Imposible restaurar el usuario porque la combinación de usuario y correo no coinciden.'
+      taken: 'Usuario existente'
     imports:
       new:
         title: 'Importar usuarios desde LDAP'

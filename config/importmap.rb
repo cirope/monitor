@@ -42,4 +42,7 @@ pin '@rails/actiontext', to: 'actiontext.js'
 
 pin 'consumer'
 pin '@rails/actioncable', to: 'actioncable.esm.js'
+pin '@rails/activestorage', to: 'activestorage.esm.js'
 pin_all_from 'app/javascript/channels', under: 'channels'
+
+pin 'direct_upload', to: 'direct_upload.js'

@@ -210,9 +210,10 @@ private
         'password_reset_token',
         'password_reset_sent_at',
         'lock_version',
-        'role',
+        'old_role',
         'username',
-        'hidden'
+        'hidden',
+        'role_id'
       ],
       'versions' => [
         'id',
@@ -260,10 +261,11 @@ private
         'status',
         'description',
         'data',
-        'run_id',
+        'owner_id',
         'lock_version',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'owner_type'
       ],
       'comments' => [
         'id',

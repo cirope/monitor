@@ -3,6 +3,20 @@
 
   <fieldset>
     <div class="form-inputs">
+
+      <% if @user.restore_errors_any? %>
+        <div class="alert alert-info border-0" role="alert">
+           <h4 class="alert-heading"><%= t 'users.restore.taken' %></h4>
+           <h5><%= t 'users.restore.confirmation' %></h5>
+           <hr>
+           <%= f.input :restore, as: :boolean %>
+        </div>
+      <% elsif @user.errors.where(:restore).any? %>
+        <div class="alert alert-danger border-0" role="alert">
+           <h5><%= @user.errors[:restore].first %></h5>
+        </div>
+      <% end %>
+
       <div class="row">
         <div class="col-md-6">
           <%= f.input :name, input_html: { autofocus: true, disabled: ldap } %>

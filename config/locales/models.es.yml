@@ -330,6 +330,7 @@ es:
         core: 'Principal'
         change: 'Comentario del último cambio'
         language: 'Lenguaje'
+        documents: 'Documentos'
       serie:
         name: 'Nombre'
         timestamp: 'Fecha'
@@ -369,6 +370,7 @@ es:
         password: 'Contraseña'
         password_confirmation: 'Confirmación'
         role: 'Rol'
+        restore: '¿Restaurar usuario?'
       paper_trail/version:
         whodunnit: 'Usuario'
         created_at: 'Modificado el'
