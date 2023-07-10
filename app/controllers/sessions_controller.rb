@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class SessionsController < ApplicationController
-  include Authentication
   include Sessions
 
   layout :set_layout
@@ -54,5 +53,11 @@ class SessionsController < ApplicationController
 
     def set_layout
       ['new', 'create'].include?(action_name) ? 'public' : 'application'
+    end
+
+    def authenticate
+      unless current_user&.visible? && current_account
+        redirect_to login_url, alert: t('messages.not_authorized')
+      end
     end
 end
