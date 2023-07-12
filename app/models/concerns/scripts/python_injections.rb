@@ -11,7 +11,7 @@ module Scripts::PythonInjections
         connection_name = match.captures.first
 
         inject_pony_connection line, connection_name
-      elsif (match = line.match(PY_ODBC_CONNECTION_REGEX)) && line[','].blank?
+      elsif (match = line.match(PY_GREDIT_CONNECTION_REGEX)) && line[','].blank?
         connection_name = match.captures.first
 
         inject_py_odbc_property line, connection_name
@@ -55,7 +55,7 @@ module Scripts::PythonInjections
 
       if db && db.driver.downcase =~ /freetds/ && db.user && db.password
         arguments = "DSN=#{connection_name};UID=#{db.user};PWD=#{db.password}"
-        new_line  = line.sub PY_ODBC_CONNECTION_REGEX, "pyodbc.connect('#{arguments}')"
+        new_line  = line.sub PY_GREDIT_CONNECTION_REGEX, "pyodbc.connect('#{arguments}')"
 
         "#{new_line}\r\n"
       else
