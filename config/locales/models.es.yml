@@ -330,6 +330,7 @@ es:
         core: 'Principal'
         change: 'Comentario del último cambio'
         language: 'Lenguaje'
+        documents: 'Documentos'
       serie:
         name: 'Nombre'
         timestamp: 'Fecha'
