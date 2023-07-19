@@ -4,7 +4,7 @@ module Drives::Options
   PROVIDER_OPTIONS = {
     drive:      { root_folder_id: :string },
     onedrive:   { tenant_id: :string, drive_id: :string },
-    sharepoint: { tenant_id: :string, drive_id: :string }
+    sharepoint: { drive_id: :string }
   }
 
   def provider_options

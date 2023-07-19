@@ -8,10 +8,14 @@ module Memberships::Validation
     validates :email, :username, uniqueness: {
       case_sensitive: false, scope: :account
     }
-    validate :username_with_unique_email, if: :new_record?
+    validate :username_with_unique_email, if: :should_validate_username_with_unique_email
   end
 
   private
+
+    def should_validate_username_with_unique_email
+      new_record? && !restore
+    end
 
     def username_with_unique_email
       membership_with_different_email = Membership.

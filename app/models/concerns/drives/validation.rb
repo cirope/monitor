@@ -16,7 +16,7 @@ module Drives::Validation
     end
 
     with_options if: :is_onedrive? do |onedrive|
-      onedrive.validates :tenant_id, :drive_id,
+      onedrive.validates :drive_id,
         presence: true,
         length: { maximum: 255 }
     end

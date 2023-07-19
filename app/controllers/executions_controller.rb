@@ -8,7 +8,7 @@ class ExecutionsController < ApplicationController
 
   before_action :set_script
   before_action :set_server, only: [:create]
-  before_action :set_execution, only: [:show, :update]
+  before_action :set_execution, only: [:show, :update, :destroy]
 
   # GET /executions
   def index
@@ -35,6 +35,20 @@ class ExecutionsController < ApplicationController
     else
       @execution.kill
     end
+  end
+
+  def destroy
+    @execution.destroy
+
+    redirect_back fallback_location: [@script, @execution]
+  end
+
+  def cleanup
+    if current_user.can? :remove, controller_path
+      ExecutionCleanupJob.perform_later @script
+    end
+
+    redirect_to @script
   end
 
   private

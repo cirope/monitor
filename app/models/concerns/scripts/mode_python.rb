@@ -8,8 +8,9 @@ module Scripts::ModePython
   end
 
   def python_libraries
-    orm_libs = search_orm_libs
-    libs     = libraries.to_a + included_libraries.to_a + orm_libs
+    orm_libs   = search_orm_libs
+    libs       = libraries.to_a + included_libraries.to_a + orm_libs
+    libs_names = libs.map &:name
 
     if libs.present?
       <<~PYTHON
@@ -25,7 +26,9 @@ module Scripts::ModePython
             __import__(library)
 
         #{python_import_libs(libs)}
-        #{python_import_orm_libs(orm_libs)}
+        #{python_import_pony   if libs_names.include? 'pony'         }
+        #{python_import_pyodbc if libs_names.include? 'pyodbc'       }
+        #{python_import_crypto if libs_names.include? 'cryptography' }
       PYTHON
     end
   end
@@ -82,36 +85,41 @@ module Scripts::ModePython
       "[sys.executable, '-m', 'pip', 'install', #{cmd}]"
     end
 
-    def python_import_orm_libs libs
-      if libs.map(&:name).include? 'pony'
-        <<~PYTHON
-          import base64
-          from pony.orm import *
-          from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
-          from cryptography.hazmat.primitives import padding
+    def python_import_pony
+      'from pony.orm import *'
+    end
 
-          def _unpad(data, size=128):
-            padder         = padding.PKCS7(size).unpadder()
-            unpadded_data  = padder.update(data)
-            unpadded_data += padder.finalize()
+    def python_import_pyodbc
+      'import pyodbc'
+    end
 
-            return unpadded_data
+    def python_import_crypto
+      <<~PYTHON
+        import base64
+        from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
+        from cryptography.hazmat.primitives import padding
 
-          def _decrypt(ct, method, mode):
-            cipher    = Cipher(method, mode)
-            decryptor = cipher.decryptor()
+        def _unpad(data, size=128):
+          padder         = padding.PKCS7(size).unpadder()
+          unpadded_data  = padder.update(data)
+          unpadded_data += padder.finalize()
 
-            return decryptor.update(ct) + decryptor.finalize()
+          return unpadded_data
 
-          def _pony_connection(pony_config, method, mode):
-            encrypted = base64.b64decode(pony_config['password'])
-            password  = _decrypt(encrypted, method, mode)
+        def _decrypt(ct, method, mode):
+          cipher    = Cipher(method, mode)
+          decryptor = cipher.decryptor()
 
-            pony_config.update(password=_unpad(password).decode())
+          return decryptor.update(ct) + decryptor.finalize()
 
-            return pony_config
-        PYTHON
-      end
+        def _decrypt_password(config, method, mode):
+          encrypted = base64.b64decode(config['password'])
+          password  = _decrypt(encrypted, method, mode)
+
+          config.update(password=_unpad(password).decode())
+
+          return config
+      PYTHON
     end
 
     def python_as_inner_varialble name, collection
@@ -132,8 +140,10 @@ module Scripts::ModePython
           connection_name = match.captures.first
 
           if db = Database.current.find_by(name: connection_name)
-            libs |= ['pony', 'cryptography', db.adapter_drivers]
+            libs |= ['cryptography', 'pony', db.adapter_drivers]
           end
+        elsif (match = line.match(PY_GREDIT_CONNECTION_REGEX))
+          libs |= ['pyodbc']
         end
       end
 

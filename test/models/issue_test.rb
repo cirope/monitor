@@ -319,6 +319,8 @@ class IssueTest < ActiveSupport::TestCase
   end
 
   test 'export grouped data' do
+    issues(:boom_on_atahualpa).delete
+
     Current.account = send 'public.accounts', :default
     path            = Issue.grouped_export
 

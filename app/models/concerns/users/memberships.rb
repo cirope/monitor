@@ -4,8 +4,8 @@ module Users::Memberships
   extend ActiveSupport::Concern
 
   included do
-    before_create :create_membership
-    before_update :update_memberships
+    before_create :create_membership, unless: :restore?
+    before_update :update_memberships, unless: :restore?
 
     has_many :memberships, foreign_key: :email, primary_key: :email,
       inverse_of: :user
