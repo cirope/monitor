@@ -4,8 +4,8 @@ set :stage, :production
 set :rails_env, 'production'
 set :branch, 'master'
 
-role :web, %w{deployer@demo.greditsoft.com}
-role :app, %w{deployer@demo.greditsoft.com}
-role :db,  %w{deployer@demo.greditsoft.com}
+role :web, %w{deployer@base.greditsoft.com}
+role :app, %w{deployer@base.greditsoft.com}
+role :db,  %w{deployer@base.greditsoft.com}
 
-server 'demo.greditsoft.com', user: 'deployer', roles: %w{web app db}
+server 'base.greditsoft.com', user: 'deployer', roles: %w{web app db}

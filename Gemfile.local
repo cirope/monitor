@@ -5,21 +5,21 @@ gem 'ruby-odbc', require: false
 
 unless ENV['GH_ACTIONS']
   # Oracle ActiveRecord adapter
-  gem 'ruby-oci8', require: false
-  gem 'activerecord-oracle_enhanced-adapter', require: false
+#  gem 'ruby-oci8', require: false
+ # gem 'activerecord-oracle_enhanced-adapter', require: false
 
   # SQL Server ActiveRecord adapter
   gem 'tiny_tds', '< 2.0.0', require: false
   gem 'activerecord-sqlserver-adapter', require: false
 
   # MySQL driver
-  gem 'mysql2'
+  #gem 'mysql2'
 
   # SQLite
-  gem 'sqlite3'
+  #gem 'sqlite3'
 
   # Sequel
-  gem 'sequel'
+  #gem 'sequel'
 
   # Excel parser
   gem 'roo'
