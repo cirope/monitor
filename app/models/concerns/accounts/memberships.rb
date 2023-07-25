@@ -13,7 +13,8 @@ module Accounts::Memberships
     else
       memberships.create! email:    user.email,
                           username: user.username,
-                          default:  default
+                          default:  default,
+                          restore:  user.restore?
     end
   end
 

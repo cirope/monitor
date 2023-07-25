@@ -1,0 +1,20 @@
+<%= f.input :documents, hint: script_documents_identifier, input_html: {
+  multiple: true, include_hidden: false, direct_upload: true
+} %>
+
+<% if @script.documents.attached? && @script.invalid? %>
+  <% @script.documents.each do |document| %>
+    <%= f.hidden_field :documents,
+      multiple: true,
+      direct_upload: true,
+      value: document.signed_id
+    %>
+  <% end %>
+<% end %>
+
+<%= f.simple_fields_for :documents_attachments, script_documents do |daf| %>
+  <fieldset>
+    <%= daf.object.filename.to_s %> |
+    <%= link_to_remove_nested_item daf %>
+  </fieldset>
+<% end %>

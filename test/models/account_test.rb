@@ -62,10 +62,12 @@ class AccountTest < ActiveSupport::TestCase
   end
 
   test 'included attributes' do
-    @account.style = nil
+    @account.style      = nil
+    @account.debug_mode = nil
 
     assert @account.invalid?
     assert_error @account, :style, :inclusion
+    assert_error @account, :debug_mode, :inclusion
   end
 
   test 'enroll' do

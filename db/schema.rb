@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_28_192203) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_05_024346) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_28_192203) do
     t.datetime "updated_at", precision: nil, null: false
     t.jsonb "options"
     t.string "style", default: "default", null: false
+    t.boolean "debug_mode", default: true, null: false
     t.index ["name"], name: "index_accounts_on_name"
     t.index ["tenant_name"], name: "index_accounts_on_tenant_name", unique: true
   end
@@ -53,10 +54,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_28_192203) do
     t.string "content_type"
     t.text "metadata"
     t.bigint "byte_size", null: false
-    t.string "checksum", null: false
+    t.string "checksum"
     t.datetime "created_at", precision: nil, null: false
     t.string "service_name", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "active_storage_variant_records", force: :cascade do |t|
+    t.bigint "blob_id", null: false
+    t.string "variation_digest", null: false
+    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
   create_table "comments", id: :serial, force: :cascade do |t|
@@ -583,6 +590,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_28_192203) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "issues", on_update: :restrict, on_delete: :restrict
   add_foreign_key "comments", "users", on_update: :restrict, on_delete: :restrict
   add_foreign_key "databases", "accounts", on_update: :restrict, on_delete: :restrict

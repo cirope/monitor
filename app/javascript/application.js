@@ -53,5 +53,8 @@ import 'trix'
 import '@rails/actiontext'
 
 import '@rails/actioncable'
+import '@rails/activestorage'
 import 'consumer'
 import 'channels/execution'
+
+import 'direct_upload'

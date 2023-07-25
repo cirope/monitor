@@ -151,10 +151,11 @@ es:
 
     attributes:
       account:
-        name: 'Nombre'
-        tenant_name: 'Contexto'
+        debug_mode: '¿Modo depuración?'
         group_issues_by_schedule: 'Agrupar guiones por trabajo'
+        name: 'Nombre'
         style: 'Estilo'
+        tenant_name: 'Contexto'
         token_duration: 'Duración del token'
         token_interval: 'Intervalo de duración del token'
         token_frequency: 'Frecuencia de duración del token'
@@ -329,6 +330,7 @@ es:
         core: 'Principal'
         change: 'Comentario del último cambio'
         language: 'Lenguaje'
+        documents: 'Documentos'
       serie:
         name: 'Nombre'
         timestamp: 'Fecha'
@@ -368,6 +370,7 @@ es:
         password: 'Contraseña'
         password_confirmation: 'Confirmación'
         role: 'Rol'
+        restore: '¿Restaurar usuario?'
       paper_trail/version:
         whodunnit: 'Usuario'
         created_at: 'Modificado el'

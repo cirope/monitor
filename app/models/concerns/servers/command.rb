@@ -60,22 +60,33 @@ module Servers::Command
     end
 
     def local_command script_path
-      extname = File.extname script_path
+      debug_mode = Account.current.first&.debug_mode
+      extname    = File.extname script_path
 
       case extname
-      when '.rb' then [rails, 'runner', script_path]
-      when '.py' then [python3, script_path]
+      when '.rb'
+        cmd = [rails, 'runner', script_path]
+
+        cmd.prepend 'RUBYOPT="-W0"' unless debug_mode
+
+        cmd.join ' '
+      when '.py'
+        cmd = [python3, script_path]
+
+        cmd.prepend 'PYTHONWARNINGS="ignore"' unless debug_mode
+
+        cmd.join ' '
       else
         `chmod +x #{script_path}`
 
-        [script_path]
+        script_path
       end
     end
 
     def local_exec script_path, executable
       status = 1
 
-      Open3.popen2e *local_command(script_path) do |stdin, stdout, thread|
+      Open3.popen2e local_command(script_path) do |stdin, stdout, thread|
         executable.update! pid: thread.pid
 
         stdout.each { |line| yield "#{line.strip}\n" }

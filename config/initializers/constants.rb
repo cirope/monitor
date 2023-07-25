@@ -6,6 +6,6 @@ UUID_REGEX = /[a-f0-9]{8}-([a-f0-9]{4}-){3}[a-f0-9]{12}/
 # Python PonyORM REGEX
 PONY_CONNECTION_REGEX = /@pony_connection\[['"](\w+)['"]\]/
 # Python ODBC REGEX
-PY_ODBC_CONNECTION_REGEX = /pyodbc.connect\(?\s*['"](\w+)['"]\s*\)?/
+PY_GREDIT_CONNECTION_REGEX = /gredit.connect\(?\s*['"](\w+)['"]\s*\)?/
 # Gredit Cipher
 GREDIT_CIPHER = { 'AES-256-CBC': { algorithm: 'algorithms.AES(%{key})', mode: 'modes.CBC(%{iv})' } }

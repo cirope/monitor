@@ -142,7 +142,7 @@ module Scripts::ModePython
           if db = Database.current.find_by(name: connection_name)
             libs |= ['cryptography', 'pony', db.adapter_drivers]
           end
-        elsif (match = line.match(PY_ODBC_CONNECTION_REGEX))
+        elsif (match = line.match(PY_GREDIT_CONNECTION_REGEX))
           libs |= ['pyodbc']
         end
       end
