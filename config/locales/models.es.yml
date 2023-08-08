@@ -159,6 +159,8 @@ es:
         token_duration: 'Duración del token'
         token_interval: 'Intervalo de duración del token'
         token_frequency: 'Frecuencia de duración del token'
+        cleanup_runs_after: 'Eliminar corridas luego de (en días)'
+        cleanup_executions_after: 'Eliminar ejecuciones luego de (en días)'
       comment:
         text: 'Comentario'
         file: 'Adjunto'
