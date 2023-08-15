@@ -3,16 +3,11 @@
 gem 'ruby-odbc', require: false
 gem 'tiny_tds', '< 2.0.0', require: false
 gem 'activerecord-sqlserver-adapter', require: false
-
-
-unless ENV['TRAVIS']
-  # Excel parser
-  gem 'roo'
-  gem 'pdf-reader'
-  gem 'charlock_holmes'
-  gem 'caxlsx'
-  gem 'roo-xls'
-  gem 'dbf'
-  gem 'docx'
-  gem 'rover-df'
-end
+gem 'roo'
+gem 'pdf-reader'
+gem 'charlock_holmes'
+gem 'caxlsx'
+gem 'roo-xls'
+gem 'dbf'
+gem 'docx'
+gem 'rover-df'

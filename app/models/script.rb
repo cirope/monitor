@@ -6,6 +6,7 @@ class Script < ApplicationRecord
   include Exportable
   include Filterable
   include Scripts::Callbacks
+  include Scripts::Cleanup
   include Scripts::Copy
   include Scripts::Descriptions
   include Scripts::Destroy
@@ -32,6 +33,9 @@ class Script < ApplicationRecord
   include Ticketable
 
   has_one_attached :attachment
+
+  has_many_attached :documents
+  accepts_nested_attributes_for :documents_attachments, allow_destroy: true
 
   strip_fields :name
 

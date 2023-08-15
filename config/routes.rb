@@ -22,7 +22,8 @@ Rails.application.routes.draw do
   post 'auth',   to: 'authentications#create', as: 'auth'
 
   # DRIVE
-  get 'drives/providers', to: 'drives/providers#index'
+  get 'drives/providers',        to: 'drives/providers#index'
+  get 'drives/provider_options', to: 'drives/providers#show'
 
   # SAML
   get  'saml/:tenant_name/auth',     to: 'saml_sessions#new',      as: :new_saml_session
@@ -118,7 +119,9 @@ Rails.application.routes.draw do
     end
     resources :versions, only: [:index, :show], controller: 'scripts/versions'
     resources :parameters, only: [:show], controller: 'scripts/parameters'
-    resources :executions, only: [:index, :create, :update, :show]
+    resources :executions, except: [:new, :edit] do
+      delete :cleanup, on: :collection, as: :cleanup
+    end
     resources :reverts, only: [:create], controller: 'scripts/reverts'
     resources :tickets, only: [:index]
 
