@@ -15,4 +15,5 @@ unless ENV['TRAVIS']
   # Excel parser
   gem 'roo'
   gem 'pdf-reader'
+  gem 'spreadsheet'
 end
