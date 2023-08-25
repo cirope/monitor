@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_05_024346) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_24_182845) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -194,6 +194,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_05_024346) do
     t.index ["created_at"], name: "index_issues_on_created_at"
     t.index ["data"], name: "index_issues_on_data", using: :gin
     t.index ["description"], name: "index_issues_on_description"
+    t.index ["options"], name: "index_issues_on_options", using: :gin
     t.index ["owner_type", "owner_id"], name: "index_issues_on_owner"
     t.index ["status"], name: "index_issues_on_status"
   end
