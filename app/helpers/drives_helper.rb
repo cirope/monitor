@@ -16,8 +16,6 @@ module DrivesHelper
   end
 
   def link_to_provider_auth_url drive
-    uri = URI.parse @drive.provider_auth_url
-
-    link_to t('.drive_auth_url', provider: i18n_provider(@drive.provider)), uri.to_s
+    link_to t('.drive_auth_url', provider: i18n_provider(@drive.provider)), provider_auth_url(drive)
   end
 end
