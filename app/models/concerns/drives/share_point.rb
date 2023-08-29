@@ -29,7 +29,7 @@ module Drives::SharePoint
         expiry:        Time.zone.at(auth_token.expires_at),
       }.to_json
 
-      options = [ "token='#{token}'" ]
+      options = [ "token=#{token}" ]
 
       options.join ' '
     end
@@ -37,7 +37,7 @@ module Drives::SharePoint
 
   def sharepoint_extra_params
     extras = []
-    extras << "drive_id='#{drive_id}'"
+    extras << "drive_id=#{drive_id}"
     extras << "drive_type=documentLibrary"
 
     extras

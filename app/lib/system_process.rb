@@ -113,7 +113,7 @@ class SystemProcess
     memory
   end
 
-  def self.user_top order_by: :vmemory, limit: 10
+  def self.user_top order_by: :vmemory
     user_option = RUBY_PLATFORM.include?('darwin') ? '-U' : '--user'
     field       = case order_by
                   when :vmemory then '$5'
@@ -126,7 +126,7 @@ class SystemProcess
       ps aux #{user_option} $USER |
       awk '{ print $2, #{field}}' |
       sort -k2nr |
-      head -n #{limit} |
+      head -n 10 |
       awk '{ print $1 }'
     }.split "\n"
 
