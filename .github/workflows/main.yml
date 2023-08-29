@@ -87,4 +87,4 @@ jobs:
       - name: Run tests
         run: bin/rails test
       - name: Run security checks
-        run: brakeman
+        run: bundle exec brakeman
