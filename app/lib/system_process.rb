@@ -122,15 +122,13 @@ class SystemProcess
                   end
 
     # $2 => PID  $3 => %CPU  $4 => %MEM  $5 => VSZ
-    cmd = [
-      "ps aux #{user_option} $USER",
-      "awk '{ print $2, #{field}}'",
-      "sort -k2nr",
-      'head -n 10',
-      "awk '{ print $1 }'"
-    ].join ' | '
-
-    top_pids = `#{cmd}`.split "\n"
+    top_pids = %x{
+      ps aux #{user_option} $USER |
+      awk '{ print $2, #{field}}' |
+      sort -k2nr |
+      head -n 10 |
+      awk '{ print $1 }'
+    }.split "\n"
 
     ruby_pids  = %x{pgrep ruby}.split "\n"
     ruby_pids += %x{pgrep sidekiq}.split "\n"
