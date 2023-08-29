@@ -86,3 +86,5 @@ jobs:
           bundle exec rails ldap:reset
       - name: Run tests
         run: bin/rails test
+      - name: Run security checks
+        run: brakeman
