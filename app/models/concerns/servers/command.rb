@@ -77,7 +77,7 @@ module Servers::Command
 
         cmd.join ' '
       else
-        `chmod +x #{script_path}`
+        system 'chmod', '+x', script_path
 
         script_path
       end
