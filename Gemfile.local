@@ -25,4 +25,5 @@ unless ENV['TRAVIS']
   gem 'roo'
   gem 'pdf-reader'
   gem 'spreadsheet'
+  gem 'net-sftp'
 end
