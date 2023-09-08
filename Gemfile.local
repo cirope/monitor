@@ -26,4 +26,6 @@ unless ENV['TRAVIS']
   gem 'pdf-reader'
   gem 'spreadsheet'
   gem 'net-sftp'
+  gem 'ed25519'
+  gem 'bcrypt_pbkdf'
 end
