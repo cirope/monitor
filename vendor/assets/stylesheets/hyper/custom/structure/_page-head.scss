@@ -10,7 +10,7 @@
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
-        color: $page-title-color;
+        // color: $page-title-color;
     }
 
     .page-title-right {
@@ -41,10 +41,10 @@
 }
 
 .text-title {
-    color: $text-title-color;
+    color: var(--#{$prefix}secondary-color);
 
     &:hover {
-        color: $text-title-color;
+        color: var(--#{$prefix}tertiary-color);
     }
 }
 

@@ -4,49 +4,41 @@
 
 // Lighten badge (soft)
 
-@each $color,
-$value in $theme-colors {
-    .badge-#{$color}-lighten {
-        @include badge-variant-light($value);
+@each $state in map-keys($theme-colors) {
+    .badge-#{$state}-lighten {
+        --#{$prefix}badge-color: var(--#{$prefix}#{$state});
+        background-color: var(--#{$prefix}#{$state}-bg-subtle);
 
         &[href] {
-            color: $value;
+            color: var(--#{$prefix}#{$state});
             text-decoration: none;
-            background-color: rgba($value, 0.18);
-        }
+            background-color: var(--#{$prefix}#{$state}-bg-subtle);
 
-        &[href] {
-
-            &:hover,
-            &:focus {
-                color: $value;
+            &:is(:hover,:focus) {
+                color: var(--#{$prefix}#{$state});
                 text-decoration: none;
-                background-color: rgba($value, 0.4);
+                background-color: var(--#{$prefix}#{$state}-bg-subtle);
             }
         }
     }
 }
 
 // Outline badge
-
-@each $color,
-$value in $theme-colors {
-    .badge-outline-#{$color} {
-        @include badge-variant-outline($value);
+@each $state in map-keys($theme-colors) {
+    .badge-outline-#{$state} {
+        --#{$prefix}badge-color: var(--#{$prefix}#{$state});
+        border: 1px solid var(--#{$prefix}#{$state});
+        background-color: transparent;
 
         &[href] {
-            color: $value;
+            color: var(--#{$prefix}#{$state});
             text-decoration: none;
-            background-color: rgba($value, 0.2);
-        }
+            background-color: var(--#{$prefix}#{$state}-bg-subtle);
 
-        &[href] {
-
-            &:hover,
-            &:focus {
-                color: $value;
+            &:is(:hover,:focus) {
+                color: var(--#{$prefix}#{$state});
                 text-decoration: none;
-                background-color: rgba($value, 0.2);
+                background-color: var(--#{$prefix}#{$state}-bg-subtle);
             }
         }
     }

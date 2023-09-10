@@ -29,6 +29,7 @@ import 'moment/moment'
 import 'moment/es'
 import 'daterangepicker'
 
+import 'hyper-config'
 import 'hyper'
 
 import 'apexcharts'

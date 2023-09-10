@@ -23,11 +23,12 @@
   </div>
 
   <div class="wrapper">
+    <%= render 'shared/menu' %>
+
     <%= render 'shared/left_menu' %>
 
     <div class="content-page">
       <div class="content">
-        <%= render 'shared/menu' %>
 
         <div class="container-fluid mt-3">
           <%= render 'shared/flash' if flash_message %>

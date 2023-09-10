@@ -2,7 +2,6 @@
 // _tooltip.scss
 //
 
-
 @each $color,
 $value in $theme-colors {
     .#{$color}-tooltip {

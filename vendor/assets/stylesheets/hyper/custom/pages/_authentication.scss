@@ -2,11 +2,38 @@
 // authentication.scss
 //
 
+.auth-brand {
+    margin-bottom: 2rem;
+
+    .logo-dark {
+        display: block;
+    }
+
+    .logo-light {
+        display: none;
+    }
+}
+
+html[data-theme="dark"] {
+
+    .auth-brand {
+
+        .logo-dark {
+            display: none;
+        }
+
+        .logo-light {
+            display: block;
+        }
+    }
+}
+
 // authentication pages background
 body.authentication-bg {
     background-image: $auth-bg-pattern-img;
     background-size: cover;
     background-position: center;
+
     .account-pages {
         align-items: center;
         display: flex;
@@ -41,7 +68,7 @@ body.auth-fluid-pages[data-sidenav-size="condensed"] {
         border-radius: 0;
         z-index: 2;
         padding: 3rem;
-        background-color: $auth-bg;
+        background-color: $card-bg;
         position: relative;
         width: 100%;
     }
@@ -56,17 +83,7 @@ body.auth-fluid-pages[data-sidenav-size="condensed"] {
     }
 }
 
-.auth-brand {
-    margin-bottom: 2rem;
 
-    .logo-dark {
-        display: $logo-auth-dark-display;
-    }
-
-    .logo-light {
-        display: $logo-auth-light-display;
-    }
-}
 
 .auth-user-testimonial {
     position: absolute;
@@ -83,12 +100,6 @@ body.auth-fluid-pages[data-sidenav-size="condensed"] {
     }
 }
 
-@include media-breakpoint-up(lg) {
-    .auth-brand {
-        position: absolute;
-        top: 3rem;
-    }
-}
 
 @include media-breakpoint-down(lg) {
     .auth-fluid {
@@ -108,11 +119,12 @@ body.auth-fluid-pages[data-sidenav-size="condensed"] {
 // Dark mode
 html[data-theme="dark"] {
     .auth-brand {
-        .logo-dark {
-            display: $logo-auth-light-display;
-        }
         .logo-light {
-            display: $logo-auth-dark-display;
+            display: block;
+        }
+
+        .logo-dark {
+            display: none;
         }
     }
 }

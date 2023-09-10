@@ -6,7 +6,7 @@
 .nav-pills {
     > li {
         > a {
-            color: var(--#{$prefix}gray-700);
+            color: var(--#{$prefix}secondary-color);
             font-weight: $font-weight-semibold;
         }
     }
@@ -20,7 +20,7 @@
 }
 
 .bg-nav-pills {
-    background-color: $nav-pills-bg;
+    background-color: var(--#{$prefix}tertiary-bg);
 }
 
 //
@@ -28,7 +28,7 @@
 //
 
 .nav-tabs.nav-bordered {
-    border-bottom: 2px solid var(--#{$prefix}gray-300);
+    border-bottom: 2px solid var(--#{$prefix}border-color);
 
     .nav-item {
         margin-bottom: -1px;
@@ -40,7 +40,7 @@
             padding: 0.625rem 1.25rem;
         }
         a.active {
-            border-bottom: 2px solid $primary;
+            border-bottom: 2px solid var(--#{$prefix}primary);
         }
     }
 }

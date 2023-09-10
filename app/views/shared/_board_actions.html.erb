@@ -1,4 +1,4 @@
-<li id="board" class="notification-list topbar-dropdown <%= ' show' if controller_name == 'board' && !request.xhr? %>">
+<li id="board" class="d-none d-md-inline-block <%= ' show' if controller_name == 'board' && !request.xhr? %>">
   <% if show_board? %>
     <%= link_to issues_board_path, title: t('board.index.title'), class: 'nav-link' do %>
       <%= icon 'fas', 'shopping-cart' %>

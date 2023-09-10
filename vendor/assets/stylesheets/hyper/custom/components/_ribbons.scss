@@ -55,10 +55,10 @@
     @each $color,
     $value in $theme-colors {
         .ribbon-#{$color} {
-            background: ($value);
+            background: var(--#{$prefix}#{$color});
 
             &:before {
-                border-color: darken(($value), 5%) transparent transparent;
+                border-color: var(--#{$prefix}#{$color}-text) transparent transparent;
             }
         }
     }
@@ -82,7 +82,7 @@
             transform: rotate(-45deg);
             width: 100px;
             display: block;
-            box-shadow: 0 0 8px 0 rgba($dark, 0.08), 0 1px 0 0 rgba($dark, 0.03);
+            box-shadow: 0 0 8px 0 rgba(var(--#{$prefix}dark-rgb), 0.08), 0 1px 0 0 rgba(var(--#{$prefix}dark-rgb), 0.03);
             position: absolute;
             top: 19px;
             left: -21px;
@@ -114,16 +114,16 @@
     $value in $theme-colors {
         .ribbon-two-#{$color} {
             span {
-                background: ($value);
+                background: var(--#{$prefix}#{$color});
 
                 &:before {
-                    border-left: 3px solid darken(($value), 5%);
-                    border-top: 3px solid darken(($value), 5%);
+                    border-left: 3px solid var(--#{$prefix}#{$color}-text);
+                    border-top: 3px solid var(--#{$prefix}#{$color}-text);
                 }
 
                 &:after {
-                    border-right: 3px solid darken(($value), 5%);
-                    border-top: 3px solid darken(($value), 5%);
+                    border-right: 3px solid var(--#{$prefix}#{$color}-text);
+                    border-top: 3px solid var(--#{$prefix}#{$color}-text);
                 }
             }
         }

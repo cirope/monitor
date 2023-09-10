@@ -59,12 +59,13 @@ GEM
       activerecord (~> 7.0.0)
       ruby-oci8
       ruby-plsql (>= 0.6.0)
-    activerecord-session_store (2.0.0)
-      actionpack (>= 5.2.4.1)
-      activerecord (>= 5.2.4.1)
+    activerecord-session_store (2.1.0)
+      actionpack (>= 6.1)
+      activerecord (>= 6.1)
+      cgi (>= 0.3.6)
       multi_json (~> 1.11, >= 1.11.2)
-      rack (>= 2.0.8, < 3)
-      railties (>= 5.2.4.1)
+      rack (>= 2.0.8, < 4)
+      railties (>= 6.1)
     activerecord-sqlserver-adapter (7.0.3.0)
       activerecord (~> 7.0.0)
       tiny_tds
@@ -91,10 +92,11 @@ GEM
       execjs (~> 2)
     bcrypt (3.1.19)
     bcrypt_pbkdf (1.1.0)
+    bigdecimal (3.1.4)
     bindex (0.8.1)
-    bootstrap (5.2.3)
+    bootstrap (5.3.1)
       autoprefixer-rails (>= 9.1.0)
-      popper_js (>= 2.11.6, < 3)
+      popper_js (>= 2.11.8, < 3)
       sassc-rails (>= 2.0.0)
     brakeman (6.0.1)
     builder (3.2.4)
@@ -112,6 +114,7 @@ GEM
     capistrano-rbenv (2.2.0)
       capistrano (~> 3.1)
       sshkit (~> 1.3)
+    cgi (0.3.6)
     chronic (0.10.2)
     coderay (1.1.3)
     composite_primary_keys (14.0.6)
@@ -119,7 +122,7 @@ GEM
     concurrent-ruby (1.2.2)
     connection_pool (2.4.1)
     crass (1.0.6)
-    css_parser (1.14.0)
+    css_parser (1.16.0)
       addressable
     date (3.3.3)
     diffy (3.4.2)
@@ -322,7 +325,8 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    sequel (5.71.0)
+    sequel (5.72.0)
+      bigdecimal
     sidekiq (6.5.9)
       connection_pool (>= 2.2.5, < 3)
       rack (~> 2.0)
@@ -341,7 +345,7 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
-    sqlite3 (1.6.3-x86_64-linux)
+    sqlite3 (1.6.4-x86_64-linux)
     sshkit (1.21.5)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
@@ -395,7 +399,7 @@ DEPENDENCIES
   apexcharts
   bcrypt
   bcrypt_pbkdf
-  bootstrap (< 5.3)
+  bootstrap
   brakeman
   byebug
   capistrano

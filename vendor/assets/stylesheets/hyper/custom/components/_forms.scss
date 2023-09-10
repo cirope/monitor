@@ -5,8 +5,11 @@
 // Form-control light
 
 .form-control-light {
-    background-color: var(--#{$prefix}gray-200) !important;
-    border-color: var(--#{$prefix}gray-200) !important;
+    background-color: var(--#{$prefix}light) !important;
+    border-color: var(--#{$prefix}border-color) !important;
+    border-width: $card-border-width;
+    border-style: solid;
+    border-color: $card-border-color;
 }
 
 // Form elements (Color and Range)

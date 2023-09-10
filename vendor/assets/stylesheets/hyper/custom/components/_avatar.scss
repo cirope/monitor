@@ -29,7 +29,7 @@
 
 .avatar-title {
     align-items: center;
-    background-color: $primary;
+    background-color: var(--#{$prefix}primary);
     color: $white;
     display: flex;
     font-weight: $font-weight-semibold;

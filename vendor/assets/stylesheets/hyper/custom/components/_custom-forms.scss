@@ -2,17 +2,17 @@
 // custom-forms.scss
 //
 
-@each $color, $value in $theme-colors {
-    .form-checkbox-#{$color},
-    .form-radio-#{$color} {
+@each $state in map-keys($theme-colors) {
+    .form-checkbox-#{$state}, .form-radio-#{$state} {
         .form-check-input {
             &:checked {
-                background-color: $value;
-                border-color: $value;
+                background-color: var(--#{$prefix}#{$state});
+                border-color: var(--#{$prefix}#{$state});
             }
         }
     }
 }
+
 
 // card radio
 .card-radio {
@@ -20,7 +20,7 @@
 
     .form-check-label {
         background-color: $card-bg;
-        border: 1px solid var(--#{$prefix}gray-300);
+        border: 1px solid var(--#{$prefix}border-color);
         border-radius: $border-radius;
         padding: 1rem;
         overflow: hidden;
@@ -43,10 +43,10 @@
                 content: "\f05e0";
                 font-family: "Material Design Icons";
                 position: absolute;
-                top: 2px;
+                bottom: 2px;
                 right: 6px;
                 font-size: 16px;
-                color: $primary;
+                color: var(--#{$prefix}primary);
             }
         }
     }

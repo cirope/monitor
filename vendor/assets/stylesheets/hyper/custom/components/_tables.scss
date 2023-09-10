@@ -21,13 +21,13 @@
     }
 
     .action-icon {
-        color: var(--#{$prefix}gray-600);
+        color: var(--#{$prefix}secondary-color);
         font-size: 1.2rem;
         display: inline-block;
         padding: 0 3px;
 
         &:hover {
-            color: var(--#{$prefix}gray-700);
+            color: var(--#{$prefix}emphasis-color);
         }
     }
 
@@ -43,6 +43,12 @@
     }
 }
 
+.table-sm {
+    .action-icon {
+        font-size: 1rem;
+    }
+}
+
 // Tables fluid
 .table-nowrap {
 
@@ -52,11 +58,11 @@
     }
 }
 
-
-html[data-theme="dark"] {
+// dark mode
+[data-bs-theme="dark"] {
     .table-light {
         --#{$prefix}table-color: var(--#{$prefix}body-color);
         --#{$prefix}table-bg: var(--#{$prefix}light);
-        --#{$prefix}table-border-color: #{$table-group-separator-color};
+        --#{$prefix}table-border-color: var(--#{$prefix}border-color);
     }
 }

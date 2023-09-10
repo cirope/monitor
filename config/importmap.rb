@@ -25,6 +25,8 @@ pin 'servers'
 pin 'trix_configuration'
 
 pin 'daterangepicker'
+
+pin 'hyper-config'
 pin 'hyper'
 
 pin 'apexcharts'

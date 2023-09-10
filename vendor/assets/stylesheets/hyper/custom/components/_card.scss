@@ -3,13 +3,9 @@
 //
 
 .card {
-    border: none;
     box-shadow: $card-box-shadow;
-    margin-bottom: $grid-gutter-width;
+    margin-bottom: $spacer;
 
-    .card-header {
-      border-bottom: 1px solid #e3eaef;
-    }
     .header-title {
         margin-bottom: 0.5rem;
         text-transform: uppercase;
@@ -17,14 +13,17 @@
         font-size: $font-size-base;
         margin-top: 0;
     }
+
     .card-drop {
         font-size: 20px;
         color: inherit;
     }
+
     .card-widgets {
         float: right;
         height: 16px;
-        > a {
+
+        >a {
             color: inherit;
             font-size: 18px;
             display: inline-block;
@@ -45,6 +44,7 @@
 .card-title,
 .card-header {
     margin-top: 0;
+    border-bottom: 1px solid #e3eaef;
 
     .header-title {
         margin-bottom: 0;
@@ -59,12 +59,12 @@
     top: 0;
     bottom: 0;
     border-radius: $card-border-radius;
-    background: var(--#{$prefix}gray-100);
+    background: var(--#{$prefix}tertiary-bg);
     opacity: 0.8;
     cursor: progress;
 
     .card-portlets-loader {
-        background-color: var(--#{$prefix}gray-900);
+        background-color: var(--#{$prefix}dark);
         animation: rotatebox 1.2s infinite ease-in-out;
         height: 30px;
         width: 30px;
@@ -72,8 +72,8 @@
         position: absolute;
         left: 50%;
         top: 50%;
-        margin-left: -($grid-gutter-width * 0.5);
-        margin-top: -($grid-gutter-width * 0.5);
+        margin-left: -($spacer * 0.5);
+        margin-top: -($spacer * 0.5);
     }
 }
 
@@ -81,16 +81,17 @@
     0% {
         transform: perspective(120px) rotateX(0deg) rotateY(0deg);
     }
+
     50% {
         transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
     }
+
     100% {
         transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
     }
 }
 
 // Pricing card
-
 .card-pricing {
     position: relative;
 
@@ -104,7 +105,7 @@
         height: 60px;
         display: inline-block;
         width: 60px;
-        line-height: 56px;
+        line-height: 60px;
         border-radius: 50%;
     }
 
@@ -118,6 +119,7 @@
             text-transform: uppercase;
         }
     }
+
     .card-pricing-features {
         color: var(--#{$prefix}gray-600);
         list-style: none;
@@ -146,7 +148,6 @@
 }
 
 // Custom card height
-
 .card-h-100 {
-    height: calc(100% - #{$grid-gutter-width});
+    height: calc(100% - #{$spacer});
 }

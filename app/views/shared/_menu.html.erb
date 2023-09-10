@@ -1,11 +1,11 @@
-<div class="navbar-custom topnav-navbar <%= "text-bg-#{current_account.style}" %>">
-  <div class="container-fluid detached-nav">
-    <a class="button-toggle-menu open-left text-muted disable-btn" data-bs-toggle="offcanvas"
+<div class="navbar-custom">
+  <div class="topbar container-fluid <%= "text-bg-#{current_account.style}" %>">
+    <a class="button-toggle-menu open-left text-muted" data-bs-toggle="offcanvas"
       href="#left-menu" role="button" aria-controls="left-menu">
       <%= icon 'fas', 'bars' %>
     </a>
 
-    <ul class="list-unstyled topbar-menu float-end mb-0">
+    <ul class="topbar-menu d-flex gap-3">
       <%= render 'shared/board_actions' %>
       <%= render 'shared/user_actions' %>
     </ul>

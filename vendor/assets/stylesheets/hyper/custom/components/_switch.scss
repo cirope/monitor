@@ -10,7 +10,7 @@ input[data-switch] {
     +label {
         width: 56px;
         height: 24px;
-        background-color: var(--#{$prefix}gray-100);
+        background-color: var(--#{$prefix}tertiary-bg);
         background-image: none;
         border-radius: 2rem;
         cursor: pointer;
@@ -20,7 +20,7 @@ input[data-switch] {
         transition: all 0.1s ease-in-out;
 
         &:before {
-            color: var(--#{$prefix}gray-900);
+            color: var(--#{$prefix}emphasis-color);
             content: attr(data-off-label);
             display: block;
             font-family: inherit;
@@ -53,7 +53,7 @@ input[data-switch] {
 
     &:checked {
         +label {
-            background-color: $primary;
+            background-color: var(--#{$prefix}primary);
 
             &:before {
                 color: $white;
@@ -64,7 +64,7 @@ input[data-switch] {
 
             &:after {
                 left: 34px;
-                background-color: var(--#{$prefix}gray-100);
+                background-color: var(--#{$prefix}tertiary-bg);
             }
         }
     }
@@ -89,7 +89,7 @@ input[data-switch="bool"]:checked+label:before {
 }
 
 input[data-switch="bool"]+label:after {
-    background-color: var(--#{$prefix}gray-100);
+    background-color: var(--#{$prefix}tertiary-bg);
 }
 
 @each $color,

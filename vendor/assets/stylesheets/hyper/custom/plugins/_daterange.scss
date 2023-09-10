@@ -5,7 +5,7 @@
 .daterangepicker {
     font-family: $font-family-base;
     border: $dropdown-border-width solid $dropdown-border-color;
-    box-shadow: $box-shadow;
+    box-shadow: var(--#{$prefix}box-shadow);
     background-color: $dropdown-bg;
 
     .calendar-table {
@@ -20,7 +20,7 @@
         .next,
         .prev {
             span {
-                border-color: var(--#{$prefix}gray-500);
+                border-color: var(--#{$prefix}border-color);
             }
         }
     }
@@ -31,15 +31,15 @@
                 background-color: $dropdown-link-hover-bg;
             }
             &.active {
-                background-color: $primary;
+                background-color: var(--#{$prefix}primary);
             }
         }
     }
 
     td {
         &.in-range {
-            background: var(--#{$prefix}gray-300);
-            color: var(--#{$prefix}gray-700);
+            background: var(--#{$prefix}tertiary-bg);
+            color: var(--#{$prefix}tertiary-color);
         }
         &.off,
         &.off.end-date,
@@ -52,7 +52,7 @@
 
         &.active,
         &.active:hover {
-            background-color: $primary;
+            background-color: var(--#{$prefix}primary);
             color: $white;
         }
     }
@@ -61,7 +61,7 @@
     th.available:hover,
     td.active,
     td.active:hover {
-        background-color: $primary;
+        background-color: var(--#{$prefix}primary);
         color: $white;
 
         span {
@@ -85,8 +85,8 @@
         &.hourselect,
         &.minuteselect,
         &.secondselect {
-            background: var(--#{$prefix}gray-100);
-            border: 1px solid var(--#{$prefix}gray-100);
+            background: var(--#{$prefix}tertiary-bg);
+            border: 1px solid var(--#{$prefix}border-color);
             color: $dropdown-link-color;
         }
     }
