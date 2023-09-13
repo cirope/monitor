@@ -41,7 +41,7 @@ class DrivesController < ApplicationController
 
   # PATCH/PUT /drives/1
   def update
-    if @drive.update drive_params.except :name
+    if @drive.update drive_params
       if @drive.redirect_to_auth_url?
         redirect_to provider_auth_url(@drive), allow_other_host: true
       else

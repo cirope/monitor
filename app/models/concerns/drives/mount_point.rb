@@ -11,13 +11,11 @@ module Drives::MountPoint
   end
 
   def mount_drive
-    remote = section + ':'
-
-    Open3.popen3 'rclone', 'mount', remote, mount_point
+    system 'service', section, 'start'
   end
 
   def umount_drive
-    system 'fusermount', '-uz', mount_point if Dir.exist?(mount_point)
+    system 'service', section, 'stop'
   end
 
   module ClassMethods
