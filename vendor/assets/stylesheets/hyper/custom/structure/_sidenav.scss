@@ -83,8 +83,7 @@ html[data-bs-theme="dark"] {
     position: relative;
     margin-left: $leftbar-width;
     min-height: calc(100vh - $topbar-height - 2px);
-//    padding: 0 calc($spacer * 0.5) $footer-height;
-    padding: 0px 12px 65px;
+    padding: 0 calc($spacer * 0.5) $footer-height;
     transition: $transition-base;
 }
 
@@ -141,7 +140,7 @@ html[data-sidenav-user="true"] {
         color: $menu-item-color;
         transition: $transition-base;
         font-size: $menu-item-font-size;
-        padding: $menu-item-padding-y $menu-item-padding-x;
+        padding: 10px 30px;
 
         &:hover,
         &:focus,
@@ -165,19 +164,20 @@ html[data-sidenav-user="true"] {
     }
 
     .menu-arrow {
+        transition: transform 0.15s;
+        position: absolute;
+        right: 30px;
         display: inline-block;
         text-rendering: auto;
-        position: absolute;
-        top: 50%;
-        right: calc($menu-item-padding-x * 1.5);
-        transition: transform 0.15s;
-        transform: translate(-50%, -50%);
         line-height: $menu-item-icon-size;
-        font-size: calc($menu-item-font-size * 1.18);
+        font-size: 1.1rem;
+        font-weight: 900;
+        top: 50%;
+        transform: translate(-50%, -50%);
 
         &:before {
-            content: "\F0142";
-            font-family: "Material Design Icons";
+            content: "\f105";
+            font-family: "Font Awesome 6 Free";
         }
     }
 
@@ -273,7 +273,7 @@ html[data-sidenav-user="true"] {
             position: relative;
             transition: $transition-base;
             font-size: calc($menu-item-font-size * 0.98);
-            padding: 8px 30px 8px 20px;
+            padding: 8px 30px 8px 33px;
 
             &:hover,
             &:focus,

@@ -5,9 +5,6 @@
 */
 
 (function () {
-    var savedConfig = sessionStorage.getItem("__HYPER_CONFIG__");
-    // var savedConfig = localStorage.getItem("__HYPER_CONFIG__");
-
     var html = document.getElementsByTagName("html")[0];
 
     //  Default Config Value
@@ -26,7 +23,7 @@
         },
 
         menu: {
-            color: "dark",
+            color: "brand",
         },
 
         // This option for only vertical (left Sidebar) layout
@@ -64,10 +61,6 @@
     config['menu']['color'] = menuColor !== null ? menuColor : defaultConfig.menu.color;
 
     window.defaultConfig = JSON.parse(JSON.stringify(config));
-
-    if (savedConfig !== null) {
-        config = JSON.parse(savedConfig);
-    }
 
     window.config = config;
 

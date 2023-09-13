@@ -274,7 +274,6 @@ html[data-bs-theme="dark"] {
     background-color: $topbar-user-bg;
     min-height: $topbar-height;
     transition: none;
-    padding: calc(#{$topbar-height - 39px} * 0.5) 20px calc(#{$topbar-height - 39px} * 0.5) 57px !important;
 
     .account-position {
         display: block;
