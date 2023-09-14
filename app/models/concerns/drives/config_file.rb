@@ -75,7 +75,7 @@ module Drives::ConfigFile
       system 'rclone', 'config', 'delete', previous_section
     end
 
-    def delete_mount_point
+    def delete_previous_mount_point
       previous_mount_point = File.join "#{Rails.root}/drives", previous_section
 
       FileUtils.rmdir previous_mount_point if Dir.exist?(previous_mount_point)
