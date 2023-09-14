@@ -1,12 +1,6 @@
 module Drives::Systemd
   extend ActiveSupport::Concern
 
-  include do
-    after_create_commit  :create_systemd_file
-    after_update_commit  :update_systemd_file
-    after_destroy_commit :delete_systemd_file
-  end
-
   private
 
     def systemd_service_name
@@ -14,11 +8,11 @@ module Drives::Systemd
     end
 
     def systemd_file_path
-      "/etc/systemd/system/#{systemd_service_name}"
+      "#{Etc.getpwuid.dir}/.config/systemd/user/#{systemd_service_name}"
     end
 
     def systemctl_service action
-      system 'systemctl', action, systemd_service_name
+      system 'systemctl', '--user', action, systemd_service_name
     end
 
     def create_systemd_file
@@ -31,7 +25,7 @@ module Drives::Systemd
 
     def update_systemd_file
       if saved_change_to_name?
-        delete_systemd_file
+        delete_previous_systemd_file
         create_systemd_file
       end
     end
@@ -40,6 +34,15 @@ module Drives::Systemd
       systemctl_service 'disable'
 
       system 'rm', systemd_file_path
+    end
+
+    def delete_previous_systemd_file
+      previous_systemd_file_name = "#{previous_section}.service"
+      previous_systemd_file_path = "#{Etc.getpwuid.dir}/.config/systemd/user/#{previous_systemd_file_name}"
+
+      system 'systemctl', '--user', 'disable', previous_systemd_file_name
+
+      system 'rm', previous_systemd_file_path
     end
 
     def systemd_file

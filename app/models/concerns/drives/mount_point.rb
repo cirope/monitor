@@ -1,21 +1,16 @@
 module Drives::MountPoint
   extend ActiveSupport::Concern
 
-  included do
-    after_create_commit  :create_mount_point
-    after_destroy_commit :delete_mount_point
-  end
-
   def mount_point
     File.join "#{Rails.root}/drives", section
   end
 
   def mount_drive
-    system 'service', section, 'start'
+    system 'systemctl', '--user', 'start', section
   end
 
   def umount_drive
-    system 'service', section, 'stop'
+    system 'systemctl', '--user', 'stop', section
   end
 
   module ClassMethods
@@ -27,16 +22,4 @@ module Drives::MountPoint
       Drive.all.map &:umount_drive
     end
   end
-
-  private
-
-    def create_mount_point
-      FileUtils.mkdir_p mount_point
-    end
-
-    def delete_mount_point
-      umount_drive
-
-      FileUtils.rmdir mount_point if Dir.exist?(mount_point)
-    end
 end

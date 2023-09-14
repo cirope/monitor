@@ -2,13 +2,17 @@ module Drives::ConfigFile
   extend ActiveSupport::Concern
 
   included do
-    after_create_commit  :create_section
-    after_update_commit  :update_section
-    after_destroy_commit :delete_section
+    after_create_commit  :create_mount_point, :create_section, :create_systemd_file
+    after_update_commit  :update_section, :update_systemd_file
+    after_destroy_commit :delete_section, :delete_systemd_file
   end
 
   def section
     name.parameterize separator: '_'
+  end
+
+  def previous_section
+    name_before_last_save.parameterize separator: '_'
   end
 
   def update_config code
@@ -21,20 +25,39 @@ module Drives::ConfigFile
 
   private
 
+    def create_mount_point
+      FileUtils.mkdir_p mount_point
+    end
+
     def create_section
       system 'rclone', *config_file_cmd('create', try("#{provider}_extra_params"))
+    end
+
+    def delete_mount_point
+      umount_drive
+
+      FileUtils.rmdir mount_point if Dir.exist?(mount_point)
     end
 
     def update_section
       umount_drive
 
-      system 'rclone', *config_file_cmd('update')
+      if saved_change_to_name?
+        delete_previous_section
+        create_section
+      else
+        system 'rclone', *config_file_cmd('update')
+      end
 
       mount_drive
     end
 
     def delete_section
       system 'rclone', 'config', 'delete', section
+    end
+
+    def delete_previous_section
+      system 'rclone', 'config', 'delete', previous_section
     end
 
     def config_file_cmd action, extras = nil
