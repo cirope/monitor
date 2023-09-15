@@ -30,14 +30,10 @@ module Drives::MountPoint
   private
 
     def systemctl_drive action
-      uid = Etc.getpwuid.uid
-
-      system "export XDG_RUNTIME_DIR=\"/run/user/#{uid}\" && systemctl --user #{action} #{section}"
+      system 'systemctl', '--user', action, section
     end
 
     def systemctl_previous_drive action
-      uid = Etc.getpwuid.uid
-
-      system "export XDG_RUNTIME_DIR=\"/run/user/#{uid}\" && systemctl --user #{action} #{previous_section}"
+      system 'systemctl', '--user', action, previous_section
     end
 end
