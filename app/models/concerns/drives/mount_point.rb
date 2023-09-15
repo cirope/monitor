@@ -6,11 +6,15 @@ module Drives::MountPoint
   end
 
   def mount_drive
-    system 'systemctl', '--user', 'start', section
+    systemctl_drive 'start'
   end
 
   def umount_drive
-    system 'systemctl', '--user', 'stop', section
+    systemctl_drive 'stop'
+  end
+
+  def umount_previous_drive
+    systemctl_previous_drive 'stop'
   end
 
   module ClassMethods
@@ -22,4 +26,18 @@ module Drives::MountPoint
       Drive.all.map &:umount_drive
     end
   end
+
+  private
+
+    def systemctl_drive action
+      uid = Etc.getpwuid.uid
+
+      system "export XDG_RUNTIME_DIR=\"/run/user/#{uid}\" && systemctl --user #{action} #{section}"
+    end
+
+    def systemctl_previous_drive action
+      uid = Etc.getpwuid.uid
+
+      system "export XDG_RUNTIME_DIR=\"/run/user/#{uid}\" && systemctl --user #{action} #{previous_section}"
+    end
 end

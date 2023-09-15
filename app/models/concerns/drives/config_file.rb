@@ -29,19 +29,19 @@ module Drives::ConfigFile
       create_mount_point
       create_section
       create_systemd_file
-      mount_drive
     end
 
     def update_drive
-      umount_drive
-
       if saved_change_to_name?
+        umount_previous_drive
         delete_previous_mount_point
         delete_previous_section
         delete_previous_systemd_file
 
         create_drive
       else
+        umount_drive
+
         system 'rclone', *config_file_cmd('update')
       end
 
@@ -50,9 +50,9 @@ module Drives::ConfigFile
 
     def destroy_drive
       umount_drive
-      delete_mount_point
       delete_section
       delete_systemd_file
+      delete_mount_point
     end
 
     def create_mount_point
