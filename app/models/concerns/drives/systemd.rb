@@ -53,7 +53,7 @@ module Drives::Systemd
       drive_path = Rails.root.each_filename.to_a[0..2]
       mount_path = File.join '/', drive_path, 'shared', 'drives', section
 
-      <<~RUBY
+      <<~SYSTEMD
         [Unit]
         Description=Rclone drive for #{section}
         After=network-online.target
@@ -79,6 +79,6 @@ module Drives::Systemd
 
         [Install]
         WantedBy=default.target
-      RUBY
+      SYSTEMD
     end
 end
