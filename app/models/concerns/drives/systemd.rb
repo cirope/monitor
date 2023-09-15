@@ -8,7 +8,11 @@ module Drives::Systemd
     end
 
     def systemd_file_path
-      "#{Etc.getpwuid.dir}/.config/systemd/user/#{systemd_service_name}"
+      file_path = "#{Etc.getpwuid.dir}/.config/systemd/user"
+
+      FileUtils.mkdir_p file_path
+
+      "#{file_path}/#{systemd_service_name}"
     end
 
     def systemctl_service action
