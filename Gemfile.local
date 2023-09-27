@@ -14,4 +14,7 @@ unless ENV['TRAVIS']
 
   gem 'roo'
   gem 'roo-xls', require: false
+  gem 'net-sftp'
+  gem 'ed25519'
+  gem 'bcrypt_pbkdf'
 end
