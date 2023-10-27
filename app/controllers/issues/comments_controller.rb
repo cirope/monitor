@@ -30,7 +30,6 @@ class Issues::CommentsController < ApplicationController
   end
 
   def destroy
-    @comment.attachment.purge
     @comment.destroy
   end
 
