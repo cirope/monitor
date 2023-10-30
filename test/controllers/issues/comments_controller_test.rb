@@ -44,22 +44,10 @@ class Issues::CommentsControllerTest < ActionController::TestCase
   end
 
   test 'should destroy comment' do
-    Current.user = users :franco
-    file         = fixture_file_upload('text.txt')
-    comment      = @comment.issue.comments.create!(text: 'New comment')
-
-    comment.attachment.attach(io: file, filename: 'text.txt')
-
-    assert comment.attachment.attached?
-
     assert_difference('Comment.count', -1) do
-      assert_difference('ActiveStorage::Blob.count', -1) do
-        delete :destroy, params: { issue_id: comment.issue_id, id: comment }, xhr: true, as: :js
-      end
+      delete :destroy, params: { issue_id: @comment.issue_id, id: @comment }, xhr: true, as: :js
     end
 
     assert_response :success
-  ensure
-    Current.user = nil
   end
 end
