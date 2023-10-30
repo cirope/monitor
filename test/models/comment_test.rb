@@ -73,7 +73,7 @@ class CommentTest < ActiveSupport::TestCase
     )
     comment = @comment.issue.comments.create! text: 'email test', notify: false, attachment: file
 
-    assert_difference('Comment.count', -1) do
+    assert_difference 'Comment.count', -1 do
       assert_difference('ActiveStorage::Blob.count', -1) do
         comment.destroy!
       end
