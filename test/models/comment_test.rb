@@ -68,13 +68,15 @@ class CommentTest < ActiveSupport::TestCase
   test 'destroy' do
     Current.user = users :franco
 
-    file    = Rack::Test::UploadedFile.new(Rails.root.join('test/fixtures/files/text.txt'))
+    file    = Rack::Test::UploadedFile.new(Rails.root.join('test/fixtures/files/text.txt'), 'text/plain')
     comment = @comment.issue.comments.create! text: 'email test', notify: false, attachment: file
 
     assert_difference('Comment.count', -1) do
       assert_difference('ActiveStorage::Blob.count', -1) do
-        comment.destroy
+        comment.destroy!
       end
     end
+  ensure
+    Current.user = nil
   end
 end
