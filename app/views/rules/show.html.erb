@@ -21,7 +21,7 @@
     </div>
     <div id="triggers" class="card-body">
       <% @rule.triggers.each do |trigger| %>
-        <div class="tiny-editor">
+        <div>
           <textarea
             id="trigger_callback_<%= trigger.id %>"
             data-editor

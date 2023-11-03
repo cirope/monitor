@@ -6,8 +6,13 @@
     </div>
     <% unless request.xhr? %>
       <div class="col-lg-2 col-md-3">
-        <%= f.input :attachment, as: :hidden, input_html: { value: f.object.attachment.signed_id } if f.object.attachment.attached? %>
-        <%= f.input :attachment, label: false, hint: comment_file_identifier(f) %>
+        <%= f.input :attachment, hint: comment_file_identifier(f), label: false, input_html: {
+          include_hidden: false, direct_upload: true
+        } %>
+
+        <% if f.object.attachment.attached? && f.object.invalid? %>
+          <%= f.hidden_field :attachment, direct_upload: true, value: f.object.attachment.signed_id %>
+        <% end %>
       </div>
     <% end %>
   </div>
