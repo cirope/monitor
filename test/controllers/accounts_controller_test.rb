@@ -30,7 +30,11 @@ class AccountsControllerTest < ActionController::TestCase
       post :create, params: {
         account: {
           name:        'New account',
-          tenant_name: 'new_account'
+          tenant_name: 'new_account',
+          token_interval: 1,
+          token_frequency: 'months',
+          cleanup_runs_after: 1,
+          cleanup_executions_after: 1
         }
       }
     end
@@ -60,7 +64,8 @@ class AccountsControllerTest < ActionController::TestCase
   end
 
   test 'access should be restricted to default account' do
-    account = Account.create! name: 'Test', tenant_name: 'test'
+    account = Account.create! name: 'Test', tenant_name: 'test',
+                cleanup_runs_after: 10, cleanup_executions_after: 10
     user    = account.enroll users(:franco), copy_user: true
 
     account.switch do
