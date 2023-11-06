@@ -39,6 +39,20 @@ class ExecutionTest < ActiveSupport::TestCase
     assert @execution.killed?
   end
 
+  test 'executions cleanup' do
+    account = send 'public.accounts', :default
+
+    account.switch do
+      Execution.update_all created_at: 2.days.ago
+
+      assert_equal Execution.count, 1
+
+      Execution.cleanup
+
+      assert_equal Execution.count, 0
+    end
+  end
+
   test 'run' do
     skip
   end

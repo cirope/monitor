@@ -19,7 +19,7 @@ class Run < ApplicationRecord
   has_one :server, through: :job
   has_one :schedule, through: :job
   has_many :dispatchers, through: :schedule
-  has_many :issues, as: :owner, dependent: :restrict_with_error
+  has_many :issues, as: :owner, dependent: :destroy
   has_many :outputs, dependent: :destroy
   has_many :users, through: :issues
 

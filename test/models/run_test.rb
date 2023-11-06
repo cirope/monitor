@@ -222,6 +222,20 @@ class RunTest < ActiveSupport::TestCase
     assert_nil parsed_errors[run.script]
   end
 
+  test 'runs cleanup' do
+    account = send 'public.accounts', :default
+
+    account.switch do
+      Run.update_all created_at: 2.days.ago
+
+      assert_equal Run.count, 4
+
+      Run.cleanup
+
+      assert_equal Run.count, 0
+    end
+  end
+
   private
 
     def override_and_run_execute run, result

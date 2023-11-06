@@ -15,13 +15,13 @@ module Runs::Cleanup
     private
 
       def cleanup_all account
-        cleanup_after = account.cleanup_runs_after.to_f
+        cleanup_after = account.cleanup_runs_after.to_i
 
         if cleanup_after > 0
           days_ago = cleanup_after.days.ago.midnight
 
-          Run.where(started_at: ..days_ago).find_each do |run|
-            run.destroy
+          Run.where(created_at: ..days_ago).find_each do |run|
+            run.destroy!
           end
         end
       end
