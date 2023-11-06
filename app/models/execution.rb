@@ -4,6 +4,7 @@ class Execution < ApplicationRecord
   include Auditable
   include Killable
   include Executions::Callbacks
+  include Executions::Cleanup
   include Executions::Run
   include Executions::Status
   include Executions::Validation

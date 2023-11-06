@@ -8,4 +8,5 @@ end
 
 every 1.day do
   rake 'sessions:clear'
+  runner 'Run.cleanup_job; Execution.cleanup_job'
 end
