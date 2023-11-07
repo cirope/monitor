@@ -14,10 +14,18 @@ class AccountTest < ActiveSupport::TestCase
   test 'blank attributes' do
     @account.name = ''
     @account.tenant_name = ''
+    @account.token_interval = ''
+    @account.token_frequency = ''
+    @account.cleanup_runs_after = ''
+    @account.cleanup_executions_after = ''
 
     assert @account.invalid?
     assert_error @account, :name, :blank
     assert_error @account, :tenant_name, :blank
+    assert_error @account, :token_interval, :blank
+    assert_error @account, :token_frequency, :blank
+    assert_error @account, :cleanup_runs_after, :blank
+    assert_error @account, :cleanup_executions_after, :blank
   end
 
   test 'unique attributes' do
@@ -48,6 +56,28 @@ class AccountTest < ActiveSupport::TestCase
     assert_error @account, :tenant_name, :invalid
   end
 
+  test 'numeric attributes' do
+    @account.token_interval           = '1x'
+    @account.cleanup_runs_after       = '1x'
+    @account.cleanup_executions_after = '1x'
+
+    assert @account.invalid?
+    assert_error @account, :token_interval, :not_a_number
+    assert_error @account, :cleanup_runs_after, :not_a_number
+    assert_error @account, :cleanup_executions_after, :not_a_number
+  end
+
+  test 'attribute boundaries' do
+    @account.token_interval           =  0
+    @account.cleanup_runs_after       = -1
+    @account.cleanup_executions_after = -1
+
+    assert @account.invalid?
+    assert_error @account, :token_interval, :greater_than_or_equal_to, count: 1
+    assert_error @account, :cleanup_runs_after, :greater_than_or_equal_to, count: 0
+    assert_error @account, :cleanup_executions_after, :greater_than_or_equal_to, count: 0
+  end
+
   test 'destroy is not an option' do
     assert_no_difference 'Account.count' do
       @account.destroy
@@ -62,12 +92,14 @@ class AccountTest < ActiveSupport::TestCase
   end
 
   test 'included attributes' do
-    @account.style      = nil
-    @account.debug_mode = nil
+    @account.style           = nil
+    @account.debug_mode      = nil
+    @account.token_frequency = 'wrong'
 
     assert @account.invalid?
     assert_error @account, :style, :inclusion
     assert_error @account, :debug_mode, :inclusion
+    assert_error @account, :token_frequency, :inclusion
   end
 
   test 'enroll' do
@@ -81,7 +113,7 @@ class AccountTest < ActiveSupport::TestCase
   end
 
   test 'enroll with copy' do
-    account = Account.create! name: 'Test', tenant_name: 'test'
+    account = create_account
     user    = users :john
 
     account.switch do
@@ -123,7 +155,7 @@ class AccountTest < ActiveSupport::TestCase
   end
 
   test 'switch' do
-    account = Account.create! name: 'Test', tenant_name: 'test'
+    account = create_account
 
     account.switch do
       assert User.all.empty?

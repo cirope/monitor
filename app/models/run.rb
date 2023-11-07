@@ -5,6 +5,7 @@ class Run < ApplicationRecord
   include Filterable
   include Killable
   include Measurable
+  include Runs::Cleanup
   include Runs::Execution
   include Runs::Notifications
   include Runs::Scopes

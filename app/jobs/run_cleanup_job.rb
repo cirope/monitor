@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-class ExecutionCleanupJob < ApplicationJob
+class RunCleanupJob < ApplicationJob
   queue_as :default
 
   def perform
-    Execution.cleanup
+    Run.cleanup
   end
 end
