@@ -224,17 +224,16 @@ class RunTest < ActiveSupport::TestCase
 
   test 'should cleanup runs' do
     account = send 'public.accounts', :default
+    run     = runs :clean_ls_on_atahualpa
 
     account.switch do
-      Run.find_each do |run|
-        run.update_column :created_at, 2.days.ago
-      end
+      run.update_column :created_at, 2.days.ago
 
-      assert_equal Run.count, 4
+      assert_equal 4, Run.count
 
       Run.cleanup
 
-      assert_equal Run.count, 2
+      assert_equal 3, Run.count
     end
   end
 

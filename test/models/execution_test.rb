@@ -40,16 +40,19 @@ class ExecutionTest < ActiveSupport::TestCase
   end
 
   test 'should cleanup executions' do
-    account = send 'public.accounts', :default
+    account   = send 'public.accounts', :default
+    execution = executions :live_ls
+
+    execution.dup.save!
 
     account.switch do
-      Execution.update_all created_at: 2.days.ago
+      execution.update_column :created_at, 2.days.ago
 
-      assert_equal Execution.count, 1
+      assert_equal 2, Execution.count
 
       Execution.cleanup
 
-      assert_equal Execution.count, 0
+      assert_equal 1, Execution.count
     end
   end
 
