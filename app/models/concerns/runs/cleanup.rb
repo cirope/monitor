@@ -21,7 +21,7 @@ module Runs::Cleanup
           days_ago = cleanup_after.days.ago.midnight
 
           Run.where(created_at: ..days_ago).find_each do |run|
-            run.destroy!
+            run.destroy
           end
         end
       end

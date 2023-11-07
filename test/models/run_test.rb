@@ -222,11 +222,15 @@ class RunTest < ActiveSupport::TestCase
     assert_nil parsed_errors[run.script]
   end
 
-  test 'runs cleanup' do
+  test 'should cleanup runs' do
     account = send 'public.accounts', :default
 
     account.switch do
-      Run.update_all created_at: 2.days.ago
+      Run.all.find_each do |run|
+        run.issues.map &:destroy
+
+        run.update_column :created_at, 2.days.ago
+      end
 
       assert_equal Run.count, 4
 

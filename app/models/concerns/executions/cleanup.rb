@@ -21,7 +21,7 @@ module Executions::Cleanup
           days_ago = cleanup_after.days.ago.midnight
 
           Execution.where(created_at: ..days_ago).find_each do |execution|
-            execution.destroy!
+            execution.destroy
           end
         end
       end

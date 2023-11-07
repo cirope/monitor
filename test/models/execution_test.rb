@@ -39,7 +39,7 @@ class ExecutionTest < ActiveSupport::TestCase
     assert @execution.killed?
   end
 
-  test 'executions cleanup' do
+  test 'should cleanup executions' do
     account = send 'public.accounts', :default
 
     account.switch do
