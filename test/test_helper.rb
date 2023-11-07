@@ -31,9 +31,9 @@ class ActiveSupport::TestCase
 
   def create_account
     Account.create!(
-      name: 'Test',
-      tenant_name: 'test',
-      cleanup_runs_after: 10,
+      name:                     'Test',
+      tenant_name:              'test',
+      cleanup_runs_after:       10,
       cleanup_executions_after: 10
     )
   end

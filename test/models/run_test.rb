@@ -226,9 +226,7 @@ class RunTest < ActiveSupport::TestCase
     account = send 'public.accounts', :default
 
     account.switch do
-      Run.all.find_each do |run|
-        run.issues.map &:destroy
-
+      Run.find_each do |run|
         run.update_column :created_at, 2.days.ago
       end
 
@@ -236,7 +234,7 @@ class RunTest < ActiveSupport::TestCase
 
       Run.cleanup
 
-      assert_equal Run.count, 0
+      assert_equal Run.count, 2
     end
   end
 

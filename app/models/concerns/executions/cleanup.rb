@@ -7,15 +7,13 @@ module Executions::Cleanup
     end
 
     def cleanup
-      Account.on_each do |account|
-        cleanup_all account
-      end
+      Account.on_each { cleanup_all }
     end
 
     private
 
-      def cleanup_all account
-        cleanup_after = account.cleanup_executions_after.to_i
+      def cleanup_all
+        cleanup_after = Current.account.cleanup_executions_after.to_i
 
         if cleanup_after > 0
           days_ago = cleanup_after.days.ago.midnight

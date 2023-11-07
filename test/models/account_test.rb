@@ -57,8 +57,8 @@ class AccountTest < ActiveSupport::TestCase
   end
 
   test 'numeric attributes' do
-    @account.token_interval = '1x'
-    @account.cleanup_runs_after = '1x'
+    @account.token_interval           = '1x'
+    @account.cleanup_runs_after       = '1x'
     @account.cleanup_executions_after = '1x'
 
     assert @account.invalid?
@@ -68,8 +68,8 @@ class AccountTest < ActiveSupport::TestCase
   end
 
   test 'attribute boundaries' do
-    @account.token_interval = 0
-    @account.cleanup_runs_after = -1
+    @account.token_interval           =  0
+    @account.cleanup_runs_after       = -1
     @account.cleanup_executions_after = -1
 
     assert @account.invalid?
@@ -92,8 +92,8 @@ class AccountTest < ActiveSupport::TestCase
   end
 
   test 'included attributes' do
-    @account.style      = nil
-    @account.debug_mode = nil
+    @account.style           = nil
+    @account.debug_mode      = nil
     @account.token_frequency = 'wrong'
 
     assert @account.invalid?
