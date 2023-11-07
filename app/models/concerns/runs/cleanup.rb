@@ -7,7 +7,7 @@ module Runs::Cleanup
     end
 
     def cleanup
-      Account.on_each &:cleanup_all
+      Account.on_each { cleanup_all }
     end
 
     private
