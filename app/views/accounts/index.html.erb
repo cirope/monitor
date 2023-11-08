@@ -1,4 +1,4 @@
-<%= render 'filters' %>
+<%= render 'filters' if current_account.default? %>
 
 <% if @accounts.empty? %>
   <%= render 'shared/empty_index', message: empty_message %>
@@ -10,7 +10,7 @@
           <th><%= Account.human_attribute_name 'name' %></th>
           <th class="d-none d-sm-table-cell"><%= Account.human_attribute_name 'tenant_name' %></th>
           <th colspan="2">
-            <%= link_to_new new_account_path, class: 'btn btn-secondary btn-sm py-0 mr-n2 float-end' %>
+            <%= link_to_new new_account_path, class: 'btn btn-secondary btn-sm py-0 mr-n2 float-end' if current_account.default? %>
           </th>
         </tr>
       </thead>
@@ -31,4 +31,4 @@
   <%= paginate @accounts %>
 <% end %>
 
-<%= link_to_new new_account_path, class: 'btn btn-primary' %>
+<%= link_to_new new_account_path, class: 'btn btn-primary' if current_account.default? %>

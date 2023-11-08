@@ -12,10 +12,14 @@ module Accounts::Filters
   end
 
   def filter_params
-    if params[:filter].present?
-      params.require(:filter).permit :name, :tenant_name
+    if current_account.default?
+      if params[:filter].present?
+        params.require(:filter).permit :name, :tenant_name
+      else
+        {}
+      end
     else
-      {}
+      { tenant_name: current_account.tenant_name }
     end
   end
 end

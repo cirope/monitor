@@ -5,7 +5,6 @@ class AccountsController < ApplicationController
   include Authorization
   include Accounts::Filters
 
-  before_action :from_default_account
   before_action :set_account, only: [:show, :edit, :update]
   before_action :set_title
 
@@ -20,6 +19,8 @@ class AccountsController < ApplicationController
 
   # GET /accounts/new
   def new
+    allow_default_account
+
     @account = Account.new
   end
 
@@ -29,6 +30,8 @@ class AccountsController < ApplicationController
 
   # POST /accounts
   def create
+    allow_default_account
+
     @account = Account.new account_params
 
     Account.transaction do
@@ -54,7 +57,11 @@ class AccountsController < ApplicationController
   private
 
     def set_account
-      @account = Account.find_by! tenant_name: params[:id]
+      @account = if current_account.default?
+        Account.find_by! tenant_name: params[:id]
+      else
+        current_account
+      end
     end
 
     def account_params
@@ -63,7 +70,7 @@ class AccountsController < ApplicationController
         :cleanup_runs_after, :cleanup_executions_after, :lock_version
     end
 
-    def from_default_account
+    def allow_default_account
       not_authorized_redirect !current_account.default?
     end
 end
