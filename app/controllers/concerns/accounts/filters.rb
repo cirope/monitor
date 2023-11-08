@@ -8,18 +8,18 @@ module Accounts::Filters
   end
 
   def accounts
-    Account.filter_by filter_params
+    if current_account.default?
+      Account.filter_by filter_params
+    else
+      Account.where(id: current_account.id)
+    end
   end
 
   def filter_params
-    if current_account.default?
-      if params[:filter].present?
-        params.require(:filter).permit :name, :tenant_name
-      else
-        {}
-      end
+    if params[:filter].present?
+      params.require(:filter).permit :name, :tenant_name
     else
-      { tenant_name: current_account.tenant_name }
+      {}
     end
   end
 end
