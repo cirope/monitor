@@ -5,7 +5,7 @@ class AccountsController < ApplicationController
   include Authorization
   include Accounts::Filters
 
-  before_action :from_default_account
+  before_action :from_default_account, only: [:new, :create]
   before_action :set_account, only: [:show, :edit, :update]
   before_action :set_title
 
@@ -54,7 +54,7 @@ class AccountsController < ApplicationController
   private
 
     def set_account
-      @account = Account.find_by! tenant_name: params[:id]
+      @account = accounts.find_by! tenant_name: params[:id]
     end
 
     def account_params
