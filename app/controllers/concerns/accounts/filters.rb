@@ -11,7 +11,7 @@ module Accounts::Filters
     if current_account.default?
       Account.filter_by filter_params
     else
-      Account.where(id: current_account.id)
+      Account.where id: current_account.id
     end
   end
 
