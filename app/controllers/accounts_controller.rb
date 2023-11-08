@@ -30,17 +30,17 @@ class AccountsController < ApplicationController
 
   # POST /accounts
   def create
-    allow_default_account
+    unless allow_default_account
+      @account = Account.new account_params
 
-    @account = Account.new account_params
+      Account.transaction do
+        if @account.save
+          @account.enroll current_user, copy_user: true
 
-    Account.transaction do
-      if @account.save
-        @account.enroll current_user, copy_user: true
-
-        redirect_to @account
-      else
-        render 'new', status: :unprocessable_entity
+          redirect_to @account
+        else
+          render 'new', status: :unprocessable_entity
+        end
       end
     end
   end
