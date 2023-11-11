@@ -12,6 +12,7 @@ import 'bootstrap'
 
 import 'codemirror/codemirror'
 import 'codemirror/addon/dialog/dialog'
+import 'codemirror/addon/display/fullscreen'
 import 'codemirror/addon/edit/closebrackets'
 import 'codemirror/addon/edit/matchbrackets'
 import 'codemirror/addon/fold/foldcode'

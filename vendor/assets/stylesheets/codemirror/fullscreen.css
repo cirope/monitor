@@ -1,0 +1,32 @@
+.CodeMirror-fsbutton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 20px;
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  transform: translate(0, 0);
+  font-size: 1.1rem;
+}
+
+.CodeMirror-fsbutton-expand {
+  &:before {
+    content: "\f065";
+  }
+}
+
+.CodeMirror-fsbutton-compress {
+  &:before {
+    content: "\f066";
+  }
+}
+
+.CodeMirror-fullscreen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 85vh !important;
+  z-index: 10000;
+}
