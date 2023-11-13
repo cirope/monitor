@@ -9,6 +9,7 @@
           model_id:             f.object.id,
           phrases:              editor_phrases.to_json,
           readonly:             disable_rule_edition?,
+          observe_other_fields: true,
           unsaved_data_warning: t('editor.edit.unsaved_data_warning')
         }
       } %>
