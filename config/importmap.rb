@@ -16,6 +16,7 @@ pin_all_from 'vendor/javascript/moment',     under: 'moment'
 pin_all_from 'vendor/javascript/codemirror', under: 'codemirror'
 
 pin 'editor'
+pin 'codemirror/fullscreen'
 pin 'helps'
 pin 'issues_board'
 pin 'objects'
