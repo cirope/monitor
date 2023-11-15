@@ -50,7 +50,7 @@
           <% @schedule.jobs.each do |job| %>
             <tr>
               <td><%= job.server %></td>
-              <td><%= job.script %></td>
+              <td><%= link_to job.script %></td>
             </tr>
           <% end %>
         </tbody>
