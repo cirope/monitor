@@ -429,6 +429,7 @@ es:
       trigger: 'Agregar disparador'
     show:
       title: 'Ver regla'
+      history: 'Ver historial de cambios'
       last_output: 'Última salida'
       tickets_list: 'Pedidos'
     exports:
@@ -443,6 +444,11 @@ es:
         title: 'Importar reglas'
         file: 'Archivo'
         submit: 'Importar'
+    reverts:
+      reverted_from: 'Restaurado de "%{title}"'
+      create:
+        reverted: 'Versión restaurada'
+        cannot_be_reverted: 'Hubo un problema al restaurar la versión'
 
   runs:
     index:
@@ -522,21 +528,16 @@ es:
       index:
         title: 'Métricas'
         empty_html: 'No hay métricas para este guión'
-    versions:
-      index:
-        title: 'Histórico de versiones'
-        change: 'Cambio'
-        empty_html: 'No hay versiones para este guión'
-        event:
-          create: 'Creación'
-      show:
-        title: 'Ver versión'
-        revert: 'Restaurar versión'
     reverts:
       reverted_from: 'Restaurado de "%{title}"'
       create:
         reverted: 'Versión restaurada'
         cannot_be_reverted: 'Hubo un problema al restaurar la versión'
+    versions:
+      index:
+        title: 'Histórico de versiones'
+      show:
+        title: 'Ver versión'
 
   schedules:
     edit:
@@ -739,6 +740,15 @@ es:
     view:
       mark_as_viewed: 'Marcar como visto'
       viewed_at: 'Marcado como visto el %{on}'
+
+  versions:
+    index:
+      change: 'Cambio'
+      empty_html: 'No hay versiones'
+      event:
+        create: 'Creación'
+    show:
+      revert: 'Restaurar versión'
 
   records:
     index:

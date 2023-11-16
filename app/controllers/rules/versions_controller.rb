@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Scripts::VersionsController < ApplicationController
+class Rules::VersionsController < ApplicationController
   include Authentication
   include Authorization
 
@@ -22,10 +22,10 @@ class Scripts::VersionsController < ApplicationController
   private
 
     def set_version
-      @version = @owner.versions.find params[:id]
+      @version = @owner.trigger_versions.find params[:id]
     end
 
     def set_owner
-      @owner = Script.find params[:script_id]
+      @owner = Rule.find params[:rule_id]
     end
 end

@@ -8,7 +8,7 @@ module Permissions::Sections
         { item: 'Ticket' },
         { item: 'Script',   controllers: ['Execution', 'Measure', 'Version', 'Revert', 'Import', 'Export', 'Parameter'] },
         { item: 'Schedule', controllers: ['Run'] },
-        { item: 'Rule',     controllers: ['Import', 'Export'] },
+        { item: 'Rule',     controllers: ['Import', 'Export', 'Version', 'Revert'] },
       ],
       config: [
         { item: 'Role'          },
