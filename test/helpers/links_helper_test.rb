@@ -18,7 +18,7 @@ class LinksHelperTest < ActionView::TestCase
       users :franco
     end
 
-    def controller_name
+    def controller_path
       Issue
     end
 end
