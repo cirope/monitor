@@ -2,14 +2,14 @@
   <div class="offcanvas-body">
     <%= link_to root_url, class: 'logo text-center text-white', title: logo_title do %>
       <span class="logo-lg">
-        <%= image_tag 'logo.svg', size: '170x52', alt: app_name %>
+        <%= image_tag 'logo.svg', alt: app_name %>
       </span>
       <span class="logo-sm">
         <%= image_tag 'logo_sm.svg', size: '52x52', alt: app_name %>
       </span>
     <% end %>
 
-    <ul class="side-nav mt-3">
+    <ul class="side-nav mt-2">
       <%= menu_item_for Issue, home_path, icon: 'clipboard-list', active: show_issues_as_active? %>
       <%= menu_item_for Ticket, tickets_path, icon: 'bug', active: controller_name == 'tickets' || @issue&.ticket? %>
       <%= menu_item_for Script, scripts_path, icon: 'code' %>
