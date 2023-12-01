@@ -28,4 +28,5 @@ unless ENV['TRAVIS']
   gem 'net-sftp'
   gem 'ed25519'
   gem 'bcrypt_pbkdf'
+  gem 'selenium-webdriver'
 end
