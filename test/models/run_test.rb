@@ -187,7 +187,7 @@ class RunTest < ActiveSupport::TestCase
   test 'parse output errors for script' do
     run = runs :boom_on_atahualpa
 
-    parsed_errors = run.parse_and_find_lines_with_error
+    parsed_errors = run.parse_and_find_lines_with_errors_for :error
     script_errors = parsed_errors[run.script]
 
     assert_not_nil   script_errors
@@ -201,9 +201,9 @@ class RunTest < ActiveSupport::TestCase
   test 'parse output errors for script should not raise' do
     run = runs :boom_on_atahualpa
 
-    run.update_column :output, 'something else'
+    run.update_column :stderr, 'something else'
 
-    parsed_errors = run.parse_and_find_lines_with_error
+    parsed_errors = run.parse_and_find_lines_with_errors_for :error
 
     assert_empty parsed_errors
   end
@@ -215,7 +215,7 @@ class RunTest < ActiveSupport::TestCase
     scripts(:cd_root).update_column :core, true
 
     # Error will point to prev script now
-    parsed_errors = run.parse_and_find_lines_with_error
+    parsed_errors = run.parse_and_find_lines_with_errors_for :error
 
     assert_not_empty parsed_errors
 
