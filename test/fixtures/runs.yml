@@ -3,7 +3,8 @@ past_ls_on_atahualpa:
   scheduled_at: <%= 1.hour.ago.to_fs :db %>
   started_at: <%= 59.minutes.ago.to_fs :db %>
   ended_at: <%= 58.minutes.ago.to_fs :db %>
-  output: "/home\n/root"
+  stdout: "/home\n/root"
+  stderr:
   job: ls_on_atahualpa
   pid:
 
@@ -12,7 +13,8 @@ clean_ls_on_atahualpa:
   scheduled_at: <%= 2.hour.ago.to_fs :db %>
   started_at: <%= 59.minutes.ago.to_fs :db %>
   ended_at: <%= 58.minutes.ago.to_fs :db %>
-  output: "/home\n/root"
+  stdout: "/home\n/root"
+  stderr:
   job: ls_on_atahualpa
   pid:
 
@@ -21,7 +23,8 @@ ls_on_atahualpa:
   scheduled_at: <%= 1.hour.from_now.to_fs :db %>
   started_at:
   ended_at:
-  output:
+  stdout:
+  stderr:
   job: ls_on_atahualpa
   pid:
 
@@ -30,8 +33,9 @@ boom_on_atahualpa:
   scheduled_at: <%= 1.minute.ago.to_fs :db %>
   started_at: <%= 1.minute.ago.to_fs :db %>
   ended_at: <%= 30.seconds.ago.to_fs :db %>
-  output: |-
+  stdout: |-
     Are you reeeeaaaadddddyyy?
+  stderr: |-
     /tmp/script-fc671557-c493-2431-96bb-70bca0a2cc21.rb:21:in `*': nil can't be coerced into Integer (TypeError)
     from /tmp/script-fc671557-c493-2431-96bb-70bca0a2cc21.rb:21:in `'
     Exit status: 1

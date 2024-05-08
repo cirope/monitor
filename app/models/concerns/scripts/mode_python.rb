@@ -4,6 +4,7 @@ module Scripts::ModePython
   def python_headers server
     [
       python_libraries.to_s,
+      add_cores_code_for('python')
     ].compact.join
   end
 
@@ -78,7 +79,7 @@ module Scripts::ModePython
 
     def make_command library
       opts    = library.options.to_s.split(' ') << '--no-warn-script-location'
-      version = opts.shift.strip if opts.first =~ /[==,<=,>=,<,>]/
+      version = opts.shift.strip if opts.first =~ /==|<=|>=|<|>/
       name    = version ? "#{library.name}#{version}" : library.name
       cmd     = "'#{opts.join(' ')}', '#{name}'"
 

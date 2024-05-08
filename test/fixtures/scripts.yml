@@ -4,6 +4,7 @@ cd_root:
   text: '%x{cd /}'
   change: 'Initial script'
   language: ruby
+  status: { errors: false, warnings: false }
 
 ls:
   uuid: <%= SecureRandom.uuid %>
@@ -11,6 +12,7 @@ ls:
   text: 'puts %x{ls}'
   change: 'Initial script'
   language: ruby
+  status: { errors: true, warnings: false }
 
 boom:
   uuid: fc671557-c493-2431-96bb-70bca0a2cc21
@@ -20,6 +22,7 @@ boom:
     4 * nil
   change: 'Initial script'
   language: ruby
+  status: { errors: false, warnings: true }
 
 select_from_users:
   uuid: <%= SecureRandom.uuid %>
@@ -28,6 +31,7 @@ select_from_users:
   change: 'Initial script'
   language: sql
   database: postgresql
+  status: { errors: false, warnings: false }
 
 pwd:
   uuid: <%= SecureRandom.uuid %>
@@ -35,3 +39,4 @@ pwd:
   text: 'pwd'
   change: 'Initial script'
   language: shell
+  status: { errors: false, warnings: false }

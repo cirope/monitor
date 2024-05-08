@@ -7,7 +7,7 @@ module Scripts::ModeRuby
       lang_libraries.to_s,
       global_settings,
       (local_context if server&.local?),
-      ruby_cores_code
+      add_cores_code_for('ruby')
     ].compact.join
   end
 
@@ -48,14 +48,6 @@ module Scripts::ModeRuby
   end
 
   private
-
-    def ruby_cores_code
-      StringIO.new.tap do |buffer|
-        self.class.cores.where.not(id: id).distinct.each do |script|
-          buffer << script.body('core inclusion')
-        end
-      end.string
-    end
 
     def local_context
       <<~RUBY

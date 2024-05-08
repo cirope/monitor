@@ -3,12 +3,12 @@
 module Outputs::Parser
   extend ActiveSupport::Concern
 
-  def parse_and_find_lines_with_error
-    return {} unless error?
+  def parse_and_find_lines_with_errors_for type
+    return {} if type == :error && !error?
 
     case script.language
     when 'python', 'ruby'
-      parse_and_find_lines_with_error_in script.language
+      parse_and_find_lines_in type, script.language
     when 'sql'
       parse_and_find_lines_with_error_in_sql
     else
@@ -17,7 +17,7 @@ module Outputs::Parser
   end
 
   def still_valid?
-    dates  = script.class.cores.distinct.pluck :updated_at
+    dates  = script.class.cores(script.language).distinct.pluck :updated_at
     dates += script.includes.pluck :updated_at
 
     dates << script.updated_at
@@ -25,13 +25,21 @@ module Outputs::Parser
     dates.all? { |d| d <= updated_at }
   end
 
+  def warning?
+    (stderr =~ /warning/i).present?
+  end
+
+  def stderr_parsed
+    stderr.gsub /\/tmp\/script-#{script.uuid}/, script.name
+  end
+
   private
 
     def parse_and_find_lines_with_error_in_sql
-      splitted_output = output.split "\n"
+      splitted_err = stderr.split "\n"
 
-      db_errors = splitted_output.grep(/\A(PG|OCIError|TinyTds|SQLite3|Mysql2):/).uniq
-      pg_errors = splitted_output.grep(/\ALINE \d+:/).uniq
+      db_errors = splitted_err.grep(/\A(PG|OCIError|TinyTds|SQLite3|Mysql2):/).uniq
+      pg_errors = splitted_err.grep(/\ALINE \d+:/).uniq
       line      = nil
 
       pg_errors.each do |pg_line|
@@ -50,9 +58,13 @@ module Outputs::Parser
       end
     end
 
-    def parse_and_find_lines_with_error_in language
+    def parse_and_find_lines_in type, language
       errors = {}
-      own_script_errors = line_with_error_in language
+      own_script_errors = if type == :error
+        line_with_error_in language
+      else
+        line_with_warning_in language
+      end
 
       output_lines_with_error(own_script_errors).each do |n, error|
         uuid, values = original_script_from_error_line n, error
@@ -71,7 +83,7 @@ module Outputs::Parser
     end
 
     def output_lines_with_error own_script_errors
-      output.split("\n").map do |line|
+      stderr.split("\n").map do |line|
         line_number, error = *line.match(own_script_errors)&.captures
 
         [line_number.to_i - 1, error] if line_number && error
@@ -111,6 +123,15 @@ module Outputs::Parser
         /#{script.uuid}#{Regexp.escape script.extension}:(\d+):in(.*)/
       when 'python'
         /#{script.uuid}#{script.extension}", line (\d+), in(.*)/
+      end
+    end
+
+    def line_with_warning_in language
+      case language
+      when 'ruby'
+        /#{script.uuid}#{Regexp.escape script.extension}:(\d+): warning:(.*)/
+      when 'python'
+        /#{script.uuid}#{script.extension}", line (\d+), warning:(.*)/
       end
     end
 end

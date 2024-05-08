@@ -25,11 +25,6 @@
     </p>
 
     <p class="mb-1">
-      <strong><%= Account.human_attribute_name 'debug_mode' %></strong>:
-      <%= t @account.debug_mode ? 'yes' : 'no' %>
-    </p>
-
-    <p class="mb-1">
       <strong><%= Account.human_attribute_name 'cleanup_runs_after' %></strong>:
       <%= @account.cleanup_runs_after %>
     </p>

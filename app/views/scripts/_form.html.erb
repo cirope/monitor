@@ -3,10 +3,10 @@
 
   <div class="form-inputs">
     <div class="row">
-      <div class="<%= @script.ruby? ? 'col-lg-10 col-md-9 col-8' : 'col-12' %>">
+      <div class="<%= @script.is_core? ? 'col-lg-10 col-md-9 col-8' : 'col-12' %>">
         <%= f.input :name, input_html: { autofocus: true, disabled: disable_edition? } %>
       </div>
-      <% if @script.ruby? %>
+      <% if @script.is_core? %>
         <div class="col-lg-2 col-md-3 col-4 pt-3">
           <div class="form-check mt-2 float-end">
             <%= f.check_box :core, disabled: disable_edition?, class: 'form-check-input' %>

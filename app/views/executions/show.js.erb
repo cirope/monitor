@@ -22,9 +22,29 @@
     $('[data-kill-actions]').html('')
   <% end %>
 
-  <% if @execution.output.present? && @execution.error? %>
+  <% if @execution.stderr.present? %>
+    $('[data-raw-stderr]').html(
+      '<%= j render('shared/parsed_stderr', exec: @execution) %>'
+    )
+
+    setTimeout(function () {
+      document.querySelector('body').scrollIntoView(false)
+    })
+  <% end %>
+
+  <% if @execution.stderr.present? && @execution.error? %>
     $('[data-output-error]').html(
       '<%= j render('shared/parsed_output_errors', exec: @execution) %>'
+    )
+
+    setTimeout(function () {
+      document.querySelector('body').scrollIntoView(false)
+    })
+  <% end %>
+
+  <% if @execution.stderr.present? && @execution.warning? %>
+    $('[data-output-warning]').html(
+      '<%= j render('shared/parsed_output_warnings', exec: @execution) %>'
     )
 
     setTimeout(function () {

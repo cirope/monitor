@@ -8,6 +8,7 @@ class Script < ApplicationRecord
   include Scripts::Callbacks
   include Scripts::Cleanup
   include Scripts::Copy
+  include Scripts::Cores
   include Scripts::Descriptions
   include Scripts::Destroy
   include Scripts::Export
@@ -26,6 +27,7 @@ class Script < ApplicationRecord
   include Scripts::Permissions
   include Scripts::Requires
   include Scripts::Scopes
+  include Scripts::Status
   include Scripts::Validation
   include Scripts::Versions
   include SearchableByName

@@ -6,7 +6,7 @@ class ExecutionChannel < ApplicationCable::Channel
   end
 
   def fetch
-    String(execution.output).lines.each_with_index do |line, i|
+    String(execution.stdout).lines.each_with_index do |line, i|
       self.class.send_line execution.id, line:     line,
                                          order:    i.next,
                                          status:   execution.status,

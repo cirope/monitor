@@ -69,7 +69,7 @@ class RunTest < ActiveSupport::TestCase
   test 'execute with series output' do
     result = {
       status: 'ok',
-      output: {
+      stdout: {
         series: [
           {
             name:       'test2',
@@ -98,7 +98,7 @@ class RunTest < ActiveSupport::TestCase
   test 'execute with malformed output' do
     result = {
       status: 'ok',
-      output: {
+      stdout: {
         series: [
           {
             name:       'test2',

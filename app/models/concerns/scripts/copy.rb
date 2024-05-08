@@ -3,10 +3,6 @@
 module Scripts::Copy
   extend ActiveSupport::Concern
 
-  included do
-    scope :cores, -> { where core: true }
-  end
-
   def copy_to server
     if server.local?
       path server

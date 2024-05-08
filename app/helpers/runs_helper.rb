@@ -20,9 +20,9 @@ module RunsHelper
 
   def run_output
     if params[:full_output]
-      @run.output
+      @run.stdout
     else
-      truncate @run.output, length: 200
+      truncate @run.stdout, length: 200
     end
   end
 

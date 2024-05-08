@@ -328,7 +328,8 @@ es:
 
   outputs:
     show:
-      scripts_with_errors: 'Guiones con errores'
+      scripts_with_errors: 'Errores'
+      scripts_with_warnings: 'Advertencias'
 
   panels:
     edit:

@@ -3,6 +3,7 @@
 module Runs::Status
   extend ActiveSupport::Concern
 
+
   included do
     scope :executed, -> { by_status %w(ok error) }
 
@@ -16,6 +17,10 @@ module Runs::Status
       ok:        'ok',
       error:     'error'
     }
+  end
+
+  def finished?
+    ok? || error? || killed?
   end
 
   module ClassMethods
