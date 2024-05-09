@@ -251,6 +251,17 @@ class RunTest < ActiveSupport::TestCase
     end
   end
 
+  test 'should update script status' do
+    run    = runs :clean_ls_on_atahualpa
+    script = run.script
+
+    assert_equal script.has_errors?, false
+
+    run.update! status: 'error'
+
+    assert_equal script.has_errors?, true
+  end
+
   private
 
     def override_and_run_execute run, result

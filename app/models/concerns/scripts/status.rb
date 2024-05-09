@@ -1,11 +1,11 @@
 module Scripts::Status
   extend ActiveSupport::Concern
 
-  def status_errors?
+  def has_errors?
     status && status['errors']
   end
 
-  def status_warnings?
+  def has_warnings?
     status && status['warnings']
   end
 

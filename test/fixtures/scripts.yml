@@ -12,7 +12,7 @@ ls:
   text: 'puts %x{ls}'
   change: 'Initial script'
   language: ruby
-  status: { errors: true, warnings: false }
+  status: { errors: false, warnings: false }
 
 boom:
   uuid: fc671557-c493-2431-96bb-70bca0a2cc21

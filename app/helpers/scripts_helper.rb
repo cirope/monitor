@@ -55,9 +55,9 @@ module ScriptsHelper
            when 'shell'  then icon 'fas', 'hashtag'
            end
 
-    status = if script.status_errors?
+    status = if script.has_errors?
                'text-danger'
-             elsif script.status_warnings?
+             elsif script.has_warnings?
                'text-warning'
              elsif script.status
                'text-success'

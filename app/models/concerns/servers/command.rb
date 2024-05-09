@@ -95,6 +95,7 @@ module Servers::Command
 
     def remote_exec script_path, _executable = nil
       status = 1
+      stderr = nil
 
       Net::SSH.start hostname, user, ssh_options  do |ssh|
         # script permission
@@ -118,9 +119,6 @@ module Servers::Command
       stderr = []
 
       channel = ssh.open_channel do |och|
-        # Realtime log output
-        och.request_pty
-
         # Command execution
         och.exec command do |ch, success|
           # STDOUT
@@ -143,6 +141,6 @@ module Servers::Command
       # Wait until the command finish
       channel.wait
 
-      return status, stderr.compact.join
+      return status, stderr.join
     end
 end
