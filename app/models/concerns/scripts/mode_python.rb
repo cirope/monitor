@@ -4,7 +4,7 @@ module Scripts::ModePython
   def python_headers server
     [
       python_libraries.to_s,
-      add_cores_code_for('python')
+      add_cores_code
     ].compact.join
   end
 

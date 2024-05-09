@@ -10,7 +10,7 @@
     </strong>
   </div>
   <div id="output-errors" class="card-body collapse show">
-    <% exec.parse_and_find_lines_with_errors_for(:error).each do |script, errors| %>
+    <% exec.parse_and_find_lines_with(:error).each do |script, errors| %>
       <ul>
         <% errors.each do |error| %>
           <li>

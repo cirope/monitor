@@ -56,10 +56,10 @@ module Runs::Execution
 
     def finish status:, stdout: nil, stderr: nil, data: nil
       update!(
-        status: status,
-        stdout: stdout,
-        stderr: stderr,
-        data: data,
+        status:   status,
+        stdout:   stdout,
+        stderr:   stderr,
+        data:     data,
         ended_at: Time.zone.now
       )
     end

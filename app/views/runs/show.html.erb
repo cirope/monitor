@@ -43,10 +43,8 @@
   </div>
 <% end %>
 
-<%= render 'shared/parsed_stderr', exec: @run if @run.stderr.present? %>
-
-<%= render 'shared/parsed_output_errors', exec: @run if @run.stderr.present? && @run.error? %>
-
+<%= render 'shared/pruned_stderr',          exec: @run if @run.stderr.present?                  %>
+<%= render 'shared/parsed_output_errors',   exec: @run if @run.stderr.present? && @run.error?   %>
 <%= render 'shared/parsed_output_warnings', exec: @run if @run.stderr.present? && @run.warning? %>
 
 <% if @run.outputs.with_text.any? %>

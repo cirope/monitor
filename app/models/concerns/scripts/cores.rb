@@ -1,7 +1,7 @@
 module Scripts::Cores
   extend ActiveSupport::Concern
 
-  def is_core?
+  def support_cores?
     ruby? || python?
   end
 
@@ -13,7 +13,7 @@ module Scripts::Cores
 
   private
 
-    def add_cores_code_for language
+    def add_cores_code
       StringIO.new.tap do |buffer|
         self.class.cores(language).where.not(id: id).distinct.each do |script|
           buffer << script.body('core inclusion')

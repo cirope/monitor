@@ -10,7 +10,7 @@ module Executions::Run
     )
 
     self.status, self.stderr = server.execution self
-    self.ended_at = Time.zone.now
+    self.ended_at            = Time.zone.now
 
     # Fake PaperTrail change stdout
     stdout.tap do |current_stdout|

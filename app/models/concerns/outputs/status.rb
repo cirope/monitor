@@ -8,6 +8,6 @@ module Outputs::Status
   private
 
     def update_script_status
-      script.update_status error?, warning? if finished?
+      script.update_status errors: error?, warnings: warning? if finished?
     end
 end

@@ -3,7 +3,7 @@
 module Outputs::Parser
   extend ActiveSupport::Concern
 
-  def parse_and_find_lines_with_errors_for type
+  def parse_and_find_lines_with type
     return {} if type == :error && !error?
 
     case script.language
@@ -29,17 +29,17 @@ module Outputs::Parser
     (stderr =~ /warning/i).present?
   end
 
-  def stderr_parsed
+  def pruned_stderr
     stderr.gsub /\/tmp\/script-#{script.uuid}/, script.name
   end
 
   private
 
     def parse_and_find_lines_with_error_in_sql
-      splitted_err = stderr.split "\n"
+      error_lines = stderr.split "\n"
 
-      db_errors = splitted_err.grep(/\A(PG|OCIError|TinyTds|SQLite3|Mysql2):/).uniq
-      pg_errors = splitted_err.grep(/\ALINE \d+:/).uniq
+      db_errors = error_lines.grep(/\A(PG|OCIError|TinyTds|SQLite3|Mysql2):/).uniq
+      pg_errors = error_lines.grep(/\ALINE \d+:/).uniq
       line      = nil
 
       pg_errors.each do |pg_line|
@@ -59,7 +59,7 @@ module Outputs::Parser
     end
 
     def parse_and_find_lines_in type, language
-      errors = {}
+      errors            = {}
       own_script_errors = if type == :error
         line_with_error_in language
       else

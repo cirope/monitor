@@ -7,7 +7,7 @@ module Scripts::ModeRuby
       lang_libraries.to_s,
       global_settings,
       (local_context if server&.local?),
-      add_cores_code_for('ruby')
+      add_cores_code
     ].compact.join
   end
 

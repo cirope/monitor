@@ -3,7 +3,6 @@
 module Runs::Status
   extend ActiveSupport::Concern
 
-
   included do
     scope :executed, -> { by_status %w(ok error) }
 

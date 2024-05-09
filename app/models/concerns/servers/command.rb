@@ -79,18 +79,18 @@ module Servers::Command
 
     def local_exec script_path, executable
       status = 1
-      errstd = nil
+      errors = nil
 
       Open3.popen3 local_command(script_path) do |stdin, stdout, stderr, thread|
         executable.update! pid: thread.pid
 
         stdout.each { |line| yield "#{line.strip}\n" }
 
-        errstd = stderr.read
+        errors = stderr.read
         status = thread.value.exitstatus.to_i
       end
 
-      return status, errstd
+      return status, errors
     end
 
     def remote_exec script_path, _executable = nil
@@ -101,7 +101,7 @@ module Servers::Command
         # script permission
         ssh.exec! "chmod +x #{script_path}"
 
-        status, stderr = ssh_exec_with_pty ssh, "$SHELL -c #{script_path}" do |data|
+        status, stderr = ssh_exec ssh, "$SHELL -c #{script_path}" do |data|
           data.to_s.split("\n").each do |line|
             yield "#{line}\n"
           end
@@ -114,7 +114,7 @@ module Servers::Command
       return status, stderr
     end
 
-    def ssh_exec_with_pty ssh, command
+    def ssh_exec ssh, command
       status = 1
       stderr = []
 

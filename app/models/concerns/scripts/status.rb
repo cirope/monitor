@@ -9,7 +9,7 @@ module Scripts::Status
     status && status['warnings']
   end
 
-  def update_status errors, warnings
+  def update_status errors:, warnings:
     new_status = { errors: errors, warnings: warnings }
 
     update_column :status, new_status

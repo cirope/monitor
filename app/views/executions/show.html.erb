@@ -54,19 +54,19 @@
   </div>
 </div>
 
-<div data-raw-stderr>
+<div data-raw-error>
   <% if @execution.stderr.present? %>
-    <%= render 'shared/parsed_stderr', exec: @execution %>
+    <%= render 'shared/pruned_stderr', exec: @execution %>
   <% end %>
 </div>
 
-<div data-output-error>
+<div data-error>
   <% if @execution.stderr.present? && @execution.error? %>
     <%= render 'shared/parsed_output_errors', exec: @execution %>
   <% end %>
 </div>
 
-<div data-output-warning>
+<div data-warning>
   <% if @execution.stderr.present? && @execution.warning? %>
     <%= render 'shared/parsed_output_warnings', exec: @execution %>
   <% end %>
