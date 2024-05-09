@@ -194,7 +194,21 @@ class RunTest < ActiveSupport::TestCase
     assert_not_empty script_errors
 
     script_errors.each do |error|
-      assert_equal 2, error[:line], error # 2: 4 * nil
+      assert_equal 4, error[:line], error # 4: 4 * nil
+    end
+  end
+
+  test 'parse output warnings for script' do
+    run = runs :boom_on_atahualpa
+
+    parsed_warnings = run.parse_and_find_lines_with_errors_for :warning
+    script_warnings = parsed_warnings[run.script]
+
+    assert_not_nil   script_warnings
+    assert_not_empty script_warnings
+
+    script_warnings.each do |warning|
+      assert_equal 3, warning[:line], warning
     end
   end
 

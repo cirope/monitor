@@ -35,9 +35,9 @@ boom_on_atahualpa:
   ended_at: <%= 30.seconds.ago.to_fs :db %>
   stdout: |-
     Are you reeeeaaaadddddyyy?
-  stderr: |-
-    /tmp/script-fc671557-c493-2431-96bb-70bca0a2cc21.rb:21:in `*': nil can't be coerced into Integer (TypeError)
-    from /tmp/script-fc671557-c493-2431-96bb-70bca0a2cc21.rb:21:in `'
     Exit status: 1
+  stderr: |-
+    /tmp/script-fc671557-c493-2431-96bb-70bca0a2cc21.rb:17: warning: already initialized constant CONSTANT
+    /tmp/script-fc671557-c493-2431-96bb-70bca0a2cc21.rb:25:in `*': nil can't be coerced into Integer (TypeError)
   job: boom_on_atahualpa
   pid:

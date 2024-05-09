@@ -19,6 +19,8 @@ boom:
   name: Boom code
   text: |-
     puts 'Are you reeeeaaaadddddyyy?'
+    CONSTANT = 1
+    CONSTANT = 2
     4 * nil
   change: 'Initial script'
   language: ruby
