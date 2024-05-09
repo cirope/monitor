@@ -69,7 +69,7 @@ class RunTest < ActiveSupport::TestCase
   test 'execute with series output' do
     result = {
       status: 'ok',
-      output: {
+      stdout: {
         series: [
           {
             name:       'test2',
@@ -98,7 +98,7 @@ class RunTest < ActiveSupport::TestCase
   test 'execute with malformed output' do
     result = {
       status: 'ok',
-      output: {
+      stdout: {
         series: [
           {
             name:       'test2',
@@ -187,23 +187,37 @@ class RunTest < ActiveSupport::TestCase
   test 'parse output errors for script' do
     run = runs :boom_on_atahualpa
 
-    parsed_errors = run.parse_and_find_lines_with_error
+    parsed_errors = run.parse_and_find_lines_with :error
     script_errors = parsed_errors[run.script]
 
     assert_not_nil   script_errors
     assert_not_empty script_errors
 
     script_errors.each do |error|
-      assert_equal 2, error[:line], error # 2: 4 * nil
+      assert_equal 4, error[:line], error # 4: 4 * nil
+    end
+  end
+
+  test 'parse output warnings for script' do
+    run = runs :boom_on_atahualpa
+
+    parsed_warnings = run.parse_and_find_lines_with :warning
+    script_warnings = parsed_warnings[run.script]
+
+    assert_not_nil   script_warnings
+    assert_not_empty script_warnings
+
+    script_warnings.each do |warning|
+      assert_equal 3, warning[:line], warning
     end
   end
 
   test 'parse output errors for script should not raise' do
     run = runs :boom_on_atahualpa
 
-    run.update_column :output, 'something else'
+    run.update_column :stderr, 'something else'
 
-    parsed_errors = run.parse_and_find_lines_with_error
+    parsed_errors = run.parse_and_find_lines_with :error
 
     assert_empty parsed_errors
   end
@@ -215,7 +229,7 @@ class RunTest < ActiveSupport::TestCase
     scripts(:cd_root).update_column :core, true
 
     # Error will point to prev script now
-    parsed_errors = run.parse_and_find_lines_with_error
+    parsed_errors = run.parse_and_find_lines_with :error
 
     assert_not_empty parsed_errors
 
@@ -235,6 +249,17 @@ class RunTest < ActiveSupport::TestCase
 
       assert_equal 3, Run.count
     end
+  end
+
+  test 'should update script status' do
+    run    = runs :clean_ls_on_atahualpa
+    script = run.script
+
+    assert_equal script.has_errors?, false
+
+    run.update! status: 'error'
+
+    assert_equal script.has_errors?, true
   end
 
   private

@@ -10,6 +10,7 @@ class Execution < ApplicationRecord
   include Executions::Validation
   include Measurable
   include Outputs::Parser
+  include Outputs::Status
 
   belongs_to :script
   belongs_to :server

@@ -15,7 +15,6 @@ module Accounts::Validation
       numericality: { only_integer: true, greater_than_or_equal_to: 0 },
       allow_nil: true, allow_blank: true
     validates :style, inclusion: { in: STYLES }
-    validates :debug_mode, inclusion: { in: [true, false] }
     validates :tenant_name, uniqueness: true, format: { with: /\A[a-z_]+\z/ }
     validates :tenant_name, length: { maximum: 63 }, format: {
       without: /\Apg_/

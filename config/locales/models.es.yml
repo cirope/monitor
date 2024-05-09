@@ -198,8 +198,10 @@ es:
         status: 'Estado'
         started_at: 'Inicio'
         ended_at: 'Fin'
-        output: 'Salida'
+        stdout: 'Salida'
+        stderr: 'Errores'
         server: 'Servidor'
+        raw_stderr: 'Salida de errores'
       fail:
         user: 'Usuario'
         created_at: 'Fecha'
@@ -301,7 +303,8 @@ es:
         scheduled_at: 'Programado para'
         started_at: 'Fecha inicio ejecución'
         ended_at: 'Fecha fin ejecución'
-        output: 'Salida'
+        stdout: 'Salida'
+        stderr: 'Errores'
         data: 'Datos'
       saml:
         provider: 'Proveedor'

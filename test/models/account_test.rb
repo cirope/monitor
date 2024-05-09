@@ -93,12 +93,10 @@ class AccountTest < ActiveSupport::TestCase
 
   test 'included attributes' do
     @account.style           = nil
-    @account.debug_mode      = nil
     @account.token_frequency = 'wrong'
 
     assert @account.invalid?
     assert_error @account, :style, :inclusion
-    assert_error @account, :debug_mode, :inclusion
     assert_error @account, :token_frequency, :inclusion
   end
 

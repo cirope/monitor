@@ -25,12 +25,12 @@
   </div>
 </div>
 
-<% if @run.output.present? %>
+<% if @run.stdout.present? %>
   <div class="card my-3">
     <div class="card-header">
       <h5>
-        <%= Run.human_attribute_name 'output' %>
-        <% if @run.output.length > 200 %>
+        <%= Run.human_attribute_name 'stdout' %>
+        <% if @run.stdout.length > 200 %>
           <%= link_to run_path(@run, full_output: true), title: t('.full_output') do %>
             <%= icon 'fas', 'eye' %>
           <% end %>
@@ -43,7 +43,9 @@
   </div>
 <% end %>
 
-<%= render 'shared/parsed_output_errors', exec: @run if @run.output.present? && @run.error? %>
+<%= render 'shared/pruned_stderr',          exec: @run if @run.stderr.present?                  %>
+<%= render 'shared/parsed_output_errors',   exec: @run if @run.stderr.present? && @run.error?   %>
+<%= render 'shared/parsed_output_warnings', exec: @run if @run.stderr.present? && @run.warning? %>
 
 <% if @run.outputs.with_text.any? %>
   <div class="card mb-3">
@@ -103,7 +105,9 @@
   </div>
 <% end %>
 
-<%= render 'scripts/measures/graphs', format: :time if @measures.any? %>
+<div data-graphs>
+  <%= render 'scripts/measures/graphs', format: :time if @measures.any? %>
+</div>
 
 <% if @run.can_be_killed? %>
   <div class="float-end">
