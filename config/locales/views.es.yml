@@ -530,6 +530,12 @@ es:
         submit: 'Importar'
         file: 'Archivo'
       default_change: 'Importado el %{date}'
+    languages:
+      ruby: 'Ruby'
+      python: 'Python'
+      sql: 'SQL'
+      shell: 'SHELL'
+
     measures:
       index:
         title: 'Métricas'
