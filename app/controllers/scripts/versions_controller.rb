@@ -4,25 +4,28 @@ class Scripts::VersionsController < ApplicationController
   include Authentication
   include Authorization
 
-  before_action :set_title, :set_script
+  before_action :set_title, :set_owner
   before_action :set_version, only: [:show]
 
   def index
-    @versions = @script.versions_with_text_changes.reorder(
+    @versions = @owner.versions_with_text_changes.reorder(
       created_at: :desc
     ).page params[:page]
+
+    render 'versions/index'
   end
 
   def show
+    render 'versions/show'
   end
 
   private
 
     def set_version
-      @version = @script.versions.find params[:id]
+      @version = @owner.versions.find params[:id]
     end
 
-    def set_script
-      @script = Script.find params[:script_id]
+    def set_owner
+      @owner = Script.find params[:script_id]
     end
 end

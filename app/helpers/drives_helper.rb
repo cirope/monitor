@@ -14,4 +14,8 @@ module DrivesHelper
   def i18n_provider provider
     t "drives.providers.#{provider}"
   end
+
+  def link_to_provider_auth_url drive
+    link_to t('.drive_auth_url', provider: i18n_provider(@drive.provider)), provider_auth_url(drive)
+  end
 end

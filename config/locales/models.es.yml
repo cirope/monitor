@@ -159,6 +159,8 @@ es:
         token_duration: 'Duración del token'
         token_interval: 'Intervalo de duración del token'
         token_frequency: 'Frecuencia de duración del token'
+        cleanup_runs_after: 'Eliminar corridas luego de (en días)'
+        cleanup_executions_after: 'Eliminar ejecuciones luego de (en días)'
       comment:
         text: 'Comentario'
         file: 'Adjunto'
@@ -196,8 +198,10 @@ es:
         status: 'Estado'
         started_at: 'Inicio'
         ended_at: 'Fin'
-        output: 'Salida'
+        stdout: 'Salida'
+        stderr: 'Errores'
         server: 'Servidor'
+        raw_stderr: 'Salida de errores'
       fail:
         user: 'Usuario'
         created_at: 'Fecha'
@@ -299,7 +303,8 @@ es:
         scheduled_at: 'Programado para'
         started_at: 'Fecha inicio ejecución'
         ended_at: 'Fecha fin ejecución'
-        output: 'Salida'
+        stdout: 'Salida'
+        stderr: 'Errores'
         data: 'Datos'
       saml:
         provider: 'Proveedor'

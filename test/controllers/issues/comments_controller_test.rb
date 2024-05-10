@@ -15,6 +15,7 @@ class Issues::CommentsControllerTest < ActionController::TestCase
         issue_id: @comment.issue_id,
         comment: {
           text: @comment.text,
+          attachment: fixture_file_upload('text.txt')
         }
       }
     end

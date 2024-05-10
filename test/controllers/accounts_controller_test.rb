@@ -29,8 +29,12 @@ class AccountsControllerTest < ActionController::TestCase
     assert_difference ['Account.count', 'Membership.count'] do
       post :create, params: {
         account: {
-          name:        'New account',
-          tenant_name: 'new_account'
+          name:                     'New account',
+          tenant_name:              'new_account',
+          token_interval:           1,
+          token_frequency:          'months',
+          cleanup_runs_after:       1,
+          cleanup_executions_after: 1
         }
       }
     end
@@ -59,12 +63,16 @@ class AccountsControllerTest < ActionController::TestCase
     assert_redirected_to account_url(@account)
   end
 
-  test 'access should be restricted to default account' do
-    account = Account.create! name: 'Test', tenant_name: 'test'
+  test 'new and create should be restricted to default account' do
+    account = create_account
     user    = account.enroll users(:franco), copy_user: true
 
     account.switch do
-      get :index
+      get :new
+
+      assert_redirected_to root_url
+
+      post :create, params: { account: { name: 'New name' } }
 
       assert_redirected_to root_url
     end

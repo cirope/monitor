@@ -29,6 +29,15 @@ class ActiveSupport::TestCase
     assert_includes model.errors[attribute], error
   end
 
+  def create_account
+    Account.create!(
+      name:                     'Test',
+      tenant_name:              'test',
+      cleanup_runs_after:       10,
+      cleanup_executions_after: 10
+    )
+  end
+
   def stub_any_instance(klass, method, value)
     klass.class_eval do
       alias_method :"old_#{method}", method

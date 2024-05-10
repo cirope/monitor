@@ -36,8 +36,9 @@
   var extraEditorTriggers = function (editor, $textarea) {
     if (! $textarea.data('observeOtherFields')) return
 
-    var $file   = $($textarea.data('fileInput'))
-    var $change = $($textarea.data('changeInput'))
+    var $file    = $($textarea.data('fileInput'))
+    var $change  = $($textarea.data('changeInput'))
+    var fsButton = $('.CodeMirror-fsbutton').get(0)
 
     $(document).on('change', $textarea.data('fileInput'), function () {
       editor && editor.setOption('readOnly', $(this).val())
@@ -52,6 +53,14 @@
         $change.prop('disabled', true)
         $change.closest('.script_change').attr('hidden', true)
         $file.prop('disabled', false).removeAttr('hidden')
+      }
+    })
+
+    $(document).on('click', fsButton, function (event) {
+      if (event.target === fsButton) {
+        var fullscreen = fsButton.classList.contains('CodeMirror-fsbutton-expand')
+
+        editor.setOption('fullScreen', fullscreen)
       }
     })
   }
@@ -71,7 +80,15 @@
         theme:             readonly ? 'duotone-dark' : 'duotone-light',
         readOnly:          readonly,
         gutters:           ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
-        phrases:           $textarea.data('phrases')
+        phrases:           $textarea.data('phrases'),
+        extraKeys: {
+          'F11': function (cm) {
+            cm.setOption('fullScreen', !cm.getOption('fullScreen'))
+          },
+          'Esc': function (cm) {
+            if (cm.getOption('fullScreen')) cm.setOption('fullScreen', false)
+          }
+        }
       })
 
       editor.on('change', function () { $textarea.trigger('change') })
