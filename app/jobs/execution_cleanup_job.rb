@@ -3,7 +3,7 @@
 class ExecutionCleanupJob < ApplicationJob
   queue_as :default
 
-  def perform script
-    script.cleanup
+  def perform
+    Execution.cleanup
   end
 end

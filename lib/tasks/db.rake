@@ -10,6 +10,7 @@ namespace :db do
       encrypt_property_passwords # 2022-05-27
       roles_migration            # 2023-01-18
       add_tickets_to_roles       # 2023-04-18
+      merge_triggers_on_rules    # 2023-10-18
     end
   end
 end
@@ -168,4 +169,31 @@ private
     end
   ensure
     PaperTrail.enabled = true
+  end
+
+  def merge_triggers_on_rules
+    if should_merge_triggers_on_rules?
+      Account.on_each do
+        Rule.find_each do |rule|
+          triggers = rule.triggers.order(id: :asc)
+
+          if triggers.count > 1
+            main_trigger = triggers.first
+            callbacks    = triggers.map(&:callback).join "\r\n"
+
+            main_trigger.update_column :callback, callbacks
+
+            triggers.where.not(id: main_trigger.id).map &:destroy
+          end
+        end
+      end
+    end
+  end
+
+  def should_merge_triggers_on_rules?
+    Account.on_each do
+      triggers = Trigger.group('rule_id').count
+
+      return true if triggers.values.any? { |value| value > 1 }
+    end
   end

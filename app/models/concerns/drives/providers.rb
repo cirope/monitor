@@ -19,12 +19,6 @@ module Drives::Providers
     send "#{provider}_auth_url"
   end
 
-  def redirect_to_auth_url?
-    saved_change_to_provider?  ||
-    saved_change_to_client_id? ||
-    saved_change_to_client_secret?
-  end
-
   def redirect_uri
     url_for(
       controller: 'drives/providers', action: 'index', host: ENV['APP_HOST']

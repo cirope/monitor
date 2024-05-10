@@ -1,7 +1,7 @@
 <div class="card">
   <div class="card-header">
-    <h3 class="clearfix">
-      <%= @script %>
+    <h4 class="clearfix">
+      <%= lang_icon @script %> <%= t "scripts.languages.#{@script.language}" %> - <%= @script %>
       <small class="float-end">
         <% if @script.core %>
           <%= icon 'fas', 'star', class: 'mr-2', title: Script.human_attribute_name('core') %>
@@ -11,7 +11,7 @@
           <%= t '.execute_now' %>
         <% end %>
       </small>
-    </h3>
+    </h4>
   </div>
 
   <div class="card-body">
@@ -30,6 +30,7 @@
         data-editor="true"
         data-language="<%= @script.language %>"
         data-phrases="<%= editor_phrases.to_json %>"
+        data-observe-other-fields="true"
         data-readonly="true"><%= @script.text %></textarea>
     <% end %>
 

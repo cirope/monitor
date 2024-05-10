@@ -77,7 +77,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'username globally taken on create' do
-    account = Account.create! name: 'Test', tenant_name: 'test'
+    account = create_account
     role    = @user.role.dup
 
     account.switch do
@@ -93,7 +93,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'username globally taken on update' do
-    account  = Account.create! name: 'Test', tenant_name: 'test'
+    account  = create_account
     user     = account.enroll @user, copy_user: true
     username = users(:eduardo).username
 
@@ -106,7 +106,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'email globally taken' do
-    account = Account.create! name: 'Test', tenant_name: 'test'
+    account = create_account
     user    = account.enroll @user, copy_user: true
     email   = users(:eduardo).email
 
@@ -212,7 +212,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'delete only the current membership on hide' do
-    account = Account.create! name: 'Test', tenant_name: 'test'
+    account = create_account
 
     assert_difference '@user.memberships.count' do
       account.enroll @user, copy_user: true

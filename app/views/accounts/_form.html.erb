@@ -27,10 +27,21 @@
     </div>
     <div class="row">
       <div class="col-md-6">
-        <%= f.input :group_issues_by_schedule, as: :boolean %>
+        <div class="row">
+          <div class="col-md-6">
+            <%= f.input :cleanup_runs_after, as: :integer %>
+          </div>
+          <div class="col-md-6">
+            <%= f.input :cleanup_executions_after, as: :integer %>
+          </div>
+        </div>
       </div>
       <div class="col-md-6">
-        <%= f.input :debug_mode %>
+        <div class="row mt-4">
+          <div class="col-md-6">
+            <%= f.input :group_issues_by_schedule, as: :boolean %>
+          </div>
+        </div>
       </div>
     </div>
     <%= f.input :lock_version, as: :hidden %>

@@ -5,6 +5,7 @@ class Run < ApplicationRecord
   include Filterable
   include Killable
   include Measurable
+  include Runs::Cleanup
   include Runs::Execution
   include Runs::Notifications
   include Runs::Scopes
@@ -12,6 +13,7 @@ class Run < ApplicationRecord
   include Runs::Validation
   include Runs::Triggers
   include Outputs::Parser
+  include Outputs::Status
 
   belongs_to :job
   has_one :script, through: :job

@@ -5,13 +5,13 @@ module Requires::Validation
 
   included do
     validates :script, presence: true
-    validate :script_is_not_included_on_caller
+    validate :script_is_not_included_on_caller, if: :script
   end
 
   private
 
     def script_is_not_included_on_caller
-      included_ids = [caller_id] + require_ids + Script.cores.ids
+      included_ids = [caller_id] + require_ids + Script.cores(script.language).ids
 
       errors.add :script, :taken if included_ids.include? script_id
     end

@@ -112,7 +112,10 @@ class ScriptsHelperTest < ActionView::TestCase
   end
 
   test 'lang icon' do
-    assert_match 'fas fa-database', lang_icon('sql')
-    assert_match 'fas fa-gem', lang_icon('ruby')
+    ruby  = scripts :ls
+    shell = scripts :pwd
+
+    assert_match 'fas fa-gem', lang_icon(ruby)
+    assert_match 'fas fa-hashtag', lang_icon(shell)
   end
 end

@@ -7,7 +7,6 @@ class Drives::ProvidersController < ApplicationController
   def index
     begin
       if @drive.update_config params[:code]
-
         redirect_to @drive, notice: t('.success', scope: :flash)
       else
         redirect_to @drive, alert: t('.invalid', scope: :flash)

@@ -24,6 +24,7 @@ import 'codemirror/mode/python'
 import 'codemirror/mode/ruby'
 import 'codemirror/mode/shell'
 import 'codemirror/mode/sql'
+import 'codemirror/fullscreen'
 
 import 'moment/moment'
 import 'moment/es'

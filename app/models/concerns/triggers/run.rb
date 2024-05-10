@@ -8,7 +8,7 @@ module Triggers::Run
   end
 
   def run_on run
-    outputs.create! run: run, text: eval(code)
+    outputs.create! run: run, text: eval(code, Proc.new{}.binding)
   end
 
   private

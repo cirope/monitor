@@ -3,6 +3,7 @@
 class Issues::CommentsController < ApplicationController
   include Authentication
   include Authorization
+  include Issues::Filters
   include Issues::Owner
 
   before_action :set_issue
@@ -20,7 +21,7 @@ class Issues::CommentsController < ApplicationController
     if @comment.save
       redirect_to [@owner, @comment.issue]
     else
-      render 'new', status: :unprocessable_entity
+      render template: 'issues/show', status: :unprocessable_entity
     end
   end
 
