@@ -73,7 +73,6 @@ es:
         expired: 'El enlace ha expirado, pida de nuevo las instrucciones'
       create:
         notice: 'Si %{email} se encuentra registrado, te enviaremos un correo para reestablecer la contraseña'
-        not_found: 'Si %{email} se encuentra registrado, te enviaremos un correo para reestablecer la contraseña'
 
     profiles:
       update:
