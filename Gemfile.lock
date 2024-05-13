@@ -219,7 +219,7 @@ GEM
       net-ssh (>= 2.6.5, < 8.0.0)
     net-sftp (4.0.0)
       net-ssh (>= 5.0.0, < 8.0.0)
-    net-smtp (0.5.0)
+    net-smtp (0.3.4)
       net-protocol
     net-ssh (7.2.3)
     nio4r (2.7.3)
@@ -456,7 +456,7 @@ DEPENDENCIES
   net-ldap
   net-pop
   net-scp
-  net-smtp
+  net-smtp (< 0.4)
   net-ssh
   oauth2
   paper_trail
