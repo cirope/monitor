@@ -19,14 +19,10 @@ class PasswordResetsController < ApplicationController
 
         user.prepare_password_reset
         UserMailer.password_reset(user).deliver_later
-
-        redirect_to root_url, notice: t('.notice', scope: :flash, email: params[:email])
       end
-    else
-      flash.now[:notice] = t '.not_found', scope: :flash, email: params[:email]
-
-      render 'new', status: :unprocessable_entity
     end
+
+    redirect_to root_url, notice: t('.notice', scope: :flash, email: params[:email])
   end
 
   def edit
