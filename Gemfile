@@ -41,7 +41,7 @@ gem 'mimemagic'
 gem 'jwt'
 gem 'simple_command'
 gem 'matrix'
-gem 'net-smtp', require: false
+gem 'net-smtp', '< 0.4', require: false
 gem 'net-pop', require: false
 gem 'net-imap', require: false
 gem 'ruby-saml'
