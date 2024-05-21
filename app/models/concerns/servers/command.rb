@@ -59,7 +59,7 @@ module Servers::Command
     end
 
     def python3
-      '/usr/bin/python3'
+      '/usr/bin/python3 -u'
     end
 
     def local_command script_path
