@@ -29,7 +29,7 @@ module Drives::GoogleDrive
         expiry:        Time.zone.at(auth_token.expires_at),
       }.to_json
 
-      options = [ "token='#{token}'" ]
+      options = [ "token=#{token}" ]
 
       options.join ' '
     end
