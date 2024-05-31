@@ -300,6 +300,13 @@ class IssueTest < ActiveSupport::TestCase
     assert_not_nil file_content
   end
 
+  test 'export issue data attachment' do
+    Current.account = send 'public.accounts', :default
+    data_attachment = @issue.export_attachment
+
+    assert_not_nil data_attachment
+  end
+
   test 'export issue without data' do
     Current.account = send 'public.accounts', :default
 

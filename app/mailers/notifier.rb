@@ -20,7 +20,7 @@ class Notifier < ApplicationMailer
     @data_as_csv = data_as_csv
 
     if data_as_csv
-      issue.data_attachment.each do |filename, content|
+      issue.export_attachment.each do |filename, content|
         attachments[filename] = content
       end
     end
