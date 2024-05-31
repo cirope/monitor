@@ -39,7 +39,7 @@ class NotifierTest < ActionMailer::TestCase
   test 'issue with data as csv' do
     issue = issues :ls_on_atahualpa_not_well
     mail  = Notifier.issue issue, 'test@monitor.com', data_as_csv: true
-    data  = issue.export_attachment
+    data  = issue.export_attachments
 
     assert_equal I18n.t('notifier.issue.subject'), mail.subject
     assert_equal ['test@monitor.com'], mail.to

@@ -302,9 +302,9 @@ class IssueTest < ActiveSupport::TestCase
 
   test 'export issue data attachment' do
     Current.account = send 'public.accounts', :default
-    data_attachment = @issue.export_attachment
+    export_attachments = @issue.export_attachments
 
-    assert_not_nil data_attachment
+    assert_not_nil export_attachments
   end
 
   test 'export issue without data' do

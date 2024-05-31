@@ -13,7 +13,7 @@ module Issues::Export
     sanitize_filename "#{description}.zip"
   end
 
-  def export_attachment
+  def export_attachments
     export_to_csvs
   end
 
