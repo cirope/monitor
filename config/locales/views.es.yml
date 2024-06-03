@@ -2,6 +2,7 @@ es:
   app_name: 'Gredit'
 
   messages:
+    attached: 'Adjunto'
     confirmation: '¿Está seguro?'
     download: 'Descargar'
     ldap_error: 'El servidor de autenticación no está disponible, intente nuevamente más tarde'

@@ -13,10 +13,6 @@ class IssuesHelperTest < ActionView::TestCase
     skip
   end
 
-  test 'issue actions cols' do
-    assert_kind_of Integer, issue_actions_cols
-  end
-
   test 'convert issues' do
     skip
   end
@@ -161,11 +157,6 @@ class IssuesHelperTest < ActionView::TestCase
     @current_user = users :god
 
     refute can_edit_status?
-
-    owner = Role.find_by type: 'owner'
-    @current_user.update! role: owner
-
-    assert can_edit_status?
   end
 
   test 'link to api issues' do

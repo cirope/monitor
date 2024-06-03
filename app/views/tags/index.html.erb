@@ -1,14 +1,12 @@
-<% unless current_user.manager? %>
-  <ul class="nav nav-tabs mb-2">
-    <% tag_kinds.each do |kind, name| %>
-      <% active = kind.to_s == params[:kind] %>
+<ul class="nav nav-tabs mb-2">
+  <% tag_kinds.each do |kind, name| %>
+    <% active = kind.to_s == params[:kind] %>
 
-      <%= content_tag :li, class: 'nav-item' do %>
-        <%= link_to name, tags_path(kind: kind), class: "nav-link#{' active' if active}" %>
-      <% end %>
+    <%= content_tag :li, class: 'nav-item' do %>
+      <%= link_to name, tags_path(kind: kind), class: "nav-link#{' active' if active}" %>
     <% end %>
-  </ul>
-<% end %>
+  <% end %>
+</ul>
 
 <div class="card">
   <% if @tags.empty? %>

@@ -12,8 +12,8 @@
           <th class="d-none d-lg-table-cell"><%= Schedule.human_attribute_name 'end' %></th>
           <th class="d-none d-lg-table-cell"><%= Schedule.human_attribute_name 'interval' %></th>
           <th class="d-none d-lg-table-cell"><%= Schedule.human_attribute_name 'frequency' %></th>
-          <th colspan="<%= current_user.author? ? 2 : 4 %>">
-            <%= link_to_new new_schedule_path, class: 'btn btn-secondary btn-sm py-0 mr-n2 float-end' unless current_user.author? %>
+          <th colspan="4">
+            <%= link_to_new new_schedule_path, class: 'btn btn-secondary btn-sm py-0 mr-n2 float-end' %>
           </th>
         </tr>
       </thead>
@@ -28,10 +28,8 @@
             <td class="d-none d-lg-table-cell"><%= t "schedules.frequencies.#{schedule.frequency}" if schedule.frequency %></td>
             <td class="text-end"><%= link_to_runs schedule %></td>
             <td class="text-end"><%= link_to_show schedule %></td>
-            <% unless current_user.author? %>
-              <td class="text-end"><%= link_to_edit [:edit, schedule] %></td>
-              <td class="text-end"><%= link_to_destroy schedule %></td>
-            <% end %>
+            <td class="text-end"><%= link_to_edit [:edit, schedule] %></td>
+            <td class="text-end"><%= link_to_destroy schedule %></td>
           </tr>
         <% end %>
       </tbody>
@@ -41,4 +39,4 @@
   <%= paginate @schedules %>
 <% end %>
 
-<%= link_to_new new_schedule_path, class: 'btn btn-primary' unless current_user.author? %>
+<%= link_to_new new_schedule_path, class: 'btn btn-primary' %>
