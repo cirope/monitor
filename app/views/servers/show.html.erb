@@ -19,7 +19,7 @@
     <% if @server.key.attached? %>
       <p class="mb-1">
         <strong><%= Server.human_attribute_name 'key' %></strong>:
-        <%= link_to_unless current_user.supervisor?, t('messages.download'), rails_blob_path(@server.key, disposition: 'attachment') %>
+        <%= t 'messages.attached' %>
       </p>
     <% end %>
 

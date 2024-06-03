@@ -14,7 +14,7 @@
   <% if @issue.ticket? %>
     <%= link_to_index [@owner, :tickets, filter: filter_query_hash] %>
   <% else %>
-    <% if current_user.owner? %>
+    <% if @issue.script %>
       <%= link_to_index script_issues_path(@issue.script, filter: filter_query_hash) %>
     <% else %>
       <%= link_to_index issue_index_path(filter: filter_query_hash) %>
