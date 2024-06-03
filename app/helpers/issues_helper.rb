@@ -10,8 +10,6 @@ module IssuesHelper
       tickets_path *args
     elsif @context == :board
       issues_board_path *args
-    elsif current_user.guest? || current_user.owner? || current_user.security?
-      issues_path *args
     elsif @permalink
       permalink_path @permalink
     elsif @script || @issue
