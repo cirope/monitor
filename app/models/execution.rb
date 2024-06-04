@@ -6,6 +6,7 @@ class Execution < ApplicationRecord
   include Executions::Callbacks
   include Executions::Cleanup
   include Executions::Run
+  include Executions::Scopes
   include Executions::Status
   include Executions::Validation
   include Measurable
