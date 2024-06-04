@@ -509,6 +509,8 @@ es:
       executions_list: 'Ejecuciones'
       measures_list: 'Métricas'
       tickets_list: 'Pedidos'
+      last_runs: 'Últimas corridas'
+      last_executions: 'Últimas ejecuciones'
     exports:
       create:
         filename: 'guiones.zip'
