@@ -6,6 +6,7 @@ gem 'dbf', require: false
 gem 'roo', require: false
 gem 'roo-xls', require: false
 gem 'rbase-ff', require: false
+gem 'gruff'
 
 unless ENV['GH_ACTIONS']
   # Oracle ActiveRecord adapter
