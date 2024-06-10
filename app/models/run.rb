@@ -16,8 +16,8 @@ class Run < ApplicationRecord
   include Outputs::Status
 
   belongs_to :job
-  has_one :script, through: :job
-  has_one :server, through: :job
+  belongs_to :script
+  belongs_to :server
   has_one :schedule, through: :job
   has_many :dispatchers, through: :schedule
   has_many :issues, as: :owner, dependent: :restrict_with_error
