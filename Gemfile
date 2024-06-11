@@ -20,6 +20,7 @@ gem 'simple_form'
 gem 'figaro'
 gem 'validates_timeliness'
 gem 'kaminari'
+gem 'net-smtp', '< 0.4', require: false
 gem 'net-ssh'
 gem 'net-scp'
 gem 'request_store'
