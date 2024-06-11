@@ -57,7 +57,7 @@ module Servers::Command
 
     def local_command script_path
       if File.extname(script_path) == '.rb'
-        [rails, 'runner', script_path]
+        ['RUBYOPT="-W0"', rails, 'runner', script_path].join ''
       else
         `chmod +x #{script_path}`
 
