@@ -216,7 +216,7 @@ es:
       empty:
         done: 'Se limpiaron todos los casos del carrito'
       destroy_all:
-        destroyed: 'Se eliminaron todos los casos del carrito'
+        destroyed: 'Se programó la eliminación de los casos'
     comments:
       comment:
         text_placeholder: 'Escriba un comentario'

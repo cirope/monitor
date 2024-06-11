@@ -60,7 +60,9 @@ class Issues::BoardController < ApplicationController
   end
 
   def destroy_all
-    issues.where(id: board_session).destroy_all
+    issues_ids = issues.where(id: board_session).ids
+
+    Issue.cleanup_job issues_ids
 
     board_session.clear
     board_session_errors.clear
