@@ -16,11 +16,7 @@ module Schedules::Runs
 
     if self.end.blank? || scheduled_at <= self.end
       jobs.map do |job|
-        job.runs.pending.create!(
-          scheduled_at: scheduled_at,
-          script: job.script,
-          server: job.server
-        )
+        job.runs.pending.create! scheduled_at: scheduled_at
       end
     end
   end
@@ -29,12 +25,7 @@ module Schedules::Runs
     scheduled_at = Time.zone.now
 
     jobs.each do |job|
-      run = job.runs.create!(
-        status: 'scheduled',
-        scheduled_at: scheduled_at,
-        script: job.script,
-        server: job.server
-      )
+      run = job.runs.create! status: 'scheduled', scheduled_at: scheduled_at
 
       RunJob.perform_later run
     end
