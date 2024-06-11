@@ -1,13 +1,14 @@
 # gem 'composite_primary_keys', require: false
 # https://github.com/composite-primary-keys/composite_primary_keys/pull/472
 gem 'composite_primary_keys'
-gem 'ruby-odbc', require: false
+gem 'ruby-odbc', '< 0.999992', require: false
 gem 'dbf', require: false
 gem 'roo', require: false
 gem 'roo-xls', require: false
 gem 'selenium-webdriver', '4.0', require: false
 gem 'rbase-ff', require: false
 gem 'net-sftp', require: false
+gem 'gruff', '< 0.25.0'
 
 unless ENV['TRAVIS']
   # Oracle ActiveRecord adapter
