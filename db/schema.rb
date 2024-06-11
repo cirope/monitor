@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_02_124253) do
+ActiveRecord::Schema[7.0].define(version: 2024_06_10_111325) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -399,9 +399,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_02_124253) do
     t.jsonb "data"
     t.integer "pid"
     t.text "stderr"
+    t.bigint "script_id"
+    t.bigint "server_id"
     t.index ["data"], name: "index_runs_on_data", using: :gin
     t.index ["job_id"], name: "index_runs_on_job_id"
     t.index ["scheduled_at"], name: "index_runs_on_scheduled_at"
+    t.index ["script_id"], name: "index_runs_on_script_id"
+    t.index ["server_id"], name: "index_runs_on_server_id"
     t.index ["status"], name: "index_runs_on_status"
   end
 
@@ -626,6 +630,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_02_124253) do
   add_foreign_key "requires", "scripts", column: "caller_id", on_update: :restrict, on_delete: :restrict
   add_foreign_key "requires", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "runs", "jobs", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "runs", "scripts", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "runs", "servers", on_update: :restrict, on_delete: :restrict
   add_foreign_key "subscriptions", "issues", on_update: :restrict, on_delete: :restrict
   add_foreign_key "subscriptions", "users", on_update: :restrict, on_delete: :restrict
   add_foreign_key "taggings", "tags", on_update: :restrict, on_delete: :restrict

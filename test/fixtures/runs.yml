@@ -6,6 +6,8 @@ past_ls_on_atahualpa:
   stdout: "/home\n/root"
   stderr:
   job: ls_on_atahualpa
+  script: ls
+  server: atahualpa
   pid:
 
 clean_ls_on_atahualpa:
@@ -16,6 +18,8 @@ clean_ls_on_atahualpa:
   stdout: "/home\n/root"
   stderr:
   job: ls_on_atahualpa
+  script: ls
+  server: atahualpa
   pid:
 
 ls_on_atahualpa:
@@ -26,6 +30,8 @@ ls_on_atahualpa:
   stdout:
   stderr:
   job: ls_on_atahualpa
+  script: ls
+  server: atahualpa
   pid:
 
 boom_on_atahualpa:
@@ -40,4 +46,6 @@ boom_on_atahualpa:
     /tmp/script-fc671557-c493-2431-96bb-70bca0a2cc21.rb:17: warning: already initialized constant CONSTANT
     /tmp/script-fc671557-c493-2431-96bb-70bca0a2cc21.rb:25:in `*': nil can't be coerced into Integer (TypeError)
   job: boom_on_atahualpa
+  script: boom
+  server: atahualpa
   pid:
