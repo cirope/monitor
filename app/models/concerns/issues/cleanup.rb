@@ -2,12 +2,12 @@ module Issues::Cleanup
   extend ActiveSupport::Concern
 
   module ClassMethods
-    def cleanup_job issues_ids
-      IssueCleanupJob.perform_later issues_ids
+    def cleanup_job issue_ids
+      IssueCleanupJob.perform_later issue_ids
     end
 
-    def cleanup issues_ids
-      Issue.where(id: issues_ids).find_each &:destroy
+    def cleanup issue_ids
+      Issue.where(id: issue_ids).find_each &:destroy
     end
   end
 end
