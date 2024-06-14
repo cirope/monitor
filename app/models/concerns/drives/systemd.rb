@@ -72,7 +72,6 @@ module Drives::Systemd
             --vfs-read-chunk-size-limit off \
             --log-level DEBUG \
             --umask 022 \
-            --allow-other \
             #{section}: #{mount_path}
         ExecStop=/bin/fusermount -uz #{mount_path}
         Restart=on-abort
