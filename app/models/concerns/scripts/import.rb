@@ -3,6 +3,8 @@
 module Scripts::Import
   extend ActiveSupport::Concern
 
+  attr_accessor :imported_status
+
   module ClassMethods
     def import zip_path
       scripts = []
@@ -55,8 +57,10 @@ module Scripts::Import
 
         if script
           script.update_from_data data
+          script.imported_status = 'updated'
         else
           script = create_from_data data
+          script.imported_status = 'created'
         end
 
         script.imported_version = version || script.default_version
