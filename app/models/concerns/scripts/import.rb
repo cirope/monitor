@@ -57,10 +57,10 @@ module Scripts::Import
 
         if script
           script.update_from_data data
-          script.imported_status = 'updated'
+          script.imported_status = :updated
         else
           script = create_from_data data
-          script.imported_status = 'created'
+          script.imported_status = :created
         end
 
         script.imported_version = version || script.default_version

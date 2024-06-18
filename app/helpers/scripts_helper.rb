@@ -117,12 +117,12 @@ module ScriptsHelper
 
   def show_script_imported_status script
     badge_class = case script.imported_status
-                  when 'created' then 'success'
-                  when 'updated' then 'warning'
+                  when :created then 'success'
+                  when :updated then 'info'
                   end
 
     content_tag :span, class: "badge bg-#{badge_class}" do
-      t "scripts.imports.create.#{script.imported_status}"
+      t ".#{script.imported_status}"
     end
   end
 
