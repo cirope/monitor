@@ -115,6 +115,17 @@ module ScriptsHelper
     end
   end
 
+  def show_script_imported_status script
+    badge_class = case script.imported_status
+                  when :created then 'success'
+                  when :updated then 'info'
+                  end
+
+    content_tag :span, class: "badge bg-#{badge_class}" do
+      t ".#{script.imported_status}"
+    end
+  end
+
   private
 
     def link_to_create_execution &block
