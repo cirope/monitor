@@ -32,7 +32,7 @@ module ObjectsHelper
     object.values.all? { |v| v.kind_of? Numeric }
   end
 
-  def graph_container object, type: 'pie', height: nil
+  def graph_container object, type: 'pie', height: 'auto'
     options = {
       id:    "chart-#{object.object_id}",
       class: 'graph-container',
