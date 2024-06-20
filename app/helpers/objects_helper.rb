@@ -32,11 +32,13 @@ module ObjectsHelper
     object.values.all? { |v| v.kind_of? Numeric }
   end
 
-  def graph_container object
+  def graph_container object, type: 'pie', height: nil
     options = {
       id:    "chart-#{object.object_id}",
       class: 'graph-container',
       data:  {
+        type:   type,
+        height: height,
         graph:  object.object_id,
         labels: object.keys.map { |k| k || t('.undefined') },
         series: object.values
