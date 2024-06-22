@@ -1,0 +1,13 @@
+sass:
+  sass_dir: assets/stylesheets
+
+encoding: utf-8
+markdown: kramdown
+permalink: pretty
+baseurl: "/help"
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - .git
+  - .gitignore
+languages: ['es']
