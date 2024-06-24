@@ -23,11 +23,11 @@
 }
 
 .CodeMirror-fullscreen {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  height: 85vh !important;
+  height: auto;
   z-index: 10000;
 }
