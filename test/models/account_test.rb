@@ -75,7 +75,7 @@ class AccountTest < ActiveSupport::TestCase
     @account.token_interval           =  0
     @account.cleanup_runs_after       = -1
     @account.cleanup_executions_after = -1
-    @account.rows_per_page            = 0
+    @account.rows_per_page            =  0
 
     assert @account.invalid?
     assert_error @account, :token_interval, :greater_than_or_equal_to, count: 1
