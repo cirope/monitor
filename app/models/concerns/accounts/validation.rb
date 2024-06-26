@@ -7,9 +7,11 @@ module Accounts::Validation
 
   included do
     validates :name, :tenant_name, :token_interval, :token_frequency,
-      :cleanup_runs_after, :cleanup_executions_after, presence: true
+      :cleanup_runs_after, :cleanup_executions_after, :rows_per_page,
+      presence: true
     validates :name, length: { maximum: 255 }
-    validates :token_interval, numericality: { only_integer: true, greater_than_or_equal_to: 1 }
+    validates :token_interval, :rows_per_page,
+      numericality: { only_integer: true, greater_than_or_equal_to: 1 }
     validates :token_frequency, inclusion: { in: %w(minutes hours days weeks months years) }
     validates :cleanup_runs_after, :cleanup_executions_after,
       numericality: { only_integer: true, greater_than_or_equal_to: 0 },

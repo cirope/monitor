@@ -23,6 +23,7 @@ class AuthenticationsController < ApplicationController
         create_login_record   user
         store_auth_token      user
         store_current_account account
+        set_rows_per_page     account
 
         redirect_to default_url, notice: t('.logged_in', scope: :flash)
       else
