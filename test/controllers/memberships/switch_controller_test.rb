@@ -23,6 +23,7 @@ class Memberships::SwitchControllerTest < ActionController::TestCase
     Saml.default.destroy!
 
     account = send 'public.accounts', :default
+
     account.options['rows_per_page'] = 2
 
     assert account.update_column :options, account.options
