@@ -4,4 +4,4 @@ default:
   name: Default account
   tenant_name: default
   style: default
-  options: { 'token_interval': 1, 'token_frequency': 'months', 'cleanup_runs_after': 1, 'cleanup_executions_after': 1 }
+  options: { 'token_interval': 1, 'token_frequency': 'months', 'cleanup_runs_after': 1, 'cleanup_executions_after': 1, 'rows_per_page': 5 }

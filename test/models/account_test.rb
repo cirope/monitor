@@ -18,6 +18,7 @@ class AccountTest < ActiveSupport::TestCase
     @account.token_frequency = ''
     @account.cleanup_runs_after = ''
     @account.cleanup_executions_after = ''
+    @account.rows_per_page = ''
 
     assert @account.invalid?
     assert_error @account, :name, :blank
@@ -26,6 +27,7 @@ class AccountTest < ActiveSupport::TestCase
     assert_error @account, :token_frequency, :blank
     assert_error @account, :cleanup_runs_after, :blank
     assert_error @account, :cleanup_executions_after, :blank
+    assert_error @account, :rows_per_page, :blank
   end
 
   test 'unique attributes' do
@@ -60,8 +62,10 @@ class AccountTest < ActiveSupport::TestCase
     @account.token_interval           = '1x'
     @account.cleanup_runs_after       = '1x'
     @account.cleanup_executions_after = '1x'
+    @account.rows_per_page            = '1x'
 
     assert @account.invalid?
+    assert_error @account, :rows_per_page,  :not_a_number
     assert_error @account, :token_interval, :not_a_number
     assert_error @account, :cleanup_runs_after, :not_a_number
     assert_error @account, :cleanup_executions_after, :not_a_number
@@ -71,9 +75,11 @@ class AccountTest < ActiveSupport::TestCase
     @account.token_interval           =  0
     @account.cleanup_runs_after       = -1
     @account.cleanup_executions_after = -1
+    @account.rows_per_page            = 0
 
     assert @account.invalid?
     assert_error @account, :token_interval, :greater_than_or_equal_to, count: 1
+    assert_error @account, :rows_per_page,  :greater_than_or_equal_to, count: 1
     assert_error @account, :cleanup_runs_after, :greater_than_or_equal_to, count: 0
     assert_error @account, :cleanup_executions_after, :greater_than_or_equal_to, count: 0
   end

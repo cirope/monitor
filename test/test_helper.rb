@@ -34,7 +34,8 @@ class ActiveSupport::TestCase
       name:                     'Test',
       tenant_name:              'test',
       cleanup_runs_after:       10,
-      cleanup_executions_after: 10
+      cleanup_executions_after: 10,
+      rows_per_page:            10
     )
   end
 

@@ -21,6 +21,7 @@ class Memberships::SwitchController < ApplicationController
         cookies.encrypted[:token] = user.auth_token
 
         store_current_account account
+        set_rows_per_page     account
 
         redirect_to root_url, notice: t('.notice', account: account.name, scope: :flash)
       end
