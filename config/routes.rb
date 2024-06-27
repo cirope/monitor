@@ -109,7 +109,7 @@ Rails.application.routes.draw do
     resources :runs, shallow: true, only: [:index, :show, :update, :destroy]
 
     scope module: 'schedules' do
-      resources :jobs, only: [:show]
+      resources :jobs, only: [:update]
     end
   end
 

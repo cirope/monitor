@@ -52,6 +52,7 @@ module SchedulesHelper
       class: 'text-secondary',
       title: t('.run'),
       data:  {
+        method:  :patch,
         confirm: t('messages.confirmation')
       }
     }

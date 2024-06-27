@@ -8,7 +8,7 @@ class Schedules::JobsController < ApplicationController
 
   before_action :set_schedule, :set_job
 
-  def show
+  def update
     @schedule.run @job
 
     redirect_to schedule_runs_url(@schedule)

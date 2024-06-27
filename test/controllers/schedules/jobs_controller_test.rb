@@ -12,8 +12,8 @@ class Schedules::JobsControllerTest < ActionController::TestCase
   test 'should run job' do
     @schedule = @job.schedule
 
-    assert_difference '@schedule.runs.count'  do
-      get :show, params: { schedule_id: @schedule, id: @job }
+    assert_difference '@schedule.runs.count' do
+      patch :update, params: { schedule_id: @schedule, id: @job }
     end
 
     assert_redirected_to schedule_runs_url(@schedule)
