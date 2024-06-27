@@ -21,13 +21,13 @@ module Schedules::Runs
     end
   end
 
-  def run
+  def run job = nil
     scheduled_at = Time.zone.now
 
-    jobs.each do |job|
-      run = job.runs.create! status: 'scheduled', scheduled_at: scheduled_at
-
-      RunJob.perform_later run
+    if job
+      run_job job, scheduled_at
+    else
+      jobs.each { |job| run_job(job, scheduled_at) }
     end
   end
 
@@ -57,6 +57,12 @@ module Schedules::Runs
 
     def jobs_changed?
       jobs.any? &:changed?
+    end
+
+    def run_job job, scheduled_at
+      run = job.runs.create! status: 'scheduled', scheduled_at: scheduled_at
+
+      RunJob.perform_later run
     end
 
     def schedule_changed?

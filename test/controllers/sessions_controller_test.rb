@@ -141,8 +141,6 @@ class SessionsControllerTest < ActionController::TestCase
 
     post :create, params: { username: @user.email }
 
-    assert_equal Kaminari.config.default_per_page, 5
-
     @controller = AuthenticationsController.new
     post :create, params: { password: '123' }
 
