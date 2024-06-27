@@ -7,7 +7,7 @@ module SchedulesHelper
     end
   end
 
-  def jobs
+  def schedule_jobs
     @schedule.jobs.new if @schedule.jobs.empty?
 
     @schedule.jobs
@@ -43,6 +43,21 @@ module SchedulesHelper
 
     link_to url, options do
       capture &block if block_given?
+    end
+  end
+
+  def link_to_run_job job
+    url     = [@schedule, job]
+    options = {
+      class: 'text-secondary',
+      title: t('.run'),
+      data:  {
+        confirm: t('messages.confirmation')
+      }
+    }
+
+    link_to url, options do
+      icon 'fas fa-lg', 'circle-play'
     end
   end
 

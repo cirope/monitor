@@ -44,6 +44,7 @@
           <tr>
             <th><%= Job.human_attribute_name 'server' %></th>
             <th><%= Job.human_attribute_name 'script' %></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -51,6 +52,7 @@
             <tr>
               <td><%= job.server %></td>
               <td><%= link_to job.script %></td>
+              <td class="text-end"><%= link_to_run_job job %></td>
             </tr>
           <% end %>
         </tbody>

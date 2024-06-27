@@ -107,6 +107,10 @@ Rails.application.routes.draw do
     delete :cleanup, on: :member, as: :cleanup
 
     resources :runs, shallow: true, only: [:index, :show, :update, :destroy]
+
+    scope module: 'schedules' do
+      resources :jobs, only: [:show]
+    end
   end
 
   namespace :scripts do
