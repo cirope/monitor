@@ -19,7 +19,7 @@ module Drives::GoogleDrive
   end
 
   def drive_config code
-    auth_token = sharepoint_token_url code
+    auth_token = drive_token_url code
 
     if auth_token.response&.status.to_i == 200
       token = {
@@ -29,7 +29,7 @@ module Drives::GoogleDrive
         expiry:        Time.zone.at(auth_token.expires_at),
       }.to_json
 
-      options = [ "token='#{token}'" ]
+      options = [ "token=#{token}" ]
 
       options.join ' '
     end

@@ -4,10 +4,8 @@ module Jobs::Destroy
   extend ActiveSupport::Concern
 
   def destroy
-    if cleanup
-      super
-    else
-      update hidden: true
-    end
+    JobDestroyJob.perform_later self
+
+    update hidden: true
   end
 end

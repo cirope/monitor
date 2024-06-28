@@ -5,7 +5,7 @@ gem 'rails', '~> 7.0'
 gem 'pg', '< 1.5'
 gem 'ros-apartment', require: 'apartment'
 gem 'sassc-rails'
-gem 'bootstrap'
+gem 'bootstrap', '< 5.3'
 gem 'font-awesome-sass'
 gem 'importmap-rails'
 gem 'terser'
@@ -35,13 +35,11 @@ gem 'diffy'
 gem 'prawn'
 gem 'prawn-table'
 gem 'coderay'
-gem 'apexcharts'
-gem 'groupdate'
 gem 'mimemagic'
 gem 'jwt'
 gem 'simple_command'
 gem 'matrix'
-gem 'net-smtp', require: false
+gem 'net-smtp', '< 0.4', require: false
 gem 'net-pop', require: false
 gem 'net-imap', require: false
 gem 'ruby-saml'
@@ -67,6 +65,7 @@ group :development do
   # Support for ed25519 ssh keys
   gem 'ed25519'
   gem 'bcrypt_pbkdf'
+  gem 'brakeman'
 end
 
 group :development, :test do

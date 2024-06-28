@@ -3,6 +3,7 @@
 class ApplicationController < ActionController::Base
   include ActionTitle
   include CacheControl
+  include DriveAuth
   include CurrentAccount
   include CurrentUser
   include LdapConfig

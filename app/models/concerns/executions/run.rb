@@ -9,16 +9,16 @@ module Executions::Run
       started_at: Time.zone.now
     )
 
-    self.status   = server.execution self
-    self.ended_at = Time.zone.now
+    self.status, self.stderr = server.execution self
+    self.ended_at            = Time.zone.now
 
-    # Fake PaperTrail change output
-    output.tap do |current_output|
-      self.output = ''
+    # Fake PaperTrail change stdout
+    stdout.tap do |current_stdout|
+      self.stdout = ''
 
-      clear_attribute_changes [:output]
+      clear_attribute_changes [:stdout]
 
-      self.output = current_output
+      self.stdout = current_stdout
     end
 
     save!
@@ -26,7 +26,7 @@ module Executions::Run
 
   def new_line line
     PaperTrail.request enabled: false do
-      update! output: [output, line].compact.join
+      update! stdout: [stdout, line].compact.join
 
       ExecutionChannel.send_line id, line:     line,
                                      order:    lines_count,
@@ -39,6 +39,6 @@ module Executions::Run
   private
 
     def lines_count
-      output.to_s.lines.size
+      stdout.to_s.lines.size
     end
 end

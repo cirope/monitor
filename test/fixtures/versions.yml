@@ -15,3 +15,12 @@ parameter_creation:
   created_at: <%= 2.days.ago.to_fs(:db) %>
   item_id: <%= ActiveRecord::FixtureSet.identify :ls_dir %>
   item_type: Parameter
+
+email_creation:
+  event: create
+  whodunnit: <%= ActiveRecord::FixtureSet.identify :franco %>
+  object: {}
+  object_changes: {}
+  created_at: <%= 2.days.ago.to_fs(:db) %>
+  item_id: <%= ActiveRecord::FixtureSet.identify :email %>
+  item_type: Trigger

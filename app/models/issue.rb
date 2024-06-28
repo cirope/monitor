@@ -6,6 +6,7 @@ class Issue < ApplicationRecord
   include DataCasting
   include Exportable
   include Issues::CanonicalData
+  include Issues::Cleanup
   include Issues::Comments
   include Issues::Csv
   include Issues::DataType

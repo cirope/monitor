@@ -47,15 +47,25 @@ module ScriptsHelper
     !@script.is_editable?
   end
 
-  def lang_icon lang
-    icon = case lang
+  def lang_icon script
+    icon = case script.language
            when 'python' then icon 'fab', 'python'
            when 'ruby'   then icon 'fas', 'gem'
            when 'sql'    then icon 'fas', 'database'
            when 'shell'  then icon 'fas', 'hashtag'
            end
 
-    content_tag :abbr, title: lang.titleize do
+    status = if script.has_errors?
+               'text-danger'
+             elsif script.has_warnings?
+               'text-warning'
+             elsif script.status
+               'text-success'
+             else
+               'text-secondary'
+             end
+
+    content_tag :abbr, class: status, title: script.language.titleize do
       icon
     end
   end
@@ -102,6 +112,17 @@ module ScriptsHelper
       docs = @script.documents.select &:new_record?
 
       raw docs.map(&:filename).join('<br />')
+    end
+  end
+
+  def show_script_imported_status script
+    badge_class = case script.imported_status
+                  when :created then 'success'
+                  when :updated then 'info'
+                  end
+
+    content_tag :span, class: "badge bg-#{badge_class}" do
+      t ".#{script.imported_status}"
     end
   end
 

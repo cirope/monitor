@@ -7,8 +7,8 @@ module Permissions::Sections
         { item: 'Issue',    controllers: ['Board', 'Comment', 'Permalink', 'Tagging', 'Export', 'View'] },
         { item: 'Ticket' },
         { item: 'Script',   controllers: ['Execution', 'Measure', 'Version', 'Revert', 'Import', 'Export', 'Parameter'] },
-        { item: 'Schedule', controllers: ['Run'] },
-        { item: 'Rule',     controllers: ['Import', 'Export'] },
+        { item: 'Schedule', controllers: ['Run', 'Job'] },
+        { item: 'Rule',     controllers: ['Import', 'Export', 'Version', 'Revert'] },
       ],
       config: [
         { item: 'Role'          },

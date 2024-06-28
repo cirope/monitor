@@ -60,7 +60,9 @@ Rails.application.routes.draw do
     resources :issues do
       resources :comments, only: [:create], controller: 'issues/comments'
     end
+    resources :reverts, only: [:create], controller: 'rules/reverts'
     resources :tickets, only: [:index]
+    resources :versions, only: [:index, :show], controller: 'rules/versions'
   end
   resources :samls
   resources :tickets, only: [:index, :destroy]
@@ -105,6 +107,10 @@ Rails.application.routes.draw do
     delete :cleanup, on: :member, as: :cleanup
 
     resources :runs, shallow: true, only: [:index, :show, :update, :destroy]
+
+    scope module: 'schedules' do
+      resources :jobs, only: [:update]
+    end
   end
 
   namespace :scripts do

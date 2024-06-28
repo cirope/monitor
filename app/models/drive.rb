@@ -10,6 +10,7 @@ class Drive < ApplicationRecord
   include Drives::GoogleDrive
   include Drives::OneDrive
   include Drives::SharePoint
+  include Drives::Systemd
   include Drives::Validation
   include PublicAuditable
 
