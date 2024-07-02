@@ -33,7 +33,7 @@ module Taggable
       left_joins(:tags).where(
         "(options->'hide') IS NULL"
       ).or(
-        Script.where.not('options @> ?', { hide: true }.to_json)
+        where.not('options @> ?', { hide: true }.to_json)
       )
     end
   end
