@@ -40,8 +40,9 @@ class ScriptsControllerTest < ActionController::TestCase
     assert_select 'table tbody tr', count: 5
 
     tag = Tag.create!(
-      name: 'Hide', kind: 'script', style: 'secondary', options: { 'hide': true }
+      name: 'Hide', kind: 'script', style: 'secondary', options: { hide: true }
     )
+
     @script.taggings.create tag: tag
 
     get :index
