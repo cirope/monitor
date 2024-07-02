@@ -43,7 +43,7 @@ class ScriptsControllerTest < ActionController::TestCase
       name: 'Hide', kind: 'script', style: 'secondary', options: { hide: true }
     )
 
-    @script.taggings.create tag: tag
+    @script.taggings.create! tag: tag
 
     get :index
     assert_response :success
