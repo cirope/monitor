@@ -31,9 +31,9 @@ module Taggable
 
     def not_hidden
       left_joins(:tags).where(
-        "(options->'hide') IS NULL"
+        "(#{Tag.table_name}.options->'hide') IS NULL"
       ).or(
-        where.not('options @> ?', { hide: true }.to_json)
+        where.not("#{Tag.table_name}.options @> ?", { hide: true }.to_json)
       )
     end
   end
