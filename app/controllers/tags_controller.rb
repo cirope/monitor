@@ -53,7 +53,7 @@ class TagsController < ApplicationController
 
     def tag_params
       params.require(:tag).permit :name, :style, :final, :group, :category, :export,
-        :parent_id, :editable, :recovery, :lock_version,
+        :parent_id, :editable, :recovery, :hide, :lock_version,
         effects_attributes: [:id, :implied_id, :_destroy]
     end
 

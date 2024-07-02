@@ -6,7 +6,7 @@ module Tags::Options
   def kind_options
     options = {
       issue:  { final: :boolean, group: :boolean, category: :boolean },
-      script: { export: :boolean, editable: :boolean },
+      script: { export: :boolean, editable: :boolean, hide: :boolean },
       user:   { recovery: :boolean },
       ticket: { final: :boolean},
     }
@@ -57,6 +57,15 @@ module Tags::Options
 
   def editable= editable
     assign_option 'editable', editable == true || editable == '1'
+  end
+
+  def hide
+    options&.fetch 'hide', nil
+  end
+  alias_method :hide?, :hide
+
+  def hide= hide
+    assign_option 'hide', hide == true || hide == '1'
   end
 
   def recovery
