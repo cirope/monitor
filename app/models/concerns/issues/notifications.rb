@@ -3,7 +3,7 @@
 module Issues::Notifications
   extend ActiveSupport::Concern
 
-  def notify_to recipients
-    Notifier.issue(self, recipients).deliver_later wait: 5.seconds
+  def notify_to recipients, data_as_csv: false
+    Notifier.issue(self, recipients, data_as_csv: data_as_csv).deliver_later wait: 5.seconds
   end
 end

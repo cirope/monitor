@@ -12,10 +12,8 @@
           <th class="d-none d-md-table-cell"><%= User.human_attribute_name 'email' %></th>
           <th><%= User.human_attribute_name 'role' %></th>
           <th class="d-none d-lg-table-cell"><%= Tag.model_name.human count: 0 %></th>
-          <th colspan="<%= user_actions_columns %>">
-            <% if !ldap && !current_user.author? %>
-              <%= link_to_new new_user_path, class: 'btn btn-secondary btn-sm py-0 mr-n2 float-end' %>
-            <% end %>
+          <th colspan="3">
+            <%= link_to_new new_user_path, class: 'btn btn-secondary btn-sm py-0 mr-n2 float-end' if !ldap %>
           </th>
         </tr>
       </thead>
@@ -29,12 +27,8 @@
             <td><%= user.role %></td>
             <td class="d-none d-lg-table-cell"><%= tag_icons user.tags %></td>
             <td class="text-end"><%= link_to_show user %></td>
-            <% unless current_user.author? %>
-              <td class="text-end"><%= link_to_edit [:edit, user] %></td>
-              <% unless ldap %>
-                <td class="text-end"><%= link_to_destroy user %></td>
-              <% end %>
-            <% end %>
+            <td class="text-end"><%= link_to_edit [:edit, user] %></td>
+            <td class="text-end"><%= link_to_destroy user unless ldap %></td>
           </tr>
         <% end %>
       </tbody>
@@ -46,6 +40,6 @@
 
 <% if ldap %>
   <%= link_to t('.ldap_import'), new_users_import_path, class: 'btn btn-primary' %>
-<% elsif !current_user.author? %>
+<% else %>
   <%= link_to_new new_user_path, class: 'btn btn-primary' %>
 <% end %>

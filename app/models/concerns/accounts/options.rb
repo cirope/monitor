@@ -5,6 +5,8 @@ module Accounts::Options
 
   included do
     before_validation :assign_token_duration
+
+    after_save :set_rows_per_page
   end
 
   def expire_token
@@ -56,6 +58,14 @@ module Accounts::Options
     assign_option 'cleanup_executions_after', value
   end
 
+  def rows_per_page
+    options&.fetch 'rows_per_page', nil
+  end
+
+  def rows_per_page= value
+    assign_option 'rows_per_page', value
+  end
+
   private
 
     def assign_option name, value
@@ -69,5 +79,9 @@ module Accounts::Options
 
     def assign_token_duration
       self.token_duration = { token_interval => token_frequency }
+    end
+
+    def set_rows_per_page
+      Kaminari.config.default_per_page = rows_per_page.to_i
     end
 end

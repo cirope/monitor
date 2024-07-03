@@ -2,6 +2,7 @@ es:
   app_name: 'Gredit'
 
   messages:
+    attached: 'Adjunto'
     confirmation: '¿Está seguro?'
     download: 'Descargar'
     ldap_error: 'El servidor de autenticación no está disponible, intente nuevamente más tarde'
@@ -215,7 +216,7 @@ es:
       empty:
         done: 'Se limpiaron todos los casos del carrito'
       destroy_all:
-        destroyed: 'Se eliminaron todos los casos del carrito'
+        destroyed: 'Se programó la eliminación de los casos'
     comments:
       comment:
         text_placeholder: 'Escriba un comentario'
@@ -508,6 +509,8 @@ es:
       executions_list: 'Ejecuciones'
       measures_list: 'Métricas'
       tickets_list: 'Pedidos'
+      last_runs: 'Últimas corridas'
+      last_executions: 'Últimas ejecuciones'
     exports:
       create:
         filename: 'guiones.zip'
@@ -517,13 +520,14 @@ es:
       create:
         title: 'Importar guiones'
         scripts_imported: 'Guiones importados correctamente'
-        script_imported: 'Importado'
         no_file: 'Debe proporcionar un archivo'
         fail: 'No se importaron los guiones, revise los errores.'
         no_scripts: 'El archivo no tiene un formato compatible.'
         file_invalid_extension: 'La extensión del archivo no es correcta.'
         internal_format_invalid: 'El archivo no tiene un formato compatible.'
         error: 'Con errores'
+        created: 'Creado'
+        updated: 'Actualizado'
       new:
         title: 'Importar guiones'
       form:

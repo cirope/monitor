@@ -1,12 +1,14 @@
-/* global Chartist */
+/* global ApexCharts */
 +function () {
-  var renderChart = function ($chart, type) {
-    var type      = type || 'pie'
+  var renderChart = function ($chart, type, height) {
+    var type      = type   || 'pie'
+    var height    = height || 'auto'
     var container = document.querySelector('#' + $chart.attr('id'))
     var options   = {
       chart: {
-        id:   $chart.attr('id'),
-        type: type,
+        type:   type,
+        height: height,
+        id:     $chart.attr('id')
       }
     }
 
@@ -35,8 +37,9 @@
     $charts.each(function (i, chart) {
       var $chart = $(chart)
       var type   = $chart.data('type')
+      var height = $chart.data('height')
 
-      renderChart($chart, type)
+      renderChart($chart, type, height)
     })
   })
 
@@ -51,6 +54,6 @@
     $link.addClass('active')
 
     if ($chart.length)
-      renderChart($chart, type)
+      renderChart($chart, type, 'auto')
   })
 }()

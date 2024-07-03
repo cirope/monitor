@@ -136,6 +136,18 @@ class SessionsControllerTest < ActionController::TestCase
     assert_not_nil login.reload.closed_at
   end
 
+  test 'should set rows per page' do
+    destroy_ad_services
+
+    post :create, params: { username: @user.email }
+
+    @controller = AuthenticationsController.new
+    post :create, params: { password: '123' }
+
+    assert_redirected_to home_url
+    assert_equal Kaminari.config.default_per_page, 5
+  end
+
   private
 
     def current_user

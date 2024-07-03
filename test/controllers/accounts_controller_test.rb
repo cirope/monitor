@@ -34,7 +34,8 @@ class AccountsControllerTest < ActionController::TestCase
           token_interval:           1,
           token_frequency:          'months',
           cleanup_runs_after:       1,
-          cleanup_executions_after: 1
+          cleanup_executions_after: 1,
+          rows_per_page:            10
         }
       }
     end

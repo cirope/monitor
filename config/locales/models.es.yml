@@ -161,6 +161,7 @@ es:
         token_frequency: 'Frecuencia de duración del token'
         cleanup_runs_after: 'Eliminar corridas luego de (en días)'
         cleanup_executions_after: 'Eliminar ejecuciones luego de (en días)'
+        rows_per_page: 'Registros por página'
       comment:
         text: 'Comentario'
         file: 'Adjunto'
@@ -362,6 +363,7 @@ es:
         parent: 'Grupo'
         category: 'Es categoría'
         recovery: 'Recuperación'
+        hide: 'Ocultar'
       tagging:
         tag: 'Etiqueta'
         tag_id: 'Etiqueta'

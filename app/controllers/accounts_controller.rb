@@ -60,7 +60,8 @@ class AccountsController < ApplicationController
     def account_params
       params.require(:account).permit :name, :tenant_name, :style,
         :group_issues_by_schedule, :token_interval, :token_frequency,
-        :cleanup_runs_after, :cleanup_executions_after, :lock_version
+        :cleanup_runs_after, :cleanup_executions_after, :rows_per_page,
+        :lock_version
     end
 
     def from_default_account
