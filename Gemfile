@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 7.0'
+gem 'rails', '< 7.1'
 
 gem 'pg', '< 1.5'
 gem 'ros-apartment', require: 'apartment'
