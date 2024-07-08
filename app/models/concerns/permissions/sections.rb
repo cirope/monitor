@@ -22,6 +22,7 @@ module Permissions::Sections
         { item: 'Ldap'          },
         { item: 'Saml'          },
         { item: 'Drive'         },
+        { item: 'Endpoint'      },
         { item: 'PdfTemplate'   },
         { item: 'Console'       },
         { item: 'SystemMonitor' },

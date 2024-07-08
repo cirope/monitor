@@ -22,6 +22,7 @@ class Account < ApplicationRecord
 
   has_many :databases, dependent: :destroy
   has_many :drives,    dependent: :destroy
+  has_many :endpoints, dependent: :destroy
 
   def to_s
     name

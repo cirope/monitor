@@ -1,0 +1,32 @@
+<%= simple_form_for(@endpoint) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.input :provider, collection: endpoint_providers, prompt: true, autofocus: true %>
+      </div>
+      <div class="col-md-6">
+        <%= f.input :name %>
+      </div>
+    </div>
+
+    <% @endpoint.provider_options.each_slice(2) do |options| %>
+      <div class="row">
+        <% options.each do |option, value| %>
+          <div class="col-md-6">
+            <%= f.input option, as: value[:type],
+              required: value[:required],
+              label: Endpoint.i18n_provider_option(
+                provider: @endpoint.provider, option: option
+              ) %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, class: 'btn-primary' %>
+  </div>
+<% end %>

@@ -1,0 +1,33 @@
+<% if @endpoints.empty? %>
+  <%= render 'shared/empty_index', message: t('.empty_html') %>
+<% else %>
+  <div class="card">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th><%= Endpoint.human_attribute_name 'name' %></th>
+          <th><%= Endpoint.human_attribute_name 'provider' %></th>
+          <th colspan="3">
+            <%= link_to_new new_endpoint_path, class: 'btn btn-secondary btn-sm py-0 mr-n2 float-end' %>
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @endpoints.each do |endpoint| %>
+          <tr>
+            <td><%= endpoint.name %></td>
+            <td><%= endpoint.i18n_provider %></td>
+            <td class="text-end"><%= link_to_show endpoint %></td>
+            <td class="text-end"><%= link_to_edit [:edit, endpoint] %></td>
+            <td class="text-end"><%= link_to_destroy endpoint %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <%= paginate @endpoints %>
+<% end %>
+
+<%= link_to_new new_endpoint_path, class: 'btn btn-primary' %>

@@ -2,6 +2,7 @@ es:
   attributes:
     created_at: 'Creación'
     updated_at: 'Actualización'
+    name: 'Nombre'
 
   activemodel:
     models:
@@ -52,6 +53,9 @@ es:
       drive:
         one: 'Configuración DRIVE'
         other: 'DRIVE'
+      endpoint:
+        one: 'Endpoint'
+        other: 'Endpoints'
       effect:
         one: 'Implícita'
         other: 'Implícitas'
@@ -153,7 +157,6 @@ es:
       account:
         debug_mode: '¿Modo depuración?'
         group_issues_by_schedule: 'Agrupar guiones por trabajo'
-        name: 'Nombre'
         style: 'Estilo'
         tenant_name: 'Contexto'
         token_duration: 'Duración del token'
@@ -167,23 +170,17 @@ es:
         file: 'Adjunto'
         attachment: 'Adjunto'
         issue: 'Caso'
-      dashboard:
-        name: 'Nombre'
       database:
-        name: 'Nombre'
         driver: 'Controlador'
         description: 'Descripción'
       dependency:
         schedule: 'Trabajo'
       description:
-        name: 'Nombre'
         value: 'Valor'
         public: '¿Público?'
       descriptor:
-        name: 'Nombre'
         public: '¿Público?'
       drive:
-        name: 'Nombre'
         provider: 'Proveedor'
         identifier: 'Identificador'
         client_id: 'ID Cliente'
@@ -192,6 +189,13 @@ es:
         mount_point: 'Punto de montaje'
         root_folder_id: 'ID de la carpeta raíz'
         tenant_id: 'Id. de directorio (inquilino)'
+      endpoint:
+        provider: 'Proveedor'
+        options: 'Opciones'
+        session: 'Sesión'
+        client_id: 'ID Cliente'
+        client_secret: 'Clave secreta'
+        directory_id: 'ID de directorio (inquilino)'
       effect:
         tag: 'Etiqueta'
         implied: 'Etiqueta'
@@ -250,7 +254,6 @@ es:
         test_user: 'Usuario'
         test_password: 'Contraseña'
       library:
-        name: 'Nombre'
         options: 'Opciones'
       maintainer:
         user: 'Usuario'
@@ -267,10 +270,7 @@ es:
         height: 'Alto'
         width: 'Ancho'
       parameter:
-        name: 'Nombre'
         value: 'Valor'
-      pdf_template:
-        name: 'Nombre'
       permalink:
         token: 'Testigo'
       permission:
@@ -292,12 +292,10 @@ es:
       require:
         script: 'Guión'
       role:
-        name: 'Nombre'
         description: 'Descripción'
         type: 'Tipo'
         identifier: 'Identificador'
       rule:
-        name: 'Nombre'
         enabled: 'Habilitada'
       run:
         status: 'Estado'
@@ -323,13 +321,11 @@ es:
         email_attribute: 'Atributo con el correo electrónico'
         roles_attribute: 'Atributo con roles'
       schedule:
-        name: 'Nombre'
         start: 'Inicio'
         end: 'Fin'
         interval: 'Intervalo'
         frequency: 'Frecuencia'
       script:
-        name: 'Nombre'
         file: 'Archivo'
         attachment: 'Archivo'
         text: 'Contenido'
@@ -338,13 +334,11 @@ es:
         language: 'Lenguaje'
         documents: 'Documentos'
       serie:
-        name: 'Nombre'
         timestamp: 'Fecha'
         identifier: 'Identificador'
         amount: 'Monto'
         data: 'Datos'
       server:
-        name: 'Nombre'
         hostname: 'Dirección'
         user: 'Usuario'
         password: 'Contraseña'
@@ -354,7 +348,6 @@ es:
       subscription:
         user: 'Usuario'
       tag:
-        name: 'Nombre'
         style: 'Estilo'
         final: 'Final'
         group: 'Es grupo'
@@ -370,7 +363,6 @@ es:
       trigger:
         callback: 'Función'
       user:
-        name: 'Nombre'
         lastname: 'Apellido'
         email: 'Correo'
         username: 'Usuario'

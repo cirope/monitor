@@ -1,0 +1,8 @@
+dynamics:
+  name: Microsoft Dynamics
+  provider: dynamics
+  options: {
+             'client_id': 'client_id',
+             'directory_id': 'directory_id',
+             'client_secret': 'client_secret'
+           }
