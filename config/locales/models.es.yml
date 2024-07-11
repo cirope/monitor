@@ -190,6 +190,7 @@ es:
         root_folder_id: 'ID de la carpeta raíz'
         tenant_id: 'Id. de directorio (inquilino)'
       endpoint:
+        url: 'URL'
         provider: 'Proveedor'
         options: 'Opciones'
         session: 'Sesión'

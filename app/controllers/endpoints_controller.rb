@@ -59,7 +59,8 @@ class EndpointsController < ApplicationController
     end
 
     def endpoint_params
-      params.require(:endpoint).permit :name, :provider, :client_id,
-        :client_secret, :directory_id, :lock_version
+      allowed_params = [:name, :provider, :lock_version] << @endpoint.required_options
+
+      params.require(:endpoint).permit *allowed_params
     end
 end

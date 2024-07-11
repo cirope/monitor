@@ -10,12 +10,16 @@ module Endpoints::DynamicsOptions
   }
 
   def provider_options
-    PROVIDER_OPTIONS[provider.to_sym]
+    self.class.provider_options provider
+  end
+
+  def required_options
+    self.class.required_options provider
   end
 
   module ClassMethods
     def provider_options provider
-      Endpoint::PROVIDER_OPTIONS[provider.to_sym]
+      PROVIDER_OPTIONS[provider.to_sym]
     end
 
     def required_options provider

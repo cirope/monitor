@@ -159,6 +159,7 @@ es:
       dynamics: 'Microsoft Dynamics'
       options:
         dynamics:
+          url: 'URL'
           client_id: 'ID Cliente'
           client_secret: 'Clave secreta'
           directory_id: 'ID de directorio (inquilino)'
