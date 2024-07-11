@@ -26,3 +26,5 @@ deliverable/monitor-*
 # Ignore ./vscode
 .vscode/
 /config/master.key
+
+endpoints/
