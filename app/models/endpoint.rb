@@ -1,8 +1,9 @@
 class Endpoint < ApplicationRecord
   include Attributes::Strip
-  include Endpoints::DynamicsApi
+  include Endpoints::DynamicsProcess
   include Endpoints::DynamicsOptions
   include Endpoints::I18nHelpers
+  include Endpoints::Process
   include Endpoints::Providers
   include Endpoints::Scopes
   include Endpoints::Validation

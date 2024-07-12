@@ -6,8 +6,4 @@ module Endpoints::Providers
       dynamics: 'dynamics',
     }
   end
-
-  def process
-    send "#{provider}_process"
-  end
 end

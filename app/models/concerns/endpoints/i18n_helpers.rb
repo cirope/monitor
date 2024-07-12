@@ -2,7 +2,7 @@ module Endpoints::I18nHelpers
   extend ActiveSupport::Concern
 
   def i18n_provider
-    I18n.t "endpoints.providers.#{provider}"
+    self.class.i18n_provider provider
   end
 
   module ClassMethods

@@ -59,7 +59,8 @@ class EndpointsController < ApplicationController
     end
 
     def endpoint_params
-      allowed_params = [:name, :provider, :lock_version] << @endpoint.required_options
+      provider       = params.dig(:endpoint, :provider)
+      allowed_params = [:name, :provider, :lock_version] << Endpoint.required_options(provider)
 
       params.require(:endpoint).permit *allowed_params
     end

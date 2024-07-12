@@ -48,7 +48,7 @@ class EndpointsControllerTest < ActionController::TestCase
 
   test 'should update endpoint' do
     patch :update, params: {
-      id: @endpoint, endpoint: { client_id: 'Client ip updated' }
+      id: @endpoint, endpoint: { provider: 'dynamics', client_id: 'Client ip updated' }
     }
 
     assert_redirected_to endpoint_url(@endpoint)
