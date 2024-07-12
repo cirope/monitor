@@ -27,4 +27,4 @@ deliverable/monitor-*
 .vscode/
 /config/master.key
 
-endpoints/
+/endpoints/
