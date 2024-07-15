@@ -4,7 +4,7 @@ module Endpoints::DynamicsProcess
   def dynamics_process
     process_companies
 
-    [:vendors, :customers, :salesInvoices].each do |entity|
+    [:customers, :purchaseInvoices, :salesInvoices, :salesQuotes, :salesOrders, :vendors].each do |entity|
       process_entity entity
     end
   end
