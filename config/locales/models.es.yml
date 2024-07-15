@@ -190,13 +190,9 @@ es:
         root_folder_id: 'ID de la carpeta raíz'
         tenant_id: 'Id. de directorio (inquilino)'
       endpoint:
-        url: 'URL'
         provider: 'Proveedor'
         options: 'Opciones'
         session: 'Sesión'
-        client_id: 'ID Cliente'
-        client_secret: 'Clave secreta'
-        directory_id: 'ID de directorio (inquilino)'
       effect:
         tag: 'Etiqueta'
         implied: 'Etiqueta'

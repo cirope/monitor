@@ -4,7 +4,7 @@ module Endpoints::DynamicsProcess
   def dynamics_process
     process_companies
 
-    [:customers, :purchaseInvoices, :salesInvoices, :salesQuotes, :salesOrders, :vendors].each do |entity|
+    %i(customers purchaseInvoices salesInvoices salesQuotes salesOrders vendors).each do |entity|
       process_entity entity
     end
   end
@@ -71,7 +71,7 @@ module Endpoints::DynamicsProcess
       OAuth2::Client.new(
         client_id,
         client_secret,
-        site: 'https://login.microsoftonline.com/',
+        site:      'https://login.microsoftonline.com/',
         token_url: "/#{directory_id}/oauth2/v2.0/token"
       )
     end

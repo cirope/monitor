@@ -158,8 +158,7 @@ es:
     providers:
       dynamics: 'Microsoft Dynamics'
       options:
-        dynamics:
-          url: 'URL'
+        dynamics: &dynamics_options
           client_id: 'ID Cliente'
           client_secret: 'Clave secreta'
           directory_id: 'ID de directorio (inquilino)'
@@ -811,3 +810,8 @@ es:
           category_tags: 'Categoria'
           auditor: 'Auditor'
           audited: 'Auditado'
+
+  activerecord:
+    attributes:
+      endpoint:
+        <<: *dynamics_options
