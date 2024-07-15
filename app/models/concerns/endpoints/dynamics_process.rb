@@ -53,10 +53,10 @@ module Endpoints::DynamicsProcess
       response = client.get "#{base_url}/companies\(#{company['id']}\)/#{entity}"
 
       if body = JSON.parse(response.body)
-        vendors = body.fetch 'value'
+        values = body.fetch 'value'
 
         CSV.open(csv_path, 'w') do |csv|
-          vendors.each_with_index do |hash, idx|
+          values.each_with_index do |hash, idx|
             csv << hash.keys   if idx == 0
             csv << hash.values
           end
