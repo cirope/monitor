@@ -8,7 +8,7 @@ module Databases::Connection
   def try_connection
     begin
 
-      if connect_by_driver(driver) == 1
+      unless connect_by_driver(driver) == 1
         errors.add :base, I18n.t('databases.errors.try_query')
 
         raise ActiveRecord::Rollback
