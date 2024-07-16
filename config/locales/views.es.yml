@@ -94,6 +94,8 @@ es:
       property: 'Agregar propiedad'
     show:
       title: 'Ver base de datos'
+    error:
+      check_connection: 'Error en la conexión'
 
   descriptors:
     edit:
