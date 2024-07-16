@@ -2,21 +2,20 @@ module Databases::Connection
   extend ActiveSupport::Concern
 
   included do
-    after_save :connection_test
+    after_save :try_connection
   end
 
-  def connection_test
-    require 'odbc_utf8'
-
+  def try_connection
     begin
-      query = query_by_driver driver
 
-      pool  = ODBC.connect(name, user, password)
+      if connect_by_driver(driver) == 1
+        errors.add :base, I18n.t('databases.errors.try_query')
 
-      pool.run query
+        raise ActiveRecord::Rollback
+      end
 
     rescue ODBC::Error
-      errors.add :base, I18n.t('databases.error.check_connection')
+      errors.add :base, I18n.t('databases.errors.check_connection')
 
       raise ActiveRecord::Rollback
     end
@@ -24,15 +23,19 @@ module Databases::Connection
 
   private
 
+    def connect_by_driver driver
+      if driver.downcase =~ /freetds/
+        ODBC.connect(name, user, password)
+      else
+        ODBC.connect(name)
+      end.do(query_by_driver(driver))
+    end
+
     def query_by_driver driver
       case driver
-      when /PostgreSQL Unicode/i then 'Select version();'
-      when /FreeTDS/i            then 'Select @@VERSION;'
-      when /sqlite/i             then 'Select sqlite_version();'
-      when /Oracle/i             then 'Select * FROM v$version;'
-      when /MySQL/i              then 'Select version();'
+      when /oracle/i then 'SELECT * FROM v$version;'
       else
-        'Select 1'
+        'SELECT 1;'
       end
     end
 end

@@ -94,8 +94,9 @@ es:
       property: 'Agregar propiedad'
     show:
       title: 'Ver base de datos'
-    error:
-      check_connection: 'Error en la conexión'
+    errors:
+      check_connection: 'Error al intentar conectar. Por favor verifique nombre de usuario, contraseña y/o drivers'
+      try_query: 'Error al validar la conexion'
 
   descriptors:
     edit:
