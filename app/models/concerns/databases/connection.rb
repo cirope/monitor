@@ -30,6 +30,7 @@ module Databases::Connection
       when /FreeTDS/i            then 'Select @@VERSION;'
       when /sqlite/i             then 'Select sqlite_version();'
       when /Oracle/i             then 'Select * FROM v$version;'
+      when /MySQL/i              then 'Select version();'
       else
         'Select 1'
       end
