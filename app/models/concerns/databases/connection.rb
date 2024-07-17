@@ -9,13 +9,13 @@ module Databases::Connection
     begin
       client = connect
 
-      unless query client
-        errors.add :base, I18n.t('databases.errors.query')
+      unless client.do test_query
+        errors.add :base, :query
 
         raise ActiveRecord::Rollback
       end
     rescue ODBC::Error
-      errors.add :base, I18n.t('databases.errors.connection')
+      errors.add :base, :connection
 
       raise ActiveRecord::Rollback
     end
@@ -24,22 +24,10 @@ module Databases::Connection
   private
 
     def connect
-      if driver =~ /freetds/i
-        ODBC.connect name, user, password
-      else
-        ODBC.connect name
-      end
-    end
-
-    def query client
-      client.do(test_query) == 1
+      driver =~ /freetds/i ? ODBC.connect(name, user, password) : ODBC.connect(name)
     end
 
     def test_query
-      if driver =~ /oracle/i
-        'SELECT 1 FROM DUAL;'
-      else
-        'SELECT 1;'
-      end
+      driver =~ /oracle/i ? 'SELECT 1 FROM DUAL;' : 'SELECT 1;'
     end
 end
