@@ -8,7 +8,7 @@ module Databases::Connection
   def try_connection
     begin
 
-      unless connect_by_driver(driver) == 1
+      unless connect
         errors.add :base, I18n.t('databases.errors.try_query')
 
         raise ActiveRecord::Rollback
@@ -23,17 +23,19 @@ module Databases::Connection
 
   private
 
-    def connect_by_driver driver
-      if driver.downcase =~ /freetds/
-        ODBC.connect(name, user, password)
-      else
-        ODBC.connect(name)
-      end.do(query_by_driver(driver))
+    def connect
+      pool = if driver.downcase =~ /freetds/
+               ODBC.connect(name, user, password)
+             else
+               ODBC.connect(name)
+             end
+
+      pool.do(test_query) == 1
     end
 
-    def query_by_driver driver
+    def test_query
       case driver
-      when /oracle/i then 'SELECT * FROM v$version;'
+      when /oracle/i then 'SELECT 1 FROM DUAL;'
       else
         'SELECT 1;'
       end
