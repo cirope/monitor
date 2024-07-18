@@ -52,6 +52,16 @@ es:
       create:
         notice: 'Ejecutando...'
 
+    endpoints:
+      create:
+        notice: 'Endpoint creado'
+      update:
+        notice: 'Endpoint actualizado'
+        alert:  ''
+      destroy:
+        notice: 'Endpoint eliminado'
+        alert:  'El Endpoint no pudo ser eliminado'
+
     ldaps:
       create:
         notice: 'Configuración LDAP creada'

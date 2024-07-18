@@ -52,6 +52,7 @@ Rails.application.routes.draw do
   resources :databases
   resources :descriptors
   resources :drives
+  resources :endpoints
   resources :ldaps
   resources :password_resets, only: [:new, :create, :edit, :update]
   resources :pdf_templates

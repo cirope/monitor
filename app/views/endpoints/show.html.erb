@@ -1,0 +1,31 @@
+<div class="card">
+  <div class="card-header">
+    <h5><%= @endpoint %></h5>
+  </div>
+  <div class="card-body">
+    <p class="mb-1">
+      <strong><%= Endpoint.human_attribute_name 'name' %></strong>:
+      <%= @endpoint.name %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Endpoint.human_attribute_name 'provider' %></strong>:
+      <%= @endpoint.i18n_provider %>
+    </p>
+
+    <p class="mb-1">
+      <strong><%= Endpoint.human_attribute_name 'options' %></strong>:<br>
+
+      <ul>
+        <% @endpoint.provider_options.each do |option, value| %>
+          <li>
+            <strong><%= Endpoint.human_attribute_name option %></strong>:
+            <%= @endpoint.send option %>
+          </li>
+        <% end %>
+      </ul>
+    </p>
+  </div>
+</div>
+
+<%= link_to_edit [:edit, @endpoint] %> |
+<%= link_to_index endpoints_path %>

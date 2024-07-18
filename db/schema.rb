@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_06_10_111325) do
+ActiveRecord::Schema[7.0].define(version: 2024_07_04_150838) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -148,6 +148,17 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_10_111325) do
     t.datetime "updated_at", null: false
     t.index ["implied_id"], name: "index_effects_on_implied_id"
     t.index ["tag_id"], name: "index_effects_on_tag_id"
+  end
+
+  create_table "endpoints", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "provider", default: "dynamics", null: false
+    t.jsonb "options"
+    t.jsonb "session"
+    t.integer "lock_version", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_endpoints_on_name", unique: true
   end
 
   create_table "executions", force: :cascade do |t|
