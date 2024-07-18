@@ -384,16 +384,15 @@ es:
 
     errors:
       models:
+        comment:
+          attributes:
+            issue:
+              invalid: 'no pertenece a su usuario'
         database:
           attributes:
             base:
               connection: 'Error al intentar conectar, por favor verifique los datos'
               query: 'Error al validar la conexión'
-
-        comment:
-          attributes:
-            issue:
-              invalid: 'no pertenece a su usuario'
         issue:
           attributes:
             base:
