@@ -4,68 +4,73 @@ module Endpoints::DynamicsProcess
   def dynamics_process
     process_companies
 
-    %i(customers purchaseInvoices salesInvoices salesQuotes salesOrders vendors).each do |entity|
-      process_entity entity
-    end
-  end
+    entities = {
+      customers:        {},
+      purchaseInvoices: {},
+      salesInvoices:    { '$expand': 'salesInvoiceLines' },
+      vendors:          {}
+    }
 
-  def client
-    @client ||= oauth2_client.client_credentials.get_token(
-      scope: 'https://api.businesscentral.dynamics.com/.default'
-    )
-  end
-
-  def base_url
-    "https://api.businesscentral.dynamics.com/v2.0/#{directory_id}/Production/api/v2.0"
-  end
-
-  def process_companies
-    response = client.get "#{base_url}/companies"
-
-    if body = JSON.parse(response.body)
-      csv_path  = File.join account_path, 'companies.csv'
-      companies = body.fetch 'value'
-      session   = { companies: [] }
-
-      companies.each do |company|
-        company_id   = company.fetch 'id'
-        company_name = company.fetch 'name'
-
-        FileUtils.mkdir_p company_path(company_name)
-
-        session[:companies] << { id: company_id, name: company_name }
-      end
-
-      update session: session
-
-      CSV.open(csv_path, 'w') do |csv|
-        companies.each_with_index do |hash, idx|
-          csv << hash.keys   if idx == 0
-          csv << hash.values
-        end
-      end
-    end
-  end
-
-  def process_entity entity
-    Array(session['companies']).each do |company|
-      csv_path = File.join company_path(company['name']), "#{entity}.csv"
-      response = client.get "#{base_url}/companies\(#{company['id']}\)/#{entity}"
-
-      if body = JSON.parse(response.body)
-        values = body.fetch 'value'
-
-        CSV.open(csv_path, 'w') do |csv|
-          values.each_with_index do |hash, idx|
-            csv << hash.keys   if idx == 0
-            csv << hash.values
-          end
-        end
-      end
+    entities.each do |entity, options|
+      process_entity entity, options
     end
   end
 
   private
+
+    def client
+      @client ||= oauth2_client.client_credentials.get_token(
+        scope: 'https://api.businesscentral.dynamics.com/.default'
+      )
+    end
+
+    def base_url
+      "https://api.businesscentral.dynamics.com/v2.0/#{directory_id}/Production/api/v2.0"
+    end
+
+    def process_companies
+      response = client.get "#{base_url}/companies"
+
+      if body = JSON.parse(response.body)
+        json_path = File.join account_path, 'companies.json'
+        companies = body.fetch 'value'
+        session   = { companies: [] }
+
+        companies.each do |company|
+          company_id   = company.fetch 'id'
+          company_name = company.fetch 'name'
+
+          FileUtils.mkdir_p company_path(company_name)
+
+          session[:companies] << { id: company_id, name: company_name }
+        end
+        update session: session
+
+        write_json json_path, companies
+      end
+    end
+
+    def process_entity entity, options
+      Array(session['companies']).each do |company|
+        json_path = File.join company_path(company['name']), "#{entity}.json"
+        uri       = URI.parse "#{base_url}/companies\(#{company['id']}\)/#{entity}"
+        uri.query = URI.encode_www_form(options) if options.present?
+
+        response = client.get uri.to_s
+
+        if body = JSON.parse(response.body)
+          values = body.fetch 'value'
+
+          write_json json_path, values
+        end
+      end
+    end
+
+    def write_json json_path, json_text
+      File.open(json_path, 'w') do |f|
+        f.write JSON.pretty_generate(json_text)
+      end
+    end
 
     def oauth2_client
       OAuth2::Client.new(
