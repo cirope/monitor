@@ -24,7 +24,11 @@ module Databases::Connection
   private
 
     def connect
-      driver =~ /freetds/i ? ODBC.connect(name, user, password) : ODBC.connect(name)
+      if driver =~ /freetds/i
+        ODBC.connect(name, user, password)
+      else
+        ODBC.connect(name)
+      end
     end
 
     def test_query
