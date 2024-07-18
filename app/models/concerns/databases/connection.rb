@@ -9,7 +9,7 @@ module Databases::Connection
     begin
       client = connect
 
-      unless client.do test_query
+      unless client.run test_query
         errors.add :base, :query
 
         raise ActiveRecord::Rollback
