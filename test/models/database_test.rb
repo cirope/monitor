@@ -91,4 +91,8 @@ class DatabaseTest < ActiveSupport::TestCase
   test 'by driver' do
     skip
   end
+
+  test 'connection database' do
+    skip
+  end
 end
