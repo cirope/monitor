@@ -36,6 +36,10 @@ class DatabaseTest < ActiveSupport::TestCase
     assert_error @database, :description, :too_long, count: 255
   end
 
+  test 'validates that can connect' do
+    skip
+  end
+
   test 'odbc string' do
     assert_kind_of String, @database.odbc_string
   end
@@ -89,10 +93,6 @@ class DatabaseTest < ActiveSupport::TestCase
   end
 
   test 'by driver' do
-    skip
-  end
-
-  test 'connection database' do
     skip
   end
 end
