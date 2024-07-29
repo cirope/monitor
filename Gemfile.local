@@ -13,7 +13,7 @@ unless ENV['GH_ACTIONS']
   gem 'activerecord-oracle_enhanced-adapter', require: false
 
   gem 'tiny_tds', require: false
-  gem 'activerecord-sqlserver-adapter', require: false
+  gem 'activerecord-sqlserver-adapter', '< 7.1', require: false
 
   # MySQL driver
   #gem 'mysql2'
