@@ -7,6 +7,7 @@ class Database < ApplicationRecord
   include Databases::PonyConfig
   include Databases::Credentials
   include Databases::Odbc
+  include Databases::Connection
   include Databases::Properties
   include Databases::Scopes
   include Databases::Search
