@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 7.0'
+gem 'rails', '< 7.1'
 
 gem 'pg', '< 1.5'
 gem 'ros-apartment', require: 'apartment'
@@ -76,8 +76,3 @@ end
 group :test do
   gem 'timecop'
 end
-
-# Separate script gem dependencies from application dependencies
-extra_gemfile = File.join File.dirname(__FILE__), 'Gemfile.local'
-
-instance_eval File.read(extra_gemfile) if File.readable? extra_gemfile
