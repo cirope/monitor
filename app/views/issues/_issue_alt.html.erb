@@ -8,9 +8,6 @@
   <% end %>
 
   <td class="d-none d-sm-table-cell"><%= issue_status issue %></td>
-  <td class="d-none d-lg-table-cell"><%= tag_icons issue.tags.reject(&:final?) %></td>
-  <td class="d-none d-lg-table-cell"><%= tag_icons issue.tags.select(&:final?) %></td>
-
   <td><%= data.to_a.last.last %></td>
 
   <td class="text-end"><%= link_to_show [issue, filter: filter_params.to_h] %></td>
