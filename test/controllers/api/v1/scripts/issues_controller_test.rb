@@ -85,8 +85,6 @@ class Api::V1::Scripts::IssuesControllerTest < ActionController::TestCase
                                                    .first
                                                    .merge Issue.human_attribute_name('status') => I18n.t("issues.status.#{issue.status}"),
                                                           url: issue.url,
-                                                          I18n.t('api.v1.issues.keys.tags') => issue.tags.reject(&:final?).collect(&:name).join(', '),
-                                                          I18n.t('api.v1.issues.keys.final_tags') => issue.tags.select(&:final?).collect(&:name).join(', '),
                                                           I18n.t('api.v1.issues.keys.category_tags') => issue.tags.select(&:category?).join(', '),
                                                           Issue.human_attribute_name('description') => issue.description,
                                                           Issue.human_attribute_name('created_at') => I18n.l(issue.created_at, format: :compact),
@@ -138,8 +136,6 @@ class Api::V1::Scripts::IssuesControllerTest < ActionController::TestCase
                                   .first
                                   .merge Issue.human_attribute_name('status') => I18n.t("issues.status.#{issue.status}"),
                                          url: issue.url,
-                                         I18n.t('api.v1.issues.keys.tags') => issue.tags.reject(&:final?).collect(&:name).join(', '),
-                                         I18n.t('api.v1.issues.keys.final_tags') => issue.tags.select(&:final?).collect(&:name).join(', '),
                                          I18n.t('api.v1.issues.keys.category_tags') => issue.tags.select(&:category?).join(', '),
                                          Issue.human_attribute_name('description') => issue.description,
                                          Issue.human_attribute_name('created_at') => I18n.l(issue.created_at, format: :compact),
@@ -157,7 +153,7 @@ class Api::V1::Scripts::IssuesControllerTest < ActionController::TestCase
 
     def convert_state_transtions state_transitions
       state_transitions.each { |k, v| state_transitions[k] = I18n.l(DateTime.parse(v), format: :compact) }
-  
+
       state_transitions.deep_transform_keys { |key| I18n.t "issues.status.#{key}" }
     end
 end
