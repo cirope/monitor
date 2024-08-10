@@ -327,4 +327,18 @@ class UserTest < ActiveSupport::TestCase
       User.notify_recent_issues_all_users 1.hour
     end
   end
+
+  test 'should not create user without recovery tag' do
+    user = User.create(
+      name: 'Name',
+      lastname: 'Lastname',
+      email: 'new@user.com',
+      username: 'new',
+      password: '123',
+      password_confirmation: '123',
+      role: roles(:supervisor)
+    )
+
+    assert_equal user.errors[:tags].first, I18n.t('users.create.user_recovery_tag_empty')
+  end
 end
