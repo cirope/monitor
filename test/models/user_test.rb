@@ -23,7 +23,10 @@ class UserTest < ActiveSupport::TestCase
       username: 'new',
       password: '123',
       password_confirmation: '123',
-      role: roles(:supervisor)
+      role: roles(:supervisor),
+      taggings_attributes: [
+        { tag_id: tags(:recovery).id }
+      ]
     )
 
     assert @user.reload.auth_token.present?
@@ -268,6 +271,7 @@ class UserTest < ActiveSupport::TestCase
       new_licensed_user.lastname        = i.to_s + licensed_user.lastname
       new_licensed_user.role            = licensed_user.role
       new_licensed_user.password        = '123456'
+      new_licensed_user.taggings        = licensed_user.taggings
 
       new_licensed_user.save!
     end
@@ -279,6 +283,7 @@ class UserTest < ActiveSupport::TestCase
     new_licensed_user.lastname        = 'test' + licensed_user.lastname
     new_licensed_user.role            = licensed_user.role
     new_licensed_user.password        = '123456'
+    new_licensed_user.taggings        = licensed_user.taggings
 
     assert_raise { new_licensed_user.save! }
 

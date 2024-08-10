@@ -724,6 +724,8 @@ es:
     new:
       title: 'Crear usuario'
       tagging: 'Agregar etiqueta'
+    create:
+      user_recovery_tag_empty: 'Debe agregar al menos una etiqueta con la marca de recuperación'
     show:
       title: 'Ver usuario'
     roles:

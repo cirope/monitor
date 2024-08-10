@@ -12,6 +12,7 @@ namespace :db do
       add_tickets_to_roles           # 2023-04-18
       merge_triggers_on_rules        # 2023-10-18
       copy_script_and_server_to_runs # 2024-06-10
+      set_user_data                  # 2024-08-07
     end
   end
 end
@@ -212,4 +213,32 @@ private
 
   def should_copy_script_and_server_to_runs?
     Run.where.not(script: nil, server: nil).empty?
+  end
+
+  def set_user_data
+    PaperTrail.enabled = false
+
+    Account.on_each do
+      if set_user_data?
+        origin = if Ldap.default
+                   'ldap'
+                 elsif Saml.default
+                   'saml'
+                 else
+                   'manual'
+                 end
+
+        data   = { origin: origin }
+
+        User.find_each do |user|
+          user.update_column :data, data
+        end
+      end
+    end
+  ensure
+    PaperTrail.enabled = true
+  end
+
+  def set_user_data?
+    User.where.not(data: nil).empty?
   end
