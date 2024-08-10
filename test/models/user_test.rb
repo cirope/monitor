@@ -159,6 +159,7 @@ class UserTest < ActiveSupport::TestCase
 
   test 'auth' do
     @user.update! username: 'admin'
+    @user.taggings.clear
 
     assert @user.auth('admin123') # LDAP
 
