@@ -388,6 +388,11 @@ es:
           attributes:
             issue:
               invalid: 'no pertenece a su usuario'
+        database:
+          attributes:
+            base:
+              connection: 'Error al intentar conectar, por favor verifique los datos'
+              query: 'Error al validar la conexión'
         issue:
           attributes:
             base:
