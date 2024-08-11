@@ -328,7 +328,7 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
-  test 'should not create user without recovery tag' do
+  test 'should reject creation of user without recovery tag' do
     user = User.create(
       name: 'Name',
       lastname: 'Lastname',

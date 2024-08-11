@@ -228,10 +228,8 @@ private
                    'manual'
                  end
 
-        data   = { origin: origin }
-
         User.find_each do |user|
-          user.update_column :data, data
+          user.update_column :data, { origin: origin }
         end
       end
     end

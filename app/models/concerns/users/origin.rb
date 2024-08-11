@@ -12,6 +12,7 @@ module Users::Origin
   private
 
     def set_origin
-      self.data ||= { origin: 'manual' }
+      self.data           ||= {}
+      self.data['origin'] ||= 'manual'
     end
 end
