@@ -339,6 +339,6 @@ class UserTest < ActiveSupport::TestCase
       role: roles(:supervisor)
     )
 
-    assert_equal user.errors[:tags].first, I18n.t('users.create.user_recovery_tag_empty')
+    assert_error user, :tags, :user_recovery_tag_empty
   end
 end
