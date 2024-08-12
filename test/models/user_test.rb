@@ -339,6 +339,6 @@ class UserTest < ActiveSupport::TestCase
       role: roles(:supervisor)
     )
 
-    assert_error user, :tags, :user_recovery_tag_empty
+    assert_error user, :tags, :recovery_blank
   end
 end

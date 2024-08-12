@@ -39,7 +39,7 @@ module Users::Validation
     def user_recovery
       user_recovery = taggings.reject(&:marked_for_destruction?).map(&:tag).any? &:recovery?
 
-      errors.add :tags, :user_recovery_tag_empty unless user_recovery
+      errors.add :tags, :recovery_blank unless user_recovery
     end
 
     def validate_recovery?

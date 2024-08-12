@@ -418,7 +418,7 @@ es:
             base:
               licensed_user_limit: 'Limite de usuarios alcanzado, por favor actualice su licencia.'
             tags:
-              user_recovery_tag_empty: 'Debe agregar al menos una etiqueta con la marca de recuperación'
+              recovery_blank: 'Debe agregar al menos una etiqueta con la marca de recuperación'
 
   errors:
     messages:
