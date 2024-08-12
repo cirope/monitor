@@ -330,13 +330,13 @@ class UserTest < ActiveSupport::TestCase
 
   test 'should reject creation of user without recovery tag' do
     user = User.create(
-      name: 'Name',
-      lastname: 'Lastname',
-      email: 'new@user.com',
-      username: 'new',
-      password: '123',
+      name:                  'Name',
+      lastname:              'Lastname',
+      email:                 'new@user.com',
+      username:              'new',
+      password:              '123',
       password_confirmation: '123',
-      role: roles(:supervisor)
+      role:                  roles(:supervisor)
     )
 
     assert_error user, :tags, :recovery_blank
