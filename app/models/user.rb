@@ -7,10 +7,10 @@ class User < ApplicationRecord
   include Attributes::Strip
   include Attributes::Downcase
   include Users::Authentication
-  include Users::Dashboards
   include Users::Licenses
   include Users::Memberships
   include Users::Notifications
+  include Users::Origin
   include Users::Overrides
   include Users::PasswordReset
   include Users::Permissions

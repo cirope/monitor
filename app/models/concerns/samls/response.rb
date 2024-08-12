@@ -44,7 +44,8 @@ module Samls::Response
           lastname: attributes[:lastname],
           email:    attributes[:email],
           role:     role,
-          hidden:   false
+          hidden:   false,
+          data:     { origin: 'saml' }
         )
       end
     end
