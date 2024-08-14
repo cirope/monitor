@@ -5,7 +5,6 @@ gem 'tiny_tds', '< 2.0.0', require: false
 gem 'activerecord-sqlserver-adapter', require: false
 gem 'roo'
 gem 'pdf-reader'
-gem 'charlock_holmes'
 gem 'caxlsx'
 gem 'roo-xls'
 gem 'dbf'
