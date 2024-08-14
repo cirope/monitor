@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 7.0'
+gem 'rails', '< 7.1'
 
 gem 'pg', '< 1.5'
 gem 'ros-apartment', require: 'apartment'
@@ -45,7 +45,7 @@ gem 'net-imap', require: false
 gem 'ruby-saml'
 gem 'oauth2'
 gem 'wicked_pdf'
-gem 'ruby-odbc', require: 'odbc'
+gem 'ruby-odbc', '< 0.999992', require: 'odbc'
 
 group :development, :production do
   gem 'web-console'
