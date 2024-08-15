@@ -2,7 +2,7 @@
   <div class="card-header">
     <h3 class="clearfix">
       <%= @schedule %>
-      <div class="float-right">
+      <div class="float-end">
         <%= link_to_run do %>
           <%= icon 'fas', 'play' %>
           <%= t '.run' %>
@@ -44,13 +44,15 @@
           <tr>
             <th><%= Job.human_attribute_name 'server' %></th>
             <th><%= Job.human_attribute_name 'script' %></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           <% @schedule.jobs.each do |job| %>
             <tr>
               <td><%= job.server %></td>
-              <td><%= job.script %></td>
+              <td><%= link_to job.script %></td>
+              <td class="text-end"><%= link_to_run_job job %></td>
             </tr>
           <% end %>
         </tbody>
@@ -87,7 +89,7 @@
       <ul>
         <% @schedule.dispatchers.each do |dispatcher| %>
           <li>
-            <%= link_to_if current_user.supervisor?, dispatcher.rule, dispatcher.rule, class: ('text-striked' unless dispatcher.rule.enabled) %>
+            <%= link_to_if current_user.can?(:read, 'rules'), dispatcher.rule, dispatcher.rule, class: ('text-striked' unless dispatcher.rule.enabled) %>
           </li>
         <% end %>
       </ul>
@@ -95,9 +97,7 @@
   </div>
 <% end %>
 
-<% unless current_user.author? %>
-  <%= link_to_runs @schedule %> |
-  <%= link_to_edit [:edit, @schedule] %> |
-  <%= link_to_cleanup @schedule %> |
-<% end %>
+<%= link_to_runs @schedule %> |
+<%= link_to_edit [:edit, @schedule] %> |
+<%= link_to_cleanup @schedule %> |
 <%= link_to_index schedules_path %>

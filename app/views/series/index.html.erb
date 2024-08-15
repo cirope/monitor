@@ -1,0 +1,31 @@
+<% if @series.empty? %>
+  <%= render 'shared/empty_index', message: t('.empty_html') %>
+<% else %>
+  <div class="card">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th><%= Serie.human_attribute_name 'timestamp' %></th>
+          <th><%= Serie.human_attribute_name 'name' %></th>
+          <th><%= Serie.human_attribute_name 'identifier' %></th>
+          <th><%= Serie.human_attribute_name 'amount' %></th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @series.each do |serie| %>
+          <tr>
+            <td><%= l serie.timestamp, format: :short %></td>
+            <td><%= serie.name %></td>
+            <td><%= serie.identifier %></td>
+            <td><%= serie.amount %></td>
+            <td class="text-end"><%= link_to_show serie %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <%= paginate @series %>
+<% end %>

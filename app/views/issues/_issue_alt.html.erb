@@ -1,0 +1,29 @@
+<%# if no data given (called like this from board actions) %>
+<% data = data ? data : convert_issues([issue]).first.last %>
+
+<tr data-issue="<%= issue.id %>">
+
+  <% data.to_a[0...-1].each do |_header, value| %>
+    <td><%= value %></td>
+  <% end %>
+
+  <td class="d-none d-sm-table-cell"><%= issue_status issue %></td>
+  <td><%= data.to_a.last.last %></td>
+
+  <td class="text-end"><%= link_to_show [issue, filter: filter_params.to_h] %></td>
+  <% if current_user.can?(:edit, Issue) %>
+    <td class="text-end"><%= link_to_edit [:edit, issue, filter: filter_params.to_h] %></td>
+    <td class="text-end">
+      <%=
+        if is_in_board? issue
+          link_to_remove_from_board issue, url_params: { partial: 'alt' }
+        else
+          link_to_add_to_board issue, url_params: { partial: 'alt' }
+        end
+      %>
+    </td>
+    <% if current_user.supervisor? %>
+      <td class="text-end"><%= link_to_destroy [issue, filter: filter_params.to_h] %></td>
+    <% end %>
+  <% end %>
+</tr>

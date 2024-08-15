@@ -13,7 +13,8 @@ module Accounts::Memberships
     else
       memberships.create! email:    user.email,
                           username: user.username,
-                          default:  default
+                          default:  default,
+                          restore:  user.restore?
     end
   end
 
@@ -30,16 +31,37 @@ module Accounts::Memberships
   private
 
     def create_user user
+      role            = user.role
+      permissions     = role.permissions.to_a
       current_account = Current.account
       Current.account = self
 
       switch do
-        User.create! user.attributes.except 'id',
+        new_role = Role.find_by(type: role.type) ||
+                   create_role(role, permissions)
+
+        User.create! user.attributes.except('id',
                                             'created_at',
                                             'updated_at',
                                             'lock_version'
+                                           ).merge(role: new_role)
       end
     ensure
       Current.account = current_account
+    end
+
+    def create_role role, permissions
+      new_role = Role.create! role.attributes.except 'id',
+                                                     'created_at',
+                                                     'updated_at',
+                                                     'lock_version'
+
+      permissions.each do |permission|
+        new_role.permissions.create! permission.attributes.except 'id',
+                                                                  'created_at',
+                                                                  'updated_at'
+      end
+
+      new_role
     end
 end

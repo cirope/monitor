@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'active_support/core_ext/integer/time'
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -23,6 +24,7 @@ Rails.application.configure do
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
+  config.cache_store                       = :null_store
 
   # Raise exceptions instead of rendering exception templates.
   config.action_dispatch.show_exceptions = false
@@ -44,11 +46,11 @@ Rails.application.configure do
   config.active_support.deprecation = :stderr
 
   # Raises error for missing translations
-  # config.action_view.raise_on_missing_translations = true
+  config.i18n.raise_on_missing_translations = true
 
   # Set timecop to January 5, 2017 10:05:00 AM UTC
   config.after_initialize do
-    t = Time.utc 2018, 1, 4, 10, 5, 0
+    t = Time.utc 2020, 1, 2, 10, 5, 0
 
     Timecop.travel t
   end

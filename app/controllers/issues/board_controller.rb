@@ -1,25 +1,28 @@
 # frozen_string_literal: true
 
 class Issues::BoardController < ApplicationController
+  include Authentication
+  include Authorization
   include Issues::Filters
 
-  before_action :authorize, :not_guest
-  before_action :only_supervisor, only: [:destroy_all]
-  before_action :set_title
-  before_action :set_issue,  only: [:create, :destroy]
+  before_action :set_title, only: [:index]
+  before_action :set_issue, only: [:create, :destroy]
   before_action :set_script, only: [:create, :destroy]
-
-  respond_to :html, :js, :pdf
 
   def index
     @issues = issues.order(:created_at).where id: board_session
-    @issues = @issues.page params[:page] unless request.format == :pdf
+    @issues = @issues.page params[:page] unless skip_page?
 
-    respond_with @issues
+    respond_to do |format|
+      format.pdf { render_pdf @issues }
+      format.csv { render csv: @issues }
+      format.any :html, :js
+    end
   end
 
   def create
-    @issues = filter_default_status? || @issue ? issues : issues.active
+    @issues   = skip_default_status? || @issue ? issues : issues.active
+    @template = params[:partial] == 'alt' ? 'issue_alt' : 'issue'
 
     board_session.concat(@issues.pluck('id')).uniq!
 
@@ -41,7 +44,8 @@ class Issues::BoardController < ApplicationController
   end
 
   def destroy
-    @issues = filter_default_status? || @issue ? issues : issues.active
+    @issues   = skip_default_status? || @issue ? issues : issues.active
+    @template = params[:partial] == 'alt' ? 'issue_alt' : 'issue'
 
     @issues.each { |issue| board_session.delete issue.id }
 
@@ -52,16 +56,16 @@ class Issues::BoardController < ApplicationController
     board_session.clear
     board_session_errors.clear
 
-    redirect_to dashboard_url, notice: t('.done')
+    redirect_to home_url, notice: t('.done')
   end
 
   def destroy_all
-    issues.where(id: board_session).destroy_all
+    Issue.cleanup_job board_session
 
     board_session.clear
     board_session_errors.clear
 
-    redirect_to dashboard_url, notice: t('.destroyed')
+    redirect_to home_url, notice: t('.destroyed')
   end
 
   private
@@ -135,5 +139,9 @@ class Issues::BoardController < ApplicationController
       end
 
       tags.present?
+    end
+
+    def skip_page?
+      %i(csv pdf).include? request.format.symbol
     end
 end

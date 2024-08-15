@@ -1,21 +1,23 @@
 <li class="dropdown notification-list">
-  <a class="nav-link dropdown-toggle nav-user arrow-none mr-0" href="#" data-toggle="dropdown">
+  <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown" href="#"
+    role="button" aria-haspopup="false" aria-expanded="false">
     <span class="account-user-avatar">
       <%= icon 'fas', 'user' %>
     </span>
 
     <span>
       <span class="account-user-name"><%= current_user %></span>
-      <span class="account-position"><%= t "users.roles.#{current_user.role}" %></span>
+      <span class="account-position badge <%= role_badge current_user.role %>"><%= t_role_type current_user.role.type %></span>
     </span>
   </a>
 
   <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
     <%= link_to_edit_profile unless ldap %>
-    <%= dropdown_item_for Membership, memberships_path %>
+
+    <%= dropdown_item_for Membership, memberships_path, true %>
 
     <div class="dropdown-divider"></div>
 
-    <%= link_to t('navigation.logout'), logout_path, class: 'dropdown-item', data: { method: :delete } %>
+    <%= link_to_logout %>
   </div>
 </li>

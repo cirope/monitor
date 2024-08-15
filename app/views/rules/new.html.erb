@@ -1,7 +1,12 @@
 <div class="card">
   <div class="card-header">
-    <h5><%= @title %></h5>
+    <h5>
+      <%= @title %>
+
+      <%= render 'tickets/new_owner' %>
+    </h5>
   </div>
+
   <div class="card-body">
     <%= render 'form' %>
   </div>

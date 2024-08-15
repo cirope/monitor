@@ -3,7 +3,11 @@
 module ObjectsHelper
   def render_object parent, key
     path   = key.split '__/__'
-    object = parent.data
+    object = if parent.respond_to? :converted_data
+               parent.converted_data
+             else
+               parent.data
+             end
 
     path.each do |index|
       object = object[object.is_a?(Hash) ? index : index.to_i]
@@ -28,14 +32,20 @@ module ObjectsHelper
     object.values.all? { |v| v.kind_of? Numeric }
   end
 
-  def graph_container object, options = {}
-    container_class = options[:class] || 'ct-chart'
+  def graph_container object, type: 'pie', height: 'auto'
+    options = {
+      id:    "chart-#{object.object_id}",
+      class: 'graph-container',
+      data:  {
+        type:   type,
+        height: height,
+        graph:  object.object_id,
+        labels: object.keys.map { |k| k || t('.undefined') },
+        series: object.values
+      }
+    }
 
-    content_tag :div, nil, class: container_class, data: {
-      graph:  object.object_id,
-      labels: object.keys,
-      series: object.values
-    }.merge(options)
+    content_tag :div, nil, options
   end
 
   private

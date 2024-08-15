@@ -41,7 +41,7 @@ module Issues::GroupedExport
         scripts_with_issues = {}
         select_columns      = ["#{Issue.table_name}.id", "#{Job.table_name}.script_id"]
 
-        all.joins(run: :job).pluck(*select_columns).each do |issue_id, script_id|
+        Issue.issues.joins(run: :job).pluck(*select_columns).each do |issue_id, script_id|
           scripts_with_issues[script_id] ||= []
           scripts_with_issues[script_id] << issue_id
         end
@@ -56,7 +56,7 @@ module Issues::GroupedExport
           name, *headers = name_with_headers.split HEADERS_SEPARATOR
           filename       = grouped_sanitized_filename name, csvs
 
-          csvs[filename] = CSV.generate CSV_OPTIONS do |csv|
+          csvs[filename] = CSV.generate **CSV_OPTIONS do |csv|
             csv << headers
 
             rows.each { |row| csv << row}
@@ -88,6 +88,8 @@ module Issues::GroupedExport
   end
 
   def grouped_export name = description, group = {}
+    data = converted_data
+
     if data.kind_of? Hash
       group_hash_to_csv  name, data, group
     elsif data.kind_of? Array

@@ -11,10 +11,10 @@ set :deploy_to, "/var/www/#{fetch(:application)}"
 set :deploy_via, :remote_cache
 
 set :linked_files, %w{config/application.yml}
-set :linked_dirs, %w{log public/uploads private storage tmp/pids}
+set :linked_dirs, %w{log storage drives tmp/pids}
 
 set :rbenv_type, :user
-set :rbenv_ruby, '2.6.6'
+set :rbenv_ruby, '3.1.2'
 
 set :keep_releases, 5
 

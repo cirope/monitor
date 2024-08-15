@@ -2,11 +2,11 @@
 
 class Comment < ApplicationRecord
   include Auditable
+  include Comments::Destroy
   include Comments::Notify
   include Comments::Owner
   include Comments::Validation
 
-  mount_uploader :file, FileUploader
   has_one_attached :attachment
 
   belongs_to :issue

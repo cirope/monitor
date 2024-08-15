@@ -1,29 +1,24 @@
 # frozen_string_literal: true
 
 class TaggingsController < ApplicationController
-  respond_to :js, :json
+  include Authentication
+  include Authorization
 
-  before_action :authorize, :set_issue
+  before_action :set_issue
   before_action :set_tagging, only: [:show, :destroy]
   before_action :set_title, except: [:destroy]
 
   def new
     @tagging = @issue.taggings.new
-
-    respond_with @tagging
   end
 
   def create
     @tagging = @new_tagging = @issue.taggings.new tagging_params
     @tagging = current_user.taggings.new if @tagging.save
-
-    respond_with @tagging
   end
 
   def destroy
     @tagging.destroy
-
-    respond_with @tagging
   end
 
   private
@@ -41,6 +36,10 @@ class TaggingsController < ApplicationController
     end
 
     def issues
-      current_user.supervisor? ? Issue.all : current_user.issues
+      if current_user.supervisor? || current_user.manager?
+        Issue.all
+      else
+        current_user.issues
+      end
     end
 end

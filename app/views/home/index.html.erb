@@ -1,0 +1,44 @@
+<%= render 'filters' %>
+
+<% if @script_counts.empty? %>
+  <%= render 'shared/empty_index', message: empty_message %>
+<% else %>
+  <div class="card">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th><%= Script.human_attribute_name 'name' %></th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @script_counts.each do |script_data, count, not_viewed| %>
+          <tr class="cursor-pointer" data-href="<%= grouped_issues_path script_data.first, filter: filter_query_hash %>">
+            <td><%= script_data.last %></td>
+            <td class="text-end">
+              <%= link_to count, grouped_issues_path(script_data.first, filter: filter_query_hash) %>/<%= content_tag :abbr, not_viewed, title: t('.not_viewed') %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="row ml-0">
+    <div class="dropdown float-start">
+      <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
+        <%= t '.actions' %>
+      </button>
+  
+      <div class="dropdown-menu">
+        <%= link_to_api_issues_by_status %>
+      </div>
+    </div>
+    <div class="col">
+      <%= paginate @script_counts %>
+    </div>
+  </div>
+  
+  <div data-target="api-issues-by-status"></div>
+<% end %>

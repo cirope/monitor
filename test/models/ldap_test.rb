@@ -22,10 +22,6 @@ class LdapTest < ActiveSupport::TestCase
     @ldap.lastname_attribute = ''
     @ldap.email_attribute = ''
     @ldap.roles_attribute = ''
-    @ldap.role_guest = ''
-    @ldap.role_author = ''
-    @ldap.role_supervisor = ''
-    @ldap.role_security = ''
 
     assert @ldap.invalid?
     assert_error @ldap, :hostname, :blank
@@ -38,10 +34,6 @@ class LdapTest < ActiveSupport::TestCase
     assert_error @ldap, :lastname_attribute, :blank
     assert_error @ldap, :email_attribute, :blank
     assert_error @ldap, :roles_attribute, :blank
-    assert_error @ldap, :role_guest, :blank
-    assert_error @ldap, :role_author, :blank
-    assert_error @ldap, :role_supervisor, :blank
-    assert_error @ldap, :role_security, :blank
   end
 
   test 'validates formats' do
@@ -96,29 +88,26 @@ class LdapTest < ActiveSupport::TestCase
     assert !ldap.bind
   end
 
-  test 'options' do
-    @ldap.role_guest = 'Guest'
-    @ldap.role_author = 'Author'
-    @ldap.role_supervisor = 'Supervisor'
-    @ldap.role_security = 'Security'
-
-    assert_equal 'Guest', @ldap.role_guest
-    assert_equal 'Author', @ldap.role_author
-    assert_equal 'Supervisor', @ldap.role_supervisor
-    assert_equal 'Security', @ldap.role_security
-  end
-
   test 'import' do
     Current.account = send 'public.accounts', :default
 
     assert_nil User.where(email: 'juan@administrators.com').take
+    assert_nil User.where(email: 'joe@administrators.com').take
 
     @ldap.import 'admin', 'admin123'
 
     user = User.where(email: 'juan@administrators.com').take
 
     assert_not_nil user
+    assert user.guest?
+    assert_equal user.data['origin'], 'ldap'
     assert_equal tags(:guest), user.tags.take
+
+    user = User.where(email: 'joe@administrators.com').take
+
+    assert_not_nil user
+    assert_equal user.data['origin'], 'ldap'
+    assert user.owner?
   end
 
   test 'default' do

@@ -16,13 +16,15 @@ module Issues::Comments
     def comment attributes
       comment = nil
 
-      transaction do
-        find_each do |issue|
-          comment = issue.comments.create! attributes.merge(notify: false)
+      if attributes[:text].present?
+        transaction do
+          find_each do |issue|
+            comment = issue.comments.create! attributes.merge(notify: false)
+          end
         end
-      end
 
-      notify_new_comment comment if comment
+        notify_new_comment comment if comment
+      end
     end
 
     private

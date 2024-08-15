@@ -1,0 +1,4 @@
+reminder_of_ls_on_atahualpa_not_well:
+  issue: ls_on_atahualpa_not_well
+  due_at: <%= 6.minutes.from_now.to_fs :db %>
+  state_class_type: 'pending'

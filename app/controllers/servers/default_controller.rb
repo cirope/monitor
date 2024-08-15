@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class Servers::DefaultController < ApplicationController
-  before_action :authorize, :only_security
-  before_action :set_server
+  include Authentication
+  include Authorization
 
-  respond_to :js
+  before_action :set_server
 
   def update
     @default_server = Server.default.first

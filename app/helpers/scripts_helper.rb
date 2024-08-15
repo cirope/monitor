@@ -29,25 +29,43 @@ module ScriptsHelper
     @script.parameters
   end
 
+  def libraries
+    @script.libraries.new if @script.libraries.empty?
+
+    @script.libraries
+  end
+
   def descriptions
     if @script.descriptions.empty?
-      Descriptor.all.each { |d| @script.descriptions.new name: d.name }
+      Descriptor.all.each { |d| @script.descriptions.new name: d.name, public: d.public }
     end
 
     @script.descriptions
   end
 
   def disable_edition?
-    @script.imported_at.present?
+    !@script.is_editable?
   end
 
-  def lang_icon lang
-    icon = case lang
-           when 'ruby' then icon 'fas', 'gem'
-           when 'sql'  then icon 'fas', 'database'
+  def lang_icon script
+    icon = case script.language
+           when 'python' then icon 'fab', 'python'
+           when 'ruby'   then icon 'fas', 'gem'
+           when 'sql'    then icon 'fas', 'database'
+           when 'shell'  then icon 'fas', 'hashtag'
            end
 
-    content_tag :abbr, title: lang.titleize do
+    status = if script.has_errors?
+               'text-danger'
+             elsif script.has_warnings?
+               'text-warning'
+             elsif script.status
+               'text-success'
+             else
+               'text-secondary'
+             end
+
+    content_tag :abbr, class: status, title: script.language.titleize do
       icon
     end
   end
@@ -75,6 +93,36 @@ module ScriptsHelper
       link_to_create_execution &block
     else
       disabled_link_to_execute &block
+    end
+  end
+
+  def link_to_show_parameter_versions parameter
+    if parameter.versions.count > 1
+      link_to icon('fas', 'history'), [@script, parameter],
+        remote: true, title: t('scripts.show.history')
+    end
+  end
+
+  def script_documents
+    @script.documents_attachments.select &:persisted?
+  end
+
+  def script_documents_identifier
+    if @script.documents.attached?
+      docs = @script.documents.select &:new_record?
+
+      raw docs.map(&:filename).join('<br />')
+    end
+  end
+
+  def show_script_imported_status script
+    badge_class = case script.imported_status
+                  when :created then 'success'
+                  when :updated then 'info'
+                  end
+
+    content_tag :span, class: "badge bg-#{badge_class}" do
+      t ".#{script.imported_status}"
     end
   end
 

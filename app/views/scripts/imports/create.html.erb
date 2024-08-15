@@ -1,0 +1,29 @@
+<div class="card">
+  <div class="card-header">
+    <h5><%= t '.title' %></h5>
+  </div>
+
+  <div class="card-body">
+    <% if @scripts.empty? %>
+      <div class="alert alert-warning">
+        <strong><%= t '.no_scripts' %></strong>
+      </div>
+    <% else %>
+      <ul>
+        <% @scripts.each do |script| %>
+          <li>
+            <strong><%= @import_finished ? link_to(script, script) : (script.name.presence || script.uuid) %></strong>
+            <% if script.errors.blank? %>
+              <%= show_script_imported_status script %>
+            <% else %>
+              <span class="badge bg-danger"><%= t '.error' %></span> |
+              <%= script.errors.full_messages.to_sentence %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <%= render 'form' %>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Databases::ODBC
+module Databases::Odbc
   extend ActiveSupport::Concern
 
   included do
@@ -14,7 +14,9 @@ module Databases::ODBC
     result += "Description = #{description}\n"
 
     properties.each do |property|
-      result += "#{property.key} = #{property.value}\n"
+      value = property.password? ? property.password : property.value
+
+      result += "#{property.key} = #{value}\n"
     end
 
     result

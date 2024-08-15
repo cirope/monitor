@@ -12,7 +12,6 @@ class Server < ApplicationRecord
   include Servers::Ssh
   include Servers::Validation
 
-  mount_uploader :credential, FileUploader
   has_one_attached :key
 
   scope :ordered, -> { order :name }
@@ -20,6 +19,7 @@ class Server < ApplicationRecord
   strip_fields :name
 
   has_many :jobs, dependent: :restrict_with_error
+  has_many :runs, dependent: :destroy
 
   def to_s
     name

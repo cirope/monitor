@@ -2,6 +2,7 @@ es:
   app_name: 'Gredit'
 
   messages:
+    attached: 'Adjunto'
     confirmation: '¿Está seguro?'
     download: 'Descargar'
     ldap_error: 'El servidor de autenticación no está disponible, intente nuevamente más tarde'
@@ -9,6 +10,7 @@ es:
     not_authorized: 'No está autorizado para ver el contenido'
 
   navigation:
+    back: 'Volver'
     destroy: 'Eliminar'
     edit: 'Editar'
     index: 'Listado'
@@ -23,36 +25,61 @@ es:
     index:
       new: 'Nueva cuenta'
       title: 'Listado de cuentas'
-      empty_html: 'No hay cuentas, puede crear una con el botón <span class="badge badge-primary">Nueva cuenta</span>'
+      empty_html: 'No hay cuentas, puede crear una con el botón <span class="badge bg-primary">Nueva cuenta</span>'
       empty_search_html: 'No hay cuentas que coincidan con el criterio de búsqueda'
     new:
       title: 'Crear cuenta'
     show:
       title: 'Ver cuenta'
+    styles:
+      default: 'Por defecto'
+      primary: 'Azul'
+      secondary: 'Gris'
+      success: 'Verde'
+      info: 'Celeste'
+      warning: 'Amarillo'
+      danger: 'Rojo'
+      dark: 'Negro'
+    token_frequencies:
+      minutes: 'Minutos'
+      hours: 'Horas'
+      days: 'Días'
+      weeks: 'Semanas'
+      months: 'Meses'
+      years: 'Años'
+
+  authentications:
+    new:
+      title: 'Ingreso'
+      log_in: 'Ingresar'
+      username: 'Usuario o correo'
+      password: 'Contraseña'
+      remember_me: 'Recordarme'
+      forgot_password: '¿Olvidaste tu contraseña?'
+      subtitle: 'Ingrese su usuario o correo electrónico para acceder'
+      password_subtitle: 'Por favor ingrese su contraseña para acceder'
+      welcome: 'Bienvenido'
 
   board:
     index:
       title: 'Carrito de casos'
 
-  comments:
-    comment:
-      text_placeholder: 'Escriba un comentario'
-    edit:
-      title: 'Editar comentario'
-
   console:
     show:
       title: 'Consola'
 
-  dashboard:
+  dashboards:
+    edit:
+      title: 'Editar tablero'
     index:
-      title: 'Listado de casos'
-      empty_html: 'No hay casos activos'
-      empty_search_html: 'No hay casos que coincidan con el criterio de búsqueda'
-    filters:
-      show:
-        mine: 'Míos'
-        all: 'Todos'
+      new: 'Nuevo tablero'
+      title: 'Listado de tableros'
+      empty_html: 'No hay tableros, puede crear uno con el botón <span class="badge bg-primary">Nuevo tablero</span>'
+    new:
+      title: 'Crear tablero'
+    show:
+      title: 'Ver tablero'
+      add_panel: 'Nuevo panel'
 
   databases:
     edit:
@@ -60,7 +87,7 @@ es:
     index:
       new: 'Nueva base de datos'
       title: 'Listado de bases de datos'
-      empty_html: 'No hay bases de datos, puede crear una con el botón <span class="badge badge-primary">Nueva base de datos</span>'
+      empty_html: 'No hay bases de datos, puede crear una con el botón <span class="badge bg-primary">Nueva base de datos</span>'
       empty_search_html: 'No hay bases de datos que coincidan con el criterio de búsqueda'
     new:
       title: 'Crear base de datos'
@@ -74,7 +101,7 @@ es:
     index:
       new: 'Nuevo descriptor'
       title: 'Listado de descriptores'
-      empty_html: 'No hay descriptores, puede crear uno con el botón <span class="badge badge-primary">Nuevo descriptor</span>'
+      empty_html: 'No hay descriptores, puede crear uno con el botón <span class="badge bg-primary">Nuevo descriptor</span>'
     new:
       title: 'Crear descriptor'
     show:
@@ -88,9 +115,34 @@ es:
     dispatcher:
       empty: 'No se encontraron reglas con ese criterio'
 
+  drives:
+    edit:
+      title: 'Editar configuración DRIVE'
+    index:
+      new: 'Nueva configuración DRIVE'
+      title: 'Listado de configuraciones DRIVE'
+      empty_html: 'No hay configuraciones DRIVE, puede crear una con el botón <span class="badge bg-primary">Nueva configuración DRIVE</span>'
+    new:
+      title: 'Crear configuración DRIVE'
+    show:
+      title: 'Ver configuración DRIVE'
+      drive_auth_url: 'Haga clic en el siguiente enlace para autorizar el accesso a %{provider}'
+    providers:
+      drive: 'Google Drive'
+      onedrive: 'Microsoft OneDrive'
+      sharepoint: 'Microsoft SharePoint'
+      options:
+        root_folder_id: 'ID de la carpeta raíz'
+        tenant_id: 'ID de directorio (inquilino)'
+        drive_id: 'ID de la unidad'
+
   editor:
     edit:
       unsaved_data_warning: 'Ha modificado el contenido, si abandona la página perderá todos los cambios'
+
+  effects:
+    effect:
+      empty: 'No se encontraron etiquetas con ese criterio'
 
   executions:
     index:
@@ -105,12 +157,42 @@ es:
       success: 'Finalizada OK'
       killed: 'Terminada'
       error: 'Finalizada con errores'
+    cleanup: 'Limpiar ejecuciones'
+
+  home:
+    index:
+      title: 'Listado de casos'
+      empty_html: 'No hay casos activos'
+      empty_search_html: 'No hay casos que coincidan con el criterio de búsqueda'
+      actions: 'Acciones'
+      api_issues_by_status: 'Enlace para obtener datos'
+      not_viewed: 'No vistos'
+    filters:
+      show:
+        mine: 'Míos'
+        all: 'Todos'
+    api_issues_by_status:
+      link: 'Enlace'
+      url: 'URL'
+      header: 'Encabezado'
+      token: 'Token'
+      copy_url: 'Copiar URL'
+      copy_header: 'Copiar encabezado'
+      copy_token: 'Copiar Token'
 
   imports:
     new:
       title: 'Importar usuarios desde LDAP'
 
   issues:
+    api_issues:
+      link: 'Enlace'
+      url: 'URL'
+      header: 'Encabezado'
+      token: 'Token'
+      copy_url: 'Copiar URL'
+      copy_header: 'Copiar encabezado'
+      copy_token: 'Copiar Token'
     board:
       form:
         group_comments_email: 'Agrupar correo'
@@ -125,6 +207,7 @@ es:
         download_issue_data: 'Descargar datos'
         download_grouped_issue_data: 'Descargar datos agrupados por guión'
         download_pdf: 'Descargar PDF'
+        download_csv: 'Descargar CSV'
         destroy_all: 'Eliminar casos'
         actions: 'Acciones'
       update:
@@ -133,23 +216,45 @@ es:
       empty:
         done: 'Se limpiaron todos los casos del carrito'
       destroy_all:
-        destroyed: 'Se eliminaron todos los casos del carrito'
+        destroyed: 'Se programó la eliminación de los casos'
+    comments:
+      comment:
+        text_placeholder: 'Escriba un comentario'
+      edit:
+        title: 'Editar comentario'
     edit:
       title: 'Editar caso'
     exports:
       create:
         filename: 'datos.zip'
     index:
+      actions: 'Acciones'
       new: 'Nuevo caso'
       title: 'Listado de casos'
       add_all: 'Agregar todos al carrito'
       remove_all: 'Eliminar todos del carrito'
       empty_html: 'No tiene casos'
       empty_search_html: 'No hay casos que coincidan con el criterio de búsqueda'
+      undefined: 'Sin definir'
+      graph:
+        line: 'Línea'
+        bar: 'Barra'
+        pie: 'Torta'
+    index_alt:
+      total: 'Total'
+      add_all: 'Agregar todos al carrito'
+      remove_all: 'Eliminar todos del carrito'
+      actions: 'Acciones'
+      api_issues: 'Enlace para obtener datos'
+      download_csv: 'Descargar CSV'
     issue:
       add_to_board: 'Agregar al carrito'
       remove_from_board: 'Eliminar del carrito'
+    issue_alt:
+      add_to_board: 'Agregar al carrito'
+      remove_from_board: 'Eliminar del carrito'
     new:
+      title: 'Nuevo pedido'
       subscription: 'Agregar usuario'
       tagging: 'Agregar etiqueta'
     pdf:
@@ -170,6 +275,7 @@ es:
       all: 'Todos'
       pending: 'Pendiente'
       taken: 'En proceso'
+      revision: 'En revisión'
       closed: 'Cerrado'
     subscriptions:
       subscription:
@@ -184,7 +290,7 @@ es:
     index:
       new: 'Nueva configuración LDAP'
       title: 'Listado de configuraciones LDAP'
-      empty_html: 'No hay configuraciones LDAP, puede crear una con el botón <span class="badge badge-primary">Nueva configuración LDAP</span>'
+      empty_html: 'No hay configuraciones LDAP, puede crear una con el botón <span class="badge bg-primary">Nueva configuración LDAP</span>'
     new:
       title: 'Crear configuración LDAP'
     show:
@@ -221,7 +327,57 @@ es:
 
   outputs:
     show:
-      scripts_with_errors: 'Guiones con errores'
+      scripts_with_errors: 'Errores'
+      scripts_with_warnings: 'Advertencias'
+
+  panels:
+    edit:
+      title: 'Editar panel'
+    index:
+      new: 'Nuevo panel'
+      title: 'Listado de paneles'
+      empty_html: 'No hay paneles, puede crear uno con el botón <span class="badge bg-primary">Nuevo panel</span>'
+    new:
+      title: 'Crear panel'
+      query: 'Agregar consulta'
+
+  pdf_templates:
+    index:
+      empty_html: 'No hay plantillas PDF, puede crear una con el botón <span class="badge bg-primary">Nueva plantilla PDF</span>'
+      new: 'Nueva plantilla PDF'
+      title: 'Listado de plantillas PDF'
+    edit:
+      title: 'Editar plantilla PDF'
+    new:
+      title: 'Nueva plantilla PDF'
+    show:
+      title: 'Ver plantilla PDF'
+
+  queries:
+    frequencies:
+      hourly: 'Cada Hora'
+      daily: 'Diaria'
+      weekly: 'Semanal'
+      monthly: 'Mensual'
+      yearly: 'Anual'
+    functions:
+      count: 'Conteo'
+      minimum: 'Mínimo'
+      maximum: 'Máximo'
+      sum: 'Suma'
+      average: 'Promedio'
+    outputs:
+      area: 'Gráfico de área'
+      column: 'Gráfico de barras'
+      donut: 'Gráfico de dona'
+      line: 'Gráfico de línea'
+      pie: 'Gráfico de torta'
+    periods:
+      total: 'Total'
+      day: 'Día corriente'
+      week: 'Semana corriente'
+      month: 'Mes corriente'
+      year: 'Año corriente'
 
   requires:
     require:
@@ -231,13 +387,40 @@ es:
     show:
       title: 'Casos'
 
+  permissions:
+    select:
+      section: 'Seleccione una sección'
+
+  roles:
+    edit:
+      title: 'Editar rol'
+    index:
+      new: 'Nuevo rol'
+      title: 'Listado de roles'
+      empty_html: 'No hay roles, puede crear uno con el botón <span class="badge bg-primary">Nuevo rol</span>'
+    new:
+      title: 'Crear rol'
+      permission: 'Agregar Permiso'
+    show:
+      title: 'Ver rol'
+    types:
+      security: 'Seguridad'
+      supervisor: 'Supervisor'
+      author: 'Autor'
+      manager: 'Analista'
+      owner: 'Propietario'
+      guest: 'Invitado'
+    permissions:
+      main: 'Principal'
+      config: 'Configuración'
+
   rules:
     edit:
       title: 'Editar regla'
     index:
       new: 'Nueva regla'
       title: 'Listado de reglas'
-      empty_html: 'No hay reglas, puede crear una con el botón <span class="badge badge-primary">Nueva regla</span>'
+      empty_html: 'No hay reglas, puede crear una con el botón <span class="badge bg-primary">Nueva regla</span>'
       empty_search_html: 'No hay reglas que coincidan con el criterio de búsqueda'
       import: 'Importar'
       export: 'Exportar'
@@ -246,7 +429,9 @@ es:
       trigger: 'Agregar disparador'
     show:
       title: 'Ver regla'
+      history: 'Ver historial de cambios'
       last_output: 'Última salida'
+      tickets_list: 'Pedidos'
     exports:
       create:
         filename: 'reglas.zip'
@@ -259,6 +444,16 @@ es:
         title: 'Importar reglas'
         file: 'Archivo'
         submit: 'Importar'
+    reverts:
+      reverted_from: 'Restaurado de "%{title}"'
+      create:
+        reverted: 'Versión restaurada'
+        cannot_be_reverted: 'Hubo un problema al restaurar la versión'
+    versions:
+      index:
+        title: 'Histórico de versiones'
+      show:
+        title: 'Ver versión'
 
   runs:
     index:
@@ -288,18 +483,21 @@ es:
     index:
       new: 'Nuevo guión'
       title: 'Listado de guiones'
-      empty_html: 'No hay guiones, puede crear uno con el botón <span class="badge badge-primary">Nuevo guión</span>'
+      empty_html: 'No hay guiones, puede crear uno con el botón <span class="badge bg-primary">Nuevo guión</span>'
       empty_search_html: 'No hay guiones que coincidan con el criterio de búsqueda'
       import: 'Importar'
       export: 'Exportar'
       new_sql: 'Nuevo guión SQL'
+      new_shell: 'Nuevo guión SHELL'
+      new_python: 'Nuevo guión Python'
     new:
       title: 'Crear guión'
+      library: 'Agregar biblioteca'
       maintainer: 'Agregar mantenedor'
       require: 'Agregar inclusión'
       tagging: 'Agregar etiqueta'
       parameter: 'Agregar parámetro'
-      description: 'Agregar descripción'
+      description: 'Agregar atributo'
     show:
       title: 'Ver guión'
       history: 'Ver historial de cambios'
@@ -308,6 +506,9 @@ es:
       no_server: 'Debe establecer un servidor principal'
       executions_list: 'Ejecuciones'
       measures_list: 'Métricas'
+      tickets_list: 'Pedidos'
+      last_runs: 'Últimas corridas'
+      last_executions: 'Últimas ejecuciones'
     exports:
       create:
         filename: 'guiones.zip'
@@ -315,33 +516,42 @@ es:
       empty: 'No se encontraron bases de datos con ese criterio'
     imports:
       create:
-        imported: 'Guiones importados correctamente'
+        title: 'Importar guiones'
+        scripts_imported: 'Guiones importados correctamente'
         no_file: 'Debe proporcionar un archivo'
-        fail: 'Se produjo un error importando los guiones'
+        fail: 'No se importaron los guiones, revise los errores.'
+        no_scripts: 'El archivo no tiene un formato compatible.'
+        file_invalid_extension: 'La extensión del archivo no es correcta.'
+        internal_format_invalid: 'El archivo no tiene un formato compatible.'
+        error: 'Con errores'
+        created: 'Creado'
+        updated: 'Actualizado'
       new:
         title: 'Importar guiones'
-        file: 'Archivo'
+      form:
         submit: 'Importar'
+        file: 'Archivo'
       default_change: 'Importado el %{date}'
+    languages:
+      ruby: 'Ruby'
+      python: 'Python'
+      sql: 'SQL'
+      shell: 'SHELL'
+
     measures:
       index:
         title: 'Métricas'
         empty_html: 'No hay métricas para este guión'
-    versions:
-      index:
-        title: 'Histórico de versiones'
-        change: 'Cambio'
-        empty_html: 'No hay versiones para este guión'
-        event:
-          create: 'Creación'
-      show:
-        title: 'Ver versión'
-        revert: 'Restaurar versión'
     reverts:
       reverted_from: 'Restaurado de "%{title}"'
       create:
         reverted: 'Versión restaurada'
         cannot_be_reverted: 'Hubo un problema al restaurar la versión'
+    versions:
+      index:
+        title: 'Histórico de versiones'
+      show:
+        title: 'Ver versión'
 
   schedules:
     edit:
@@ -349,7 +559,7 @@ es:
     index:
       new: 'Nuevo trabajo'
       title: 'Listado de trabajos'
-      empty_html: 'No hay trabajos, puede crear uno con el botón <span class="badge badge-primary">Nuevo trabajo</span>'
+      empty_html: 'No hay trabajos, puede crear uno con el botón <span class="badge bg-primary">Nuevo trabajo</span>'
       empty_search_html: 'No hay trabajos que coincidan con el criterio de búsqueda'
     new:
       title: 'Crear trabajo'
@@ -379,7 +589,7 @@ es:
     index:
       new: 'Nuevo servidor'
       title: 'Listado de servidores'
-      empty_html: 'No hay servidores, puede crear uno con el botón <span class="badge badge-primary">Nuevo servidor</span>'
+      empty_html: 'No hay servidores, puede crear uno con el botón <span class="badge bg-primary">Nuevo servidor</span>'
       empty_search_html: 'No hay servidores que coincidan con el criterio de búsqueda'
       make_default: 'Convertir en principal'
       default: 'Principal'
@@ -393,8 +603,6 @@ es:
       title: 'Ingreso'
       log_in: 'Ingresar'
       username: 'Usuario o correo'
-      password: 'Contraseña'
-      remember_me: 'Recordarme'
       forgot_password: '¿Olvidaste tu contraseña?'
       subtitle: 'Ingrese su usuario o correo electrónico para acceder'
 
@@ -418,24 +626,39 @@ es:
       back: 'Volver'
       subtitle: 'Ingrese su dirección de correo y le enviaremos las instrucciones para recuperar su contraseña'
 
-  processes:
-    index:
-      title: 'Procesos'
-      command: 'Comando'
-      cpu: 'CPU'
-      memory: 'Memoria'
-      memory_percent: '%'
-      pid: 'PID'
-      time: 'Tiempo'
-      kill: 'Terminar'
-    destroy:
-      destroyed: 'Proceso terminado'
-      cannot_be_destroyed: 'No se pudo terminar el proceso'
-
   profiles:
     edit:
       title: 'Mis datos'
       submit: 'Actualizar mis datos'
+
+  samls:
+    edit:
+      title: 'Editar configuración SAML'
+    index:
+      new: 'Nueva configuración SAML'
+      title: 'Listado de configuraciones SAML'
+      empty_html: 'No hay configuraciones SAML, puede crear una con el botón <span class="badge bg-primary">Nueva configuración SAML</span>'
+    new:
+      title: 'Crear configuración SAML'
+    show:
+      title: 'Ver configuración SAML'
+    providers:
+      azure: 'Azure'
+
+  series:
+    index:
+      title: 'Listado de series'
+      empty_html: 'No se han encontrado datos'
+    show:
+      title: 'Ver serie'
+
+  system_monitors:
+    index:
+      title: 'Procesos'
+      kill: 'Terminar'
+    destroy:
+      destroyed: 'Proceso terminado'
+      cannot_be_destroyed: 'No se pudo terminar el proceso'
 
   tags:
     edit:
@@ -443,11 +666,13 @@ es:
     index:
       new: 'Nueva etiqueta'
       title: 'Listado de etiquetas'
-      empty_html: 'No hay etiquetas, puede crear una con el botón <span class="badge badge-primary">Nueva etiqueta</span>'
+      empty_html: 'No hay etiquetas, puede crear una con el botón <span class="badge bg-primary">Nueva etiqueta</span>'
     new:
       title: 'Crear etiqueta'
+      effect: 'Agregar implícita'
     show:
       title: 'Ver etiqueta'
+      children: 'Sub-etiquetas'
     styles:
       secondary: 'Por defecto'
       primary: 'Importante'
@@ -455,6 +680,8 @@ es:
       info: 'Informativa'
       warning: 'Advertencia'
       danger: 'Peligro'
+    form:
+      empty: 'No se encontraron etiquetas con ese criterio'
 
   taggings:
     new:
@@ -465,14 +692,32 @@ es:
     tagging:
       empty: 'No se encontraron etiquetas con ese criterio'
 
+  tickets:
+    edit:
+      title: 'Editar pedido'
+    index:
+      new: 'Nuevo pedido'
+      title: 'Listado de pedidos'
+      empty_html: 'No hay pedidos, puede crear uno con el botón <span class="badge bg-primary">Nuevo pedido</span>'
+      empty_search_html: 'No hay pedidos que coincidan con el criterio de búsqueda'
+    new:
+      title: 'Crear pedido'
+    show:
+      title: 'Ver pedido'
+    destroy:
+      title: 'Desasociar'
+
   users:
+    alias:
+      # Only used on tests
+      title: 'Prueba alias'
     edit:
       title: 'Editar usuario'
     index:
       new: 'Nuevo usuario'
       title: 'Listado de usuarios'
       ldap_import: 'Importar desde LDAP'
-      empty_html: 'No hay usuarios, puede crear uno con el botón <span class="badge badge-primary">Nuevo usuario</span>'
+      empty_html: 'No hay usuarios, puede crear uno con el botón <span class="badge bg-primary">Nuevo usuario</span>'
       empty_search_html: 'No hay usuarios que coincidan con el criterio de búsqueda'
     new:
       title: 'Crear usuario'
@@ -483,7 +728,13 @@ es:
       security: 'Seguridad'
       supervisor: 'Supervisor'
       author: 'Autor'
+      manager: 'Analista'
+      owner: 'Propietario'
       guest: 'Invitado'
+    restore:
+      confirmation: 'Si desea restaurar el usuario con los datos ingresados por favor haga clic en la siguiente confirmación:'
+      error: 'Imposible restaurar el usuario porque la combinación de usuario y correo no coinciden.'
+      taken: 'Usuario existente'
     imports:
       new:
         title: 'Importar usuarios desde LDAP'
@@ -498,3 +749,41 @@ es:
         updated: 'Actualizado'
         error: 'Con errores'
         deprecated_users: 'Usuarios ausentes en el servidor LDAP'
+
+  views:
+    view:
+      mark_as_viewed: 'Marcar como visto'
+      viewed_at: 'Marcado como visto el %{on}'
+
+  versions:
+    index:
+      change: 'Cambio'
+      empty_html: 'No hay versiones'
+      event:
+        create: 'Creación'
+    show:
+      revert: 'Restaurar versión'
+
+  records:
+    index:
+      title: 'Registros de ingreso'
+      empty_html: 'No hay registros'
+    show:
+      key: 'Dato'
+      value: 'Valor'
+
+  api:
+    v1:
+      authenticate_user:
+        not_generate_token: 'No se puede generar'
+      authorize_api_request:
+        errors:
+          invalid_token: 'Token invalido'
+          missing_token: 'Token ausente'
+      issues:
+        script_incorrect: 'El ID del guión debe ser numérico'
+        script_not_exist: 'El ID del guión no existe'
+        keys:
+          category_tags: 'Categoria'
+          auditor: 'Auditor'
+          audited: 'Auditado'

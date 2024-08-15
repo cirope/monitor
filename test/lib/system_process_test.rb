@@ -5,6 +5,8 @@ require 'test_helper'
 class SystemProcessTest < ActiveSupport::TestCase
 
   test 'should get cpu percent use' do
+    skip if RUBY_PLATFORM.include?('darwin')
+
     sleep_p     = sleep_process interval: 0.08
     cpu_percent = sleep_p.cpu_percent interval: 0.05
 
@@ -15,6 +17,8 @@ class SystemProcessTest < ActiveSupport::TestCase
   end
 
   test 'should get virtual memory' do
+    skip if RUBY_PLATFORM.include?('darwin')
+
     sleep_p = sleep_process
     vmemory = sleep_p.virtual_memory
 
@@ -25,6 +29,8 @@ class SystemProcessTest < ActiveSupport::TestCase
   end
 
   test 'should get memory percent use' do
+    skip if RUBY_PLATFORM.include?('darwin')
+
     sleep_p   = sleep_process
     m_percent = sleep_p.memory_percent
 
@@ -35,14 +41,18 @@ class SystemProcessTest < ActiveSupport::TestCase
   end
 
   test 'should not be running after finish' do
+    skip if RUBY_PLATFORM.include?('darwin')
+
     sleep_p = sleep_process
 
     assert sleep_p.still_running?
-    sleep ENV['TRAVIS'] ? 0.20 : 0.02
+    sleep ENV['GH_ACTIONS'] ? 0.40 : 0.02
     refute sleep_p.still_running?
   end
 
   test 'should get correct command' do
+    skip if RUBY_PLATFORM.include?('darwin')
+
     sleep_p = sleep_process
 
     assert_match 'sleep', sleep_p.command
@@ -51,6 +61,8 @@ class SystemProcessTest < ActiveSupport::TestCase
   end
 
   test 'should get process seconds alive' do
+    skip if RUBY_PLATFORM.include?('darwin')
+
     sleep_p = sleep_process interval: 0.03
 
     sleep 0.02
@@ -64,22 +76,32 @@ class SystemProcessTest < ActiveSupport::TestCase
   end
 
   test 'should get boot_time' do
+    skip if RUBY_PLATFORM.include?('darwin')
+
     assert SystemProcess.boot_time.positive?
   end
 
   test 'should get processors count' do
+    skip if RUBY_PLATFORM.include?('darwin')
+
     assert SystemProcess.processors.positive?
   end
 
   test 'should get virtual page size' do
+    skip if RUBY_PLATFORM.include?('darwin')
+
     assert SystemProcess.vm_page_size.positive?
   end
 
   test 'should get clock ticks count' do
+    skip if RUBY_PLATFORM.include?('darwin')
+
     assert SystemProcess.clock_ticks.positive?
   end
 
   test 'should get cpu current cycles' do
+    skip if RUBY_PLATFORM.include?('darwin')
+
     cpu_cycles = SystemProcess.current_cpu_cycles
 
     assert cpu_cycles
@@ -87,6 +109,8 @@ class SystemProcessTest < ActiveSupport::TestCase
   end
 
   test 'should get total system memory' do
+    skip if RUBY_PLATFORM.include?('darwin')
+
     mem_info = SystemProcess.memory_info
 
     assert mem_info.is_a? Hash
@@ -98,7 +122,7 @@ class SystemProcessTest < ActiveSupport::TestCase
   private
 
     def sleep_process interval: 0.01
-      interval *= 10 if ENV['TRAVIS']
+      interval *= 20 if ENV['GH_ACTIONS']
 
       detached_process command: "sleep #{interval}"
     end

@@ -1,0 +1,15 @@
+<fieldset class="tag_effect">
+  <div class="row">
+    <div class="col-sm-11">
+      <%= f.input :implied, as: :autocomplete, label: false, url: tags_path(kind: tag.kind, exclude: tag.id), input_html: {
+        data: { empty_result_label: t('.empty') }
+      } %>
+    </div>
+    <div class="col-sm-1">
+      <div class="row-controls text-end mb-3 mb-sm-0 mt-n4 mt-sm-n2">
+        <%= f.input :id, as: :hidden %>
+        <%= link_to_remove_nested_item f %>
+      </div>
+    </div>
+  </div>
+</fieldset>

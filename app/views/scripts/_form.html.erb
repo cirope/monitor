@@ -1,58 +1,51 @@
-<%= simple_form_for @script do |f| %>
+<%= simple_form_for [@ticket, @script] do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
     <div class="row">
-      <div class="<%= @script.ruby? ? 'col-lg-10 col-md-9 col-8' : 'col-12' %>">
+      <div class="<%= @script.support_cores? ? 'col-lg-10 col-md-9 col-8' : 'col-12' %>">
         <%= f.input :name, input_html: { autofocus: true, disabled: disable_edition? } %>
       </div>
-      <% if @script.ruby? %>
-        <div class="col-lg-2 col-md-3 col-4 pt-3 text-right">
-          <div class="custom-control custom-checkbox mt-2">
-            <%= f.check_box :core, disabled: disable_edition?, class: 'custom-control-input' %>
-            <label class="custom-control-label" for="script_core"><%= Script.human_attribute_name 'core' %></label>
+      <% if @script.support_cores? %>
+        <div class="col-lg-2 col-md-3 col-4 pt-3">
+          <div class="form-check mt-2 float-end">
+            <%= f.check_box :core, disabled: disable_edition?, class: 'form-check-input' %>
+            <label class="form-check-label" for="script_core"><%= Script.human_attribute_name 'core' %></label>
           </div>
         </div>
       <% end %>
     </div>
 
-    <%= f.input :text, label: false, input_html: {
-      rows: 5,
-      disabled: disable_edition?,
-      data: {
-        editor:               true,
-        language:             @script.language,
-        change_input:         '#script_change',
-        file_input:           '#script_attachment',
-        observe_other_fields: true,
-        phrases:              editor_phrases.to_json,
-        readonly:             disable_edition?,
-        unsaved_data_warning: t('editor.edit.unsaved_data_warning')
-      }
-    } %>
+    <% unless @script.attachment.attached? %>
+      <%= f.input :text, label: false, input_html: {
+        rows: 5,
+        disabled: disable_edition?,
+        data: {
+          editor:               true,
+          language:             @script.language,
+          change_input:         '#script_change',
+          file_input:           '#script_attachment',
+          observe_other_fields: true,
+          phrases:              editor_phrases.to_json,
+          readonly:             disable_edition?,
+          unsaved_data_warning: t('editor.edit.unsaved_data_warning')
+        }
+      } %>
+    <% end %>
 
     <%= f.input :change, wrapper_html: {
       hidden: @script.errors[:change].blank?
     } %>
 
-    <%= render "form_#{@script.language}", f: f %>
+    <% unless @script.shell? %>
+      <%= render "form_#{@script.language}", f: f %>
+    <% end %>
 
     <%= render 'form_sensitive_fields', f: f unless disable_edition? %>
 
-    <div class="card mb-3">
-      <div class="card-header">
-        <a class="text-reset text-decoration-none d-block" href="#parameters" data-toggle="collapse">
-          <%= Parameter.model_name.human count: 0 %>
-        </a>
-      </div>
-      <div id="parameters" class="collapse card-body">
-        <%= f.simple_fields_for :parameters, parameters do |df| %>
-          <%= render 'parameters/parameter', f: df %>
-        <% end %>
+    <%= render 'scripts/parameters', f: f %>
 
-        <%= link_to_add_fields t('scripts.new.parameter'), f, :parameters unless disable_edition? %>
-      </div>
-    </div>
+    <%= render 'scripts/documents', f: f %>
 
     <%= f.input :lock_version, as: :hidden %>
     <%= f.input :language, as: :hidden %>

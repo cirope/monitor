@@ -6,21 +6,25 @@ class ExecutionChannel < ApplicationCable::Channel
   end
 
   def fetch
-    String(execution.output).lines.each_with_index do |line, i|
-      self.class.send_line execution.id, line:   line,
-                                         order:  i.next,
-                                         status: execution.status,
-                                         pid:    execution.pid
+    String(execution.stdout).lines.each_with_index do |line, i|
+      self.class.send_line execution.id, line:     line,
+                                         order:    i.next,
+                                         status:   execution.status,
+                                         pid:      execution.pid,
+                                         finished: execution.finished?
     end
   end
 
-  def self.send_line execution_id, line:, order:, status:, pid:
+  def self.send_line execution_id, line:, order:, status:, pid:, finished:
     broadcasting = broadcasting_for_current_account "execution:#{execution_id}"
 
-    ActionCable.server.broadcast broadcasting, line:   line,
-                                               order:  order,
-                                               status: status,
-                                               pid:    pid
+    ActionCable.server.broadcast broadcasting, {
+      line:     line,
+      order:    order,
+      status:   status,
+      pid:      pid,
+      finished: finished
+    }
   end
 
   private

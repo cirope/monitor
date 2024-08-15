@@ -2,9 +2,10 @@
   <div class="card-header">
     <h5>
       <%= @issue %>
-      <small class="float-right">
-        <%= issue_status @issue.status %>
-      </small>
+      <span class="float-end" data-status>
+        <%= render 'views/view', issue: @issue unless @issue.ticket? %>
+        <%= issue_status @issue %>
+      </span>
     </h5>
   </div>
 
@@ -14,10 +15,21 @@
       <%= @issue.description %>
     </p>
 
-    <p class="mb-1">
-      <strong><%= Issue.human_attribute_name 'run' %></strong>:
-      <%= link_to_unless current_user.guest? || current_user.security?, @issue.run, @issue.run %>
-    </p>
+    <% if (descriptions = @issue.descriptions.publics).any? %>
+      <% descriptions.each do |description| %>
+        <p class="mb-1">
+          <strong><%= description.name %></strong>:
+          <%= description.value %>
+        </p>
+      <% end %>
+    <% end %>
+
+    <% unless @issue.ticket? %>
+      <p class="mb-1">
+        <strong><%= Issue.human_attribute_name 'run' %></strong>:
+        <%= link_to_if current_user.can?(:read, 'runs'), @issue.run, @issue.run %>
+      </p>
+    <% end %>
 
     <ul class="list-inline" data-tagging-list>
       <% @issue.taggings.each do |tagging| %>
@@ -40,10 +52,10 @@
     <div class="card-header">
       <h5>
         <%= Issue.human_attribute_name 'data' %>
-        <span class="float-right"><%= link_to_export_data %></span>
+        <span class="float-end"><%= link_to_export_data %></span>
       </h5>
     </div>
-    <div id="data">
+    <div class="card-body" id="data">
       <%= render_object @issue, '' %>
     </div>
   </div>
@@ -59,7 +71,7 @@
     <div id="subscriptions" class="card-body">
       <ul>
         <% @issue.subscriptions.each do |subscription| %>
-          <li><%= link_to_unless current_user.guest? || current_user.security?, subscription.user, subscription.user %></li>
+          <li><%= link_to_if current_user.can?(:read, User), subscription.user, subscription.user %></li>
         <% end %>
       </ul>
     </div>
@@ -74,14 +86,24 @@
   </div>
   <div id="comments" class="card-body">
     <% @issue.comments.reject(&:new_record?).each do |comment| %>
-      <%= render 'comments/show', comment: comment %>
+      <%= render 'issues/comments/show', comment: comment %>
     <% end %>
 
-    <%= render template: 'comments/new' %>
+    <%= render template: 'issues/comments/new' %>
   </div>
 </div>
 
-<% if @permalink.blank? && (current_user.author? || current_user.supervisor?) %>
-  <%= link_to_edit [:edit, @issue, context: @context] %> |
+<% if @issue.ticket? %>
+  <%= link_to_edit [:edit, @owner, @issue, context: @context, filter: filter_query_hash] %> |
+  <%= link_to_issue_owner @issue %> |
+  <%= link_to_index [@owner, :tickets, filter: filter_query_hash] %>
+<% else %>
+  <% if @permalink.blank? && current_user.can?(:edit, Issue) %>
+    <%= link_to_edit [:edit, @issue, context: @context, filter: filter_query_hash] %> |
+  <% end %>
+  <% if @issue.script %>
+    <%= link_to_index script_issues_path(@issue.script, filter: filter_query_hash) %>
+  <% else %>
+    <%= link_to_index issue_index_path(filter: filter_query_hash) %>
+  <% end %>
 <% end %>
-<%= link_to_index issue_index_path %>

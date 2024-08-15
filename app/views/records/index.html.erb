@@ -1,0 +1,47 @@
+<%= render 'filters' %>
+
+<ul class="nav nav-tabs mb-2">
+  <% record_kinds.each do |kind, name| %>
+    <% active = kind.to_s == params[:kind] %>
+
+    <%= content_tag :li, class: 'nav-item' do %>
+      <%= link_to name, records_path(kind: kind), class: "nav-link#{' active' if active}" %>
+    <% end %>
+  <% end %>
+</ul>
+
+<div class="card">
+  <% if @records.empty? %>
+    <div class="card-body">
+      <%= render 'shared/empty_index', message: t('.empty_html') %>
+    </div>
+  <% else %>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th><%= @records_class.human_attribute_name 'created_at' %></th>
+          <th><%= @records_class.human_attribute_name 'user' %></th>
+          <th><%= @records_class.human_attribute_name 'ip' %></th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @records.each do |record| %>
+          <tr>
+            <td><%= l record.created_at, format: :compact %></td>
+            <td><%= record_user_name record %></td>
+            <td><%= record.data['remote_ip'] %></td>
+            <td class="text-end">
+              <%= link_to_show record_path(record, kind: params[:kind]) %>
+            </td> 
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <div class="mx-3">
+      <%= paginate @records %>
+    </div>
+  <% end %>
+</div>

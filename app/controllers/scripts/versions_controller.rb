@@ -1,31 +1,31 @@
 # frozen_string_literal: true
 
 class Scripts::VersionsController < ApplicationController
-  before_action :authorize, :not_guest, :not_security
-  before_action :set_title, :set_script
+  include Authentication
+  include Authorization
+
+  before_action :set_title, :set_owner
   before_action :set_version, only: [:show]
 
-  respond_to :html
-
   def index
-    @versions = @script.versions_with_text_changes.reorder(
+    @versions = @owner.versions_with_text_changes.reorder(
       created_at: :desc
-    ).preload(:user).page params[:page]
+    ).page params[:page]
 
-    respond_with @versions
+    render 'versions/index'
   end
 
   def show
-    respond_with @version
+    render 'versions/show'
   end
 
   private
 
     def set_version
-      @version = @script.versions.find params[:id]
+      @version = @owner.versions.find params[:id]
     end
 
-    def set_script
-      @script = Script.find params[:script_id]
+    def set_owner
+      @owner = Script.find params[:script_id]
     end
 end

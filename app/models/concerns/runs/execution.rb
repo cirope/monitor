@@ -8,9 +8,14 @@ module Runs::Execution
 
     out  = { status: 'aborted' }
     out  = server.execute self if schedule.run?
-    data = ActiveSupport::JSON.decode out[:output] rescue nil
+    data = ActiveSupport::JSON.decode out[:stdout] rescue nil
 
-    finish status: out[:status], output: out[:output], data: data
+    if data&.is_a?(Hash) && (series = data['series']).present?
+      # Delete series key only if all series were created
+      Serie.add(series) && data.delete('series')
+    end
+
+    finish status: out[:status], stdout: out[:stdout], stderr: out[:stderr], data: data
   end
 
   def should_be_canceled?
@@ -49,7 +54,13 @@ module Runs::Execution
 
   private
 
-    def finish status:, output: nil, data: nil
-      update! status: status, output: output, data: data, ended_at: Time.zone.now
+    def finish status:, stdout: nil, stderr: nil, data: nil
+      update!(
+        status:   status,
+        stdout:   stdout,
+        stderr:   stderr,
+        data:     data,
+        ended_at: Time.zone.now
+      )
     end
 end

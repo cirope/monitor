@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class Scripts::ImportsController < ApplicationController
-  before_action :authorize, :not_guest, :not_security
+  include Authentication
+  include Authorization
+
   before_action :set_title, only: [:new]
 
   def new
@@ -10,16 +12,27 @@ class Scripts::ImportsController < ApplicationController
   def create
     file = params[:file]
 
-    if file.present?
-      Script.import file.tempfile.path
-
-      redirect_to scripts_url, notice: t('.imported')
-    else
+    if file.blank?
       redirect_to scripts_imports_new_url, alert: t('.no_file')
+    elsif Script.file_invalid? file.tempfile.path
+      redirect_to scripts_imports_new_url, alert: t('.file_invalid_extension')
+    else
+      import_scripts file
     end
-  rescue => ex
-    logger.error ex
-
-    redirect_to scripts_url, alert: t('.fail')
   end
+
+  private
+
+    def import_scripts file
+      @scripts         = Script.import file.tempfile.path
+      @import_finished = @scripts.all? &:valid?
+
+      if @import_finished
+        flash.now.notice = t '.scripts_imported'
+      else
+        flash.now.alert = t '.fail'
+      end
+    rescue JSON::ParserError
+      redirect_to scripts_imports_new_url, alert: t('.internal_format_invalid')
+    end
 end

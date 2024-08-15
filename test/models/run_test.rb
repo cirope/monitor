@@ -66,6 +66,68 @@ class RunTest < ActiveSupport::TestCase
     skip
   end
 
+  test 'execute with series output' do
+    result = {
+      status: 'ok',
+      stdout: {
+        series: [
+          {
+            name:       'test2',
+            identifier: 'user_2',
+            timestamp:  1.days.ago,
+            amount:     1.11
+          },
+          {
+            name:       'test3',
+            identifier: 'user_3',
+            timestamp:  3.days.ago,
+            amount:     3.33
+          }
+        ]
+      }.to_json
+    }
+
+    assert_difference 'Serie.count', 2 do
+      override_and_run_execute @run, result
+    end
+
+    # delete series key after success serie creation
+    refute @run.reload.data.key? 'series'
+  end
+
+  test 'execute with malformed output' do
+    result = {
+      status: 'ok',
+      stdout: {
+        series: [
+          {
+            name:       'test2',
+            identifier: 'user_2',
+            timestamp:  1.days.ago,
+            amount:     1.11
+          },
+          {
+            name:       '',
+            identifier: '',
+            timestamp:  2.days.ago
+          },
+          {
+            name:       'test3',
+            identifier: 'user_3',
+            timestamp:  3.days.ago,
+            amount:     3.33
+          }
+        ]
+      }.to_json
+    }
+
+    assert_difference 'Serie.count', 2 do
+      override_and_run_execute @run, result
+    end
+
+    assert @run.reload.data.key? 'series'
+  end
+
   test 'mark as running' do
     skip
   end
@@ -125,23 +187,37 @@ class RunTest < ActiveSupport::TestCase
   test 'parse output errors for script' do
     run = runs :boom_on_atahualpa
 
-    parsed_errors = run.parse_and_find_lines_with_error
+    parsed_errors = run.parse_and_find_lines_with :error
     script_errors = parsed_errors[run.script]
 
     assert_not_nil   script_errors
     assert_not_empty script_errors
 
     script_errors.each do |error|
-      assert_equal 2, error[:line], error # 2: 4 * nil
+      assert_equal 4, error[:line], error # 4: 4 * nil
+    end
+  end
+
+  test 'parse output warnings for script' do
+    run = runs :boom_on_atahualpa
+
+    parsed_warnings = run.parse_and_find_lines_with :warning
+    script_warnings = parsed_warnings[run.script]
+
+    assert_not_nil   script_warnings
+    assert_not_empty script_warnings
+
+    script_warnings.each do |warning|
+      assert_equal 3, warning[:line], warning
     end
   end
 
   test 'parse output errors for script should not raise' do
     run = runs :boom_on_atahualpa
 
-    run.update_column :output, 'something else'
+    run.update_column :stderr, 'something else'
 
-    parsed_errors = run.parse_and_find_lines_with_error
+    parsed_errors = run.parse_and_find_lines_with :error
 
     assert_empty parsed_errors
   end
@@ -153,10 +229,46 @@ class RunTest < ActiveSupport::TestCase
     scripts(:cd_root).update_column :core, true
 
     # Error will point to prev script now
-    parsed_errors = run.parse_and_find_lines_with_error
+    parsed_errors = run.parse_and_find_lines_with :error
 
     assert_not_empty parsed_errors
 
     assert_nil parsed_errors[run.script]
   end
+
+  test 'should cleanup runs' do
+    account = send 'public.accounts', :default
+    run     = runs :clean_ls_on_atahualpa
+
+    account.switch do
+      run.update_column :created_at, 2.days.ago
+
+      assert_equal 4, Run.count
+
+      Run.cleanup
+
+      assert_equal 3, Run.count
+    end
+  end
+
+  test 'should update script status' do
+    run    = runs :clean_ls_on_atahualpa
+    script = run.script
+
+    assert_equal script.has_errors?, false
+
+    run.update! status: 'error'
+
+    assert_equal script.has_errors?, true
+  end
+
+  private
+
+    def override_and_run_execute run, result
+      stub_any_instance Schedule, :run?, true do
+        stub_any_instance Server, :execute, result do
+          assert run.execute
+        end
+      end
+    end
 end

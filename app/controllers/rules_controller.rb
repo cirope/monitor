@@ -1,51 +1,50 @@
 # frozen_string_literal: true
 
 class RulesController < ApplicationController
+  include Authentication
+  include Authorization
   include Rules::Filters
+  include Tickets::Scoped
 
-  before_action :authorize, :not_guest, :not_security, :not_author
   before_action :set_title, except: [:destroy]
   before_action :set_rule, only: [:show, :edit, :update, :destroy]
 
-  respond_to :html, :json
-
   def index
     @rules = rules.order(:id).page params[:page]
-
-    respond_with @rules
   end
 
   def show
-    respond_with @rule
   end
 
   def new
     @rule = Rule.new
-
-    respond_with @rule
   end
 
   def edit
-    respond_with @rule
   end
 
   def create
-    @rule = Rule.new rule_params
+    @rule = Rule.new rule_params.merge(tickets: Array(@ticket))
 
-    @rule.save
-    respond_with @rule
+    if @rule.save
+      redirect_to @rule
+    else
+      render 'new', status: :unprocessable_entity
+    end
   end
 
   def update
-    @rule.update rule_params
-
-    respond_with @rule
+    if @rule.update rule_params
+      redirect_to @rule
+    else
+      render 'edit', status: :unprocessable_entity
+    end
   end
 
   def destroy
     @rule.destroy
 
-    respond_with @rule
+    redirect_to rules_url
   end
 
   private

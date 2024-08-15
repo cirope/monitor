@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
 class Scripts::RevertsController < ApplicationController
-  before_action :authorize, :not_guest, :not_security
-  before_action :set_script, :check_if_can_edit
+  include Authentication
+  include Authorization
 
-  respond_to :html
+  before_action :set_script, :check_if_can_edit
 
   def create
     @version = @script.versions.find params[:id]
 
     if @script.revert_to @version
-      respond_with @script, notice: t('.reverted')
+      redirect_to @script, notice: t('.reverted')
     else
       redirect_to script_version_path(@script.id, @version.id), alert: t('.cannot_be_reverted')
     end

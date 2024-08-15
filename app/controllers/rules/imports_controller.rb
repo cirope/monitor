@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class Rules::ImportsController < ApplicationController
-  before_action :authorize, :not_guest, :not_security
+  include Authentication
+  include Authorization
+
   before_action :set_title, only: [:new]
 
   def new

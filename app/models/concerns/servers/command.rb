@@ -9,19 +9,20 @@ module Servers::Command
     if script_path.blank?
       return {
         status: 'error',
-        output: 'Script transfer failed'
+        stdout: 'Script transfer failed',
+        stderr: 'Script transfer failed'
       }
     end
 
-    output = []
+    stdout = []
 
-    status = exec run, script_path do |data|
-      output << data
+    status, stderr = exec run, script_path do |data|
+      stdout << data
     end
 
-    { status: status, output: output.compact.join }
+    { status: status, stdout: stdout.compact.join, stderr: stderr }
   rescue => ex
-    { status: 'error', output: ex.to_s }
+    { status: 'error', stdout: ex.to_s, stderr: ex.to_s }
   end
 
   def execution execution
@@ -33,12 +34,12 @@ module Servers::Command
   end
 
   def exec executable, script_path
-    method      = local? ? :local_exec : :remote_exec
-    exit_status = send(method, script_path, executable) do |line|
+    method              = local? ? :local_exec : :remote_exec
+    exit_status, stderr = send(method, script_path, executable) do |line|
       yield line
     end
 
-    if executable.reload.killed?
+    status = if executable.reload.killed?
       'killed'
     elsif exit_status.zero?
       executable.class.success_status
@@ -47,6 +48,8 @@ module Servers::Command
 
       'error'
     end
+
+    return status, stderr
   end
 
   private
@@ -55,28 +58,50 @@ module Servers::Command
       "#{Rails.root}/bin/rails"
     end
 
+    def python3
+      '/usr/bin/python3 -u'
+    end
+
+    def local_command script_path
+      extname = File.extname script_path
+
+      case extname
+      when '.rb'
+        [rails, 'runner', script_path].join ' '
+      when '.py'
+        [python3, script_path].join ' '
+      else
+        system 'chmod', '+x', script_path
+
+        script_path
+      end
+    end
+
     def local_exec script_path, executable
       status = 1
+      errors = nil
 
-      Open3.popen2e rails, 'runner', script_path do |stdin, stdout, thread|
+      Open3.popen3 local_command(script_path) do |stdin, stdout, stderr, thread|
         executable.update! pid: thread.pid
 
         stdout.each { |line| yield "#{line.strip}\n" }
 
+        errors = stderr.read
         status = thread.value.exitstatus.to_i
       end
 
-      status
+      return status, errors
     end
 
     def remote_exec script_path, _executable = nil
       status = 1
+      stderr = nil
 
       Net::SSH.start hostname, user, ssh_options  do |ssh|
         # script permission
         ssh.exec! "chmod +x #{script_path}"
 
-        status = ssh_exec_with_pty ssh, "$SHELL -c #{script_path}" do |data|
+        status, stderr = ssh_exec ssh, "$SHELL -c #{script_path}" do |data|
           data.to_s.split("\n").each do |line|
             yield "#{line}\n"
           end
@@ -86,16 +111,14 @@ module Servers::Command
         ssh.exec! "rm #{script_path}"
       end
 
-      status
+      return status, stderr
     end
 
-    def ssh_exec_with_pty ssh, command
+    def ssh_exec ssh, command
       status = 1
+      stderr = []
 
       channel = ssh.open_channel do |och|
-        # Realtime log output
-        och.request_pty
-
         # Command execution
         och.exec command do |ch, success|
           # STDOUT
@@ -105,7 +128,7 @@ module Servers::Command
 
           # STDERR
           ch.on_extended_data do |_ch, _type, data|
-            yield data.force_encoding 'UTF-8'
+            stderr << data.force_encoding('UTF-8')
           end
 
           # Command status
@@ -118,6 +141,6 @@ module Servers::Command
       # Wait until the command finish
       channel.wait
 
-      status
+      return status, stderr.join
     end
 end

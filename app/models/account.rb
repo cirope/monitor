@@ -7,6 +7,7 @@ class Account < ApplicationRecord
   include Accounts::Destroy
   include Accounts::Memberships
   include Accounts::OnEach
+  include Accounts::Options
   include Accounts::Request
   include Accounts::Scope
   include Accounts::Tenant
@@ -20,6 +21,7 @@ class Account < ApplicationRecord
   attr_readonly :tenant_name
 
   has_many :databases, dependent: :destroy
+  has_many :drives,    dependent: :destroy
 
   def to_s
     name

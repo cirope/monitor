@@ -11,7 +11,16 @@ es:
       issues:
         one: 'un caso'
         other: '%{count} casos'
+    issues:
+      subject: 'Tiene nuevos casos'
+      issues:
+        one: 'un caso'
+        other: '%{count} casos'
 
   user_mailer:
     password_reset:
       subject: 'Restablecer contraseña'
+
+  reminder_mailer:
+    reminder_issue:
+      subject: 'Recordatorio de caso'

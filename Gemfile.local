@@ -1,6 +1,8 @@
-gem 'ruby-odbc', require: false
+# gem 'composite_primary_keys', require: false
+# https://github.com/composite-primary-keys/composite_primary_keys/pull/472
+gem 'composite_primary_keys'
 
-unless ENV['TRAVIS']
+unless ENV['GH_ACTIONS']
   # SQL Server ActiveRecord adapter
   gem 'tiny_tds'
   gem 'activerecord-sqlserver-adapter', require: false

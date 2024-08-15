@@ -72,6 +72,20 @@ class ScriptsHelperTest < ActionView::TestCase
     assert disable_edition?
   end
 
+  test 'enable edition when is imported' do
+    @script = scripts :ls
+
+    @script.imported_at = Time.zone.now
+    @script.imported_as = 'read_only'
+
+    assert disable_edition?
+
+    @script.imported_at = Time.zone.now
+    @script.imported_as = 'editable'
+
+    refute disable_edition?
+  end
+
   test 'imported tag' do
     skip
   end
@@ -98,7 +112,22 @@ class ScriptsHelperTest < ActionView::TestCase
   end
 
   test 'lang icon' do
-    assert_match 'fas fa-database', lang_icon('sql')
-    assert_match 'fas fa-gem', lang_icon('ruby')
+    ruby  = scripts :ls
+    shell = scripts :pwd
+
+    assert_match 'fas fa-gem', lang_icon(ruby)
+    assert_match 'fas fa-hashtag', lang_icon(shell)
+  end
+
+  test 'imported status' do
+    @virtual_path          = 'scripts.imports.create'
+    script                 = scripts :ls
+    script.imported_status = :created
+
+    assert_match 'bg-success', show_script_imported_status(script)
+
+    script.imported_status = :updated
+
+    assert_match 'bg-info', show_script_imported_status(script)
   end
 end

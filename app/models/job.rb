@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class Job < ApplicationRecord
+
+  # This should go here, otherwise it doesn't work, feel free to try
+  alias_method :original_destroy, :destroy
+
   include Auditable
   include Jobs::Cleanup
   include Jobs::Destroy

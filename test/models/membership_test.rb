@@ -43,7 +43,7 @@ class MembershipTest < ActiveSupport::TestCase
 
   test 'on destroy default membership mark other as default' do
     user    = @membership.user
-    account = Account.create! name: 'Test', tenant_name: 'test'
+    account = create_account
 
     account.enroll user, copy_user: true
 
@@ -56,7 +56,7 @@ class MembershipTest < ActiveSupport::TestCase
 
   test 'on update default membership mark others as not default' do
     user    = @membership.user
-    account = Account.create! name: 'Test', tenant_name: 'test'
+    account = create_account
 
     account.enroll user, copy_user: true
 

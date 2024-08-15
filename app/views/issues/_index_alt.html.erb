@@ -1,0 +1,119 @@
+<%= render 'filters' %>
+
+<% unless filter_query_hash[:status].present? %>
+  <div class="card card-body table-responsive p-1">
+    <table class="table table-hover table-sm small mb-0">
+      <thead>
+        <tr>
+          <th class="border-top-0"></th>
+          <% Issue.statuses.each do |status| %>
+            <th class="border-top-0 text-end"><%= t "issues.status.#{status}" %></th>
+          <% end %>
+          <th class="border-top-0 text-end"><%= t '.total' %></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% grouped_issue_stats(stats).each do |key, counts| %>
+          <tr>
+            <td><%= key %></td>
+            <% Issue.statuses.each do |status| %>
+              <td class="text-end">
+                <%= link_to counts[status] || 0, script_issues_path(@script, filter: filter_query_hash.merge(status: status, key: key)) %>
+              </td>
+            <% end %>
+            <td class="text-end font-weight-bold">
+              <%= link_to counts.values.sum, script_issues_path(@script, filter: filter_query_hash.merge(key: key)) %>
+            </td>
+          </tr>
+        <% end %>
+
+        <tr>
+          <td>
+            <strong><%= t '.total' %></strong>
+          </td>
+          <% issue_stats_totals(stats).each do |status, total| %>
+            <td class="text-end font-weight-bold">
+              <%= link_to total, script_issues_path(@script, filter: filter_query_hash.merge(status: status)) %>
+            </td>
+          <% end %>
+          <td class="text-end font-weight-bold">
+            <%= issue_stats_totals(stats).map(&:last).sum %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+
+<div class="card card-body table-responsive p-1">
+  <table class="table table-hover table-sm small mb-0">
+    <% convert_issues(issues).each_with_index do |(issue, data), i| %>
+      <% if i == 0 %>
+        <thead>
+          <tr class="border-top-0">
+            <% data.keys[0...-1].each do |header| %>
+              <th class="border-top-0"><%= header %></th>
+            <% end %>
+
+            <th class="border-top-0 d-none d-sm-table-cell text-nowrap">
+              <%= Issue.human_attribute_name 'status' %>
+              <%= link_to icon('fas', 'chart-pie'), script_issues_path(@script, filter: filter_query_hash, graph: 'status') %>
+            </th>
+
+            <th class="border-top-0 text-nowrap">
+              <%= data.keys.last %>
+              <%= link_to icon('fas', 'chart-pie'), script_issues_path(@script, filter: filter_query_hash, graph: data.keys.last) %>
+            </th>
+
+            <th class="border-top-0 text-end" colspan="4">
+              <% if script && current_user.can?(:edit, Issue) %>
+                <div class="btn-group mr-n2" role="group">
+                  <%= link_to_add_all_to_board filter: filter_query_hash.merge(status: params.dig(:filter, :status) || 'all') %>
+                  <%= link_to_remove_all_from_board filter: filter_query_hash.merge(status: params.dig(:filter, :status) || 'all') %>
+                </div>
+              <% end %>
+            </th>
+            <th colspan="2"></th>
+          </tr>
+        </thead>
+      <% end %>
+
+      <% if i == 0 %>
+        <tbody>
+      <% end %>
+
+      <%= render 'issue_alt', issue: issue, data: data %>
+
+      <% if i == 0 %>
+        </tbody>
+      <% end %>
+    <% end %>
+  </table>
+</div>
+
+<hr>
+
+<div class="row ml-0">
+  <div class="dropdown col">
+    <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
+      <%= t '.actions' %>
+    </button>
+
+    <div class="dropdown-menu">
+      <%= link_to_api_issues params[:script_id] %>
+      <%= link_to_download_issues_csv %>
+    </div>
+  </div>
+
+  <% if filter_query_hash[:status].present? %>
+    <div class="col">
+      <%= link_to t('back'), script_issues_path(@script, filter: filter_query_hash.except(:status, :key)) %>
+    </div>
+  <% end %>
+  <div class="col">
+    <%= paginate issues %>
+  </div>
+</div>
+
+<div data-target="api-issues"></div>

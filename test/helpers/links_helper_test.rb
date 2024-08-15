@@ -11,4 +11,14 @@ class LinksHelperTest < ActionView::TestCase
     assert_match t('navigation.index'), link_to_index('#')
     assert_match t('navigation.show'), link_to_show('#')
   end
+
+	private
+
+    def current_user
+      users :franco
+    end
+
+    def controller_path
+      Issue
+    end
 end

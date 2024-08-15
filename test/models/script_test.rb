@@ -2,6 +2,12 @@
 
 require 'test_helper'
 
+class Script
+  def current_version
+    ENV['TEST_VERSION'] || MonitorApp::Application::VERSION
+  end
+end
+
 class ScriptTest < ActiveSupport::TestCase
   setup do
     @script = scripts :ls
@@ -64,6 +70,18 @@ class ScriptTest < ActiveSupport::TestCase
     assert_error @script, :change, :blank
   end
 
+  test 'invalid script with imported_version' do
+    @script.imported_version = MonitorApp::Application::VERSION.next
+
+    refute @script.valid?
+  end
+
+  test 'valid script with imported_version' do
+    @script.imported_version = MonitorApp::Application::VERSION
+
+    assert @script.valid?
+  end
+
   test 'can not destroy when issues' do
     assert_no_difference 'Script.count' do
       @script.destroy
@@ -124,7 +142,18 @@ class ScriptTest < ActiveSupport::TestCase
   end
 
   test 'to json' do
-    assert_equal @script.name, ActiveSupport::JSON.decode(@script.to_json)['name']
+    json = ActiveSupport::JSON.decode(@script.to_json)
+
+    assert_equal @script.name, json['name']
+
+    if @script.descriptions.present?
+      json_descriptions_expected = @script.descriptions
+                                          .map { |d| d.attributes.slice('name', 'value') }
+
+      assert_equal json_descriptions_expected, json['descriptions']
+    end
+
+    assert_equal MonitorApp::Application::VERSION, json['current_version']
   end
 
   test 'to pdf' do
@@ -160,28 +189,58 @@ class ScriptTest < ActiveSupport::TestCase
     FileUtils.rm zipfile_path
   end
 
+  test 'valid extension for import' do
+    path = Script.for_export.export
+
+    refute Script.file_invalid? path
+
+    FileUtils.rm path
+  end
+
+  test 'invalid extension for import' do
+    assert Script.file_invalid? 'test.json'
+  end
+
   test 'import an existing script' do
     Current.account = send 'public.accounts', :default
     path            = Script.where(id: @script.id).export
+    scripts         = []
+
+    parameters   = @script.parameters.map { |p| p.attributes.slice('name', 'value') }
+    descriptions = @script.descriptions.map { |d| d.attributes.slice('name', 'value') }
 
     @script.parameters.clear
+    @script.descriptions.clear
     @script.requires.clear
     @script.update! name: 'Updated'
 
     assert_no_difference 'Script.count' do
-      Script.import path
+      scripts = Script.import path
     end
 
+    assert_equal 1, scripts.count
+    assert scripts.all? &:valid?
     assert_not_equal 'Updated', @script.reload.name
-    assert @script.parameters.any?
+    assert (scripts.all? { |script| script.imported_version == MonitorApp::Application::VERSION })
+    assert_equal @script.parameters.map { |p| p.attributes.slice('name', 'value') },
+                 parameters
+    assert_equal @script.descriptions.map { |d| d.attributes.slice('name', 'value') },
+                 descriptions
     assert @script.requires.any?
 
     FileUtils.rm path
   end
 
   test 'import a new script' do
-    uuid   = SecureRandom.uuid
-    script = @script.dup
+    uuid    = SecureRandom.uuid
+    script  = @script.dup
+    scripts = []
+
+    @script.parameters.each { |p| script.parameters << p.dup }
+    @script.descriptions.each { |d| script.descriptions << d.dup }
+
+    parameters   = script.parameters.map { |p| p.attributes.slice('name', 'value') }
+    descriptions = script.descriptions.map { |d| d.attributes.slice('name', 'value') }
 
     script.name = 'Should be imported as new'
     script.uuid = uuid
@@ -193,12 +252,163 @@ class ScriptTest < ActiveSupport::TestCase
     script.destroy!
 
     assert_difference 'Script.count' do
-      Script.import path
+      scripts = Script.import path
     end
 
+    assert_equal 1, scripts.count
+    assert scripts.all? &:valid?
+    assert (scripts.all? { |script| script.imported_version == MonitorApp::Application::VERSION })
+    assert_equal scripts.first.parameters.map { |p| p.attributes.slice('name', 'value') },
+                 parameters
+    assert_equal scripts.first.descriptions.map { |d| d.attributes.slice('name', 'value') },
+                 descriptions
     assert Script.find_by uuid: uuid
 
     FileUtils.rm path
+  end
+
+  test 'import a new script and existing script' do
+    uuid    = SecureRandom.uuid
+    script  = @script.dup
+    scripts = []
+
+    @script.parameters.each { |p| script.parameters << p.dup }
+    @script.descriptions.each { |d| script.descriptions << d.dup }
+
+    parameters   = @script.parameters.map { |p| p.attributes.slice('name', 'value') }
+    descriptions = @script.descriptions.map { |d| d.attributes.slice('name', 'value') }
+
+    script.name = 'Should be imported as new'
+    script.uuid = uuid
+
+    script.save!
+
+    path = Script.where(id: [@script.id, script.id]).export
+
+    script.destroy!
+
+    @script.parameters.clear
+    @script.descriptions.clear
+    @script.requires.clear
+    @script.update! name: 'Updated'
+
+    assert_difference 'Script.count' do
+      scripts = Script.import path
+    end
+
+    assert_equal 2, scripts.count
+    assert scripts.all? &:valid?
+    assert (scripts.all? { |script| script.imported_version == MonitorApp::Application::VERSION })
+    assert Script.find_by uuid: uuid
+
+    scripts.each do |scripts|
+      assert_equal scripts.parameters.map { |p| p.attributes.slice('name', 'value') },
+                   parameters
+      assert_equal scripts.descriptions.map { |d| d.attributes.slice('name', 'value') },
+                   descriptions
+    end
+
+    assert_not_equal 'Updated', @script.reload.name
+    assert @script.parameters.any?
+    assert @script.requires.any?
+
+    FileUtils.rm path
+  end
+
+  test 'should not import an invalid script' do
+    uuid    = SecureRandom.uuid
+    scripts = []
+
+    invalid_script      = @script.dup
+    invalid_script.name = 'valid name'
+    invalid_script.uuid = uuid
+
+    invalid_script.save!
+
+    invalid_script.update_attribute 'name', ''
+
+    path = Script.where(id: invalid_script.id).export
+
+    invalid_script.destroy!
+
+    assert_no_difference 'Script.count' do
+      scripts = Script.import path
+    end
+
+    assert_equal 1, scripts.count
+    refute scripts.all? &:valid?
+
+    FileUtils.rm path
+  end
+
+  test 'should not import a script with a different version' do
+    begin
+      ENV['TEST_VERSION'] = MonitorApp::Application::VERSION.next
+
+      uuid    = SecureRandom.uuid
+      scripts = []
+
+      invalid_script      = @script.dup
+      invalid_script.name = 'new version script'
+      invalid_script.uuid = uuid
+
+      invalid_script.save!
+
+      def invalid_script.current_version
+        MonitorApp::Application::VERSION.next
+      end
+
+      path = Script.where(id: invalid_script.id).export
+
+      invalid_script.destroy!
+
+      ENV.delete 'TEST_VERSION'
+
+      assert_no_difference 'Script.count' do
+        scripts = Script.import path
+      end
+
+      assert_equal 1, scripts.count
+      refute scripts.all? &:valid?
+      assert (scripts.all? { |script| script.imported_version == MonitorApp::Application::VERSION.next })
+
+      FileUtils.rm path
+    ensure
+      ENV.delete 'TEST_VERSION'
+    end
+  end
+
+  test 'import a script editable' do
+    uuid    = SecureRandom.uuid
+    tag     = tags :editable
+    script  = @script.dup
+    scripts = []
+
+    @script.parameters.each { |p| script.parameters << p.dup }
+    @script.descriptions.each { |d| script.descriptions << d.dup }
+
+    parameters   = script.parameters.map { |p| p.attributes.slice('name', 'value') }
+    descriptions = script.descriptions.map { |d| d.attributes.slice('name', 'value') }
+
+    script.name = 'Should be imported as new'
+
+    script.uuid = uuid
+    script.tags << tag
+
+    script.save!
+
+    Current.account = send 'public.accounts', :default
+    path            = Script.where(id: script.id).export
+
+    script.destroy!
+
+    assert_difference 'Script.count' do
+      scripts = Script.import path
+    end
+
+    script_imported = scripts.first
+
+    assert script_imported.is_editable?
   end
 
   test 'text with db injections' do
@@ -228,10 +438,9 @@ class ScriptTest < ActiveSupport::TestCase
     assert_equal @script.text, @script.text_with_injections
 
     @script.text = "@@ar_connection['#{db.name}']"
-    config       = db.ar_config
-    expected     = "ActiveRecord::Base.establish_connection(#{config})"
+    expected     = /_ar_connection/
 
-    assert_equal expected, @script.text_with_injections
+    assert_match expected, @script.text_with_injections
   end
 
   test 'text with db properties injections' do
@@ -300,5 +509,13 @@ class ScriptTest < ActiveSupport::TestCase
         change: 'Hello 3'
       )
     end
+  end
+
+  test 'correct default version' do
+    assert_equal '1.0.0', @script.default_version
+  end
+
+  test 'correct current version' do
+    assert_equal MonitorApp::Application::VERSION, @script.current_version
   end
 end

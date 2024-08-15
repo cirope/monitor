@@ -10,7 +10,7 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   teardown do
-    PaperTrail.request.whodunnit = nil
+    Current.user = nil
   end
 
   test 'blank attributes' do
@@ -23,7 +23,7 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   test 'validate user belongs to issue' do
-    PaperTrail.request.whodunnit = users(:john).id
+    Current.user = users :john
 
     comment = @comment.dup
     issue   = @comment.issue.dup
@@ -44,7 +44,7 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   test 'send email after create' do
-    PaperTrail.request.whodunnit = users(:franco).id
+    Current.user = users :franco
 
     assert_enqueued_emails 1 do
       @comment.issue.comments.create! text: 'email test'
@@ -52,7 +52,7 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   test 'do not send email after create if notify is false' do
-    PaperTrail.request.whodunnit = users(:franco).id
+    Current.user = users :franco
 
     assert_no_enqueued_emails do
       @comment.issue.comments.create! text: 'email test', notify: false
@@ -63,5 +63,22 @@ class CommentTest < ActiveSupport::TestCase
     assert @comment.owned_by?(@comment.user)
 
     assert !@comment.owned_by?(User.new)
+  end
+
+  test 'destroy' do
+    Current.user = users :franco
+
+    file = Rack::Test::UploadedFile.new(
+      "#{Rails.root}/test/fixtures/files/text.txt", 'text/plain'
+    )
+    comment = @comment.issue.comments.create! text: 'email test', notify: false, attachment: file
+
+    assert_difference 'Comment.count', -1 do
+      assert_difference 'ActiveStorage::Blob.count', -1 do
+        comment.destroy!
+      end
+    end
+  ensure
+    Current.user = nil
   end
 end

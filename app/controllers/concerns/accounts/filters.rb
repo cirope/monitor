@@ -8,7 +8,11 @@ module Accounts::Filters
   end
 
   def accounts
-    Account.filter_by filter_params
+    if current_account.default?
+      Account.filter_by filter_params
+    else
+      Account.where id: current_account.id
+    end
   end
 
   def filter_params
