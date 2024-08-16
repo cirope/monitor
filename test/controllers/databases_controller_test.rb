@@ -36,14 +36,19 @@ class DatabasesControllerTest < ActionController::TestCase
   end
 
   test 'should create database' do
-    assert_difference ['Database.count', 'Property.count'] do
+    username = password = ENV['GH_ACTIONS'] ? 'postgres' : 'monitor'
+
+    assert_difference('Database.count' => 1, 'Property.count' => 4) do
       post :create, params: {
         database: {
-          name:        'MySQL',
-          driver:      'MySQL',
-          description: 'MySQL test',
+          name:        'PostgreSQL Test',
+          driver:      'PostgreSQL Unicode',
+          description: 'PostgreSQL test',
           properties_attributes: [
-            { key: 'Trace', value: 'No' }
+            { key: 'port',     value: '5432'         },
+            { key: 'database', value: 'monitor_test' },
+            { key: 'username', value: username       },
+            { key: 'password', value: password       }
           ]
         }
       }
