@@ -13,15 +13,15 @@ module Databases::Validations
   private
 
     def can_connect?
-      odbc_ini_tmp = read_odbc_ini
+      tmp_config = read_config
 
-      refresh_odbc_ini
+      refresh_config
 
       client = connect
 
       client.run test_query
     rescue
-      write_odbc_ini odbc_ini_tmp
+      write_config tmp_config
 
       errors.add :base, :connection
     ensure
