@@ -20,6 +20,7 @@ module Databases::Odbc
       Database.where.not(id: id).ordered.each do |database|
         file << "#{database.odbc_string}\n"
       end
+
       file << "#{odbc_string}\n" unless destroyed?
     end
   end
