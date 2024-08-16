@@ -7,6 +7,8 @@ module Properties::Encrypt
 
   def password
     ::Security.decrypt value if value.present?
+  rescue
+    value
   end
 
   private
