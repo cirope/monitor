@@ -17,7 +17,7 @@ module Databases::Validations
 
       refresh_odbc_ini
 
-      client = ODBC.connect name, user, password
+      client = connect
 
       client.run test_query
     rescue
@@ -26,6 +26,14 @@ module Databases::Validations
       errors.add :base, :connection
     ensure
       client&.disconnect
+    end
+
+    def connect
+      if driver =~ /freetds/i
+        ODBC.connect name, user, password
+      else
+        ODBC.connect name
+      end
     end
 
     def test_query

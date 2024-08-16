@@ -7,7 +7,9 @@ module Properties::Encrypt
 
   def password
     ::Security.decrypt value if value.present?
-  rescue
+  rescue => ex
+    Rails.logger.error ex
+
     value
   end
 
