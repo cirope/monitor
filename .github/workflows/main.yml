@@ -10,7 +10,7 @@ on:
       - c-*
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22-04
     strategy:
       matrix:
         ruby-version:
