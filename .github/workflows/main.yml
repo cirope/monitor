@@ -10,7 +10,7 @@ on:
       - c-*
 jobs:
   test:
-    runs-on: ubuntu-22-04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         ruby-version:
@@ -63,7 +63,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt -y install slapd ldap-utils unixodbc-dev odbc-postgresql fontconfig libxext6 xfonts-75dpi libxrender1 xfonts-base xfonts-utils libfontenc1 x11-common xfonts-encodings
+          sudo apt -y install slapd ldap-utils unixodbc-dev odbc-postgresql fontconfig libxext6 xfonts-75dpi libxrender1 xfonts-base xfonts-utils libfontenc1 x11-common xfonts-encodings ruby-bcrypt-pbkdf
           curl -sLO https://downloads.rclone.org/rclone-current-linux-amd64.deb
           sudo dpkg -i rclone-current-linux-amd64.deb
           curl -sLO https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.jammy_amd64.deb
