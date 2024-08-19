@@ -77,7 +77,9 @@ group :test do
   gem 'timecop'
 end
 
-# Separate script gem dependencies from application dependencies
-extra_gemfile = File.join File.dirname(__FILE__), 'Gemfile.local'
+unless ENV['GH_ACTIONS']
+  # Separate script gem dependencies from application dependencies
+  extra_gemfile = File.join File.dirname(__FILE__), 'Gemfile.local'
 
-instance_eval File.read(extra_gemfile) if File.readable? extra_gemfile
+  instance_eval File.read(extra_gemfile) if File.readable? extra_gemfile
+end
