@@ -55,6 +55,7 @@ class SessionsControllerTest < ActionController::TestCase
 
   test 'should create a new session via LDAP' do
     @user.update! username: 'admin'
+    @user.taggings.clear
 
     assert_difference '@user.logins.count' do
       post :create, params: { username: @user.username }
@@ -98,6 +99,7 @@ class SessionsControllerTest < ActionController::TestCase
 
   test 'should redirect to saml sessions' do
     Ldap.default.destroy!
+    @user.taggings.clear
 
     assert_no_difference '@user.logins.count' do
       post :create, params: { username: 'franco' }
@@ -108,8 +110,6 @@ class SessionsControllerTest < ActionController::TestCase
   end
 
   test 'should create session with tag recovery' do
-    @user.tags << tags(:recovery)
-
     assert_difference '@user.logins.count' do
       post :create, params: { username: @user.email }
 

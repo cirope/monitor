@@ -128,7 +128,6 @@ GEM
       logger
     faraday-net_http (3.1.1)
       net-http
-    ffi (1.17.0-aarch64-linux-gnu)
     ffi (1.17.0-x86_64-linux-gnu)
     figaro (1.2.0)
       thor (>= 0.14.0, < 2)
@@ -188,7 +187,7 @@ GEM
       nokogiri (~> 1)
       rake
     mini_mime (1.1.5)
-    minitest (5.25.0)
+    minitest (5.25.1)
     minitest-reporters (1.7.1)
       ansi
       builder
@@ -215,8 +214,6 @@ GEM
       net-protocol
     net-ssh (7.2.3)
     nio4r (2.7.3)
-    nokogiri (1.16.7-aarch64-linux)
-      racc (~> 1.4)
     nokogiri (1.16.7-x86_64-linux)
       racc (~> 1.4)
     oauth2 (2.0.9)
@@ -229,7 +226,7 @@ GEM
     paper_trail (15.1.0)
       activerecord (>= 6.1)
       request_store (~> 1.4)
-    parallel (1.26.2)
+    parallel (1.26.3)
     pdf-core (0.10.0)
     pdf-reader (2.12.0)
       Ascii85 (~> 1.0)
@@ -245,7 +242,7 @@ GEM
       ttfunk (~> 1.8)
     prawn-table (0.2.2)
       prawn (>= 1.3.0, < 3.0.0)
-    premailer (1.23.0)
+    premailer (1.24.0)
       addressable
       css_parser (>= 1.12.0)
       htmlentities (>= 4.0.0)
@@ -391,8 +388,7 @@ GEM
     zeitwerk (2.6.17)
 
 PLATFORMS
-  aarch64-linux
-  x86_64-linux
+  x86_64-linux-gnu
 
 DEPENDENCIES
   activerecord-session_store
@@ -459,4 +455,4 @@ DEPENDENCIES
   wicked_pdf
 
 BUNDLED WITH
-   2.4.5
+   2.5.17

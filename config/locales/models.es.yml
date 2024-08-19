@@ -392,7 +392,6 @@ es:
           attributes:
             base:
               connection: 'Error al intentar conectar, por favor verifique los datos'
-              query: 'Error al validar la conexión'
         issue:
           attributes:
             base:
@@ -417,6 +416,8 @@ es:
               globally_taken: 'ya está en uso en otra cuenta'
             base:
               licensed_user_limit: 'Limite de usuarios alcanzado, por favor actualice su licencia.'
+            tags:
+              recovery_blank: 'Debe agregar al menos una etiqueta con la marca de recuperación'
 
   errors:
     messages:

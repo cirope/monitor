@@ -9,6 +9,7 @@ franco:
   password_reset_token: <%= SecureRandom.urlsafe_base64 %>
   password_reset_sent_at: <%= Time.zone.now %>
   role: supervisor
+  data: { origin: 'manual' }
 
 john:
   name: John
@@ -21,6 +22,7 @@ john:
   password_reset_token: <%= SecureRandom.urlsafe_base64 %>
   password_reset_sent_at: <%= Time.zone.now %>
   role: guest
+  data: { origin: 'manual' }
 
 eduardo:
   name: Eduardo
@@ -33,6 +35,7 @@ eduardo:
   password_reset_token: <%= SecureRandom.urlsafe_base64 %>
   password_reset_sent_at: <%= Time.zone.now %>
   role: author
+  data: { origin: 'manual' }
 
 god:
   name: Jesus
@@ -45,3 +48,4 @@ god:
   password_reset_token: <%= SecureRandom.urlsafe_base64 %>
   password_reset_sent_at: <%= Time.zone.now %>
   role: security
+  data: { origin: 'manual' }

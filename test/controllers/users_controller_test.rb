@@ -47,7 +47,7 @@ class UsersControllerTest < ActionController::TestCase
           role_id: roles(:supervisor).id,
           taggings_attributes: [
             {
-              tag_id: tags(:admins).id.to_s
+              tag_id: tags(:recovery).id.to_s
             }
           ]
         }
