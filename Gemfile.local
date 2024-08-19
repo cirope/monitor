@@ -1,8 +1,9 @@
 # gem 'composite_primary_keys', require: false
 # https://github.com/composite-primary-keys/composite_primary_keys/pull/472
-gem 'composite_primary_keys'
 
 unless ENV['GH_ACTIONS']
+  gem 'composite_primary_keys'
+
   # Oracle ActiveRecord adapter
   gem 'ruby-oci8', require: false
   gem 'activerecord-oracle_enhanced-adapter', require: false
