@@ -72,6 +72,7 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby-version }}
+          rubygems: default
           bundler: 2.5.15
           bundler-cache: true
       - name: Migrate database
