@@ -73,6 +73,7 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby-version }}
           bundler: default
+          bundler-cache: true
       - name: Migrate database
         run: bin/rails db:migrate
       - name: Copy application.yml
