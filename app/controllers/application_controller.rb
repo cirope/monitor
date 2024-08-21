@@ -10,7 +10,6 @@ class ApplicationController < ActionController::Base
   include PdfRender
   include SamlConfig
   include StoreLocation
-  include UpdateResource
 
   protect_from_forgery with: :exception
 

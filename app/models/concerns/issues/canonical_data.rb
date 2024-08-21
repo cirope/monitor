@@ -4,7 +4,7 @@ module Issues::CanonicalData
   extend ActiveSupport::Concern
 
   included do
-    serialize :canonical_data, JSON
+    serialize :canonical_data, coder: JSON
 
     before_save :set_canonical_data, if: :data_changed?
   end

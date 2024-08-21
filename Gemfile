@@ -38,10 +38,7 @@ gem 'coderay'
 gem 'mimemagic'
 gem 'jwt'
 gem 'simple_command'
-gem 'matrix'
-gem 'net-smtp', require: false
-gem 'net-pop', require: false
-gem 'net-imap', require: false
+gem 'csv'
 gem 'ruby-saml'
 gem 'oauth2'
 gem 'wicked_pdf'
@@ -50,8 +47,6 @@ gem 'ruby-odbc', require: 'odbc'
 group :development, :production do
   gem 'web-console'
 end
-
-gem 'unicorn'
 
 gem 'capistrano'
 gem 'capistrano-rbenv'
