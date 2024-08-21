@@ -70,7 +70,7 @@ jobs:
           sudo dpkg -i wkhtmltox_0.12.6.1-2.jammy_amd64.deb
           curl -sLO https://download.oracle.com/otn_software/linux/instantclient/2350000/instantclient-basic-linux.x64-23.5.0.24.07.zip
           sudo unzip instantclient-basic-*
-          export LD_LIBRARY_PATH=instantclient_23_5
+          sudo export LD_LIBRARY_PATH=instantclient_23_5
       - name: Install ruby and gems
         uses: ruby/setup-ruby@v1
         with:
