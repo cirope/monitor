@@ -7,7 +7,7 @@ class MembershipsController < ApplicationController
   content_security_policy false
 
   before_action :set_membership, only: [:update]
-  before_action :set_title, except: [:destroy]
+  before_action :set_title
 
   # GET /memberships
   def index
