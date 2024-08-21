@@ -54,12 +54,11 @@ jobs:
           sudo dpkg -i rclone-current-linux-amd64.deb
           curl -sLO https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.jammy_amd64.deb
           sudo dpkg -i wkhtmltox_0.12.6.1-2.jammy_amd64.deb
-      - name: Install ruby and gems
-        uses: ruby/setup-ruby@v1
-        run: |
           curl -sLO https://download.oracle.com/otn_software/linux/instantclient/2350000/instantclient-basic-linux.x64-23.5.0.24.07.zip
           sudo unzip instantclient-basic-*
-          echo "LD_LIBRARY_PATH=instantclient_23_5" >> $GITHUB_ENV
+          echo "LD_LIBRARY_PATH=~/instantclient_23_5" >> $GITHUB_ENV
+      - name: Install ruby and gems
+        uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby-version }}
           rubygems: 3.3.22
@@ -76,4 +75,4 @@ jobs:
       - name: Run tests
         run: bin/rails test
       - name: Run security checks
-        run: bundle exec brakeman
+        runzip instantclient-basic-*un: bundle exec brakeman
