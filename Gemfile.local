@@ -4,7 +4,7 @@
 gem 'composite_primary_keys'
 
 # Oracle ActiveRecord adapter
-gem 'ruby-oci8', '2.2.13', require: false
+gem 'ruby-oci8', require: false
 gem 'activerecord-oracle_enhanced-adapter', require: false
 
 # SQL Server ActiveRecord adapter
