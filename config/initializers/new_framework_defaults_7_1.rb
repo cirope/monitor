@@ -168,7 +168,7 @@
 # behavior would allow assignment but silently not persist changes to the
 # database.
 #++
-Rails.application.config.active_record.raise_on_assign_to_attr_readonly = false
+#Rails.application.config.active_record.raise_on_assign_to_attr_readonly = false
 
 ###
 # Enable validating only parent-related columns for presence when the parent is mandatory.
