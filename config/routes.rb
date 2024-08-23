@@ -61,11 +61,22 @@ Rails.application.routes.draw do
       resources :comments, only: [:create], controller: 'issues/comments'
     end
     resources :reverts, only: [:create], controller: 'rules/reverts'
-    resources :tickets, only: [:index]
+    resources :tickets do
+      resources :comments, only: [:create], controller: 'issues/comments'
+    end
+
     resources :versions, only: [:index, :show], controller: 'rules/versions'
   end
   resources :samls
-  resources :tickets, only: [:index, :destroy]
+
+  resources :tickets do
+    scope module: 'ticket' do
+      resources :comments, except: [:index, :new]
+    end
+    resources :scripts, only: [:new, :create, :show]
+    resources :rules, only: [:new, :create, :show]
+    resources :taggings, only: [:new, :create, :destroy]
+  end
 
   resources :accounts, except: [:destroy] do
     resources :issues, only: [:show]
@@ -73,6 +84,7 @@ Rails.application.routes.draw do
     resources :password_resets, only: [:edit]
     resources :scripts, only: [:show] do
       resources :issues, only: [:index]
+      resources :tickets, only: [:index]
     end
   end
 

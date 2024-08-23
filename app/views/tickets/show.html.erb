@@ -1,0 +1,82 @@
+<div class="card">
+  <div class="card-header">
+    <h5>
+      <%= @issue %>
+      <span class="float-end" data-status>
+        <%= render 'views/view', issue: @issue unless @issue.ticket? %>
+        <%= issue_status @issue %>
+      </span>
+    </h5>
+  </div>
+
+  <div class="card-body">
+    <p class="mb-1">
+      <strong><%= Issue.human_attribute_name 'description' %></strong>:
+      <%= @issue.description %>
+    </p>
+
+    <ul class="list-inline" data-tagging-list>
+      <% @issue.taggings.each do |tagging| %>
+        <%= render template: 'taggings/show', locals: { tagging: tagging } %>
+      <% end %>
+    </ul>
+
+    <% if @issue.can_be_light_edited_by? current_user %>
+      <div data-tagging-new>
+        <p>
+          <%= link_to t('taggings.new.title'), new_issue_tagging_path(@issue), class: 'btn btn-secondary btn-sm', data: { remote: true } %>
+        </p>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<% if @issue.data.present? %>
+  <div class="card mb-3">
+    <div class="card-header">
+      <h5>
+        <%= Issue.human_attribute_name 'data' %>
+        <span class="float-end"><%= link_to_export_data %></span>
+      </h5>
+    </div>
+    <div class="card-body" id="data">
+      <%= render_object @issue, '' %>
+    </div>
+  </div>
+<% end %>
+
+<% if @issue.subscriptions.any? %>
+  <div class="card mb-3">
+    <div class="card-header">
+      <h5>
+        <%= User.model_name.human count: @issue.subscriptions.size %>
+      </h5>
+    </div>
+    <div id="subscriptions" class="card-body">
+      <ul>
+        <% @issue.subscriptions.each do |subscription| %>
+          <li><%= link_to_if current_user.can?(:read, User), subscription.user, subscription.user %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>
+
+<div class="card mb-3">
+  <div class="card-header">
+    <h5>
+      <%= Comment.model_name.human count: 0 %>
+    </h5>
+  </div>
+  <div id="comments" class="card-body">
+    <% @issue.comments.reject(&:new_record?).each do |comment| %>
+      <%= render 'issues/comments/show', comment: comment %>
+    <% end %>
+
+    <%= render template: 'issues/comments/new' %>
+  </div>
+</div>
+
+<%= link_to_edit [:edit, @owner, @issue, context: @context, filter: filter_query_hash] %> |
+<%= link_to_issue_owner @issue %> |
+<%= link_to_index [@owner, :tickets, filter: filter_query_hash] %>

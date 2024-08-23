@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
 module IssuesHelper
-  def issue_types
-    Issue.ticket_types.map { |ot| [ot.constantize.model_name.human(count: 1), ot] }
-  end
-
   def issue_index_path *args
     if @issue&.ticket?
       tickets_path *args

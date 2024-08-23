@@ -14,9 +14,6 @@ es:
       system_monitor:
         one: 'Proceso'
         other: 'Procesos'
-      ticket:
-        one: 'Pedido'
-        other: 'Pedidos'
     attributes:
       system_monitor:
         command: 'Comando'
@@ -142,6 +139,9 @@ es:
       tagging:
         one: 'Etiquetado'
         other: 'Etiquetados'
+      ticket:
+        one: 'Pedido'
+        other: 'Pedidos'
       trigger:
         one: 'Disparador'
         other: 'Disparadores'
@@ -367,6 +367,17 @@ es:
       tagging:
         tag: 'Etiqueta'
         tag_id: 'Etiqueta'
+      ticket:
+        status: 'Estado'
+        description: 'Descripción'
+        data: 'Datos'
+        comments: 'Comentarios'
+        tags: 'Etiquetas'
+        created_at: 'Fecha de caso'
+        state_transitions: 'Transición de estados'
+        title: 'Título'
+        owner: 'Objeto'
+        owner_type: 'Tipo'
       trigger:
         callback: 'Función'
       user:
