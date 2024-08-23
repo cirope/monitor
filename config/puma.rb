@@ -25,6 +25,20 @@ environment ENV.fetch("RAILS_ENV") { "development" }
 #
 # workers ENV.fetch("WEB_CONCURRENCY") { 2 }
 workers 2
+threads 1, 6
+
+app_dir = File.expand_path('../', __FILE__)
+
+# Set up socket location
+bind "unix://run/puma/puma.sock"
+
+# Logging
+stdout_redirect "#{app_dir}/log/puma.stdout.log", "#{app_dir}/log/puma.stderr.log", true
+
+# Set master PID and state locations
+pidfile '/run/puma/puma.pid'
+state_path 'run/puma/puma.state'
+activate_control_app
 
 # Use the `preload_app!` method when specifying a `workers` number.
 # This directive tells Puma to first boot the application and load code
