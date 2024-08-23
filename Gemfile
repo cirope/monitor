@@ -45,6 +45,7 @@ gem 'wicked_pdf'
 gem 'ruby-odbc', require: 'odbc'
 
 group :development, :production do
+  gem 'puma'
   gem 'web-console'
 end
 
@@ -54,7 +55,6 @@ gem 'capistrano-bundler'
 gem 'capistrano-rails'
 
 group :development do
-  gem 'puma'
   gem 'listen'
   gem 'minitest-reporters'
 

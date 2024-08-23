@@ -3,7 +3,6 @@
 set :application, 'edge.greditsoft.com'
 set :user, 'deployer'
 set :repo_url, 'git@github.com:cirope/monitor.git'
-set :branch, 'rails71'
 
 set :format, :pretty
 set :log_level, :info

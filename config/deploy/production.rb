@@ -2,7 +2,7 @@
 
 set :stage, :production
 set :rails_env, 'production'
-set :branch, 'master'
+set :branch, 'rails71'
 
 role :web, %w{deployer@edge.greditsoft.com}
 role :app, %w{deployer@edge.greditsoft.com}
