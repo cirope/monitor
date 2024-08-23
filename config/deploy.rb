@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-set :application, 'demo.greditsoft.com'
+set :application, 'edge.greditsoft.com'
 set :user, 'deployer'
 set :repo_url, 'https://github.com/cirope/monitor.git'
 
@@ -14,7 +14,7 @@ set :linked_files, %w{config/application.yml}
 set :linked_dirs, %w{log storage drives tmp/pids}
 
 set :rbenv_type, :user
-set :rbenv_ruby, '3.1.2'
+set :rbenv_ruby, '3.3.4'
 
 set :keep_releases, 5
 
