@@ -15,7 +15,7 @@ port        ENV.fetch("PORT") { 3000 }
 
 # Specifies the `environment` that Puma will run in.
 #
-environment ENV.fetch("RAILS_ENV") { 'production' }
+environment ENV.fetch("RAILS_ENV") { "development" }
 
 # Specifies the number of `workers` to boot in clustered mode.
 # Workers are forked webserver processes. If using threads and workers together
@@ -24,20 +24,6 @@ environment ENV.fetch("RAILS_ENV") { 'production' }
 # processes).
 #
 # workers ENV.fetch("WEB_CONCURRENCY") { 2 }
-workers 2
-
-app_dir = File.expand_path('../', __FILE__)
-
-# Set up socket location
-bind "unix://#{app_dir}/sockets/puma.sock"
-
-# Logging
-stdout_redirect "#{app_dir}/log/puma.stdout.log", "#{app_dir}/log/puma.stderr.log", true
-
-# Set master PID and state locations
-pidfile '/tmp/puma.pid'
-state_path '/tmp/puma.state'
-activate_control_app
 
 # Use the `preload_app!` method when specifying a `workers` number.
 # This directive tells Puma to first boot the application and load code
@@ -46,7 +32,7 @@ activate_control_app
 # you need to make sure to reconnect any threads in the `on_worker_boot`
 # block.
 #
-preload_app!
+# preload_app!
 
 # If you are preloading your application and using Active Record, it's
 # recommended that you close any connections to the database before workers
@@ -63,9 +49,10 @@ preload_app!
 # or connections that may have been created at application boot, as Ruby
 # cannot share connections between processes.
 #
-on_worker_boot do
-  ActiveRecord::Base.establish_connection if defined?(ActiveRecord)
-end
+# on_worker_boot do
+#   ActiveRecord::Base.establish_connection if defined?(ActiveRecord)
+# end
+#
 
 # Allow puma to be restarted by `rails restart` command.
 plugin :tmp_restart
