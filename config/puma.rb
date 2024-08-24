@@ -35,8 +35,8 @@ bind 'unix:/run/puma/puma.sock'
 stdout_redirect "#{app_dir}/log/puma.stdout.log", "#{app_dir}/log/puma.stderr.log", true
 
 # Set master PID and state locations
-pidfile '/tmp/puma.pid'
-state_path '/tmp/puma.state'
+pidfile '/run/puma/puma.pid'
+state_path '/run/puma/puma.state'
 activate_control_app
 
 # Use the `preload_app!` method when specifying a `workers` number.
