@@ -32,7 +32,7 @@ app_dir = File.expand_path('../..', __FILE__)
 bind 'unix:/run/puma/puma.sock'
 
 # Logging
-stdout_redirect "#{app_dir}/log/puma.stdout.log", "#{app_dir}/log/puma.stderr.log", true
+stdout_redirect "#{app_dir}/log/production.log", "#{app_dir}/log/puma.stderr.log", true
 
 # Set master PID and state locations
 pidfile '/run/puma/puma.pid'
