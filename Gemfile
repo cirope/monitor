@@ -42,7 +42,7 @@ gem 'csv'
 gem 'ruby-saml'
 gem 'oauth2'
 gem 'wicked_pdf'
-gem 'redis', '5.2.0'
+gem 'redis'
 gem 'ruby-odbc', require: 'odbc'
 
 group :development, :production do
