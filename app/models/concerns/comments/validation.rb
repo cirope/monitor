@@ -22,8 +22,8 @@ module Comments::Validation
     def validate_user
       unless issue.ticket?
         allowed = user.supervisor? ||
-          user.manager?    ||
-          user.issues.exists?(issue_id)
+                  user.manager?    ||
+                  user.issues.exists?(issue_id)
 
         errors.add :issue, :invalid unless allowed
       end
