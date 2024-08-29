@@ -45,11 +45,9 @@ class TicketsController < ApplicationController
   end
 
   def destroy
-    owner = @issue.owner
+    @issue.destroy
 
-    @issue.nullify
-
-    redirect_to owner
+    redirect_to tickets_url
   end
 
   private
