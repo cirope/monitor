@@ -10,9 +10,7 @@ class Comment < ApplicationRecord
   has_one_attached :attachment
 
   belongs_to :issue
-  belongs_to :ticket, foreign_key: "issue_id"
   has_many :users, through: :issue
-  has_many :users, through: :ticket
 
   def to_s
     text

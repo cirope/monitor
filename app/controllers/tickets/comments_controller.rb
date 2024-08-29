@@ -2,14 +2,14 @@
 
 class Tickets::CommentsController < Issues::CommentsController
 
-  before_action :set_issue
+  before_action :set_ticket
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
 
   def create
     @comment = current_user.comments.new comment_params.merge issue_id: @issue.id
 
     if @comment.save
-      redirect_to [@owner, @comment.issue]
+      redirect_to [@owner, @issue]
     else
       render template: 'tickets/show', status: :unprocessable_entity
     end
@@ -17,7 +17,7 @@ class Tickets::CommentsController < Issues::CommentsController
 
   private
 
-  def set_issue
+  def set_ticket
     @issue = Ticket.find_by id: params[:ticket_id]
   end
 end
