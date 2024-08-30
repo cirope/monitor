@@ -10,42 +10,42 @@ class TicketsController < ApplicationController
   before_action :set_ticket, only: [:show, :edit, :update, :destroy]
 
   def index
-    @issues = (@owner || Ticket).tickets.ordered.page params[:page]
-    @issues = @issues.filter_by filter_params.except(:user)
+    @tickets = Ticket.tickets.ordered.page params[:page]
+    @tickets = @tickets.filter_by filter_params.except(:user)
   end
 
   def show
-    @comment = @issue.comments.new
+    @comment = @ticket.comments.new
   end
 
   def new
-    @issue = Ticket.new
+    @ticket = Ticket.new
   end
 
   def edit
   end
 
   def create
-    @issue       = Ticket.new ticket_params
-    @issue.owner = @owner if @owner
+    @ticket       = Ticket.new ticket_params
+    @ticket.owner = @owner if @owner
 
-    if @issue.save
-      redirect_to [@owner, @issue, context: @context, filter: params[:filter]&.to_unsafe_h]
+    if @ticket.save
+      redirect_to [@owner, @ticket, context: @context, filter: ticket_filter]
     else
       render 'new', status: :unprocessable_entity
     end
   end
 
   def update
-    if @issue.update ticket_params
-      redirect_to [@owner, @issue, context: @context, filter: params[:filter]&.to_unsafe_h]
+    if @ticket.update ticket_params
+      redirect_to [@owner, @ticket, context: @context, filter: ticket_filter]
     else
       render 'edit', status: :unprocessable_entity
     end
   end
 
   def destroy
-    @issue.destroy
+    @ticket.destroy
 
     redirect_to tickets_url
   end
@@ -53,19 +53,23 @@ class TicketsController < ApplicationController
   private
 
     def set_ticket
-      @issue = Ticket.find_by id: params[:id]
+      @ticket = Ticket.find_by id: params[:id]
     end
 
-  def ticket_params
-    params.require(:ticket).permit *editors_params
-  end
+    def ticket_filter
+      params[:filter]&.to_unsafe_h
+    end
 
-  def editors_params
-    [
-      :status, :title, :description, :owner_type,
-      subscriptions_attributes: [:id, :user_id, :_destroy],
-      comments_attributes: [:id, :text, :attachment],
-      taggings_attributes: [:id, :tag_id, :_destroy]
-    ]
-  end
+    def ticket_params
+      params.require(:ticket).permit *editors_params
+    end
+
+    def editors_params
+      [
+        :status, :title, :description, :owner_type,
+        subscriptions_attributes: [:id, :user_id, :_destroy],
+        comments_attributes: [:id, :text, :attachment],
+        taggings_attributes: [:id, :tag_id, :_destroy]
+      ]
+    end
 end

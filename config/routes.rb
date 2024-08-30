@@ -74,9 +74,9 @@ Rails.application.routes.draw do
       resources :comments, except: [:index, :new]
     end
 
-    resources :scripts, only: [:new, :create, :show]
-    resources :rules, only: [:new, :create, :show]
-    resources :taggings, only: [:new, :create, :destroy]
+    resources :scripts, only: [:new, :show]
+    resources :rules, only: [:new, :show]
+    resources :taggings, only: [:destroy]
   end
 
   resources :accounts, except: [:destroy] do

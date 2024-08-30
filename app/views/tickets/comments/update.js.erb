@@ -3,11 +3,11 @@
 
   <% if @comment.errors.empty? %>
     $container.replaceWith(
-      '<%= j render('show', format: :html, comment: @comment) %>'
+      '<%= j render('issues/comments/show', format: :html, comment: @comment) %>'
     )
   <% else %>
     $container.replaceWith(
-      '<%= j render('form', format: :html) %>'
+      '<%= j render('issues/comments/form', format: :html) %>'
     )
   <% end %>
 }()
