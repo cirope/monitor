@@ -60,6 +60,10 @@ class TicketsController < ApplicationController
 
   private
 
+    def set_locals
+      { issue: @ticket }
+    end
+
     def set_ticket
       @ticket = Ticket.find_by id: params[:id]
     end
@@ -70,10 +74,6 @@ class TicketsController < ApplicationController
 
     def ticket_params
       params.require(:ticket).permit *editors_params
-    end
-
-    def set_locals
-      { issue: @ticket }
     end
 
     def editors_params
