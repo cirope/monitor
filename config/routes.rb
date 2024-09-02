@@ -69,19 +69,19 @@ Rails.application.routes.draw do
   end
   resources :samls
 
+  # Tickets
   resources :tickets do
     scope module: 'tickets' do
       resources :comments, except: [:index, :new]
     end
 
-    resources :scripts, only: [:new, :show]
-    resources :rules, only: [:new, :show]
+    resources :scripts, only: [:new, :create, :show]
+    resources :rules, only: [:new, :create, :show]
     resources :taggings, only: [:destroy]
   end
 
   resources :accounts, except: [:destroy] do
     resources :issues, only: [:show]
-    resources :tickets, only: [:show]
     resources :permalinks, only: [:show]
     resources :password_resets, only: [:edit]
     resources :scripts, only: [:show] do
