@@ -86,7 +86,6 @@ Rails.application.routes.draw do
     resources :password_resets, only: [:edit]
     resources :scripts, only: [:show] do
       resources :issues, only: [:index]
-      resources :tickets, only: [:index]
     end
   end
 
