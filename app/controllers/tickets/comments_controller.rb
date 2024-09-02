@@ -10,6 +10,10 @@ class Tickets::CommentsController < ApplicationController
   before_action :set_ticket
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
 
+  def show
+    render 'issues/comments/show', locals: set_locals
+  end
+
   def edit
     render 'issues/comments/edit', locals: set_locals
   end
