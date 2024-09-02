@@ -16,13 +16,18 @@ class TicketsController < ApplicationController
 
   def show
     @comment = @ticket.comments.new
+
+    render 'issues/show', locals: set_locals
   end
 
   def new
     @ticket = Ticket.new
+
+    render 'issues/new', locals: set_locals
   end
 
   def edit
+    render 'issues/edit', locals: set_locals
   end
 
   def create
@@ -32,7 +37,7 @@ class TicketsController < ApplicationController
     if @ticket.save
       redirect_to [@owner, @ticket, context: @context, filter: ticket_filter]
     else
-      render 'new', status: :unprocessable_entity
+      render 'issues/new', status: :unprocessable_entity, locals: set_locals
     end
   end
 
@@ -40,7 +45,8 @@ class TicketsController < ApplicationController
     if @ticket.update ticket_params
       redirect_to [@owner, @ticket, context: @context, filter: ticket_filter]
     else
-      render 'edit', status: :unprocessable_entity
+
+      render 'issues/edit', status: :unprocessable_entity, locals: set_locals
     end
   end
 
@@ -62,6 +68,10 @@ class TicketsController < ApplicationController
 
     def ticket_params
       params.require(:ticket).permit *editors_params
+    end
+
+    def set_locals
+      { issue: @ticket }
     end
 
     def editors_params

@@ -10,11 +10,8 @@ class Tickets::CommentsController < ApplicationController
   before_action :set_ticket
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
 
-  def show
-  end
-
   def edit
-    @issue = @ticket
+    render 'issues/comments/edit', locals: set_locals
   end
 
   def create
@@ -30,13 +27,13 @@ class Tickets::CommentsController < ApplicationController
   def update
     @comment.update comment_params
 
-    @issue = @ticket
+    render 'issues/comments/update', locals: set_locals
   end
 
   def destroy
     @comment.destroy
 
-    @issue = @ticket
+    render 'issues/comments/destroy', locals: set_locals
   end
 
   private
@@ -47,6 +44,10 @@ class Tickets::CommentsController < ApplicationController
 
     def set_comment
       @comment = current_user.comments.find params[:id]
+    end
+
+    def set_locals
+      { issue: @ticket }
     end
 
     def comment_params
