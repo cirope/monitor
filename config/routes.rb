@@ -77,7 +77,7 @@ Rails.application.routes.draw do
 
     resources :scripts, only: [:new, :create, :show]
     resources :rules, only: [:new, :create, :show]
-    resources :taggings, only: [:destroy]
+    resources :taggings, only: [:new, :create, :destroy]
   end
 
   resources :accounts, except: [:destroy] do
