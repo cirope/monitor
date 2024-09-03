@@ -9,13 +9,14 @@ class Tickets::CommentsController < ApplicationController
 
   before_action :set_ticket
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
+  before_action :set_view_paths, only: [:edit, :show, :update, :destroy]
 
   def show
-    render 'issues/comments/show', locals: { issue: @ticket }
+    render template: 'show', locals: { issue: @ticket }
   end
 
   def edit
-    render 'issues/comments/edit', locals: { issue: @ticket }
+    render template: 'edit', locals: { issue: @ticket }
   end
 
   def create
@@ -31,26 +32,30 @@ class Tickets::CommentsController < ApplicationController
   def update
     @comment.update comment_params
 
-    render 'issues/comments/update', locals: { issue: @ticket }
+    render template: 'update', locals: { issue: @ticket }
   end
 
   def destroy
     @comment.destroy
 
-    render 'issues/comments/destroy', locals: { issue: @ticket }
+    render template: 'destroy', locals: { issue: @ticket }
   end
 
   private
 
-    def set_ticket
-      @ticket = Ticket.find_by id: params[:ticket_id]
+    def comment_params
+      params.require(:comment).permit :text, :attachment
     end
 
     def set_comment
       @comment = current_user.comments.find params[:id]
     end
 
-    def comment_params
-      params.require(:comment).permit :text, :attachment
+    def set_ticket
+      @ticket = Ticket.find_by id: params[:ticket_id]
+    end
+
+    def set_view_paths
+      prepend_view_path 'app/views/issues/comments/'
     end
 end

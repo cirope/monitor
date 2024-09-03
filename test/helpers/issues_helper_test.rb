@@ -231,7 +231,7 @@ class IssuesHelperTest < ActionView::TestCase
       owner_types.first
     ]
 
-    result = ticket_types
+    result = issues_ticket_types
 
     assert_includes result, owner_type
   end

@@ -10,7 +10,7 @@ module Issues::Permissions
   end
 
   def can_be_light_edited_by? user
-    ticket? || (user.supervisor? || user.manager? ||
+    (user.supervisor? || user.manager? ||
       users.include?(user)) && !closed?
   end
 end

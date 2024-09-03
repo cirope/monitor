@@ -68,15 +68,9 @@ class TicketsController < ApplicationController
     end
 
     def ticket_params
-      params.require(:ticket).permit *editors_params
-    end
-
-    def editors_params
-      [
-        :status, :title, :description, :owner_type,
+      params.require(:ticket).permit :status, :title, :description, :owner_type,
         subscriptions_attributes: [:id, :user_id, :_destroy],
-        comments_attributes: [:id, :text, :attachment],
-        taggings_attributes: [:id, :tag_id, :_destroy]
-      ]
+        comments_attributes:      [:id, :text, :attachment],
+        taggings_attributes:      [:id, :tag_id, :_destroy]
     end
 end

@@ -93,6 +93,7 @@ Rails.application.routes.draw do
     scope module: 'issues' do
       resources :comments, except: [:index, :new]
     end
+
     resources :taggings, only: [:new, :create, :destroy]
   end
 

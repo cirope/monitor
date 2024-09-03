@@ -222,7 +222,7 @@ module IssuesHelper
     t "helpers.submit.#{action}", model: model.model_name.human(count: 1)
   end
 
-  def ticket_types
+  def issues_ticket_types
     Ticket.ticket_types.map { |tt| [tt.constantize.model_name.human(count: 1), tt] }
   end
 
