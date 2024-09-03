@@ -6,7 +6,7 @@ class TicketsControllerTest < ActionController::TestCase
   include ActionMailer::TestHelper
 
   setup do
-    @ticket = issues :ticket_script
+    @ticket = tickets :ticket_script
 
     login
   end
