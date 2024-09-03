@@ -7,7 +7,7 @@ module TaggingsHelper
     end
   end
 
-  def issue_or_ticket_tags issue
+  def issue_tag_kind issue
     issue.ticket? ? 'ticket': 'issue'
   end
 end
