@@ -57,9 +57,6 @@ Rails.application.routes.draw do
   resources :pdf_templates
   resources :roles
   resources :rules do
-    resources :issues do
-      resources :comments, only: [:create], controller: 'issues/comments'
-    end
     resources :reverts, only: [:create], controller: 'rules/reverts'
     resources :tickets do
       resources :comments, only: [:create], controller: 'tickets/comments'
@@ -97,7 +94,6 @@ Rails.application.routes.draw do
       resources :comments, except: [:index, :new]
     end
     resources :scripts, only: [:new, :create, :show]
-    resources :rules, only: [:new, :create, :show]
     resources :taggings, only: [:new, :create, :destroy]
   end
 
