@@ -45,7 +45,6 @@ class TicketsController < ApplicationController
     if @ticket.update ticket_params
       redirect_to [@owner, @ticket, context: @context, filter: ticket_filter]
     else
-
       render 'issues/edit', status: :unprocessable_entity, locals: set_locals
     end
   end

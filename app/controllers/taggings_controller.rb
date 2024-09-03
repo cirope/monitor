@@ -5,6 +5,7 @@ class TaggingsController < ApplicationController
   include Authorization
 
   before_action :set_issue
+  before_action :set_ticket
   before_action :set_tagging, only: [:show, :destroy]
   before_action :set_title, except: [:destroy]
 
@@ -24,9 +25,11 @@ class TaggingsController < ApplicationController
   private
 
     def set_issue
-      param_id = params[:ticket_id] ? params[:ticket_id] : params[:issue_id]
+      @issue = issues.find params[:issue_id]
+    end
 
-      @issue = issues.find param_id
+    def set ticket
+      @issue = issues.find params[:ticket_id]
     end
 
     def set_tagging

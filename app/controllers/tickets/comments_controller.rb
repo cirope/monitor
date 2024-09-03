@@ -11,15 +11,15 @@ class Tickets::CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
 
   def show
-    render 'issues/comments/show', locals: set_locals
+    render 'issues/comments/show', locals: { issue: @ticket }
   end
 
   def edit
-    render 'issues/comments/edit', locals: set_locals
+    render 'issues/comments/edit', locals: { issue: @ticket }
   end
 
   def create
-    @comment = current_user.comments.new comment_params.merge issue_id: @ticket.id
+    @comment = current_user.comments.new comment_params.merge issue: @ticket
 
     if @comment.save
       redirect_to [@owner, @ticket]
@@ -31,13 +31,13 @@ class Tickets::CommentsController < ApplicationController
   def update
     @comment.update comment_params
 
-    render 'issues/comments/update', locals: set_locals
+    render 'issues/comments/update', locals: { issue: @ticket }
   end
 
   def destroy
     @comment.destroy
 
-    render 'issues/comments/destroy', locals: set_locals
+    render 'issues/comments/destroy', locals: { issue: @ticket }
   end
 
   private
@@ -48,10 +48,6 @@ class Tickets::CommentsController < ApplicationController
 
     def set_comment
       @comment = current_user.comments.find params[:id]
-    end
-
-    def set_locals
-      { issue: @ticket }
     end
 
     def comment_params
