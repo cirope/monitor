@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class TicketsController < ApplicationController
-  append_view_path('app/views/issues')
+  append_view_path 'app/views/issues'
 
   include Authentication
   include Authorization

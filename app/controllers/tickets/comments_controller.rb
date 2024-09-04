@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Tickets::CommentsController < ApplicationController
-  append_view_path('app/views/issues/comments')
+  append_view_path 'app/views/issues/comments'
 
   include Authentication
   include Authorization
