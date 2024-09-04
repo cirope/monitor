@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class TicketsController < ApplicationController
+  append_view_path('app/views/issues')
+
   include Authentication
   include Authorization
   include Issues::Filters
@@ -17,17 +19,17 @@ class TicketsController < ApplicationController
   def show
     @comment = @ticket.comments.new
 
-    render 'issues/show', locals: { issue: @ticket }
+    render template: 'show', locals: { issue: @ticket }
   end
 
   def new
     @ticket = Ticket.new
 
-    render 'issues/new', locals: { issue: @ticket }
+    render template: 'new', locals: { issue: @ticket }
   end
 
   def edit
-    render 'issues/edit', locals: { issue: @ticket }
+    render template: 'edit', locals: { issue: @ticket }
   end
 
   def create
@@ -37,7 +39,7 @@ class TicketsController < ApplicationController
     if @ticket.save
       redirect_to [@owner, @ticket, context: @context, filter: ticket_filter]
     else
-      render 'issues/new', status: :unprocessable_entity, locals: { issue: @ticket }
+      render template: 'new', status: :unprocessable_entity, locals: { issue: @ticket }
     end
   end
 
@@ -45,7 +47,7 @@ class TicketsController < ApplicationController
     if @ticket.update ticket_params
       redirect_to [@owner, @ticket, context: @context, filter: ticket_filter]
     else
-      render 'issues/edit', status: :unprocessable_entity, locals: { issue: @ticket }
+      render template: 'edit', status: :unprocessable_entity, locals: { issue: @ticket }
     end
   end
 
@@ -68,7 +70,8 @@ class TicketsController < ApplicationController
     end
 
     def ticket_params
-      params.require(:ticket).permit :status, :title, :description, :owner_type,
+      params.require(:ticket).permit :status, :title, :description,
+        :owner_type, :lock_version,
         subscriptions_attributes: [:id, :user_id, :_destroy],
         comments_attributes:      [:id, :text, :attachment],
         taggings_attributes:      [:id, :tag_id, :_destroy]

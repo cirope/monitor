@@ -8,6 +8,6 @@ module TaggingsHelper
   end
 
   def issue_tag_kind issue
-    issue.ticket? ? 'ticket': 'issue'
+    issue&.ticket? ? 'ticket': 'issue'
   end
 end

@@ -25,7 +25,7 @@ class TicketsControllerTest < ActionController::TestCase
     assert_difference 'Ticket.count' do
       post :create, params: {
         ticket: {
-          owner_type: Script,
+          owner_type: Script.name,
           title: 'New Ticket',
           description: 'New Description'
         }

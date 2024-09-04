@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Tickets::CommentsController < ApplicationController
+  append_view_path('app/views/issues/comments')
 
   include Authentication
   include Authorization
@@ -9,7 +10,6 @@ class Tickets::CommentsController < ApplicationController
 
   before_action :set_ticket
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
-  before_action :set_view_paths, only: [:edit, :show, :update, :destroy]
 
   def show
     render template: 'show', locals: { issue: @ticket }
@@ -25,7 +25,7 @@ class Tickets::CommentsController < ApplicationController
     if @comment.save
       redirect_to [@owner, @ticket]
     else
-      render template: 'tickets/show', status: :unprocessable_entity
+      render 'issues/show', status: :unprocessable_entity, locals: { issue: @ticket }
     end
   end
 
@@ -53,9 +53,5 @@ class Tickets::CommentsController < ApplicationController
 
     def set_ticket
       @ticket = Ticket.find_by id: params[:ticket_id]
-    end
-
-    def set_view_paths
-      prepend_view_path 'app/views/issues/comments/'
     end
 end
