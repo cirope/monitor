@@ -71,7 +71,7 @@ private
         Issue.find_each do |issue|
           state_transitions_hash = {}
 
-          issue.versions.find_each do |version|
+          issue.versions.unscope(:order).find_each do |version|
             if version.object_changes.key? 'status'
               date_time_state_transition = DateTime.parse(version.object_changes['updated_at'][1]).to_fs :db
               new_status                 = version.object_changes['status'][1]
