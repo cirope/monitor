@@ -9,6 +9,14 @@ module Databases::PonyConfig
     PYTHON
   end
 
+  def sqlalchemy_config
+    [[user, user].join(':'),[host, port].join(';')
+    #u = [user, encrypt_password].join ','
+    #h = [host, port].join ':'
+
+    #"#{u}"#@#{h}/#{database}"
+  end
+
   def adapter_drivers
     case driver
     when /postgres/i then 'psycopg2'
