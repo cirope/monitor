@@ -28,7 +28,7 @@ module Scripts::PythonInjections
         line
       end
     end
-byebug
+
     lines.join
   end
 
@@ -63,11 +63,9 @@ byebug
         algorithm = cipher[:algorithm] % { key: "'#{db.cipher_key}'.encode()" }
         mode      = cipher[:mode]      % {  iv:  "'#{db.cipher_iv}'.encode()" }
 
-        connection = "sqlalchemy.create_engine(postgresql+2://#{config})"
+        connection = "sqlalchemy.create_engine('postgresql+psycopg2://#{config}')"
 
-        conn =  line.sub SQLALCHEMY_CONNECTION_REGEX, connection
-        byebug
-        conn
+        line.sub SQLALCHEMY_CONNECTION_REGEX, connection
       end
     end
 

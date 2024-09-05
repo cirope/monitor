@@ -9,24 +9,6 @@ module Databases::PonyConfig
     PYTHON
   end
 
-  def sqlalchemy_config
-    [[user, user].join(':'),[host, port].join(';')
-    #u = [user, encrypt_password].join ','
-    #h = [host, port].join ':'
-
-    #"#{u}"#@#{h}/#{database}"
-  end
-
-  def adapter_drivers
-    case driver
-    when /postgres/i then 'psycopg2'
-    when /mysql/i    then 'PyMySQL'
-    when /sqlite/i   then nil
-    else
-      raise "Unsupported adapter for driver #{driver}"
-    end
-  end
-
   private
 
     def provider

@@ -30,7 +30,6 @@ module Scripts::ModePython
         #{python_import_pony       if libs_names.include? 'pony'         }
         #{python_import_pyodbc     if libs_names.include? 'pyodbc'       }
         #{python_import_crypto     if libs_names.include? 'cryptography' }
-        #{python_import_sqlalchemy if libs_names.include? 'sqlachmy'     }
       PYTHON
     end
   end
@@ -156,8 +155,6 @@ module Scripts::ModePython
           end
         elsif (match = line.match(PY_GREDIT_CONNECTION_REGEX))
           libs |= ['pyodbc']
-        elsif (match = line.match(SQLALCHEMY_CONNECTION_REGEX))
-          libs |= ['sqlalchemy', 'urllib.parse']
         end
       end
 
