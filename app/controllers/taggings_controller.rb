@@ -24,9 +24,9 @@ class TaggingsController < ApplicationController
   private
 
     def set_issue
-      param_id = params[:ticket_id] ? params[:ticket_id] : params[:issue_id]
+      id = params[:ticket_id] ? params[:ticket_id] : params[:issue_id]
 
-      @issue = issues.find param_id
+      @issue = issues.find id
     end
 
     def set_tagging

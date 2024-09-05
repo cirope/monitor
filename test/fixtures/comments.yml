@@ -2,3 +2,8 @@ possitive:
   text: What an awesome issue (Wat?)
   user: franco
   issue: ls_on_atahualpa_not_well
+
+new_script:
+  text: New script
+  user: eduardo
+  issue: ticket_script

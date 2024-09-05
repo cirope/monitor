@@ -2,6 +2,7 @@ ticket_script:
   description: Ticket Script
   status: pending
   owner: cd_root (Script)
+  title: ticket_script
 
 ticket_rule:
   description: Ticket Rule
