@@ -69,9 +69,7 @@ class IssuesController < ApplicationController
 
     @issue.destroy
 
-    redirect_to @issue.ticket? ?
-      [@owner, :tickets, filter_params] :
-      script_issues_url(script, filter_params)
+    redirect_to script_issues_url(script, filter_params)
   end
 
   def api_issues

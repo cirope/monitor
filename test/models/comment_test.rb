@@ -81,4 +81,21 @@ class CommentTest < ActiveSupport::TestCase
   ensure
     Current.user = nil
   end
+
+  test 'validate user' do
+    Current.user = users :eduardo
+    issue        = issues :ls_on_atahualpa_not_well
+
+    issue.comments.new text: 'New comment'
+
+    assert_not issue.valid?
+
+    ticket = tickets :ticket_script
+
+    ticket.title = 'New script'
+
+    ticket.comments.new text: 'New comment'
+
+    assert ticket.valid?
+  end
 end
