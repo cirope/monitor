@@ -27,9 +27,9 @@ module Scripts::ModePython
             __import__(library)
 
         #{python_import_libs(libs)}
-        #{python_import_pony       if libs_names.include? 'pony'         }
-        #{python_import_pyodbc     if libs_names.include? 'pyodbc'       }
-        #{python_import_crypto     if libs_names.include? 'cryptography' }
+        #{python_import_pony   if libs_names.include? 'pony'         }
+        #{python_import_pyodbc if libs_names.include? 'pyodbc'       }
+        #{python_import_crypto if libs_names.include? 'cryptography' }
       PYTHON
     end
   end
@@ -120,16 +120,6 @@ module Scripts::ModePython
           config.update(password=_unpad(password).decode())
 
           return config
-      PYTHON
-    end
-
-    def python_import_sqlalchemy
-      <<~PYTHON
-        'import sqlalchemy'
-        'import urllib.parse'
-
-        quoted = urllib.parse.quote_plus()
-
       PYTHON
     end
 

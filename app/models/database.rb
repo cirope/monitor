@@ -2,7 +2,7 @@
 
 class Database < ApplicationRecord
   include Attributes::Strip
-  include Databases::AdaptarDrivers
+  include Databases::AdapterDrivers
   include Databases::OrmConfig
   include Databases::ActiveRecordConfig
   include Databases::PonyConfig
