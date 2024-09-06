@@ -66,8 +66,8 @@ private
   end
 
   def generate_state_transitions
-    unless state_transitions_were_generated?
-      Account.on_each do
+    Account.on_each do
+      unless state_transitions_were_generated?
         Issue.find_each do |issue|
           state_transitions_hash = {}
 
