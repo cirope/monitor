@@ -2,8 +2,8 @@ module Databases::SqlalchemyConfig
   extend ActiveSupport::Concern
 
   def sqlalchemy_config
-    <<~PYTHON
-      dict(provider='#{provider}', host='#{host}', port='#{port}', user='#{user}', password='#{encrypt_password(password)}', database='#{database}')
-    PYTHON
+     <<~PYTHON
+       urllib.parse.quote_plus('DRIVER={FreeTDS};Server=#{host};Database=#{database};UID=#{user};PWD=#{password};Port=#{port}')
+     PYTHON
   end
 end

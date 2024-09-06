@@ -56,6 +56,7 @@ module Scripts::PythonInjections
 
     def inject_sqlalchemy_connection line, connection_name
       db = Database.current.find_by name: connection_name
+
       if db
         config    = db.sqlalchemy_config
         cipher    = GREDIT_CIPHER.values.first
@@ -64,7 +65,7 @@ module Scripts::PythonInjections
         driver    = db.adapter_drivers
         dialect   = db.dialect_for
 
-        connection = "sqlalchemy.create_engine('#{dialect}+#{driver}://?odbc_connect={}'.format(#{config}))"
+        connection = "sqlalchemy.create_engine('mssql+pyodbc://?odbc_connect={}'.format(#{config}))"
 
         line.sub SQLALCHEMY_CONNECTION_REGEX, connection
       end
