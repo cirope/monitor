@@ -17,7 +17,7 @@ module Scripts::Filters
 
   def filter_params
     if params[:filter].present?
-      params.require(:filter).permit :name, :tags
+      params.require(:filter).permit :name, :text, :tags
     else
       {}
     end
