@@ -44,7 +44,7 @@ class Tickets::CommentsControllerTest < ActionController::TestCase
   end
 
   test 'should destroy comment' do
-    assert_difference('Comment.count', -1) do
+    assert_difference 'Comment.count', -1 do
       delete :destroy, params: { ticket_id: @comment.issue_id, id: @comment }, xhr: true, as: :js
     end
 
