@@ -82,7 +82,7 @@ class CommentTest < ActiveSupport::TestCase
     Current.user = nil
   end
 
-  test 'validate_user' do
+  test 'validate user' do
     Current.user = users :eduardo
     issue        = issues :ls_on_atahualpa_not_well
 
