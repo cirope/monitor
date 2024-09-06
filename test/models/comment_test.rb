@@ -86,7 +86,7 @@ class CommentTest < ActiveSupport::TestCase
     Current.user = users :eduardo
     issue        = issues :ls_on_atahualpa_not_well
 
-    issue.comments.new(text: 'New comment')
+    issue.comments.new text: 'New comment'
 
     assert_not issue.valid?
 
