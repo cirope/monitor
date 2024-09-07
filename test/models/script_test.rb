@@ -441,6 +441,13 @@ class ScriptTest < ActiveSupport::TestCase
     skip
   end
 
+  test 'by text' do
+    scripts = Script.by_text 'pwd'
+
+    assert scripts.present?
+    assert scripts.all? { |s| s.text =~ /pwd/ }
+  end
+
   test 'revert to version' do
     @script.update! change: 'Commit 1', text: 'puts "test"'
 

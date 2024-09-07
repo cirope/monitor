@@ -8,7 +8,7 @@ module Issues::Validation
     validates :description, pdf_encoding: true
     validate :requires_comment, if: :status_changed?
     validate :has_final_tag
-    validate :user_can_modify
+    validate :user_can_modify, unless: :ticket?
 
     with_options if: :ticket? do |ticket|
       ticket.validates :title, presence: true

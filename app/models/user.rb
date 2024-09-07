@@ -30,5 +30,6 @@ class User < ApplicationRecord
   has_many :maintainers, dependent: :destroy
   has_many :subscriptions, dependent: :destroy
   has_many :issues, through: :subscriptions
+  has_many :tickets, through: :subscriptions
   has_many :fails, dependent: :destroy
 end

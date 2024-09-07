@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_08_07_152348) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_05_220658) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -467,6 +467,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_07_152348) do
     t.index ["database_id"], name: "index_scripts_on_database_id"
     t.index ["name"], name: "index_scripts_on_name"
     t.index ["status"], name: "index_scripts_on_status", using: :gin
+    t.index ["text"], name: "index_scripts_on_text", opclass: :gin_trgm_ops, using: :gin
     t.index ["uuid"], name: "index_scripts_on_uuid", unique: true
   end
 

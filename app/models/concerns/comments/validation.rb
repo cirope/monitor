@@ -8,7 +8,7 @@ module Comments::Validation
 
     validates :text, :user, presence: true
     validates :text, pdf_encoding: true
-    validate :user_belongs_to_issue?, on: :create
+    validate :validate_user, on: :create
   end
 
   private
@@ -17,11 +17,13 @@ module Comments::Validation
       self.user_id = Current.user.id if Current.user
     end
 
-    def user_belongs_to_issue?
-      allowed = user.supervisor? ||
-                user.manager?    ||
-                user.issues.exists?(issue_id)
+    def validate_user
+      unless issue.ticket?
+        allowed = user.supervisor? ||
+                  user.manager?    ||
+                  user.issues.exists?(issue_id)
 
-      errors.add :issue, :invalid unless allowed
+        errors.add :issue, :invalid unless allowed
+      end
     end
 end
