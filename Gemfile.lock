@@ -259,7 +259,7 @@ GEM
       request_store (~> 1.4)
     parallel (1.26.3)
     pdf-core (0.10.0)
-    pg (1.5.7)
+    pg (1.5.8)
     popper_js (2.11.8)
     prawn (2.5.0)
       matrix (~> 0.4)
@@ -495,4 +495,4 @@ DEPENDENCIES
   wicked_pdf
 
 BUNDLED WITH
-   2.5.17
+   2.5.18
