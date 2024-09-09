@@ -26,7 +26,7 @@ environment ENV.fetch('RAILS_ENV') { 'production' }
 # workers ENV.fetch("WEB_CONCURRENCY") { 2 }
 workers 2
 
-app_dir = File.expand_path('../..', __FILE__)
+app_dir = File.expand_path('../../..', __FILE__)
 
 # Set up socket location
 bind 'unix:/run/puma/puma.sock'
