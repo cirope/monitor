@@ -276,9 +276,9 @@ class IssueTest < ActiveSupport::TestCase
 
     run_to_query = runs :past_ls_on_atahualpa
 
-    from_date = (run_to_query.scheduled_at - 1.minutes).strftime('%d/%m/%Y %k:%M')
+    from_date = (run_to_query.scheduled_at - 1.minutes).strftime('%d/%m/%Y%k:%M')
 
-    to_date   = (run_to_query.scheduled_at + 1.minutes).strftime('%d/%m/%Y %k:%M')
+    to_date   = (run_to_query.scheduled_at + 1.minutes).strftime('%d/%m/%Y%k:%M')
 
     issues = Issue.by_scheduled_at("#{from_date} - #{to_date}")
 
