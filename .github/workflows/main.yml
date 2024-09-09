@@ -3,34 +3,20 @@ on:
   push:
     branches:
       - master
-      - c-*
   pull_request:
     branches:
       - master
-      - c-*
 jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         ruby-version:
-          - 2.7
           - 3.3
-        use_v27:
-          - >-
-            ${{ contains(github.ref_name, 'master')
-            || startsWith(github.ref_name, 'c-')
-            || contains(github.event.pull_request.base.ref, 'master')
-            || startsWith(github.event.pull_request.base.ref, 'c-') }}
         use_v33:
           - >-
             ${{ contains(github.ref_name, 'master')
             || contains(github.event.pull_request.base.ref, 'master') }}
-        exclude:
-          - use_v27: false
-            ruby-version: 2.7
-          - use_v33: false
-            ruby-version: 3.3
     services:
       postgres:
         image: postgres:16
