@@ -19,7 +19,7 @@ jobs:
             || contains(github.event.pull_request.base.ref, 'master') }}
     services:
       postgres:
-        image: postgres:16
+        image: postgres:14
         ports:
           - '5432:5432'
         env:
