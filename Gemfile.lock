@@ -467,7 +467,7 @@ DEPENDENCIES
   ros-apartment-sidekiq
   ruby-ntlm
   ruby-oci8
-  ruby-odbc (< 0.999992)
+  ruby-odbc
   ruby-saml
   rubyzip
   sassc-rails
