@@ -38,8 +38,8 @@
   <%= paginate @users %>
 <% end %>
 
+<%= link_to_new new_user_path, class: 'btn btn-primary' %>
+
 <% if ldap %>
   <%= link_to t('.ldap_import'), new_users_import_path, class: 'btn btn-primary' %>
-<% else %>
-  <%= link_to_new new_user_path, class: 'btn btn-primary' %>
 <% end %>
