@@ -1,4 +1,4 @@
 variable:
-  name: Variable
-  value: Value
+  name: SOME_VARIABLE
+  value: Some value
   script: ls
