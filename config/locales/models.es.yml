@@ -148,6 +148,9 @@ es:
       user:
         one: 'Usuario'
         other: 'Usuarios'
+      variable:
+        one: 'Variable'
+        other: 'Variables'
 
     attributes:
       account:
@@ -383,6 +386,9 @@ es:
       paper_trail/version:
         whodunnit: 'Usuario'
         created_at: 'Modificado el'
+      variable:
+        name: 'Nombre'
+        value: 'Valor'
 
     errors:
       models:

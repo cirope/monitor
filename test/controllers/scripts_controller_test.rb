@@ -103,7 +103,13 @@ class ScriptsControllerTest < ActionController::TestCase
               name: 'Author',
               value: 'Franco Catena'
             }
-          ]
+          ],
+          variables_attributes: [
+            {
+              name: 'Variable',
+              value: 'Value'
+            }
+          ],
         }
       }
     end

@@ -52,9 +52,6 @@ import 'rules'
 import 'servers'
 import 'trix_configuration'
 
-import 'trix'
-import '@rails/actiontext'
-
 import '@rails/actioncable'
 import '@rails/activestorage'
 import 'consumer'
