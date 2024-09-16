@@ -24,7 +24,7 @@ class VariableTest < ActiveSupport::TestCase
   end
 
   test 'attributes format' do
-    @variable.name = 'with ] invalid char =)'
+    @variable.name  = 'with ] invalid char =)'
     @variable.value = 'with ] invalid char =)'
 
     assert @variable.invalid?
