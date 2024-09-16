@@ -8,7 +8,7 @@ class VariableTest < ActiveSupport::TestCase
   end
 
   test 'blank attributes' do
-    @variable.name = ''
+    @variable.name  = ''
     @variable.value = ''
 
     assert @variable.invalid?
