@@ -4,7 +4,7 @@ require 'test_helper'
 
 class VariableTest < ActiveSupport::TestCase
   setup do
-    @variable = variables :ls_dir
+    @variable = variables :variable
   end
 
   test 'blank attributes' do
