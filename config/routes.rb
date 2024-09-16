@@ -134,6 +134,7 @@ Rails.application.routes.draw do
     end
     resources :versions, only: [:index, :show], controller: 'scripts/versions'
     resources :parameters, only: [:show], controller: 'scripts/parameters'
+    resources :variables,  only: [:show], controller: 'scripts/variables'
     resources :executions, except: [:new, :edit] do
       delete :cleanup, on: :collection, as: :cleanup
     end
