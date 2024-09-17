@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_07_152348) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_16_173214) do
   create_schema "shared_extensions"
 
   # These are extensions that must be enabled in order to support this database
@@ -579,6 +579,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_07_152348) do
     t.index ["username"], name: "index_users_on_username"
   end
 
+  create_table "variables", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "value", null: false
+    t.bigint "script_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["script_id"], name: "index_variables_on_script_id"
+  end
+
   create_table "versions", id: :serial, force: :cascade do |t|
     t.string "item_type", null: false
     t.integer "item_id", null: false
@@ -641,6 +650,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_07_152348) do
   add_foreign_key "tags", "tags", column: "parent_id", on_update: :restrict, on_delete: :restrict
   add_foreign_key "triggers", "rules", on_update: :restrict, on_delete: :restrict
   add_foreign_key "users", "roles", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "variables", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "views", "issues", on_update: :restrict, on_delete: :restrict
   add_foreign_key "views", "users", on_update: :restrict, on_delete: :restrict
 end

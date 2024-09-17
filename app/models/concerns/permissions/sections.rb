@@ -6,7 +6,7 @@ module Permissions::Sections
       main: [
         { item: 'Issue',    controllers: ['Board', 'Comment', 'Permalink', 'Tagging', 'Export', 'View'] },
         { item: 'Ticket',   controllers: ['Comment'] },
-        { item: 'Script',   controllers: ['Execution', 'Measure', 'Version', 'Revert', 'Import', 'Export', 'Parameter'] },
+        { item: 'Script',   controllers: ['Execution', 'Measure', 'Version', 'Revert', 'Import', 'Export', 'Parameter', 'Variable'] },
         { item: 'Schedule', controllers: ['Run', 'Job'] },
         { item: 'Rule',     controllers: ['Import', 'Export', 'Version', 'Revert'] },
       ],
