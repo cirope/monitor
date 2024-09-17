@@ -14,9 +14,6 @@ es:
       system_monitor:
         one: 'Proceso'
         other: 'Procesos'
-      ticket:
-        one: 'Pedido'
-        other: 'Pedidos'
     attributes:
       system_monitor:
         command: 'Comando'
@@ -142,12 +139,18 @@ es:
       tagging:
         one: 'Etiquetado'
         other: 'Etiquetados'
+      ticket:
+        one: 'Pedido'
+        other: 'Pedidos'
       trigger:
         one: 'Disparador'
         other: 'Disparadores'
       user:
         one: 'Usuario'
         other: 'Usuarios'
+      variable:
+        one: 'Variable'
+        other: 'Variables'
 
     attributes:
       account:
@@ -367,6 +370,8 @@ es:
       tagging:
         tag: 'Etiqueta'
         tag_id: 'Etiqueta'
+      ticket:
+        <<: issue
       trigger:
         callback: 'Función'
       user:
@@ -381,6 +386,9 @@ es:
       paper_trail/version:
         whodunnit: 'Usuario'
         created_at: 'Modificado el'
+      variable:
+        name: 'Nombre'
+        value: 'Valor'
 
     errors:
       models:

@@ -38,13 +38,21 @@
               }
             %>
           </div>
-          <div class="col-lg-4 pt-4">
-            <p class="text-end mb-0">
-              <%= f.button :submit, t('filters.submit'), class: 'btn-sm btn-secondary' %>
-              <%= link_to t('cancel'), scripts_path, class: 'small' %>
-            </p>
+          <div class="col-lg-4">
+            <%= f.input :text,
+              required: false,
+              input_html: {
+                value: filter_params[:text],
+                class: 'form-control-sm'
+              }
+            %>
           </div>
         </div>
+
+        <p class="text-end mb-0">
+          <%= f.button :submit, t('filters.submit'), class: 'btn-sm btn-secondary' %>
+          <%= link_to t('cancel'), scripts_path, class: 'small' %>
+        </p>
       </fieldset>
     <% end %>
   </div>

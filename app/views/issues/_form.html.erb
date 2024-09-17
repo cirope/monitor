@@ -3,7 +3,7 @@
 
   <div class="form-inputs">
     <% if @issue.ticket? %>
-      <%= f.input :owner_type, collection: issue_types, prompt: true, autofocus: true unless @issue.owner || @owner %>
+      <%= f.input :owner_type, collection: issues_ticket_types, prompt: true, autofocus: true unless @issue.owner || @owner %>
       <%= f.input :title, autofocus: @owner.present? %>
     <% end %>
     <%= f.input :status, collection: status, prompt: false, hint: false, input_html: {

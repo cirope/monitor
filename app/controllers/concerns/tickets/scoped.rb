@@ -8,6 +8,6 @@ module Tickets::Scoped
   private
 
     def set_ticket
-      @ticket = Issue.find_by id: params[:issue_id]
+      @ticket = Ticket.find_by id: params[:ticket_id]
     end
 end

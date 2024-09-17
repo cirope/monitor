@@ -43,6 +43,12 @@ module ScriptsHelper
     @script.descriptions
   end
 
+  def variables
+    @script.variables.new if @script.variables.empty?
+
+    @script.variables
+  end
+
   def disable_edition?
     !@script.is_editable?
   end
@@ -96,9 +102,9 @@ module ScriptsHelper
     end
   end
 
-  def link_to_show_parameter_versions parameter
-    if parameter.versions.count > 1
-      link_to icon('fas', 'history'), [@script, parameter],
+  def link_to_show_versions object
+    if object.versions.count > 1
+      link_to icon('fas', 'history'), [@script, object],
         remote: true, title: t('scripts.show.history')
     end
   end
