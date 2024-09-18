@@ -78,7 +78,8 @@ Rails.application.routes.draw do
   end
 
   resources :accounts, except: [:destroy] do
-    resources :issues, only: [:show]
+    resources :issues,  only: [:show]
+    resources :tickets, only: [:show]
     resources :permalinks, only: [:show]
     resources :password_resets, only: [:edit]
     resources :scripts, only: [:show] do
@@ -134,6 +135,7 @@ Rails.application.routes.draw do
     end
     resources :versions, only: [:index, :show], controller: 'scripts/versions'
     resources :parameters, only: [:show], controller: 'scripts/parameters'
+    resources :variables,  only: [:show], controller: 'scripts/variables'
     resources :executions, except: [:new, :edit] do
       delete :cleanup, on: :collection, as: :cleanup
     end

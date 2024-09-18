@@ -46,7 +46,7 @@ gem 'ruby-saml'
 gem 'oauth2'
 gem 'wicked_pdf'
 gem 'execjs', '< 2.7.0'
-gem 'ruby-odbc', require: 'odbc'
+gem 'ruby-odbc', '< 0.999992', require: 'odbc'
 
 group :development, :production do
   gem 'web-console'

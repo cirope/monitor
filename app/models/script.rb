@@ -29,6 +29,7 @@ class Script < ApplicationRecord
   include Scripts::Scopes
   include Scripts::Status
   include Scripts::Validation
+  include Scripts::Variables
   include Scripts::Versions
   include SearchableByName
   include Taggable

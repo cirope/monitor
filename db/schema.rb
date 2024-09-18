@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_05_220658) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_16_173214) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -467,7 +467,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_05_220658) do
     t.index ["database_id"], name: "index_scripts_on_database_id"
     t.index ["name"], name: "index_scripts_on_name"
     t.index ["status"], name: "index_scripts_on_status", using: :gin
-    t.index ["text"], name: "index_scripts_on_text", opclass: :gin_trgm_ops, using: :gin
     t.index ["uuid"], name: "index_scripts_on_uuid", unique: true
   end
 
@@ -578,6 +577,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_05_220658) do
     t.index ["username"], name: "index_users_on_username"
   end
 
+  create_table "variables", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "value", null: false
+    t.bigint "script_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["script_id"], name: "index_variables_on_script_id"
+  end
+
   create_table "versions", id: :serial, force: :cascade do |t|
     t.string "item_type", null: false
     t.integer "item_id", null: false
@@ -640,6 +648,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_05_220658) do
   add_foreign_key "tags", "tags", column: "parent_id", on_update: :restrict, on_delete: :restrict
   add_foreign_key "triggers", "rules", on_update: :restrict, on_delete: :restrict
   add_foreign_key "users", "roles", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "variables", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "views", "issues", on_update: :restrict, on_delete: :restrict
   add_foreign_key "views", "users", on_update: :restrict, on_delete: :restrict
 end
