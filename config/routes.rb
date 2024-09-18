@@ -78,7 +78,8 @@ Rails.application.routes.draw do
   end
 
   resources :accounts, except: [:destroy] do
-    resources :issues, only: [:show]
+    resources :issues,  only: [:show]
+    resources :tickets, only: [:show]
     resources :permalinks, only: [:show]
     resources :password_resets, only: [:edit]
     resources :scripts, only: [:show] do
