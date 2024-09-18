@@ -14,4 +14,9 @@ Comentario
 <% end %>
 
 Para ver el comentario en su contexto visite el siguiente enlace:
-<%= account_issue_url current_account, @issue %>
+
+<% if @issue.ticket? %>
+  <%= account_ticket_url current_account, @issue %>
+<% else %>
+  <%= account_issue_url current_account, @issue %>
+<% end %>
