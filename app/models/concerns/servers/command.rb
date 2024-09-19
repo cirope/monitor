@@ -94,10 +94,11 @@ module Servers::Command
     end
 
     def remote_exec script_path, _executable = nil
-      status = 1
-      stderr = nil
+      status  = 1
+      stderr  = nil
+      options = ssh_options options: { set_env: variables(_executable) }
 
-      Net::SSH.start hostname, user, ssh_options  do |ssh|
+      Net::SSH.start hostname, user, options do |ssh|
         # script permission
         ssh.exec! "chmod +x #{script_path}"
 
@@ -147,6 +148,6 @@ module Servers::Command
     def variables executable
       executable.script.variables.each_with_object({}) do |variable, hash|
         hash[variable.name] = variable.value
-      end
+      end if executable
     end
 end
