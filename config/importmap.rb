@@ -38,9 +38,6 @@ pin 'filters'
 pin 'console'
 pin 'data_links'
 
-pin 'trix'
-pin '@rails/actiontext', to: 'actiontext.js'
-
 pin 'consumer'
 pin '@rails/actioncable', to: 'actioncable.esm.js'
 pin '@rails/activestorage', to: 'activestorage.esm.js'

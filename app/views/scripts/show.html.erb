@@ -193,9 +193,42 @@
               <tr>
                 <td><%= parameter.name %></td>
                 <td><%= parameter.value %></td>
-                <td><%= link_to_show_parameter_versions parameter %></td>
+                <td><%= link_to_show_versions parameter %></td>
               </tr>
               <tr><td class="p-0 border-0" colspan="3" data-parameter-id="<%= parameter.id %>"></td></tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<% if @script.variables.any? %>
+  <div class="card mb-3">
+    <div class="card-header">
+      <h5>
+        <%= Variable.model_name.human count: @script.variables.size %>
+      </h5>
+    </div>
+    <div id="variables" class="card-body">
+      <div class="table-responsive">
+        <table class="table table-sm">
+          <thead>
+            <tr>
+              <th><%= Variable.human_attribute_name 'name' %></th>
+              <th><%= Variable.human_attribute_name 'value' %></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @script.variables.each do |variable| %>
+              <tr>
+                <td><%= variable.name %></td>
+                <td><%= variable.value %></td>
+                <td><%= link_to_show_versions variable %></td>
+              </tr>
+              <tr><td class="p-0 border-0" colspan="3" data-variable-id="<%= variable.id %>"></td></tr>
             <% end %>
           </tbody>
         </table>

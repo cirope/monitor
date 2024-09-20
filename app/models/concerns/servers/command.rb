@@ -81,7 +81,7 @@ module Servers::Command
       status = 1
       errors = nil
 
-      Open3.popen3 local_command(script_path) do |stdin, stdout, stderr, thread|
+      Open3.popen3 variables(executable), local_command(script_path) do |stdin, stdout, stderr, thread|
         executable.update! pid: thread.pid
 
         stdout.each { |line| yield "#{line.strip}\n" }
@@ -142,5 +142,11 @@ module Servers::Command
       channel.wait
 
       return status, stderr.join
+    end
+
+    def variables executable
+      executable.script.variables.each_with_object({}) do |variable, hash|
+        hash[variable.name] = variable.value
+      end
     end
 end

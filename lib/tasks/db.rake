@@ -199,7 +199,7 @@ private
   def copy_script_and_server_to_runs
     Account.on_each do
       if should_copy_script_and_server_to_runs?
-        Run.find_each do |run|
+        Run.where(script: nil, server: nil).find_each do |run|
           if job = run.job
             run.update_columns(
               script_id: job.script_id,
@@ -212,7 +212,7 @@ private
   end
 
   def should_copy_script_and_server_to_runs?
-    Run.where.not(script: nil, server: nil).empty?
+    Run.where(script: nil, server: nil).any?
   end
 
   def set_user_data
