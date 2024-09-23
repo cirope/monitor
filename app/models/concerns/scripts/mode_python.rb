@@ -83,7 +83,7 @@ module Scripts::ModePython
       name    = version ? "#{library.name}#{version}" : library.name
       cmd     = "'#{opts.join(' ')}', '#{name}'"
 
-      "[sys.executable, '-m', 'pip', 'install', #{cmd}]"
+      "['pip', 'install', #{cmd}]"
     end
 
     def python_import_pony
