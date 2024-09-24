@@ -9,3 +9,5 @@ PONY_CONNECTION_REGEX = /@pony_connection\[['"](\w+)['"]\]/
 PY_GREDIT_CONNECTION_REGEX = /gredit.connect\(?\s*['"](\w+)['"]\s*\)?/
 # Gredit Cipher
 GREDIT_CIPHER = { 'AES-256-CBC': { algorithm: 'algorithms.AES(%{key})', mode: 'modes.CBC(%{iv})' } }
+# Python Version
+LOCAL_PYTHON_VERSION = %x{python3 --version}.split(' ').last.split('.')[..1].join('.') rescue 'undefined'

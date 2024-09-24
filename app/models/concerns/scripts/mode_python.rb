@@ -16,19 +16,11 @@ module Scripts::ModePython
     if libs.present?
       <<~PYTHON
         import subprocess
-        import sys
 
-        def import_or_install(library, command):
-          try:
-            __import__(library)
-          except ImportError:
-            subprocess.check_call(command, stdout=subprocess.DEVNULL)
-          finally:
-            __import__(library)
+        def install_libraries(library, command):
+          subprocess.check_call(command, stdout=subprocess.DEVNULL)
 
-        #{python_import_libs(libs)}
-        #{python_import_pony   if libs_names.include? 'pony'         }
-        #{python_import_pyodbc if libs_names.include? 'pyodbc'       }
+        #{python_install_libraries(libs)}
         #{python_import_crypto if libs_names.include? 'cryptography' }
       PYTHON
     end
@@ -67,12 +59,12 @@ module Scripts::ModePython
 
   private
 
-    def python_import_libs libs
+    def python_install_libraries libs
       StringIO.new.tap do |buffer|
         libs.each do |library|
           cmd = make_command library
 
-          buffer << "import_or_install('#{library}', #{cmd})\n"
+          buffer << "install_libraries('#{library}', #{cmd})\n"
         end
       end.string
     end
@@ -84,14 +76,6 @@ module Scripts::ModePython
       cmd     = "'#{opts.join(' ')}', '#{name}'"
 
       "['pip', 'install', #{cmd}]"
-    end
-
-    def python_import_pony
-      'from pony.orm import *'
-    end
-
-    def python_import_pyodbc
-      'import pyodbc'
     end
 
     def python_import_crypto
@@ -137,14 +121,9 @@ module Scripts::ModePython
       libs = []
 
       text.each_line.map do |line|
-        if (match = line.match(PONY_CONNECTION_REGEX))
-          connection_name = match.captures.first
-
-          if db = Database.current.find_by(name: connection_name)
-            libs |= ['cryptography', 'pony', db.adapter_drivers]
-          end
-        elsif (match = line.match(PY_GREDIT_CONNECTION_REGEX))
-          libs |= ['pyodbc']
+        if line.match(PONY_CONNECTION_REGEX) ||
+           line.match(PY_GREDIT_CONNECTION_REGEX)
+          libs << 'cryptography'
         end
       end
 
