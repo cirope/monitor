@@ -469,6 +469,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_16_173214) do
     t.index ["database_id"], name: "index_scripts_on_database_id"
     t.index ["name"], name: "index_scripts_on_name"
     t.index ["status"], name: "index_scripts_on_status", using: :gin
+    t.index ["text"], name: "index_scripts_on_text", opclass: :gin_trgm_ops, using: :gin
     t.index ["uuid"], name: "index_scripts_on_uuid", unique: true
   end
 

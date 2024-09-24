@@ -78,7 +78,7 @@
   </div>
 <% end %>
 
-<% if @schedule.dispatchers.any? %>
+<% if @schedule.dispatchers.any? &:rule %>
   <div class="card my-3">
     <div class="card-header">
       <h5>
@@ -88,9 +88,11 @@
     <div id="dispatchers" class="card-body">
       <ul>
         <% @schedule.dispatchers.each do |dispatcher| %>
-          <li>
-            <%= link_to_if current_user.can?(:read, 'rules'), dispatcher.rule, dispatcher.rule, class: ('text-striked' unless dispatcher.rule.enabled) %>
-          </li>
+          <% if dispatcher.rule %>
+            <li>
+              <%= link_to_if current_user.can?(:read, 'rules'), dispatcher.rule, dispatcher.rule, class: ('text-striked' unless dispatcher.rule.enabled) %>
+            </li>
+          <% end %>
         <% end %>
       </ul>
     </div>
