@@ -519,6 +519,7 @@ class ScriptTest < ActiveSupport::TestCase
       server: servers(:atahualpa),
       user:   users(:franco)
     )
+
     execution.run
 
     assert Dir.exist?(File.join(venv_path, 'default'))

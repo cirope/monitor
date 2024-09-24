@@ -165,9 +165,7 @@ module Servers::Command
       venv_name = script.variables.detect { |var| var.name =~ /virtual_env/i }&.value || 'default'
       venv_path = "#{Etc.getpwuid.dir}/.venv/#{venv_name}"
 
-      unless Dir.exist?(venv_path)
-        system 'python3', '-m', 'venv', venv_path
-      end
+      system 'python3', '-m', 'venv', venv_path unless Dir.exist?(venv_path)
 
       venv_path
     end
