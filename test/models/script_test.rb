@@ -509,15 +509,15 @@ class ScriptTest < ActiveSupport::TestCase
     venv_path = "#{Etc.getpwuid.dir}/.venv/"
     script    = Script.create!(
       language: 'python',
-      name:   'Hello world',
-      text:   'print("Hello world")',
-      change: 'Initial',
+      name:     'Hello world',
+      text:     'print("Hello world")',
+      change:   'Initial',
       libraries_attributes: [ { name: 'sqlalchemy' } ]
     )
     execution = Execution.create!(
       script: script,
       server: servers(:atahualpa),
-      user: users(:franco)
+      user:   users(:franco)
     )
     execution.run
 
