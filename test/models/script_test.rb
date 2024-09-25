@@ -504,4 +504,25 @@ class ScriptTest < ActiveSupport::TestCase
   test 'correct current version' do
     assert_equal MonitorApp::Application::VERSION, @script.current_version
   end
+
+  test 'should create virtual environment' do
+    venv_path = "#{Etc.getpwuid.dir}/.venv/"
+    script    = Script.create!(
+      language: 'python',
+      name:     'Hello world',
+      text:     'print("Hello world")',
+      change:   'Initial',
+      libraries_attributes: [ { name: 'sqlalchemy' } ]
+    )
+    execution = Execution.create!(
+      script: script,
+      server: servers(:atahualpa),
+      user:   users(:franco)
+    )
+
+    execution.run
+
+    assert Dir.exist?(File.join(venv_path, 'default'))
+    assert FileUtils.rm_rf(venv_path)
+  end
 end
