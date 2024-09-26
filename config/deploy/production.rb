@@ -2,10 +2,10 @@
 
 set :stage, :production
 set :rails_env, 'production'
-set :branch, 'master'
+set :branch, 'c-hullop'
 
-role :web, %w{deployer@demo.greditsoft.com}
-role :app, %w{deployer@demo.greditsoft.com}
-role :db,  %w{deployer@demo.greditsoft.com}
+role :web, %w{deployer@hullop.greditsoft.com}
+role :app, %w{deployer@hullop.greditsoft.com}
+role :db,  %w{deployer@hullop.greditsoft.com}
 
-server 'demo.greditsoft.com', user: 'deployer', roles: %w{web app db}
+server 'hullop.greditsoft.com', user: 'deployer', roles: %w{web app db}
