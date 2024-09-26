@@ -434,7 +434,7 @@ DEPENDENCIES
   prawn
   prawn-table
   premailer-rails
-  rails (< 7.1)
+  rails (~> 7.0)
   request_store
   request_store-sidekiq
   roo
