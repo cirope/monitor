@@ -3,7 +3,7 @@
 <p><strong>Descripción</strong>: <%= @issue.description %></p>
 <p><strong>Corrida</strong>: <%= @issue.run %></p>
 
-<% if @issue.data.present? %>
+<% if @issue.data.present? && !@data_as_csv %>
   <h3><%= Issue.human_attribute_name 'data' %></h3>
 
   <%= render_object_for_email @issue.converted_data %>

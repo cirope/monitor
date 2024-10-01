@@ -38,20 +38,21 @@ class ScheduleTest < ActiveSupport::TestCase
     assert_error @schedule, :end, :invalid_datetime
   end
 
-  test 'start must be on or after now' do
+  test 'start must be on or after 10 minutes from now' do
     format          = I18n.t 'validates_timeliness.error_value_formats.datetime'
-    @schedule.start = 1.minute.ago
+    @schedule.start = 9.minute.from_now
 
     assert @schedule.invalid?
-    assert_error @schedule, :start, :on_or_after, restriction: I18n.l(Time.zone.now, format: format)
+    assert_error @schedule, :start, :on_or_after, restriction: I18n.l(10.minutes.from_now, format: format)
   end
 
-  test 'end must be after start' do
-    format        = I18n.t 'validates_timeliness.error_value_formats.datetime'
-    @schedule.end = @schedule.start - 1.day
+  test 'end must be after start plus interval' do
+    format              = I18n.t 'validates_timeliness.error_value_formats.datetime'
+    start_plus_interval = @schedule.start.advance @schedule.frequency.to_sym => @schedule.interval
+    @schedule.end       = start_plus_interval - 1.minute
 
     assert @schedule.invalid?
-    assert_error @schedule, :end, :after, restriction: I18n.l(@schedule.start, format: format)
+    assert_error @schedule, :end, :after, restriction: I18n.l(start_plus_interval, format: format)
   end
 
   test 'numeric attributes' do
@@ -109,7 +110,7 @@ class ScheduleTest < ActiveSupport::TestCase
       @schedule.update! start: 2.months.from_now
     end
 
-    assert @schedule.runs.pending.all? { |r| r.scheduled_at.to_s(:db) == @schedule.start.to_s(:db) }
+    assert @schedule.runs.pending.all? { |r| r.scheduled_at.to_fs(:db) == @schedule.start.to_fs(:db) }
   end
 
   test 'cancel pending runs' do
@@ -125,7 +126,8 @@ class ScheduleTest < ActiveSupport::TestCase
   end
 
   test 'avoid build next run if schedule ended' do
-    @schedule.update! start: 30.seconds.from_now, end: 1.minute.from_now
+    # This is not a valid state, but it's a safeguard test
+    @schedule.update_columns start: 11.minutes.from_now, end: 12.minutes.from_now
 
     assert_no_difference '@schedule.runs.pending.count'  do
       @schedule.build_next_runs

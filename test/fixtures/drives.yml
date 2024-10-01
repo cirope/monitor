@@ -1,0 +1,17 @@
+drive_config:
+  name: Google Drive
+  provider: drive
+  client_id: client_id
+  client_secret: client_secret
+  identifier: drive_identifier
+  account: default
+  options: { 'root_folder_id': root_folder_id }
+
+onedrive_config:
+  name: OneDrive
+  provider: onedrive
+  client_id: client_id
+  client_secret: client_secret
+  identifier: onedrive_identifier
+  account: default
+  options: { 'tenant_id': tenant_id, 'drive_id': drive_id }

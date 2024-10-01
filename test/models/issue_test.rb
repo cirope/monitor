@@ -48,7 +48,7 @@ class IssueTest < ActiveSupport::TestCase
   test 'requires comment' do
     Current.user = users :eduardo
 
-    Current.user.update! role: 'owner'
+    Current.user.update! role: roles(:owner)
 
     @issue.status = 'taken'
 
@@ -102,7 +102,7 @@ class IssueTest < ActiveSupport::TestCase
     @issue.update! status: 'taken'
 
     Current.user      = users :john
-    Current.user.role = 'owner'
+    Current.user.role = roles :owner
 
     assert_equal %w(taken revision), @issue.next_status
 
@@ -300,6 +300,13 @@ class IssueTest < ActiveSupport::TestCase
     assert_not_nil file_content
   end
 
+  test 'export issue data attachment' do
+    Current.account    = send 'public.accounts', :default
+    export_attachments = @issue.export_attachments
+
+    assert_not_nil export_attachments
+  end
+
   test 'export issue without data' do
     Current.account = send 'public.accounts', :default
 
@@ -319,6 +326,8 @@ class IssueTest < ActiveSupport::TestCase
   end
 
   test 'export grouped data' do
+    issues(:boom_on_atahualpa).delete
+
     Current.account = send 'public.accounts', :default
     path            = Issue.grouped_export
 
@@ -345,7 +354,7 @@ class IssueTest < ActiveSupport::TestCase
 
     csv = CSV.parse csv_report[3..-1], col_sep: ';', force_quotes: true, headers: true
 
-    assert_equal csv.size, Issue.all.count
+    assert_equal csv.size, Issue.issues.count
 
     FileUtils.rm_f path
   end

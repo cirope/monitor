@@ -20,6 +20,7 @@ class Tag < ApplicationRecord
   has_many :users,   through: :taggings, source: :taggable, source_type: 'User'
   has_many :issues,  through: :taggings, source: :taggable, source_type: 'Issue'
   has_many :scripts, through: :taggings, source: :taggable, source_type: 'Script'
+  has_many :tickets, through: :taggings, source: :taggable, source_type: 'Ticket'
 
   def to_s
     name

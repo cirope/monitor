@@ -6,4 +6,8 @@ module TaggingsHelper
       [tag.name, tag.id]
     end
   end
+
+  def issue_tag_kind issue
+    issue&.ticket? ? 'ticket' : 'issue'
+  end
 end

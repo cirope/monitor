@@ -1,0 +1,42 @@
+<div class="card">
+  <div class="card-header">
+    <h5><%= @drive %></h5>
+  </div>
+  <div class="card-body">
+    <p class="mb-1">
+      <strong><%= Drive.human_attribute_name 'name' %></strong>:
+      <%= @drive.name %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Drive.human_attribute_name 'provider' %></strong>:
+      <%= @drive.provider %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Drive.human_attribute_name 'client_id' %></strong>:
+      <%= @drive.client_id %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Drive.human_attribute_name 'client_secret' %></strong>:
+      <%= @drive.client_secret %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Drive.human_attribute_name 'root_folder_id' %></strong>:
+      <%= @drive.root_folder_id %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Drive.human_attribute_name 'identifier' %></strong>:
+      <%= @drive.identifier %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Drive.human_attribute_name 'mount_point' %></strong>:
+      <%= "drives/#{@drive.section}/" %>
+    </p>
+    <p class="mb-1">
+      <strong><%= Drive.human_attribute_name 'drive_auth_url' %></strong>:
+      <%= link_to_provider_auth_url @drive %>
+    </p>
+  </div>
+</div>
+
+<%= link_to_edit [:edit, @drive] %> |
+<%= link_to_index drives_path %>

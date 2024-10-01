@@ -1,14 +1,15 @@
-// 
+//
 // tables.scss
 //
 
 //Table centered (Custom)
 .table-centered {
-    th, td {
+
+    th,
+    td {
         vertical-align: middle !important;
     }
 }
-
 
 // Custom table components (Custom)
 .table {
@@ -18,14 +19,44 @@
             width: 30px;
         }
     }
+
     .action-icon {
-        color: $gray-600;
+        color: var(--#{$prefix}gray-600);
         font-size: 1.2rem;
         display: inline-block;
         padding: 0 3px;
 
         &:hover {
-            color: $gray-700;
+            color: var(--#{$prefix}gray-700);
         }
+    }
+
+    > :not(caption)>*>* {
+        background-color: var(--#{$prefix}table-bg) !important;
+    }
+
+    &.table-bordered {
+        tbody {
+            border-top: $border-width solid;
+            border-top-color: inherit;
+        }
+    }
+}
+
+// Tables fluid
+.table-nowrap {
+
+    th,
+    td {
+        white-space: nowrap;
+    }
+}
+
+
+html[data-theme="dark"] {
+    .table-light {
+        --#{$prefix}table-color: var(--#{$prefix}body-color);
+        --#{$prefix}table-bg: var(--#{$prefix}light);
+        --#{$prefix}table-border-color: #{$table-group-separator-color};
     }
 }

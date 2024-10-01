@@ -1,0 +1,15 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="clearfix">
+      <%= @pdf_template.name %>
+    </h3>
+  </div>
+
+  <div class="card-body">
+    <%= @pdf_template.content %>
+  </div>
+</div>
+
+
+<%= link_to_edit [:edit, @pdf_template] %> |
+<%= link_to_index pdf_templates_path %>

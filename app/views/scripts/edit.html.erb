@@ -1,8 +1,11 @@
 <div class="card">
   <div class="card-header">
-    <h5><%= @title %></h5>
-  </div>
+    <h5>
+      <%= lang_icon @script %> <%= t "scripts.languages.#{@script.language}" %> - <%= @title %>
 
+      <%= render 'tickets/edit_owner' %>
+    </h5>
+  </div>
   <div class="card-body">
     <%= render 'form' %>
   </div>

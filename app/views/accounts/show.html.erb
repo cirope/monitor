@@ -13,6 +13,31 @@
       <strong><%= Account.human_attribute_name 'group_issues_by_schedule' %></strong>:
       <%= t @account.group_issues_by_schedule ? 'yes' : 'no' %>
     </p>
+
+    <p class="mb-1">
+      <strong><%= Account.human_attribute_name 'token_duration' %></strong>:
+      <%= @account.token_interval %> <%= t "accounts.token_frequencies.#{@account.token_frequency}" %>
+    </p>
+
+    <p class="mb-1">
+      <strong><%= Account.human_attribute_name 'style' %></strong>:
+      <%= t "accounts.styles.#{@account.style}" %>
+    </p>
+
+    <p class="mb-1">
+      <strong><%= Account.human_attribute_name 'cleanup_runs_after' %></strong>:
+      <%= @account.cleanup_runs_after %>
+    </p>
+
+    <p class="mb-1">
+      <strong><%= Account.human_attribute_name 'cleanup_executions_after' %></strong>:
+      <%= @account.cleanup_executions_after %>
+    </p>
+
+    <p class="mb-1">
+      <strong><%= Account.human_attribute_name 'rows_per_page' %></strong>:
+      <%= @account.rows_per_page %>
+    </p>
   </div>
 </div>
 

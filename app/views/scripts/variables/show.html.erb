@@ -1,0 +1,30 @@
+<div class="card border border-primary mt-2" id="variable-version-id-<%= @variable.id %>">
+  <div class="card-header bg-light mb-2">
+    <div>
+      <%= t 'scripts.versions.index.title' %>
+
+      <button data-bs-dismiss="alert" data-bs-target="#variable-version-id-<%= @variable.id %>"
+        type="button" class="btn-close float-end"></button>
+    </div>
+  </div>
+  <table class="table table-sm table-hover">
+    <thead>
+      <tr>
+        <th><%= PaperTrail::Version.human_attribute_name 'whodunnit' %></th>
+        <th class="d-none d-md-table-cell"><%= Variable.human_attribute_name 'name' %></th>
+        <th class="d-none d-md-table-cell"><%= Variable.human_attribute_name 'value' %></th>
+        <th><%= PaperTrail::Version.human_attribute_name 'created_at' %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @versions.each do |version| %>
+        <tr>
+          <td><%= version_whodunnit version %></td>
+          <td class="d-none d-md-table-cell"><%= truncate version_change_for(version, 'name') %></td>
+          <td class="d-none d-md-table-cell"><%= truncate version_change_for(version, 'value') %></td>
+          <td><%= l version_change_date_for(version), format: :compact %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

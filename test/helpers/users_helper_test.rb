@@ -18,10 +18,6 @@ class UsersHelperTest < ActionView::TestCase
     assert user_taggings.all?(&:new_record?)
   end
 
-  test 'user actions columns' do
-    assert_kind_of Integer, user_actions_columns
-  end
-
   private
 
     def current_user

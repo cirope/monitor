@@ -3,10 +3,6 @@
 module Scripts::Copy
   extend ActiveSupport::Concern
 
-  included do
-    scope :cores, -> { where core: true }
-  end
-
   def copy_to server
     if server.local?
       path server
@@ -20,31 +16,46 @@ module Scripts::Copy
   end
 
   def extension
-    attachment.attached? ? attachment.filename.extension_with_delimiter : '.rb'
+    attachment.attached? ? attachment.filename.extension_with_delimiter : lang_extension
   end
 
   def body inclusion = false, server = nil
-    body = inclusion ? '' : "#!/usr/bin/env ruby\n\n"
+    body = inclusion ? '' : lang_inclusion
 
-    body += headers(server).to_s unless inclusion
-    body += dependencies.to_s
-    body += variables
+    body += lang_headers(server).to_s unless inclusion
+    body += lang_includes.to_s
+    body += lang_variables
     body += commented_text inclusion
+    body += lang_db_connection.to_s
 
     body
   end
 
   private
 
-    def headers server
+    def lang_headers server
       try "#{language}_headers", server
     end
 
-    def dependencies
-      try "#{language}_dependencies"
+    def lang_libraries
+      try "#{language}_libraries"
     end
 
-    def variables
+    def lang_includes
+      try "#{language}_includes"
+    end
+
+    def lang_extension
+      try("#{language}_extension") || '.rb'
+    end
+
+    def lang_inclusion
+      try("#{language}_inclusion") || "#!/usr/bin/env ruby\n\n"
+    end
+
+    def lang_variables
+      try("#{language}_variables")  ||
+
       StringIO.new.tap do |buffer|
         buffer << as_inner_varialble('parameters', parameters)
         buffer << as_inner_varialble('attributes', descriptions)
@@ -55,11 +66,15 @@ module Scripts::Copy
       send "#{language}_commented_text", inclusion
     end
 
+    def lang_db_connection
+      try "#{language}_db_connection"
+    end
+
     def path server = nil
       if attachment.attached?
         ActiveStorage::Blob.service.path_for attachment.key
       else
-        path = "/tmp/script-#{uuid}.rb"
+        path = "/tmp/script-#{uuid}#{lang_extension}"
 
         File.open(path, 'w') { |file| file << body(false, server) }
 
@@ -89,5 +104,23 @@ module Scripts::Copy
       end
 
       "#{result}\n"
+    end
+
+    def ar_connection database
+      if database
+        <<~RUBY
+          BEGIN {
+            def _ar_connection ar_config, cipher_key, cipher_iv
+              cipher     = OpenSSL::Cipher.new('#{GREDIT_CIPHER.keys.first.to_s}').decrypt
+              cipher.key = cipher_key
+              cipher.iv  = cipher_iv
+              encrypted  = Base64.decode64(ar_config[:password])
+              password   = cipher.update(encrypted) + cipher.final
+
+              ActiveRecord::Base.establish_connection ar_config.merge(password: password)
+            end
+          }
+        RUBY
+      end
     end
 end

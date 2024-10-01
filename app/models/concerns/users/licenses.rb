@@ -4,9 +4,11 @@ module Users::Licenses
   extend ActiveSupport::Concern
 
   included do
+    LICENSED_USERS = ['manager', 'author', 'supervisor']
+
     before_save :check_licensed_user_limit, if: :should_check_licensed_user?
 
-    scope :licensed_user, -> { where(role: ['manager', 'author', 'supervisor']) }
+    scope :licensed_user, -> { joins(:role).where(roles: { type: LICENSED_USERS }) }
   end
 
   private
@@ -26,18 +28,6 @@ module Users::Licenses
     end
 
     def should_check_licensed_user?
-      new_record? || change_to_licensed_user?
-    end
-
-    def change_to_licensed_user?
-      was_not_licensed_user? && going_to_be_a_licensed_user?
-    end
-
-    def was_not_licensed_user?
-      ['manager', 'author', 'supervisor'].exclude? role_was
-    end
-
-    def going_to_be_a_licensed_user?
-      manager? || author? || supervisor?
+      LICENSED_USERS.include? role.type
     end
 end

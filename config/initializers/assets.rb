@@ -14,3 +14,4 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
 # Rails.application.config.assets.precompile += %w( *.png *.svg *.eot *.woff *.woff2 *.ttf )
+Rails.application.config.assets.precompile += %w( bootstrap.min.js popper.js jquery3.min.js jquery_ujs.js jquery-ui/widgets/autocomplete.js )

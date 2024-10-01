@@ -1,21 +1,23 @@
 # frozen_string_literal: true
 
 class Issues::BoardController < ApplicationController
+  include Authentication
+  include Authorization
   include Issues::Filters
 
-  respond_to :html, :js, :csv, :pdf
-
-  before_action :authorize, :not_guest, :not_owner
-  before_action :only_supervisor, only: [:destroy_all]
-  before_action :set_title
-  before_action :set_issue,  only: [:create, :destroy]
+  before_action :set_title, only: [:index]
+  before_action :set_issue, only: [:create, :destroy]
   before_action :set_script, only: [:create, :destroy]
 
   def index
     @issues = issues.order(:created_at).where id: board_session
     @issues = @issues.page params[:page] unless skip_page?
 
-    respond_with @issues
+    respond_to do |format|
+      format.pdf { render_pdf @issues }
+      format.csv { render csv: @issues }
+      format.any :html, :js
+    end
   end
 
   def create
@@ -58,7 +60,7 @@ class Issues::BoardController < ApplicationController
   end
 
   def destroy_all
-    issues.where(id: board_session).destroy_all
+    Issue.cleanup_job board_session
 
     board_session.clear
     board_session_errors.clear

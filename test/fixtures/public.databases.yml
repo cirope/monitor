@@ -2,6 +2,6 @@ _fixture:
   model_class: Database
 postgresql:
   name: PostgreSQL
-  driver: PostgreSQL
+  driver: PostgreSQL Unicode
   description: PostgreSQL test database
   account: default

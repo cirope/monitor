@@ -4,7 +4,7 @@ module CommentsHelper
   def comment_file_identifier form
     object = form.object
 
-    object.attachment.filename.basename if object.attachment.attached?
+    object.attachment.filename.to_s if object.attachment.attached?
   end
 
   def comment_form_options

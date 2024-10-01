@@ -10,12 +10,12 @@ class SchedulesHelperTest < ActionView::TestCase
   test 'schedule jobs' do
     @schedule = schedules :ls_on_atahualpa
 
-    assert_equal @schedule.jobs, jobs
+    assert_equal @schedule.jobs, schedule_jobs
 
     @schedule = Schedule.new
 
-    assert_equal 1, jobs.size
-    assert jobs.all?(&:new_record?)
+    assert_equal 1, schedule_jobs.size
+    assert schedule_jobs.all?(&:new_record?)
   end
 
   test 'schedule dependencies' do
@@ -48,6 +48,14 @@ class SchedulesHelperTest < ActionView::TestCase
     @schedule = schedules :ls_on_atahualpa
 
     assert_match 'test link', link_to_run { 'test link' }
+  end
+
+  test 'link to run job' do
+    job           = jobs :ls_on_atahualpa
+    @schedule     = job.schedule
+    @virtual_path = 'schedules.show'
+
+    assert_match 'circle-play', link_to_run_job(job)
   end
 
   test 'link to cleanup' do

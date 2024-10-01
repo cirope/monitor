@@ -14,10 +14,10 @@
           <li>
             <strong><%= link_to_if user.persisted?, user, user %></strong>
             <% if user.errors.present? %>
-              <span class="badge badge-danger"><%= t '.error' %></span> |
+              <span class="badge bg-danger"><%= t '.error' %></span> |
               <%= user.errors.full_messages.to_sentence %>
             <% else %>
-              <span class="badge badge-success">
+              <span class="badge bg-success">
                 <%= t import[:new] ? '.created' : '.updated' %>
               </span>
             <% end %>

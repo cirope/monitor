@@ -1,0 +1,35 @@
+<% if @roles.empty? %>
+  <%= render 'shared/empty_index', message: t('.empty_html') %>
+<% else %>
+  <div class="card">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th><%= Role.human_attribute_name 'name' %></th>
+          <th><%= Role.human_attribute_name 'type' %></th>
+          <th><%= Role.human_attribute_name 'description' %></th>
+          <th colspan="3">
+            <%= link_to_new new_role_path, class: 'btn btn-secondary btn-sm py-0 mr-n2 float-end' %>
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @roles.each do |role| %>
+          <tr>
+            <td><%= role.name %></td>
+            <td><%= t_role_type role.type %></td>
+            <td><%= role.description %></td>
+            <td class="text-right"><%= link_to_show role %></td>
+            <td class="text-right"><%= link_to_edit [:edit, role] %></td>
+            <td class="text-right"><%= link_to_destroy role %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <%= paginate @roles %>
+<% end %>
+
+<%= link_to_new new_role_path, class: 'btn btn-primary' %>

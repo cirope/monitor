@@ -1,11 +1,12 @@
-// 
+//
 // tabs.scss
 //
 
-.nav-tabs,.nav-pills {
+.nav-tabs,
+.nav-pills {
     > li {
         > a {
-            color: $gray-700;
+            color: var(--#{$prefix}gray-700);
             font-weight: $font-weight-semibold;
         }
     }
@@ -13,8 +14,8 @@
 
 .nav-pills {
     > a {
-        color: $gray-700;
-        font-weight: $font-weight-semibold;   
+        color: var(--#{$prefix}gray-700);
+        font-weight: $font-weight-semibold;
     }
 }
 
@@ -22,15 +23,15 @@
     background-color: $nav-pills-bg;
 }
 
-// 
+//
 // nav-bordered
 //
 
 .nav-tabs.nav-bordered {
-    border-bottom: 2px solid rgba($gray-600, 0.2);
+    border-bottom: 2px solid var(--#{$prefix}gray-300);
 
     .nav-item {
-        margin-bottom: -2px;
+        margin-bottom: -1px;
     }
 
     li {

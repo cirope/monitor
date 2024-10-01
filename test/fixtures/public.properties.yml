@@ -7,11 +7,16 @@ trace:
   database: postgresql
 
 postgresql_user:
-  key: User
-  value: admin
+  key: Username
+  value: <%= ENV['GH_ACTIONS'] ? 'postgres' : 'monitor' %>
   database: postgresql
 
 postgresql_password:
   key: Password
-  value: secret
+  value: <%= ::Security.encrypt(ENV['GH_ACTIONS'] ? 'postgres' : 'monitor') %>
+  database: postgresql
+
+postgresql_database:
+  key: Database
+  value: monitor_test
   database: postgresql
