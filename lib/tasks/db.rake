@@ -6,12 +6,12 @@ namespace :db do
       change_tags_style              # 2019-04-15
       set_issue_data_type            # 2021-05-11
       #generate_state_transitions     # 2021-10-29
-      set_issue_canonical_data       # 2022-02-01
+      #set_issue_canonical_data       # 2022-02-01
       encrypt_property_passwords     # 2022-05-27
       roles_migration                # 2023-01-18
       add_tickets_to_roles           # 2023-04-18
       merge_triggers_on_rules        # 2023-10-18
-      copy_script_and_server_to_runs # 2024-06-10
+      #copy_script_and_server_to_runs # 2024-06-10
       set_user_data                  # 2024-08-07
     end
   end
