@@ -11,12 +11,19 @@ Bundler.require(*Rails.groups)
 module MonitorApp
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 7.0
+    config.load_defaults 7.1
 
-    # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration can go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded after loading
-    # the framework and any gems in your application.
+    # Please, add to the `ignore` list any other `lib` subdirectories that do
+    # not contain `.rb` files, or that should not be reloaded or eager loaded.
+    # Common ones are `templates`, `generators`, or `middleware`, for example.
+    config.autoload_lib ignore: %w(assets capistrano tasks templates)
+
+    # Configuration for the application, engines, and railties goes here.
+    #
+    # These settings can be overridden in specific environments using the files
+    # in config/environments, which are processed later.
+    #
+    # config.eager_load_paths << Rails.root.join("extras")
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake time:zones:all" for a time zone names list. Default is UTC.

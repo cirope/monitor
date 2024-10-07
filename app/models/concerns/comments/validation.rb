@@ -4,8 +4,6 @@ module Comments::Validation
   extend ActiveSupport::Concern
 
   included do
-    attr_readonly :user_id, :issue_id
-
     before_validation :set_user, on: :create
 
     validates :text, :user, presence: true

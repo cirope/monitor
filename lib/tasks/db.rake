@@ -66,14 +66,14 @@ private
   end
 
   def generate_state_transitions
-    unless state_transitions_were_generated?
-      Account.on_each do
+    Account.on_each do
+      unless state_transitions_were_generated?
         Issue.find_each do |issue|
           state_transitions_hash = {}
 
-          issue.versions.find_each do |version|
+          issue.versions.unscope(:order).find_each do |version|
             if version.object_changes.key? 'status'
-              date_time_state_transition = DateTime.parse(version.object_changes['updated_at'][1]).to_s :db
+              date_time_state_transition = DateTime.parse(version.object_changes['updated_at'][1]).to_fs :db
               new_status                 = version.object_changes['status'][1]
 
               unless state_transitions_hash.key?(new_status) && date_time_state_transition < DateTime.parse(state_transitions_hash[new_status])
