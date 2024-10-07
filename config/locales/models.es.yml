@@ -14,9 +14,6 @@ es:
       system_monitor:
         one: 'Proceso'
         other: 'Procesos'
-      ticket:
-        one: 'Pedido'
-        other: 'Pedidos'
     attributes:
       system_monitor:
         command: 'Comando'
@@ -142,12 +139,18 @@ es:
       tagging:
         one: 'Etiquetado'
         other: 'Etiquetados'
+      ticket:
+        one: 'Pedido'
+        other: 'Pedidos'
       trigger:
         one: 'Disparador'
         other: 'Disparadores'
       user:
         one: 'Usuario'
         other: 'Usuarios'
+      variable:
+        one: 'Variable'
+        other: 'Variables'
 
     attributes:
       account:
@@ -363,9 +366,12 @@ es:
         parent: 'Grupo'
         category: 'Es categoría'
         recovery: 'Recuperación'
+        hide: 'Ocultar'
       tagging:
         tag: 'Etiqueta'
         tag_id: 'Etiqueta'
+      ticket:
+        <<: issue
       trigger:
         callback: 'Función'
       user:
@@ -380,6 +386,9 @@ es:
       paper_trail/version:
         whodunnit: 'Usuario'
         created_at: 'Modificado el'
+      variable:
+        name: 'Nombre'
+        value: 'Valor'
 
     errors:
       models:
@@ -387,6 +396,10 @@ es:
           attributes:
             issue:
               invalid: 'no pertenece a su usuario'
+        database:
+          attributes:
+            base:
+              connection: 'Error al intentar conectar, por favor verifique los datos'
         issue:
           attributes:
             base:
@@ -411,6 +424,8 @@ es:
               globally_taken: 'ya está en uso en otra cuenta'
             base:
               licensed_user_limit: 'Limite de usuarios alcanzado, por favor actualice su licencia.'
+            tags:
+              recovery_blank: 'Debe agregar al menos una etiqueta con la marca de recuperación'
 
   errors:
     messages:

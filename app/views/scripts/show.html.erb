@@ -76,10 +76,10 @@
     <div id="runs" class="card-body">
       <dl class="row">
         <% @script.runs.ordered.first(5).each do |run| %>
-          <dt class="col-sm-1">
+          <dt class="col-sm-3 col-md-2 col-lg-3 col-xl-2">
             <%= run_status run.status %>
           </dt>
-          <dd class="ps-3 col-sm-11">
+          <dd class="col-sm-9 col-md-10 col-lg-9 col-xl-10">
             <%= link_to_if current_user.can?(:read, 'schedules'), run, run %>
           </dd>
         <% end %>
@@ -98,10 +98,10 @@
     <div id="executions" class="card-body">
       <dl class="row">
         <% @script.executions.ordered.first(5).each do |execution| %>
-          <dt class="col-sm-1">
+          <dt class="col-sm-3 col-md-2 col-lg-3 col-xl-2">
             <%= execution_status execution.status %>
           </dt>
-          <dd class="ps-3 col-sm-11">
+          <dd class="col-sm-9 col-md-10 col-lg-9 col-xl-10">
             <%= link_to_execution execution %>
           </dd>
         <% end %>
@@ -162,13 +162,22 @@
 <% end %>
 
 <% if @script.tags.any? %>
-  <ul class="list-inline">
-    <% @script.tags.each do |tag| %>
-      <li class="list-inline-item">
-        <span class="badge bg-<%= tag.style %>"><%= tag %></span>
-      </li>
-    <% end %>
-  </ul>
+  <div class="card mb-3">
+    <div class="card-header">
+      <h5>
+        <%= Tag.model_name.human count: @script.tags.size %>
+      </h5>
+    </div>
+    <div id="tags" class="card-body">
+      <ul class="list-inline">
+        <% @script.tags.each do |tag| %>
+          <li class="list-inline-item">
+            <span class="badge bg-<%= tag.style %>"><%= tag %></span>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
 <% end %>
 
 <% if @script.parameters.any? %>
@@ -193,9 +202,42 @@
               <tr>
                 <td><%= parameter.name %></td>
                 <td><%= parameter.value %></td>
-                <td><%= link_to_show_parameter_versions parameter %></td>
+                <td><%= link_to_show_versions parameter %></td>
               </tr>
               <tr><td class="p-0 border-0" colspan="3" data-parameter-id="<%= parameter.id %>"></td></tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<% if @script.variables.any? %>
+  <div class="card mb-3">
+    <div class="card-header">
+      <h5>
+        <%= Variable.model_name.human count: @script.variables.size %>
+      </h5>
+    </div>
+    <div id="variables" class="card-body">
+      <div class="table-responsive">
+        <table class="table table-sm">
+          <thead>
+            <tr>
+              <th><%= Variable.human_attribute_name 'name' %></th>
+              <th><%= Variable.human_attribute_name 'value' %></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @script.variables.each do |variable| %>
+              <tr>
+                <td><%= variable.name %></td>
+                <td><%= variable.value %></td>
+                <td><%= link_to_show_versions variable %></td>
+              </tr>
+              <tr><td class="p-0 border-0" colspan="3" data-variable-id="<%= variable.id %>"></td></tr>
             <% end %>
           </tbody>
         </table>

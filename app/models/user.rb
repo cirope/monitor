@@ -7,10 +7,10 @@ class User < ApplicationRecord
   include Attributes::Strip
   include Attributes::Downcase
   include Users::Authentication
-  include Users::Dashboards
   include Users::Licenses
   include Users::Memberships
   include Users::Notifications
+  include Users::Origin
   include Users::Overrides
   include Users::PasswordReset
   include Users::Permissions
@@ -30,5 +30,6 @@ class User < ApplicationRecord
   has_many :maintainers, dependent: :destroy
   has_many :subscriptions, dependent: :destroy
   has_many :issues, through: :subscriptions
+  has_many :tickets, through: :subscriptions
   has_many :fails, dependent: :destroy
 end

@@ -69,9 +69,7 @@ class IssuesController < ApplicationController
 
     @issue.destroy
 
-    redirect_to @issue.ticket? ?
-      [@owner, :tickets, filter_params] :
-      script_issues_url(script, filter_params)
+    redirect_to script_issues_url(script, filter_params)
   end
 
   def api_issues
@@ -80,7 +78,7 @@ class IssuesController < ApplicationController
     @token = command_token.success? ? command_token.result : command_token.errors
 
     @url = api_v1_script_issues_url params[:script_id],
-                                    host: ENV['APP_HOST'], 
+                                    host: ENV['APP_HOST'],
                                     protocol: ENV['APP_PROTOCOL']
   end
 
@@ -144,24 +142,13 @@ class IssuesController < ApplicationController
     end
 
     def graph_stats
-      case params[:graph]
-      when 'status'
+      if params[:graph] == 'status'
         issues.group(:status).count.inject({}) do |counts, (status, count)|
           counts.merge t("issues.status.#{status}") => count
         end
-      when 'tags'
-        issues_by_tags(false).group("#{Tag.table_name}.name").count
-      when 'final_tags'
-        issues_by_tags(true).group("#{Tag.table_name}.name").count
       else
         issues.group("(#{Issue.table_name}.data ->>1)::json->>-1").count
       end
-    end
-
-    def issues_by_tags final
-      issues.left_joins(:tags).merge(Tag.final final).or(
-        issues.left_joins(:tags).where tags: { id: nil }
-      )
     end
 
     def set_title

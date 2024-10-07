@@ -14,6 +14,7 @@ module Users::Validation
 
     validate :email_is_not_globally_taken,
              :username_is_not_globally_taken
+    validate :user_recovery, if: :validate_recovery?
   end
 
   private
@@ -33,5 +34,15 @@ module Users::Validation
                others.exists?
 
       errors.add :username, :globally_taken if taken
+    end
+
+    def user_recovery
+      user_recovery = taggings.reject(&:marked_for_destruction?).map(&:tag).any? &:recovery?
+
+      errors.add :tags, :recovery_blank unless user_recovery
+    end
+
+    def validate_recovery?
+      (Ldap.default || Saml.default) && manual?
     end
 end

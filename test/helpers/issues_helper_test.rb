@@ -198,29 +198,42 @@ class IssuesHelperTest < ActionView::TestCase
   end
 
   test 'show owner label' do
-    ticket = issues :ticket_script
+    ticket = tickets :ticket_script
     label  = show_owner_label ticket
 
     assert_match ticket.to_s, label
   end
 
   test 'link to issue owner' do
-    ticket = issues :ticket_script
+    ticket = tickets :ticket_script
     link   = link_to_issue_owner ticket
 
-    assert_match issue_script_path(ticket, ticket.owner), link
+    assert_match ticket_script_path(ticket, ticket.owner), link
 
-    ticket = issues :ticket_without_owner
+    ticket = tickets :ticket_without_owner
     link   = link_to_issue_owner ticket
 
-    assert_match new_issue_script_path(ticket), link
+    assert_match new_ticket_script_path(ticket), link
   end
 
   test 'submit issue label' do
-    @issue = issues :ticket_script
+    @issue = tickets :ticket_script
     label  = submit_issue_label
 
     assert_equal I18n.t('helpers.submit.update', model: Ticket.model_name.human(count: 1)), label
+  end
+
+  test 'ticket types' do
+    owner_types = Issue::OWNER_TYPES.select { |k,v| v[:ticket] }.keys.map &:to_s
+
+    owner_type = [
+      owner_types.first.constantize.model_name.human(count: 1),
+      owner_types.first
+    ]
+
+    result = issues_ticket_types
+
+    assert_includes result, owner_type
   end
 
   private

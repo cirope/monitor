@@ -74,7 +74,8 @@ class ScriptsController < ApplicationController
         parameters_attributes: [:id, :name, :value, :_destroy],
         requires_attributes: [:id, :script_id, :_destroy],
         taggings_attributes: [:id, :tag_id, :_destroy],
-        documents_attachments_attributes: [:id, :_destroy]
+        documents_attachments_attributes: [:id, :_destroy],
+        variables_attributes: [:id, :name, :value, :_destroy]
     end
 
     def check_if_can_edit

@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
 module IssuesHelper
-  def issue_types
-    Issue.ticket_types.map { |ot| [ot.constantize.model_name.human(count: 1), ot] }
-  end
-
   def issue_index_path *args
     if @issue&.ticket?
       tickets_path *args
@@ -224,6 +220,10 @@ module IssuesHelper
     model  = @issue.ticket? ? Ticket : Issue
 
     t "helpers.submit.#{action}", model: model.model_name.human(count: 1)
+  end
+
+  def issues_ticket_types
+    Ticket.ticket_types.map { |tt| [tt.constantize.model_name.human(count: 1), tt] }
   end
 
   private

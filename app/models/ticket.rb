@@ -1,3 +1,4 @@
-class Ticket
-  include ActiveModel::Model
+# frozen_string_literal: true
+
+class Ticket < Issue
 end

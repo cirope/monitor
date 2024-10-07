@@ -244,8 +244,6 @@ es:
       total: 'Total'
       add_all: 'Agregar todos al carrito'
       remove_all: 'Eliminar todos del carrito'
-      tags: 'Causa'
-      final_tags: 'Resultado'
       actions: 'Acciones'
       api_issues: 'Enlace para obtener datos'
       download_csv: 'Descargar CSV'
@@ -499,6 +497,7 @@ es:
       require: 'Agregar inclusión'
       tagging: 'Agregar etiqueta'
       parameter: 'Agregar parámetro'
+      variable: 'Agregar variable'
       description: 'Agregar atributo'
     show:
       title: 'Ver guión'
@@ -786,8 +785,6 @@ es:
         script_incorrect: 'El ID del guión debe ser numérico'
         script_not_exist: 'El ID del guión no existe'
         keys:
-          tags: 'Causa'
-          final_tags: 'Resultado'
           category_tags: 'Categoria'
           auditor: 'Auditor'
           audited: 'Auditado'

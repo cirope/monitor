@@ -49,8 +49,6 @@ module Issues::Csv
             Issue.human_attribute_name('description'),
             headers[0...-1],
             Issue.human_attribute_name('status'),
-            I18n.t('issues.index_alt.tags'),
-            I18n.t('issues.index_alt.final_tags'),
             headers.last
           ].compact.flatten
         else
@@ -75,8 +73,6 @@ module Issues::Csv
               issue.description,
               data[0...-1],
               I18n.t("issues.status.#{issue.status}"),
-              issue.tags.reject(&:final?).to_sentence,
-              issue.tags.select(&:final?).to_sentence,
               data.last
             ].compact.flatten
           end
