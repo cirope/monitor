@@ -162,13 +162,22 @@
 <% end %>
 
 <% if @script.tags.any? %>
-  <ul class="list-inline">
-    <% @script.tags.each do |tag| %>
-      <li class="list-inline-item">
-        <span class="badge bg-<%= tag.style %>"><%= tag %></span>
-      </li>
-    <% end %>
-  </ul>
+  <div class="card mb-3">
+    <div class="card-header">
+      <h5>
+        <%= Tag.model_name.human count: @script.tags.size %>
+      </h5>
+    </div>
+    <div id="tags" class="card-body">
+      <ul class="list-inline">
+        <% @script.tags.each do |tag| %>
+          <li class="list-inline-item">
+            <span class="badge bg-<%= tag.style %>"><%= tag %></span>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
 <% end %>
 
 <% if @script.parameters.any? %>

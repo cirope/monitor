@@ -29,12 +29,12 @@ module Taggable
       left_joins(:taggings).where(taggings: { id: nil }).references :taggings
     end
 
+    def hidden
+      joins(:tags).where "#{Tag.table_name}.options @> ?", { hide: true }.to_json
+    end
+
     def not_hidden
-      left_joins(:tags).where(
-        "(#{Tag.table_name}.options->'hide') IS NULL"
-      ).or(
-        where.not("#{Tag.table_name}.options @> ?", { hide: true }.to_json)
-      )
+      where.not id: hidden.select(:id)
     end
   end
 
