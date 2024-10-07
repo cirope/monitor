@@ -34,7 +34,7 @@ module Taggable
     end
 
     def not_hidden
-      where.not id: hidden.ids
+      where.not id: hidden.select(:id)
     end
   end
 
