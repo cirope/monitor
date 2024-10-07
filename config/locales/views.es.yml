@@ -2,6 +2,7 @@ es:
   app_name: 'Gredit'
 
   messages:
+    attached: 'Adjunto'
     confirmation: '¿Está seguro?'
     download: 'Descargar'
     ldap_error: 'El servidor de autenticación no está disponible, intente nuevamente más tarde'
@@ -215,7 +216,7 @@ es:
       empty:
         done: 'Se limpiaron todos los casos del carrito'
       destroy_all:
-        destroyed: 'Se eliminaron todos los casos del carrito'
+        destroyed: 'Se programó la eliminación de los casos'
     comments:
       comment:
         text_placeholder: 'Escriba un comentario'
@@ -243,8 +244,6 @@ es:
       total: 'Total'
       add_all: 'Agregar todos al carrito'
       remove_all: 'Eliminar todos del carrito'
-      tags: 'Causa'
-      final_tags: 'Resultado'
       actions: 'Acciones'
       api_issues: 'Enlace para obtener datos'
       download_csv: 'Descargar CSV'
@@ -328,7 +327,8 @@ es:
 
   outputs:
     show:
-      scripts_with_errors: 'Guiones con errores'
+      scripts_with_errors: 'Errores'
+      scripts_with_warnings: 'Advertencias'
 
   panels:
     edit:
@@ -429,6 +429,7 @@ es:
       trigger: 'Agregar disparador'
     show:
       title: 'Ver regla'
+      history: 'Ver historial de cambios'
       last_output: 'Última salida'
       tickets_list: 'Pedidos'
     exports:
@@ -443,6 +444,16 @@ es:
         title: 'Importar reglas'
         file: 'Archivo'
         submit: 'Importar'
+    reverts:
+      reverted_from: 'Restaurado de "%{title}"'
+      create:
+        reverted: 'Versión restaurada'
+        cannot_be_reverted: 'Hubo un problema al restaurar la versión'
+    versions:
+      index:
+        title: 'Histórico de versiones'
+      show:
+        title: 'Ver versión'
 
   runs:
     index:
@@ -486,6 +497,7 @@ es:
       require: 'Agregar inclusión'
       tagging: 'Agregar etiqueta'
       parameter: 'Agregar parámetro'
+      variable: 'Agregar variable'
       description: 'Agregar atributo'
     show:
       title: 'Ver guión'
@@ -496,6 +508,8 @@ es:
       executions_list: 'Ejecuciones'
       measures_list: 'Métricas'
       tickets_list: 'Pedidos'
+      last_runs: 'Últimas corridas'
+      last_executions: 'Últimas ejecuciones'
     exports:
       create:
         filename: 'guiones.zip'
@@ -505,38 +519,40 @@ es:
       create:
         title: 'Importar guiones'
         scripts_imported: 'Guiones importados correctamente'
-        script_imported: 'Importado'
         no_file: 'Debe proporcionar un archivo'
         fail: 'No se importaron los guiones, revise los errores.'
         no_scripts: 'El archivo no tiene un formato compatible.'
         file_invalid_extension: 'La extensión del archivo no es correcta.'
         internal_format_invalid: 'El archivo no tiene un formato compatible.'
         error: 'Con errores'
+        created: 'Creado'
+        updated: 'Actualizado'
       new:
         title: 'Importar guiones'
       form:
         submit: 'Importar'
         file: 'Archivo'
       default_change: 'Importado el %{date}'
+    languages:
+      ruby: 'Ruby'
+      python: 'Python'
+      sql: 'SQL'
+      shell: 'SHELL'
+
     measures:
       index:
         title: 'Métricas'
         empty_html: 'No hay métricas para este guión'
-    versions:
-      index:
-        title: 'Histórico de versiones'
-        change: 'Cambio'
-        empty_html: 'No hay versiones para este guión'
-        event:
-          create: 'Creación'
-      show:
-        title: 'Ver versión'
-        revert: 'Restaurar versión'
     reverts:
       reverted_from: 'Restaurado de "%{title}"'
       create:
         reverted: 'Versión restaurada'
         cannot_be_reverted: 'Hubo un problema al restaurar la versión'
+    versions:
+      index:
+        title: 'Histórico de versiones'
+      show:
+        title: 'Ver versión'
 
   schedules:
     edit:
@@ -740,6 +756,15 @@ es:
       mark_as_viewed: 'Marcar como visto'
       viewed_at: 'Marcado como visto el %{on}'
 
+  versions:
+    index:
+      change: 'Cambio'
+      empty_html: 'No hay versiones'
+      event:
+        create: 'Creación'
+    show:
+      revert: 'Restaurar versión'
+
   records:
     index:
       title: 'Registros de ingreso'
@@ -760,8 +785,6 @@ es:
         script_incorrect: 'El ID del guión debe ser numérico'
         script_not_exist: 'El ID del guión no existe'
         keys:
-          tags: 'Causa'
-          final_tags: 'Resultado'
           category_tags: 'Categoria'
           auditor: 'Auditor'
           audited: 'Auditado'

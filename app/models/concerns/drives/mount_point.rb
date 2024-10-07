@@ -1,21 +1,20 @@
 module Drives::MountPoint
   extend ActiveSupport::Concern
 
-  included do
-    after_create_commit  :create_mount_point
-    after_destroy_commit :delete_mount_point
-  end
-
   def mount_point
     File.join "#{Rails.root}/drives", section
   end
 
   def mount_drive
-    Open3.popen3 "rclone mount #{section}: #{mount_point}"
+    systemctl_drive 'start'
   end
 
   def umount_drive
-    system "fusermount -uz #{mount_point}" if Dir.exist?(mount_point)
+    systemctl_drive 'stop'
+  end
+
+  def umount_previous_drive
+    systemctl_previous_drive 'stop'
   end
 
   module ClassMethods
@@ -30,13 +29,11 @@ module Drives::MountPoint
 
   private
 
-    def create_mount_point
-      FileUtils.mkdir_p mount_point
+    def systemctl_drive action
+      system 'systemctl', '--user', action, section
     end
 
-    def delete_mount_point
-      umount_drive
-
-      FileUtils.rmdir mount_point if Dir.exist?(mount_point)
+    def systemctl_previous_drive action
+      system 'systemctl', '--user', action, previous_section
     end
 end

@@ -10,7 +10,7 @@ class RunsHelperTest < ActionView::TestCase
   end
 
   test 'run output' do
-    @run = Run.new(output: 'abcd' * 100)
+    @run = Run.new(stdout: 'abcd' * 100)
 
     assert_match '...', run_output
 

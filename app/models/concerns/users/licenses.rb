@@ -8,7 +8,7 @@ module Users::Licenses
 
     before_save :check_licensed_user_limit, if: :should_check_licensed_user?
 
-    scope :licensed_user, -> { joins(:role).where(roles: { type: LICENSED_USERS }) }
+    scope :licensed_user, -> { visible.joins(:role).where(roles: { type: LICENSED_USERS }) }
   end
 
   private

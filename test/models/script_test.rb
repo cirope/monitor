@@ -411,27 +411,6 @@ class ScriptTest < ActiveSupport::TestCase
     assert script_imported.is_editable?
   end
 
-  test 'text with db injections' do
-    db = send 'public.databases', :postgresql
-
-    assert_equal @script.text, @script.text_with_injections
-
-    @script.text = "ODBC.connect('#{db.name}')"
-
-    # Driver no FreeTDS
-    assert_equal @script.text, @script.text_with_injections
-
-    expected = "ODBC.connect('#{db.name}', '#{db.user}', '#{db.password}')\r\n"
-
-    db.update! driver: 'FreeTDS'
-
-    assert_equal expected, @script.text_with_injections
-
-    @script.text = "ODBC.connect('#{db.name}', 'custom_user', 'custom_password')"
-
-    assert_equal @script.text, @script.text_with_injections
-  end
-
   test 'text with ar injections' do
     db = send 'public.databases', :postgresql
 
@@ -460,6 +439,13 @@ class ScriptTest < ActiveSupport::TestCase
 
   test 'by name' do
     skip
+  end
+
+  test 'by text' do
+    scripts = Script.by_text 'pwd'
+
+    assert scripts.present?
+    assert scripts.all? { |s| s.text =~ /pwd/ }
   end
 
   test 'revert to version' do
@@ -517,5 +503,26 @@ class ScriptTest < ActiveSupport::TestCase
 
   test 'correct current version' do
     assert_equal MonitorApp::Application::VERSION, @script.current_version
+  end
+
+  test 'should create virtual environment' do
+    venv_path = "#{Etc.getpwuid.dir}/.venv/"
+    script    = Script.create!(
+      language: 'python',
+      name:     'Hello world',
+      text:     'print("Hello world")',
+      change:   'Initial',
+      libraries_attributes: [ { name: 'sqlalchemy' } ]
+    )
+    execution = Execution.create!(
+      script: script,
+      server: servers(:atahualpa),
+      user:   users(:franco)
+    )
+
+    execution.run
+
+    assert Dir.exist?(File.join(venv_path, 'default'))
+    assert FileUtils.rm_rf(venv_path)
   end
 end

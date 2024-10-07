@@ -34,6 +34,22 @@ class ScriptsControllerTest < ActionController::TestCase
     assert_select '.alert', text: I18n.t('scripts.index.empty_search_html')
   end
 
+  test 'should get filtered index with not hidden' do
+    get :index
+    assert_response :success
+    assert_select 'table tbody tr', count: 5
+
+    tag = Tag.create!(
+      name: 'Hide', kind: 'script', style: 'secondary', options: { hide: true }
+    )
+
+    @script.taggings.create! tag: tag
+
+    get :index
+    assert_response :success
+    assert_select 'table tbody tr', count: 4
+  end
+
   test 'should get new' do
     get :new
     assert_response :success
@@ -87,7 +103,13 @@ class ScriptsControllerTest < ActionController::TestCase
               name: 'Author',
               value: 'Franco Catena'
             }
-          ]
+          ],
+          variables_attributes: [
+            {
+              name: 'Variable',
+              value: 'Value'
+            }
+          ],
         }
       }
     end

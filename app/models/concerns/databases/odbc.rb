@@ -4,7 +4,24 @@ module Databases::Odbc
   extend ActiveSupport::Concern
 
   included do
-    after_save :refresh_odbc_ini
+    after_destroy :refresh_config
+  end
+
+  def read_config
+    File.read config_path
+  end
+
+  def write_config content
+    File.write config_path, content
+  end
+
+  def refresh_config
+    File.open(config_path, 'w') do |file|
+      Database.where.not(id: id).ordered.each do |database|
+        file << "#{database.odbc_string}\n"
+      end
+      file << "#{odbc_string}\n" unless destroyed?
+    end
   end
 
   def odbc_string
@@ -24,11 +41,7 @@ module Databases::Odbc
 
   private
 
-    def refresh_odbc_ini
-      File.open("#{Etc.getpwuid.dir}/.odbc.ini", 'w') do |file|
-        Database.ordered.each do |database|
-          file << "#{database.odbc_string}\n"
-        end
-      end
+    def config_path
+      "#{Etc.getpwuid.dir}/.odbc.ini"
     end
 end

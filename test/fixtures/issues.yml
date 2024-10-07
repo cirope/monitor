@@ -21,18 +21,3 @@ boom_on_atahualpa:
   data_type: object
   options:
   owner: boom_on_atahualpa (Run)
-
-ticket_script:
-  description: Ticket Script
-  status: pending
-  owner: cd_root (Script)
-
-ticket_rule:
-  description: Ticket Rule
-  status: pending
-  owner: cd_email (Rule)
-
-ticket_without_owner:
-  description: Ticket
-  status: pending
-  owner_type: Script

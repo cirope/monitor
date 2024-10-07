@@ -14,9 +14,6 @@ es:
       system_monitor:
         one: 'Proceso'
         other: 'Procesos'
-      ticket:
-        one: 'Pedido'
-        other: 'Pedidos'
     attributes:
       system_monitor:
         command: 'Comando'
@@ -142,12 +139,18 @@ es:
       tagging:
         one: 'Etiquetado'
         other: 'Etiquetados'
+      ticket:
+        one: 'Pedido'
+        other: 'Pedidos'
       trigger:
         one: 'Disparador'
         other: 'Disparadores'
       user:
         one: 'Usuario'
         other: 'Usuarios'
+      variable:
+        one: 'Variable'
+        other: 'Variables'
 
     attributes:
       account:
@@ -159,6 +162,9 @@ es:
         token_duration: 'Duración del token'
         token_interval: 'Intervalo de duración del token'
         token_frequency: 'Frecuencia de duración del token'
+        cleanup_runs_after: 'Eliminar corridas luego de (en días)'
+        cleanup_executions_after: 'Eliminar ejecuciones luego de (en días)'
+        rows_per_page: 'Registros por página'
       comment:
         text: 'Comentario'
         file: 'Adjunto'
@@ -196,8 +202,10 @@ es:
         status: 'Estado'
         started_at: 'Inicio'
         ended_at: 'Fin'
-        output: 'Salida'
+        stdout: 'Salida'
+        stderr: 'Errores'
         server: 'Servidor'
+        raw_stderr: 'Salida de errores'
       fail:
         user: 'Usuario'
         created_at: 'Fecha'
@@ -299,7 +307,8 @@ es:
         scheduled_at: 'Programado para'
         started_at: 'Fecha inicio ejecución'
         ended_at: 'Fecha fin ejecución'
-        output: 'Salida'
+        stdout: 'Salida'
+        stderr: 'Errores'
         data: 'Datos'
       saml:
         provider: 'Proveedor'
@@ -357,9 +366,12 @@ es:
         parent: 'Grupo'
         category: 'Es categoría'
         recovery: 'Recuperación'
+        hide: 'Ocultar'
       tagging:
         tag: 'Etiqueta'
         tag_id: 'Etiqueta'
+      ticket:
+        <<: issue
       trigger:
         callback: 'Función'
       user:
@@ -374,6 +386,9 @@ es:
       paper_trail/version:
         whodunnit: 'Usuario'
         created_at: 'Modificado el'
+      variable:
+        name: 'Nombre'
+        value: 'Valor'
 
     errors:
       models:
@@ -381,6 +396,10 @@ es:
           attributes:
             issue:
               invalid: 'no pertenece a su usuario'
+        database:
+          attributes:
+            base:
+              connection: 'Error al intentar conectar, por favor verifique los datos'
         issue:
           attributes:
             base:
@@ -405,6 +424,8 @@ es:
               globally_taken: 'ya está en uso en otra cuenta'
             base:
               licensed_user_limit: 'Limite de usuarios alcanzado, por favor actualice su licencia.'
+            tags:
+              recovery_blank: 'Debe agregar al menos una etiqueta con la marca de recuperación'
 
   errors:
     messages:

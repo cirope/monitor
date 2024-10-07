@@ -23,7 +23,10 @@ class UserTest < ActiveSupport::TestCase
       username: 'new',
       password: '123',
       password_confirmation: '123',
-      role: roles(:supervisor)
+      role: roles(:supervisor),
+      taggings_attributes: [
+        { tag_id: tags(:recovery).id }
+      ]
     )
 
     assert @user.reload.auth_token.present?
@@ -77,7 +80,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'username globally taken on create' do
-    account = Account.create! name: 'Test', tenant_name: 'test'
+    account = create_account
     role    = @user.role.dup
 
     account.switch do
@@ -93,7 +96,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'username globally taken on update' do
-    account  = Account.create! name: 'Test', tenant_name: 'test'
+    account  = create_account
     user     = account.enroll @user, copy_user: true
     username = users(:eduardo).username
 
@@ -106,7 +109,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'email globally taken' do
-    account = Account.create! name: 'Test', tenant_name: 'test'
+    account = create_account
     user    = account.enroll @user, copy_user: true
     email   = users(:eduardo).email
 
@@ -156,6 +159,7 @@ class UserTest < ActiveSupport::TestCase
 
   test 'auth' do
     @user.update! username: 'admin'
+    @user.taggings.clear
 
     assert @user.auth('admin123') # LDAP
 
@@ -212,7 +216,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'delete only the current membership on hide' do
-    account = Account.create! name: 'Test', tenant_name: 'test'
+    account = create_account
 
     assert_difference '@user.memberships.count' do
       account.enroll @user, copy_user: true
@@ -268,6 +272,7 @@ class UserTest < ActiveSupport::TestCase
       new_licensed_user.lastname        = i.to_s + licensed_user.lastname
       new_licensed_user.role            = licensed_user.role
       new_licensed_user.password        = '123456'
+      new_licensed_user.taggings        = licensed_user.taggings
 
       new_licensed_user.save!
     end
@@ -279,6 +284,7 @@ class UserTest < ActiveSupport::TestCase
     new_licensed_user.lastname        = 'test' + licensed_user.lastname
     new_licensed_user.role            = licensed_user.role
     new_licensed_user.password        = '123456'
+    new_licensed_user.taggings        = licensed_user.taggings
 
     assert_raise { new_licensed_user.save! }
 
@@ -320,5 +326,19 @@ class UserTest < ActiveSupport::TestCase
     assert_enqueued_emails 2 do
       User.notify_recent_issues_all_users 1.hour
     end
+  end
+
+  test 'should reject creation of user without recovery tag' do
+    user = User.create(
+      name:                  'Name',
+      lastname:              'Lastname',
+      email:                 'new@user.com',
+      username:              'new',
+      password:              '123',
+      password_confirmation: '123',
+      role:                  roles(:supervisor)
+    )
+
+    assert_error user, :tags, :recovery_blank
   end
 end

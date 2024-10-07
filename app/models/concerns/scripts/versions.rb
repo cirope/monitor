@@ -20,6 +20,10 @@ module Scripts::Versions
     )
   end
 
+  def version_text_column
+    'text'
+  end
+
   def default_version
     '1.0.0'
   end

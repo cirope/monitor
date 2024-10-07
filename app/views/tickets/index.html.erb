@@ -14,43 +14,43 @@
   </div>
 
   <div class="card-body">
-    <% if @issues.empty? %>
+    <% if @tickets.empty? %>
       <%= render 'shared/empty_index', message: empty_message %>
     <% else %>
       <div class="card">
         <table class="table table-hover">
           <thead>
             <tr>
-              <th class="d-none d-sm-table-cell"><%= Issue.human_attribute_name 'created_at' %></th>
-              <th><%= Issue.human_attribute_name 'owner' %></th>
-              <th><%= Issue.human_attribute_name 'title' %></th>
-              <th class="d-none d-sm-table-cell"><%= Issue.human_attribute_name 'status' %></th>
+              <th class="d-none d-sm-table-cell"><%= Ticket.human_attribute_name 'created_at' %></th>
+              <th><%= Ticket.human_attribute_name 'owner' %></th>
+              <th><%= Ticket.human_attribute_name 'title' %></th>
+              <th class="d-none d-sm-table-cell"><%= Ticket.human_attribute_name 'status' %></th>
               <th class="d-none d-lg-table-cell"><%= Tag.model_name.human count: 0 %></th>
               <th colspan="4"></th>
             </tr>
           </thead>
 
           <tbody>
-            <% @issues.each do |issue| %>
+            <% @tickets.each do |ticket| %>
               <tr>
-                <td class="d-none d-sm-table-cell"><%= l issue.created_at, format: :compact %></td>
-                <td><%= show_owner_label issue %></td>
-                <td><%= truncate issue.title, length: 50 %></td>
-                <td class="d-none d-sm-table-cell"><%= issue_status issue %></td>
-                <td class="d-none d-lg-table-cell"><%= tag_icons issue.tags %></td>
-                <td class="text-end"><%= link_to_issue_owner issue %></td>
-                <td class="text-end"><%= link_to_show [@owner, issue, filter: filter_query_hash] %></td>
-                <td class="text-end"><%= link_to_edit [:edit, @owner, issue, filter: filter_query_hash] %></td>
-                <td class="text-end"><%= link_to_destroy [@owner, issue, filter: filter_query_hash] %></td>
+                <td class="d-none d-sm-table-cell"><%= l ticket.created_at, format: :compact %></td>
+                <td><%= show_owner_label ticket %></td>
+                <td><%= truncate ticket.title, length: 50 %></td>
+                <td class="d-none d-sm-table-cell"><%= issue_status ticket %></td>
+                <td class="d-none d-lg-table-cell"><%= tag_icons ticket.tags %></td>
+                <td class="text-end"><%= link_to_issue_owner ticket %></td>
+                <td class="text-end"><%= link_to_show [@owner, ticket, filter: filter_query_hash] %></td>
+                <td class="text-end"><%= link_to_edit [:edit, @owner, ticket, filter: filter_query_hash] %></td>
+                <td class="text-end"><%= link_to_destroy [@owner, ticket, filter: filter_query_hash] %></td>
               </tr>
             <% end %>
           </tbody>
         </table>
       </div>
 
-      <%= paginate @issues %>
+      <%= paginate @tickets %>
     <% end %>
   </div>
 </div>
 
-<%= link_to_new [:new, @owner, :issue], class: 'btn btn-primary' %>
+<%= link_to_new [:new, @owner, :ticket], class: 'btn btn-primary' %>

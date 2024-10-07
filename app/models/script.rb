@@ -8,6 +8,7 @@ class Script < ApplicationRecord
   include Scripts::Callbacks
   include Scripts::Cleanup
   include Scripts::Copy
+  include Scripts::Cores
   include Scripts::Descriptions
   include Scripts::Destroy
   include Scripts::Export
@@ -26,7 +27,9 @@ class Script < ApplicationRecord
   include Scripts::Permissions
   include Scripts::Requires
   include Scripts::Scopes
+  include Scripts::Status
   include Scripts::Validation
+  include Scripts::Variables
   include Scripts::Versions
   include SearchableByName
   include Taggable
@@ -47,7 +50,7 @@ class Script < ApplicationRecord
   }
 
   has_many :jobs, dependent: :destroy
-  has_many :runs, through: :jobs
+  has_many :runs, dependent: :destroy
   has_many :issues, through: :runs
   has_many :executions, dependent: :destroy
   has_many :execution_measures, through: :executions, class_name: 'Measure', source: :measures

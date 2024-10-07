@@ -1,3 +1,5 @@
+<% @issue ||= issue %>
+
 <div class="card">
   <div class="card-header">
     <h5>
@@ -27,7 +29,7 @@
     <% unless @issue.ticket? %>
       <p class="mb-1">
         <strong><%= Issue.human_attribute_name 'run' %></strong>:
-        <%= link_to_if current_user.author? || current_user.supervisor?, @issue.run, @issue.run %>
+        <%= link_to_if current_user.can?(:read, 'runs'), @issue.run, @issue.run %>
       </p>
     <% end %>
 
@@ -101,7 +103,7 @@
   <% if @permalink.blank? && current_user.can?(:edit, Issue) %>
     <%= link_to_edit [:edit, @issue, context: @context, filter: filter_query_hash] %> |
   <% end %>
-  <% if current_user.owner? %>
+  <% if @issue.script %>
     <%= link_to_index script_issues_path(@issue.script, filter: filter_query_hash) %>
   <% else %>
     <%= link_to_index issue_index_path(filter: filter_query_hash) %>

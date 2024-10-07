@@ -100,11 +100,13 @@ class LdapTest < ActiveSupport::TestCase
 
     assert_not_nil user
     assert user.guest?
+    assert_equal user.data['origin'], 'ldap'
     assert_equal tags(:guest), user.tags.take
 
     user = User.where(email: 'joe@administrators.com').take
 
     assert_not_nil user
+    assert_equal user.data['origin'], 'ldap'
     assert user.owner?
   end
 

@@ -49,4 +49,10 @@ module Sessions
         yield nil
       end
     end
+
+    def set_rows_per_page account
+      rows_per_page = account.rows_per_page || 10
+
+      Kaminari.config.default_per_page = rows_per_page.to_i
+    end
 end

@@ -21,7 +21,7 @@ class MembershipsControllerTest < ActionController::TestCase
   end
 
   test 'should update membership' do
-    account    = Account.create! name: 'Test', tenant_name: 'test'
+    account    = create_account
     membership = account.enroll @membership.user, default: false
 
     patch :update, params: { id: membership }, xhr: true, as: :js

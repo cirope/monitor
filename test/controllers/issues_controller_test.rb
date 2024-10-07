@@ -106,7 +106,7 @@ class IssuesControllerTest < ActionController::TestCase
       issue.update! data: [['Header one', 'Header two'], ['Value 1', 'Value 2']]
     end
 
-    %w(status tags final_tags other).each do |graph|
+    %w(status other).each do |graph|
       get :index, params: { script_id: @issue.script.id, graph: graph }
       assert_response :success
       assert_equal [:graph], @request.variant
@@ -314,7 +314,7 @@ class IssuesControllerTest < ActionController::TestCase
 
     @controller.params = ActionController::Parameters.new({ filter: params_hash })
 
-    assert_equal ActionController::Parameters.new(params_hash).permit(Issues::Filters::PERMITED_FILTER_PARAMS), 
+    assert_equal ActionController::Parameters.new(params_hash).permit(Issues::Filters::PERMITED_FILTER_PARAMS),
                  @controller.send(:filter_params)
   end
 end

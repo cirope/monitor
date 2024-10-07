@@ -72,4 +72,15 @@ module ExecutionsHelper
       icon 'fas', 'eraser'
     end
   end
+
+  def link_to_execution execution
+    label_text = execution.started_at ?
+      I18n.l(execution.started_at, format: :short) : icon('fas', 'clock')
+
+    link_to_if(
+      current_user.can?(:read, 'executions'),
+      label_text,
+      [execution.script, execution]
+    )
+  end
 end

@@ -1,8 +1,7 @@
 # gem 'composite_primary_keys', require: false
 # https://github.com/composite-primary-keys/composite_primary_keys/pull/472
-gem 'ruby-odbc', require: false
 gem 'tiny_tds', '< 2.0.0', require: false
-gem 'activerecord-sqlserver-adapter', require: false
+gem 'activerecord-sqlserver-adapter', '< 7.1',  require: false
 gem 'roo'
 gem 'pdf-reader'
 gem 'caxlsx'
@@ -10,3 +9,4 @@ gem 'roo-xls'
 gem 'dbf'
 gem 'docx'
 gem 'rover-df'
+

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_05_024346) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_16_173214) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -23,7 +23,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_05_024346) do
     t.datetime "updated_at", precision: nil, null: false
     t.jsonb "options"
     t.string "style", default: "default", null: false
-    t.boolean "debug_mode", default: true, null: false
     t.index ["name"], name: "index_accounts_on_name"
     t.index ["tenant_name"], name: "index_accounts_on_tenant_name", unique: true
   end
@@ -157,11 +156,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_05_024346) do
     t.string "status", default: "pending"
     t.datetime "started_at", precision: nil
     t.datetime "ended_at", precision: nil
-    t.text "output"
+    t.text "stdout"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "pid"
+    t.text "stderr"
     t.index ["script_id"], name: "index_executions_on_script_id"
     t.index ["server_id"], name: "index_executions_on_server_id"
     t.index ["started_at"], name: "index_executions_on_started_at"
@@ -194,6 +194,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_05_024346) do
     t.index ["created_at"], name: "index_issues_on_created_at"
     t.index ["data"], name: "index_issues_on_data", using: :gin
     t.index ["description"], name: "index_issues_on_description"
+    t.index ["options"], name: "index_issues_on_options", using: :gin
     t.index ["owner_type", "owner_id"], name: "index_issues_on_owner"
     t.index ["status"], name: "index_issues_on_status"
   end
@@ -390,16 +391,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_05_024346) do
     t.datetime "scheduled_at", precision: nil, null: false
     t.datetime "started_at", precision: nil
     t.datetime "ended_at", precision: nil
-    t.text "output"
+    t.text "stdout"
     t.integer "lock_version", default: 0, null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "job_id"
     t.jsonb "data"
     t.integer "pid"
+    t.text "stderr"
+    t.bigint "script_id"
+    t.bigint "server_id"
     t.index ["data"], name: "index_runs_on_data", using: :gin
     t.index ["job_id"], name: "index_runs_on_job_id"
     t.index ["scheduled_at"], name: "index_runs_on_scheduled_at"
+    t.index ["script_id"], name: "index_runs_on_script_id"
+    t.index ["server_id"], name: "index_runs_on_server_id"
     t.index ["status"], name: "index_runs_on_status"
   end
 
@@ -456,9 +462,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_05_024346) do
     t.string "language", default: "ruby"
     t.bigint "database_id"
     t.string "imported_as"
+    t.jsonb "status"
     t.index ["core"], name: "index_scripts_on_core"
     t.index ["database_id"], name: "index_scripts_on_database_id"
     t.index ["name"], name: "index_scripts_on_name"
+    t.index ["status"], name: "index_scripts_on_status", using: :gin
+    t.index ["text"], name: "index_scripts_on_text", opclass: :gin_trgm_ops, using: :gin
     t.index ["uuid"], name: "index_scripts_on_uuid", unique: true
   end
 
@@ -558,6 +567,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_05_024346) do
     t.boolean "hidden", default: false, null: false
     t.string "saml_request_id"
     t.bigint "role_id"
+    t.jsonb "data"
     t.index ["auth_token"], name: "index_users_on_auth_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["hidden"], name: "index_users_on_hidden"
@@ -566,6 +576,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_05_024346) do
     t.index ["role_id"], name: "index_users_on_role_id"
     t.index ["saml_request_id"], name: "index_users_on_saml_request_id"
     t.index ["username"], name: "index_users_on_username"
+  end
+
+  create_table "variables", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "value", null: false
+    t.bigint "script_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["script_id"], name: "index_variables_on_script_id"
   end
 
   create_table "versions", id: :serial, force: :cascade do |t|
@@ -622,12 +641,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_05_024346) do
   add_foreign_key "requires", "scripts", column: "caller_id", on_update: :restrict, on_delete: :restrict
   add_foreign_key "requires", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "runs", "jobs", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "runs", "scripts", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "runs", "servers", on_update: :restrict, on_delete: :restrict
   add_foreign_key "subscriptions", "issues", on_update: :restrict, on_delete: :restrict
   add_foreign_key "subscriptions", "users", on_update: :restrict, on_delete: :restrict
   add_foreign_key "taggings", "tags", on_update: :restrict, on_delete: :restrict
   add_foreign_key "tags", "tags", column: "parent_id", on_update: :restrict, on_delete: :restrict
   add_foreign_key "triggers", "rules", on_update: :restrict, on_delete: :restrict
   add_foreign_key "users", "roles", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "variables", "scripts", on_update: :restrict, on_delete: :restrict
   add_foreign_key "views", "issues", on_update: :restrict, on_delete: :restrict
   add_foreign_key "views", "users", on_update: :restrict, on_delete: :restrict
 end

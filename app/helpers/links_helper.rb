@@ -2,7 +2,7 @@
 
 module LinksHelper
   def link_to_destroy(*args)
-    if current_user.can? :remove, controller_name
+    if current_user.can? :remove, controller_path
       options = args.extract_options!
 
       options[:data]           ||= {}
@@ -14,19 +14,19 @@ module LinksHelper
   end
 
   def link_to_edit *args
-    link_with_icon({ action: 'edit', icon: 'pen' }, *args) if current_user.can? :edit, controller_name
+    link_with_icon({ action: 'edit', icon: 'pen' }, *args) if current_user.can? :edit, controller_path
   end
 
   def link_to_index *args
-    link_to t('navigation.index'), *args if current_user.can? :read, controller_name
+    link_to t('navigation.index'), *args if current_user.can? :read, controller_path
   end
 
   def link_to_new *args
-    link_to t('.new'), *args if current_user.can? :edit, controller_name
+    link_to t('.new'), *args if current_user.can? :edit, controller_path
   end
 
   def link_to_show *args
-    link_with_icon({ action: 'show', icon: 'search' }, *args) if current_user.can? :read, controller_name
+    link_with_icon({ action: 'show', icon: 'search' }, *args) if current_user.can? :read, controller_path
   end
 
   private

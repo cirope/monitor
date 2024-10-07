@@ -8,41 +8,36 @@
       <strong><%= Rule.human_attribute_name 'enabled' %></strong>:
       <%= t @rule.enabled ? 'yes' : 'no' %>
     </p>
+    <p>
+      <strong><%= Trigger.model_name.human count: 1 %></strong>:
+    </p>
+
+    <% @rule.triggers.each do |trigger| %>
+      <div>
+        <textarea
+          id="trigger_callback_<%= trigger.id %>"
+          data-editor
+          data-language="ruby"
+          data-phrases="<%= editor_phrases.to_json %>"
+          data-readonly="true"
+          data-observe-other-fields="true"
+          ><%= trigger.callback %></textarea>
+      </div>
+
+      <% if last_output(trigger).present? %>
+        <h5 class="mt-3"><%= t '.last_output' %></h5>
+        <pre class="text-muted mb-3"><samp><%= last_output trigger %></samp></pre>
+      <% end %>
+    <% end %>
   </div>
 </div>
-
-
-<% if @rule.triggers.any? %>
-  <div class="card mb-3">
-    <div class="card-header">
-      <h5>
-        <%= Trigger.model_name.human count: @rule.triggers.size %>
-      </h5>
-    </div>
-    <div id="triggers" class="card-body">
-      <% @rule.triggers.each do |trigger| %>
-        <div class="tiny-editor">
-          <textarea
-            id="trigger_callback_<%= trigger.id %>"
-            data-editor
-            data-language="ruby"
-            data-phrases="<%= editor_phrases.to_json %>"
-            data-readonly="true"
-            ><%= trigger.callback %></textarea>
-        </div>
-
-        <% if last_output(trigger).present? %>
-          <h5 class="mt-3"><%= t '.last_output' %></h5>
-          <pre class="text-muted mb-3"><samp><%= last_output trigger %></samp></pre>
-        <% end %>
-      <% end %>
-    </div>
-  </div>
-<% end %>
 
 <%= link_to_edit [:edit, @rule] %> |
 <%= link_to rules_exports_create_path(id: @rule), title: t('rules.index.export'), data: { method: :post } do %>
   <%= icon 'fas', 'save' %>
+<% end %> |
+<%= link_to rule_versions_path(@rule), title: t('.history') do %>
+  <%= icon 'fas', 'history' %>
 <% end %> |
 <%= link_to [@rule, :tickets], title: t('.tickets_list') do %>
   <%= icon 'fas', 'bug' %>

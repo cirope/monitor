@@ -1,37 +1,17 @@
 # frozen_string_literal: true
 
 module IssuesHelper
-  def issue_types
-    Issue.ticket_types.map { |ot| [ot.constantize.model_name.human(count: 1), ot] }
-  end
-
   def issue_index_path *args
     if @issue&.ticket?
       tickets_path *args
     elsif @context == :board
       issues_board_path *args
-    elsif current_user.guest? || current_user.owner? || current_user.security?
-      issues_path *args
     elsif @permalink
       permalink_path @permalink
     elsif @script || @issue
       script_issues_path(@script || @issue.script, *args)
     else
       issues_path *args
-    end
-  end
-
-  def issue_actions_cols
-    if current_user.guest? || current_user.owner? || current_user.security?
-      1
-    elsif current_user.owner?
-      2
-    elsif current_user.author? || current_user.manager?
-      3
-    elsif params[:ids]
-      1
-    else
-      4
     end
   end
 
@@ -162,7 +142,7 @@ module IssuesHelper
   end
 
   def can_edit_status?
-    !limited_issue_form_edition? || current_user.owner?
+    !limited_issue_form_edition?
   end
 
   def link_to_export_data
@@ -240,6 +220,10 @@ module IssuesHelper
     model  = @issue.ticket? ? Ticket : Issue
 
     t "helpers.submit.#{action}", model: model.model_name.human(count: 1)
+  end
+
+  def issues_ticket_types
+    Ticket.ticket_types.map { |tt| [tt.constantize.model_name.human(count: 1), tt] }
   end
 
   private

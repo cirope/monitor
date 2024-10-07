@@ -15,8 +15,15 @@ class Notifier < ApplicationMailer
          subject: message[:subject]
   end
 
-  def issue issue, to
-    @issue = issue
+  def issue issue, to, data_as_csv: false
+    @issue       = issue
+    @data_as_csv = data_as_csv
+
+    if data_as_csv
+      issue.export_attachments.each do |filename, content|
+        attachments[filename] = content
+      end
+    end
 
     mail to: to
   end

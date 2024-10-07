@@ -9,7 +9,7 @@ module Scripts::Filters
 
   def scripts
     scripts = Script.search query: params[:q], lang: params[:lang]
-    scripts = scripts.filter_by filter_params
+    scripts = scoped_scripts scripts
     scripts = scripts.limit 10 if request.xhr?
 
     scripts
@@ -17,9 +17,17 @@ module Scripts::Filters
 
   def filter_params
     if params[:filter].present?
-      params.require(:filter).permit :name, :tags
+      params.require(:filter).permit :name, :text, :tags
     else
       {}
     end
   end
+
+  private
+
+    def scoped_scripts scripts
+      scripts = scripts.not_hidden if filter_params.dig(:tags).blank?
+
+      scripts.filter_by filter_params
+    end
 end

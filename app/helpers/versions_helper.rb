@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-module Scripts::VersionsHelper
+module VersionsHelper
   def version_change_for version, column
     change = version.object_changes[column]&.last || (version.reify&.try(column.to_sym) || '-')
 
     if version.event == 'create'
-      change += " (#{t 'scripts.versions.index.event.create'})"
+      change += " (#{t 'versions.index.event.create'})"
     end
 
     change
@@ -15,8 +15,8 @@ module Scripts::VersionsHelper
     version.created_at
   end
 
-  def text_diff_for_version version
-    previous, current = *version.object_changes['text']
+  def text_diff_for_version version, column
+    previous, current = *version.object_changes[column]
 
     raw Diffy::Diff.new(previous, current, include_plus_and_minus_in_html: true)
   end

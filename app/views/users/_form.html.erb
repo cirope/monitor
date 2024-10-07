@@ -13,22 +13,26 @@
         </div>
       <% elsif @user.errors.where(:restore).any? %>
         <div class="alert alert-danger border-0" role="alert">
-           <h5><%= @user.errors[:restore].first %></h5>
+          <%= @user.errors[:restore].first %>
+        </div>
+      <% elsif @user.errors.where(:tags).any? %>
+        <div class="alert alert-warning border-0" role="alert">
+          <%= @user.errors[:tags].first %>
         </div>
       <% end %>
 
       <div class="row">
         <div class="col-md-6">
-          <%= f.input :name, input_html: { autofocus: true, disabled: ldap } %>
-          <%= f.input :email, input_html: { disabled: ldap } %>
+          <%= f.input :name, input_html: { autofocus: true, disabled: !@user.manual? } %>
+          <%= f.input :email, input_html: { disabled: !@user.manual? } %>
         </div>
         <div class="col-md-6">
-          <%= f.input :lastname, input_html: { disabled: ldap } %>
-          <%= f.input :username, input_html: { disabled: ldap } %>
+          <%= f.input :lastname, input_html: { disabled: !@user.manual? } %>
+          <%= f.input :username, input_html: { disabled: !@user.manual? } %>
         </div>
       </div>
 
-      <% if !ldap && @user.new_record? %>
+      <% if @user.manual? && @user.new_record? %>
         <div class="row">
           <div class="col-md-6">
             <%= f.input :password %>
@@ -39,7 +43,7 @@
         </div>
       <% end %>
 
-      <%= f.association :role, prompt: true, input_html: { disabled: ldap } %>
+      <%= f.association :role, prompt: true, input_html: { disabled: !@user.manual? } %>
       <%= f.input :lock_version, as: :hidden %>
 
       <div class="card">

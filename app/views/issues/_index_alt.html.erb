@@ -60,22 +60,14 @@
               <%= Issue.human_attribute_name 'status' %>
               <%= link_to icon('fas', 'chart-pie'), script_issues_path(@script, filter: filter_query_hash, graph: 'status') %>
             </th>
-            <th class="border-top-0 d-none d-lg-table-cell text-nowrap">
-              <%= t '.tags' %>
-              <%= link_to icon('fas', 'chart-pie'), script_issues_path(@script, filter: filter_query_hash, graph: 'tags') %>
-            </th>
-            <th class="border-top-0 d-none d-lg-table-cell text-nowrap">
-              <%= t '.final_tags' %>
-              <%= link_to icon('fas', 'chart-pie'), script_issues_path(@script, filter: filter_query_hash, graph: 'final_tags') %>
-            </th>
 
             <th class="border-top-0 text-nowrap">
               <%= data.keys.last %>
               <%= link_to icon('fas', 'chart-pie'), script_issues_path(@script, filter: filter_query_hash, graph: data.keys.last) %>
             </th>
 
-            <th class="border-top-0 text-end" colspan="<%= issue_actions_cols %>">
-              <% if script && current_user.can?(:edit, Issue) && !current_user.owner? %>
+            <th class="border-top-0 text-end" colspan="4">
+              <% if script && current_user.can?(:edit, Issue) %>
                 <div class="btn-group mr-n2" role="group">
                   <%= link_to_add_all_to_board filter: filter_query_hash.merge(status: params.dig(:filter, :status) || 'all') %>
                   <%= link_to_remove_all_from_board filter: filter_query_hash.merge(status: params.dig(:filter, :status) || 'all') %>
