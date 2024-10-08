@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
 Rails.application.configure do
+  config.action_mailer.deliver_later_queue_name = 'mailers'
+
   config.action_mailer.default_url_options = {
     host: ENV['APP_HOST'], protocol: ENV['APP_PROTOCOL']
   }
+
   config.action_mailer.default_url_options[:port] = 3000 if Rails.env.development?
 
   config.action_mailer.smtp_settings = {
