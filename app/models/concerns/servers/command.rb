@@ -152,7 +152,7 @@ module Servers::Command
         env_vars[variable.name] = variable.value
       end
 
-      if script.python? && local? && script.libraries.present?
+      if script.python? && local?
         env_vars['VIRTUAL_ENV'] = virtual_env script
         env_vars['PATH']        = "#{env_vars['VIRTUAL_ENV']}/bin:$PATH"
         env_vars['PYTHONPATH']  = "#{env_vars['VIRTUAL_ENV']}/lib/python#{LOCAL_PYTHON_VERSION}/site-packages"
