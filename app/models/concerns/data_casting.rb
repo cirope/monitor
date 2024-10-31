@@ -4,7 +4,12 @@ module DataCasting
   extend ActiveSupport::Concern
 
   def converted_data
-    recursive_data_convertion data if data
+    if data
+      case data_type
+      when 'single_row'  then recursive_data_convertion data
+      when 'display_row' then display_row_data_convertion data.with_indifferent_access
+      end
+    end
   end
 
   private
@@ -34,5 +39,13 @@ module DataCasting
       else
         object
       end
+    end
+
+    def display_row_data_convertion object
+      opts            = options.with_indifferent_access
+      display_row     = object.dig opts.dig(:display_row)
+      display_columns = opts.dig :display_columns
+
+      display_row.slice *display_columns
     end
 end

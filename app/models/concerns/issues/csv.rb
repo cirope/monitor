@@ -25,7 +25,8 @@ module Issues::Csv
     end
 
     def can_collapse_data?
-      issues.any? && issues.all?(&:single_row_data_type?) && issues_can_share_headers?
+      issues.all?(&:display_row_data_type?) ||
+        (issues.any? && issues.all?(&:single_row_data_type?) && issues_can_share_headers?)
     end
 
     private
