@@ -4,7 +4,7 @@ module DataCasting
   extend ActiveSupport::Concern
 
   def converted_data
-    recursive_data_convertion data
+    recursive_data_convertion data if data
   end
 
   def converted_data_by_data_type
