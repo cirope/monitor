@@ -1,5 +1,11 @@
 <%= simple_form_for @database do |f| %>
-  <%= f.error_notification %>
+  <% if @database.errors.include? :base %>
+    <div class="alert alert-danger">
+      <%= @database.errors.full_messages_for(:base).join '; ' %>
+    </div>
+  <% else %>
+    <%= f.error_notification %>
+  <% end %>
 
   <div class="form-inputs">
     <%= f.input :name, input_html: { autofocus: true } %>

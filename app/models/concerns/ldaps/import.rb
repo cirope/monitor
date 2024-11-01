@@ -51,18 +51,15 @@ module Ldaps::Import
         lastname: entry[lastname_attribute].first&.force_encoding('UTF-8')&.to_s,
         email:    entry[email_attribute].first&.force_encoding('UTF-8')&.to_s,
         role:     extract_role(entry),
-        hidden:   false
+        hidden:   false,
+        data:     { origin: 'ldap' }
       }
     end
 
     def extract_role entry
       role_names = roles_in entry
 
-      User::ROLES.detect do |role|
-        role_name = send "role_#{role}"
-
-        role_names.include? role_name
-      end
+      Role.order(:id).with_identifer.detect { |role| role_names.include? role.identifier }
     end
 
     def update_user user: nil, data: nil

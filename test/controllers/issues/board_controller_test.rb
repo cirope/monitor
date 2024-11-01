@@ -60,7 +60,7 @@ class Issues::BoardControllerTest < ActionController::TestCase
   end
 
   test 'should add comment to issues' do
-    assert_enqueued_emails Issue.count do
+    assert_enqueued_emails Issue.issues.count do
       assert_no_difference 'Permalink.count' do
         assert_difference '@issue.comments.count' do
           patch :update, params: {
@@ -178,10 +178,12 @@ class Issues::BoardControllerTest < ActionController::TestCase
     end
 
     assert_difference 'Issue.count', -1 do
-      delete :destroy_all, session: {
-        board_issues: [@issue.id],
-        board_issue_errors: { @issue.id => 'Error' }
-      }
+      perform_enqueued_jobs do
+        delete :destroy_all, session: {
+          board_issues: [@issue.id],
+          board_issue_errors: { @issue.id => 'Error' }
+        }
+      end
     end
 
     assert_redirected_to home_url

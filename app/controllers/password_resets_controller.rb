@@ -5,6 +5,8 @@ class PasswordResetsController < ApplicationController
   before_action :set_account, only: [:edit]
   before_action :set_user, only: [:edit, :update]
 
+  layout 'public'
+
   def new
   end
 
@@ -17,14 +19,10 @@ class PasswordResetsController < ApplicationController
 
         user.prepare_password_reset
         UserMailer.password_reset(user).deliver_later
-
-        redirect_to root_url, notice: t('.notice', scope: :flash)
       end
-    else
-      flash.now[:alert] = t '.not_found', scope: :flash
-
-      render 'new'
     end
+
+    redirect_to root_url, notice: t('.notice', scope: :flash, email: params[:email])
   end
 
   def edit
@@ -36,7 +34,7 @@ class PasswordResetsController < ApplicationController
     elsif @user.update(user_params)
       redirect_to root_url, notice: t('.notice', scope: :flash)
     else
-      render 'edit'
+      render 'edit', status: :unprocessable_entity
     end
   end
 

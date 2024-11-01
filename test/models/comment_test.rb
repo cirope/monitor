@@ -64,4 +64,38 @@ class CommentTest < ActiveSupport::TestCase
 
     assert !@comment.owned_by?(User.new)
   end
+
+  test 'destroy' do
+    Current.user = users :franco
+
+    file = Rack::Test::UploadedFile.new(
+      "#{Rails.root}/test/fixtures/files/text.txt", 'text/plain'
+    )
+    comment = @comment.issue.comments.create! text: 'email test', notify: false, attachment: file
+
+    assert_difference 'Comment.count', -1 do
+      assert_difference 'ActiveStorage::Blob.count', -1 do
+        comment.destroy!
+      end
+    end
+  ensure
+    Current.user = nil
+  end
+
+  test 'validate user' do
+    Current.user = users :eduardo
+    issue        = issues :ls_on_atahualpa_not_well
+
+    issue.comments.new text: 'New comment'
+
+    assert_not issue.valid?
+
+    ticket = tickets :ticket_script
+
+    ticket.title = 'New script'
+
+    ticket.comments.new text: 'New comment'
+
+    assert ticket.valid?
+  end
 end

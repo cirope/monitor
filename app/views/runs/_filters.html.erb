@@ -1,7 +1,7 @@
 <div class="card mb-3">
   <div class="card-header">
     <% if filters? %>
-      <p class="text-warning mb-0 float-right">
+      <p class="text-warning mb-0 float-end">
         <%= icon 'fas', 'filter' %>
         <%= link_to schedule_runs_path(@schedule), title: t('cancel') do %>
           <%= icon 'fas', 'times-circle' %>
@@ -9,7 +9,7 @@
       </p>
     <% end %>
 
-    <a class="dropdown-toggle text-reset text-decoration-none d-block" href="#filters" data-toggle="collapse">
+    <a class="dropdown-toggle text-reset text-decoration-none d-block" href="#filters" data-bs-toggle="collapse">
       <%= icon 'fas', 'search' %>
       <%= t 'filters.title' %>
     </a>
@@ -47,7 +47,7 @@
           </div>
         </div>
 
-        <p class="text-right mb-0">
+        <p class="text-end mb-0">
           <%= f.button :submit, t('filters.submit'), class: 'btn-sm btn-secondary' %>
           <%= link_to t('cancel'), schedule_runs_path(@schedule), class: 'small' %>
         </p>

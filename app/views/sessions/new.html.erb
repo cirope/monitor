@@ -2,7 +2,7 @@
   <div class="col col-lg-4 col-md-6 col-sm-10">
     <div class="card">
       <div class="card-header py-md-4 text-center bg-primary">
-        <%= image_tag 'logo.svg', size: '170x52', alt: app_name %>
+        <%= image_tag 'logo.svg', size: '138x35', alt: app_name %>
       </div>
       <div class="card-body p-md-4">
         <div class="text-center w-75 m-auto">
@@ -13,20 +13,10 @@
             <%= t '.subtitle' %>
           </p>
         </div>
-        <%= form_tag sessions_path, novalidate: 'novalidate' do %>
-          <div class="form-group">
-            <%= label_tag :username, t('.username') %>
+        <%= form_tag sessions_path, novalidate: 'novalidate', data: { turbo: false } do %>
+          <div class="mb-3">
+            <%= label_tag :username, t('.username'), class: 'form-label' %>
             <%= text_field_tag :username, params[:username], placeholder: t('.username'), class: 'form-control', autofocus: true, autocomplete: 'off' %>
-          </div>
-
-          <div class="form-group">
-            <%= label_tag :password, t('.password') %>
-            <%= password_field_tag :password, nil, placeholder: t('.password'), class: 'form-control' %>
-          </div>
-
-          <div class="custom-control custom-checkbox">
-            <%= check_box_tag :remember_me, 1, params[:remember_me], class: 'custom-control-input' %>
-            <label class="custom-control-label" for="remember_me"><%= t '.remember_me' %></label>
           </div>
 
           <div class="form-actions text-center">

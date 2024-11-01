@@ -18,6 +18,10 @@ module Runs::Status
     }
   end
 
+  def finished?
+    ok? || error? || killed?
+  end
+
   module ClassMethods
     def by_status status
       where status: status

@@ -1,4 +1,5 @@
 ls_author:
   name: Author
   value: Franco Catena
+  public: false
   script: ls

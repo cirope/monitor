@@ -2,30 +2,16 @@
 
 module IssuesHelper
   def issue_index_path *args
-    if @context == :board
+    if @issue&.ticket?
+      tickets_path *args
+    elsif @context == :board
       issues_board_path *args
-    elsif current_user.guest? || current_user.owner? || current_user.security?
-      issues_path *args
     elsif @permalink
       permalink_path @permalink
     elsif @script || @issue
       script_issues_path(@script || @issue.script, *args)
     else
       issues_path *args
-    end
-  end
-
-  def issue_actions_cols
-    if current_user.guest? || current_user.owner? || current_user.security?
-      1
-    elsif current_user.owner?
-      2
-    elsif current_user.author? || current_user.manager?
-      3
-    elsif params[:ids]
-      1
-    else
-      4
     end
   end
 
@@ -57,7 +43,7 @@ module IssuesHelper
     status = issue.status
     style  = issue_style issue
 
-    content_tag :span, t("issues.status.#{status}"), class: "badge badge-#{style} p-1"
+    content_tag :span, t("issues.status.#{status}"), class: "badge bg-#{style} p-1"
   end
 
   def status
@@ -85,8 +71,10 @@ module IssuesHelper
   end
 
   def issue_tagging_options issue
+    kind = issue.ticket? ? 'ticket' : 'issue'
+
     {
-      kind:       'issue',
+      kind:       kind,
       collection: issue.options&.fetch('tag_group', nil)
     }
   end
@@ -154,7 +142,7 @@ module IssuesHelper
   end
 
   def can_edit_status?
-    !limited_issue_form_edition? || current_user.owner?
+    !limited_issue_form_edition?
   end
 
   def link_to_export_data
@@ -204,6 +192,38 @@ module IssuesHelper
     else
       filter_query_hash
     end
+  end
+
+  def show_owner_label issue
+    owner_label  =  issue.owner_type.constantize.model_name.human count: 1
+    owner_label += " (#{truncate issue.owner.to_s, length: 30})" if issue.owner
+
+    owner_label
+  end
+
+  def link_to_issue_owner issue
+    model = issue.owner_type.downcase
+
+    if issue.owner
+      owner_url = [issue, issue.owner, filter: filter_query_hash]
+      title     = 'show.title'
+    else
+      owner_url = [:new, issue, model.to_sym, filter: filter_query_hash]
+      title     = 'index.new'
+    end
+
+    link_to icon('fas', issue.owner_icon), owner_url, title: t(title, scope: model.pluralize)
+  end
+
+  def submit_issue_label
+    action = @issue.new_record? ? 'create' : 'update'
+    model  = @issue.ticket? ? Ticket : Issue
+
+    t "helpers.submit.#{action}", model: model.model_name.human(count: 1)
+  end
+
+  def issues_ticket_types
+    Ticket.ticket_types.map { |tt| [tt.constantize.model_name.human(count: 1), tt] }
   end
 
   private

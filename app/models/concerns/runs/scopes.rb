@@ -5,6 +5,7 @@ module Runs::Scopes
 
   included do
     scope :overdue,          -> { overdue_by 1, 'days' }
+    scope :ordered,          -> { order scheduled_at: :desc }
     scope :next_to_schedule, -> {
       pending.where "#{table_name}.scheduled_at <= ?", 10.minutes.from_now
     }

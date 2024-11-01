@@ -2,6 +2,7 @@
 
 class Comment < ApplicationRecord
   include Auditable
+  include Comments::Destroy
   include Comments::Notify
   include Comments::Owner
   include Comments::Validation

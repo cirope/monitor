@@ -3,6 +3,8 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
+  include ActionMailer::TestHelper
+
   setup do
     @user = users :franco
 
@@ -20,7 +22,11 @@ class UserTest < ActiveSupport::TestCase
       email: 'new@user.com',
       username: 'new',
       password: '123',
-      password_confirmation: '123'
+      password_confirmation: '123',
+      role: roles(:supervisor),
+      taggings_attributes: [
+        { tag_id: tags(:recovery).id }
+      ]
     )
 
     assert @user.reload.auth_token.present?
@@ -30,13 +36,11 @@ class UserTest < ActiveSupport::TestCase
     @user.name = ''
     @user.lastname = ''
     @user.email = ''
-    @user.role = ''
 
     assert @user.invalid?
     assert_error @user, :name, :blank
     assert_error @user, :lastname, :blank
     assert_error @user, :email, :blank
-    assert_error @user, :role, :blank
   end
 
   test 'unique attributes' do
@@ -66,29 +70,24 @@ class UserTest < ActiveSupport::TestCase
     @user.name = 'abcde' * 52
     @user.lastname = 'abcde' * 52
     @user.email = 'abcde' * 52
-    @user.role = 'abcde' * 52
     @user.username = 'abcde' * 52
 
     assert @user.invalid?
     assert_error @user, :name, :too_long, count: 255
     assert_error @user, :lastname, :too_long, count: 255
     assert_error @user, :email, :too_long, count: 255
-    assert_error @user, :role, :too_long, count: 255
     assert_error @user, :username, :too_long, count: 255
   end
 
-  test 'included attributes' do
-    @user.role = 'wrong'
-
-    assert @user.invalid?
-    assert_error @user, :role, :inclusion
-  end
-
   test 'username globally taken on create' do
-    account = Account.create! name: 'Test', tenant_name: 'test'
+    account = create_account
+    role    = @user.role.dup
 
     account.switch do
+      role_new_account = Role.create role.attributes
+
       user       = @user.dup
+      user.role  = role_new_account
       user.email = 'other@email.com'
 
       refute user.save
@@ -97,7 +96,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'username globally taken on update' do
-    account  = Account.create! name: 'Test', tenant_name: 'test'
+    account  = create_account
     user     = account.enroll @user, copy_user: true
     username = users(:eduardo).username
 
@@ -110,7 +109,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'email globally taken' do
-    account = Account.create! name: 'Test', tenant_name: 'test'
+    account = create_account
     user    = account.enroll @user, copy_user: true
     email   = users(:eduardo).email
 
@@ -120,14 +119,6 @@ class UserTest < ActiveSupport::TestCase
       assert user.invalid?
       assert_error user, :email, :globally_taken
     end
-  end
-
-  test 'guest?' do
-    @user.role = 'guest'
-    assert @user.guest?
-
-    @user.role = 'author'
-    assert !@user.guest?
   end
 
   test 'password expired' do
@@ -152,48 +143,23 @@ class UserTest < ActiveSupport::TestCase
 
   test 'permissions' do
     can_use_mine_filter = %w(manager author supervisor)
-    can_read_users      = %w(manager author supervisor)
-    can_edit_issues     = %w(owner manager author supervisor)
 
     can_use_mine_filter.each do |role|
-      @user.role = role
+      @user.role = roles role.to_sym
 
       assert @user.can_use_mine_filter?
     end
 
-    (User::ROLES - can_use_mine_filter).each do |role|
-      @user.role = role
+    (Role::TYPES - can_use_mine_filter).each do |role|
+      @user.role = roles role.to_sym
 
       refute @user.can_use_mine_filter?
-    end
-
-    can_read_users.each do |role|
-      @user.role = role
-
-      assert @user.can_read_users?
-    end
-
-    (User::ROLES - can_read_users).each do |role|
-      @user.role = role
-
-      refute @user.can_read_users?
-    end
-
-    can_edit_issues.each do |role|
-      @user.role = role
-
-      assert @user.can_edit_issues?
-    end
-
-    (User::ROLES - can_edit_issues).each do |role|
-      @user.role = role
-
-      refute @user.can_edit_issues?
     end
   end
 
   test 'auth' do
     @user.update! username: 'admin'
+    @user.taggings.clear
 
     assert @user.auth('admin123') # LDAP
 
@@ -250,7 +216,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'delete only the current membership on hide' do
-    account = Account.create! name: 'Test', tenant_name: 'test'
+    account = create_account
 
     assert_difference '@user.memberships.count' do
       account.enroll @user, copy_user: true
@@ -306,6 +272,7 @@ class UserTest < ActiveSupport::TestCase
       new_licensed_user.lastname        = i.to_s + licensed_user.lastname
       new_licensed_user.role            = licensed_user.role
       new_licensed_user.password        = '123456'
+      new_licensed_user.taggings        = licensed_user.taggings
 
       new_licensed_user.save!
     end
@@ -317,16 +284,61 @@ class UserTest < ActiveSupport::TestCase
     new_licensed_user.lastname        = 'test' + licensed_user.lastname
     new_licensed_user.role            = licensed_user.role
     new_licensed_user.password        = '123456'
+    new_licensed_user.taggings        = licensed_user.taggings
 
     assert_raise { new_licensed_user.save! }
 
     assert_error new_licensed_user, :base, :licensed_user_limit
 
     not_licensed_user = users :god
-    not_licensed_user.role = 'supervisor'
+    not_licensed_user.role = roles :supervisor
 
     assert_raise { not_licensed_user.save! }
 
     assert_error not_licensed_user, :base, :licensed_user_limit
+  end
+
+  test 'notify issues' do
+    Current.user = user = users :franco
+
+    assert_equal 1, user.issues.count
+
+    assert_enqueued_emails 1 do
+      user.notify_issues user.issues
+    end
+  ensure
+    Current.user = nil
+  end
+
+  test 'notify recent issues' do
+    Current.user = user = users :franco
+
+    assert_equal 1, user.issues.count
+
+    assert_enqueued_emails 1 do
+      user.notify_recent_issues 1.hour
+    end
+  ensure
+    Current.user = nil
+  end
+
+  test 'notify recent issues all users' do
+    assert_enqueued_emails 2 do
+      User.notify_recent_issues_all_users 1.hour
+    end
+  end
+
+  test 'should reject creation of user without recovery tag' do
+    user = User.create(
+      name:                  'Name',
+      lastname:              'Lastname',
+      email:                 'new@user.com',
+      username:              'new',
+      password:              '123',
+      password_confirmation: '123',
+      role:                  roles(:supervisor)
+    )
+
+    assert_error user, :tags, :recovery_blank
   end
 end

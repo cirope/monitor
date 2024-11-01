@@ -1,12 +1,12 @@
 <fieldset class="script_require">
   <div class="row">
     <div class="col-sm-11">
-      <%= f.input :script, as: :autocomplete, label: false, url: scripts_path, input_html: {
+      <%= f.input :script, as: :autocomplete, label: false, url: scripts_path(lang: lang), input_html: {
         disabled: disable_edition?, data: { empty_result_label: t('.empty') }
       } %>
     </div>
     <div class="col-sm-1">
-      <div class="row-controls text-right mb-3 mb-sm-0 mt-n4 mt-sm-n2">
+      <div class="row-controls text-end mb-3 mb-sm-0 mt-n4 mt-sm-n2">
         <%= f.input :id, as: :hidden %>
         <%= link_to_remove_nested_item f unless disable_edition? %>
       </div>

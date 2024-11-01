@@ -24,7 +24,7 @@ class LdapsControllerTest < ActionController::TestCase
       post :create, params: {
         ldap: {
           hostname: 'localhost',
-          port: ENV['TRAVIS'] ? 3389 : 389,
+          port: ENV['GH_ACTIONS'] ? 3389 : 389,
           basedn: 'ou=people,dc=test,dc=com',
           filter: 'CN=*',
           login_mask: 'cn=%{user},%{basedn}',
@@ -35,10 +35,6 @@ class LdapsControllerTest < ActionController::TestCase
           roles_attribute: 'description',
           test_user: 'admin',
           test_password: 'admin123',
-          role_guest: 'Guest',
-          role_author: 'Author',
-          role_supervisor: 'Supervisor',
-          role_security: 'Security'
         }
       }
     end

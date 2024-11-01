@@ -3,7 +3,7 @@
     <% if script %>
       <h5>
         <%= script %>
-        <small class="float-right">
+        <small class="float-end">
           <%= link_to t('back'), home_path, class: 'small' %>
         </small>
       </h5>
@@ -18,8 +18,8 @@
         <th><%= Issue.human_attribute_name 'description' %></th>
         <th class="d-none d-sm-table-cell"><%= Issue.human_attribute_name 'status' %></th>
         <th class="d-none d-lg-table-cell"><%= Tag.model_name.human count: 0 %></th>
-        <th class="text-right" colspan="<%= issue_actions_cols %>">
-          <% if script && current_user.can_edit_issues? && !current_user.owner? %>
+        <th class="text-end" colspan="4">
+          <% if script && current_user.can?(:edit, Issue) %>
             <div class="btn-group mr-n2" role="group">
               <%= link_to_add_all_to_board %>
               <%= link_to_remove_all_from_board %>
@@ -38,8 +38,8 @@
 <hr>
 
 <div class="row ml-0">
-  <div class="dropdown float-left">
-    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+  <div class="dropdown col">
+    <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
       <%= t '.actions' %>
     </button>
 

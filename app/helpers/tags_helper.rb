@@ -5,7 +5,8 @@ module TagsHelper
     {
       script: Script.model_name.human(count: 0),
       issue:  Issue.model_name.human(count: 0),
-      user:   User.model_name.human(count: 0)
+      user:   User.model_name.human(count: 0),
+      ticket: Ticket.model_name.human(count: 0)
     }
   end
 
@@ -30,7 +31,7 @@ module TagsHelper
   end
 
   def unlimited_tag_form_edition_for? kind
-    kind != 'issue' || limited_issue_tag_form_edition?
+    kind == 'issue' ? limited_issue_tag_form_edition? : false
   end
 
   def effects

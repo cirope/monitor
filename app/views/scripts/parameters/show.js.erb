@@ -1,0 +1,5 @@
++function () {
+  $('[data-parameter-id="<%= @parameter.id %>"]').html(
+    '<%= j render(template: 'scripts/parameters/show', formats: [:html], parameter: @parameter) %>'
+  )
+}()
