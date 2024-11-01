@@ -16,7 +16,7 @@ module IssuesHelper
   end
 
   def convert_issues issues
-    issues.map { |issue| [issue, issue.converted_data.first] }
+    issues.map { |issue| [issue, issue.canonical_data] }
   end
 
   def grouped_issue_stats stats

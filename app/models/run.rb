@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Run < ApplicationRecord
-  include DataCasting
   include Filterable
   include Killable
   include Measurable

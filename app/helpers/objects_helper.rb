@@ -3,8 +3,8 @@
 module ObjectsHelper
   def render_object parent, key
     path   = key.split '__/__'
-    object = if parent.respond_to? :converted_data
-               parent.converted_data
+    object = if parent.respond_to? :canonical_data
+               parent.canonical_data
              else
                parent.data
              end

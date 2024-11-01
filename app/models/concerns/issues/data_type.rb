@@ -5,7 +5,7 @@ module Issues::DataType
     enum data_type: {
       empty:       'empty',
       single_row:  'single_row',
-      display_row: 'display_row',
+      custom_row:  'custom_row',
       object:      'object'
     }, _suffix: true
 
@@ -23,8 +23,8 @@ module Issues::DataType
                          'empty'
                        elsif has_single_row_data?
                          'single_row'
-                       elsif has_display_row_data?
-                         'display_row'
+                       elsif has_custom_row_data?
+                         'custom_row'
                        else
                          'object'
                        end
@@ -38,13 +38,13 @@ module Issues::DataType
       )
     end
 
-    def has_display_row_data?
-      if opts = options&.with_indifferent_access
-        display_row     = data.dig opts.dig(:display_row)
-        display_columns = opts.dig :display_columns
+    def has_custom_row_data?
+      if options
+        key     = data.dig options.dig('custom_row', 'key')
+        columns = options.dig 'custom_row', 'columns'
 
-        if display_row.kind_of?(Hash) && display_columns.kind_of?(Array)
-          (display_columns - display_row.keys).blank?
+        if key.kind_of?(Hash) && columns.kind_of?(Array)
+          (columns - key.keys).blank?
         end
       end
     end

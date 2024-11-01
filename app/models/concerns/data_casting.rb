@@ -6,8 +6,8 @@ module DataCasting
   def converted_data
     if data
       case data_type
-      when 'single_row'  then recursive_data_convertion data
-      when 'display_row' then display_row_data_convertion data.with_indifferent_access
+      when 'single_row' then recursive_data_convertion  data
+      when 'custom_row' then custom_row_data_convertion
       end
     end
   end
@@ -41,11 +41,10 @@ module DataCasting
       end
     end
 
-    def display_row_data_convertion object
-      opts            = options.with_indifferent_access
-      display_row     = object.dig opts.dig(:display_row)
-      display_columns = opts.dig :display_columns
+    def custom_row_data_convertion
+      key     = data.dig options.dig('custom_row', 'key')
+      columns = options.dig 'custom_row', 'columns'
 
-      display_row.slice *display_columns
+      key.slice *columns
     end
 end

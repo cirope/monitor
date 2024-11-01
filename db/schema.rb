@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_16_173214) do
+ActiveRecord::Schema[7.0].define(version: 2024_11_01_015805) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -187,10 +187,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_16_173214) do
     t.string "data_type"
     t.jsonb "options"
     t.jsonb "state_transitions", default: {}
-    t.text "canonical_data"
+    t.json "canonical_data"
     t.string "owner_type"
     t.string "title"
-    t.index ["canonical_data"], name: "index_issues_on_canonical_data", opclass: :gin_trgm_ops, using: :gin
     t.index ["created_at"], name: "index_issues_on_created_at"
     t.index ["data"], name: "index_issues_on_data", using: :gin
     t.index ["description"], name: "index_issues_on_description"
