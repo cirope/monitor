@@ -4,11 +4,13 @@ module DataCasting
   extend ActiveSupport::Concern
 
   def converted_data
-    if data
-      case data_type
-      when 'single_row' then recursive_data_convertion  data
-      when 'custom_row' then custom_row_data_convertion
-      end
+    recursive_data_convertion data
+  end
+
+  def converted_data_by_data_type
+    case data_type
+    when 'single_row' then converted_data.first
+    when 'custom_row' then custom_row_data_convertion
     end
   end
 

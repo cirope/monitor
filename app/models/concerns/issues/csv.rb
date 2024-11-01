@@ -28,14 +28,14 @@ module Issues::Csv
       issues.any? &&
       (
         issues.all?(&:custom_row_data_type?) || issues.all?(&:single_row_data_type?)
-      )           &&
+      ) &&
       issues_can_share_headers?
     end
 
     private
 
       def issues_can_share_headers?
-        header_rows = issues.map(&:canonical_data)
+        header_rows = issues.map &:canonical_data
 
         if header_rows.all? { |row| row.kind_of?(Hash) }
           sample = header_rows.first.keys.sort
