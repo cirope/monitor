@@ -29,7 +29,7 @@ class Api::V1::Scripts::Issues::Index
 
     def contruct_collapse_data issues
       issues.includes(:users, :tags).map do |issue|
-        issue.converted_data.first.merge Issue.human_attribute_name('status') => I18n.t("issues.status.#{issue.status}"),
+        issue.canonical_data.merge Issue.human_attribute_name('status') => I18n.t("issues.status.#{issue.status}"),
                                          url: issue.url,
                                          I18n.t('api.v1.issues.keys.category_tags') => title_tags(issue.tags.select(&:category?)),
                                          Issue.human_attribute_name('description') => issue.description,

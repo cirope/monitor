@@ -10,7 +10,7 @@ module Issues::Export
   end
 
   def export_filename
-    sanitize_filename "#{description}.zip"
+    sanitize_filename "#{description || model_name.human}.zip"
   end
 
   def export_attachments
@@ -21,12 +21,13 @@ module Issues::Export
 
     def export_to_csvs
       @files_content = {}
-      data           = converted_data
+      data           = canonical_data
+      filename       = description || model_name.human
 
       if data.kind_of? Hash
-        hash_to_csv  description, data
+        hash_to_csv  filename, data
       elsif data.kind_of? Array
-        array_to_csv description, data
+        array_to_csv filename, data
       end
 
       @files_content

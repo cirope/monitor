@@ -17,7 +17,7 @@ module Issues::GroupedExport
         script_name = scripts[script_id]
 
         summarized_find_each_for_ids issue_ids do |issue|
-          issue.grouped_export script_name, acc
+          issue.grouped_export script_name, acc, issue.canonical_data
         end
 
         grouped_csvs = build_csvs_for_groups acc
@@ -32,7 +32,7 @@ module Issues::GroupedExport
     private
 
       def summarized_find_each_for_ids ids
-        Issue.where(id: ids).select(:id, :description, :data).find_each(batch_size: 100) do |issue|
+        Issue.where(id: ids).select(:id, :description, :data, :canonical_data).find_each(batch_size: 100) do |issue|
           yield issue
         end
       end
@@ -87,9 +87,7 @@ module Issues::GroupedExport
       end
   end
 
-  def grouped_export name = description, group = {}
-    data = converted_data
-
+  def grouped_export name = description, group = {}, data
     if data.kind_of? Hash
       group_hash_to_csv  name, data, group
     elsif data.kind_of? Array

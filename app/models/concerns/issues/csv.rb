@@ -54,7 +54,7 @@ module Issues::Csv
             headers[0...-1],
             Issue.human_attribute_name('status'),
             headers.last
-          ].compact.flatten
+          ].flatten
         else
           [
             Run.human_attribute_name('scheduled_at'),
@@ -78,7 +78,7 @@ module Issues::Csv
               data[0...-1],
               I18n.t("issues.status.#{issue.status}"),
               data.last
-            ].compact.flatten
+            ].flatten
           end
         else
           issues_rows.map do |issue|
