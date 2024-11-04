@@ -20,6 +20,10 @@ module Scripts::PythonInjections
         property_key    = match.captures.last
 
         replace_py_db_property line, connection_name, property_key
+      elsif (match = line.match(SQLALCHEMY_CONNECTION_REGEX))
+        connection_name = match.captures.first
+
+        inject_sqlalchemy_connection line, connection_name
       else
         line
       end
@@ -47,6 +51,23 @@ module Scripts::PythonInjections
         line.sub PONY_CONNECTION_REGEX, connection
       else
         line
+      end
+    end
+
+    def inject_sqlalchemy_connection line, connection_name
+      db = Database.current.find_by name: connection_name
+
+      if db
+        config    = db.sqlalchemy_config
+        cipher    = GREDIT_CIPHER.values.first
+        algorithm = cipher[:algorithm] % { key: "'#{db.cipher_key}'.encode()" }
+        mode      = cipher[:mode]      % {  iv: "'#{db.cipher_iv}'.encode()" }
+        driver    = db.adapter_drivers
+        dialect   = db.dialect_for
+
+        connection = "sqlalchemy.create_engine('mssql+pyodbc://?odbc_connect={}'.format(#{config}))"
+
+        line.sub SQLALCHEMY_CONNECTION_REGEX, connection
       end
     end
 
