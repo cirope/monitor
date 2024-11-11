@@ -9,7 +9,7 @@ module Databases::ActiveRecordConfig
       host:     host,
       port:     port,
       username: user,
-      password: encrypt_password(password),
+      password: encrypt_password,
       database: database
     }
   end

@@ -97,13 +97,11 @@ module Scripts::ModePython
 
           return decryptor.update(ct) + decryptor.finalize()
 
-        def _decrypt_password(config, method, mode):
-          encrypted = base64.b64decode(config['password'])
+        def _decrypt_password(password, method, mode):
+          encrypted = base64.b64decode(password)
           password  = _decrypt(encrypted, method, mode)
 
-          config.update(password=_unpad(password).decode())
-
-          return config
+          return _unpad(password).decode()
       PYTHON
     end
 
@@ -121,7 +119,8 @@ module Scripts::ModePython
       libs = []
 
       text.each_line.map do |line|
-        if line.match(PONY_CONNECTION_REGEX) ||
+        if line.match(PONY_CONNECTION_REGEX)       ||
+           line.match(SQLALCHEMY_CONNECTION_REGEX) ||
            line.match(PY_GREDIT_CONNECTION_REGEX)
           libs << 'cryptography'
         end
