@@ -102,6 +102,25 @@ module Scripts::ModePython
           password  = _decrypt(encrypted, method, mode)
 
           return _unpad(password).decode()
+
+        def _generate_connection(orm, config, encrypted_password, algorithm, mode):
+          password = _decrypt_password(encrypted_password, algorithm, mode)
+          config.update(password=password)
+
+          return _create_session(orm, config)
+
+        def _create_session(orm, config):
+          _session = None
+
+          match orm:
+            case 'sqlalchemy':
+              _session = create_engine(URL.create(**config))
+              _session.connect()
+            case 'pony':
+              _session = pony.orm.Database()
+              _session.bind(**config)
+
+          return _session
       PYTHON
     end
 

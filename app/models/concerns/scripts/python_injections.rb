@@ -38,20 +38,10 @@ module Scripts::PythonInjections
       db = Database.current.find_by name: connection_name
 
       if db
-        config             = db.pony_config
-        encrypted_password = db.encrypt_password
-        cipher             = GREDIT_CIPHER.values.first
-        algorithm          = cipher[:algorithm] % { key: "'#{db.cipher_key}'.encode()" }
-        mode               = cipher[:mode]      % {  iv:  "'#{db.cipher_iv}'.encode()" }
+        config                              = db.pony_config
+        encrypted_password, algorithm, mode = generate_cipher db
 
-        connection = [
-          "from pony.orm import *",
-          "config   = #{config}",
-          "password = _decrypt_password('#{encrypted_password}', #{algorithm}, #{mode})",
-          'config.update(password=password)',
-          'session  = Database()',
-          'session.bind(**config)'
-        ].join '; '
+        connection = "_generate_connection('pony', #{config}, '#{encrypted_password}', #{algorithm}, #{mode})"
 
         line.sub PONY_CONNECTION_REGEX, connection
       else
@@ -63,19 +53,10 @@ module Scripts::PythonInjections
       db = Database.current.find_by name: connection_name
 
       if db
-        config             = db.sqlalchemy_config
-        encrypted_password = db.encrypt_password
-        cipher             = GREDIT_CIPHER.values.first
-        algorithm          = cipher[:algorithm] % { key: "'#{db.cipher_key}'.encode()" }
-        mode               = cipher[:mode]      % {  iv:  "'#{db.cipher_iv}'.encode()" }
+        config                              = db.sqlalchemy_config
+        encrypted_password, algorithm, mode = generate_cipher db
 
-        connection = [
-          "from sqlalchemy import *",
-          "config   = #{config}",
-          "password = _decrypt_password('#{encrypted_password}', #{algorithm}, #{mode})",
-          'config.update(password=password)',
-          "session  = create_engine(URL.create(**config)).connect()",
-        ].join '; '
+        connection = "_generate_connection('sqlalchemy', #{config}, '#{encrypted_password}', #{algorithm}, #{mode})"
 
         line.sub SQLALCHEMY_CONNECTION_REGEX, connection
       else
@@ -106,5 +87,14 @@ module Scripts::PythonInjections
       else
         line
       end
+    end
+
+    def generate_cipher db
+      encrypted_password = db.encrypt_password
+      cipher             = GREDIT_CIPHER.values.first
+      algorithm          = cipher[:algorithm] % { key: "'#{db.cipher_key}'.encode()" }
+      mode               = cipher[:mode]      % {  iv:  "'#{db.cipher_iv}'.encode()" }
+
+      return encrypted_password, algorithm, mode
     end
 end
