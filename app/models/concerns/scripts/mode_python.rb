@@ -21,7 +21,9 @@ module Scripts::ModePython
           subprocess.check_call(command, stdout=subprocess.DEVNULL)
 
         #{python_install_libraries(libs)}
-        #{python_import_crypto if libs_names.include? 'cryptography' }
+        #{python_import_pony       if libs_names.any? { |lib| lib =~ /pony/i       }}
+        #{python_import_sqlalchemy if libs_names.any? { |lib| lib =~ /sqlalchemy/i }}
+        #{python_import_crypto     if libs_names.include? 'cryptography' }
       PYTHON
     end
   end
@@ -145,6 +147,14 @@ module Scripts::ModePython
         end
       end
 
-      libs.map { |lib| Library.new name: lib }
+      libs.flatten.map { |lib| Library.new name: lib }
+    end
+
+    def python_import_sqlalchemy
+      'from sqlalchemy import *'
+    end
+
+    def python_import_pony
+      'from pony.orm import *'
     end
 end
