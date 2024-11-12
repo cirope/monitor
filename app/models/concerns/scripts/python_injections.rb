@@ -48,7 +48,9 @@ module Scripts::PythonInjections
           "from pony.orm import *",
           "config   = #{config}",
           "password = _decrypt_password('#{encrypted_password}', #{algorithm}, #{mode})",
-          'Database().bind(config.update(password=password))'
+          'config.update(password=password)',
+          'session  = Database()',
+          'session.bind(**config)'
         ].join '; '
 
         line.sub PONY_CONNECTION_REGEX, connection
@@ -71,7 +73,8 @@ module Scripts::PythonInjections
           "from sqlalchemy import *",
           "config   = #{config}",
           "password = _decrypt_password('#{encrypted_password}', #{algorithm}, #{mode})",
-          "sqlalchemy.create_engine(sqlalchemy.URL.create(config.update(password=password))).connect()",
+          'config.update(password=password)',
+          "session  = create_engine(URL.create(**config)).connect()",
         ].join '; '
 
         line.sub SQLALCHEMY_CONNECTION_REGEX, connection

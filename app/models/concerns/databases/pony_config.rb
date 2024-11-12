@@ -5,23 +5,13 @@ module Databases::PonyConfig
 
   def pony_config
     <<~PYTHON.strip
-      dict(provider='#{provider}', host='#{host}', port='#{port}', user='#{user}', database='#{database}')
+      dict(provider='#{pony_provider}', host='#{host}', port='#{port}', user='#{user}', database='#{database}')
     PYTHON
-  end
-
-  def adapter_drivers
-    case driver
-    when /postgres/i then 'psycopg2'
-    when /mysql/i    then 'PyMySQL'
-    when /sqlite/i   then nil
-    else
-      raise "Unsupported adapter for driver #{driver}"
-    end
   end
 
   private
 
-    def provider
+    def pony_provider
       case driver
       when /postgres/i then 'postgres'
       when /mysql/i    then 'mysql'
