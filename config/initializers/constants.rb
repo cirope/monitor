@@ -5,6 +5,8 @@ ENABLE_WEB_CONSOLE = ENV['ENABLE_WEB_CONSOLE'] == 'true'
 UUID_REGEX = /[a-f0-9]{8}-([a-f0-9]{4}-){3}[a-f0-9]{12}/
 # Python PonyORM REGEX
 PONY_CONNECTION_REGEX = /@pony_connection\[['"](\w+)['"]\]/
+# Python SQLAlchemy ORM REGEX
+SQLALCHEMY_CONNECTION_REGEX = /@sqlalchemy_connection\[['"](\w+)['"]\]/
 # Python ODBC REGEX
 PY_GREDIT_CONNECTION_REGEX = /gredit.connect\(?\s*['"](\w+)['"]\s*\)?/
 # Gredit Cipher

@@ -11,6 +11,10 @@ module Scripts::PythonInjections
         connection_name = match.captures.first
 
         inject_pony_connection line, connection_name
+      elsif (match = line.match(SQLALCHEMY_CONNECTION_REGEX))
+        connection_name = match.captures.first
+
+        inject_sqlalchemy_connection line, connection_name
       elsif (match = line.match(PY_GREDIT_CONNECTION_REGEX)) && line[','].blank?
         connection_name = match.captures.first
 
@@ -34,17 +38,27 @@ module Scripts::PythonInjections
       db = Database.current.find_by name: connection_name
 
       if db
-        config    = db.pony_config # Aquí se genera el key y el iv
-        cipher    = GREDIT_CIPHER.values.first
-        algorithm = cipher[:algorithm] % { key: "'#{db.cipher_key}'.encode()" }
-        mode      = cipher[:mode]      % {  iv:  "'#{db.cipher_iv}'.encode()" }
+        config                              = db.pony_config
+        encrypted_password, algorithm, mode = generate_cipher db
 
-        connection = [
-          'db = Database()',
-          "db.bind(_decrypt_password(#{config}, #{algorithm}, #{mode}))"
-        ].join '; '
+        connection = "_generate_connection('pony', #{config}, '#{encrypted_password}', #{algorithm}, #{mode})"
 
         line.sub PONY_CONNECTION_REGEX, connection
+      else
+        line
+      end
+    end
+
+    def inject_sqlalchemy_connection line, connection_name
+      db = Database.current.find_by name: connection_name
+
+      if db
+        config                              = db.sqlalchemy_config
+        encrypted_password, algorithm, mode = generate_cipher db
+
+        connection = "_generate_connection('sqlalchemy', #{config}, '#{encrypted_password}', #{algorithm}, #{mode})"
+
+        line.sub SQLALCHEMY_CONNECTION_REGEX, connection
       else
         line
       end
@@ -73,5 +87,14 @@ module Scripts::PythonInjections
       else
         line
       end
+    end
+
+    def generate_cipher db
+      encrypted_password = db.encrypt_password
+      cipher             = GREDIT_CIPHER.values.first
+      algorithm          = cipher[:algorithm] % { key: "'#{db.cipher_key}'.encode()" }
+      mode               = cipher[:mode]      % {  iv:  "'#{db.cipher_iv}'.encode()" }
+
+      return encrypted_password, algorithm, mode
     end
 end
