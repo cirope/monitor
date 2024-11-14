@@ -27,7 +27,7 @@
           <th class="d-none d-lg-table-cell"><%= Run.human_attribute_name 'started_at' %></th>
           <th class="d-none d-lg-table-cell"><%= Run.human_attribute_name 'ended_at' %></th>
           <th class="d-none d-sm-table-cell"><%= t '.run_time' %></th>
-          <th colspan="<%= current_user.author? ? 1 : 2 %>"></th>
+          <th colspan="2"></th>
         </tr>
       </thead>
       <tbody>
@@ -39,10 +39,8 @@
             <td class="d-none d-lg-table-cell"><%= l run.started_at, format: :long if run.started_at %></td>
             <td class="d-none d-lg-table-cell"><%= l run.ended_at, format: :long if run.ended_at %></td>
             <td class="d-none d-sm-table-cell"><%= run_time run %></td>
-            <td class="text-right"><%= link_to_show run %></td>
-            <% unless current_user.author? %>
-              <td class="text-right"><%= link_to_destroy run %></td>
-            <% end %>
+            <td class="text-end"><%= link_to_show run %></td>
+            <td class="text-end"><%= link_to_destroy run %></td>
           </tr>
         <% end %>
       </tbody>

@@ -1,0 +1,7 @@
+<% @issue ||= issue %>
+
++function () {
+  $('[data-comment-id="<%= @comment.id %>"]').replaceWith(
+    '<%= j render('issues/comments/form', format: :html) %>'
+  )
+}()

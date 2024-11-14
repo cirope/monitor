@@ -112,7 +112,22 @@ class ScriptsHelperTest < ActionView::TestCase
   end
 
   test 'lang icon' do
-    assert_match 'fas fa-database', lang_icon('sql')
-    assert_match 'fas fa-gem', lang_icon('ruby')
+    ruby  = scripts :ls
+    shell = scripts :pwd
+
+    assert_match 'fas fa-gem', lang_icon(ruby)
+    assert_match 'fas fa-hashtag', lang_icon(shell)
+  end
+
+  test 'imported status' do
+    @virtual_path          = 'scripts.imports.create'
+    script                 = scripts :ls
+    script.imported_status = :created
+
+    assert_match 'bg-success', show_script_imported_status(script)
+
+    script.imported_status = :updated
+
+    assert_match 'bg-info', show_script_imported_status(script)
   end
 end

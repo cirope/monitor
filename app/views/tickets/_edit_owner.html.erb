@@ -1,0 +1,11 @@
+<% owner = @script || @rule %>
+
+<% if ticket = owner&.pending_ticket %>
+  |
+  <mark class="text-muted"><%= ticket %></mark>
+  <%= link_to icon('fas', 'circle-xmark', t('tickets.destroy.title')),
+    ticket_url(ticket),
+    method: :delete,
+    data: { confirm: t('messages.confirmation') },
+    class: 'fs-6 text-danger' %>
+<% end %>

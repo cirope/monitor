@@ -1,35 +1,32 @@
 # frozen_string_literal: true
 
 class TaggingsController < ApplicationController
-  respond_to :js, :json
+  include Authentication
+  include Authorization
 
-  before_action :authorize, :set_issue
+  before_action :set_issue
   before_action :set_tagging, only: [:show, :destroy]
   before_action :set_title, except: [:destroy]
 
   def new
     @tagging = @issue.taggings.new
-
-    respond_with @tagging
   end
 
   def create
     @tagging = @new_tagging = @issue.taggings.new tagging_params
     @tagging = current_user.taggings.new if @tagging.save
-
-    respond_with @tagging
   end
 
   def destroy
     @tagging.destroy
-
-    respond_with @tagging
   end
 
   private
 
     def set_issue
-      @issue = issues.find params[:issue_id]
+      id = params[:ticket_id] ? params[:ticket_id] : params[:issue_id]
+
+      @issue = issues.find id
     end
 
     def set_tagging

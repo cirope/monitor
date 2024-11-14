@@ -1,7 +1,7 @@
 <div class="card mb-3">
   <div class="card-header">
     <% if filters? %>
-      <p class="text-warning mb-0 float-right">
+      <p class="text-warning mb-0 float-end">
         <%= icon 'fas', 'filter' %>
         <%= link_to home_path, title: t('cancel') do %>
           <%= icon 'fas', 'times-circle' %>
@@ -9,7 +9,7 @@
       </p>
     <% end %>
 
-    <a class="dropdown-toggle text-reset text-decoration-none d-block" href="#filters" data-toggle="collapse">
+    <a class="dropdown-toggle text-reset text-decoration-none d-block" href="#filters" data-bs-toggle="collapse">
       <%= icon 'fas', 'search' %>
       <%= t 'filters.title' %>
     </a>
@@ -87,6 +87,15 @@
 
           <div class="row">
             <div class="col-lg-4">
+              <%= f.input :data,
+                required: false,
+                input_html: {
+                  value: filter_params[:data],
+                  class: 'form-control-sm'
+                }
+              %>
+            </div>
+            <div class="col-lg-4">
               <% if current_user.can_use_mine_filter? %>
                 <%= f.input :show,
                   required:      false,
@@ -97,9 +106,9 @@
                 %>
               <% end %>
             </div>
-            <div class="col-lg-4 offset-lg-4 pt-3">
+            <div class="col-lg-4 mt-2">
               <div class="form-actions">
-                <p class="text-right mb-0">
+                <p class="mb-0">
                   <%= f.button :submit, t('filters.submit'), class: 'btn-sm btn-secondary' %>
                   <%= link_to t('cancel'), home_path, class: 'small' %>
                 </p>

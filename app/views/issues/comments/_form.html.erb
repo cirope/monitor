@@ -1,0 +1,14 @@
+<%= simple_form_for [@owner, @issue, @comment], comment_form_options do |f| %>
+  <%= f.error_notification %>
+
+  <fieldset class="mb-3">
+    <%= render 'issues/comments/comment', f: f %>
+
+    <div class="form-actions">
+      <%= f.button :submit, class: 'btn-sm btn-secondary' %>
+      <% if @comment.persisted? %>
+        <%= link_to t('cancel'), [@issue, @comment], data: { remote: request.xhr? } %>
+      <% end %>
+    </div>
+  </fieldset>
+<% end %>

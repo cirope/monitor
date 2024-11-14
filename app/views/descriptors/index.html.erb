@@ -6,8 +6,9 @@
       <thead>
         <tr>
           <th><%= Descriptor.human_attribute_name 'name' %></th>
+          <th><%= Descriptor.human_attribute_name 'public' %></th>
           <th colspan="3">
-            <%= link_to_new new_descriptor_path, class: 'btn btn-secondary btn-sm py-0 mr-n2 float-right' %>
+            <%= link_to_new new_descriptor_path, class: 'btn btn-secondary btn-sm py-0 mr-n2 float-end' %>
           </th>
         </tr>
       </thead>
@@ -16,9 +17,10 @@
         <% @descriptors.each do |descriptor| %>
           <tr>
             <td><%= descriptor.name %></td>
-            <td class="text-right"><%= link_to_show descriptor %></td>
-            <td class="text-right"><%= link_to_edit [:edit, descriptor] %></td>
-            <td class="text-right"><%= link_to_destroy descriptor %></td>
+            <td><%= show_boolean_badge descriptor.public %></td>
+            <td class="text-end"><%= link_to_show descriptor %></td>
+            <td class="text-end"><%= link_to_edit [:edit, descriptor] %></td>
+            <td class="text-end"><%= link_to_destroy descriptor %></td>
           </tr>
         <% end %>
       </tbody>

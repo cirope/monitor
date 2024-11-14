@@ -1,0 +1,32 @@
+<% if @versions.empty? %>
+  <%= render 'shared/empty_index', message: t('.empty_html') %>
+<% else %>
+  <div class="card">
+    <div class="card-header">
+      <h5><%= link_to @owner, @owner %></h5>
+    </div>
+
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th><%= PaperTrail::Version.human_attribute_name 'whodunnit' %></th>
+          <th class="d-none d-md-table-cell"><%= t '.change' %></th>
+          <th><%= PaperTrail::Version.human_attribute_name 'created_at' %></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @versions.each do |version| %>
+          <tr>
+            <td><%= version_whodunnit version %></td>
+            <td class="d-none d-md-table-cell"><%= truncate version_change_for(version, 'change') %></td>
+            <td><%= l version_change_date_for(version), format: :compact %></td>
+            <td class="text-end"><%= link_to_show [@owner, :version, id: version.id] %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <%= paginate @versions %>
+<% end %>

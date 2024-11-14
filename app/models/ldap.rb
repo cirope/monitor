@@ -5,7 +5,6 @@ class Ldap < ApplicationRecord
   include Attributes::Strip
   include Ldaps::Import
   include Ldaps::Auth
-  include Ldaps::Options
   include Ldaps::Validation
 
   strip_fields :hostname, :basedn, :filter, :login_mask, :username_attribute,

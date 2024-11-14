@@ -1,22 +1,21 @@
 # gem 'composite_primary_keys', require: false
 # https://github.com/composite-primary-keys/composite_primary_keys/pull/472
 gem 'composite_primary_keys'
-gem 'ruby-odbc', '< 0.999992', require: false
+gem 'selenium-webdriver', '4.0', require: false
+gem 'net-sftp', require: false
 gem 'dbf', require: false
 gem 'roo', require: false
 gem 'roo-xls', require: false
-gem 'selenium-webdriver', '4.0', require: false
 gem 'rbase-ff', require: false
-gem 'net-sftp', require: false
-gem 'gruff', '< 0.25.0'
+gem 'gruff'
 
-unless ENV['TRAVIS']
+unless ENV['GH_ACTIONS']
   # Oracle ActiveRecord adapter
   gem 'ruby-oci8', require: false
   gem 'activerecord-oracle_enhanced-adapter', require: false
 
   gem 'tiny_tds', require: false
-  gem 'activerecord-sqlserver-adapter', require: false
+  gem 'activerecord-sqlserver-adapter', '< 7.1', require: false
 
   # MySQL driver
   #gem 'mysql2'

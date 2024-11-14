@@ -28,6 +28,14 @@ module Taggable
     def not_tagged
       left_joins(:taggings).where(taggings: { id: nil }).references :taggings
     end
+
+    def hidden
+      joins(:tags).where "#{Tag.table_name}.options @> ?", { hide: true }.to_json
+    end
+
+    def not_hidden
+      where.not id: hidden.select(:id)
+    end
   end
 
   private

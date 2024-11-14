@@ -32,7 +32,7 @@ class SerieTest < ActiveSupport::TestCase
       Serie.create_sample(
         name:       'test',
         identifier: 'user_1',
-        timestamp:  3.days.ago.to_s(:db),
+        timestamp:  3.days.ago.to_fs(:db),
         amount:     3.54
       )
     end
@@ -43,13 +43,13 @@ class SerieTest < ActiveSupport::TestCase
       {
         name:       'test2',
         identifier: 'user_2',
-        timestamp:  1.days.ago.to_s(:db),
+        timestamp:  1.days.ago.to_fs(:db),
         amount:     1.11
       },
       {
         name:       'test2',
         identifier: 'user_2',
-        timestamp:  2.days.ago.to_s(:db),
+        timestamp:  2.days.ago.to_fs(:db),
         amount:     2.22
       }
     ]
@@ -65,18 +65,18 @@ class SerieTest < ActiveSupport::TestCase
       {
         name:       'test2',
         identifier: 'user_2',
-        timestamp:  1.days.ago.to_s(:db),
+        timestamp:  1.days.ago.to_fs(:db),
         amount:     1.11
       },
       {
         name:       '',
         identifier: '',
-        timestamp:  2.days.ago.to_s(:db)
+        timestamp:  2.days.ago.to_fs(:db)
       },
       {
         name:       'test3',
         identifier: 'user_3',
-        timestamp:  3.days.ago.to_s(:db),
+        timestamp:  3.days.ago.to_fs(:db),
         amount:     3.33
       }
     ]

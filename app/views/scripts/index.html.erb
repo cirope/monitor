@@ -11,7 +11,7 @@
           <th><%= Script.human_attribute_name 'name' %></th>
           <th class="d-none d-md-table-cell"><%= Tag.model_name.human count: 0 %></th>
           <th colspan="3">
-            <%= link_to_new new_script_path, class: 'btn btn-secondary btn-sm py-0 mr-n2 float-right' %>
+            <%= link_to_new new_script_path, class: 'btn btn-secondary btn-sm py-0 mr-n2 float-end' %>
           </th>
         </tr>
       </thead>
@@ -19,16 +19,16 @@
       <tbody>
         <% @scripts.each do |script| %>
           <tr>
-            <td class="text-muted"><%= lang_icon script.language %></td>
+            <td class="text-muted"><%= lang_icon script %></td>
             <td>
               <%= imported_tag script %>
               <%= script %>
             </td>
             <td class="d-none d-md-table-cell"><%= tag_icons script.tags %></td>
-            <td class="text-right"><%= link_to_show script %></td>
+            <td class="text-end"><%= link_to_show script %></td>
             <% if script.can_be_edited_by? current_user %>
-              <td class="text-right"><%= link_to_edit [:edit, script] %></td>
-              <td class="text-right"><%= link_to_destroy script %></td>
+              <td class="text-end"><%= link_to_edit [:edit, script] %></td>
+              <td class="text-end"><%= link_to_destroy script %></td>
             <% else %>
               <td colspan="2"></td>
             <% end %>
@@ -44,11 +44,13 @@
 <div class="btn-group">
   <%= link_to_new new_script_path, class: 'btn btn-primary' %>
 
-  <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
+  <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">
   </button>
 
   <div class="dropdown-menu">
     <%= link_to t('.new_sql'), new_script_path(lang: 'sql'), class: 'dropdown-item' %>
+    <%= link_to t('.new_shell'), new_script_path(lang: 'shell'), class: 'dropdown-item' %>
+    <%= link_to t('.new_python'), new_script_path(lang: 'python'), class: 'dropdown-item' %>
 
     <div class="dropdown-divider"></div>
 

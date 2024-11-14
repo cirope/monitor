@@ -1,0 +1,19 @@
+rich_text_first_pdf_template:
+  record: first_pdf_template (PdfTemplate)
+  name: 'content'
+  body: 
+    <div class="trix-content">
+      <div>A example of pdf template</div>
+      <pre>2+2</pre>
+      <div>a variable</div>
+      <pre>var</pre>
+      <div>final</div>
+    </div>
+
+rich_text_second_pdf_template:
+  record: second_pdf_template (PdfTemplate)
+  name: 'content'
+  body: 
+    <div class="trix-content">
+      <div>A example of pdf template</div>
+    </div>

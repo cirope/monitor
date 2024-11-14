@@ -13,6 +13,10 @@ module Issues::Export
     sanitize_filename "#{description}.zip"
   end
 
+  def export_attachments
+    export_to_csvs
+  end
+
   private
 
     def export_to_csvs
@@ -108,7 +112,7 @@ module Issues::Export
         key = sanitize_filename(name + "_#{@basenames_index[name] += 1}") + '.csv'
       end
 
-      @files_content[key] = ::CSV.generate CSV_OPTIONS do |csv|
+      @files_content[key] = ::CSV.generate **CSV_OPTIONS do |csv|
         yield csv
       end
     end

@@ -16,7 +16,7 @@ module Users::Scopes
     end
 
     def by_role role
-      where role: role
+      joins(:role).where roles: { type: role }
     end
 
     def by_email email

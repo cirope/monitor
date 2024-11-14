@@ -5,6 +5,8 @@
 # Require whichever Elevator you're using below or none if you have a custom one.
 #
 require 'apartment/elevators/generic'
+require 'session_elevator'
+
 # require 'apartment/elevators/domain'
 # require 'apartment/elevators/subdomain'
 # require 'apartment/elevators/first_subdomain'
@@ -18,7 +20,7 @@ Apartment.configure do |config|
   # Add any models that you do not want to be multi-tenanted, but remain in the global (public) namespace.
   # A typical example would be a Customer or Tenant model that stores each Tenant's information.
   #
-  config.excluded_models = %w(Account Database Membership Property Version ActiveRecord::SessionStore::Session)
+  config.excluded_models = %w(Account Database Drive Membership Property Version ActiveRecord::SessionStore::Session)
 
   # In order to migrate all of your Tenants you need to provide a list of Tenant names to Apartment.
   # You can make this dynamic by providing a Proc object to be called on migrations.

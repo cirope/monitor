@@ -46,7 +46,7 @@ class SystemProcessTest < ActiveSupport::TestCase
     sleep_p = sleep_process
 
     assert sleep_p.still_running?
-    sleep ENV['TRAVIS'] ? 0.40 : 0.02
+    sleep ENV['GH_ACTIONS'] ? 0.40 : 0.02
     refute sleep_p.still_running?
   end
 
@@ -122,7 +122,7 @@ class SystemProcessTest < ActiveSupport::TestCase
   private
 
     def sleep_process interval: 0.01
-      interval *= 20 if ENV['TRAVIS']
+      interval *= 20 if ENV['GH_ACTIONS']
 
       detached_process command: "sleep #{interval}"
     end

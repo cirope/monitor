@@ -106,11 +106,49 @@ class IssuesControllerTest < ActionController::TestCase
       issue.update! data: [['Header one', 'Header two'], ['Value 1', 'Value 2']]
     end
 
-    %w(status tags final_tags other).each do |graph|
+    %w(status other).each do |graph|
       get :index, params: { script_id: @issue.script.id, graph: graph }
       assert_response :success
       assert_equal [:graph], @request.variant
     end
+  end
+
+  test 'should get new' do
+    get :new
+    assert_response :success
+  end
+
+  test 'should create issue' do
+    assert_difference 'Issue.count' do
+      post :create, params: {
+        issue: {
+          owner_type: 'Script',
+          title: 'New Issue',
+          description: 'New Description'
+        }
+      }
+    end
+
+    assert_redirected_to issue_url(Issue.last)
+  end
+
+  test 'should create nested issue' do
+    script = scripts :ls
+
+    assert_difference 'Issue.count' do
+      post :create, params: {
+        script_id: script.id,
+        issue: {
+          title: 'New Issue',
+          description: 'New Description'
+        }
+      }
+    end
+
+    issue = Issue.last
+
+    assert_not_nil issue.owner
+    assert_redirected_to [script, issue]
   end
 
   test 'should show issue' do
@@ -151,7 +189,7 @@ class IssuesControllerTest < ActionController::TestCase
   test 'should get edit as owner' do
     user = users :john
 
-    user.update! role: 'owner'
+    user.update! role: roles(:owner)
 
     login user: user
 
@@ -177,7 +215,7 @@ class IssuesControllerTest < ActionController::TestCase
             comments_attributes: [
               {
                 text: 'test comment',
-                file: fixture_file_upload('files/test.sh', 'text/plain', false)
+                file: fixture_file_upload('test/fixtures/files/test.sh', 'text/plain', false)
               }
             ]
           }
@@ -191,7 +229,7 @@ class IssuesControllerTest < ActionController::TestCase
   test 'should update issue as owner' do
     user = users :john
 
-    user.update! role: 'owner'
+    user.update! role: roles(:owner)
 
     login user: user
 
@@ -214,7 +252,7 @@ class IssuesControllerTest < ActionController::TestCase
               comments_attributes: [
                 {
                   text: 'test comment',
-                  file: fixture_file_upload('files/test.sh', 'text/plain', false)
+                  file: fixture_file_upload('test/fixtures/files/test.sh', 'text/plain', false)
                 }
               ]
             }
@@ -228,11 +266,13 @@ class IssuesControllerTest < ActionController::TestCase
   end
 
   test 'should destroy issue' do
+    script = @issue.script
+
     assert_difference 'Issue.count', -1 do
       delete :destroy, params: { id: @issue }
     end
 
-    assert_redirected_to script_issues_url(@issue.script)
+    assert_redirected_to script_issues_url(script)
   end
 
   test 'should respond api issues' do
@@ -274,7 +314,7 @@ class IssuesControllerTest < ActionController::TestCase
 
     @controller.params = ActionController::Parameters.new({ filter: params_hash })
 
-    assert_equal ActionController::Parameters.new(params_hash).permit(Issues::Filters::PERMITED_FILTER_PARAMS), 
+    assert_equal ActionController::Parameters.new(params_hash).permit(Issues::Filters::PERMITED_FILTER_PARAMS),
                  @controller.send(:filter_params)
   end
 end

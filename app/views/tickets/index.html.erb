@@ -1,0 +1,56 @@
+<%= render 'filters' %>
+
+<div class="card">
+  <div class="card-header">
+    <h5>
+      <%= @title %>
+
+      <% if @owner %>
+        |
+        <%= @owner.class.model_name.human count: 1 %> -
+        <span class="text-primary fw-bolder"><%= link_to @owner %></span>
+      <% end %>
+    </h5>
+  </div>
+
+  <div class="card-body">
+    <% if @tickets.empty? %>
+      <%= render 'shared/empty_index', message: empty_message %>
+    <% else %>
+      <div class="card">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th class="d-none d-sm-table-cell"><%= Ticket.human_attribute_name 'created_at' %></th>
+              <th><%= Ticket.human_attribute_name 'owner' %></th>
+              <th><%= Ticket.human_attribute_name 'title' %></th>
+              <th class="d-none d-sm-table-cell"><%= Ticket.human_attribute_name 'status' %></th>
+              <th class="d-none d-lg-table-cell"><%= Tag.model_name.human count: 0 %></th>
+              <th colspan="4"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @tickets.each do |ticket| %>
+              <tr>
+                <td class="d-none d-sm-table-cell"><%= l ticket.created_at, format: :compact %></td>
+                <td><%= show_owner_label ticket %></td>
+                <td><%= truncate ticket.title, length: 50 %></td>
+                <td class="d-none d-sm-table-cell"><%= issue_status ticket %></td>
+                <td class="d-none d-lg-table-cell"><%= tag_icons ticket.tags %></td>
+                <td class="text-end"><%= link_to_issue_owner ticket %></td>
+                <td class="text-end"><%= link_to_show [@owner, ticket, filter: filter_query_hash] %></td>
+                <td class="text-end"><%= link_to_edit [:edit, @owner, ticket, filter: filter_query_hash] %></td>
+                <td class="text-end"><%= link_to_destroy [@owner, ticket, filter: filter_query_hash] %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+
+      <%= paginate @tickets %>
+    <% end %>
+  </div>
+</div>
+
+<%= link_to_new [:new, @owner, :ticket], class: 'btn btn-primary' %>

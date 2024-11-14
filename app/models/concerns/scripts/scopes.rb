@@ -16,5 +16,9 @@ module Scripts::Scopes
     def by_name name
       where "#{table_name}.name ILIKE ?", "%#{name}%"
     end
+
+    def by_text text
+      where "#{table_name}.text ILIKE ?", "%#{text}%"
+    end
   end
 end

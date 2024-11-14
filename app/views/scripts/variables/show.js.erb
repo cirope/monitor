@@ -1,0 +1,5 @@
++function () {
+  $('[data-variable-id="<%= @variable.id %>"]').html(
+    '<%= j render(template: 'scripts/variables/show', formats: [:html], variable: @variable) %>'
+  )
+}()
