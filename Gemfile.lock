@@ -36,10 +36,7 @@ GEM
       activemodel (= 7.1.5)
       activesupport (= 7.1.5)
       timeout (>= 0.4.0)
-    activerecord-oracle_enhanced-adapter (7.1.0)
-      activerecord (~> 7.1.0)
-      ruby-oci8
-      ruby-plsql (>= 0.6.0)
+    activerecord-oracle_enhanced-adapter (1.6.9)
     activerecord-session_store (2.1.0)
       actionpack (>= 6.1)
       activerecord (>= 6.1)
@@ -326,7 +323,6 @@ GEM
     ruby-oci8 (2.2.14)
     ruby-odbc (0.999991)
     ruby-ole (1.2.13.1)
-    ruby-plsql (0.8.0)
     ruby-progressbar (1.13.0)
     ruby-saml (1.17.0)
       nokogiri (>= 1.13.10)
@@ -417,7 +413,7 @@ PLATFORMS
   x86_64-linux-gnu
 
 DEPENDENCIES
-  activerecord-oracle_enhanced-adapter
+  activerecord-oracle_enhanced-adapter (< 7.1)
   activerecord-session_store
   activerecord-sqlserver-adapter (< 7.1)
   autoprefixer-rails (< 10)

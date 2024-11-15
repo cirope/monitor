@@ -12,7 +12,7 @@ gem 'gruff'
 unless ENV['GH_ACTIONS']
   # Oracle ActiveRecord adapter
   gem 'ruby-oci8', require: false
-  gem 'activerecord-oracle_enhanced-adapter', require: false
+  gem 'activerecord-oracle_enhanced-adapter', '< 7.1',require: false
 
   gem 'tiny_tds', require: false
   gem 'activerecord-sqlserver-adapter', '< 7.1', require: false
