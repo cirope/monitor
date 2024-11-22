@@ -59,10 +59,7 @@ GEM
       activemodel (= 7.1.5)
       activesupport (= 7.1.5)
       timeout (>= 0.4.0)
-    activerecord-oracle_enhanced-adapter (7.1.0)
-      activerecord (~> 7.1.0)
-      ruby-oci8
-      ruby-plsql (>= 0.6.0)
+    activerecord-oracle_enhanced-adapter (1.6.9)
     activerecord-session_store (2.1.0)
       actionpack (>= 6.1)
       activerecord (>= 6.1)
@@ -70,9 +67,7 @@ GEM
       multi_json (~> 1.11, >= 1.11.2)
       rack (>= 2.0.8, < 4)
       railties (>= 6.1)
-    activerecord-sqlserver-adapter (7.1.9)
-      activerecord (~> 7.1.1)
-      tiny_tds
+    activerecord-sqlserver-adapter (2.3.8)
     activestorage (7.1.5)
       actionpack (= 7.1.5)
       activejob (= 7.1.5)
@@ -354,7 +349,6 @@ GEM
     ruby-oci8 (2.2.14)
     ruby-odbc (0.999991)
     ruby-ole (1.2.13.1)
-    ruby-plsql (0.8.0)
     ruby-progressbar (1.13.0)
     ruby-saml (1.17.0)
       nokogiri (>= 1.13.10)
@@ -444,9 +438,9 @@ PLATFORMS
   x86_64-linux-gnu
 
 DEPENDENCIES
-  activerecord-oracle_enhanced-adapter
+  activerecord-oracle_enhanced-adapter (< 7.1)
   activerecord-session_store
-  activerecord-sqlserver-adapter
+  activerecord-sqlserver-adapter (< 7.1)
   bcrypt
   bcrypt_pbkdf
   bootstrap (< 5.3)

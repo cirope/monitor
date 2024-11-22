@@ -5,11 +5,11 @@ gem 'composite_primary_keys'
 unless ENV['GH_ACTIONS']
   # Oracle ActiveRecord adapter
   gem 'ruby-oci8', require: false
-  gem 'activerecord-oracle_enhanced-adapter', require: false
+  gem 'activerecord-oracle_enhanced-adapter', '< 7.1', require: false
 
   # SQL Server ActiveRecord adapter
   gem 'tiny_tds'
-  gem 'activerecord-sqlserver-adapter', require: false
+  gem 'activerecord-sqlserver-adapter', '< 7.1', require: false
 
   gem 'roo'
   gem 'roo-xls', require: false
