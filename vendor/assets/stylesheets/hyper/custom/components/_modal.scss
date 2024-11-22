@@ -1,4 +1,4 @@
-// 
+//
 // modal.scss
 //
 
@@ -29,9 +29,9 @@
     margin: 0;
     background-color: $modal-content-bg;
     align-content: center;
-    transform: translate(25%,0) !important;
+    transform: translate(25%, 0) !important;
 
-    button.close {
+    button.btn-close {
         position: fixed;
         top: 20px;
         right: 20px;
@@ -41,8 +41,9 @@
 
 .modal {
     &.show {
-        .modal-right {
-            transform: translate(0,0) !important;
+        .modal-right,
+        .modal-left {
+            transform: translate(0, 0) !important;
         }
     }
 }
@@ -62,10 +63,6 @@
 .modal-colored-header {
     color: $white;
     border-radius: 0;
-
-    .close {
-        color: $white !important;
-    }
 }
 
 // Full filled modals
@@ -73,14 +70,11 @@
     color: $white;
 
     .modal-header {
-        background-color: rgba($white,0.07);
+        background-color: rgba($white, 0.07);
     }
 
-    .modal-header,.modal-footer {
+    .modal-header,
+    .modal-footer {
         border: none;
-    }
-
-    .close {
-        color: $white !important;
     }
 }

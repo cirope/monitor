@@ -3,20 +3,52 @@
 
   <fieldset>
     <div class="form-inputs">
-      <%= f.input :name, input_html: { autofocus: true, disabled: ldap } %>
-      <%= f.input :lastname, input_html: { disabled: ldap } %>
-      <%= f.input :email, input_html: { disabled: ldap } %>
-      <%= f.input :username, input_html: { disabled: ldap } %>
-      <% unless ldap %>
-        <%= f.input :password %>
-        <%= f.input :password_confirmation %>
+
+      <% if @user.restore_errors_any? %>
+        <div class="alert alert-info border-0" role="alert">
+           <h4 class="alert-heading"><%= t 'users.restore.taken' %></h4>
+           <h5><%= t 'users.restore.confirmation' %></h5>
+           <hr>
+           <%= f.input :restore, as: :boolean %>
+        </div>
+      <% elsif @user.errors.where(:restore).any? %>
+        <div class="alert alert-danger border-0" role="alert">
+          <%= @user.errors[:restore].first %>
+        </div>
+      <% elsif @user.errors.where(:tags).any? %>
+        <div class="alert alert-warning border-0" role="alert">
+          <%= @user.errors[:tags].first %>
+        </div>
       <% end %>
-      <%= f.input :role, collection: roles, prompt: true, label: roles_label, input_html: { disabled: ldap } %>
+
+      <div class="row">
+        <div class="col-md-6">
+          <%= f.input :name, input_html: { autofocus: true, disabled: !@user.manual? } %>
+          <%= f.input :email, input_html: { disabled: !@user.manual? } %>
+        </div>
+        <div class="col-md-6">
+          <%= f.input :lastname, input_html: { disabled: !@user.manual? } %>
+          <%= f.input :username, input_html: { disabled: !@user.manual? } %>
+        </div>
+      </div>
+
+      <% if @user.manual? && @user.new_record? %>
+        <div class="row">
+          <div class="col-md-6">
+            <%= f.input :password %>
+          </div>
+          <div class="col-md-6">
+            <%= f.input :password_confirmation %>
+          </div>
+        </div>
+      <% end %>
+
+      <%= f.association :role, prompt: true, input_html: { disabled: !@user.manual? } %>
       <%= f.input :lock_version, as: :hidden %>
 
       <div class="card">
         <div class="card-header">
-          <a class="text-reset text-decoration-none d-block" href="#tags" data-toggle="collapse">
+          <a class="text-reset text-decoration-none d-block" href="#tags" data-bs-toggle="collapse">
             <%= Tag.model_name.human count: 0 %>
           </a>
         </div>

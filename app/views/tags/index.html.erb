@@ -1,14 +1,12 @@
-<% unless current_user.manager? %>
-  <ul class="nav nav-tabs mb-2">
-    <% tag_kinds.each do |kind, name| %>
-      <% active = kind.to_s == params[:kind] %>
+<ul class="nav nav-tabs mb-2">
+  <% tag_kinds.each do |kind, name| %>
+    <% active = kind.to_s == params[:kind] %>
 
-      <%= content_tag :li, class: 'nav-item' do %>
-        <%= link_to name, tags_path(kind: kind), class: "nav-link#{' active' if active}" %>
-      <% end %>
+    <%= content_tag :li, class: 'nav-item' do %>
+      <%= link_to name, tags_path(kind: kind), class: "nav-link#{' active' if active}" %>
     <% end %>
-  </ul>
-<% end %>
+  <% end %>
+</ul>
 
 <div class="card">
   <% if @tags.empty? %>
@@ -21,7 +19,7 @@
         <tr>
           <th><%= Tag.human_attribute_name 'name' %></th>
           <th colspan="3">
-            <%= link_to_new new_tag_path, class: 'btn btn-secondary btn-sm py-0 mr-n2 float-right' %>
+            <%= link_to_new new_tag_path, class: 'btn btn-secondary btn-sm py-0 mr-n2 float-end' %>
           </th>
         </tr>
       </thead>
@@ -30,9 +28,9 @@
         <% @tags.each do |tag| %>
           <%= content_tag :tr, class: tag.group && 'table-info' do %>
             <td><%= tag.name %></td>
-            <td class="text-right"><%= link_to_show [tag, kind: tag.kind] %></td>
-            <td class="text-right"><%= link_to_edit [:edit, tag, kind: tag.kind] %></td>
-            <td class="text-right"><%= link_to_destroy [tag, kind: tag.kind] %></td>
+            <td class="text-end"><%= link_to_show [tag, kind: tag.kind] %></td>
+            <td class="text-end"><%= link_to_edit [:edit, tag, kind: tag.kind] %></td>
+            <td class="text-end"><%= link_to_destroy [tag, kind: tag.kind] %></td>
           <% end %>
         <% end %>
       </tbody>

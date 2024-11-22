@@ -4,7 +4,7 @@ ls_on_atahualpa_not_well:
   data: { "test": "data" }
   data_type: object
   options:
-  run: past_ls_on_atahualpa
+  owner: past_ls_on_atahualpa (Run)
 
 ls_on_atahualpa_not_well_again:
   description: Ls on Atahualpa aparently is not working again
@@ -12,4 +12,12 @@ ls_on_atahualpa_not_well_again:
   data: [ { "test": "data" } ]
   data_type: single_row
   options:
-  run: past_ls_on_atahualpa
+  owner: past_ls_on_atahualpa (Run)
+
+boom_on_atahualpa:
+  description: Boom on Atahualpa
+  status: pending
+  data: { "test": "boom" }
+  data_type: object
+  options:
+  owner: boom_on_atahualpa (Run)

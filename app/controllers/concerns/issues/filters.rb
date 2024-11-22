@@ -6,6 +6,7 @@ module Issues::Filters
   PERMITED_FILTER_PARAMS = [
     :id,
     :name,
+    :title,
     :description,
     :status,
     :user,
@@ -30,7 +31,7 @@ module Issues::Filters
   end
 
   def issue_params
-    args = if @issue.can_be_edited_by? current_user
+    args = if @issue.blank? || @issue.can_be_edited_by?(current_user)
              editors_params
            elsif current_user.owner?
              owner_params
@@ -42,7 +43,7 @@ module Issues::Filters
   end
 
   def issue_filter
-    filter_params.slice :status, :tags, :description, :key, :user_id, :comment
+    filter_params.slice :status, :tags, :description, :key, :user_id, :comment, :canonical_data, :data
   end
 
   def filter_params
@@ -86,7 +87,7 @@ module Issues::Filters
 
     def editors_params
       [
-        :status, :description,
+        :status, :title, :description, :owner_type,
           subscriptions_attributes: [:id, :user_id, :_destroy],
           comments_attributes: [:id, :text, :attachment],
           taggings_attributes: [:id, :tag_id, :_destroy]

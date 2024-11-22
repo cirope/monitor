@@ -44,26 +44,8 @@
       <strong><%= Ldap.human_attribute_name 'roles_attribute' %></strong>:
       <%= @ldap.roles_attribute %>
     </p>
-    <p class="mb-1">
-      <strong><%= Ldap.human_attribute_name 'role_guest' %></strong>:
-      <%= @ldap.role_guest %>
-    </p>
-    <p class="mb-1">
-      <strong><%= Ldap.human_attribute_name 'role_author' %></strong>:
-      <%= @ldap.role_author %>
-    </p>
-    <p class="mb-1">
-      <strong><%= Ldap.human_attribute_name 'role_supervisor' %></strong>:
-      <%= @ldap.role_supervisor %>
-    </p>
-    <p class="mb-1">
-      <strong><%= Ldap.human_attribute_name 'role_security' %></strong>:
-      <%= @ldap.role_security %>
-    </p>
   </div>
 </div>
 
-<% if current_user.security? %>
-  <%= link_to_edit [:edit, @ldap] %> |
-<% end %>
+<%= link_to_edit [:edit, @ldap] %> |
 <%= link_to_index ldaps_path %>

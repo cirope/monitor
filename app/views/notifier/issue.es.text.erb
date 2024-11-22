@@ -8,7 +8,7 @@ Descripción
 
 <%= @issue.description %>
 
-<% if @issue.data.present? %>
+<% if @issue.data.present? && !@data_as_csv %>
 <%= Issue.human_attribute_name 'data' %>
 
   <% @issue.converted_data.each do |k, v| %>

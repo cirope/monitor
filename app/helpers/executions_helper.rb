@@ -4,15 +4,15 @@ module ExecutionsHelper
   def execution_status status
     klass = case status.to_s
             when 'success'
-              'badge-success'
+              'bg-success'
             when 'error'
-              'badge-danger'
+              'bg-danger'
             when 'running'
-              'badge-info'
+              'bg-info'
             when 'killed'
-              'badge-warning'
+              'bg-warning'
             else
-              'badge-secondary'
+              'bg-secondary'
             end
 
     content_tag :span, t("executions.status.#{status}"), class: "badge #{klass}"
@@ -57,5 +57,30 @@ module ExecutionsHelper
         t('.finish')
       ].join ' '
     end
+  end
+
+  def link_to_cleanup_executions script
+    options = {
+      title: t('executions.cleanup'),
+      data:  {
+        method:  :delete,
+        confirm: t('messages.confirmation')
+      }
+    }
+
+    link_to cleanup_script_executions_url(script), options do
+      icon 'fas', 'eraser'
+    end
+  end
+
+  def link_to_execution execution
+    label_text = execution.started_at ?
+      I18n.l(execution.started_at, format: :short) : icon('fas', 'clock')
+
+    link_to_if(
+      current_user.can?(:read, 'executions'),
+      label_text,
+      [execution.script, execution]
+    )
   end
 end

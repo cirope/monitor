@@ -1,26 +1,22 @@
 # frozen_string_literal: true
 
 class RunsController < ApplicationController
+  include Authentication
+  include Authorization
   include Runs::Filters
 
-  before_action :authorize, :not_guest, :not_owner, :not_manager, :not_security
+  content_security_policy false
+
   before_action :set_title, except: [:destroy]
   before_action :set_schedule, only: [:index]
   before_action :set_run, only: [:show, :update, :destroy]
-  before_action :not_author, except: [:index, :update, :show]
-
-  respond_to :html, :js
 
   def index
     @runs = runs.preload(:script).reorder(scheduled_at: :desc).page params[:page]
-
-    respond_with @runs
   end
 
   def show
     @measures = @run.measures.reorder(created_at: :desc).limit 30
-
-    respond_with @run
   end
 
   def update
@@ -34,7 +30,7 @@ class RunsController < ApplicationController
   def destroy
     @run.destroy
 
-    respond_with @run, location: schedule_runs_url(@run.schedule)
+    redirect_to schedule_runs_url(@run.schedule)
   end
 
   private

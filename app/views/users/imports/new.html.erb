@@ -7,7 +7,7 @@
         <h5><%= t '.credentials' %></h5>
       </div>
       <div class="card-body">
-        <%= simple_form_for :import, url: users_imports_path do |f| %>
+        <%= simple_form_for :import, url: users_imports_path, data: { turbo: false } do |f| %>
           <div class="form-inputs">
             <%= f.input :username, label: Ldap.human_attribute_name('test_user'), input_html: { autofocus: true } %>
             <%= f.input :password, label: Ldap.human_attribute_name('test_password') %>
@@ -71,22 +71,6 @@
           <li>
             <%= Ldap.human_attribute_name 'roles_attribute' %>:
             <strong><%= ldap.roles_attribute %></strong>
-          </li>
-          <li>
-            <%= Ldap.human_attribute_name 'role_guest' %>:
-            <strong><%= ldap.role_guest %></strong>
-          </li>
-          <li>
-            <%= Ldap.human_attribute_name 'role_author' %>:
-            <strong><%= ldap.role_author %></strong>
-          </li>
-          <li>
-            <%= Ldap.human_attribute_name 'role_supervisor' %>:
-            <strong><%= ldap.role_supervisor %></strong>
-          </li>
-          <li>
-            <%= Ldap.human_attribute_name 'role_security' %>:
-            <strong><%= ldap.role_security %></strong>
           </li>
         </ul>
       </div>

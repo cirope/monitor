@@ -1,17 +1,14 @@
 # frozen_string_literal: true
 
 class ExecutionsController < ApplicationController
-  respond_to :html
+  include Authentication
+  include Authorization
 
-  before_action :authorize,
-                :not_guest,
-                :not_owner,
-                :not_manager,
-                :not_security,
-                :set_script
+  content_security_policy false
 
+  before_action :set_script
   before_action :set_server, only: [:create]
-  before_action :set_execution, only: [:show, :update]
+  before_action :set_execution, only: [:show, :update, :destroy]
 
   # GET /executions
   def index
@@ -29,7 +26,7 @@ class ExecutionsController < ApplicationController
 
     @execution.save
 
-    respond_with @script, @execution
+    redirect_to [@script, @execution]
   end
 
   def update
@@ -38,6 +35,20 @@ class ExecutionsController < ApplicationController
     else
       @execution.kill
     end
+  end
+
+  def destroy
+    @execution.destroy
+
+    redirect_back fallback_location: [@script, @execution]
+  end
+
+  def cleanup
+    if current_user.can? :remove, controller_path
+      ScriptCleanupJob.perform_later @script
+    end
+
+    redirect_to @script
   end
 
   private

@@ -5,13 +5,13 @@
     </div>
     <div class="col-sm-6">
       <% if f.object.password? %>
-        <%= f.input :value, as: :password, label: false, input_html: { value: f.object.value } %>
+        <%= f.input :value, as: :password, label: false, input_html: { value: f.object.password } %>
       <% else %>
         <%= f.input :value, as: :slim %>
       <% end %>
     </div>
     <div class="col-sm-1">
-      <div class="row-controls text-right mb-3 mb-sm-0 mt-n4 mt-sm-n2">
+      <div class="row-controls text-end mb-3 mb-sm-0 mt-n4 mt-sm-n2">
         <%= f.input :id, as: :hidden %>
         <%= link_to_remove_nested_item f %>
       </div>

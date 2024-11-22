@@ -31,4 +31,11 @@ class DescriptionTest < ActiveSupport::TestCase
     assert_error @description, :name, :invalid
     assert_error @description, :value, :invalid
   end
+
+  test 'included attributes' do
+    @description.public = nil
+
+    assert @description.invalid?
+    assert_error @description, :public, :inclusion
+  end
 end

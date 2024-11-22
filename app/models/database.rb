@@ -2,12 +2,15 @@
 
 class Database < ApplicationRecord
   include Attributes::Strip
+  include Databases::OrmConfig
   include Databases::ActiveRecordConfig
+  include Databases::PonyConfig
   include Databases::Credentials
   include Databases::Odbc
   include Databases::Properties
   include Databases::Scopes
   include Databases::Search
+  include Databases::SqlalchemyConfig
   include Databases::Validations
   include Filterable
   include PublicAuditable

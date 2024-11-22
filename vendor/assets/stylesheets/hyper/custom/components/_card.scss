@@ -1,12 +1,15 @@
-// 
+//
 // card.scss
 //
 
 .card {
     border: none;
-    box-shadow: $shadow;
+    box-shadow: $card-box-shadow;
     margin-bottom: $grid-gutter-width;
 
+    .card-header {
+      border-bottom: 1px solid #e3eaef;
+    }
     .header-title {
         margin-bottom: 0.5rem;
         text-transform: uppercase;
@@ -16,7 +19,6 @@
     }
     .card-drop {
         font-size: 20px;
-        line-height: 0;
         color: inherit;
     }
     .card-widgets {
@@ -31,7 +33,7 @@
             &.collapsed {
                 i {
                     &:before {
-                        content: "\F415";
+                        content: "\F0415";
                     }
                 }
             }
@@ -39,13 +41,15 @@
     }
 }
 
-
 // Card title / Card Header
 .card-title,
 .card-header {
     margin-top: 0;
-}
 
+    .header-title {
+        margin-bottom: 0;
+    }
+}
 
 //Card disable loading (Custom Cards)
 .card-disabled {
@@ -55,19 +59,21 @@
     top: 0;
     bottom: 0;
     border-radius: $card-border-radius;
-    background: rgba($white, 0.8);
+    background: var(--#{$prefix}gray-100);
+    opacity: 0.8;
     cursor: progress;
 
     .card-portlets-loader {
-        background-color: $card-loader-bg;
+        background-color: var(--#{$prefix}gray-900);
         animation: rotatebox 1.2s infinite ease-in-out;
         height: 30px;
         width: 30px;
+        border-radius: 3px;
         position: absolute;
         left: 50%;
         top: 50%;
-        margin-left: - ($grid-gutter-width / 2);
-        margin-top: - ($grid-gutter-width / 2);
+        margin-left: -($grid-gutter-width * 0.5);
+        margin-top: -($grid-gutter-width * 0.5);
     }
 }
 
@@ -87,14 +93,14 @@
 
 .card-pricing {
     position: relative;
-    
+
     .card-pricing-plan-name {
         padding-bottom: 20px;
     }
 
     .card-pricing-icon {
         font-size: 22px;
-        box-shadow: $shadow;
+        box-shadow: $box-shadow;
         height: 60px;
         display: inline-block;
         width: 60px;
@@ -107,13 +113,13 @@
 
         span {
             font-size: 40%;
-            color: $gray-600;
+            color: var(--#{$prefix}gray-600);
             letter-spacing: 2px;
             text-transform: uppercase;
         }
     }
     .card-pricing-features {
-        color: $gray-600;
+        color: var(--#{$prefix}gray-600);
         list-style: none;
         margin: 0;
         padding: 20px 0 0 0;
@@ -125,17 +131,22 @@
 }
 
 .card-pricing-recommended {
-
-    @include media-breakpoint-up(md) {
+    @include media-breakpoint-up(lg) {
         margin-top: -1.9375rem;
     }
 
     .card-pricing-plan-tag {
-        background-color: rgba($danger,0.2);
+        background-color: rgba($danger, 0.2);
         color: $danger;
         padding: 5px 0;
         font-weight: 700;
-        border-radius: .25rem .25rem 0 0;
+        border-radius: 0.25rem 0.25rem 0 0;
         margin: -1.5rem -1.5rem 1.5rem -1.5rem;
     }
+}
+
+// Custom card height
+
+.card-h-100 {
+    height: calc(100% - #{$grid-gutter-width});
 }

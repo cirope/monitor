@@ -1,0 +1,20 @@
+<div class="card my-3">
+  <div class="card-header">
+    <h5><%= version_change_for @version, 'change' %></h5>
+  </div>
+
+  <div class="card-body">
+    <%= text_diff_for_version @version, @owner.version_text_column %>
+  </div>
+</div>
+
+<% if @owner.can_be_edited_by? current_user %>
+  <%= link_to(
+    t('.revert'),
+    [@owner, :reverts, id: @version.id],
+    method: :post,
+    class: 'btn btn-primary',
+    data: { confirm: t('messages.confirmation') }) %> |
+<% end %>
+
+<%= link_to_index [@owner, :versions, id: @owner.id] %>

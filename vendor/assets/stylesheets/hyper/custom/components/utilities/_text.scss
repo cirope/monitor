@@ -1,7 +1,19 @@
 //
 // text.scss
-// 
+//
 
-// Weight
+// Dark Mode
 
-.font-weight-semibold  { font-weight: $font-weight-semibold !important; }
+html[data-theme="dark"] {
+    .text-body {
+        color: var(--#{$prefix}gray-500) !important;
+    }
+
+    .text-light {
+        color: var(--#{$prefix}gray-300) !important;
+    }
+
+    .text-secondary {
+        color: var(--#{$prefix}gray-700) !important;
+    }
+}
