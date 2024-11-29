@@ -25,13 +25,17 @@ module Issues::Csv
     end
 
     def can_collapse_data?
-      issues.any? && issues.all?(&:single_row_data_type?) && issues_can_share_headers?
+      issues.any? &&
+      (
+        issues.all?(&:custom_row_data_type?) || issues.all?(&:single_row_data_type?)
+      ) &&
+      issues_can_share_headers?
     end
 
     private
 
       def issues_can_share_headers?
-        header_rows = issues.map(&:converted_data).map &:first
+        header_rows = issues.map &:canonical_data
 
         if header_rows.all? { |row| row.kind_of?(Hash) }
           sample = header_rows.first.keys.sort
@@ -43,14 +47,14 @@ module Issues::Csv
 
       def csv_headers
         if can_collapse_data?
-          headers = first.converted_data.first.keys
+          headers = first.canonical_data.keys
 
           [
             Issue.human_attribute_name('description'),
             headers[0...-1],
             Issue.human_attribute_name('status'),
             headers.last
-          ].compact.flatten
+          ].flatten
         else
           [
             Run.human_attribute_name('scheduled_at'),
@@ -67,14 +71,14 @@ module Issues::Csv
 
         if can_collapse_data?
           issues_rows.map do |issue|
-            data = issue.converted_data.first.values
+            data = issue.canonical_data.values
 
             [
               issue.description,
               data[0...-1],
               I18n.t("issues.status.#{issue.status}"),
               data.last
-            ].compact.flatten
+            ].flatten
           end
         else
           issues_rows.map do |issue|

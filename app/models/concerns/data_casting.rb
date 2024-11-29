@@ -7,6 +7,13 @@ module DataCasting
     recursive_data_convertion data if data
   end
 
+  def converted_data_by_data_type
+    case data_type
+    when 'single_row' then converted_data.first
+    when 'custom_row' then custom_row_data_convertion
+    end
+  end
+
   private
 
     def recursive_data_convertion object
@@ -34,5 +41,12 @@ module DataCasting
       else
         object
       end
+    end
+
+    def custom_row_data_convertion
+      key     = data.dig options.dig('custom_row', 'key')
+      columns = options.dig 'custom_row', 'columns'
+
+      key.slice *columns
     end
 end
