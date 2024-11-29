@@ -317,7 +317,7 @@ GEM
       sidekiq (>= 2.11)
     ruby-ntlm (0.0.4)
     ruby-oci8 (2.2.14)
-    ruby-odbc (0.999992)
+    ruby-odbc (0.999991)
     ruby-plsql (0.8.0)
     ruby-progressbar (1.13.0)
     ruby-rc4 (0.1.5)
@@ -456,7 +456,7 @@ DEPENDENCIES
   ros-apartment-sidekiq
   ruby-ntlm
   ruby-oci8
-  ruby-odbc
+  ruby-odbc (< 0.999992)
   ruby-saml
   rubyzip
   sassc-rails
