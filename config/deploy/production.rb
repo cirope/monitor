@@ -2,10 +2,10 @@
 
 set :stage, :production
 set :rails_env, 'production'
-set :branch, 'master'
+set :branch, 'c-banco-del-chubut'
 
-role :web, %w{deployer@demo.greditsoft.com}
-role :app, %w{deployer@demo.greditsoft.com}
-role :db,  %w{deployer@demo.greditsoft.com}
+role :web, %w{deployer@banco-del-chubut.greditsoft.com}
+role :app, %w{deployer@banco-del-chubut.greditsoft.com}
+role :db,  %w{deployer@banco-del-chubut.greditsoft.com}
 
-server 'demo.greditsoft.com', user: 'deployer', roles: %w{web app db}
+server 'banco-del-chubut.greditsoft.com', user: 'deployer', roles: %w{web app db}
