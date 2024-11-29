@@ -10,17 +10,4 @@ unless ENV['GH_ACTIONS']
   # SQL Server ActiveRecord adapter
   gem 'tiny_tds', '< 2.0.0', require: false
   gem 'activerecord-sqlserver-adapter', '< 7.1', require: false
-
-  # MySQL driver
-  gem 'mysql2'
-
-  # SQLite
-  gem 'sqlite3'
-
-  # Sequel
-  gem 'sequel'
-
-  # Excel parser
-  gem 'roo'
-  gem 'pdf-reader'
 end
