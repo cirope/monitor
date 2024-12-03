@@ -10,6 +10,7 @@ class Database < ApplicationRecord
   include Databases::Properties
   include Databases::Scopes
   include Databases::Search
+  include Databases::SqlalchemyConfig
   include Databases::Validations
   include Filterable
   include PublicAuditable
