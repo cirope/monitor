@@ -19,6 +19,6 @@ module Schedules::Validation
     end
 
     def start_plus_interval
-      start.advance frequency.to_sym => interval
+      start.advance frequency.to_sym => interval || 1
     end
 end
