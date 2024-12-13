@@ -16,7 +16,7 @@ module Schedules::Scopes
     end
 
     def by_interval interval
-      where interval: interval
+      where interval: interval || 1
     end
 
     def by_frequency frequency

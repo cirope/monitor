@@ -27,7 +27,7 @@ module Runs::Scopes
     end
 
     def overdue_by interval, frequency
-      scheduled_at = Time.zone.now.advance frequency.to_sym => -interval
+      scheduled_at = Time.zone.now.advance frequency.to_sym => -(interval || 1)
 
       scheduled.where "#{table_name}.scheduled_at <= ?", scheduled_at
     end
