@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/vhermecz/ruby-odbc.git
+  revision: 0423cec482ef837af710ff291aa45bbc53c398e5
+  specs:
+    ruby-odbc (0.999991)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -317,7 +323,6 @@ GEM
       sidekiq (>= 2.11)
     ruby-ntlm (0.0.4)
     ruby-oci8 (2.2.14)
-    ruby-odbc (0.999992)
     ruby-plsql (0.8.0)
     ruby-progressbar (1.13.0)
     ruby-rc4 (0.1.5)
@@ -456,7 +461,7 @@ DEPENDENCIES
   ros-apartment-sidekiq
   ruby-ntlm
   ruby-oci8
-  ruby-odbc
+  ruby-odbc!
   ruby-saml
   rubyzip
   sassc-rails
