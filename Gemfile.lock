@@ -404,6 +404,7 @@ GEM
 
 PLATFORMS
   x86_64-linux-gnu
+  aarch64-linux
 
 DEPENDENCIES
   activerecord-oracle_enhanced-adapter
