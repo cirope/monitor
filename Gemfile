@@ -45,7 +45,7 @@ gem 'net-imap', require: false
 gem 'ruby-saml'
 gem 'oauth2'
 gem 'wicked_pdf'
-gem 'ruby-odbc'
+gem 'ruby-odbc', require: 'odbc_utf8'
 
 group :development, :production do
   gem 'web-console'
